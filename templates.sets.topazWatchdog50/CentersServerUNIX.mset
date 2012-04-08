@@ -1,0 +1,40 @@
+_monitorTemplateName=Centers Server (UNIX)
+_monitorTemplateDescription=Adds monitors for a Centers Server machine.
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Unix_remote_server _value=<choose_remote_unix_server_from_the_select_box_to_the_right_and_clear_this_text>
+#
+_name=Self-Alert Monitor Aggregated Event Engine on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=aes_twd
+_machine=$TOPAZ_MACHINE_NAME$
+#
+_name=URL: $TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/TopazVerify.jsp
+_class=URLMonitor
+_frequency=600
+_errorFrequency=60
+_errorContent=fail
+_url=$TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/TopazVerify.jsp
+_proxy=$TOPAZ_PROXY_SERVER$
+_proxyusername=$TOPAZ_PROXY_USERNAME$
+_proxypassword=$TOPAZ_PROXY_PASSWORD$
+_checkContent=on
+_dependsCondition=good
+_timeout=50
+_monitorRunCount=0
+#
+_name=Scheduled Reports Engine Process on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=EmailReportsMdrv
+_machine=$TOPAZ_MACHINE_NAME$
+#
+_name=Application Management directory services monitor on "$TOPAZ_HOST_NAME$"
+_class=LDAPMonitor
+_urlprovider=ldap://$TOPAZ_HOST_NAME$:9389
+_frequency=600
+_errorFrequency=60
+_dependsCondition=good
+_ldapquery=[LDAP-3]e=SSEnterprise

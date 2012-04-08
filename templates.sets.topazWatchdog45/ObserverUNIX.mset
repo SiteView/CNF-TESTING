@@ -1,0 +1,18 @@
+_monitorTemplateName=Topaz Client Monitor Agent (UNIX)
+_monitorTemplateDescription=Adds moniors for a Topaz Client Monitor Agent machine (UNIX)
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+$TOPAZ_HOST_LOCATION$=_description=host_location _value=host's_location
+$TOPAZ_HOST_ID$=_description=Topaz_host_id_(unique_in_Topaz) _value=<host_id_(number)>
+#
+_name="$TOPAZ_HOST_NAME$" Last Connection Time
+_class=TopazHostLastPingTimeMonitor
+_frequency=600
+_hostId=$TOPAZ_HOST_ID$
+_hostLocation=$TOPAZ_HOST_LOCATION$
+#
+_name="$TOPAZ_HOST_NAME$" Last Reported Data Time
+_class=TopazHostLastDataTimeMonitor
+_frequency=600
+_hostId=$TOPAZ_HOST_ID$
+_hostLocation=$TOPAZ_HOST_LOCATION$

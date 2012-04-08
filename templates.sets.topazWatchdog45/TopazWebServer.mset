@@ -1,0 +1,75 @@
+_monitorTemplateName=Topaz Web Server
+_monitorTemplateDescription=Add moniors for a Topaz Web Server machine (Admin, Graph or Agent Server)
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+$TOPAZ_WEB_SERVER_PROCESS$=_description=Web_server_process_to_monitor _value=inetinfo
+$TOPAZ_GRAPH_PROTOCOL$=_description=Graph_server_protocol(http/https) _value=http
+#
+_name=Service: IIS Admin Service on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=IIS Admin Service
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=status == 'n/a'	warning
+_disabled=on
+_monitorDescription=<BR>Enable this monitor if an IIS Web Server is running <BR>on "$TOPAZ_HOST_NAME$".
+#
+_name=IIS Server on "$TOPAZ_HOST_NAME$"
+_class=IISServerMonitor
+_counters=Web Service -- Bytes Sent/sec -- Default Web Site,Web Service -- Bytes Received/sec -- Default Web Site,Web Service -- Bytes Total/sec -- Default Web Site,Web Service -- Get Requests/sec -- Default Web Site,Web Service -- Post Requests/sec -- Default Web Site,Web Service -- Current Connections -- Default Web Site,Web Service -- Maximum Connections -- Default Web Site,Web Service -- Current NonAnonymous Users -- Default Web Site,Web Service -- Total Not Found Errors -- Default Web Site
+_frequency=600
+_errorFrequency=60
+_machine=$TOPAZ_MACHINE_NAME$
+_disabled=on
+_monitorDescription=<BR>Enable and edit this monitor if an IIS Web Server<BR> is running on "$TOPAZ_HOST_NAME$" or add a new monitor <BR>for the Web server running on "$TOPAZ_HOST_NAME$".
+#
+_name=Process Thread Count: $TOPAZ_WEB_SERVER_PROCESS$ on "$TOPAZ_HOST_NAME$"
+_class=NTCounterMonitor
+_frequency=600
+_errorFrequency=60
+_scale=1
+_pmcfile=(Custom Object)
+_instance=$TOPAZ_WEB_SERVER_PROCESS$
+_counter=Thread Count
+_object=Process
+_dependsCondition=good
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=value0 > 160	error
+_classifier=value0 == 'n/a'	warning
+_classifier=value0 <= 80	good
+_monitorRunCount=0
+#
+_name=Process Working Set: $TOPAZ_WEB_SERVER_PROCESS$ on "$TOPAZ_HOST_NAME$"
+_class=NTCounterMonitor
+_frequency=600
+_errorFrequency=60
+_scale=1
+_pmcfile=(Custom Object)
+_instance=$TOPAZ_WEB_SERVER_PROCESS$
+_counter=Working Set
+_object=Process
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=value0 > 200000000	error
+_classifier=value0 == 'n/a'	warning
+#
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_name=Process CPU: topaz on "$TOPAZ_HOST_NAME$" 
+_process=topaz
+#
+_name=Process Memory: topaz on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 1500000000	error
+_classifier=processMemory >= 600000000	warning
+_classifier=processMemory < 600000000	good
+_process=topaz
+

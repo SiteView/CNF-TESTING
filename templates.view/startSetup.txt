@@ -1,0 +1,71 @@
+ <IMG SRC=/SiteView/htdocs/artwork/SS_1stXsetup_v2.gif border="0" alt="Starting SiteView the First Time">
+ 
+ <h3>Getting Started</h3>
+ <p>Now that SiteView is installed you are ready to start monitoring your web systems.
+ Here are some choices for what to do:</p>
+ <table border=1 align=center width="90%" cellspacing="0" cellpadding="4">
+ <tr><td><a href="#getstart">Tips to Get Started</a></td>
+ <td><p>If you are new to SiteView, we've included some steps to help you get started.  </p></td></tr>
+ <tr><td><a href="#skippage">Start with Example Monitors</a></td>
+ <td><p>Start SiteView with several example monitors organized in groups. </p></td></tr>
+ <tr><td align="left"><a href="#skippage">Skip Defaults</a></td>
+ <td><p>Start SiteView without creating example monitors.</p></td></tr>
+ <tr><td><a href="#Wizards">Use a Setup Wizard</a></td>
+ <td><p>Use a wizard to move an existing setup from another SiteView server or other setup wizards. </p></td></tr></table><br clear="all">
+ <hr><h3><a name="getstart"></a>Tips to Get Started</h3><P>SiteView is accessed through a web browser by entering the
+ IP address and port number of the SiteView service. The SiteView
+ <a href="/SiteView/docs/GetStart.htm" target="Help">main page</a> is your entry point to SiteView.
+ SiteView <a href="/SiteView/docs/Monitors.htm" target="Help">monitors</a> are <b>agentless</b>, automated tests of services
+ or systems in your Web environment. Monitors are held in
+ <a href="/SiteView/docs/Group.htm" target="Help">groups</a> that can be organized according to importance,
+ location, type of system, or other criteria. Click on the name of a group to add or edit monitors and to
+ drill down into <a href="/SiteView/docs/Group.htm" target="Help">monitoring data</a>. Use the navigation
+ bar to access <a href="/SiteView/docs/Alert.htm" target="Help">alert</a> settings, performance
+ <a href="/SiteView/docs/HReports.htm" target="Help">reports</a>, or view the
+ <a href="/SiteView/UserGuide.htm">on-line help</a>. Click on the
+ <a href="/SiteView/docs/GenPref.htm" target="Help">Preferences</a> link to access a large number of
+ configuration options.</p> 
+ <p>To get started with SiteView we recommend you do the following:</p>
+ <ol><li>Decide what web systems, servers, and URL's you want to monitor</li>
+ <li>Decide how the monitoring can be grouped and create
+ new SiteView  <a href="/SiteView/docs/Group.htm" target="Help">monitor groups</a> to organize the monitors</li>
+ <li>After creating monitor groups, click on the name of the group to add
+ <a href="/SiteView/docs/Monitors.htm" target="Help">monitors</a> to that group.
+ To set up monitors you will need to know:
+ <ol type="a"><li>How to connect to the system or server you want to monitor</li>
+ <li>What you want to monitor on that system</li></ol> 
+ Once monitors are set up, SiteView will begin reporting results
+ within minutes.</li>
+ <li>After creating monitors, set up automated
+ <a href="/SiteView/docs/Alert.htm">alerts</a> using the media that best suit your organization.
+ For e-mail alerts, enter the mail server address that SiteView should use below.
+</li>
+ <li>Later, you can set up scheduled <a href="/SiteView/docs/HReports.htm" target="Help">reports</a> for key
+ monitors to review system availability over time</li></ol> 
+ <p>Start with a few monitors and systems. Once you become
+ comfortable with the product, you can easily set up more monitors,
+ <a href="/SiteView/docs/Monitors.htm#remote" target="Help">monitor remote systems</a>, adjust alerts,
+ and make other changes to best suit your needs.<p></p>
+
+<a name="skippage"></a>
+<table border="0" width="90%">
+<tr><td>
+<p><FORM ACTION="/SiteView/cgi/go.exe/SiteView" method="POST">
+<input type="hidden" name="page" value="setup">
+<input type="hidden" name="account" value="administrator">
+<input type="hidden" name="licenseAccepted" value="yes">
+<input type="hidden" name="operation" value="Examples">
+<input type="submit" value="Start Now"> with default settings and monitor examples</FORM></p>
+</td><td>
+<p><FORM ACTION="/SiteView/cgi/go.exe/SiteView" method="POST">
+<input type="hidden" name="page" value="setup">
+<input type="hidden" name="account" value="administrator">
+<input type="hidden" name="licenseAccepted" value="yes">
+<input type="hidden" name="operation" value="Skip">
+<input type="submit" name="choice" value="Skip Defaults"> Start SiteView without creating 
+ example monitors</FORM></p></td></tr></table>
+ <a name="Wizards"></a>
+ <h3>SiteView Setup Wizards</h3>
+ <hr>
+
+

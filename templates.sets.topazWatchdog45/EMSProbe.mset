@@ -1,0 +1,24 @@
+_monitorTemplateName=Topaz EMS Probe
+_monitorTemplateDescription=Adds moniors for a Topaz EMS Probe machine
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+#
+_name=Topaz EMS Probe (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_process=/TopazEmsProbe/i
+#
+_name=Topaz EMS Probe (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 1500000000	error
+_classifier=processMemory >= 600000000	warning
+_classifier=processMemory < 600000000	good
+_process=/TopazEmsProbe/i

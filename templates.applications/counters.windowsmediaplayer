@@ -1,0 +1,15 @@
+packet quality:Default
+time quality
+stream count
+stream rate
+buffering count
+buffering time
+interrupts
+packets lost
+packets recovered
+ratio bandwidth
+recommended bandwidth:Default
+recommended duration
+sampling rate
+stream max
+stream min

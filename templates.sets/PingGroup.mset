@@ -1,0 +1,16 @@
+_monitorTemplateName=PING Group monitor SET
+_monitorTemplateDescription=Creates a PING  Group monitor using ip
+$ip$=_description=host_ip_to_ping _value=127.0.0.1
+$community$=_description=snmp_community _value=public
+
+#
+_class=PingMonitor
+_encoding=GBK
+_packetSize=32
+_frequency=600
+_dependsCondition=good
+_timeout=5000
+_name=ping $ip$
+_hostname=$ip$
+_community=$community$
+

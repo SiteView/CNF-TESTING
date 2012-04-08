@@ -1,0 +1,15 @@
+ <table border="0" width="90%">
+  <tr><td width="25%">
+ <P><FORM ACTION="/SiteView/cgi/go.exe/SiteView" method="GET">
+ <input type="hidden" name="page" value="setupwzd">
+ <input type="hidden" name="account" value="administrator">
+ <input type="hidden" name="operation" value="Copy">
+ <input type="submit" value="Copy Monitors">
+  </FORM></p>
+ </td><td>
+  <p>If you have another installation of SiteView running, you can copy 
+  monitor configuration data from that machine to this one. The remote 
+  SiteView machine must be running and must be accessible via http or https
+  to this machine</p>	
+  </td></tr>
+  </table><hr>

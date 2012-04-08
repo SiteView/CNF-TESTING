@@ -1,0 +1,73 @@
+//iPlanet 4.1 sitemon
+Bytes transferred
+Total requests
+Bad requests
+2xx
+3xx
+4xx
+5xx
+xxx
+200
+302
+304
+401
+403
+//iPlanet 4.1 perf dump
+Address
+ActiveThreads
+WaitingThreads
+BusyThreads
+Thread limits
+Total Sessions
+KeepAliveCount
+KeepAliveHits
+KeepAliveFlushes
+KeepAliveTimeout
+enabled
+CacheEntries
+Hit Ratio
+pollInterval
+Idle/Peak/Limit
+Work queue length/Peak/Limit
+//iPLanet 6.0
+Total Number Of Requests
+Number Of Bytes Received
+Number Of Bytes Sent
+Number Of Virtual Servers
+2xx
+3xx
+4xx
+5xx
+Other
+200
+302
+304
+401
+403
+404
+Maximum Keep-Alive Connections
+Keep-Alive Timeout
+Number Of Processes
+Keep-Alive Hits
+Keep-Alive Flushes
+Keep-Alive Refusals
+Keep-Alive Timeouts
+Maximum DNS Cache Entries
+Number Of Processes
+DNS Cache Hits
+DNS Cache Misses
+Maximum Cache Age \(seconds\)
+Maximum Heap Cache Size
+Maximum Memory Cache Map Size
+Number Of Processes
+Cache Hits
+Cache Misses
+Info Cache Hits
+Info Cache Misses
+Content Cache Hits
+Content Cache Misses
+Total Number Of Connections
+Maximum Number Of Queued Connections
+Peak Number Of Queued Connections
+Current Number Of Queued Connections
+Number Of Processes

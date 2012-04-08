@@ -1,0 +1,406 @@
+_monitorTemplateName=Topaz Agent Server
+_monitorTemplateDescription=Adds moniors for a Topaz Agent Server machine
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+$TOPAZ_WEB_SERVER_PROCESS$=_description=Web_server_process_to_monitor _value=inetinfo
+$TOPAZ_GRAPH_PROTOCOL$=_description=Graph_server_protocol(http/https) _value=http
+$TOPAZ_PROXY_SERVER$=_description=Proxy_server _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_PROXY_USERNAME$=_description=Proxy_username _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_PROXY_PASSWORD$=_description=Proxy_pass _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_FOLDER$=_description=Topaz_installation_path_on_the_machine _value=c$\Topaz
+#
+_name=URL: $TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/topaz_api/api_getservertime.asp
+_class=URLMonitor
+_frequency=600
+_errorFrequency=60
+_url=$TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/topaz_api/api_getservertime.asp
+_proxy=$TOPAZ_PROXY_SERVER$
+_proxyusername=$TOPAZ_PROXY_USERNAME$
+_proxypassword=$TOPAZ_PROXY_PASSWORD$
+_timeout=50
+_monitorRunCount=0
+#
+_name=Check for too many files on Guaranteed Delivery Buffers folder
+_class=DirectoryMonitor
+_frequency=600
+_errorFrequency=60
+_encoding=Cp1252
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\lnch_persistent\$TOPAZ_HOST_NAME$_web_driver\guarantee\131072_project_topaz\.msgs
+_classifier=fileCount > 2	error
+_classifier=fileCount == 'n/a'	warning
+_monitorDescription=<BR>Indicates that the Agent Server is not receiving acknowledgements for messages it sends to the Topaz Bus.
+#
+_name=Transaction Loader Process on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_process=/LoaderTX/i
+#
+_name=WebTrace Loader Process on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_process=/LoaderWT/i
+#
+_name=SiteScope Loader Process on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_process=/LoaderSM/i
+#
+_name=EMS Loader Process on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_process=/LoaderNMMT/i
+#
+_name=J2EE Breakdown Loader Process on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_process=/LoaderABR/i
+#
+_name=Too many Transaction Buffers are waiting to load on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_frequency=600
+_encoding=Cp1252
+_nextConditionID=3
+_noRecurse=on
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Transaction_Buffers
+_dependsCondition=good
+_classifier=size > 2000000	error
+#
+_name=Files-Size of Transaction Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Transaction_Buffers\Read
+_dependsCondition=good
+_classifier=size > 4000000	error
+_classifier=size >= 2000000	warning
+#
+_name=Files-Age Transcation Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Transaction_Buffers\Read
+_encoding=Cp1252
+_nextConditionID=4
+_dependsCondition=good
+_classifier=age > 8	error
+_classifier=age > 4	warning
+#
+_name=Files-Count Transaction Buffers Failures on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Transaction_Buffers\Fail
+_dependsCondition=good
+_classifier=fileCount >= 1	error
+_classifier=fileCount == 0	good
+#
+_name=Files-Count Transaction Buffers Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Transaction_Buffers\Retry
+_dependsCondition=good
+_internalId=68
+_classifier=fileCount > 50	error
+_classifier=fileCount > 30	warning
+_classifier=fileCount <= 30	good
+#
+_name=Files-Size of Transaction Buffers Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Transaction_Buffers\Retry
+_dependsCondition=good
+_internalId=69
+_classifier=size > 2000000	error
+_classifier=size >= 1500000	warning
+#
+_name=Too many Webtrace Buffers are waiting to load on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_noRecurse=on
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Webtrace_Buffers\
+_dependsCondition=good
+_classifier=size >= 2000000	error
+#
+_name=Files-Count Webtrace Buffers Failures on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Webtrace_Buffers\Fail
+_classifier=fileCount >= 1	error
+_classifier=fileCount == 0	good
+#
+_name=Files-Count Webtrace Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Webtrace_Buffers\Retry
+_dependsCondition=good
+_internalId=68
+_classifier=fileCount > 50	error
+_classifier=fileCount > 30	warning
+_classifier=fileCount <= 30	good
+#
+_name=Files-Size of Webtrace Buffers Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Webtrace_Buffers\Retry
+_dependsCondition=good
+_internalId=69
+_classifier=size > 2000000	error
+_classifier=size >= 1500000	warning
+#
+_name=Files-Size of Webtrace Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Webtrace_Buffers\Read
+_dependsCondition=good
+_classifier=size > 4000000	error
+_classifier=size >= 2000000	warning
+#
+_name=Files-Age Webtrace Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\Webtrace_Buffers\Read
+_encoding=Cp1252
+_nextConditionID=4
+_frequency=600
+_dependsCondition=good
+_classifier=age > 15	error
+_classifier=age > 12	warning
+_classifier=age <= 12	good
+#
+_name=Too many SiteScope Buffers are waiting to load on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_noRecurse=on
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\SerMon_buffers
+_dependsCondition=good
+_classifier=size > 2000000	error
+_monitorDescription=<BR>Disable or delete this monitor if SiteScope is not reporting data to Topaz.
+#
+_name=Files-Size of SiteScope Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\SerMon_buffers\Read
+_dependsCondition=good
+_classifier=size > 4000000	error
+_classifier=size >= 2000000	warning
+_monitorDescription=<BR>Disable or delete this monitor if SiteScope is not reporting data to Topaz.
+#
+_name=Files-Age SiteScope Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\SerMon_buffers\Read
+_encoding=Cp1252
+_nextConditionID=4
+_frequency=600
+_dependsCondition=good
+_classifier=age > 8	error
+_classifier=age > 4	warning
+_monitorDescription=<BR>Disable or delete this monitor if SiteScope is not reporting data to Topaz.
+#
+_name=Files-Count SiteScope Failures on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\SerMon_buffers\Fail
+_dependsCondition=good
+_classifier=fileCount >= 1	error
+_classifier=fileCount == 0	good
+_monitorDescription=<BR>Disable or delete this monitor if SiteScope is not reporting data to Topaz.
+#
+_name=Files-Count SiteScope Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\SerMon_buffers\Retry
+_dependsCondition=good
+_internalId=68
+_classifier=fileCount > 50	error
+_classifier=fileCount > 30	warning
+_classifier=fileCount <= 30	good
+_monitorDescription=<BR>Disable or delete this monitor if SiteScope is not reporting data to Topaz.
+#
+_name=Files-Size of SiteScope Buffers Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\SerMon_buffers\Retry
+_dependsCondition=good
+_internalId=69
+_classifier=size > 2000000	error
+_classifier=size >= 1500000	warning
+_monitorDescription=<BR>Disable or delete this monitor if SiteScope is not reporting data to Topaz.
+#
+_name=Too many EMS Buffers are waiting to load on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_noRecurse=on
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\NMMT_buffers
+_dependsCondition=good
+_classifier=size > 2000000	error
+_monitorDescription=<BR>Enable this monitor if an EMS Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Size of EMS Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\NMMT_buffers\Read
+_dependsCondition=good
+_classifier=size > 4000000	error
+_classifier=size >= 2000000	warning
+_monitorDescription=<BR>Enable this monitor if an EMS Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Age EMS Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\NMMT_buffers\Read
+_encoding=Cp1252
+_nextConditionID=4
+_frequency=600
+_dependsCondition=good
+_classifier=age > 8	error
+_classifier=age > 4	warning
+_monitorDescription=<BR>Enable this monitor if an EMS Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Count EMS Events Failures on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\NMMT_buffers\Fail
+_dependsCondition=good
+_classifier=fileCount >= 1	error
+_classifier=fileCount == 0	good
+_monitorDescription=<BR>Enable this monitor if an EMS Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Count EMS Events Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\NMMT_buffers\Retry
+_dependsCondition=good
+_internalId=68
+_classifier=fileCount > 50	error
+_classifier=fileCount > 30	warning
+_classifier=fileCount <= 30	good
+_monitorDescription=<BR>Enable this monitor if an EMS Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Size of EMS Events Buffers Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\NMMT_buffers\Retry
+_dependsCondition=good
+_internalId=69
+_classifier=size > 2000000	error
+_classifier=size >= 1500000	warning
+_monitorDescription=<BR>Enable this monitor if an EMS Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Too many J2EE Buffers are waiting to load on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_noRecurse=on
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\ABR_buffers
+_dependsCondition=good
+_classifier=size > 2000000	error
+_monitorDescription=<BR>Enable this monitor if a J2EE Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Size of J2EE Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\ABR_buffers\Read
+_dependsCondition=good
+_classifier=size > 4000000	error
+_classifier=size >= 2000000	warning
+_monitorDescription=<BR>Enable this monitor if a J2EE Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Age J2EE Buffers Read on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\ABR_buffers\Read
+_encoding=Cp1252
+_nextConditionID=4
+_frequency=600
+_dependsCondition=good
+_classifier=age > 8	error
+_classifier=age > 4	warning
+_monitorDescription=<BR>Enable this monitor if a J2EE Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Count J2EE Events Failures on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\ABR_buffers\Fail
+_dependsCondition=good
+_classifier=fileCount >= 1	error
+_classifier=fileCount == 0	good
+_monitorDescription=<BR>Enable this monitor if a J2EE Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Count J2EE Events Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_nextConditionID=3
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\ABR_buffers\Retry
+_dependsCondition=good
+_internalId=68
+_classifier=fileCount > 50	error
+_classifier=fileCount > 30	warning
+_classifier=fileCount <= 30	good
+_monitorDescription=<BR>Enable this monitor if a J2EE Probe is reporting data to Topaz.
+_disabled=on
+#
+_name=Files-Size of J2EE Events Buffers Retry on "$TOPAZ_HOST_NAME$"
+_class=DirectoryMonitor
+_encoding=Cp1252
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\ABR_buffers\Retry
+_dependsCondition=good
+_internalId=69
+_classifier=size > 2000000	error
+_classifier=size >= 1500000	warning
+_monitorDescription=<BR>Enable this monitor if a J2EE Probe is reporting data to Topaz.
+_disabled=on
+

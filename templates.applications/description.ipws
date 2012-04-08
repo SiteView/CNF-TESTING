@@ -1,0 +1,93 @@
+netscape	netscape
+http	http
+iws60	iws60
+iwsInstanceTable	iPlanet Web Server instances
+iwsInstanceEntry	iPlanet Web Server instance
+iwsInstanceIndex	Server instance index
+iwsInstanceId	Server instance identifier
+iwsInstanceVersion	Server instance software version
+iwsInstanceDescription	Description of server instance
+iwsInstanceOrganization	Organization responsible for server instance
+iwsInstanceContact	Contact information for person(s) responsible for server instance
+iwsInstanceLocation	Location of server instance
+iwsInstanceStatus	Server instance status
+iwsInstanceUptime	Server instance uptime
+iwsInstanceDeathCount	Number of times server instance processes have died
+iwsInstanceRequests	Number of requests processed
+iwsInstanceInOctets	Number of octets received
+iwsInstanceOutOctets	Number of octets transmitted
+iwsInstanceCount2xx	Number of 200-level (Successful) responses issued
+iwsInstanceCount3xx	Number of 300-level (Redirection) responses issued
+iwsInstanceCount4xx	Number of 400-level (Client Error) responses issued
+iwsInstanceCount5xx	Number of 500-level (Server Error) responses issued
+iwsInstanceCountOther	"Number of other (neither 2xx, 3xx, 4xx, nor 5xx) responses issued"
+iwsInstanceCount200	Number of 200 (OK) responses issued
+iwsInstanceCount302	Number of 302 (Moved Temporarily) responses issued
+iwsInstanceCount304	Number of 304 (Not Modified) responses issued
+iwsInstanceCount400	Number of 400 (Bad Request) responses issued
+iwsInstanceCount401	Number of 401 (Unauthorized) responses issued
+iwsInstanceCount403	Number of 403 (Forbidden) responses issued
+iwsInstanceCount404	Number of 404 (Not Found) responses issued
+iwsInstanceCount503	Number of 503 (Unavailable) responses issued
+iwsInstanceLoad1MinuteAverage	System load average for 1 minute
+iwsInstanceLoad5MinuteAverage	System load average for 5 minutes
+iwsInstanceLoad15MinuteAverage	System load average for 15 minutes
+iwsInstanceNetworkInOctets	Number of octets transmitted on the network per second
+iwsInstanceNetworkOutOctets	Number of octets received on the network per second
+iwsVsTable	iPlanet Web Server virtual servers
+iwsVsEntry	iPlanet Web Server virtual server
+iwsVsIndex	Virtual server index
+iwsVsId	Virtual server identifier
+iwsVsRequests	Number of requests processed
+iwsVsInOctets	Number of octets received
+iwsVsOutOctets	Number of octets transmitted
+iwsVsCount2xx	Number of 200-level (Successful) responses issued
+iwsVsCount3xx	Number of 300-level (Redirection) responses issued
+iwsVsCount4xx	Number of 400-level (Client Error) responses issued
+iwsVsCount5xx	Number of 500-level (Server Error) responses issued
+iwsVsCountOther	"Number of other (neither 2xx, 3xx, 4xx, nor 5xx) responses issued"
+iwsVsCount200	Number of 200 (OK) responses issued
+iwsVsCount302	Number of 302 (Moved Temporarily) responses issued
+iwsVsCount304	Number of 304 (Not Modified) responses issued
+iwsVsCount400	Number of 400 (Bad Request) responses issued
+iwsVsCount401	Number of 401 (Unauthorized) responses issued
+iwsVsCount403	Number of 403 (Forbidden) responses issued
+iwsVsCount404	Number of 404 (Not Found) responses issued
+iwsVsCount503	Number of 503 (Unavailable) responses issued
+iwsProcessTable	iPlanet Web Server processes
+iwsProcessEntry	iPlanet Web Server process
+iwsProcessIndex	Process index
+iwsProcessId	Operating system process identifier
+iwsProcessThreadCount	Number of request processing threads
+iwsProcessThreadIdle	Number of request processing threads currently idle
+iwsProcessConnectionQueueCount	Number of connections currently in connection queue
+iwsProcessConnectionQueuePeak	Largest number of connections that have been queued simultaneously
+iwsProcessConnectionQueueMax	Maximum number of connections allowed in connection queue
+iwsProcessConnectionQueueTotal	Number of connections that have been accepted
+iwsProcessConnectionQueueOverflows	Number of connections rejected due to connection queue overflow
+iwsProcessKeepaliveCount	Number of connections currently in keepalive queue
+iwsProcessKeepaliveMax	Maximum number of connections allowed in keepalive queue
+iwsProcessSizeVirtual	Process size in kbytes
+iwsProcessSizeResident	Process resident size in kbytes
+iwsProcessFractionSystemMemoryUsage	Fraction of process memory in system memory
+iwsListenTable	iPlanet Web Server listen sockets
+iwsListenEntry	iPlanet Web Server listen socket
+iwsListenIndex	Listen socket index
+iwsListenId	Listen socket identifier
+iwsListenAddress	Address socket is listening on
+iwsListenPort	Port socket is listening on
+iwsListenSecurity	Encryption support
+iwsThreadPoolTable	iPlanet Web Server thread pools
+iwsThreadPoolEntry	iPlanet Web Server thread pool
+iwsThreadPoolIndex	Thread pool index
+iwsThreadPoolId	Thread pool identifier
+iwsThreadPoolCount	Number of requests queued
+iwsThreadPoolPeak	Largest number of requests that have been queued simultaneously
+iwsThreadPoolMax	Maximum number of requests allowed in queue
+iwsCpuTable	iPlanet Web Server Cpus
+iwsCpuEntry	iPlanet Web Server Cpu
+iwsCpuIndex	Cpu index
+iwsCpuId	Cpu identifier
+iwsCpuIdleTime	Cpu Idle Time
+iwsCpuUserTime	Cpu User Time
+iwsCpuKernelTime	Cpu Kernel Time

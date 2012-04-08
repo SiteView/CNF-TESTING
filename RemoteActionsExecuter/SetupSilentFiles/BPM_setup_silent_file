@@ -1,0 +1,135 @@
+################################################################################
+#
+# InstallShield Options File
+# Holds pre-defined values for the Setup program.
+#
+#
+# To use this file, run command line:
+# windows:	setup.exe -options <path to file>
+# unix:		./inst -options <path to file>
+#
+################################################################################
+
+
+################################################################################
+#
+# Uninstall previous BPM if found.
+#
+
+-W selectUninstallExisting.uninstall="yes"
+
+
+################################################################################
+#
+# License Agreement Panel
+#
+
+-W license.selection=1
+
+
+################################################################################
+#
+# Registration Panel
+#
+
+-W registrationpanel.edit1=Mercury
+-W registrationpanel.edit2="Mercury Interactive"
+-W registrationpanel.edit3=8888-8888888888
+
+
+################################################################################
+#
+# Install Location. Comment out the platform you do NOT use.
+#
+
+-P installLocation="<ProductDir>"
+
+
+################################################################################
+#
+# User Input Field - keepsettings
+#
+#
+
+
+-W keepoldconfig.keepsettings="yes"
+
+
+################################################################################
+#
+# Enter the workspace directory location - directory.
+# Leave as is to default to <installLocation>\workspace
+#
+
+
+-W datadirpanel.directory="$PATH($P(installLocation)/workspace)"
+
+
+################################################################################
+#
+# Host name and location name.
+# Leave as is to default to local host name.
+#
+
+-W hostlocationpanel.edit1="$W(getHostName.shortHostName)"
+-W hostlocationpanel.edit2="$W(getHostName.shortHostName)"
+
+
+################################################################################
+#
+# Data Collection user on NT.
+# Choose "system" or "specific".
+#
+
+-W ntUserType.dataCollection="system"
+
+
+################################################################################
+#
+# If Data Collection user is "specific", you must provide user information here.
+# username and domain will default to currect user's info.
+#
+
+-W ntUserSettings.username="$W(getUserDomain.user)"
+-W ntUserSettings.domain="$W(getUserDomain.domain)"
+-W ntUserSettings.password=""
+
+
+################################################################################
+#
+# Data Collection user on Unix.
+# Choose "root" or "specific".
+#
+#
+
+-W usersettings.user="root"
+
+
+################################################################################
+#
+# If Data Collection user is "specific", you must provide user information here.
+# username will default to current user.
+#
+
+
+-W usernamesettings.username="$J(user.name)"
+
+
+################################################################################
+#
+# Select user to run the BPM Admin (Unix only)
+# Choose "root" or "specific".
+#
+#
+
+-W selectuserbean.user="root"
+
+
+################################################################################
+#
+# If BPM Admin user is "specific", provide the user and group to use.
+# This user must already exist on target machine!
+#
+
+-W createusergrouppanel.user=""
+-W createusergrouppanel.group=""

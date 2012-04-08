@@ -1,0 +1,74 @@
+topobject	System Stats	top	static
+startobject	Anonymous sessions requested from the pool	System Stats	static
+counter	Value	Anonymous sessions requested from the pool	static	/Anonymous sessions requested from the pool.*?<TD align.*?right.*?>(.*?)<\/TD>/si
+counter	General Stats count	Anonymous sessions requested from the pool	static	/Anonymous sessions requested from the pool.*?<TD.*?<TD align.*?right.*?>(.*?)<BR>/si
+counter	General Stats mean	Anonymous sessions requested from the pool	static	/Anonymous sessions requested from the pool.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	General Stats stddev	Anonymous sessions requested from the pool	static	/Anonymous sessions requested from the pool.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+counter	Frequency mean	Anonymous sessions requested from the pool	static	/Anonymous sessions requested from the pool.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	Frequency stddev	Anonymous sessions requested from the pool	static	/Anonymous sessions requested from the pool.*?<TD.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+endobject	Anonymous sessions requested from the pool	System Stats	static
+startobject	Open Session Time	System Stats	static
+counter	Value	Open Session Time	static	/Open Session Time.*?<TD align.*?right.*?>(.*?)<\/TD>/si
+counter	General Stats count	Open Session Time	static	/Open Session Time.*?<TD.*?<TD align.*?right.*?>(.*?)<BR>/si
+counter	General Stats mean	Open Session Time	static	/Open Session Time.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	General Stats stddev	Open Session Time	static	/Open Session Time.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+counter	Frequency mean	Open Session Time	static	/Open Session Time.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	Frequency stddev	Open Session Time	static	/Open Session Time.*?<TD.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+endobject	Open Session Time	System Stats	static
+startobject	Anon Session Available	System Stats	static
+counter	Value	Anon Session Available	static	/Anon Session Available.*?<TD align.*?right.*?>(.*?)<\/TD>/si
+counter	General Stats count	Anon Session Available	static	/Anon Session Available.*?<TD.*?<TD align=.*?right.*?>(.*?)<BR>/si
+counter	General Stats mean	Anon Session Available	static	/Anon Session Available.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	General Stats stddev	Anon Session Available	static	/Anon Session Available.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+counter	Frequency mean	Anon Session Available	static	/Anon Session Available.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	Frequency stddev	Anon Session Available	static	/Anon Session Available.*?<TD.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+endobject	Anon Session Available	System Stats	static
+startobject	Close Session Time	System Stats	static
+counter	Value	Close Session Time	static	/Close Session Time.*?<TD align.*?right.*?>(.*?)<\/TD>/si
+counter	General Stats count	Close Session Time	static	/Close Session Time.*?<TD.*?<TD align=.*?right.*?>(.*?)<BR>/si
+counter	General Stats mean	Close Session Time	static	/Close Session Time.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	General Stats stddev	Close Session Time	static	/Close Session Time.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+counter	Frequency mean	Close Session Time	static	/Close Session Time.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	Frequency stddev	Close Session Time	static	/Close Session Time.*?<TD.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+endobject	Close Session Time	System Stats	static
+startobject	Request Time	System Stats	static
+counter	Value	Request Time	static	/Request Time.*?<TD align.*?right.*?>(.*?)<\/TD>/si
+counter	General Stats count	Request Time	static	/Request Time.*?<TD.*?<TD align.*?right.*?>(.*?)<BR>/si
+counter	General Stats mean	Request Time	static	/Request Time.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	General Stats stddev	Request Time	static	/Request Time.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+counter	Frequency mean	Request Time	static	/Request Time.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	Frequency stddev	Request Time	static	/Request Time.*?<TD.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+endobject	Request Time	System Stats	static
+startobject	Anon Session Removed	System Stats	static
+counter	Value	Anon Session Removed	static	/Anon Session Removed.*?<TD align.*?right.*?>(.*?)<\/TD>/si
+counter	General Stats count	Anon Session Removed	static	/Anon Session Removed.*?<TD.*?<TD align=.*?right.*?>(.*?)<BR>/si
+counter	General Stats mean	Anon Session Removed	static	/Anon Session Removed.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	General Stats stddev	Anon Session Removed	static	/Anon Session Removed.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+counter	Frequency mean	Anon Session Removed	static	/Anon Session Removed.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	Frequency stddev	Anon Session Removed	static	/Anon Session Removed.*?<TD.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+endobject	Anon Session Removed	System Stats	static
+startobject	Response Time	System Stats	static
+counter	Value	Response Time 	static	/Request Time.*?<TD align.*?right.*?>(.*?)<\/TD>/si
+counter	General Stats count	Response Time	static	/Request Time.*?<TD.*?<TD align.*?right.*?>(.*?)<BR>/si
+counter	General Stats mean	Response Time 	static	/Request Time.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	General Stats stddev	Response Time	static	/Request Time.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+counter	Frequency mean	Response Time	static	/Request Time.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	Frequency stddev	Response Time	static	/Request Time.*?<TD.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+endobject	Response Time	System Stats	static
+startobject	Anonymous sessions returns to the pool	System Stats	static
+counter	Value	Anonymous sessions returns to the pool	static	/Anonymous sessions returns to the pool.*?<TD align.*?right.*?>(.*?)<\/TD>/si
+counter	General Stats count	Anonymous sessions returns to the pool	static	/Anonymous sessions returns to the pool.*?<TD.*?<TD align.*?right.*?>(.*?)<BR>/si
+counter	General Stats mean	Anonymous sessions returns to the pool	static	/Anonymous sessions returns to the pool.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	General Stats stddev	Anonymous sessions returns to the pool	static	/Anonymous sessions returns to the pool.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+counter	Frequency mean	Anonymous sessions returns to the pool	static	/Anonymous sessions returns to the pool.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	Frequency stddev	Anonymous sessions returns to the pool	static	/Anonymous sessions returns to the pool.*?<TD.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+endobject	Anonymous sessions returns to the pool	System Stats	static
+topobject	Applications	top	dynamic	Current Sessions
+startobject	APPLICATIONNAME	Applications	dynamic
+counter	Value	APPLICATIONNAME	dynamic	/<TD>APPLICATIONNAME.*?<TD align.*?right.*?>(.*?)<\/TD>/si 
+counter	General Stats count	APPLICATIONNAME	dynamic	/<TD>APPLICATIONNAME.*?<BR>.*?<TD.*?<TD align.*?right.*?>(.*?)<BR>/si 
+counter	General Stats mean	APPLICATIONNAME	dynamic	/<TD>APPLICATIONNAME.*?<BR>.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	General Stats stddev	APPLICATIONNAME	dynamic	/<TD>APPLICATIONNAME.*?<BR>.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+counter	Frequency mean	APPLICATIONNAME	dynamic	/<TD>APPLICATIONNAME.*?<BR>.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+counter	Frequency stddev	APPLICATIONNAME	dynamic	/<TD>APPLICATIONNAME.*?<BR>.*?<TD.*?<TD.*?<TD.*?<BR>.*?<BR>(.*?)<\/TD>/si
+endobject	APPLICATIONNAME	Applications	dynamic

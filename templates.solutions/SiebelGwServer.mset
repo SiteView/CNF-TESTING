@@ -1,0 +1,65 @@
+_monitorTemplateName=Siebel Gateway Server
+_monitorTemplateDescription=Use to monitor Siebel Gateway Server machine
+_monitorTemplateMoreInfo=<a href=../../docs/SiebelSolutionOverview.htm>Siebel Solution Overview</a>
+_helpFile=../docs/SiebelGwSolution.htm
+_propertyDisplayFilter=_id,class,xmlfile,encoding,depends,internal,assword,monitorDescription
+_propertyReplace=browseName=Metric_,classifier=thresholds
+$Server Instance#0$=_description=Siebel_Gateway_server_machine_name _value= _server=true
+$Siebel Disk#1$=_description=Disk_name_where_Siebel_is_installed _value=C:
+$Siebel Root Dir#2$=_description=Shared_Siebel_root_dir,_for_example:_sea752 _value=
+_encoding=Cp1252
+_dependsCondition=good
+_fileEncoding=UTF-8
+#
+_class=CPUMonitor
+_id=1
+_encoding=Cp1252
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Instance#0$
+_name=CPU Utilization on \\$Server Instance#0$
+#
+_disk=$Siebel Disk#1$
+_class=DiskSpaceMonitor
+_id=2
+_encoding=Cp1252
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Instance#0$
+_name=Disk Space: $Siebel Disk#1$ on \\$Server Instance#0$
+#
+_class=DirectoryMonitor
+_id=3
+_encoding=Cp1252
+_frequency=600
+_path=\\$Server Instance#0$\$Siebel Root Dir#2$\gtwysrvr\LOG
+_dependsCondition=good
+_classifier=fileCount >= 2000	error
+_name=Directory: \\$Server Instance#0$\$Siebel Root Dir#2$\gtwysrvr\LOG
+#
+_class=MemoryMonitor
+_id=4
+_encoding=Cp1252
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Instance#0$
+_name=Memory on \\$Server Instance#0$
+#
+_class=PingMonitor
+_id=5
+_encoding=Cp1252
+_packetSize=64
+_frequency=600
+_dependsCondition=good
+_timeout=5000
+_name=Ping: $Server Instance#0$
+_hostname=$Server Instance#0$
+#
+_class=ServiceMonitor
+_id=6
+_encoding=Cp1252
+_frequency=600
+_service=Siebel Gateway Name Server
+_dependsCondition=good
+_machine=\\$Server Instance#0$
+_name=Service: Siebel Gateway Name Server Service on \\$Server Instance#0$

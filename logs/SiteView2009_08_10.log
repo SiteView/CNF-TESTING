@@ -1,0 +1,261 @@
+09:40:12 08/10/2009	good	Group0.5	network	362 bytes in/sec., 362 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1630	362.44745	362.44745	0.0	30
+09:40:33 08/10/2009	good	Group0.6	cpu	3% avg, cpu1 2%, cpu2 4%	1:1629	3	2	4
+09:40:46 08/10/2009	good	Group0.6	memory	13% used, 4294MB free, 44.08 pages/sec	2:1652	13	4294	44.08452
+09:40:46 08/10/2009	good	Group0.6	disk_c	41% full, 12249MB free, 20473MB total	3:1646	41	12249
+09:40:47 08/10/2009	good	Group0.6	Network Bandwidth: 192.168.0.251	Monitored interfaces: NOT DISPLAYABLE: up, NOT DISPLAYABLE: up, NOT DISPLAYABLE: up, NOT DISPLAYABLE: up, NOT DISPLAYABLE: up, NOT DISPLAYABLE: up	42:1	0	up	up	up	up	up	up	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+09:42:24 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 4%	1:649	4	4	4
+09:50:12 08/10/2009	good	Group0.5	network	429 bytes in/sec., 343 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1631	429.90652	343.92523	0.0	32
+09:50:33 08/10/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1630	4	4	5
+09:50:46 08/10/2009	good	Group0.6	memory	13% used, 4261MB free, 9.27 pages/sec	2:1653	13	4261	9.274214
+09:50:46 08/10/2009	good	Group0.6	disk_c	41% full, 12249MB free, 20473MB total	3:1647	41	12249
+09:50:59 08/10/2009	error	Group0.6	Network Bandwidth: 192.168.0.251	No Data: Could not retrieve ifInOctets Object (1.3.6.1.2.1.2.2.1.10).	42:2	10	n/a	n/a	n/a	n/a	n/a	n/a	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	failure
+09:52:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 5%	1:650	4	4	5
+09:55:55 08/10/2009	error	Group0.6	Network Bandwidth: 192.168.0.251	Monitored interfaces: NOT DISPLAYABLE: up, NOT DISPLAYABLE: up, NOT DISPLAYABLE: down, NOT DISPLAYABLE: up, NOT DISPLAYABLE: up, NOT DISPLAYABLE: down	42:3	2	up	up	down	up	up	down	24	1157319	0	0	0	0	0	0	0	9	356151	1520260	4973	4972	0	0	0	0	0	12	1705791	370386	4988	4990	0	0	0	0	0	13	316625	1862352	827	861	0	0	0	0	0	14	6717	1164472	36	25	0	0	0	0	0	9	0	1157288	0	0	0	0	0	0	0	9	nonfailure
+10:00:12 08/10/2009	good	Group0.5	network	511 bytes in/sec., 343 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1632	511.9103	343.7646	0.0	32
+10:00:33 08/10/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1631	6	5	7
+10:00:46 08/10/2009	good	Group0.6	memory	14% used, 4252MB free, 20.35 pages/sec	2:1654	14	4252	20.351242
+10:00:46 08/10/2009	good	Group0.6	disk_c	41% full, 12249MB free, 20473MB total	3:1648	41	12249
+10:02:17 08/10/2009	good	Group0.7	aaaa	7% avg, cpu1 6%, cpu2 8%	1:651	7	6	8
+10:10:01 08/10/2009	good	Group0.6	Disk Space: C on \\192.168.2.9	56% full, 3673MB free, 8181MB total	43:1	56	3673
+10:10:12 08/10/2009	good	Group0.5	network	387 bytes in/sec., 359 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1633	387.75513	359.9258	0.0	31
+10:10:33 08/10/2009	good	Group0.6	cpu	23% avg, cpu1 18%, cpu2 28%	1:1632	23	18	28
+10:10:46 08/10/2009	good	Group0.6	memory	15% used, 4190MB free, 244.47 pages/sec	2:1655	15	4190	244.47166
+10:12:17 08/10/2009	good	Group0.7	aaaa	28% avg, cpu1 22%, cpu2 34%	1:652	28	22	34
+10:19:58 08/10/2009	good	Group0.6	memory	14% used, 4219MB free, 7.58 pages/sec	2:1656	14	4219	7.5856485
+10:20:12 08/10/2009	good	Group0.5	network	411 bytes in/sec., 382 bytes out/sec., 0.00 packet errors/sec., 34 current connections.	2:1634	411.0229	382.06445	0.0	34
+10:20:33 08/10/2009	good	Group0.6	cpu	22% avg, cpu1 17%, cpu2 27%	1:1633	22	17	27
+10:20:46 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:2	n/a	n/a	failure
+10:22:17 08/10/2009	good	Group0.7	aaaa	17% avg, cpu1 13%, cpu2 21%	1:653	17	13	21
+10:29:58 08/10/2009	good	Group0.6	memory	14% used, 4207MB free, 2.35 pages/sec	2:1657	14	4207	2.3539045
+10:30:12 08/10/2009	good	Group0.5	network	711 bytes in/sec., 382 bytes out/sec., 0.00 packet errors/sec., 36 current connections.	2:1635	711.8169	382.06445	0.0	36
+10:30:33 08/10/2009	good	Group0.6	cpu	7% avg, cpu1 6%, cpu2 9%	1:1634	7	6	9
+10:30:46 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:3	n/a	n/a	failure
+10:32:17 08/10/2009	good	Group0.7	aaaa	7% avg, cpu1 6%, cpu2 8%	1:654	7	6	8
+10:36:51 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:4	n/a	n/a	failure
+10:39:58 08/10/2009	good	Group0.6	memory	14% used, 4210MB free, 7.99 pages/sec	2:1658	14	4210	7.997751
+10:40:12 08/10/2009	good	Group0.5	network	368 bytes in/sec., 325 bytes out/sec., 0.00 packet errors/sec., 33 current connections.	2:1636	368.0523	325.08173	0.0	33
+10:40:33 08/10/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1635	5	4	6
+10:42:17 08/10/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:655	6	5	7
+10:46:51 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:5	n/a	n/a	failure
+10:49:58 08/10/2009	good	Group0.6	memory	14% used, 4205MB free, 1.40 pages/sec	2:1659	14	4205	1.4099581
+10:50:12 08/10/2009	good	Group0.5	network	421 bytes in/sec., 365 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1637	421.64706	365.17648	0.0	31
+10:50:33 08/10/2009	good	Group0.6	cpu	7% avg, cpu1 6%, cpu2 8%	1:1636	7	6	8
+10:52:17 08/10/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:656	6	5	7
+10:56:51 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:6	n/a	n/a	failure
+10:59:58 08/10/2009	good	Group0.6	memory	15% used, 4189MB free, 0.29 pages/sec	2:1660	15	4189	0.29340315
+11:00:12 08/10/2009	good	Group0.5	network	362 bytes in/sec., 362 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1638	362.44745	362.44745	0.0	32
+11:00:33 08/10/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 5%	1:1637	5	4	5
+11:02:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 5%	1:657	4	3	5
+11:04:04 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:1	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+11:07:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:7	n/a	n/a	failure
+11:09:58 08/10/2009	good	Group0.6	memory	15% used, 4192MB free, 0.43 pages/sec	2:1661	15	4192	0.43675694
+11:10:12 08/10/2009	good	Group0.5	network	409 bytes in/sec., 325 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1639	409.1546	325.08173	0.0	31
+11:10:33 08/10/2009	good	Group0.6	cpu	3% avg, cpu1 2%, cpu2 3%	1:1638	3	2	3
+11:12:17 08/10/2009	good	Group0.7	aaaa	3% avg, cpu1 2%, cpu2 3%	1:658	3	2	3
+11:14:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:2	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+11:17:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:8	n/a	n/a	failure
+11:19:58 08/10/2009	good	Group0.6	memory	15% used, 4184MB free, 4.76 pages/sec	2:1662	15	4184	4.765757
+11:20:12 08/10/2009	good	Group0.5	network	15K in/sec., 15K out/sec., 0.00 packet errors/sec., 31 current connections.	2:1640	15508.641	15508.641	0.0	31
+11:20:33 08/10/2009	good	Group0.6	cpu	3% avg, cpu1 2%, cpu2 3%	1:1639	3	2	3
+11:22:17 08/10/2009	good	Group0.7	aaaa	3% avg, cpu1 2%, cpu2 3%	1:659	3	2	3
+11:24:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:3	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+11:27:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:9	n/a	n/a	failure
+11:29:58 08/10/2009	good	Group0.6	memory	14% used, 4220MB free, 2.19 pages/sec	2:1663	14	4220	2.1904547
+11:30:12 08/10/2009	good	Group0.5	network	431 bytes in/sec., 403 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1641	431.77567	403.7383	0.0	31
+11:30:33 08/10/2009	good	Group0.6	cpu	4% avg, cpu1 3%, cpu2 4%	1:1640	4	3	4
+11:32:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 4%	1:660	4	4	4
+11:34:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:4	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+11:37:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:10	n/a	n/a	failure
+11:39:58 08/10/2009	good	Group0.6	memory	14% used, 4221MB free, 0.06 pages/sec	2:1664	14	4221	0.06501258
+11:40:12 08/10/2009	good	Group0.5	network	558 bytes in/sec., 475 bytes out/sec., 0.00 packet errors/sec., 41 current connections.	2:1642	558.8785	475.7009	0.0	41
+11:40:33 08/10/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 4%	1:1641	3	3	4
+11:42:17 08/10/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 4%	1:661	3	3	4
+11:44:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:5	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+11:47:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:11	n/a	n/a	failure
+11:49:58 08/10/2009	good	Group0.6	memory	14% used, 4219MB free, 0.06 pages/sec	2:1665	14	4219	0.061679598
+11:50:12 08/10/2009	good	Group0.5	network	807 bytes in/sec., 506 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1643	807.0995	506.30545	0.0	32
+11:50:33 08/10/2009	good	Group0.6	cpu	2% avg, cpu1 2%, cpu2 3%	1:1642	2	2	3
+11:52:17 08/10/2009	good	Group0.7	aaaa	2% avg, cpu1 2%, cpu2 2%	1:662	2	2	2
+11:54:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:6	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+11:57:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:12	n/a	n/a	failure
+11:59:58 08/10/2009	good	Group0.6	memory	14% used, 4207MB free, 0.51 pages/sec	2:1666	14	4207	0.51176006
+12:00:12 08/10/2009	good	Group0.5	network	577 bytes in/sec., 491 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1644	577.3003	491.35916	0.0	30
+12:00:33 08/10/2009	good	Group0.6	cpu	3% avg, cpu1 2%, cpu2 3%	1:1643	3	2	3
+12:02:17 08/10/2009	good	Group0.7	aaaa	3% avg, cpu1 2%, cpu2 3%	1:663	3	2	3
+12:04:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:7	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+12:07:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:13	n/a	n/a	failure
+12:09:58 08/10/2009	good	Group0.6	memory	15% used, 4171MB free, 2.08 pages/sec	2:1667	15	4171	2.0803685
+12:10:12 08/10/2009	good	Group0.5	network	1K in/sec., 2K out/sec., 0.00 packet errors/sec., 31 current connections.	2:1645	1186.3615	2090.6118	0.0	31
+12:10:33 08/10/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 4%	1:1644	3	3	4
+12:12:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 4%	1:664	4	3	4
+12:14:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:8	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+12:17:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:14	n/a	n/a	failure
+12:19:58 08/10/2009	good	Group0.6	memory	15% used, 4180MB free, 0.38 pages/sec	2:1668	15	4180	0.38336334
+12:20:12 08/10/2009	good	Group0.5	network	1K in/sec., 2K out/sec., 0.00 packet errors/sec., 31 current connections.	2:1646	1122.8397	2080.3362	0.0	31
+12:20:33 08/10/2009	good	Group0.6	cpu	5% avg, cpu1 5%, cpu2 6%	1:1645	5	5	6
+12:22:17 08/10/2009	good	Group0.7	aaaa	5% avg, cpu1 5%, cpu2 6%	1:665	5	5	6
+12:24:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:9	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+12:27:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:15	n/a	n/a	failure
+12:29:58 08/10/2009	good	Group0.6	memory	15% used, 4182MB free, 0.39 pages/sec	2:1669	15	4182	0.39506483
+12:30:12 08/10/2009	good	Group0.5	network	15K in/sec., 15K out/sec., 0.00 packet errors/sec., 32 current connections.	2:1647	15416.471	15661.177	0.0	32
+12:30:33 08/10/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 5%	1:1646	5	4	5
+12:32:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 5%	1:666	4	3	5
+12:34:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:10	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+12:37:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:16	n/a	n/a	failure
+12:39:58 08/10/2009	good	Group0.6	memory	15% used, 4182MB free, 0.22 pages/sec	2:1670	15	4182	0.22004631
+12:40:12 08/10/2009	good	Group0.5	network	18K in/sec., 18K out/sec., 0.00 packet errors/sec., 32 current connections.	2:1648	18716.488	18595.049	0.0	32
+12:40:33 08/10/2009	good	Group0.6	cpu	2% avg, cpu1 2%, cpu2 2%	1:1647	2	2	2
+12:42:17 08/10/2009	good	Group0.7	aaaa	2% avg, cpu1 2%, cpu2 2%	1:667	2	2	2
+12:44:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:11	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+12:47:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:17	n/a	n/a	failure
+12:49:58 08/10/2009	good	Group0.6	memory	16% used, 4120MB free, 5.46 pages/sec	2:1671	16	4120	5.463422
+12:50:12 08/10/2009	good	Group0.5	network	7K in/sec., 1K out/sec., 0.00 packet errors/sec., 46 current connections.	2:1649	8156.538	1066.2983	0.0	46
+12:50:33 08/10/2009	good	Group0.6	cpu	12% avg, cpu1 9%, cpu2 15%	1:1648	12	9	15
+12:52:17 08/10/2009	good	Group0.7	aaaa	14% avg, cpu1 10%, cpu2 18%	1:668	14	10	18
+12:54:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:12	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+12:57:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:18	n/a	n/a	failure
+12:59:58 08/10/2009	good	Group0.6	memory	17% used, 4091MB free, 1.61 pages/sec	2:1672	17	4091	1.6171131
+13:00:12 08/10/2009	good	Group0.5	network	992 bytes in/sec., 930 bytes out/sec., 0.00 packet errors/sec., 40 current connections.	2:1650	992.05975	930.4063	0.0	40
+13:00:33 08/10/2009	good	Group0.6	cpu	10% avg, cpu1 8%, cpu2 12%	1:1649	10	8	12
+13:02:17 08/10/2009	good	Group0.7	aaaa	9% avg, cpu1 7%, cpu2 10%	1:669	9	7	10
+13:04:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:13	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+13:07:36 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:19	n/a	n/a	failure
+13:09:58 08/10/2009	good	Group0.6	memory	15% used, 4192MB free, 0.98 pages/sec	2:1673	15	4192	0.98370236
+13:10:12 08/10/2009	good	Group0.5	network	437 bytes in/sec., 406 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1651	437.1789	406.35217	0.0	31
+13:10:33 08/10/2009	good	Group0.6	cpu	8% avg, cpu1 6%, cpu2 9%	1:1650	8	6	9
+13:12:17 08/10/2009	good	Group0.7	aaaa	8% avg, cpu1 6%, cpu2 10%	1:670	8	6	10
+13:14:05 08/10/2009	good	Group0.6	SNMP: 192.168.2.229 system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:14	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+13:17:01 08/10/2009	error	Group0.6	SNMP: asdfsdfsadf system.sysDescr	request timed out	44:15	request timed out	n/a	failure
+13:18:21 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:20	n/a	n/a	failure
+13:19:58 08/10/2009	good	Group0.6	memory	15% used, 4190MB free, 0.28 pages/sec	2:1674	15	4190	0.28839564
+13:20:12 08/10/2009	good	Group0.5	network	9K in/sec., 9K out/sec., 0.00 packet errors/sec., 45 current connections.	2:1652	9368.224	9225.233	0.0	45
+13:20:33 08/10/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 8%	1:1651	6	5	8
+13:22:17 08/10/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 7%	1:671	5	4	7
+13:27:01 08/10/2009	error	Group0.6	SNMP: asdfsdfsadf system.sysDescr	request timed out	44:16	request timed out	n/a	failure
+13:28:21 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:21	n/a	n/a	failure
+13:29:58 08/10/2009	good	Group0.6	memory	15% used, 4192MB free, 0.43 pages/sec	2:1675	15	4192	0.43047065
+13:30:12 08/10/2009	good	Group0.5	network	8K in/sec., 8K out/sec., 0.00 packet errors/sec., 34 current connections.	2:1653	9072.896	9073.831	0.0	34
+13:30:33 08/10/2009	good	Group0.6	cpu	10% avg, cpu1 8%, cpu2 12%	1:1652	10	8	12
+13:31:19 08/10/2009	error	Group0.6	SNMP: asdfsdfsadf system.sysUpTime	request timed out	44:17	request timed out	n/a	failure
+13:32:17 08/10/2009	good	Group0.7	aaaa	10% avg, cpu1 8%, cpu2 12%	1:672	10	8	12
+13:32:41 08/10/2009	error	Group0.6	SNMP: asdfsdfsadf cisco.locIfOutputQueueDrops	request timed out	44:18	request timed out	n/a	failure
+13:35:36 08/10/2009	error	Group0.6	testsdddd	request timed out	44:19	request timed out	n/a	failure
+13:36:02 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysUpTime	 = 1670342	44:20	ok	1670342
+13:36:20 08/10/2009	good	Group0.6	SNMP:a NOTE-NONE system.sysUpTime	 = 266565	44:21	ok	266565
+13:36:49 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysUpTime	 = 266947	44:22	ok	266947
+13:37:12 08/10/2009	good	Group0.6	SNMP:NOTE-NONE system.sysUpTime	 = 267268	44:23	ok	267268
+13:37:27 08/10/2009	good	Group0.6	SNMP:NOTE-NONE system.sysUpTime	 = 1678820	44:24	ok	1678820
+13:37:36 08/10/2009	good	Group0.6	SNMP:NOTE-NONE system.sysUpTime	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:25	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+13:39:06 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:22	n/a	n/a	failure
+13:39:58 08/10/2009	good	Group0.6	memory	15% used, 4188MB free, 0.48 pages/sec	2:1676	15	4188	0.48028842
+13:40:12 08/10/2009	good	Group0.5	network	411 bytes in/sec., 381 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1654	411.0229	381.1303	0.0	32
+13:40:33 08/10/2009	good	Group0.6	cpu	4% avg, cpu1 3%, cpu2 4%	1:1653	4	3	4
+13:42:17 08/10/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 3%	1:673	3	3	3
+13:43:10 08/10/2009	good	Group0.6	SNMP	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:26	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+13:43:23 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:27	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+13:44:07 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:25	n/a	n/a	failure
+13:49:58 08/10/2009	good	Group0.6	memory	15% used, 4192MB free, 0.43 pages/sec	2:1677	15	4192	0.435161
+13:50:12 08/10/2009	good	Group0.5	network	429 bytes in/sec., 373 bytes out/sec., 0.00 packet errors/sec., 27 current connections.	2:1655	429.17648	373.64706	0.0	27
+13:50:33 08/10/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 4%	1:1654	3	3	4
+13:51:17 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 48016, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 26	45:1	0	48016	26
+13:52:17 08/10/2009	good	Group0.7	aaaa	5% avg, cpu1 5%, cpu2 6%	1:674	5	5	6
+13:53:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:28	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+13:54:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:26	n/a	n/a	failure
+13:59:59 08/10/2009	good	Group0.6	memory	15% used, 4174MB free, 0.75 pages/sec	2:1678	15	4174	0.75354815
+14:00:12 08/10/2009	good	Group0.5	network	530 bytes in/sec., 390 bytes out/sec., 0.00 packet errors/sec., 34 current connections.	2:1656	530.5932	390.47174	0.0	34
+14:00:33 08/10/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1655	6	5	7
+14:01:17 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 48700, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 26	45:2	0	48700	26
+14:02:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 5%	1:675	4	3	5
+14:03:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:29	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+14:04:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:27	n/a	n/a	failure
+14:09:59 08/10/2009	good	Group0.6	memory	16% used, 4144MB free, 1.08 pages/sec	2:1679	16	4144	1.0885986
+14:10:12 08/10/2009	good	Group0.5	network	459 bytes in/sec., 409 bytes out/sec., 0.00 packet errors/sec., 40 current connections.	2:1657	459.5983	409.1546	0.0	40
+14:10:33 08/10/2009	good	Group0.6	cpu	4% avg, cpu1 3%, cpu2 4%	1:1656	4	3	4
+14:11:17 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 49466, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 26	45:3	0	49466	26
+14:12:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 5%	1:676	4	3	5
+14:13:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:30	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+14:14:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:28	n/a	n/a	failure
+14:19:59 08/10/2009	good	Group0.6	memory	15% used, 4183MB free, 0.12 pages/sec	2:1680	15	4183	0.12172143
+14:20:12 08/10/2009	good	Group0.5	network	418 bytes in/sec., 362 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1658	418.49603	362.44745	0.0	32
+14:20:33 08/10/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1657	4	4	5
+14:21:17 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 50331, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 26	45:4	0	50331	26
+14:22:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 5%	1:677	4	3	5
+14:23:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:31	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+14:24:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:29	n/a	n/a	failure
+14:29:59 08/10/2009	good	Group0.6	memory	15% used, 4174MB free, 0.35 pages/sec	2:1681	15	4174	0.3533462
+14:30:12 08/10/2009	good	Group0.5	network	485 bytes in/sec., 343 bytes out/sec., 0.00 packet errors/sec., 54 current connections.	2:1659	485.9813	343.92523	0.0	54
+14:30:33 08/10/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1658	4	4	5
+14:31:17 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 51054, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 26	45:5	0	51054	26
+14:32:17 08/10/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 6%	1:678	5	4	6
+14:33:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:32	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+14:34:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:30	n/a	n/a	failure
+14:39:59 08/10/2009	good	Group0.6	memory	15% used, 4204MB free, 0.63 pages/sec	2:1682	15	4204	0.6320391
+14:40:12 08/10/2009	good	Group0.5	network	351 bytes in/sec., 295 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1660	351.40186	295.3271	0.0	30
+14:40:33 08/10/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1659	4	4	5
+14:41:17 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 51731, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 26	45:6	0	51731	26
+14:42:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 5%	1:679	4	4	5
+14:43:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:33	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+14:44:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:31	n/a	n/a	failure
+14:49:59 08/10/2009	good	Group0.6	memory	15% used, 4181MB free, 4.81 pages/sec	2:1683	15	4181	4.816904
+14:50:12 08/10/2009	good	Group0.5	network	1K in/sec., 2K out/sec., 0.00 packet errors/sec., 27 current connections.	2:1661	1390.0046	2292.3867	0.0	27
+14:50:33 08/10/2009	good	Group0.6	cpu	7% avg, cpu1 5%, cpu2 8%	1:1660	7	5	8
+14:51:18 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 52689, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 26	45:7	0	52689	26
+14:52:17 08/10/2009	good	Group0.7	aaaa	7% avg, cpu1 6%, cpu2 8%	1:680	7	6	8
+14:53:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:34	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+14:54:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:32	n/a	n/a	failure
+14:59:59 08/10/2009	good	Group0.6	memory	15% used, 4172MB free, 0.51 pages/sec	2:1684	15	4172	0.51712275
+15:00:12 08/10/2009	good	Group0.5	network	399 bytes in/sec., 313 bytes out/sec., 0.00 packet errors/sec., 38 current connections.	2:1662	399.81317	313.872	0.0	38
+15:00:33 08/10/2009	good	Group0.6	cpu	9% avg, cpu1 7%, cpu2 10%	1:1661	9	7	10
+15:01:18 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 53960, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 34	45:8	0	53960	34
+15:02:17 08/10/2009	good	Group0.7	aaaa	9% avg, cpu1 7%, cpu2 10%	1:681	9	7	10
+15:03:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:35	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+15:04:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:33	n/a	n/a	failure
+15:09:59 08/10/2009	good	Group0.6	memory	16% used, 4155MB free, 1.08 pages/sec	2:1685	16	4155	1.0890771
+15:10:12 08/10/2009	good	Group0.5	network	381 bytes in/sec., 295 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1663	381.1303	295.18915	0.0	30
+15:10:33 08/10/2009	good	Group0.6	cpu	4% avg, cpu1 3%, cpu2 4%	1:1662	4	3	4
+15:11:18 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 54750, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 34	45:9	0	54750	34
+15:12:17 08/10/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 4%	1:682	4	3	4
+15:13:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:36	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+15:14:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:34	n/a	n/a	failure
+15:19:59 08/10/2009	good	Group0.6	memory	15% used, 4163MB free, 0.42 pages/sec	2:1686	15	4163	0.42009223
+15:20:12 08/10/2009	good	Group0.5	network	396 bytes in/sec., 295 bytes out/sec., 0.00 packet errors/sec., 27 current connections.	2:1664	396.0766	295.18915	0.0	27
+15:20:33 08/10/2009	good	Group0.6	cpu	3% avg, cpu1 2%, cpu2 3%	1:1663	3	2	3
+15:21:18 08/10/2009	good	Group0.6	SNMP by MIB: NOTE-NONE	iso/org/dod/internet/mgmt/mib-2/udp/udpInDatagrams = 55242, iso/org/dod/internet/mgmt/mib-2/udp/udpNoPorts = 34	45:10	0	55242	34
+15:22:17 08/10/2009	good	Group0.7	aaaa	3% avg, cpu1 2%, cpu2 3%	1:683	3	2	3
+15:23:24 08/10/2009	good	Group0.6	SNMP: NOTE-NONE system.sysDescr	 = Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)	44:37	ok	Hardware: x86 Family 6 Model 15 Stepping 13 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+15:24:52 08/10/2009	error	Group0.6	Disk Space: C on \\192.168.2.9	no data	43:35	n/a	n/a	failure
+15:30:12 08/10/2009	good	Group0.5	network	411 bytes in/sec., 295 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1665	411.21494	295.3271	0.0	31
+15:53:27 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:1	ok	10.0	100
+15:53:45 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:2	ok	10.0	100
+15:53:59 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:3	ok	10.0	100
+15:54:06 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:4	ok	10.0	100
+15:59:15 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:5	ok	10.0	100
+15:59:29 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:6	ok	10.0	100
+16:00:21 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:7	ok	10.0	100
+16:02:49 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:8	ok	10.0	100
+16:02:59 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:9	ok	10.0	100
+16:12:59 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:10	ok	10.0	100
+16:22:59 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:11	ok	10.0	100
+16:25:55 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:12	ok	10.0	100
+16:26:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:13	ok	10.0	100
+16:26:16 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:14	ok	10.0	100
+16:26:25 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:15	ok	10.0	100
+16:29:20 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:16	ok	10.0	100
+16:29:49 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:17	ok	10.0	100
+16:30:24 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:18	ok	10.0	100
+16:30:32 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:19	ok	10.0	100
+16:30:41 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:20	ok	10.0	100
+16:33:40 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:21	ok	10.0	100
+16:35:13 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:22	ok	10.0	100
+16:35:34 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:23	ok	10.0	100
+16:35:43 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:24	ok	10.0	100
+16:37:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:25	ok	10.0	100
+16:47:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:26	ok	10.0	100
+16:57:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:27	ok	10.0	100
+17:07:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:28	ok	10.0	100
+17:17:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:29	ok	10.0	100
+17:27:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:30	ok	10.0	100
+17:37:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:31	ok	10.0	100
+17:47:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:32	ok	10.0	100
+17:57:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:33	ok	10.0	100
+18:07:07 08/10/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:34	ok	10.0	100

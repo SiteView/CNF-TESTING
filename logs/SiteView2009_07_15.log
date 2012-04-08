@@ -1,0 +1,345 @@
+10:10:44 07/15/2009	good	Group0.6	aaa	Pages/sec: = 0.35/sec, Page Faults/sec: = 35.96/sec, Page Reads/sec: = 0.08/sec...	25:121	0.35	64.383	0	280988	35.96	4.434	10	3559606	0.08	0.001	0	52720	0.00	100.000	0	2871	0
+10:11:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 2.12/sec, Page Faults/sec: = 320.91/sec, Page Reads/sec: = 1.33/sec...	25:122	2.12	64.383	2	281254	320.91	4.434	10	3599726	1.33	0.001	1	52887	0.00	100.000	0	2871	0
+10:11:28 07/15/2009	good	Group0.6	disk_c	35% full, 13327MB free, 20473MB total	3:1267	35	13327
+10:11:28 07/15/2009	good	Group0.6	memory	15% used, 4177MB free, 3.80 pages/sec	2:1274	15	4177	3.8032458
+10:11:29 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 403.45 K	24:229	ok	403.45
+10:11:35 07/15/2009	good	Group0.6	cpu	12% avg, cpu1 14%, cpu2 10%	1:1258	12	14	10
+10:11:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1259	6	5	7
+10:12:58 07/15/2009	good	Group0.7	aaaa	13% avg, cpu1 7%, cpu2 18%	1:274	13	7	18
+10:13:06 07/15/2009	good	Group0.5	network	346 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1253	346.01114	293.13544	0.0	30
+10:21:28 07/15/2009	good	Group0.6	memory	16% used, 4151MB free, 6.10 pages/sec	2:1275	16	4151	6.1097107
+10:21:28 07/15/2009	good	Group0.6	disk_c	35% full, 13320MB free, 20473MB total	3:1268	35	13320
+10:21:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 2.19/sec, Page Faults/sec: = 379.79/sec, Page Reads/sec: = 0.44/sec...	25:123	2.19	64.383	2	284930	379.79	4.434	10	4236470	0.44	0.001	0	53629	0.04	100.000	0	2947	0
+10:21:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 463.55 K	24:230	ok	463.55
+10:21:38 07/15/2009	good	Group0.6	cpu	10% avg, cpu1 10%, cpu2 10%	1:1260	10	10	10
+10:22:51 07/15/2009	good	Group0.7	aaaa	11% avg, cpu1 11%, cpu2 11%	1:275	11	11	11
+10:23:06 07/15/2009	good	Group0.5	network	49K in/sec., 2K out/sec., 0.00 packet errors/sec., 30 current connections.	2:1254	51117.867	2215.4697	0.0	30
+10:31:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 8.40/sec, Page Faults/sec: = 1175.04/sec, Page Reads/sec: = 0.26/sec...	25:124	8.40	64.383	8	299023	1175.04	4.434	10	6205863	0.26	0.001	0	54065	0.45	100.000	0	3714	0
+10:31:28 07/15/2009	good	Group0.6	memory	16% used, 4132MB free, 23.50 pages/sec	2:1276	16	4132	23.509615
+10:31:28 07/15/2009	good	Group0.6	disk_c	35% full, 13319MB free, 20473MB total	3:1269	35	13319
+10:31:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 523.55 K	24:231	ok	523.55
+10:31:38 07/15/2009	good	Group0.6	cpu	11% avg, cpu1 10%, cpu2 12%	1:1261	11	10	12
+10:32:51 07/15/2009	good	Group0.7	aaaa	11% avg, cpu1 9%, cpu2 13%	1:276	11	9	13
+10:33:06 07/15/2009	good	Group0.5	network	386 bytes in/sec., 333 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1255	386.82748	333.02414	0.0	29
+10:41:28 07/15/2009	good	Group0.6	disk_c	35% full, 13318MB free, 20473MB total	3:1270	35	13318
+10:41:28 07/15/2009	good	Group0.6	memory	16% used, 4129MB free, 7.49 pages/sec	2:1277	16	4129	7.494558
+10:41:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 2.68/sec, Page Faults/sec: = 649.72/sec, Page Reads/sec: = 0.12/sec...	25:125	2.68	64.383	3	303518	649.72	4.434	10	7295067	0.12	0.001	0	54277	0.11	100.000	0	3912	0
+10:41:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 583.55 K	24:232	ok	583.55
+10:41:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 6%, cpu2 7%	1:1262	6	6	7
+10:42:51 07/15/2009	good	Group0.7	aaaa	5% avg, cpu1 5%, cpu2 5%	1:277	5	5	5
+10:43:06 07/15/2009	good	Group0.5	network	274 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1256	274.58258	274.58258	0.0	29
+10:51:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 3.35/sec, Page Faults/sec: = 223.87/sec, Page Reads/sec: = 0.67/sec...	25:126	3.35	64.383	3	309147	223.87	4.434	10	7670300	0.67	0.001	1	55416	0.10	100.000	0	4096	0
+10:51:28 07/15/2009	good	Group0.6	memory	17% used, 4084MB free, 9.38 pages/sec	2:1278	17	4084	9.385034
+10:51:28 07/15/2009	good	Group0.6	disk_c	35% full, 13318MB free, 20473MB total	3:1271	35	13318
+10:51:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 643.55 K	24:233	ok	643.55
+10:51:38 07/15/2009	good	Group0.6	cpu	8% avg, cpu1 7%, cpu2 9%	1:1263	8	7	9
+10:52:51 07/15/2009	good	Group0.7	aaaa	8% avg, cpu1 7%, cpu2 9%	1:278	8	7	9
+10:53:06 07/15/2009	good	Group0.5	network	393 bytes in/sec., 393 bytes out/sec., 0.00 packet errors/sec., 33 current connections.	2:1257	393.32098	393.32098	0.0	33
+11:01:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 0.03/sec, Page Faults/sec: = 144.23/sec, Page Reads/sec: = 0.02/sec...	25:127	0.03	64.383	0	309206	144.23	4.434	10	7912073	0.02	0.001	0	55454	0.00	100.000	0	4096	0
+11:01:28 07/15/2009	good	Group0.6	memory	17% used, 4080MB free, 0.09 pages/sec	2:1279	17	4080	0.09835304
+11:01:28 07/15/2009	good	Group0.6	disk_c	35% full, 13318MB free, 20473MB total	3:1272	35	13318
+11:01:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 703.55 K	24:234	ok	703.55
+11:01:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 8%	1:1264	6	5	8
+11:02:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 8%	1:279	6	5	8
+11:03:06 07/15/2009	good	Group0.5	network	368 bytes in/sec., 396 bytes out/sec., 0.00 packet errors/sec., 33 current connections.	2:1258	368.10385	396.84747	0.0	33
+11:11:28 07/15/2009	good	Group0.6	disk_c	35% full, 13318MB free, 20473MB total	3:1273	35	13318
+11:11:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 2.86/sec, Page Faults/sec: = 168.52/sec, Page Reads/sec: = 0.04/sec...	25:128	2.86	64.383	3	314014	168.52	4.434	10	8194569	0.04	0.001	0	55530	0.17	100.000	0	4383	0
+11:11:28 07/15/2009	good	Group0.6	memory	17% used, 4088MB free, 8.01 pages/sec	2:1280	17	4088	8.016033
+11:11:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 763.55 K	24:235	ok	763.55
+11:11:38 07/15/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 5%	1:1265	5	4	5
+11:12:51 07/15/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 5%	1:280	5	4	5
+11:13:06 07/15/2009	good	Group0.5	network	409 bytes in/sec., 295 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1259	409.5064	295.2468	0.0	29
+11:21:28 07/15/2009	good	Group0.6	memory	17% used, 4086MB free, 4.00 pages/sec	2:1281	17	4086	4.0078044
+11:21:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 1.43/sec, Page Faults/sec: = 209.83/sec, Page Reads/sec: = 0.02/sec...	25:129	1.43	64.383	1	316418	209.83	4.434	10	8546299	0.02	0.001	0	55566	0.08	100.000	0	4527	0
+11:21:28 07/15/2009	good	Group0.6	disk_c	35% full, 13318MB free, 20473MB total	3:1274	35	13318
+11:21:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 823.55 K	24:236	ok	823.55
+11:21:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 8%	1:1266	6	5	8
+11:22:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 8%	1:281	6	5	8
+11:23:06 07/15/2009	good	Group0.5	network	274 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1260	274.45526	274.45526	0.0	28
+11:31:28 07/15/2009	good	Group0.6	memory	17% used, 4077MB free, 3.65 pages/sec	2:1282	17	4077	3.6592147
+11:31:28 07/15/2009	good	Group0.6	disk_c	35% full, 13317MB free, 20473MB total	3:1275	35	13317
+11:31:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 1.30/sec, Page Faults/sec: = 197.17/sec, Page Reads/sec: = 0.01/sec...	25:130	1.30	64.383	1	318613	197.17	4.434	10	8876836	0.01	0.001	0	55589	0.07	100.000	0	4661	0
+11:31:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 883.55 K	24:237	ok	883.55
+11:31:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1267	6	5	7
+11:32:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:282	6	5	7
+11:33:06 07/15/2009	good	Group0.5	network	512 bytes in/sec., 372 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1261	512.98706	372.9128	0.0	31
+11:41:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 1.09/sec, Page Faults/sec: = 195.87/sec, Page Reads/sec: = 0.02/sec...	25:131	1.09	64.383	1	320455	195.87	4.434	10	9205141	0.02	0.001	0	55632	0.06	100.000	0	4768	0
+11:41:28 07/15/2009	good	Group0.6	memory	17% used, 4072MB free, 3.07 pages/sec	2:1283	17	4072	3.071645
+11:41:28 07/15/2009	good	Group0.6	disk_c	35% full, 13317MB free, 20473MB total	3:1276	35	13317
+11:41:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 943.55 K	24:238	ok	943.55
+11:41:38 07/15/2009	good	Group0.6	cpu	7% avg, cpu1 6%, cpu2 8%	1:1268	7	6	8
+11:42:51 07/15/2009	good	Group0.7	aaaa	7% avg, cpu1 6%, cpu2 8%	1:283	7	6	8
+11:43:06 07/15/2009	good	Group0.5	network	490 bytes in/sec., 372 bytes out/sec., 0.00 packet errors/sec., 40 current connections.	2:1262	490.72357	372.9128	0.0	40
+11:51:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 5.86/sec, Page Faults/sec: = 219.44/sec, Page Reads/sec: = 0.40/sec...	25:132	5.86	64.383	6	330286	219.44	4.434	10	9572965	0.40	0.001	0	56316	0.21	100.000	0	5132	0
+11:51:28 07/15/2009	good	Group0.6	memory	17% used, 4059MB free, 16.39 pages/sec	2:1284	17	4059	16.39187
+11:51:28 07/15/2009	good	Group0.6	disk_c	35% full, 13317MB free, 20473MB total	3:1277	35	13317
+11:51:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1003.55 K	24:239	ok	1003.55
+11:51:38 07/15/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1269	5	4	6
+11:52:51 07/15/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 6%	1:284	5	4	6
+11:53:06 07/15/2009	good	Group0.5	network	19K in/sec., 18K out/sec., 0.00 packet errors/sec., 32 current connections.	2:1263	19575.508	19455.342	0.0	32
+12:01:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 0.23/sec, Page Faults/sec: = 138.85/sec, Page Reads/sec: = 0.04/sec...	25:133	0.23	64.383	0	330683	138.85	4.434	10	9805714	0.04	0.001	0	56389	0.00	100.000	0	5132	0
+12:01:28 07/15/2009	good	Group0.6	memory	18% used, 4050MB free, 0.66 pages/sec	2:1285	18	4050	0.66176784
+12:01:28 07/15/2009	good	Group0.6	disk_c	35% full, 13317MB free, 20473MB total	3:1278	35	13317
+12:01:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1063.55 K	24:240	ok	1063.55
+12:01:38 07/15/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1270	4	4	5
+12:02:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 5%	1:285	4	4	5
+12:03:06 07/15/2009	good	Group0.5	network	435 bytes in/sec., 318 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1264	435.99258	318.18182	0.0	28
+12:11:28 07/15/2009	good	Group0.6	memory	17% used, 4068MB free, 1.35 pages/sec	2:1286	17	4068	1.3571411
+12:11:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 0.48/sec, Page Faults/sec: = 117.41/sec, Page Reads/sec: = 0.06/sec...	25:134	0.48	64.383	0	331497	117.41	4.434	10	10002532	0.06	0.001	0	56501	0.00	100.000	0	5138	0
+12:11:28 07/15/2009	good	Group0.6	disk_c	35% full, 13317MB free, 20473MB total	3:1279	35	13317
+12:11:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1123.55 K	24:241	ok	1123.55
+12:11:38 07/15/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 3%	1:1271	3	3	3
+12:12:51 07/15/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 3%	1:286	3	3	3
+12:13:06 07/15/2009	good	Group0.5	network	417 bytes in/sec., 299 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1265	417.43973	299.62897	0.0	28
+12:21:28 07/15/2009	good	Group0.6	memory	18% used, 4040MB free, 1.21 pages/sec	2:1287	18	4040	1.2168952
+12:21:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 0.43/sec, Page Faults/sec: = 189.60/sec, Page Reads/sec: = 0.07/sec...	25:135	0.43	64.383	0	332227	189.60	4.434	10	10320354	0.07	0.001	0	56632	0.00	100.000	0	5138	0
+12:21:28 07/15/2009	good	Group0.6	disk_c	35% full, 13317MB free, 20473MB total	3:1280	35	13317
+12:21:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1183.55 K	24:242	ok	1183.55
+12:21:38 07/15/2009	good	Group0.6	cpu	8% avg, cpu1 6%, cpu2 10%	1:1272	8	6	10
+12:22:51 07/15/2009	good	Group0.7	aaaa	8% avg, cpu1 6%, cpu2 11%	1:287	8	6	11
+12:23:06 07/15/2009	good	Group0.5	network	464 bytes in/sec., 272 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1266	464.30215	272.6854	0.0	29
+12:31:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 0.03/sec, Page Faults/sec: = 128.65/sec, Page Reads/sec: = 0.01/sec...	25:136	0.03	64.383	0	332278	128.65	4.434	10	10535994	0.01	0.001	0	56654	0.00	100.000	0	5138	0
+12:31:28 07/15/2009	good	Group0.6	memory	18% used, 4044MB free, 0.08 pages/sec	2:1288	18	4044	0.08502342
+12:31:28 07/15/2009	good	Group0.6	disk_c	35% full, 13317MB free, 20473MB total	3:1281	35	13317
+12:31:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1243.55 K	24:243	ok	1243.55
+12:31:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 8%	1:1273	6	5	8
+12:32:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:288	6	5	7
+12:33:06 07/15/2009	good	Group0.5	network	422 bytes in/sec., 301 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1267	422.2326	301.72815	0.0	28
+12:41:28 07/15/2009	good	Group0.6	memory	17% used, 4096MB free, 0.06 pages/sec	2:1289	17	4096	0.06334455
+12:41:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 0.02/sec, Page Faults/sec: = 108.15/sec, Page Reads/sec: = 0.00/sec...	25:137	0.02	64.383	0	332316	108.15	4.434	10	10717304	0.00	0.001	0	56670	0.00	100.000	0	5138	0
+12:41:28 07/15/2009	good	Group0.6	disk_c	35% full, 13317MB free, 20473MB total	3:1282	35	13317
+12:41:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1303.55 K	24:244	ok	1303.55
+12:41:38 07/15/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 3%	1:1274	3	3	3
+12:42:51 07/15/2009	good	Group0.7	aaaa	3% avg, cpu1 2%, cpu2 3%	1:289	3	2	3
+12:43:06 07/15/2009	good	Group0.5	network	437 bytes in/sec., 437 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1268	437.8479	437.8479	0.0	29
+12:51:28 07/15/2009	good	Group0.6	memory	19% used, 3990MB free, 8.66 pages/sec	2:1290	19	3990	8.660208
+12:51:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 3.09/sec, Page Faults/sec: = 252.29/sec, Page Reads/sec: = 0.58/sec...	25:138	3.09	64.383	3	337511	252.29	4.434	10	11140255	0.58	0.001	1	57652	0.00	100.000	0	5144	0
+12:51:29 07/15/2009	good	Group0.6	disk_c	35% full, 13316MB free, 20473MB total	3:1283	35	13316
+12:51:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1363.55 K	24:245	ok	1363.55
+12:51:38 07/15/2009	good	Group0.6	cpu	9% avg, cpu1 8%, cpu2 10%	1:1275	9	8	10
+12:52:52 07/15/2009	good	Group0.7	aaaa	11% avg, cpu1 9%, cpu2 13%	1:290	11	9	13
+12:53:06 07/15/2009	good	Group0.5	network	479 bytes in/sec., 364 bytes out/sec., 0.00 packet errors/sec., 127 current connections.	2:1269	479.85678	364.36884	0.0	127
+13:01:28 07/15/2009	good	Group0.6	memory	19% used, 3961MB free, 15.50 pages/sec	2:1291	19	3961	15.5031185
+13:01:28 07/15/2009	good	Group0.6	disk_c	35% full, 13312MB free, 20473MB total	3:1284	35	13312
+13:01:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 5.54/sec, Page Faults/sec: = 360.00/sec, Page Reads/sec: = 0.22/sec...	25:139	5.54	64.383	6	346811	360.00	4.434	10	11743600	0.22	0.001	0	58037	0.31	100.000	0	5664	0
+13:01:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1423.55 K	24:246	ok	1423.55
+13:01:38 07/15/2009	good	Group0.6	cpu	17% avg, cpu1 13%, cpu2 20%	1:1276	17	13	20
+13:02:51 07/15/2009	good	Group0.7	aaaa	15% avg, cpu1 12%, cpu2 19%	1:291	15	12	19
+13:03:06 07/15/2009	good	Group0.5	network	3K in/sec., 3K out/sec., 0.00 packet errors/sec., 35 current connections.	2:1270	3215.4697	3891.3445	0.0	35
+13:11:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 0.33/sec, Page Faults/sec: = 276.94/sec, Page Reads/sec: = 0.09/sec...	25:140	0.33	64.383	0	347367	276.94	4.434	10	12207805	0.09	0.001	0	58188	0.00	100.000	0	5668	0
+13:11:28 07/15/2009	good	Group0.6	memory	18% used, 4049MB free, 0.93 pages/sec	2:1292	18	4049	0.93357605
+13:11:28 07/15/2009	good	Group0.6	disk_c	35% full, 13312MB free, 20473MB total	3:1285	35	13312
+13:11:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1483.55 K	24:247	ok	1483.55
+13:11:38 07/15/2009	good	Group0.6	cpu	8% avg, cpu1 7%, cpu2 10%	1:1277	8	7	10
+13:12:51 07/15/2009	good	Group0.7	aaaa	8% avg, cpu1 7%, cpu2 9%	1:292	8	7	9
+13:13:06 07/15/2009	good	Group0.5	network	349 bytes in/sec., 349 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1271	349.90793	349.90793	0.0	28
+13:21:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 0.08/sec, Page Faults/sec: = 235.41/sec, Page Reads/sec: = 0.01/sec...	25:141	0.08	64.383	0	347515	235.41	4.434	10	12602409	0.01	0.001	0	58211	0.00	100.000	0	5674	0
+13:21:28 07/15/2009	good	Group0.6	memory	18% used, 4046MB free, 0.24 pages/sec	2:1293	18	4046	0.24674207
+13:21:28 07/15/2009	good	Group0.6	disk_c	35% full, 13311MB free, 20473MB total	3:1286	35	13311
+13:21:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1543.55 K	24:248	ok	1543.55
+13:21:38 07/15/2009	good	Group0.6	cpu	7% avg, cpu1 6%, cpu2 9%	1:1278	7	6	9
+13:22:51 07/15/2009	good	Group0.7	aaaa	8% avg, cpu1 6%, cpu2 9%	1:293	8	6	9
+13:23:06 07/15/2009	good	Group0.5	network	471 bytes in/sec., 299 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1272	471.24307	299.62897	0.0	29
+13:31:28 07/15/2009	good	Group0.6	memory	18% used, 4044MB free, 11.18 pages/sec	2:1294	18	4044	11.180684
+13:31:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 4.00/sec, Page Faults/sec: = 191.82/sec, Page Reads/sec: = 0.04/sec...	25:142	4.00	64.383	4	354222	191.82	4.434	10	12923949	0.04	0.001	0	58279	0.24	100.000	0	6087	0
+13:31:28 07/15/2009	good	Group0.6	disk_c	35% full, 13311MB free, 20473MB total	3:1287	35	13311
+13:31:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1603.55 K	24:249	ok	1603.55
+13:31:38 07/15/2009	good	Group0.6	cpu	4% avg, cpu1 3%, cpu2 5%	1:1279	4	3	5
+13:32:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 4%	1:294	4	3	4
+13:33:06 07/15/2009	good	Group0.5	network	330 bytes in/sec., 330 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1273	330.2412	330.2412	0.0	29
+13:41:28 07/15/2009	good	Group0.6	memory	19% used, 3975MB free, 16.79 pages/sec	2:1295	19	3975	16.791279
+13:41:28 07/15/2009	good	Group0.6	aaa	Pages/sec: = 6.00/sec, Page Faults/sec: = 366.12/sec, Page Reads/sec: = 0.79/sec...	25:143	6.00	64.383	6	364292	366.12	4.434	10	13537670	0.79	0.001	1	59618	0.00	100.000	0	6087	0
+13:41:28 07/15/2009	good	Group0.6	disk_c	35% full, 13309MB free, 20473MB total	3:1288	35	13309
+13:41:30 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1663.55 K	24:250	ok	1663.55
+13:41:38 07/15/2009	good	Group0.6	cpu	11% avg, cpu1 10%, cpu2 12%	1:1280	11	10	12
+13:42:51 07/15/2009	good	Group0.7	aaaa	12% avg, cpu1 10%, cpu2 13%	1:295	12	10	13
+13:43:06 07/15/2009	good	Group0.5	network	272 bytes in/sec., 272 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1274	272.55988	272.55988	0.0	28
+13:49:59 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 36101.52/sec, File Write Bytes/sec: = 548.75/sec	25:144	n/a	64.383	0	0	36101.52	4.434	10	29587736470	548.75	0.001	10	599277791	1	nonfailure
+13:50:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 36042.15/sec, File Write Bytes/sec: = 542.04/sec	25:145	n/a	64.383	0	0	36042.15	4.434	10	29628403746	542.04	0.001	10	599578819	1	nonfailure
+13:51:28 07/15/2009	good	Group0.6	memory	19% used, 3976MB free, 0.26 pages/sec	2:1296	19	3976	0.26349083
+13:51:28 07/15/2009	good	Group0.6	disk_c	35% full, 13309MB free, 20473MB total	3:1289	35	13309
+13:51:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1723.65 K	24:251	ok	1723.65
+13:51:38 07/15/2009	good	Group0.6	cpu	12% avg, cpu1 11%, cpu2 14%	1:1281	12	11	14
+13:52:51 07/15/2009	good	Group0.7	aaaa	12% avg, cpu1 11%, cpu2 14%	1:296	12	11	14
+13:53:06 07/15/2009	good	Group0.5	network	348 bytes in/sec., 349 bytes out/sec., 0.00 packet errors/sec., 33 current connections.	2:1275	348.79407	349.7217	0.0	33
+14:00:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 36413.63/sec, File Write Bytes/sec: = 571.65/sec	25:146	n/a	64.383	0	0	36413.63	4.434	10	30210422394	571.65	0.001	10	603292369	1	nonfailure
+14:01:28 07/15/2009	good	Group0.6	memory	19% used, 3970MB free, 5.58 pages/sec	2:1297	19	3970	5.581622
+14:01:28 07/15/2009	good	Group0.6	disk_c	35% full, 13310MB free, 20473MB total	3:1290	35	13310
+14:01:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1783.66 K	24:252	ok	1783.66
+14:01:38 07/15/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1282	4	4	5
+14:02:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 4%	1:297	4	3	4
+14:03:06 07/15/2009	good	Group0.5	network	348 bytes in/sec., 350 bytes out/sec., 0.00 packet errors/sec., 33 current connections.	2:1276	348.79407	350.64935	0.0	33
+14:10:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 737611.50/sec, File Write Bytes/sec: = 4228.50/sec	25:147	n/a	64.383	0	0	737611.50	4.434	10	30680508373	4228.50	0.001	10	652709273	1	nonfailure
+14:11:28 07/15/2009	good	Group0.6	memory	19% used, 3979MB free, 3.82 pages/sec	2:1298	19	3979	3.828063
+14:11:29 07/15/2009	good	Group0.6	disk_c	35% full, 13310MB free, 20473MB total	3:1291	35	13310
+14:11:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1843.66 K	24:253	ok	1843.66
+14:11:38 07/15/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1283	5	4	6
+14:12:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:298	6	5	7
+14:13:06 07/15/2009	good	Group0.5	network	293 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1277	293.13544	293.13544	0.0	29
+14:20:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 1210588.80/sec, File Write Bytes/sec: = 2358.14/sec	25:148	n/a	64.383	0	0	1210588.80	4.434	10	32264340232	2358.14	0.001	10	697505296	1	nonfailure
+14:21:28 07/15/2009	good	Group0.6	memory	20% used, 3948MB free, 49.95 pages/sec	2:1299	20	3948	49.95515
+14:21:29 07/15/2009	good	Group0.6	disk_c	36% full, 13289MB free, 20473MB total	3:1292	36	13289
+14:21:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 24.97 K	24:254	ok	24.97
+14:21:38 07/15/2009	good	Group0.6	cpu	13% avg, cpu1 12%, cpu2 14%	1:1284	13	12	14
+14:22:51 07/15/2009	good	Group0.7	aaaa	11% avg, cpu1 10%, cpu2 12%	1:299	11	10	12
+14:23:06 07/15/2009	good	Group0.5	network	274 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 33 current connections.	2:1278	274.58258	274.58258	0.0	33
+14:30:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 36952.43/sec, File Write Bytes/sec: = 2358.14/sec	25:149	n/a	64.383	0	0	36952.43	4.434	10	32671977727	2358.14	0.001	10	702242227	1	nonfailure
+14:31:28 07/15/2009	good	Group0.6	memory	19% used, 3963MB free, 0.46 pages/sec	2:1300	19	3963	0.46515256
+14:31:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1293	36	13291
+14:31:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 84.97 K	24:255	ok	84.97
+14:31:38 07/15/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 4%	1:1285	4	4	4
+14:32:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 4%	1:300	4	4	4
+14:33:06 07/15/2009	good	Group0.5	network	330 bytes in/sec., 330 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1279	330.2412	330.2412	0.0	30
+14:40:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 36451.43/sec, File Write Bytes/sec: = 571.65/sec	25:150	n/a	64.383	0	0	36451.43	4.434	10	33535676821	571.65	0.001	10	706914749	1	nonfailure
+14:41:28 07/15/2009	good	Group0.6	memory	19% used, 3968MB free, 3.44 pages/sec	2:1301	19	3968	3.4446392
+14:41:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1294	36	13291
+14:41:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 144.97 K	24:256	ok	144.97
+14:41:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 6%	1:1286	6	5	6
+14:42:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 6%	1:301	6	5	6
+14:43:06 07/15/2009	good	Group0.5	network	272 bytes in/sec., 303 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1280	272.6854	303.08612	0.0	30
+14:50:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 36559.11/sec, File Write Bytes/sec: = 2367.72/sec	25:151	n/a	64.383	0	0	36559.11	4.434	10	34096714817	2367.72	0.001	10	756026227	1	nonfailure
+14:51:28 07/15/2009	good	Group0.6	memory	19% used, 3969MB free, 0.05 pages/sec	2:1302	19	3969	0.05835009
+14:51:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1295	36	13291
+14:51:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 204.97 K	24:257	ok	204.97
+14:51:38 07/15/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1287	4	4	5
+14:52:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 4%	1:302	4	4	4
+14:53:06 07/15/2009	good	Group0.5	network	274 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1281	274.58258	274.58258	0.0	29
+15:00:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 765254.70/sec, File Write Bytes/sec: = 3219.86/sec	25:152	n/a	64.383	0	0	765254.70	4.434	10	34490680177	3219.86	0.001	10	759585592	1	nonfailure
+15:01:28 07/15/2009	good	Group0.6	memory	19% used, 3959MB free, 1.42 pages/sec	2:1303	19	3959	1.4236668
+15:01:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1296	36	13291
+15:01:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 264.97 K	24:258	ok	264.97
+15:01:38 07/15/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 4%	1:1288	3	3	4
+15:02:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 4%	1:303	4	3	4
+15:03:06 07/15/2009	good	Group0.5	network	274 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1282	274.58258	274.58258	0.0	29
+15:10:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 36486.94/sec, File Write Bytes/sec: = 2343.74/sec	25:153	n/a	64.383	0	0	36486.94	4.434	10	35049296086	2343.74	0.001	10	764234344	1	nonfailure
+15:11:28 07/15/2009	good	Group0.6	memory	20% used, 3955MB free, 5.97 pages/sec	2:1304	20	3955	5.979894
+15:11:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1297	36	13291
+15:11:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 324.97 K	24:259	ok	324.97
+15:11:38 07/15/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1289	4	4	5
+15:12:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 5%	1:304	4	4	5
+15:13:06 07/15/2009	good	Group0.5	network	274 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1283	274.58258	274.58258	0.0	29
+15:20:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 37036.61/sec, File Write Bytes/sec: = 2345.73/sec	25:154	n/a	64.383	0	0	37036.61	4.434	10	35575118271	2345.73	0.001	10	768888370	1	nonfailure
+15:21:28 07/15/2009	good	Group0.6	memory	20% used, 3952MB free, 0.09 pages/sec	2:1305	20	3952	0.09169064
+15:21:29 07/15/2009	good	Group0.6	disk_c	36% full, 13290MB free, 20473MB total	3:1298	36	13290
+15:21:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 384.97 K	24:260	ok	384.97
+15:21:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1290	6	5	7
+15:22:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:305	6	5	7
+15:23:06 07/15/2009	good	Group0.5	network	604 bytes in/sec., 604 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1284	604.8238	604.8238	0.0	32
+15:30:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 36461.74/sec, File Write Bytes/sec: = 2367.72/sec	25:155	n/a	64.383	0	0	36461.74	4.434	10	36085032505	2367.72	0.001	10	817967439	1	nonfailure
+15:31:28 07/15/2009	good	Group0.6	memory	20% used, 3951MB free, 3.32 pages/sec	2:1306	20	3951	3.3221855
+15:31:29 07/15/2009	good	Group0.6	disk_c	36% full, 13290MB free, 20473MB total	3:1299	36	13290
+15:31:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 444.97 K	24:261	ok	444.97
+15:31:38 07/15/2009	good	Group0.6	cpu	4% avg, cpu1 3%, cpu2 5%	1:1291	4	3	5
+15:32:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 5%	1:306	4	4	5
+15:33:06 07/15/2009	good	Group0.5	network	322 bytes in/sec., 348 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1285	322.82004	348.79407	0.0	32
+15:40:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 35307.81/sec, File Write Bytes/sec: = 1946.13/sec	25:156	n/a	64.383	0	0	35307.81	4.434	10	36512097325	1946.13	0.001	10	821480665	1	nonfailure
+15:41:28 07/15/2009	good	Group0.6	memory	20% used, 3951MB free, 0.05 pages/sec	2:1307	20	3951	0.056678776
+15:41:29 07/15/2009	good	Group0.6	disk_c	36% full, 13290MB free, 20473MB total	3:1300	36	13290
+15:41:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 504.97 K	24:262	ok	504.97
+15:41:38 07/15/2009	good	Group0.6	cpu	4% avg, cpu1 3%, cpu2 5%	1:1292	4	3	5
+15:42:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 5%	1:307	4	3	5
+15:43:06 07/15/2009	good	Group0.5	network	272 bytes in/sec., 272 bytes out/sec., 0.00 packet errors/sec., 33 current connections.	2:1286	272.6854	272.6854	0.0	33
+15:50:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 54629.85/sec, File Write Bytes/sec: = 2329.18/sec	25:157	n/a	64.383	0	0	54629.85	4.434	10	36888011084	2329.18	0.001	10	825050068	1	nonfailure
+15:51:28 07/15/2009	good	Group0.6	memory	19% used, 3960MB free, 3.43 pages/sec	2:1308	19	3960	3.434236
+15:51:29 07/15/2009	good	Group0.6	disk_c	36% full, 13290MB free, 20473MB total	3:1301	36	13290
+15:51:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 564.97 K	24:263	ok	564.97
+15:51:38 07/15/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1293	4	4	5
+15:52:51 07/15/2009	good	Group0.7	aaaa	4% avg, cpu1 4%, cpu2 5%	1:308	4	4	5
+15:53:06 07/15/2009	good	Group0.5	network	419 bytes in/sec., 300 bytes out/sec., 0.00 packet errors/sec., 33 current connections.	2:1287	419.295	300.5566	0.0	33
+16:00:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 639161.20/sec, File Write Bytes/sec: = 3332.06/sec	25:158	n/a	64.383	0	0	639161.20	4.434	10	37665540307	3332.06	0.001	10	876291992	1	nonfailure
+16:01:28 07/15/2009	good	Group0.6	memory	19% used, 3995MB free, 5.09 pages/sec	2:1309	19	3995	5.0935016
+16:01:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1302	36	13291
+16:01:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 624.97 K	24:264	ok	624.97
+16:01:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 6%	1:1294	6	5	6
+16:02:51 07/15/2009	good	Group0.7	aaaa	5% avg, cpu1 5%, cpu2 6%	1:309	5	5	6
+16:03:06 07/15/2009	good	Group0.5	network	630 bytes in/sec., 272 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1288	630.1244	272.6854	0.0	31
+16:10:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 165400.39/sec, File Write Bytes/sec: = 2343.74/sec	25:159	n/a	64.383	0	0	165400.39	4.434	10	38249062093	2343.74	0.001	10	879895665	1	nonfailure
+16:11:28 07/15/2009	good	Group0.6	memory	19% used, 3980MB free, 0.18 pages/sec	2:1310	19	3980	0.18671057
+16:11:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1303	36	13291
+16:11:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 684.97 K	24:265	ok	684.97
+16:11:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 6%, cpu2 6%	1:1295	6	6	6
+16:12:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 6%, cpu2 6%	1:310	6	6	6
+16:13:06 07/15/2009	good	Group0.5	network	371 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1289	371.05753	293.13544	0.0	32
+16:20:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 843462.60/sec, File Write Bytes/sec: = 3696.18/sec	25:160	n/a	64.383	0	0	843462.60	4.434	10	38869972977	3696.18	0.001	10	884773766	1	nonfailure
+16:21:28 07/15/2009	good	Group0.6	memory	19% used, 3974MB free, 0.09 pages/sec	2:1311	19	3974	0.09836226
+16:21:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1304	36	13291
+16:21:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 744.97 K	24:266	ok	744.97
+16:21:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1296	6	5	7
+16:22:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:311	6	5	7
+16:23:06 07/15/2009	good	Group0.5	network	582 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1290	582.5603	293.13544	0.0	30
+16:30:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 653487.50/sec, File Write Bytes/sec: = 3300.33/sec	25:161	n/a	64.383	0	0	653487.50	4.434	10	39460250118	3300.33	0.001	10	889420990	1	nonfailure
+16:31:29 07/15/2009	good	Group0.6	memory	19% used, 3977MB free, 0.14 pages/sec	2:1312	19	3977	0.14836305
+16:31:29 07/15/2009	good	Group0.6	disk_c	36% full, 13292MB free, 20473MB total	3:1305	36	13292
+16:31:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 804.97 K	24:267	ok	804.97
+16:31:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1297	6	5	7
+16:32:51 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:312	6	5	7
+16:33:06 07/15/2009	good	Group0.5	network	682 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1291	682.74585	274.58258	0.0	30
+16:40:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 35462.63/sec, File Write Bytes/sec: = 1984.41/sec	25:162	n/a	64.383	0	0	35462.63	4.434	10	39914074831	1984.41	0.001	10	939297768	1	nonfailure
+16:41:29 07/15/2009	good	Group0.6	memory	18% used, 4022MB free, 1.85 pages/sec	2:1313	18	4022	1.8506682
+16:41:29 07/15/2009	good	Group0.6	disk_c	36% full, 13290MB free, 20473MB total	3:1306	36	13290
+16:41:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 864.97 K	24:268	ok	864.97
+16:41:38 07/15/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1298	6	5	7
+16:42:52 07/15/2009	good	Group0.7	aaaa	6% avg, cpu1 6%, cpu2 7%	1:313	6	6	7
+16:43:06 07/15/2009	good	Group0.5	network	356 bytes in/sec., 352 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1292	356.21524	352.50467	0.0	31
+16:50:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 35468.96/sec, File Write Bytes/sec: = 2713.30/sec	25:163	n/a	64.383	0	0	35468.96	4.434	10	40721509764	2713.30	0.001	10	945627899	1	nonfailure
+16:51:29 07/15/2009	good	Group0.6	memory	18% used, 4012MB free, 0.15 pages/sec	2:1314	18	4012	0.15172029
+16:51:29 07/15/2009	good	Group0.6	disk_c	36% full, 13292MB free, 20473MB total	3:1307	36	13292
+16:51:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 924.97 K	24:269	ok	924.97
+16:51:38 07/15/2009	good	Group0.6	cpu	7% avg, cpu1 7%, cpu2 8%	1:1299	7	7	8
+16:52:52 07/15/2009	good	Group0.7	aaaa	7% avg, cpu1 6%, cpu2 8%	1:314	7	6	8
+16:53:06 07/15/2009	good	Group0.5	network	834 bytes in/sec., 753 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1293	834.87946	753.24677	0.0	30
+17:00:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 639373.10/sec, File Write Bytes/sec: = 3353.26/sec	25:164	n/a	64.383	0	0	639373.10	4.434	10	41277637201	3353.26	0.001	10	949414628	1	nonfailure
+17:01:29 07/15/2009	good	Group0.6	memory	18% used, 4007MB free, 1.83 pages/sec	2:1315	18	4007	1.8388975
+17:01:29 07/15/2009	good	Group0.6	disk_c	36% full, 13292MB free, 20473MB total	3:1308	36	13292
+17:01:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 984.97 K	24:270	ok	984.97
+17:01:38 07/15/2009	good	Group0.6	cpu	5% avg, cpu1 5%, cpu2 6%	1:1300	5	5	6
+17:02:52 07/15/2009	good	Group0.7	aaaa	5% avg, cpu1 5%, cpu2 5%	1:315	5	5	5
+17:03:06 07/15/2009	good	Group0.5	network	627 bytes in/sec., 371 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1294	627.0872	371.05753	0.0	29
+17:10:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 35396.74/sec, File Write Bytes/sec: = 1967.05/sec	25:165	n/a	64.383	0	0	35396.74	4.434	10	42444403548	1967.05	0.001	10	1037840996	1	nonfailure
+17:11:29 07/15/2009	good	Group0.6	memory	18% used, 4008MB free, 5.18 pages/sec	2:1316	18	4008	5.185222
+17:11:29 07/15/2009	good	Group0.6	disk_c	36% full, 13292MB free, 20473MB total	3:1309	36	13292
+17:11:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1044.97 K	24:271	ok	1044.97
+17:11:38 07/15/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 5%	1:1301	5	4	5
+17:12:52 07/15/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 5%	1:316	5	4	5
+17:13:06 07/15/2009	good	Group0.5	network	541 bytes in/sec., 371 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1295	541.744	371.05753	0.0	28
+17:20:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 34952.15/sec, File Write Bytes/sec: = 285.69/sec	25:166	n/a	64.383	0	0	34952.15	4.434	10	42775404749	285.69	0.001	10	1041351574	1	nonfailure
+17:21:29 07/15/2009	good	Group0.6	memory	18% used, 4008MB free, 0.37 pages/sec	2:1317	18	4008	0.37844056
+17:21:29 07/15/2009	good	Group0.6	disk_c	36% full, 13292MB free, 20473MB total	3:1310	36	13292
+17:21:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1104.97 K	24:272	ok	1104.97
+17:21:38 07/15/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 3%	1:1302	3	3	3
+17:22:52 07/15/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 3%	1:317	3	3	3
+17:23:06 07/15/2009	good	Group0.5	network	19K in/sec., 19K out/sec., 0.00 packet errors/sec., 29 current connections.	2:1296	19572.744	19517.496	0.0	29
+17:30:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 1614430.20/sec, File Write Bytes/sec: = 2698.56/sec	25:167	n/a	64.383	0	0	1614430.20	4.434	10	43217966399	2698.56	0.001	10	1046279996	1	nonfailure
+17:31:29 07/15/2009	good	Group0.6	memory	18% used, 4011MB free, 1.00 pages/sec	2:1318	18	4011	1.0035877
+17:31:29 07/15/2009	good	Group0.6	disk_c	36% full, 13292MB free, 20473MB total	3:1311	36	13292
+17:31:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1164.97 K	24:273	ok	1164.97
+17:31:38 07/15/2009	good	Group0.6	cpu	8% avg, cpu1 7%, cpu2 9%	1:1303	8	7	9
+17:32:52 07/15/2009	good	Group0.7	aaaa	8% avg, cpu1 7%, cpu2 9%	1:318	8	7	9
+17:33:06 07/15/2009	good	Group0.5	network	36K in/sec., 1K out/sec., 0.00 packet errors/sec., 29 current connections.	2:1297	37552.047	1274.4479	0.0	29
+17:40:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 77459.17/sec, File Write Bytes/sec: = 186.67/sec	25:168	n/a	64.383	0	0	77459.17	4.434	10	43680772584	186.67	0.001	10	1050556899	1	nonfailure
+17:41:29 07/15/2009	good	Group0.6	memory	18% used, 4012MB free, 0.14 pages/sec	2:1319	18	4012	0.14170116
+17:41:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1312	36	13291
+17:41:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1224.97 K	24:274	ok	1224.97
+17:41:38 07/15/2009	good	Group0.6	cpu	7% avg, cpu1 5%, cpu2 8%	1:1304	7	5	8
+17:42:52 07/15/2009	good	Group0.7	aaaa	7% avg, cpu1 5%, cpu2 9%	1:319	7	5	9
+17:43:06 07/15/2009	good	Group0.5	network	523 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1298	523.1911	293.13544	0.0	29
+17:50:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 35959.65/sec, File Write Bytes/sec: = 1946.27/sec	25:169	n/a	64.383	0	0	35959.65	4.434	10	44260895888	1946.27	0.001	10	1100061740	1	nonfailure
+17:51:29 07/15/2009	good	Group0.6	memory	19% used, 3987MB free, 1.41 pages/sec	2:1320	19	3987	1.4118319
+17:51:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1313	36	13291
+17:51:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1284.97 K	24:275	ok	1284.97
+17:51:38 07/15/2009	good	Group0.6	cpu	12% avg, cpu1 8%, cpu2 15%	1:1305	12	8	15
+17:52:52 07/15/2009	good	Group0.7	aaaa	12% avg, cpu1 9%, cpu2 15%	1:320	12	9	15
+17:53:06 07/15/2009	good	Group0.5	network	386 bytes in/sec., 327 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1299	386.74036	327.80847	0.0	24
+18:00:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 35296.62/sec, File Write Bytes/sec: = 1981.24/sec	25:170	n/a	64.383	0	0	35296.62	4.434	10	44796186338	1981.24	0.001	10	1104259634	1	nonfailure
+18:01:29 07/15/2009	good	Group0.6	memory	19% used, 3982MB free, 0.14 pages/sec	2:1321	19	3982	0.14000648
+18:01:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1314	36	13291
+18:01:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1344.97 K	24:276	ok	1344.97
+18:01:38 07/15/2009	disabled	Group0.6	cpu	disabled by schedule	1:1305	12	8	15
+18:02:52 07/15/2009	good	Group0.7	aaaa	9% avg, cpu1 8%, cpu2 11%	1:321	9	8	11
+18:03:06 07/15/2009	good	Group0.5	network	474 bytes in/sec., 322 bytes out/sec., 0.00 packet errors/sec., 35 current connections.	2:1300	474.7334	322.67038	0.0	35
+18:10:20 07/15/2009	error	Group0.6	aaa	% Total Processor Time n/a, File Read Bytes/sec: = 77824.58/sec, File Write Bytes/sec: = 1974.08/sec	25:171	n/a	64.383	0	0	77824.58	4.434	10	45300468714	1974.08	0.001	10	1109549956	1	nonfailure
+18:11:29 07/15/2009	good	Group0.6	memory	19% used, 3978MB free, 0.79 pages/sec	2:1322	19	3978	0.79175407
+18:11:29 07/15/2009	good	Group0.6	disk_c	36% full, 13291MB free, 20473MB total	3:1315	36	13291
+18:11:31 07/15/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	MMM = 1404.97 K	24:277	ok	1404.97
+18:11:38 07/15/2009	disabled	Group0.6	cpu	disabled by schedule	1:1305	12	8	15
+18:12:52 07/15/2009	good	Group0.7	aaaa	9% avg, cpu1 7%, cpu2 12%	1:322	9	7	12

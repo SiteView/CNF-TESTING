@@ -1,0 +1,52 @@
+_monitorTemplateName=Topaz Server Common Resources
+_monitorTemplateDescription=Adds moniors for common resources among Topaz servers
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+$TOPAZ_DRIVE_LETTER$=_description=System_drive_to_monitor_disk_Space _value=C
+#
+_name=Ping: "$TOPAZ_HOST_NAME$"
+_class=PingMonitor
+_packetSize=64
+_frequency=600
+_errorFrequency=60
+_timeout=5000
+_hostname=$TOPAZ_HOST_NAME$
+#
+_name=CPU Utilization on "$TOPAZ_HOST_NAME$"
+_class=CPUMonitor
+_frequency=600
+_errorFrequency=60
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=utilizationPercentage > 70	error
+_classifier=utilizationPercentage == 'n/a'	warning
+_classifier=utilizationPercentage <= 50	good
+#
+_name=Disk Space: $TOPAZ_DRIVE_LETTER$ on "$TOPAZ_HOST_NAME$"
+_class=DiskSpaceMonitor
+_frequency=3600
+_errorFrequency=300
+_disk=$TOPAZ_DRIVE_LETTER$
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=percentFull > 85	error
+_classifier=percentFull == 'n/a'	warning
+#
+_name=Memory on "$TOPAZ_HOST_NAME$"
+_class=MemoryMonitor
+_frequency=600
+_errorFrequency=60
+_classifier=percentFull > 85	error
+_classifier=percentFull == 'n/a'	warning
+_machine=$TOPAZ_MACHINE_NAME$
+#
+_name=Memory: Available MBytes on "$TOPAZ_HOST_NAME$"
+_class=NTCounterMonitor
+_frequency=600
+_errorFrequency=60
+_pmcfile=(Custom Object)
+_counter=Available MBytes
+_object=Memory
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=value0 < 50	error
+_classifier=value0 == 'n/a'	warning
+_monitorRunCount=0
+_scale=1

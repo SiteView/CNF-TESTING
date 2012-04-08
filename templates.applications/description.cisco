@@ -1,0 +1,1045 @@
+host			host
+hrSystem			hrSystem
+hrStorage			hrStorage
+hrDevice			hrDevice
+hrSWRun			hrSWRun
+hrSWRunPerf			hrSWRunPerf
+hrSWInstalled			hrSWInstalled
+hrStorageTypes			hrStorageTypes
+hrStorageOther			hrStorageOther
+hrStorageRam			hrStorageRam
+hrStorageVirtualMemory			hrStorageVirtualMemory
+hrStorageFixedDisk			hrStorageFixedDisk
+hrStorageRemovableDisk			hrStorageRemovableDisk
+hrStorageFloppyDisk			hrStorageFloppyDisk
+hrStorageCompactDisc			hrStorageCompactDisc
+hrStorageRamDisk			hrStorageRamDisk
+hrDeviceTypes			hrDeviceTypes
+hrDeviceOther			hrDeviceOther
+hrDeviceUnknown			hrDeviceUnknown
+hrDeviceProcessor			hrDeviceProcessor
+hrDeviceNetwork			hrDeviceNetwork
+hrDevicePrinter			hrDevicePrinter
+hrDeviceDiskStorage			hrDeviceDiskStorage
+hrDeviceVideo			hrDeviceVideo
+hrDeviceAudio			hrDeviceAudio
+hrDeviceCoprocessor			hrDeviceCoprocessor
+hrDeviceKeyboard			hrDeviceKeyboard
+hrDeviceModem			hrDeviceModem
+hrDeviceParallelPort			hrDeviceParallelPort
+hrDevicePointing			hrDevicePointing
+hrDeviceSerialPort			hrDeviceSerialPort
+hrDeviceTape			hrDeviceTape
+hrDeviceClock			hrDeviceClock
+hrDeviceVolatileMemory			hrDeviceVolatileMemory
+hrDeviceNonVolatileMemory			hrDeviceNonVolatileMemory
+hrFSTypes			hrFSTypes
+hrFSOther			hrFSOther
+hrFSUnknown			hrFSUnknown
+hrFSBerkeleyFFS			hrFSBerkeleyFFS
+hrFSSys5FS			hrFSSys5FS
+hrFSFat			hrFSFat
+hrFSHPFS			hrFSHPFS
+hrFSHFS			hrFSHFS
+hrFSMFS			hrFSMFS
+hrFSNTFS			hrFSNTFS
+hrFSVNode			hrFSVNode
+hrFSJournaled			hrFSJournaled
+hrFSiso9660			hrFSiso9660
+hrFSRockRidge			hrFSRockRidge
+hrFSNFS			hrFSNFS
+hrFSNetware			hrFSNetware
+hrFSAFS			hrFSAFS
+hrFSDFS			hrFSDFS
+hrFSAppleshare			hrFSAppleshare
+hrFSRFS			hrFSRFS
+hrFSDGCFS			hrFSDGCFS
+hrFSBFS			hrFSBFS
+hrSystemUptime			The amount of time since this host was last  initialized.  Note that this is different from  sysUpTime in MIB-II [3] because sysUpTime is the  uptime of the network management portion of the  system.
+hrSystemDate			The host's notion of the local date and time of  day.
+hrSystemInitialLoadDevice			The index of the hrDeviceEntry for the device from  which this host is configured to load its initial  operating system configuration.
+hrSystemInitialLoadParameters			This object contains the parameters (e.g. a  pathname and parameter) supplied to the load device  when requesting the initial operating system  configuration from that device.
+hrSystemNumUsers			The number of user sessions for which this host is  storing state information.  A session is a  collection of processes requiring a single act of  user authentication and possibly subject to  collective job control.
+hrSystemProcesses			The number of process contexts currently loaded or  running on this system.
+hrSystemMaxProcesses			 The maximum number of process contexts this system  can support.  If there is no fixed maximum, the  value should be zero.  On systems that have a fixed  maximum, this object can help diagnose failures  that occur when this maximum is reached. 
+hrMemorySize			The amount of physical main memory contained by  the host.
+hrStorageTable			The (conceptual) table of logical storage areas on  the host.  An entry shall be placed in the storage table for  each logical area of storage that is allocated and  has fixed resource limits.  The amount of storage  represented in an entity is the amount
+hrStorageEntry			A (conceptual) entry for one logical storage area  on the host.  As an example, an instance of the  hrStorageType object might be named  hrStorageType.3
+hrStorageIndex			A unique value for each logical storage area  contained by the host.
+hrStorageType			The type of storage represented by this entry 
+hrStorageDescr			A description of the type and instance of the  storage described by this entry.
+hrStorageAllocationUnits			 The size, in bytes, of the data objects allocated  from this pool.  If this entry is monitoring  sectors, blocks, buffers, or packets, for example,  this number will commonly be greater than one.  Otherwise this number will typically be one. 
+hrStorageSize			 The size of the storage represented by this entry,  in units of hrStorageAllocationUnits. 
+hrStorageUsed			 The amount of the storage represented by this  entry that is allocated, in units of  hrStorageAllocationUnits. 
+hrStorageAllocationFailures			 The number of requests for storage represented by  this entry that could not be honored due to not  enough storage.  It should be noted that as this  object has a SYNTAX of Counter, that it does not  have a defined initial value.  However, it is  recommended that this object be initialized to  zero. 
+hrDeviceTable			The (conceptual) table of devices contained by the  host.
+hrDeviceEntry			 A (conceptual) entry for one device contained by  the host.  As an example, an instance of the  hrDeviceType object might be named hrDeviceType.3 
+hrDeviceIndex			A unique value for each device contained by the  host.  The value for each device must remain  constant at least from one re-initialization of the  agent to the next re-initialization.
+hrDeviceType			 An indication of the type of device.  If this value is `hrDeviceProcessor { hrDeviceTypes  3 }' then an entry exists in the hrProcessorTable  which corresponds to this device.  If this value is `hrDeviceNetwork { hrDeviceTypes 4  }', then an entry exists in the hrNetworkTable  which corresponds to this device.  If this value is `hrDevicePrinter { hrDeviceTypes 5  }', then an entry exists in the hrPrinterTable  which corresponds to this device.  If this value is `hrDeviceDiskStorage {  hrDeviceTypes 6 }', then an entry exists in the  hrDiskStorageTable which corresponds to this  device. 
+hrDeviceDescr			 A textual description of this device, including  the device's manufacturer and revision, and  optionally, its serial number. 
+hrDeviceID			The product ID for this device 
+hrDeviceStatus			 The current operational state of the device  described by this row of the table.  A value  unknown(1) indicates that the current state of the  device is unknown.  running(2) indicates that the  device is up and running and that no unusual error  conditions are known.  The warning(3) state  indicates that agent has been informed of an  unusual error condition by the operational software  (e.g., a disk device driver) but that the device is  still 'operational'.  An example would be high  number of soft errors on a disk.  A value of  testing(4), indicates that the device is not  available for use because it is in the testing  state.  The state of down(5) is used only when the  agent has been informed that the device is not  available for any use. 
+hrDeviceErrors			 The number of errors detected on this device.  It  should be noted that as this object has a SYNTAX  of Counter, that it does not have a defined  initial value.  However, it is recommended that  this object be initialized to zero. 
+hrProcessorTable			The (conceptual) table of processors contained by  the host.  Note that this table is potentially sparse: a  (conceptual) entry exists only if the correspondent  value of the hrDeviceType object is  `hrDeviceProcessor'.
+hrProcessorEntry			 A (conceptual) entry for one processor contained  by the host.  The hrDeviceIndex in the index  represents the entry in the hrDeviceTable that  corresponds to the hrProcessorEntry.  As an example of how objects in this table are  named, an instance of the hrProcessorFrwID object  might be named hrProcessorFrwID.3 
+hrProcessorFrwID			The product ID of the firmware associated with the  processor.
+hrProcessorLoad			 The average, over the last minute, of the  percentage of time that this processor was not  idle. 
+hrNetworkTable			The (conceptual) table of network devices  contained by the host.  Note that this table is potentially sparse: a  (conceptual) entry exists only if the correspondent  value of the hrDeviceType object is  `hrDeviceNetwork'.
+hrNetworkEntry			 A (conceptual) entry for one network device  contained by the host.  The hrDeviceIndex in the  index represents the entry in the hrDeviceTable  that corresponds to the hrNetworkEntry.  As an example of how objects in this table are  named, an instance of the hrNetworkIfIndex object  might be named hrNetworkIfIndex.3 
+hrNetworkIfIndex			The value of ifIndex which corresponds to this  network device.
+hrPrinterTable			The (conceptual) table of printers local to the  host.  Note that this table is potentially sparse: a  (conceptual) entry exists only if the correspondent  value of the hrDeviceType object is  `hrDevicePrinter'.
+hrPrinterEntry			 A (conceptual) entry for one printer local to the  host.  The hrDeviceIndex in the index represents  the entry in the hrDeviceTable that corresponds to  the hrPrinterEntry.  As an example of how objects in this table are  named, an instance of the hrPrinterStatus object  might be named hrPrinterStatus.3 
+hrPrinterStatus			 The current status of this printer device.  When  in the idle(1), printing(2), or warmup(3) state,  the corresponding hrDeviceStatus should be  running(2) or warning(3).  When in the unknown  state, the corresponding hrDeviceStatus should be  unknown(1). 
+hrPrinterDetectedErrorState			 This object represents any error conditions  detected by the printer.  The error conditions are  encoded as bits in an octet string, with the  following definitions:       Condition         Bit #    hrDeviceStatus       lowPaper          0        warning( 
+hrDiskStorageTable			 The (conceptual) table of long-term storage  devices contained by the host.  In particular, disk  devices accessed remotely over a network are not  included here.  Note that this table is potentially sparse: a  (conceptual) entry exists only if the correspondent  value of the hrDeviceType object is  `hrDeviceDiskStorage'. 
+hrDiskStorageEntry			 A (conceptual) entry for one long-term storage  device contained by the host.  The hrDeviceIndex in  the index represents the entry in the hrDeviceTable  that corresponds to the hrDiskStorageEntry. As an  example, an instance of the hrDiskStorageCapacity  object might be named hrDiskStorageCapacity.3 
+hrDiskStorageAccess			 An indication if this long-term storage device is  readable and writable or only readable.  This  should reflect the media type, any write-protect  mechanism, and any device configuration that  affects the entire device. 
+hrDiskStorageMedia			An indication of the type of media used in this  long-term storage device.
+hrDiskStorageRemoveble			Denotes whether or not the disk media may be  removed from the drive.
+hrDiskStorageCapacity			The total size for this long-term storage device 
+hrPartitionTable			 The (conceptual) table of partitions for long-term  storage devices contained by the host.  In  particular, partitions accessed remotely over a  network are not included here. 
+hrPartitionEntry			 A (conceptual) entry for one partition.  The  hrDeviceIndex in the index represents the entry in  the hrDeviceTable that corresponds to the  hrPartitionEntry.  As an example of how objects in this table are  named, an instance of the hrPartitionSize object  might be named hrPartitionSize.3.1 
+hrPartitionIndex			A unique value for each partition on this long-  term storage device.  The value for each long-term  storage device must remain constant at least from  one re-initialization of the agent to the next re-  initialization.
+hrPartitionLabel			A textual description of this partition 
+hrPartitionID			 A descriptor which uniquely represents this  partition to the responsible operating system.  On  some systems, this might take on a binary  representation. 
+hrPartitionSize			The size of this partition 
+hrPartitionFSIndex			 The index of the file system mounted on this  partition.  If no file system is mounted on this  partition, then this value shall be zero.  Note  that multiple partitions may point to one file  system, denoting that that file system resides on  those partitions.  Multiple file systems may not  reside on one partition. 
+hrFSTable			The (conceptual) table of file systems local to  this host or remotely mounted from a file server.  File systems that are in only one user's  environment on a multi-user system will not be  included in this table.
+hrFSEntry			 A (conceptual) entry for one file system local to  this host or remotely mounted from a file server.  File systems that are in only one user's  environment on a multi-user system will not be  included in this table.  As an example of how objects in this table are  named, an instance of the hrFSMountPoint object  might be named hrFSMountPoint.3 
+hrFSIndex			A unique value for each file system local to this  host.  The value for each file system must remain  constant at least from one re-initialization of  the agent to the next re-initialization.
+hrFSMountPoint			The path name of the root of this file system 
+hrFSRemoteMountPoint			 A description of the name and/or address of the  server that this file system is mounted from.  This may also include parameters such as the mount  point on the remote file system.  If this is not a  remote file system, this string should have a  length of zero. 
+hrFSType			The value of this object identifies the type of  this file system.
+hrFSAccess			 An indication if this file system is logically  configured by the operating system to be readable  and writable or only readable.  This does not  represent any local access-control policy, except  one that is applied to the file system as a whole. 
+hrFSBootable			A flag indicating whether this file system is  bootable.
+hrFSStorageIndex			 The index of the hrStorageEntry that represents  information about this file system.  If there is  no such information available, then this value  shall be zero.  The relevant storage entry will be  useful in tracking the percent usage of this file  system and diagnosing errors that may occur when  it runs out of space. 
+hrFSLastFullBackupDate			 The last date at which this complete file system  was copied to another storage device for backup.  This information is useful for ensuring that  backups are being performed regularly.  If this information is not known, then this  variable shall have the value corresponding to  January 1, year 0000, 00:00:00.0, which is encoded  as (hex)'00 00 01 01 00 00 00 00'. 
+hrFSLastPartialBackupDate			 The last date at which a portion of this file  system was copied to another storage device for  backup.  This information is useful for ensuring  that backups are being performed regularly.  If this information is not known, then this  variable shall have the value corresponding to  January 1, year 0000, 00:00:00.0, which is encoded  as (hex)'00 00 01 01 00 00 00 00'. 
+hrSWOSIndex			The value of the hrSWRunIndex for the  hrSWRunEntry that represents the primary operating  system running on this host.  This object is  useful for quickly and uniquely identifying that  primary operating system.
+hrSWRunTable			The (conceptual) table of software running on the  host.
+hrSWRunEntry			 A (conceptual) entry for one piece of software  running on the host Note that because the installed  software table only contains information for  software stored locally on this host, not every  piece of running software will be found in the  installed software table.  This is true of software  that was loaded and run from a non-local source,  such as a network-mounted file system.  As an example of how objects in this table are  named, an instance of the hrSWRunName object might  be named hrSWRunName.1287 
+hrSWRunIndex			 A unique value for each piece of software running  on the host.  Wherever possible, this should be the  system's native, unique identification number. 
+hrSWRunName			 A textual description of this running piece of  software, including the manufacturer, revision,  and the name by which it is commonly known.  If  this software was installed locally, this should be  the same string as used in the corresponding  hrSWInstalledName. 
+hrSWRunID			The product ID of this running piece of software 
+hrSWRunPath			A description of the location on long-term storage  (e.g. a disk drive) from which this software was  loaded.
+hrSWRunParameters			A description of the parameters supplied to this  software when it was initially loaded.
+hrSWRunType			The type of this software 
+hrSWRunStatus			The status of this running piece of software.  Setting this value to invalid(4) shall cause this  software to stop running and to be unloaded.
+hrSWRunPerfTable			The (conceptual) table of running software  performance metrics.
+hrSWRunPerfEntry			 A (conceptual) entry containing software  performance metrics.  As an example, an instance  of the hrSWRunPerfCPU object might be named  hrSWRunPerfCPU.1287 
+hrSWRunPerfCPU			 The number of centi-seconds of the total system's  CPU resources consumed by this process.  Note that  on a multi-processor system, this value may  increment by more than one centi-second in one  centi-second of real (wall clock) time. 
+hrSWRunPerfMem			The total amount of real system memory allocated  to this process.
+hrSWInstalledLastChange			 The value of sysUpTime when an entry in the  hrSWInstalledTable was last added, renamed, or  deleted.  Because this table is likely to contain  many entries, polling of this object allows a  management station to determine when re-downloading  of the table might be useful. 
+hrSWInstalledLastUpdateTime			 The value of sysUpTime when the hrSWInstalledTable  was last completely updated.  Because caching of  this data will be a popular implementation  strategy, retrieval of this object allows a  management station to obtain a guarantee that no  data in this table is older than the indicated  time. 
+hrSWInstalledTable			The (conceptual) table of software installed on  this host.
+hrSWInstalledEntry			 A (conceptual) entry for a piece of software  installed on this host.  As an example of how objects in this table are  named, an instance of the hrSWInstalledName object  might be named hrSWInstalledName.96 
+hrSWInstalledIndex			A unique value for each piece of software  installed on the host.  This value shall be in the  range from 1 to the number of pieces of software  installed on the host.
+hrSWInstalledName			 A textual description of this installed piece of  software, including the manufacturer, revision, the  name by which it is commonly known, and optionally,  its serial number. 
+hrSWInstalledID			The product ID of this installed piece of  software.
+hrSWInstalledType			The type of this software 
+hrSWInstalledDate			The last-modification date of this application as  it would appear in a directory listing.
+applConformance			applConformance
+applGroups			applGroups
+applCompliances			applCompliances
+applTCPProtoID			applTCPProtoID
+applUDPProtoID			applUDPProtoID
+applTable			The table holding objects which apply to all different  kinds of applications providing network services.  Each network service application capable of being  monitored should have a single entry in this table.
+applEntry			An entry associated with a single network service  application.
+applIndex			An index to uniquely identify the network service  application. This attribute is the index used for  lexicographic ordering of the table.
+applName			The name the network service application chooses to be  known by.
+applDirectoryName			The Distinguished Name of the directory entry where  static information about this application is stored.  An empty string indicates that no information about  the application is available in the directory.
+applVersion			The version of network service application software.  This field is usually defined by the vendor of the  network service application software.
+applUptime			 The value of sysUpTime at the time the network service  application was last initialized.  If the application was  last initialized prior to the last initialization of the  network management subsystem, then this object contains  a zero value. 
+applOperStatus			Indicates the operational status of the network service  application. 'down' indicates that the network service is  not available. 'up' indicates that the network service  is operational and available.  'halted' indicates that the  service is operational but not available.  'congested'  indicates that the service is operational but no additional  inbound associations can be accomodated.  'restarting'  indicates that the service is currently unavailable but is  in the process of restarting and will be available soon.  'quiescing' indicates that service is currently operational  but is in the process of shutting down. Additional inbound  associations may be rejected by applications in the  'quiescing' state.
+applLastChange			 The value of sysUpTime at the time the network service  application entered its current operational state.  If  the current state was entered prior to the last  initialization of the local network management subsystem,  then this object contains a zero value. 
+applInboundAssociations			 The number of current associations to the network service  application, where it is the responder.  An inbound  assocation occurs when a another application successfully  connects to this one. 
+applOutboundAssociations			 The number of current associations to the network service  application, where it is the initiator.  An outbound  association occurs when this application successfully  connects to another one. 
+applAccumulatedInboundAssociations			 The total number of associations to the application entity  since application initialization, where it was the responder. 
+applAccumulatedOutboundAssociations			 The total number of associations to the application entity  since application initialization, where it was the initiator. 
+applLastInboundActivity			 The value of sysUpTime at the time this application last  had an inbound association.  If the last association  occurred prior to the last initialization of the network  subsystem, then this object contains a zero value. 
+applLastOutboundActivity			 The value of sysUpTime at the time this application last  had an outbound association.  If the last association  occurred prior to the last initialization of the network  subsystem, then this object contains a zero value. 
+applRejectedInboundAssociations			 The total number of inbound associations the application  entity has rejected, since application initialization.  Rejected associations are not counted in the accumulated  association totals.  Note that this only counts  associations the application entity has rejected itself;  it does not count rejections that occur at lower layers  of the network.  Thus, this counter may not reflect the  true number of failed inbound associations. 
+applFailedOutboundAssociations			 The total number associations where the application entity  is initiator and association establishment has failed,  since application initialization.  Failed associations are  not counted in the accumulated association totals. 
+applDescription			A text description of the application.  This information  is intended to identify and briefly describe the  application in a status display.
+applURL			A URL pointing to a description of the application.  This information is intended to identify and describe  the application in a status display.
+assocTable			The table holding a set of all active application  associations.
+assocEntry			An entry associated with an association for a network  service application.
+assocIndex			An index to uniquely identify each association for a network  service application.  This attribute is the index that is  used for lexicographic ordering of the table.  Note that the  table is also indexed by the applIndex.
+assocRemoteApplication			 The name of the system running remote network service  application.  For an IP-based application this should be  either a domain name or IP address.  For an OSI application  it should be the string encoded distinguished name of the  managed object.  For X.400(1984) MTAs which do not have a  Distinguished Name, the RFC 1327 [9] syntax  'mta in globalid' should be used. Note, however, that not  all connections an MTA are necessarily to another MTA. 
+assocApplicationProtocol			 An identification of the protocol being used for the  application.  For an OSI Application, this will be the  Application Context.  For Internet applications, the IANA  maintains a registry of the OIDs which correspond to  well-known applications.  If the application protocol is  not listed in the registry, an OID value of the form  {applTCPProtoID port} or {applUDProtoID port} are used for  TCP-based and UDP-based protocols, respectively. In either  case 'port' corresponds to the primary port number being  used by the protocol. 
+assocApplicationType			This indicates whether the remote application is some type of  client making use of this network service (e.g. a Mail User  Agent) or a server acting as a peer. Also indicated is whether  the remote end initiated an incoming connection to the network  service or responded to an outgoing connection made by the  local application.  MTAs and messaging gateways are  considered to be peers for the purposes of this variable.
+assocDuration			 The value of sysUpTime at the time this association was  started.  If this association started prior to the last  initialization of the network subsystem, then this  object contains a zero value. 
+rdbmsObjects			rdbmsObjects
+rdbmsWellKnownLimitedResources			rdbmsWellKnownLimitedResources
+rdbmsTraps			rdbmsTraps
+rdbmsConformance			rdbmsConformance
+rdbmsCompliances			rdbmsCompliances
+rdbmsGroups			rdbmsGroups
+rdbmsDbTable			The table of databases installed on a system 
+rdbmsDbEntry			 An entry for a single database on the host.  Whether a   particular database is represented by a row in rdbmsDbTable   may be dependent on the activity level of that database,   according to the product's implementation.  An instance of   rdbmsRelState having the value active, other, or restricted   implies that an entry, corresponding to that instance, will   be present. 
+rdbmsDbIndex			 A numeric index, unique among all the databases from all   products on this host.  This value is a surrogate for the   conceptually unique key, which is {PrivateMibOID,   databasename} 
+rdbmsDbPrivateMibOID			 The authoritative identification for the private MIB for   this database, presumably based on the vendor, e.g., {   enterprises 111 <optional subidentifiers>} for Oracle   databases, {enterprises 757 <optional subidentifiers>} for   Ingres databases, { enterprises 897 <optional   subidentifiers>} for Sybase databases, etc.   If no OBJECT IDENTIFIER exists for the private MIB, attempts   to access this object will return noSuchName (SNMPv1)   or noSuchInstance (SNMPv2). 
+rdbmsDbVendorName			 The name of the vendor whose RDBMS manages this database,   for informational purposes. 
+rdbmsDbName			 The name of this database, in a product specific format.  The   product may need to qualify the name in some way to resolve   conflicts if it is possible for a database name to be   duplicated on a host.  It might be necessary to construct a   hierarchical name embedding the RDBMS instance/installation   on the host, and/or the owner of the database.  For instance,   '/test-installation/database-owner/database-name'. 
+rdbmsDbContact			 The textual identification of the contact person for this   managed database, together with information on how to contact   this person.   Note: if there is no server associated with this database, an   agent may need to keep this in other persistent storage,   e.g., a configuration file.   Note that a compliant agent does not need to   allow write access to this object. 
+rdbmsDbInfoTable			The table of additional information about databases present   on the host.
+rdbmsDbInfoEntry			 Information that must be present if the database is actively   opened.  If the database is not actively opened, then   attempts to access corresponding instances in this table may   result in either noSuchName (SNMPv1) or noSuchInstance   (SNMPv2).  'Actively opened' means at least one of the   rdbmsRelState entries for this database in the rdbmsRelTable   is active(2). 
+rdbmsDbInfoProductName			The textual product name of the server that created or last   restructured this database.  The format is product specific.
+rdbmsDbInfoVersion			The version number of the server that created or last   restructured this database.  The format is product specific.
+rdbmsDbInfoSizeUnits			 Identification of the units used to measure the size of this   database in rdbmsDbInfoSizeAllocated and rdbmsDbInfoSizeUsed.   bytes(1) indicates individual bytes, kbytes(2) indicates   units of kilobytes, mbytes(3) indicates units of megabytes,   gbytes(4) indicates units of gigabytes, and tbytes(5)   indicates units of terabytes.  All are binary multiples -- 1K   = 1024.  If writable, changes here are reflected in the get   values of the associated objects. 
+rdbmsDbInfoSizeAllocated			 The estimated size of this database (in   rdbmsDbInfoSizeUnits), which is the disk space that has been   allocated to it and is no longer available to users on this   host.  rdbmsDbInfoSize does not necessarily indicate the   amount of space actually in use for database data.  Some   databases may support extending allocated size, and others   may not.   Note that a compliant agent does not need to   allow write access to this object. 
+rdbmsDbInfoSizeUsed			 The estimated size of this database, in rdbmsDbInfoSizeUnits,   which is actually in use for database data. 
+rdbmsDbInfoLastBackup			 The date and time that the latest complete or partial backup   of the database was taken. If a database has never been   backed up, then attempts to access this object will   result in either noSuchName (SNMPv1) or noSuchInstance   (SNMPv2). 
+rdbmsDbParamTable			The table of configuration parameters for a database.   Entries should be populated according to the following   guidelines:   (1) The value should be specified through administrative       (human) intervention.   (2) It should be configured on a per-data
+rdbmsDbParamEntry			 An entry for a single configuration parameter for a database.   Parameters with single values have a subindex value of one.   If the parameter is naturally considered to contain a   variable number of members of a class, e.g.  members of the   DBA user gr 
+rdbmsDbParamName			The name of a configuration parameter for a database.  This   name is product-specific.  The length is limited to 64   characters to constrain the number of sub-identifiers needed   for instance identification (and to minimize network   traffic).
+rdbmsDbParamSubIndex			 The subindex value for this parameter.  If the parameter is   naturally considered to contain a variable number of members   of a class, e.g.  members of the DBA user group, or files   which are part of the database, then it must be presented as   a set of rows.  If, on the other hand, the parameter   represents a set of choices from a class, e.g. the   permissions on a file or the options chosen out of the set of   all options allowed, AND is guaranteed to always fit in the   255 character length of a DisplayString, then it may be   presented as a comma separated list with a subindex value of   one.  Zero may not be used as a value. 
+rdbmsDbParamID			 The ID of the parameter which may be described in some other   MIB (e.g., an enterprise-specific MIB module).  If there is   no ID for this rdbmsDbParamName, attempts to access this   object will return noSuchName (SNMPv1) or noSuchInstance   (SNMPv2). 
+rdbmsDbParamCurrValue			 The value for a configuration parameter now in effect, the   actual setting for the database.  While there may multiple   values in the temporal domain of interest (for instance, the   value to take effect at the next restart), this is the   current setting.   Note that a compliant agent does not need to   allow write access to this object. 
+rdbmsDbParamComment			Annotation which describes the purpose of a configuration   parameter or the reason for a particular parameter's   setting.   Note that a compliant agent does not need to   allow write access to this object.
+rdbmsDbLimitedResourceTable			The table of limited resources that are kept per-database 
+rdbmsDbLimitedResourceEntry			 An entry for a single limited resource kept per-database.   A limited resource has maximum use determined by a parameter   that might or might not be changeable at run time, or visible   in the rdbmsDbParamTable. Examples would be the number of   available locks, or disk space on a partition.  Arrays of   resources are supported through an integer sub index, which   should have the value of one for single-instance names.   Limited resources that are shared across databases, are best   put in the rdbmsSvrLimitedResourceTable instead of this one.   If the database is not actively opened, then attempts to   access corresponding instances in this table may result in   either noSuchName (SNMPv1) or noSuchInstance (SNMPv2).   'Actively opened' means at least one of the rdbmsRelState   entries for this database in the rdbmsRelTable is active(2). 
+rdbmsDbLimitedResourceName			 The name of the resource, for instance 'global locks' or   'locks for the FOO database', or 'data space on /dev/rdsk/5s0   for FOO'. The length is limited to 64 characters to constrain   the number of sub-identifiers needed for instance   identification (and to minimize network traffic). 
+rdbmsDbLimitedResourceID			 The ID of the resource which may be described in some other   MIB (e.g., an enterprise-specific MIB module).  If there is   no ID for this rdbmsDbLimitedResourceName, attempts to access   this object will return noSuchName (SNMPv1) or noSuchInstance   (SNMPv2). 
+rdbmsDbLimitedResourceLimit			The maximum value the resource use may attain.   Note that a compliant agent does not need to   allow write access to this object.
+rdbmsDbLimitedResourceCurrent			The current value for the resource 
+rdbmsDbLimitedResourceHighwater			 The maximum value of the resource seen since applUpTime   was reset for the earliest server which has the database   actively opened.   If there are two servers with the database open, and the   oldest one dies, the proper way to invalidate the value is by   resetting sysUpTime. 
+rdbmsDbLimitedResourceFailures			 The number of times the system wanted to exceed the limit of   the resource since applUpTime was reset for the earliest   server which has the database actively opened.   If there are two servers with the DB open, and the   oldest one dies, the proper way to invalidate the value is by   resetting sysUpTime. 
+rdbmsDbLimitedResourceDescription			 A description of the resource and the meaning of the integer   units used for Limit, Current, and Highwater.   Note that a compliant agent does not need to   allow write access to this object. 
+rdbmsSrvTable			The table of database servers running or installed   on a system.
+rdbmsSrvEntry			 An entry for a single database server.  A server is an   independent entity that provides access to one or more   databases.  Failure of one does not affect access to   databases through any other servers.  There might be one or   more servers providing access to a database.  A server may be   a 'process' or collection of 'processes', as interpreted by   the product. 
+rdbmsSrvPrivateMibOID			 The authoritative identification for the private MIB for this   server, presumably based on the vendor, e.g., { enterprises   111 <optional subidentifiers>} for Oracle servers, {   enterprises 757 <optional subidentifiers>} for Ingres   servers, { enterprises 897 <optional subidentifiers>} for   Sybase servers, etc.   If no OBJECT IDENTIFIER exists for the private MIB, attempts   to access this object will return noSuchName (SNMPv1)   or noSuchInstance (SNMPv2). 
+rdbmsSrvVendorName			 The name of the vendor whose RDBMS manages this database,   for informational purposes. 
+rdbmsSrvProductName			 The product name of this server.  This is normally the   vendor's formal name for the product, in product specific   format. 
+rdbmsSrvContact			 The textual identification of the contact person for this   managed server, together with information on how to contact   this person.   Note: if there is no active server associated with this   object, an agent may need to keep this in other persistent   storage, e.g., a configuration file.   Note that a compliant agent does not need to   allow write access to this object. 
+rdbmsSrvInfoTable			The table of additional information about database servers.   Entries in this table correspond to applications in the   APPLICATION-MIB applTable.  Some objects in that table are   application-specific.  When they are associated with an RDBMS   server in 
+rdbmsSrvInfoEntry			 Information that must be present for a single 'up' database   server, with visibility determined by the value of the   corresponding applOperStatus object.  If an instance of   applOperStatus is not up(1), then attempts to access   corresponding instances in this table may result in either   noSuchName (SNMPv1) or noSuchInstance (SNMPv2) being returned   by the agent. 
+rdbmsSrvInfoStartupTime			The date and time at which this server was last started 
+rdbmsSrvInfoFinishedTransactions			 The number of transactions visible to this server that have   been completed by either commit or abort.  Some database   operations, such as read-only queries, may not result in the   creation of a transaction. 
+rdbmsSrvInfoDiskReads			The total number of reads of database files issued to the   operating system by this server since startup.  Numbers are   not comparable between products.  What constitutes a   readand how it is accounted is product-specific.
+rdbmsSrvInfoLogicalReads			 The total number of logical reads of database files made   internally by this server since startup.  The values of this   object and those of rdbmsSrvInfoDiskReads reveal the effect   of caching on read operation. Numbers are not comparable   between products, and may only be meaningful when aggregated   across all servers sharing a common cache. 
+rdbmsSrvInfoDiskWrites			The total number of writes to database files issued to the   operating system by this server since startup.  Numbers are   not comparable between products.
+rdbmsSrvInfoLogicalWrites			 The total number of times parts of the database files have   been marked 'dirty' and in need of writing to the disk.  This   value and rdbmsSrvInfoDiskWrites give some indication of the   effect of 'write-behind' strategies in reducing the number of   disk writes compared to database operations.  Because the   writes may be done by servers other than those marking the   parts of the database files dirty, these values may only be   meaningful when aggregated across all servers sharing a   common cache.  Numbers are not comparable between products. 
+rdbmsSrvInfoPageReads			 The total number of pages in database files read by this   server since startup.  'Pages' are product specific units of   disk i/o operations.  This value, along with   rdbmsSrvInfoDiskReads, reveals the effect of any grouping   read-ahead that may be used to enhance performance of some   queries, such as scans. 
+rdbmsSrvInfoPageWrites			 The total number of pages in database files written by this   server since startup.  Pages are product-specific units of   disk I/O.  This value, with rdbmsSrvInfoDiskWrites, shows the   effect of write strategies that collapse logical writes of   contiguous pages into single calls to the operating system. 
+rdbmsSrvInfoDiskOutOfSpaces			 The total number of times the server has been unable to   obtain disk space that it wanted, since server startup.  This   would be inspected by an agent on receipt of an   rdbmsOutOfSpace trap. 
+rdbmsSrvInfoHandledRequests			 The total number of requests made to the server on inbound   associations.  The meaning of 'requests' is product specific,   and is not comparable between products.   This is intended to encapsulate high level semantic   operations between clients and servers, or between peers.   For instance, one request might correspond to a 'select' or   an 'insert' statement.  It is not intended to capture disk   i/o described in rdbmsSrvInfoDiskReads and   rdbmsSrvInfoDiskWrites. 
+rdbmsSrvInfoRequestRecvs			 The number of receive operations made processing any requests   on inbound associations. The meaning of operations is product   specific, and is not comparable between products.   This is intended to capture lower-level i/o operations than   shown by HandledRequests, between clients and servers, or   between peers.  For instance, it might roughly correspond to   the amount of data given with an 'insert' statement.  It is   not intended to capture disk i/o described in   rdbmsSrvInfoDiskReads and rdbmsSrvInfoDiskWrites. 
+rdbmsSrvInfoRequestSends			 The number of send operations made processing requests   handled on inbound associations.  The meaning of operations   is product specific, and is not comparable between products.   This is intended to capture lower-level i/o operations than   shown by HandledRequests, between between clients and   servers, or between peers.  It might roughly correspond to   the number of rows returned by a 'select' statement.  It is   not intended to capture disk i/o described in DiskReads. 
+rdbmsSrvInfoHighwaterInboundAssociations			The greatest number of inbound associations that have been   simultaneously open to this server since startup.
+rdbmsSrvInfoMaxInboundAssociations			 The greatest number of inbound associations that can be   simultaneously open with this server.  If there is no limit,   then the value should be zero.   Note that a compliant agent does not need to   allow write access to this object. 
+rdbmsSrvParamTable			The table of configuration parameters for a server.  Entries   should be populated according to the following guidelines:   (1) The value should be specified through administrative       (human) intervention.   (2) It should be configured on a per-server 
+rdbmsSrvParamEntry			 An entry for a single configuration parameter for a server.   Parameters with single values have a subindex value of one.   If the parameter is naturally considered to contain a   variable number of members of a class, e.g.  members of the   DBA user grou 
+rdbmsSrvParamName			The name of a configuration parameter for a server.  This   name is product-specific. The length is limited to 64   characters to constrain the number of sub-identifiers needed   for instance identification (and to minimize network   traffic).
+rdbmsSrvParamSubIndex			 The subindex value for this parameter.  If the parameter is   naturally considered to contain a variable number of members   of a class, e.g.  members of the DBA user group, or files   which are part of the database, then it must be presented as   a set of rows.  If, on the other hand, the parameter   represents a set of choices from a class, e.g. the   permissions on a file or the options chosen out of the set of   all options allowed, AND is guaranteed to always fit in the   255 character length of a DisplayString, then it may be   presented as a comma separated list with a subindex value of   one.  Zero may not be used as a value. 
+rdbmsSrvParamID			 The ID of the parameter which may be described in some   other MIB.  If there is no ID for this rdbmsSrvParamName,   attempts to access this object will return noSuchName   (SNMPv1) or noSuchInstance (SNMPv2). 
+rdbmsSrvParamCurrValue			 The value for a configuration parameter now in effect, the   actual setting for the server.  While there may multiple   values in the temporal domain of interest (for instance, the   value to take effect at the next restart), this is the   current setting.   Note that a compliant agent does not need to   allow write access to this object. 
+rdbmsSrvParamComment			Annotation which describes the purpose of a configuration   parameter or the reason for a particular parameter's   setting.   Note that a compliant agent does not need to   allow write access to this object.
+rdbmsSrvLimitedResourceTable			The table of limited resources relevant to a server 
+rdbmsSrvLimitedResourceEntry			 An entry for a single limited resource kept by the server.   A limited resource has maximum use determined by a parameter   that might or might not changeable at run time, or visible in   the rbmsSrvParamTable.  Examples would be the number of   available locks, or number of concurrent executions allowed   in a server.  Arrays of resources are supported through an   integer subindex, which should have the value of one for   single-instance names.   Limited resources that are shared across servers or databases   are best duplicated in this table across   all servers accessing the resource. 
+rdbmsSrvLimitedResourceName			 The name of the resource, for instance 'threads' or   'semaphores', or 'buffer pages' 
+rdbmsSrvLimitedResourceID			 The ID of the resource which may be described in some other   MIB.  If there is no ID for this rdbmsSrvLimitedResourceName,   attempts to access this object will return noSuchName   (SNMPv1) or noSuchInstance (SNMPv2). 
+rdbmsSrvLimitedResourceLimit			The maximum value the resource use may attain.   Note that a compliant agent does not need to   allow write access to this object.
+rdbmsSrvLimitedResourceCurrent			The current value for the resource 
+rdbmsSrvLimitedResourceHighwater			The maximum value of the resource seen since applUpTime   was reset.
+rdbmsSrvLimitedResourceFailures			The number of times the system wanted to exceed the limit of   the resource since applUpTime was reset.
+rdbmsSrvLimitedResourceDescription			 A description of the resource and the meaning of the integer   units used for Limit, Current, and Highwater.   Note that a compliant agent does not need to   allow write access to this object. 
+rdbmsRelTable			A table relating databases and servers present on a host 
+rdbmsRelEntry			 An entry relating a single database server to a single   database to which it may provide access.  The table is   indexed first by the index of rdbmsDbTable, and then   rdbmsSrvTable, so that all servers capable of providing   access to a given database may be found by SNMP traversal   operations (get-next and get-bulk).  The makeup of this table   depends on the product's architecture, e.g. if it is one   server - many databases, then each server will appear n   times, where n is the number of databases it may access, and   each database will appear once.  If the architecture is one   database - many servers, then each server will appear once   and each database will appear n times, where n is the number   of servers that may be accessing it. 
+rdbmsRelState			 The state of this server's access to this database.   Active(2) means the server is actively using the database.   Available(3) means the server could use the database if   necessary.  Restricted(4) means the database is in some   administratively determined state of less-than-complete   availability.  Unavailable(5) means the database is not   available through this server.  Other(1) means the   database/server is in some other condition, possibly   described in the vendor private MIB. 
+rdbmsRelActiveTime			 The time the database was made active by the server.  If an   instance of rdbmsRelState is not active(1), then attempts to   access the corresponding instance of this object may result   in either noSuchName (SNMPv1) or noSuchInstance (SNMPv2)   being returned by the agent. 
+null			null
+dod			dod
+internet			internet
+directory			directory
+mgmt			mgmt
+experimental			experimental
+private			private
+enterprises			enterprises
+mib-2			mib-2
+system			system
+interfaces			interfaces
+at			at
+ip			ip
+icmp			icmp
+tcp			tcp
+udp			udp
+egp			egp
+transmission			transmission
+snmp			snmp
+sysDescr			 A textual description of the entity.  This value  should include the full name and version  identification of the system's hardware type,  software operating-system, and networking  software.  It is mandatory that this only contain  printable ASCII characters. 
+sysObjectID			 The vendor's authoritative identification of the  network management subsystem contained in the  entity.  This value is allocated within the SMI  enterprises subtree (1.3.6.1.4.1) and provides an  easy and unambiguous means for determining `what  kind of box' is being managed.  For example, if  vendor `Flintstones, Inc.' was assigned the  subtree 1.3.6.1.4.1.4242, it could assign the  identifier 1.3.6.1.4.1.4242.1.1 to its `Fred  Router'. 
+sysUpTime			The time (in hundredths of a second) since the  network management portion of the system was last  re-initialized.
+sysContact			 The textual identification of the contact person  for this managed node, together with information  on how to contact this person. 
+sysName			 An administratively-assigned name for this  managed node.  By convention, this is the node's  fully-qualified domain name. 
+sysLocation			 The physical location of this node (e.g.,  `telephone closet, 3rd floor'). 
+sysServices			 A value which indicates the set of services that  this entity primarily offers.  The value is a sum.  This sum initially takes the  value zero, Then, for each layer, L, in the range  1 through 7, that this node performs transactions  for, 2 raised to (L - 
+ifNumber			The number of network interfaces (regardless of  their current state) present on this system.
+ifTable			A list of interface entries.  The number of  entries is given by the value of ifNumber.
+ifEntry			An interface entry containing objects at the  subnetwork layer and below for a particular  interface.
+ifIndex			A unique value for each interface.  Its value  ranges between 1 and the value of ifNumber.  The  value for each interface must remain constant at  least from one re-initialization of the entity's  network management system to the next re-  initialization.
+ifDescr			 A textual string containing information about the  interface.  This string should include the name of  the manufacturer, the product name and the version  of the hardware interface. 
+ifType			 The type of interface, distinguished according to  the physical/link protocol(s) immediately `below'  the network layer in the protocol stack. 
+ifMtu			 The size of the largest datagram which can be  sent/received on the interface, specified in  octets.  For interfaces that are used for  transmitting network datagrams, this is the size  of the largest network datagram that can be sent  on the interface. 
+ifSpeed			 An estimate of the interface's current bandwidth  in bits per second.  For interfaces which do not  vary in bandwidth or for those where no accurate  estimation can be made, this object should contain  the nominal bandwidth. 
+ifPhysAddress			 The interface's address at the protocol layer  immediately `below' the network layer in the  protocol stack.  For interfaces which do not have  such an address (e.g., a serial line), this object  should contain an octet string of zero length. 
+ifAdminStatus			The desired state of the interface.  The  testing(3) state indicates that no operational  packets can be passed.
+ifOperStatus			The current operational state of the interface.  The testing(3) state indicates that no operational  packets can be passed.
+ifLastChange			 The value of sysUpTime at the time the interface  entered its current operational state.  If the  current state was entered prior to the last re-  initialization of the local network management  subsystem, then this object contains a zero  value. 
+ifInOctets			 The total number of octets received on the  interface, including framing characters. 
+ifInUcastPkts			The number of subnetwork-unicast packets  delivered to a higher-layer protocol.
+ifInNUcastPkts			 The number of non-unicast (i.e., subnetwork-  broadcast or subnetwork-multicast) packets  delivered to a higher-layer protocol. 
+ifInDiscards			The number of inbound packets which were chosen  to be discarded even though no errors had been  detected to prevent their being deliverable to a  higher-layer protocol.  One possible reason for  discarding such a packet could be to free up  buffer space.
+ifInErrors			The number of inbound packets that contained  errors preventing them from being deliverable to a  higher-layer protocol.
+ifInUnknownProtos			The number of packets received via the interface  which were discarded because of an unknown or  unsupported protocol.
+ifOutOctets			 The total number of octets transmitted out of the  interface, including framing characters. 
+ifOutUcastPkts			 The total number of packets that higher-level  protocols requested be transmitted to a  subnetwork-unicast address, including those that  were discarded or not sent. 
+ifOutNUcastPkts			 The total number of packets that higher-level  protocols requested be transmitted to a non-  unicast (i.e., a subnetwork-broadcast or  subnetwork-multicast) address, including those  that were discarded or not sent. 
+ifOutDiscards			The number of outbound packets which were chosen  to be discarded even though no errors had been  detected to prevent their being transmitted.  One  possible reason for discarding such a packet could  be to free up buffer space.
+ifOutErrors			The number of outbound packets that could not be  transmitted because of errors.
+ifOutQLen			The length of the output packet queue (in  packets).
+ifSpecific			 A reference to MIB definitions specific to the  particular media being used to realize the  interface.  For example, if the interface is  realized by an ethernet, then the value of this  object refers to a document defining objects  specific to ethernet.  If this information is not  present, its value should be set to the OBJECT  IDENTIFIER { 0 0 }, which is a syntatically valid  object identifier, and any conformant  implementation of ASN.1 and BER must be able to  generate and recognize this value. 
+atTable			 The Address Translation tables contain the  NetworkAddress to `physical' address equivalences.  Some interfaces do not use translation tables for  determining address equivalences (e.g., DDN-X.25  has an algorithmic method); if all interfaces are  of this type, then the Address Translation table  is empty, i.e., has zero entries. 
+atEntry			Each entry contains one NetworkAddress to  `physical' address equivalence.
+atIfIndex			The interface on which this entry's equivalence  is effective.  The interface identified by a  particular value of this index is the same  interface as identified by the same value of  ifIndex.
+atPhysAddress			 The media-dependent `physical' address.  Setting this object to a null string (one of zero  length) has the effect of invaliding the  corresponding entry in the atTable object.  That  is, it effectively dissasociates the interface  identified with said entry from the mapping  identified with said entry.  It is an  implementation-specific matter as to whether the  agent removes an invalidated entry from the table.  Accordingly, management stations must be prepared  to receive tabular information from agents that  corresponds to entries not currently in use.  Proper interpretation of such entries requires  examination of the relevant atPhysAddress object. 
+atNetAddress			 The NetworkAddress (e.g., the IP address)  corresponding to the media-dependent `physical'  address. 
+ipForwarding			 The indication of whether this entity is acting  as an IP gateway in respect to the forwarding of  datagrams received by, but not addressed to, this  entity.  IP gateways forward datagrams.  IP hosts  do not (except those source-routed via the host).  Note that for some managed nodes, this object may  take on only a subset of the values possible.  Accordingly, it is appropriate for an agent to  return a `badValue' response if a management  station attempts to change this object to an  inappropriate value. 
+ipDefaultTTL			 The default value inserted into the Time-To-Live  field of the IP header of datagrams originated at  this entity, whenever a TTL value is not supplied  by the transport layer protocol. 
+ipInReceives			 The total number of input datagrams received from  interfaces, including those received in error. 
+ipInHdrErrors			 The number of input datagrams discarded due to  errors in their IP headers, including bad  checksums, version number mismatch, other format  errors, time-to-live exceeded, errors discovered  in processing their IP options, etc. 
+ipInAddrErrors			 The number of input datagrams discarded because  the IP address in their IP header's destination  field was not a valid address to be received at  this entity.  This count includes invalid  addresses (e.g., 0.0.0.0) and addresses of  unsupported Classes (e.g., Class E).  For entities  which are not IP Gateways and therefore do not  forward datagrams, this counter includes datagrams  discarded because the destination address was not  a local address. 
+ipForwDatagrams			 The number of input datagrams for which this  entity was not their final IP destination, as a  result of which an attempt was made to find a  route to forward them to that final destination.  In entities which do not act as IP Gateways, this  counter will include only those packets which were  Source-Routed via this entity, and the Source-  Route option processing was successful. 
+ipInUnknownProtos			The number of locally-addressed datagrams  received successfully but discarded because of an  unknown or unsupported protocol.
+ipInDiscards			 The number of input IP datagrams for which no  problems were encountered to prevent their  continued processing, but which were discarded  (e.g., for lack of buffer space).  Note that this  counter does not include any datagrams discarded  while awaiting re-assembly. 
+ipInDelivers			The total number of input datagrams successfully  delivered to IP user-protocols (including ICMP).
+ipOutRequests			The total number of IP datagrams which local IP  user-protocols (including ICMP) supplied to IP in  requests for transmission.  Note that this counter  does not include any datagrams counted in  ipForwDatagrams.
+ipOutDiscards			 The number of output IP datagrams for which no  problem was encountered to prevent their  transmission to their destination, but which were  discarded (e.g., for lack of buffer space).  Note  that this counter would include datagrams counted  in ipForwDatagrams if any such packets met this  (discretionary) discard criterion. 
+ipOutNoRoutes			The number of IP datagrams discarded because no  route could be found to transmit them to their  destination.  Note that this counter includes any  packets counted in ipForwDatagrams which meet this  `no-route' criterion.  Note that this includes any  datagarms which a host cannot route because all of  its default gateways are down.
+ipReasmTimeout			The maximum number of seconds which received  fragments are held while they are awaiting  reassembly at this entity.
+ipReasmReqds			The number of IP fragments received which needed  to be reassembled at this entity.
+ipReasmOKs			The number of IP datagrams successfully re-  assembled.
+ipReasmFails			 The number of failures detected by the IP re-  assembly algorithm (for whatever reason: timed  out, errors, etc).  Note that this is not  necessarily a count of discarded IP fragments  since some algorithms (notably the algorithm in  RFC 815) can lose track of the number of fragments  by combining them as they are received. 
+ipFragOKs			The number of IP datagrams that have been  successfully fragmented at this entity.
+ipFragFails			 The number of IP datagrams that have been  discarded because they needed to be fragmented at  this entity but could not be, e.g., because their  Don't Fragment flag was set. 
+ipFragCreates			The number of IP datagram fragments that have  been generated as a result of fragmentation at  this entity.
+ipAddrTable			The table of addressing information relevant to  this entity's IP addresses.
+ipAddrEntry			The addressing information for one of this  entity's IP addresses.
+ipAdEntAddr			The IP address to which this entry's addressing  information pertains.
+ipAdEntIfIndex			The index value which uniquely identifies the  interface to which this entry is applicable.  The  interface identified by a particular value of this  index is the same interface as identified by the  same value of ifIndex.
+ipAdEntNetMask			The subnet mask associated with the IP address of  this entry.  The value of the mask is an IP  address with all the network bits set to 1 and all  the hosts bits set to 0.
+ipAdEntBcastAddr			 The value of the least-significant bit in the IP  broadcast address used for sending datagrams on  the (logical) interface associated with the IP  address of this entry.  For example, when the  Internet standard all-ones broadcast address is  used, the value will be 1.  This value applies to  both the subnet and network broadcasts addresses  used by the entity on this (logical) interface. 
+ipAdEntReasmMaxSize			The size of the largest IP datagram which this  entity can re-assemble from incoming IP fragmented  datagrams received on this interface.
+ipRouteTable			This entity's IP Routing table 
+ipRouteEntry			A route to a particular destination 
+ipRouteDest			 The destination IP address of this route.  An  entry with a value of 0.0.0.0 is considered a  default route.  Multiple routes to a single  destination can appear in the table, but access to  such multiple entries is dependent on the table-  access mechanisms defined by the network  management protocol in use. 
+ipRouteIfIndex			The index value which uniquely identifies the  local interface through which the next hop of this  route should be reached.  The interface identified  by a particular value of this index is the same  interface as identified by the same value of  ifIndex.
+ipRouteMetric1			 The primary routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteMetric2			 An alternate routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteMetric3			 An alternate routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteMetric4			 An alternate routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteNextHop			 The IP address of the next hop of this route.  (In the case of a route bound to an interface  which is realized via a broadcast media, the value  of this field is the agent's IP address on that  interface.) 
+ipRouteType			 The type of route.  Note that the values  direct(3) and indirect(4) refer to the notion of  direct and indirect routing in the IP  architecture.  Setting this object to the value invalid(2) has  the effect of invalidating the corresponding entry  in the ipRouteTable object.  That is, it  effectively dissasociates the destination  identified with said entry from the route  identified with said entry.  It is an  implementation-specific matter as to whether the  agent removes an invalidated entry from the table.  Accordingly, management stations must be prepared  to receive tabular information from agents that  corresponds to entries not currently in use.  Proper interpretation of such entries requires  examination of the relevant ipRouteType object. 
+ipRouteProto			The routing mechanism via which this route was  learned.  Inclusion of values for gateway routing  protocols is not intended to imply that hosts  should support those protocols.
+ipRouteAge			The number of seconds since this route was last  updated or otherwise determined to be correct.  Note that no semantics of `too old' can be implied  except through knowledge of the routing protocol  by which the route was learned.
+ipRouteMask			 Indicate the mask to be logical-ANDed with the  destination address before being compared to the  value in the ipRouteDest field.  For those systems  that do not support arbitrary subnet masks, an  agent constructs the value of the ipRouteMask by  determining whether the value of the correspondent  ipRouteDest field belong to a class-A, B, or C  network, and then using one of:       mask           network       255.0.0.0      class-A       255.255.0.0    class-B       255.255.255.0  class-C  If the value of the ipRouteDest is 0.0.0.0 (a  default route), then the mask value is also  0.0.0.0.  It should be noted that all IP routing  subsystems implicitly use this mechanism. 
+ipRouteMetric5			 An alternate routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteInfo			 A reference to MIB definitions specific to the  particular routing protocol which is responsible  for this route, as determined by the value  specified in the route's ipRouteProto value.  If  this information is not present, its value should  be set to the OBJECT IDENTIFIER { 0 0 }, which is  a syntatically valid object identifier, and any  conformant implementation of ASN.1 and BER must be  able to generate and recognize this value. 
+ipNetToMediaTable			The IP Address Translation table used for mapping  from IP addresses to physical addresses.
+ipNetToMediaEntry			Each entry contains one IpAddress to `physical'  address equivalence.
+ipNetToMediaIfIndex			The interface on which this entry's equivalence  is effective.  The interface identified by a  particular value of this index is the same  interface as identified by the same value of  ifIndex.
+ipNetToMediaPhysAddress			The media-dependent `physical' address 
+ipNetToMediaNetAddress			The IpAddress corresponding to the media-  dependent `physical' address.
+ipNetToMediaType			 The type of mapping.  Setting this object to the value invalid(2) has  the effect of invalidating the corresponding entry  in the ipNetToMediaTable.  That is, it effectively  dissasociates the interface identified with said  entry from the mapping identified with said entry.  It is an implementation-specific matter as to  whether the agent removes an invalidated entry  from the table.  Accordingly, management stations  must be prepared to receive tabular information  from agents that corresponds to entries not  currently in use.  Proper interpretation of such  entries requires examination of the relevant  ipNetToMediaType object. 
+ipRoutingDiscards			The number of routing entries which were chosen  to be discarded even though they are valid.  One  possible reason for discarding such an entry could  be to free-up buffer space for other routing  entries.
+icmpInMsgs			The total number of ICMP messages which the  entity received.  Note that this counter includes  all those counted by icmpInErrors.
+icmpInErrors			 The number of ICMP messages which the entity  received but determined as having ICMP-specific  errors (bad ICMP checksums, bad length, etc.). 
+icmpInDestUnreachs			The number of ICMP Destination Unreachable  messages received.
+icmpInTimeExcds			The number of ICMP Time Exceeded messages  received.
+icmpInParmProbs			The number of ICMP Parameter Problem messages  received.
+icmpInSrcQuenchs			The number of ICMP Source Quench messages  received.
+icmpInRedirects			The number of ICMP Redirect messages received 
+icmpInEchos			The number of ICMP Echo (request) messages  received.
+icmpInEchoReps			The number of ICMP Echo Reply messages received 
+icmpInTimestamps			The number of ICMP Timestamp (request) messages  received.
+icmpInTimestampReps			The number of ICMP Timestamp Reply messages  received.
+icmpInAddrMasks			The number of ICMP Address Mask Request messages  received.
+icmpInAddrMaskReps			The number of ICMP Address Mask Reply messages  received.
+icmpOutMsgs			The total number of ICMP messages which this  entity attempted to send.  Note that this counter  includes all those counted by icmpOutErrors.
+icmpOutErrors			The number of ICMP messages which this entity did  not send due to problems discovered within ICMP  such as a lack of buffers.  This value should not  include errors discovered outside the ICMP layer  such as the inability of IP to route the resultant  datagram.  In some implementations there may be no  types of error which contribute to this counter's  value.
+icmpOutDestUnreachs			The number of ICMP Destination Unreachable  messages sent.
+icmpOutTimeExcds			The number of ICMP Time Exceeded messages sent 
+icmpOutParmProbs			The number of ICMP Parameter Problem messages  sent.
+icmpOutSrcQuenchs			The number of ICMP Source Quench messages sent 
+icmpOutRedirects			 The number of ICMP Redirect messages sent.  For a  host, this object will always be zero, since hosts  do not send redirects. 
+icmpOutEchos			The number of ICMP Echo (request) messages sent 
+icmpOutEchoReps			The number of ICMP Echo Reply messages sent 
+icmpOutTimestamps			The number of ICMP Timestamp (request) messages  sent.
+icmpOutTimestampReps			The number of ICMP Timestamp Reply messages  sent.
+icmpOutAddrMasks			The number of ICMP Address Mask Request messages  sent.
+icmpOutAddrMaskReps			The number of ICMP Address Mask Reply messages  sent.
+tcpRtoAlgorithm			The algorithm used to determine the timeout value  used for retransmitting unacknowledged octets.
+tcpRtoMin			 The minimum value permitted by a TCP  implementation for the retransmission timeout,  measured in milliseconds.  More refined semantics  for objects of this type depend upon the algorithm  used to determine the retransmission timeout.  In  particular, when the timeout algorithm is rsre(3),  an object of this type has the semantics of the  LBOUND quantity described in RFC 793. 
+tcpRtoMax			 The maximum value permitted by a TCP  implementation for the retransmission timeout,  measured in milliseconds.  More refined semantics  for objects of this type depend upon the algorithm  used to determine the retransmission timeout.  In  particular, when the timeout algorithm is rsre(3),  an object of this type has the semantics of the  UBOUND quantity described in RFC 793. 
+tcpMaxConn			 The limit on the total number of TCP connections  the entity can support.  In entities where the  maximum number of connections is dynamic, this  object should contain the value -1. 
+tcpActiveOpens			The number of times TCP connections have made a  direct transition to the SYN-SENT state from the  CLOSED state.
+tcpPassiveOpens			The number of times TCP connections have made a  direct transition to the SYN-RCVD state from the  LISTEN state.
+tcpAttemptFails			 The number of times TCP connections have made a  direct transition to the CLOSED state from either  the SYN-SENT state or the SYN-RCVD state, plus the  number of times TCP connections have made a direct  transition to the LISTEN state from the SYN-RCVD  state. 
+tcpEstabResets			The number of times TCP connections have made a  direct transition to the CLOSED state from either  the ESTABLISHED state or the CLOSE-WAIT state.
+tcpCurrEstab			The number of TCP connections for which the  current state is either ESTABLISHED or CLOSE-  WAIT.
+tcpInSegs			 The total number of segments received, including  those received in error.  This count includes  segments received on currently established  connections. 
+tcpOutSegs			 The total number of segments sent, including  those on current connections but excluding those  containing only retransmitted octets. 
+tcpRetransSegs			 The total number of segments retransmitted - that  is, the number of TCP segments transmitted  containing one or more previously transmitted  octets. 
+tcpConnTable			A table containing TCP connection-specific  information.
+tcpConnEntry			 Information about a particular current TCP  connection.  An object of this type is transient,  in that it ceases to exist when (or soon after)  the connection makes the transition to the CLOSED  state. 
+tcpConnState			 The state of this TCP connection.  The only value which may be set by a management  station is deleteTCB(12).  Accordingly, it is  appropriate for an agent to return a `badValue'  response if a management station attempts to set  this object to any other value.  If a management station sets this object to the  value deleteTCB(12), then this has the effect of  deleting the TCB (as defined in RFC 793) of the  corresponding connection on the managed node,  resulting in immediate termination of the  connection.  As an implementation-specific option, a RST  segment may be sent from the managed node to the  other TCP endpoint (note however that RST segments  are not sent reliably). 
+tcpConnLocalAddress			 The local IP address for this TCP connection.  In  the case of a connection in the listen state which  is willing to accept connections for any IP  interface associated with the node, the value  0.0.0.0 is used. 
+tcpConnLocalPort			The local port number for this TCP connection 
+tcpConnRemAddress			The remote IP address for this TCP connection 
+tcpConnRemPort			The remote port number for this TCP connection 
+tcpInErrs			 The total number of segments received in error  (e.g., bad TCP checksums). 
+tcpOutRsts			The number of TCP segments sent containing the  RST flag.
+udpInDatagrams			The total number of UDP datagrams delivered to  UDP users.
+udpNoPorts			The total number of received UDP datagrams for  which there was no application at the destination  port.
+udpInErrors			The number of received UDP datagrams that could  not be delivered for reasons other than the lack  of an application at the destination port.
+udpOutDatagrams			The total number of UDP datagrams sent from this  entity.
+udpTable			A table containing UDP listener information 
+udpEntry			Information about a particular current UDP  listener.
+udpLocalAddress			 The local IP address for this UDP listener.  In  the case of a UDP listener which is willing to  accept datagrams for any IP interface associated  with the node, the value 0.0.0.0 is used. 
+udpLocalPort			The local port number for this UDP listener 
+egpInMsgs			The number of EGP messages received without  error.
+egpInErrors			The number of EGP messages received that proved  to be in error.
+egpOutMsgs			The total number of locally generated EGP  messages.
+egpOutErrors			The number of locally generated EGP messages not  sent due to resource limitations within an EGP  entity.
+egpNeighTable			The EGP neighbor table 
+egpNeighEntry			Information about this entity's relationship with  a particular EGP neighbor.
+egpNeighState			The EGP state of the local system with respect to  this entry's EGP neighbor.  Each EGP state is  represented by a value that is one greater than  the numerical value associated with said state in  RFC 904.
+egpNeighAddr			The IP address of this entry's EGP neighbor 
+egpNeighAs			The autonomous system of this EGP peer.  Zero  should be specified if the autonomous system  number of the neighbor is not yet known.
+egpNeighInMsgs			The number of EGP messages received without error  from this EGP peer.
+egpNeighInErrs			 The number of EGP messages received from this EGP  peer that proved to be in error (e.g., bad EGP  checksum). 
+egpNeighOutMsgs			The number of locally generated EGP messages to  this EGP peer.
+egpNeighOutErrs			The number of locally generated EGP messages not  sent to this EGP peer due to resource limitations  within an EGP entity.
+egpNeighInErrMsgs			The number of EGP-defined error messages received  from this EGP peer.
+egpNeighOutErrMsgs			The number of EGP-defined error messages sent to  this EGP peer.
+egpNeighStateUps			The number of EGP state transitions to the UP  state with this EGP peer.
+egpNeighStateDowns			The number of EGP state transitions from the UP  state to any other state with this EGP peer.
+egpNeighIntervalHello			The interval between EGP Hello command  retransmissions (in hundredths of a second).  This  represents the t1 timer as defined in RFC 904.
+egpNeighIntervalPoll			The interval between EGP poll command  retransmissions (in hundredths of a second).  This  represents the t3 timer as defined in RFC 904.
+egpNeighMode			 The polling mode of this EGP entity, either  passive or active. 
+egpNeighEventTrigger			 A control variable used to trigger operator-  initiated Start and Stop events.  When read, this  variable always returns the most recent value that  egpNeighEventTrigger was set to.  If it has not  been set since the last initialization of the  network management subsystem on the node, it  returns a value of `stop'.  When set, this variable causes a Start or Stop  event on the specified neighbor, as specified on  pages 8-10 of RFC 904.  Briefly, a Start event  causes an Idle peer to begin neighbor acquisition  and a non-Idle peer to reinitiate neighbor  acquisition.  A stop event causes a non-Idle peer  to return to the Idle state until a Start event  occurs, either via egpNeighEventTrigger or  otherwise. 
+egpAs			The autonomous system number of this EGP entity 
+snmpInPkts			The total number of Messages delivered to the  SNMP entity from the transport service.
+snmpOutPkts			The total number of SNMP Messages which were  passed from the SNMP protocol entity to the  transport service.
+snmpInBadVersions			The total number of SNMP Messages which were  delivered to the SNMP protocol entity and were for  an unsupported SNMP version.
+snmpInBadCommunityNames			The total number of SNMP Messages delivered to  the SNMP protocol entity which used a SNMP  community name not known to said entity.
+snmpInBadCommunityUses			The total number of SNMP Messages delivered to  the SNMP protocol entity which represented an SNMP  operation which was not allowed by the SNMP  community named in the Message.
+snmpInASNParseErrs			The total number of ASN.1 or BER errors  encountered by the SNMP protocol entity when  decoding received SNMP Messages.
+snmpInTooBigs			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `tooBig'.
+snmpInNoSuchNames			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `noSuchName'.
+snmpInBadValues			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `badValue'.
+snmpInReadOnlys			 The total number valid SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `readOnly'.  It should be noted that it is a  protocol error to generate an SNMP PDU which  contains the value `readOnly' in the error-status  field, as such this object is provided as a means  of detecting incorrect implementations of the  SNMP. 
+snmpInGenErrs			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `genErr'.
+snmpInTotalReqVars			The total number of MIB objects which have been  retrieved successfully by the SNMP protocol entity  as the result of receiving valid SNMP Get-Request  and Get-Next PDUs.
+snmpInTotalSetVars			The total number of MIB objects which have been  altered successfully by the SNMP protocol entity  as the result of receiving valid SNMP Set-Request  PDUs.
+snmpInGetRequests			The total number of SNMP Get-Request PDUs which  have been accepted and processed by the SNMP  protocol entity.
+snmpInGetNexts			The total number of SNMP Get-Next PDUs which have  been accepted and processed by the SNMP protocol  entity.
+snmpInSetRequests			The total number of SNMP Set-Request PDUs which  have been accepted and processed by the SNMP  protocol entity.
+snmpInGetResponses			The total number of SNMP Get-Response PDUs which  have been accepted and processed by the SNMP  protocol entity.
+snmpInTraps			The total number of SNMP Trap PDUs which have  been accepted and processed by the SNMP protocol  entity.
+snmpOutTooBigs			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status field is  `tooBig.'
+snmpOutNoSuchNames			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status is  `noSuchName'.
+snmpOutBadValues			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status field is  `badValue'.
+snmpOutGenErrs			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status field is  `genErr'.
+snmpOutGetRequests			The total number of SNMP Get-Request PDUs which  have been generated by the SNMP protocol entity.
+snmpOutGetNexts			The total number of SNMP Get-Next PDUs which have  been generated by the SNMP protocol entity.
+snmpOutSetRequests			The total number of SNMP Set-Request PDUs which  have been generated by the SNMP protocol entity.
+snmpOutGetResponses			The total number of SNMP Get-Response PDUs which  have been generated by the SNMP protocol entity.
+snmpOutTraps			The total number of SNMP Trap PDUs which have  been generated by the SNMP protocol entity.
+snmpEnableAuthenTraps			 Indicates whether the SNMP agent process is  permitted to generate authentication-failure  traps.  The value of this object overrides any  configuration information; as such, it provides a  means whereby all authentication-failure traps may  be disabled.  Note that it is strongly recommended that this  object be stored in non-volatile memory so that it  remains constant between re-initializations of the  network management system. 
+snmpMIBObjects			snmpMIBObjects
+system			system
+snmp			snmp
+snmpTrap			snmpTrap
+snmpTraps			snmpTraps
+snmpSet			snmpSet
+snmpMIBConformance			snmpMIBConformance
+snmpMIBCompliances			snmpMIBCompliances
+snmpMIBGroups			snmpMIBGroups
+sysDescr			 A textual description of the entity.  This value should  include the full name and version identification of the  system's hardware type, software operating-system, and  networking software. 
+sysObjectID			 The vendor's authoritative identification of the network  management subsystem contained in the entity.  This value is  allocated within the SMI enterprises subtree (1.3.6.1.4.1)  and provides an easy and unambiguous means for determining  `what kind of box' is being managed.  For example, if vendor  `Flintstones, Inc.' was assigned the subtree  1.3.6.1.4.1.4242, it could assign the identifier  1.3.6.1.4.1.4242.1.1 to its `Fred Router'. 
+sysUpTime			The time (in hundredths of a second) since the network  management portion of the system was last re-initialized.
+sysContact			 The textual identification of the contact person for this  managed node, together with information on how to contact  this person.  If no contact information is known, the value  is the zero-length string. 
+sysName			 An administratively-assigned name for this managed node.  By convention, this is the node's fully-qualified domain  name.  If the name is unknown, the value is the zero-length  string. 
+sysLocation			 The physical location of this node (e.g., `telephone  closet, 3rd floor').  If the location is unknown, the value  is the zero-length string. 
+sysServices			 A value which indicates the set of services that this  entity may potentially offers.  The value is a sum.  This  sum initially takes the value zero, Then, for each layer, L,  in the range 1 through 7, that this node performs  transactions for, 2 raised t 
+sysORLastChange			The value of sysUpTime at the time of the most recent  change in state or value of any instance of sysORID.
+sysORTable			The (conceptual) table listing the capabilities of the  local SNMPv2 entity acting in an agent role with respect to  various MIB modules.  SNMPv2 entities having dynamically-  configurable support of MIB modules will have a  dynamically-varying number of conceptual rows.
+sysOREntry			An entry (conceptual row) in the sysORTable 
+sysORIndex			The auxiliary variable used for identifying instances of  the columnar objects in the sysORTable.
+sysORID			An authoritative identification of a capabilities statement  with respect to various MIB modules supported by the local  SNMPv2 entity acting in an agent role.
+sysORDescr			A textual description of the capabilities identified by the  corresponding instance of sysORID.
+sysORUpTime			The value of sysUpTime at the time this conceptual row was  last instanciated.
+snmpInPkts			The total number of messages delivered to the SNMP entity  from the transport service.
+snmpInBadVersions			The total number of SNMP messages which were delivered to  the SNMP entity and were for an unsupported SNMP version.
+snmpInBadCommunityNames			The total number of SNMP messages delivered to the SNMP  entity which used a SNMP community name not known to said  entity.
+snmpInBadCommunityUses			The total number of SNMP messages delivered to the SNMP  entity which represented an SNMP operation which was not  allowed by the SNMP community named in the message.
+snmpInASNParseErrs			The total number of ASN.1 or BER errors encountered by the  SNMP entity when decoding received SNMP messages.
+snmpEnableAuthenTraps			 Indicates whether the SNMP entity is permitted to generate  authenticationFailure traps.  The value of this object  overrides any configuration information; as such, it  provides a means whereby all authenticationFailure traps may  be disabled.  Note that it is strongly recommended that this object be  stored in non-volatile memory so that it remains constant  across re-initializations of the network management system. 
+snmpSilentDrops			 The total number of GetRequest-PDUs, GetNextRequest-PDUs,  GetBulkRequest-PDUs, SetRequest-PDUs, and InformRequest-PDUs  delivered to the SNMP entity which were silently dropped  because the size of a reply containing an alternate  Response-PDU with an empty variable-bindings field was  greater than either a local constraint or the maximum  message size associated with the originator of the request. 
+snmpProxyDrops			 The total number of GetRequest-PDUs, GetNextRequest-PDUs,  GetBulkRequest-PDUs, SetRequest-PDUs, and InformRequest-PDUs  delivered to the SNMP entity which were silently dropped  because the transmission of the (possibly translated)  message to a proxy target failed in a manner (other than a  time-out) such that no Response-PDU could be returned. 
+snmpTrapOID			The authoritative identification of the notification  currently being sent.  This variable occurs as the second  varbind in every SNMPv2-Trap-PDU and InformRequest-PDU.
+snmpTrapEnterprise			 The authoritative identification of the enterprise  associated with the trap currently being sent.  When a  SNMPv2 proxy agent is mapping an RFC1157 Trap-PDU into a  SNMPv2-Trap-PDU, this variable occurs as the last varbind. 
+snmpSetSerialNo			 An advisory lock used to allow several cooperating SNMPv2  entities, all acting in a manager role, to coordinate their  use of the SNMPv2 set operation.  This object is used for coarse-grain coordination.  To  achieve fine-grain coordination, one or more similar objects  might be defined within each MIB group, as appropriate. 
+snmpOutPkts			The total number of SNMP Messages which were  passed from the SNMP protocol entity to the  transport service.
+snmpInTooBigs			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `tooBig'.
+snmpInNoSuchNames			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `noSuchName'.
+snmpInBadValues			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `badValue'.
+snmpInReadOnlys			 The total number valid SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `readOnly'.  It should be noted that it is a  protocol error to generate an SNMP PDU which  contains the value `readOnly' in the error-status  field, as such this object is provided as a means  of detecting incorrect implementations of the  SNMP. 
+snmpInGenErrs			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `genErr'.
+snmpInTotalReqVars			The total number of MIB objects which have been  retrieved successfully by the SNMP protocol entity  as the result of receiving valid SNMP Get-Request  and Get-Next PDUs.
+snmpInTotalSetVars			The total number of MIB objects which have been  altered successfully by the SNMP protocol entity  as the result of receiving valid SNMP Set-Request  PDUs.
+snmpInGetRequests			The total number of SNMP Get-Request PDUs which  have been accepted and processed by the SNMP  protocol entity.
+snmpInGetNexts			The total number of SNMP Get-Next PDUs which have  been accepted and processed by the SNMP protocol  entity.
+snmpInSetRequests			The total number of SNMP Set-Request PDUs which  have been accepted and processed by the SNMP  protocol entity.
+snmpInGetResponses			The total number of SNMP Get-Response PDUs which  have been accepted and processed by the SNMP  protocol entity.
+snmpInTraps			The total number of SNMP Trap PDUs which have  been accepted and processed by the SNMP protocol  entity.
+snmpOutTooBigs			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status field is  `tooBig.'
+snmpOutNoSuchNames			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status is  `noSuchName'.
+snmpOutBadValues			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status field is  `badValue'.
+snmpOutGenErrs			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status field is  `genErr'.
+snmpOutGetRequests			The total number of SNMP Get-Request PDUs which  have been generated by the SNMP protocol entity.
+snmpOutGetNexts			The total number of SNMP Get-Next PDUs which have  been generated by the SNMP protocol entity.
+snmpOutSetRequests			The total number of SNMP Set-Request PDUs which  have been generated by the SNMP protocol entity.
+snmpOutGetResponses			The total number of SNMP Get-Response PDUs which  have been generated by the SNMP protocol entity.
+snmpOutTraps			The total number of SNMP Trap PDUs which have  been generated by the SNMP protocol entity.
+org			org
+dod			dod
+internet			internet
+directory			directory
+mgmt			mgmt
+mib-2			mib-2
+transmission			transmission
+experimental			experimental
+private			private
+enterprises			enterprises
+security			security
+snmpV2			snmpV2
+snmpDomains			snmpDomains
+snmpProxys			snmpProxys
+snmpModules			snmpModules
+rfc1157Proxy			rfc1157Proxy
+oracle			oracle
+oraInterchangeMIB			oraInterchangeMIB
+oraInterchangeObjects			oraInterchangeObjects
+oraInterchgTraps			oraInterchgTraps
+oraInterchgTable			The table of information about a Multiprotocol Interchange 
+oraInterchgEntry			An entry in the table associated with a Multiprotocol Interchange 
+oraInterchgConfigDirectory			The directory which contains the Multiprotocol Interchange   configuration files.  The default TNS_ADMIN directory is   /$ORACLE_HOME/NETWORK/ADMIN.
+oraInterchgContactInfo			 Provides the information of the person to contact for the    Multiprotocol Interchange issue, this information is read   from the SNMP.ORA file. 
+oraNavigatorTable			The table of information about the status of a Navigator 
+oraNavigatorEntry			An entry in the table associated with a Navigator 
+oraNavigatorRunningTime			The elapsed time in secs since a Navigator was last started 
+oraNavigatorLogging			Indicates whether a Navigator should log the requests 
+oraNavigatorLoggingLevel			Indicates whether a Navigator should log all the requests or   errors only.
+oraNavigatorLogFile			 Indicates the name of the log file the Navigator created.  Default log file name is /$ORACLE_HOME/network/log/navgatr.log,  where $ORACLE_HOME is the path which the ORACLE_HOME points to. 
+oraNavigatorTraceLevel			Indicates the level at which a Navigator should be traced 
+oraNavigatorTraceFile			 Indicates the name of the trace file the Navigator created.  On an Unix platform, the default trace file name is   /$ORACLE_HOME/network/trace/nav_pid.trc, where pid is the process  ID of the Navigator and $ORACLE_HOME is the path which the   ORACLE_HOME points to. 
+oraNavigatorStoppable			Indicates whether a Navigator can be stopped using the    Multiprotocol Interchange Control Utility program.
+oraNavigatorAccumulatedSuccessfulRequests			The total number of successful requests received by a Navigator 
+oraNavigatorAccumulatedFailedRequests			The total number of unsuccessful requests received by a Navigator 
+oraNavigatorState			Indicates the current state of a Navigator 
+oraNavigatorErrors			The error stack of a Navigator when it fails 
+oraNavigatorErrorMessage			The error message of a Navigator when it fails 
+oraNavigatorListenAddressTable			The table of information about the addresses that a Navigator   is listening on.
+oraNavigatorListenAddressEntry			An entry in the table associated with the addresses at which   a Navigator is listening on.
+oraNavigatorListenAddressIndex			 A numeric index, unique among all the listen addresses  at which a Navigator is listening on. 
+oraNavigatorListenAddress			The addresses at which a Navigator is listening on 
+oraNavigatorFailedAddressTable			The table of information about the addresses that a Navigator   fails to listen on.
+oraNavigatorFailedAddressEntry			An entry in the table associated with the addresses    that a Navigator fails to listen on.
+oraNavigatorFailedAddressIndex			 A numeric index, unique among all the addresses which   a Navigator fails to listen on. 
+oraNavigatorFailedAddress			The address that a Navigator fails to listen on 
+oraNavigatorRouteAddressTable			The table of information about the routable addresses that a    Navigator has.
+oraNavigatorRouteAddressEntry			An entry in the table associated with the routable addresses    that a Navigator has.
+oraNavigatorRouteAddressIndex			 A numeric index, unique among all the routable addresses  that a Navigator has. 
+oraNavigatorRouteAddress			The routable address that a Navigator has 
+oraCmanagerTable			The table of information about the status of a Connection  Manager.
+oraCmanagerEntry			An entry in the table associated with a Connection Manager 
+oraCmanagerStartTime			The time when a Connection Manager was started.  The format is   date-month-yr hr:min:sec.
+oraCmanagerRunningTime			The elapsed time in secs since a Connection Manager   was last started.
+oraCmanagerLogging			Indicates whether a Connection Manager should log the requests 
+oraCmanagerLogFile			 Indicates the name of the log file the Connection Manager created.   The default log file name is /$ORACLE_HOME/network/log/intlsnr.log,  where $ORACLE_HOME is the path which the ORACLE_HOME points to. 
+oraCmanagerTraceLevel			Indicates the level at which a Connection Manager should be traced 
+oraCmanagerTraceFile			 Indicates the name of the trace file the Connection Manager created.  On an Unix platform, the default trace file name is   /$ORACLE_HOME/network/trace/cmg_pid.trc, where pid is the process  ID of the Connection Manager and $ORACLE_HOME is the path which  ORACLE_HOME points to. 
+oraCmanagerStoppable			Indicates whether a Connection Manager can be stopped  by the Multiprotocol Interchange Control Utility program.
+oraCmanagerMaximumPumps			The maximum number of pumps that can be started by the Connection  Manager.
+oraCmanagerMaximumConnectionsPerPump			The maximum number of connections per pump that can be started by  the Connection Manager.
+oraCmanagerPumpStrategy			Indicates a Pump allocation strategy 
+oraCmanagerActivePumps			The total number of pumps that are currently active 
+oraCmanagerMaximumConnections			The maximum number of connections that are available 
+oraCmanagerCurrentConnectionsInUse			The total number of connections that are currently used 
+oraCmanagerAccumulatedSuccessfulConnections			The total number of successful connections through the   Multiprotocol Interchange.
+oraCmanagerAccumulatedFailedConnections			The total number of unsuccessful connections through the  Multiprotocol Interchange.
+oraCmanagerImmediateAverageBytes			The immediate average number of bytes sent per second 
+oraCmanagerMaximumConnectTime			The maximum time in centi-seconds to establish a connection 
+oraCmanagerMinimumConnectTime			The minimum time in centi-seconds to establish a connection 
+oraCmanagerAverageConnectTime			The average time in centi-seconds to establish a connection 
+oraCmanagerMaximumConnectDuration			The maximum connection duration time in centi-seconds.  This is the   elapsed time between a connection is established and before the  connection is terminated.
+oraCmanagerState			Indicates the current state of a Connection Manager 
+oraCmanagerErrors			The error stack of a Connection Manager when it fails 
+oraCmanagerErrorMessage			The error message of a Connection Manager when it fails 
+oraCmanagerListenAddressTable			The table of information about the addresses that a    Connection Manager is listening on.
+oraCmanagerListenAddressEntry			An entry in the table associated with the addresses at which   a Connection Manager is listening on.
+oraCmanagerListenAddressIndex			 A numeric index, unique among all the listen addresses  at which a Connection Manager is listening on. 
+oraCmanagerListenAddress			The address at which a Connection Manager is listening on 
+oraCmanagerFailedAddressTable			The table of information about the addresses that a    Connection Manager fails to listen on.
+oraCmanagerFailedAddressEntry			An entry in the table associated with the addresses    that a Connection Manager fails to listen on.
+oraCmanagerFailedAddressIndex			 A numeric index, unique among all the addresses which   a Connection Manager fails to listen on. 
+oraCmanagerFailedAddress			The address that a Connection Manager fails to listen on 
+oraPumpTable			The table of information about the status of a Pump 
+oraPumpEntry			An entry in the table associated with a Pump 
+oraPumpIndex			 A numeric index, unique among all the pumps  
+oraPumpActiveTime			The number of minutes a Pump remains active after the last  connection disconnects.
+oraPumpTraceLevel			Indicates the level at which a Pump should be traced 
+oraPumpTraceFile			 Indicates the name of the trace file the pump created.  On an Unix platform, the default trace file name is  /$ORACLE_HOME/network/trace/pmp_PID.trc, where pid is the process  ID of the pump and $ORACLE_HOME is the path which the ORACLE_HOME  points to. 
+oraPumpActiveConnections			The number of connections that are currently active 
+oraPumpSuccessfulConnections			The total number of successful connections through the pump 
+oraPumpFailedConnections			The total number of unsuccessful connections through the pump 
+oraPumpAccumulatedBytesSent			The total number of bytes sent through the pump 
+oraPumpCurrentBytesPerSecond			The current number of bytes sent per second through the pump 
+oraPumpMaximumAverageBytes			The maximum average number of bytes sent through the pump 
+oraPumpImmediateAverageBytes			The immediate average number of bytes sent through the pump 
+oraPumpMaximumConnectTime			The maximum time in centi-seconds to establish a connection 
+oraPumpMinimumConnectTime			The minimum time in centi-seconds to establish a connection 
+oraPumpAverageConnectTime			The average time in centi-seconds to establish a connection 
+oraPumpMaximumConnectDuration			The maximum connection duration time in centi-seconds.  This is the  elapsed time between a connection is established and before the  connection is terminated.
+oraPumpMaximumBuffers			The maximum number of buffers available for use by connections  in the pump.
+oraPumpBufferUtilization			The pump buffer utilization in percentage 
+oraPumpErrors			The error stack of a Pump when it fails 
+oraPumpErrorMessage			The error message of a Pump when it fails 
+oraPumpListenAddressTable			The table of information about the addresses that a    Pump is listening on.
+oraPumpListenAddressEntry			An entry in the table associated with the addresses at which   a Pump is listening on.
+oraPumpListenAddressIndex			 A numeric index, unique among all the listen addresses at which  a pump is listening on. 
+oraPumpListenAddress			The address at which a Pump is listening on 
+oraPumpFailedAddressTable			The table of information about the addresses that a    Pump fails to listen on.
+oraPumpFailedAddressEntry			An entry in the table associated with the addresses    that a Pump fails to listen on.
+oraPumpFailedAddressIndex			 A numeric index, unique among all the addresses which   a pump fails to listen on. 
+oraPumpFailedAddress			The address that a Pump fails to listen on 
+oraConnectionTable			The table of information about the status of a connection 
+oraConnectionEntry			An entry in the table associated with a connection 
+oraConnectionIndex			 A numeric index, unique among all the connections that a pump has  
+oraConnectionPumpID			The Pump ID of a connection 
+oraConnectionIdleTime			The number of minutes a connection can remain idle before  a Connection Manager will terminate it.
+oraConnectionDuration			The elapsed time is centi-seconds after a connection was established   and before a connection is terminated.
+oraConnectionSourceAddress			The source address of a connect request 
+oraConnectionDestinationAddress			The destination address of a connect request 
+oracle			oracle
+oraListenerMIB			oraListenerMIB
+oraListenerObjects			oraListenerObjects
+oraListenerTraps			oraListenerTraps
+oraListenerTable			The table of information about the generic network listeners   installed on a system.
+oraListenerEntry			An entry for a single generic network listener on the host 
+oraListenerIndex			 A numeric index, unique among all the generic listeners  on this host. 
+oraListenerName			The name of this generic listener 
+oraListenerVersion			 The version number of this generic listener, in vendor specific  format. 
+oraListenerStartDate			The date and time at which ths generic listener was started 
+oraListenerUptime			The value of sysUpTime at the time the generic listener  was last started.
+oraListenerTraceLevel			 indicates the level of detail the trace facility the generic  listener records for events.  The greater the level is, the more  detailed the level of tracing is. 
+oraListenerSecurityLevel			 indicates whether the generic listener is password-protected  or not.  If security is 'on', password is required to perform  certain DBA tasks asgainst the listener using the listener  control utility.  If security is 'off', password is not required. 
+oraListenerParameterFile			indicates the name of the file to which configuration  information is stored.  Default is $ORACLE_HOME/network/admin/  <listener_name>.ora.
+oraListenerLogFile			 indicates the directory in which to find the log file that is  automatically generated for listener events.  Default is   operating system specific; on UNIX, for example, it is  $ORACLE_HOME/network/log. 
+oraListenerTraceFile			indicates the name of the file to which trace information is  written.  Default is $ORACLE_HOME/network/trace/<listener_name>.trc.
+oraListenerState			 indicates the current state of the generic listener.  'down'  indicates that the generic listener is not available for any  use, but is know to the agent.  'up' indicates that the generic  listener is running and available for generic use.  This would  be inspected by an agent on receipt of an oraListenerState trap. 
+oraListenerNumberOfServices			 indicates the number of different types services: dedicated  sever, dispatcher, or prespawned shadow, configured with the  generic listener. 
+oraListenerContact			 The textual identification of the contact person for this  managed listener, together with information on how to contact  this person. 
+oraSIDTable			The table of information about the SIDs of the databases   for whom the listener listens on.  The system identifier  (SID) specifies the ORACLE System ID of the database server. 
+oraSIDEntry			An entry relating a SID to a generic listener 
+oraSIDListenerIndex			 A numeric index, unique among all the generic listeners  
+oraSIDName			The name of the SID.  There is a one-to-one correspondence   between database and SID.
+oraSIDCurrentConnectedClients			indicates the total number of currently connected clients   thru this SID.
+oraSIDReservedConnections			indicates the total number of reserved connections for   clients on this SID.
+oraDedicatedSrvTable			The table of the dedicated servers associated with an system  identifier (SID) of the database.
+oraDedicatedSrvEntry			 An entry relating a dedicated server to a SID.  The table is indexed first by oraSIDName, and then  oraDedicatedSrvIndex so that all dedicated servers  associated with a given SID can be found by SNMP  traversal operations (get-next and get-bulk). 
+oraDedicatedSrvIndex			 A numeric index, unique among all the dedicated servers  
+oraDedicatedSrvEstablishedConnections			indicates how many incoming connection requests have been  accepted by the dedicated server.
+oraDedicatedSrvRejectedConnections			indicates how many incoming connection requests have been  rejected by the dedicated server.
+oraDispatcherTable			The table of the dispatchers associated with an system  identifier (SID) of the database.
+oraDispatcherEntry			 An entry relating a dispatcher to a SID.  The   table is indexed first by oraSIDName, and then   oraDispatcherIndex so that all dispatchers associated   with a given SID can be found by SNMP traversal   operations (get-next and get-bulk). 
+oraDispatcherIndex			 A numeric index, unique among all the dispatchers  
+oraDispatcherEstablishedConnections			indicates how many incoming connection requests have been   accepted by the dispatcher.
+oraDispatcherRejectedConnections			indicates how many incoming connection requests have been   rejected by the dispatcher.
+oraDispatcherCurrentConnections			indicates the number of connection requests currently being  redirected to the dispatcher.
+oraDispatcherMaximumConnections			indicates the greatest number of connection requests that  will ever be accepted by the dispatcher.
+oraDispatcherState			indicates the current state of the dispatcher.  'blocked'  indicates that the dispatcher is temporarily not accepting  redirected connectioin requests.  'ready' indicates that   the dispacher is ready to accept any redirected conenction  requests.
+oraDispatcherProtocolInfo			indicates the protocol of the dispatcher listens on as well  as protocol specific information.  The exact format will be  vendor and host specific.
+oraPrespawnedSrvTable			The table of the prespawned servers associated with a SID 
+oraPrespawnedSrvEntry			 An entry relating a prespawned server to a SID.  The table is indexed first by oraSIDName, and then  oraPrespawnedSrvIndex so that all prespawned servers  associated with a given SID can be found by SNMP  traversal operations (get-next and get-bulk). 
+oraPrespawnedSrvIndex			 A numeric index, unique among all the prespawned servers  
+oraPrespawnedSrvEstablishedConnections			indicates how many incoming connection requests have been   accepted by the prespawned server.
+oraPrespawnedSrvRejectedConnections			indicates how many incoming connection requests have been   rejected by the prespawned server.
+oraPrespawnedSrvCurrentConnections			indicates the number of connection requests currently being  redirected to the prespawned server.
+oraPrespawnedSrvMaximumConnections			indicates the greatest number of connection requests that  will ever be accepted by the prespawned server.
+oraPrespawnedSrvState			indicates the current state of the prespawned server.  'blocked'  indicates that the prespawned server is temporarily not  accepting redirected connection requests.  'ready' indicates  the prespawned server is ready to accept any redirected conenction  requests.
+oraPrespawnedSrvProtocolInfo			indicates the protocol of the prespawned server listens on as well  as protocol specific information.  The exact format will be  vendor and host specific.
+oraPrespawnedSrvProcessorID			indicates the process ID of the prespawned server 
+oraListenAddressTable			The table of information about the addresses that the listener   is listening at.
+oraListenAddressEntry			An entry relating the listen addresses to a generic listener 
+oraListenAddressIndex			 A numeric index, unique among all the listen addresses  
+oraListenAddress			The addresses to whom the listener is listening at 
+oracle			oracle
+oraDbMIB			oraDbMIB
+oraDbObjects			oraDbObjects
+oraDbSysTable			Oracle-specific performance information global to a database 
+oraDbSysEntry			 Selected info from the v$sysstat table on instance performance.  Variables are included here  because they have been found particularly useful in   tuning an Oracle instance.  In many cases, the variable should  only be considered in conjunction with other variables, often  as a ratio.  Frequently, hints on these are given in the   descriptions, but Oracle tuning documentation should always  be consulted, particularly the Oracle University course on   tuning V7 applications. 
+oraDbSysConsistentChanges			the 'consistent changes' parameter from v$syssta 
+oraDbSysConsistentGets			the 'consistent gets' parameter from v$syssta 
+oraDbSysDbBlockChanges			the 'Db block changes' parameter from v$syssta 
+oraDbSysDbBlockGets			the 'db block gets' parameter from v$syssta 
+oraDbSysFreeBufferInspected			the 'free buffer inspected' parameter from v$syssta 
+oraDbSysFreeBufferRequested			the 'free buffer requested' parameter from v$syssta 
+oraDbSysParseCount			the 'parse count' parameter from v$syssta 
+oraDbSysPhysReads			the 'physical reads' parameter from v$syssta 
+oraDbSysPhysWrites			the 'physical writes' parameter from v$syssta 
+oraDbSysRedoEntries			the 'redo entries' parameter from v$syssta 
+oraDbSysRedoLogSpaceRequests			the 'redo log space requests' parameter from v$syssta 
+oraDbSysRedoSyncWrites			the 'redo synch writes' parameter from v$syssta 
+oraDbSysSortsDisk			the 'sorts (disk)' parameter from v$syssta 
+oraDbSysSortsMemory			the 'sorts (memory)' parameter from v$syssta 
+oraDbSysSortsRows			the 'sorts (rows)' parameter from v$syssta 
+oraDbSysTableFetchRowid			the 'table fetch by rowid' parameter from v$syssta 
+oraDbSysTableFetchContinuedRow			the 'table fetch continued row' parameter from v$syssta 
+oraDbSysTableScanBlocks			the 'table scan blocks gotten' parameter from v$syssta 
+oraDbSysTableScanRows			the 'table scan rows gotten' parameter from v$syssta 
+oraDbSysTableScansLong			the 'table scans (long tables)' parameter from v$syssta 
+oraDbSysTableScansShort			the 'table scans (short tables)' parameter from v$syssta 
+oraDbSysUserCalls			the 'user calls' parameter from v$syssta 
+oraDbSysUserCommits			the 'user commits' parameter from v$syssta 
+oraDbSysUserRollbacks			the 'user rollbacks' parameter from v$syssta 
+oraDbSysWriteRequests			the 'write requests' parameter from v$syssta 
+oraDbTablespaceTable			Information on tablespaces within an Oracle database 
+oraDbTablespaceEntry			Information for each tablespace within an Oracle database 
+oraDbTablespaceIndex			 A numeric index, unique among tablespaces within a single  Oracle database. 
+oraDbTablespaceName			The name of this tablespace 
+oraDbTablespaceSizeAllocated			 The amount of disk space, in kilobytes, allocated for this  tablespace.  This is the sum of the sizes of the data files  associated with the tablespace. 
+oraDbTablespaceSizeUsed			 The amount of disk space, in kilobytes, which is actually in  use for storing data. 
+oraDbTablespaceState			 The current accessibility of this tablespace.  If a  tablespace is offline(2), then SQL statements cannot  reference objects contained in the tablespace.  An invalid(3)  tablespace is one that has been dropped. 
+oraDbTablespaceLargestAvailableChunk			 The size, in kilobytes, of the largest contiguous set of free  data blocks in the tablespace. 
+oraDbDataFileTable			Information on data files within an Oracle database 
+oraDbDataFileEntry			Information for each data file within an Oracle database 
+oraDbDataFileIndex			 A numeric index, unique among data files associated with a  single tablespace. 
+oraDbDataFileName			The fully-qualified name of this datafile 
+oraDbDataFileSizeAllocated			 The allocated size, in kilobytes, of this data file  
+oraDbDataFileDiskReads			The total number of reads issued against this data file since  startup.
+oraDbDataFileDiskWrites			The total number of writes issued against this data file since  startup.
+oraDbDataFileDiskReadBlocks			The total number of physical blocks read from this data file  since startup.
+oraDbDataFileDiskWrittenBlocks			The total number of physical blocks written to this data file  since startup.
+oraDbDataFileDiskReadTimeTicks			 The time spent reading from this data file since startup IF  the database parameter TIMED_STATISTICS is TRUE.  If  TIMED_STATISTICS is FALSE, then the value will be zero. 
+oraDbDataFileDiskWriteTimeTicks			 The time spent writing to this data file since startup IF  the database parameter TIMED_STATISTICS is TRUE.  If  TIMED_STATISTICS is FALSE, then the value will be zero. 
+oraDbLibraryCacheTable			Information on libraryCache performance 
+oraDbLibraryCacheEntry			LibraryCache information for each Oracle database 
+oraDbLibraryCacheIndex			A unique integer for each row of the table 
+oraDbLibraryCacheNameSpace			The namespace of the v$librarycache table that this  row relates to.
+oraDbLibraryCacheGets			Number of times the system requests handles to library  objects in this namespace.
+oraDbLibraryCacheGetHits			Number of times the handles are already allocated in   the cache.
+oraDbLibraryCachePins			Number of times the system issues pin requests  for objects in the cache in order to access them.
+oraDbLibraryCachePinHits			Number of times the objects the system is pinning  are already allocated and initialized in the cache.
+oraDbLibraryCacheReloads			Number of times the library objects have to be reinitialized  and reloaded with data because they have been aged out or  invalidated
+oraDbLibraryCacheInvalidations			Number of times that non-persistent library objects  (like shared SQL areas) have been invalidated.
+oraDbLibraryCacheSumTable			 Information on library cache performance, summed over all  library caches in a single database instance. 
+oraDbLibraryCacheSumEntry			 LibraryCache information, summed over all library caches,  for each Oracle database. 
+oraDbLibraryCacheSumGets			 Number of times the system requests handles to library  objects, summed over all library caches in the instance. 
+oraDbLibraryCacheSumGetHits			 Number of times the handles are already allocated in   the cache, summed over all library caches in the instance. 
+oraDbLibraryCacheSumPins			 Number of times the system issues pin requests  for objects in a cache in order to access them,  summed over all library caches in the instance. 
+oraDbLibraryCacheSumPinHits			 Number of times the objects the system is pinning  are already allocated and initialized in a cache,  summed over all library caches in the instance. 
+oraDbLibraryCacheSumReloads			 Number of times the library objects have to be reinitialized  and reloaded with data because they have been aged out or  invalidated, summed over all library caches in the instance. 
+oraDbLibraryCacheSumInvalidations			 Number of times that non-persistent library objects  (like shared SQL areas) have been invalidated, summed over  all library caches in the instance. 
+oraDbSGATable			Summary information on the System Global Are 
+oraDbSGAEntry			A single entry from the v$sga tabl 
+oraDbSGAFixedSize	*******
+oraDbSGAVariableSize	*******
+oraDbSGADatabaseBuffers	*********
+oraDbSGARedoBuffers	********
+oraDbConfigTable			Oracle-specific configuration information global to a database 
+oraDbConfigEntry			 Oracle-specific configuration information.  This table only lists a few  init.ora parameters that are particularly relevant to the  task of monitoring database performance.  By giving them   easy-to-use, fixed object-ids, we make it easier to graph  them along with the dynamic performance values that they affect.  A complete list  of parameters can be found in the Internet standard MIB  'Config' objects. 
+oraDbConfigDbBlockBuffers			The DB_BLOCK_BUFFERS parameter from the init.ora file 
+oraDbConfigDbBlockCkptBatch			The DB_BLOCK_CHECKPOINT_BATCH  parameter from the init.ora file 
+oraDbConfigDbBlockSize			The DB_BLOCK_SIZE parameter from the init.ora file 
+oraDbConfigDbFileSimWrites			The DB_FILE_SIMULTANEOUS_WRITES parameter from the init.ora file 
+oraDbConfigDbMultiBlockReadCount			The DB_MULTIBLOCK_READ_COUNT  parameter from the init.ora file 
+oraDbConfigDistLockTimeout			The DISTRIBUTED_LOCK_TIMEOUT parameter from the init.ora file 
+oraDbConfigDistRecoveryConnectHold			The DISTRIBUTED_RECOVERY_CONNECT_HOLD parameter from the   init.ora file 
+oraDbConfigDistTransactions			The DISTRIBUTED_TRANSACTIONS  parameter from the init.ora file 
+oraDbConfigLogArchiveBufferSize			The LOG_ARCHIVE_BUFFER_SIZE parameter from the init.ora file 
+oraDbConfigLogArchiveBuffers			The LOG_ARCHIVE_BUFFERS parameter from the init.ora file 
+oraDbConfigLogBuffer			The LOG_BUFFER parameter from the init.ora file 
+oraDbConfigLogCheckpointInterval			The LOG_CHECKPOINT_INTERVAL parameter from the init.ora file 
+oraDbConfigLogCheckpointTimeout			The LOG_CHECKPOINT_TIMEOUT parameter from the init.ora file 
+oraDbConfigLogFiles			The LOG_FILES parameter from the init.ora file 
+oraDbConfigMaxRollbackSegments			The MAX_ROLLBACK_SEGMENTS parameter from the init.ora file 
+oraDbConfigMTSMaxDispatchers			The MTS_MAX_DISPATCHERS parameter from the init.ora file 
+oraDbConfigMTSMaxServers			The MTS_MAX_SERVERS  parameter from the init.ora file 
+oraDbConfigMTSServers			The MTS_SERVERS  parameter from the init.ora file 
+oraDbConfigOpenCursors			The OPEN_CURSORS parameter from the init.ora file 
+oraDbConfigOpenLinks			The OPEN_LINKS parameter from the init.ora file 
+oraDbConfigOptimizerMode			The  OPTIMIZER_MODE parameter from the init.ora file 
+oraDbConfigProcesses			The PROCESSES parameter from the init.ora file 
+oraDbConfigSerializable			The SERIALIZABLE parameter from the init.ora file 
+oraDbConfigSessions			The SESSIONS  parameter from the init.ora file 
+oraDbConfigSharedPool			The SHARED_POOL parameter from the init.ora file 
+oraDbConfigSortAreaSize			The SORT_AREA_SIZE parameter from the init.ora file 
+oraDbConfigSortAreaRetainedSize			The SORT_AREA_RETAINED_SIZE  parameter from the init.ora file 
+oraDbConfigTransactions			The TRANSACTIONS parameter from the init.ora file 
+oraDbConfigTransactionsPerRollback			The TRANSACTIONS_PER_ROLLBACK parameter from the init.ora file 
+null			null
+dod			dod
+internet			internet
+directory			directory
+mgmt			mgmt
+experimental			experimental
+private			private
+enterprises			enterprises
+mib-2			mib-2
+system			system
+interfaces			interfaces
+at			at
+ip			ip
+icmp			icmp
+tcp			tcp
+udp			udp
+egp			egp
+transmission			transmission
+snmp			snmp
+sysDescr			 A textual description of the entity.  This value  should include the full name and version  identification of the system's hardware type,  software operating-system, and networking  software.  It is mandatory that this only contain  printable ASCII characters. 
+sysObjectID			 The vendor's authoritative identification of the  network management subsystem contained in the  entity.  This value is allocated within the SMI  enterprises subtree (1.3.6.1.4.1) and provides an  easy and unambiguous means for determining `what  kind of box' is being managed.  For example, if  vendor `Flintstones, Inc.' was assigned the  subtree 1.3.6.1.4.1.4242, it could assign the  identifier 1.3.6.1.4.1.4242.1.1 to its `Fred  Router'. 
+sysUpTime			The time (in hundredths of a second) since the  network management portion of the system was last  re-initialized.
+sysContact			 The textual identification of the contact person  for this managed node, together with information  on how to contact this person. 
+sysName			 An administratively-assigned name for this  managed node.  By convention, this is the node's  fully-qualified domain name. 
+sysLocation			 The physical location of this node (e.g.,  `telephone closet, 3rd floor'). 
+sysServices			 A value which indicates the set of services that  this entity primarily offers.  The value is a sum.  This sum initially takes the  value zero, Then, for each layer, L, in the range  1 through 7, that this node performs transactions  for, 2 raised to (L - 
+ifNumber			The number of network interfaces (regardless of  their current state) present on this system.
+ifTable			A list of interface entries.  The number of  entries is given by the value of ifNumber.
+ifEntry			An interface entry containing objects at the  subnetwork layer and below for a particular  interface.
+ifIndex			A unique value for each interface.  Its value  ranges between 1 and the value of ifNumber.  The  value for each interface must remain constant at  least from one re-initialization of the entity's  network management system to the next re-  initialization.
+ifDescr			 A textual string containing information about the  interface.  This string should include the name of  the manufacturer, the product name and the version  of the hardware interface. 
+ifType			 The type of interface, distinguished according to  the physical/link protocol(s) immediately `below'  the network layer in the protocol stack. 
+ifMtu			 The size of the largest datagram which can be  sent/received on the interface, specified in  octets.  For interfaces that are used for  transmitting network datagrams, this is the size  of the largest network datagram that can be sent  on the interface. 
+ifSpeed			 An estimate of the interface's current bandwidth  in bits per second.  For interfaces which do not  vary in bandwidth or for those where no accurate  estimation can be made, this object should contain  the nominal bandwidth. 
+ifPhysAddress			 The interface's address at the protocol layer  immediately `below' the network layer in the  protocol stack.  For interfaces which do not have  such an address (e.g., a serial line), this object  should contain an octet string of zero length. 
+ifAdminStatus			The desired state of the interface.  The  testing(3) state indicates that no operational  packets can be passed.
+ifOperStatus			The current operational state of the interface.  The testing(3) state indicates that no operational  packets can be passed.
+ifLastChange			 The value of sysUpTime at the time the interface  entered its current operational state.  If the  current state was entered prior to the last re-  initialization of the local network management  subsystem, then this object contains a zero  value. 
+ifInOctets			 The total number of octets received on the  interface, including framing characters. 
+ifInUcastPkts			The number of subnetwork-unicast packets  delivered to a higher-layer protocol.
+ifInNUcastPkts			 The number of non-unicast (i.e., subnetwork-  broadcast or subnetwork-multicast) packets  delivered to a higher-layer protocol. 
+ifInDiscards			The number of inbound packets which were chosen  to be discarded even though no errors had been  detected to prevent their being deliverable to a  higher-layer protocol.  One possible reason for  discarding such a packet could be to free up  buffer space.
+ifInErrors			The number of inbound packets that contained  errors preventing them from being deliverable to a  higher-layer protocol.
+ifInUnknownProtos			The number of packets received via the interface  which were discarded because of an unknown or  unsupported protocol.
+ifOutOctets			 The total number of octets transmitted out of the  interface, including framing characters. 
+ifOutUcastPkts			 The total number of packets that higher-level  protocols requested be transmitted to a  subnetwork-unicast address, including those that  were discarded or not sent. 
+ifOutNUcastPkts			 The total number of packets that higher-level  protocols requested be transmitted to a non-  unicast (i.e., a subnetwork-broadcast or  subnetwork-multicast) address, including those  that were discarded or not sent. 
+ifOutDiscards			The number of outbound packets which were chosen  to be discarded even though no errors had been  detected to prevent their being transmitted.  One  possible reason for discarding such a packet could  be to free up buffer space.
+ifOutErrors			The number of outbound packets that could not be  transmitted because of errors.
+ifOutQLen			The length of the output packet queue (in  packets).
+ifSpecific			 A reference to MIB definitions specific to the  particular media being used to realize the  interface.  For example, if the interface is  realized by an ethernet, then the value of this  object refers to a document defining objects  specific to ethernet.  If this information is not  present, its value should be set to the OBJECT  IDENTIFIER { 0 0 }, which is a syntatically valid  object identifier, and any conformant  implementation of ASN.1 and BER must be able to  generate and recognize this value. 
+atTable			 The Address Translation tables contain the  NetworkAddress to `physical' address equivalences.  Some interfaces do not use translation tables for  determining address equivalences (e.g., DDN-X.25  has an algorithmic method); if all interfaces are  of this type, then the Address Translation table  is empty, i.e., has zero entries. 
+atEntry			Each entry contains one NetworkAddress to  `physical' address equivalence.
+atIfIndex			The interface on which this entry's equivalence  is effective.  The interface identified by a  particular value of this index is the same  interface as identified by the same value of  ifIndex.
+atPhysAddress			 The media-dependent `physical' address.  Setting this object to a null string (one of zero  length) has the effect of invaliding the  corresponding entry in the atTable object.  That  is, it effectively dissasociates the interface  identified with said entry from the mapping  identified with said entry.  It is an  implementation-specific matter as to whether the  agent removes an invalidated entry from the table.  Accordingly, management stations must be prepared  to receive tabular information from agents that  corresponds to entries not currently in use.  Proper interpretation of such entries requires  examination of the relevant atPhysAddress object. 
+atNetAddress			 The NetworkAddress (e.g., the IP address)  corresponding to the media-dependent `physical'  address. 
+ipForwarding			 The indication of whether this entity is acting  as an IP gateway in respect to the forwarding of  datagrams received by, but not addressed to, this  entity.  IP gateways forward datagrams.  IP hosts  do not (except those source-routed via the host).  Note that for some managed nodes, this object may  take on only a subset of the values possible.  Accordingly, it is appropriate for an agent to  return a `badValue' response if a management  station attempts to change this object to an  inappropriate value. 
+ipDefaultTTL			 The default value inserted into the Time-To-Live  field of the IP header of datagrams originated at  this entity, whenever a TTL value is not supplied  by the transport layer protocol. 
+ipInReceives			 The total number of input datagrams received from  interfaces, including those received in error. 
+ipInHdrErrors			 The number of input datagrams discarded due to  errors in their IP headers, including bad  checksums, version number mismatch, other format  errors, time-to-live exceeded, errors discovered  in processing their IP options, etc. 
+ipInAddrErrors			 The number of input datagrams discarded because  the IP address in their IP header's destination  field was not a valid address to be received at  this entity.  This count includes invalid  addresses (e.g., 0.0.0.0) and addresses of  unsupported Classes (e.g., Class E).  For entities  which are not IP Gateways and therefore do not  forward datagrams, this counter includes datagrams  discarded because the destination address was not  a local address. 
+ipForwDatagrams			 The number of input datagrams for which this  entity was not their final IP destination, as a  result of which an attempt was made to find a  route to forward them to that final destination.  In entities which do not act as IP Gateways, this  counter will include only those packets which were  Source-Routed via this entity, and the Source-  Route option processing was successful. 
+ipInUnknownProtos			The number of locally-addressed datagrams  received successfully but discarded because of an  unknown or unsupported protocol.
+ipInDiscards			 The number of input IP datagrams for which no  problems were encountered to prevent their  continued processing, but which were discarded  (e.g., for lack of buffer space).  Note that this  counter does not include any datagrams discarded  while awaiting re-assembly. 
+ipInDelivers			The total number of input datagrams successfully  delivered to IP user-protocols (including ICMP).
+ipOutRequests			The total number of IP datagrams which local IP  user-protocols (including ICMP) supplied to IP in  requests for transmission.  Note that this counter  does not include any datagrams counted in  ipForwDatagrams.
+ipOutDiscards			 The number of output IP datagrams for which no  problem was encountered to prevent their  transmission to their destination, but which were  discarded (e.g., for lack of buffer space).  Note  that this counter would include datagrams counted  in ipForwDatagrams if any such packets met this  (discretionary) discard criterion. 
+ipOutNoRoutes			The number of IP datagrams discarded because no  route could be found to transmit them to their  destination.  Note that this counter includes any  packets counted in ipForwDatagrams which meet this  `no-route' criterion.  Note that this includes any  datagarms which a host cannot route because all of  its default gateways are down.
+ipReasmTimeout			The maximum number of seconds which received  fragments are held while they are awaiting  reassembly at this entity.
+ipReasmReqds			The number of IP fragments received which needed  to be reassembled at this entity.
+ipReasmOKs			The number of IP datagrams successfully re-  assembled.
+ipReasmFails			 The number of failures detected by the IP re-  assembly algorithm (for whatever reason: timed  out, errors, etc).  Note that this is not  necessarily a count of discarded IP fragments  since some algorithms (notably the algorithm in  RFC 815) can lose track of the number of fragments  by combining them as they are received. 
+ipFragOKs			The number of IP datagrams that have been  successfully fragmented at this entity.
+ipFragFails			 The number of IP datagrams that have been  discarded because they needed to be fragmented at  this entity but could not be, e.g., because their  Don't Fragment flag was set. 
+ipFragCreates			The number of IP datagram fragments that have  been generated as a result of fragmentation at  this entity.
+ipAddrTable			The table of addressing information relevant to  this entity's IP addresses.
+ipAddrEntry			The addressing information for one of this  entity's IP addresses.
+ipAdEntAddr			The IP address to which this entry's addressing  information pertains.
+ipAdEntIfIndex			The index value which uniquely identifies the  interface to which this entry is applicable.  The  interface identified by a particular value of this  index is the same interface as identified by the  same value of ifIndex.
+ipAdEntNetMask			The subnet mask associated with the IP address of  this entry.  The value of the mask is an IP  address with all the network bits set to 1 and all  the hosts bits set to 0.
+ipAdEntBcastAddr			 The value of the least-significant bit in the IP  broadcast address used for sending datagrams on  the (logical) interface associated with the IP  address of this entry.  For example, when the  Internet standard all-ones broadcast address is  used, the value will be 1.  This value applies to  both the subnet and network broadcasts addresses  used by the entity on this (logical) interface. 
+ipAdEntReasmMaxSize			The size of the largest IP datagram which this  entity can re-assemble from incoming IP fragmented  datagrams received on this interface.
+ipRouteTable			This entity's IP Routing table 
+ipRouteEntry			A route to a particular destination 
+ipRouteDest			 The destination IP address of this route.  An  entry with a value of 0.0.0.0 is considered a  default route.  Multiple routes to a single  destination can appear in the table, but access to  such multiple entries is dependent on the table-  access mechanisms defined by the network  management protocol in use. 
+ipRouteIfIndex			The index value which uniquely identifies the  local interface through which the next hop of this  route should be reached.  The interface identified  by a particular value of this index is the same  interface as identified by the same value of  ifIndex.
+ipRouteMetric1			 The primary routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteMetric2			 An alternate routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteMetric3			 An alternate routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteMetric4			 An alternate routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteNextHop			 The IP address of the next hop of this route.  (In the case of a route bound to an interface  which is realized via a broadcast media, the value  of this field is the agent's IP address on that  interface.) 
+ipRouteType			 The type of route.  Note that the values  direct(3) and indirect(4) refer to the notion of  direct and indirect routing in the IP  architecture.  Setting this object to the value invalid(2) has  the effect of invalidating the corresponding entry  in the ipRouteTable object.  That is, it  effectively dissasociates the destination  identified with said entry from the route  identified with said entry.  It is an  implementation-specific matter as to whether the  agent removes an invalidated entry from the table.  Accordingly, management stations must be prepared  to receive tabular information from agents that  corresponds to entries not currently in use.  Proper interpretation of such entries requires  examination of the relevant ipRouteType object. 
+ipRouteProto			The routing mechanism via which this route was  learned.  Inclusion of values for gateway routing  protocols is not intended to imply that hosts  should support those protocols.
+ipRouteAge			The number of seconds since this route was last  updated or otherwise determined to be correct.  Note that no semantics of `too old' can be implied  except through knowledge of the routing protocol  by which the route was learned.
+ipRouteMask			 Indicate the mask to be logical-ANDed with the  destination address before being compared to the  value in the ipRouteDest field.  For those systems  that do not support arbitrary subnet masks, an  agent constructs the value of the ipRouteMask by  determining whether the value of the correspondent  ipRouteDest field belong to a class-A, B, or C  network, and then using one of:       mask           network       255.0.0.0      class-A       255.255.0.0    class-B       255.255.255.0  class-C  If the value of the ipRouteDest is 0.0.0.0 (a  default route), then the mask value is also  0.0.0.0.  It should be noted that all IP routing  subsystems implicitly use this mechanism. 
+ipRouteMetric5			 An alternate routing metric for this route.  The  semantics of this metric are determined by the  routing-protocol specified in the route's  ipRouteProto value.  If this metric is not used,  its value should be set to -1. 
+ipRouteInfo			 A reference to MIB definitions specific to the  particular routing protocol which is responsible  for this route, as determined by the value  specified in the route's ipRouteProto value.  If  this information is not present, its value should  be set to the OBJECT IDENTIFIER { 0 0 }, which is  a syntatically valid object identifier, and any  conformant implementation of ASN.1 and BER must be  able to generate and recognize this value. 
+ipNetToMediaTable			The IP Address Translation table used for mapping  from IP addresses to physical addresses.
+ipNetToMediaEntry			Each entry contains one IpAddress to `physical'  address equivalence.
+ipNetToMediaIfIndex			The interface on which this entry's equivalence  is effective.  The interface identified by a  particular value of this index is the same  interface as identified by the same value of  ifIndex.
+ipNetToMediaPhysAddress			The media-dependent `physical' address 
+ipNetToMediaNetAddress			The IpAddress corresponding to the media-  dependent `physical' address.
+ipNetToMediaType			 The type of mapping.  Setting this object to the value invalid(2) has  the effect of invalidating the corresponding entry  in the ipNetToMediaTable.  That is, it effectively  dissasociates the interface identified with said  entry from the mapping identified with said entry.  It is an implementation-specific matter as to  whether the agent removes an invalidated entry  from the table.  Accordingly, management stations  must be prepared to receive tabular information  from agents that corresponds to entries not  currently in use.  Proper interpretation of such  entries requires examination of the relevant  ipNetToMediaType object. 
+ipRoutingDiscards			The number of routing entries which were chosen  to be discarded even though they are valid.  One  possible reason for discarding such an entry could  be to free-up buffer space for other routing  entries.
+icmpInMsgs			The total number of ICMP messages which the  entity received.  Note that this counter includes  all those counted by icmpInErrors.
+icmpInErrors			 The number of ICMP messages which the entity  received but determined as having ICMP-specific  errors (bad ICMP checksums, bad length, etc.). 
+icmpInDestUnreachs			The number of ICMP Destination Unreachable  messages received.
+icmpInTimeExcds			The number of ICMP Time Exceeded messages  received.
+icmpInParmProbs			The number of ICMP Parameter Problem messages  received.
+icmpInSrcQuenchs			The number of ICMP Source Quench messages  received.
+icmpInRedirects			The number of ICMP Redirect messages received 
+icmpInEchos			The number of ICMP Echo (request) messages  received.
+icmpInEchoReps			The number of ICMP Echo Reply messages received 
+icmpInTimestamps			The number of ICMP Timestamp (request) messages  received.
+icmpInTimestampReps			The number of ICMP Timestamp Reply messages  received.
+icmpInAddrMasks			The number of ICMP Address Mask Request messages  received.
+icmpInAddrMaskReps			The number of ICMP Address Mask Reply messages  received.
+icmpOutMsgs			The total number of ICMP messages which this  entity attempted to send.  Note that this counter  includes all those counted by icmpOutErrors.
+icmpOutErrors			The number of ICMP messages which this entity did  not send due to problems discovered within ICMP  such as a lack of buffers.  This value should not  include errors discovered outside the ICMP layer  such as the inability of IP to route the resultant  datagram.  In some implementations there may be no  types of error which contribute to this counter's  value.
+icmpOutDestUnreachs			The number of ICMP Destination Unreachable  messages sent.
+icmpOutTimeExcds			The number of ICMP Time Exceeded messages sent 
+icmpOutParmProbs			The number of ICMP Parameter Problem messages  sent.
+icmpOutSrcQuenchs			The number of ICMP Source Quench messages sent 
+icmpOutRedirects			 The number of ICMP Redirect messages sent.  For a  host, this object will always be zero, since hosts  do not send redirects. 
+icmpOutEchos			The number of ICMP Echo (request) messages sent 
+icmpOutEchoReps			The number of ICMP Echo Reply messages sent 
+icmpOutTimestamps			The number of ICMP Timestamp (request) messages  sent.
+icmpOutTimestampReps			The number of ICMP Timestamp Reply messages  sent.
+icmpOutAddrMasks			The number of ICMP Address Mask Request messages  sent.
+icmpOutAddrMaskReps			The number of ICMP Address Mask Reply messages  sent.
+tcpRtoAlgorithm			The algorithm used to determine the timeout value  used for retransmitting unacknowledged octets.
+tcpRtoMin			 The minimum value permitted by a TCP  implementation for the retransmission timeout,  measured in milliseconds.  More refined semantics  for objects of this type depend upon the algorithm  used to determine the retransmission timeout.  In  particular, when the timeout algorithm is rsre(3),  an object of this type has the semantics of the  LBOUND quantity described in RFC 793. 
+tcpRtoMax			 The maximum value permitted by a TCP  implementation for the retransmission timeout,  measured in milliseconds.  More refined semantics  for objects of this type depend upon the algorithm  used to determine the retransmission timeout.  In  particular, when the timeout algorithm is rsre(3),  an object of this type has the semantics of the  UBOUND quantity described in RFC 793. 
+tcpMaxConn			 The limit on the total number of TCP connections  the entity can support.  In entities where the  maximum number of connections is dynamic, this  object should contain the value -1. 
+tcpActiveOpens			The number of times TCP connections have made a  direct transition to the SYN-SENT state from the  CLOSED state.
+tcpPassiveOpens			The number of times TCP connections have made a  direct transition to the SYN-RCVD state from the  LISTEN state.
+tcpAttemptFails			 The number of times TCP connections have made a  direct transition to the CLOSED state from either  the SYN-SENT state or the SYN-RCVD state, plus the  number of times TCP connections have made a direct  transition to the LISTEN state from the SYN-RCVD  state. 
+tcpEstabResets			The number of times TCP connections have made a  direct transition to the CLOSED state from either  the ESTABLISHED state or the CLOSE-WAIT state.
+tcpCurrEstab			The number of TCP connections for which the  current state is either ESTABLISHED or CLOSE-  WAIT.
+tcpInSegs			 The total number of segments received, including  those received in error.  This count includes  segments received on currently established  connections. 
+tcpOutSegs			 The total number of segments sent, including  those on current connections but excluding those  containing only retransmitted octets. 
+tcpRetransSegs			 The total number of segments retransmitted - that  is, the number of TCP segments transmitted  containing one or more previously transmitted  octets. 
+tcpConnTable			A table containing TCP connection-specific  information.
+tcpConnEntry			 Information about a particular current TCP  connection.  An object of this type is transient,  in that it ceases to exist when (or soon after)  the connection makes the transition to the CLOSED  state. 
+tcpConnState			 The state of this TCP connection.  The only value which may be set by a management  station is deleteTCB(12).  Accordingly, it is  appropriate for an agent to return a `badValue'  response if a management station attempts to set  this object to any other value.  If a management station sets this object to the  value deleteTCB(12), then this has the effect of  deleting the TCB (as defined in RFC 793) of the  corresponding connection on the managed node,  resulting in immediate termination of the  connection.  As an implementation-specific option, a RST  segment may be sent from the managed node to the  other TCP endpoint (note however that RST segments  are not sent reliably). 
+tcpConnLocalAddress			 The local IP address for this TCP connection.  In  the case of a connection in the listen state which  is willing to accept connections for any IP  interface associated with the node, the value  0.0.0.0 is used. 
+tcpConnLocalPort			The local port number for this TCP connection 
+tcpConnRemAddress			The remote IP address for this TCP connection 
+tcpConnRemPort			The remote port number for this TCP connection 
+tcpInErrs			 The total number of segments received in error  (e.g., bad TCP checksums). 
+tcpOutRsts			The number of TCP segments sent containing the  RST flag.
+udpInDatagrams			The total number of UDP datagrams delivered to  UDP users.
+udpNoPorts			The total number of received UDP datagrams for  which there was no application at the destination  port.
+udpInErrors			The number of received UDP datagrams that could  not be delivered for reasons other than the lack  of an application at the destination port.
+udpOutDatagrams			The total number of UDP datagrams sent from this  entity.
+udpTable			A table containing UDP listener information 
+udpEntry			Information about a particular current UDP  listener.
+udpLocalAddress			 The local IP address for this UDP listener.  In  the case of a UDP listener which is willing to  accept datagrams for any IP interface associated  with the node, the value 0.0.0.0 is used. 
+udpLocalPort			The local port number for this UDP listener 
+egpInMsgs			The number of EGP messages received without  error.
+egpInErrors			The number of EGP messages received that proved  to be in error.
+egpOutMsgs			The total number of locally generated EGP  messages.
+egpOutErrors			The number of locally generated EGP messages not  sent due to resource limitations within an EGP  entity.
+egpNeighTable			The EGP neighbor table 
+egpNeighEntry			Information about this entity's relationship with  a particular EGP neighbor.
+egpNeighState			The EGP state of the local system with respect to  this entry's EGP neighbor.  Each EGP state is  represented by a value that is one greater than  the numerical value associated with said state in  RFC 904.
+egpNeighAddr			The IP address of this entry's EGP neighbor 
+egpNeighAs			The autonomous system of this EGP peer.  Zero  should be specified if the autonomous system  number of the neighbor is not yet known.
+egpNeighInMsgs			The number of EGP messages received without error  from this EGP peer.
+egpNeighInErrs			 The number of EGP messages received from this EGP  peer that proved to be in error (e.g., bad EGP  checksum). 
+egpNeighOutMsgs			The number of locally generated EGP messages to  this EGP peer.
+egpNeighOutErrs			The number of locally generated EGP messages not  sent to this EGP peer due to resource limitations  within an EGP entity.
+egpNeighInErrMsgs			The number of EGP-defined error messages received  from this EGP peer.
+egpNeighOutErrMsgs			The number of EGP-defined error messages sent to  this EGP peer.
+egpNeighStateUps			The number of EGP state transitions to the UP  state with this EGP peer.
+egpNeighStateDowns			The number of EGP state transitions from the UP  state to any other state with this EGP peer.
+egpNeighIntervalHello			The interval between EGP Hello command  retransmissions (in hundredths of a second).  This  represents the t1 timer as defined in RFC 904.
+egpNeighIntervalPoll			The interval between EGP poll command  retransmissions (in hundredths of a second).  This  represents the t3 timer as defined in RFC 904.
+egpNeighMode			 The polling mode of this EGP entity, either  passive or active. 
+egpNeighEventTrigger			 A control variable used to trigger operator-  initiated Start and Stop events.  When read, this  variable always returns the most recent value that  egpNeighEventTrigger was set to.  If it has not  been set since the last initialization of the  network management subsystem on the node, it  returns a value of `stop'.  When set, this variable causes a Start or Stop  event on the specified neighbor, as specified on  pages 8-10 of RFC 904.  Briefly, a Start event  causes an Idle peer to begin neighbor acquisition  and a non-Idle peer to reinitiate neighbor  acquisition.  A stop event causes a non-Idle peer  to return to the Idle state until a Start event  occurs, either via egpNeighEventTrigger or  otherwise. 
+egpAs			The autonomous system number of this EGP entity 
+snmpInPkts			The total number of Messages delivered to the  SNMP entity from the transport service.
+snmpOutPkts			The total number of SNMP Messages which were  passed from the SNMP protocol entity to the  transport service.
+snmpInBadVersions			The total number of SNMP Messages which were  delivered to the SNMP protocol entity and were for  an unsupported SNMP version.
+snmpInBadCommunityNames			The total number of SNMP Messages delivered to  the SNMP protocol entity which used a SNMP  community name not known to said entity.
+snmpInBadCommunityUses			The total number of SNMP Messages delivered to  the SNMP protocol entity which represented an SNMP  operation which was not allowed by the SNMP  community named in the Message.
+snmpInASNParseErrs			The total number of ASN.1 or BER errors  encountered by the SNMP protocol entity when  decoding received SNMP Messages.
+snmpInTooBigs			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `tooBig'.
+snmpInNoSuchNames			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `noSuchName'.
+snmpInBadValues			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `badValue'.
+snmpInReadOnlys			 The total number valid SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `readOnly'.  It should be noted that it is a  protocol error to generate an SNMP PDU which  contains the value `readOnly' in the error-status  field, as such this object is provided as a means  of detecting incorrect implementations of the  SNMP. 
+snmpInGenErrs			The total number of SNMP PDUs which were  delivered to the SNMP protocol entity and for  which the value of the error-status field is  `genErr'.
+snmpInTotalReqVars			The total number of MIB objects which have been  retrieved successfully by the SNMP protocol entity  as the result of receiving valid SNMP Get-Request  and Get-Next PDUs.
+snmpInTotalSetVars			The total number of MIB objects which have been  altered successfully by the SNMP protocol entity  as the result of receiving valid SNMP Set-Request  PDUs.
+snmpInGetRequests			The total number of SNMP Get-Request PDUs which  have been accepted and processed by the SNMP  protocol entity.
+snmpInGetNexts			The total number of SNMP Get-Next PDUs which have  been accepted and processed by the SNMP protocol  entity.
+snmpInSetRequests			The total number of SNMP Set-Request PDUs which  have been accepted and processed by the SNMP  protocol entity.
+snmpInGetResponses			The total number of SNMP Get-Response PDUs which  have been accepted and processed by the SNMP  protocol entity.
+snmpInTraps			The total number of SNMP Trap PDUs which have  been accepted and processed by the SNMP protocol  entity.
+snmpOutTooBigs			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status field is  `tooBig.'
+snmpOutNoSuchNames			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status is  `noSuchName'.
+snmpOutBadValues			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status field is  `badValue'.
+snmpOutGenErrs			The total number of SNMP PDUs which were  generated by the SNMP protocol entity and for  which the value of the error-status field is  `genErr'.
+snmpOutGetRequests			The total number of SNMP Get-Request PDUs which  have been generated by the SNMP protocol entity.
+snmpOutGetNexts			The total number of SNMP Get-Next PDUs which have  been generated by the SNMP protocol entity.
+snmpOutSetRequests			The total number of SNMP Set-Request PDUs which  have been generated by the SNMP protocol entity.
+snmpOutGetResponses			The total number of SNMP Get-Response PDUs which  have been generated by the SNMP protocol entity.
+snmpOutTraps			The total number of SNMP Trap PDUs which have  been generated by the SNMP protocol entity.
+snmpEnableAuthenTraps			 Indicates whether the SNMP agent process is  permitted to generate authentication-failure  traps.  The value of this object overrides any  configuration information; as such, it provides a  means whereby all authentication-failure traps may  be disabled.  Note that it is strongly recommended that this  object be stored in non-volatile memory so that it  remains constant between re-initializations of the  network management system. 
+sun			sun
+sunProducts			sunProducts
+sunMib			sunMib
+sunSystem			sunSystem
+sunInterfaces			sunInterfaces
+sunAt			sunAt
+sunIp			sunIp
+sunIcmp			sunIcmp
+sunTcp			sunTcp
+sunUdp			sunUdp
+sunSnmp			sunSnmp
+sunProcesses			sunProcesses
+sunHostPerf			sunHostPerf
+agentDescr			The SNMP agent's description of itself 
+hostID			The unique Sun hardware identifier.  The value returned is four byte binary  string.
+motd			The first line of /etc/motd 
+unixTime			 The Unix system time.  Measured in seconds  since January 1, 1970 GMT. 
+sunProcessTable	sunProcessTable
+psEntry	psEntry
+psProcessID			The process identifier for this process 
+psParentProcessID			The process identifier of this process's parent 
+psProcessSize			The combined size of the data and stack segments  (in kilobytes.)
+psProcessCpuTime			The CPU time (including both user and system  time) consumed so far.
+psProcessState			The run-state of the process.  R -- Runnable  T -- Stopped  P -- In page wait  D -- Non-interruptable wait  S -- Sleeping (less than 20 seconds)  I -- Idle (more than 20 seconds)  Z -- Zombie
+psProcessWaitChannel			Reason process is waiting 
+psProcessTTY			 Terminal, if any, controlling this process  
+psProcessUserName			Name of the user associated with this process 
+psProcessUserID			Numeric form of the name of the user associated  with this process.
+psProcessName			Command name used to invoke this process 
+psProcessStatus			Setting this variable will cause a signal  of the set value to be sent to the process.
+rsUserProcessTime	rsUserProcessTime
+rsNiceModeTime	rsNiceModeTime
+rsSystemProcessTime	rsSystemProcessTime
+rsIdleModeTime	rsIdleModeTime
+rsDiskXfer1	rsDiskXfer1
+rsDiskXfer2	rsDiskXfer2
+rsDiskXfer3	rsDiskXfer3
+rsDiskXfer4	rsDiskXfer4
+rsVPagesIn			Number of pages read in from disk 
+rsVPagesOut			Number of pages written to disk 
+rsVSwapIn			Number of pages swapped in 
+rsVSwapOut			Number of pages swapped out 
+rsVIntr			Number of device interrupts 
+rsIfInPackets			Number of input packets 

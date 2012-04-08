@@ -1,0 +1,12 @@
+[Subject: SiteView Alert for group <group>]
+
+This alert is from SiteView at <SiteViewURL>
+
+All of the monitors in the <group> group are in error.
+
+Sample #: <sample>
+Time:     <time>
+
+
+Depending on the group's configuration, this may indicate the total failure of
+a server or of the network connection to a server.

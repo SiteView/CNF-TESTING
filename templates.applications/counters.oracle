@@ -1,0 +1,17 @@
+Up/Down Time(up/down):Default
+Completed Requests(number/sec):Default
+Completed Requests(max/sec):Default
+Completed Requests(avg/sec):Default
+Completed Requests(total):Default
+Latency(avg this interval):Default
+Latency(avg since start):Default
+Load(now):Default
+Load(max):Default
+Active Sessions(now)
+Active Sessions(max)
+Apology Pages Served(Network Error - number this second)
+Apology Pages Served(Network Error - total)
+Apology Pages Served(Site Busy - number this second)
+Apology Pages Served(Site Busy - total)
+Application Web Server Backlog(now)
+Application Web Server Backlog(max)

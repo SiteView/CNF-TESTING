@@ -1,0 +1,10 @@
+topobject	System Stats	top	static
+counter	Accumulated Amount of Outbound Data	Accumulated Amount of Outbound Data	static	/Accumulated Amount of Outbound Data<\/td><td.*?align.*?right.*?>(.*?)<\/td>/si
+counter	Time for all Requests	Time for all Requests	static	/Time for all Requests<\/td><td.*?align.*?right.*?>(.*?)<\/td>/si
+counter	Average Amount of Outbound Data per Request	Average Amount of Outbound Data per Request	static	/Average Amount of Outbound Data per Request<\/td><td.*?align.*?right.*?>(.*?)<\/td>/si
+counter	Average Number of Component Calls per Request	Average Number of Component Calls per Request	static	/Average Number of Component Calls per Request<\/td><td.*?align.*?right.*?>(.*?)<\/td>/si
+counter	Average Time of a Request	Average Time of a Request	static	/Average Time of a Request<\/td><td.*?align.*?right.*?>(.*?)<\/td>/si
+counter	Number of Calls with Outbound Data	Number of Calls with Outbound Data	static	/Number of Calls with Outbound Data<\/td><td.*?align.*?right.*?>(.*?)<\/td>/si
+counter	Number of Component Calls for all Requests	Number of Component Calls for all Requests	static	/Number of Component Calls for all Requests<\/td><td.*?align.*?right.*?>(.*?)<\/td>/si
+counter	Number of Requests since First Request	Number of Requests since First Request	static	/Number of Requests since First Request<\/td><td.*?align.*?right.*?>(.*?)<\/td>/si
+counter	Requests per Second	Requests per Second	static	/Requests per Second<\/td><td.*?align.*?right.*?>(.*?)<\/td>/si

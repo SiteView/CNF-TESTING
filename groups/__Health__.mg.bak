@@ -1,0 +1,17 @@
+_encoding=GBK
+_health=true
+_dependsCondition=good
+_nextID=2
+_fileEncoding=GBK
+_name=Health
+#
+_scale=1
+_class=NTCounterMonitor
+_pmcfile=Cache.pmc
+_id=1
+_encoding=GBK
+_frequency=600
+_dependsCondition=good
+_internalId=83964227
+_monitorRunCount=0
+_name=NT Performance Counter: Cache.pmc

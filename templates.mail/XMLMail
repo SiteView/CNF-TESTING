@@ -1,0 +1,22 @@
+[Tag-Style:{}]
+<?xml version='1.0'?>
+<alert>
+  <SiteView>
+    <server>{_webserverAddress}</server>
+    <group>
+      <id>{groupID}</id>
+      <name>{group}</name>
+      <monitor>
+        <name>{name}</name>
+        <state>{state}</state>
+        <id>{_id}</id>
+        <sample>{sample}</sample>
+      </monitor>
+    </group>
+  </SiteView>
+  <time>{time}</time>
+  <diagnostic>
+    {diagnosticText}
+  </diagnostic>
+</alert>
+

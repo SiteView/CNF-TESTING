@@ -1,0 +1,24 @@
+lastSaved=1250145079093
+id=-1
+last=1250148920609
+#
+measurement=5
+sample=10
+monitorDoneTime=1250148920609
+category=good
+percentFailed=0
+warningCount=0
+gethostname=www.g.cn
+status=ok
+percentGood=100
+goodTimeSinceFirst=1250148920593
+id=1
+errorCount=0
+roundTripTime=91.0
+stateString=0.09 sec
+packetsReceived=1
+last=1250148920609
+errorTimeSinceFirst=1250148319500
+warningTimeSinceFirst=1250148319500
+lastCategory=nodata
+goodCount=1

@@ -1,0 +1,26 @@
+09:30:00 08/21/2009	good	Group0	Network Bandwidth: 192.168.0.251	Monitored interfaces: NOT DISPLAYABLE: up, NOT DISPLAYABLE: up	7:10	0	up	up	748	652	2	7	0	0	0	0	0	0	748	652	2	7	0	0	0	0	0	0	8	2365720	729640
+09:40:01 08/21/2009	good	Group0	Network Bandwidth: 192.168.0.251	Monitored interfaces: NOT DISPLAYABLE: up, NOT DISPLAYABLE: up	7:11	0	up	up	1476	1535	10	16	0	0	0	0	0	0	1476	1535	10	16	0	0	0	0	0	0	7	2362648	729640
+09:50:01 08/21/2009	good	Group0	Network Bandwidth: 192.168.0.251	Monitored interfaces: NOT DISPLAYABLE: up, NOT DISPLAYABLE: up	7:12	0	up	up	1629	1628	11	17	0	0	0	0	0	0	1629	1628	11	17	0	0	0	0	0	0	12	2362684	729640
+10:00:01 08/21/2009	good	Group0	Network Bandwidth: 192.168.0.251	Monitored interfaces: NOT DISPLAYABLE: up, NOT DISPLAYABLE: up	7:13	0	up	up	1548	1514	10	15	0	0	0	0	0	0	1548	1514	10	15	0	0	0	0	0	0	7	2362588	729640
+10:07:23 08/21/2009	good	Group0	Service: Vppn on \\NOTE-NONE	running	8:1	running	1	0	0
+10:08:39 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:2	running	1	0	0
+10:10:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:3	running	1	0	0
+10:20:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:4	running	1	0	0
+10:30:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:5	running	1	0	0
+10:40:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:6	running	1	0	0
+10:50:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:7	running	1	0	0
+11:00:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:8	running	1	0	0
+11:10:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:9	running	1	0	0
+11:20:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:10	running	1	0	0
+11:30:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:11	running	1	0	0
+11:34:27 08/21/2009	good	Group0	Disk Space: C on \\NOTE-NONE	43% full, 11758MB free, 20473MB total	9:1	43	11758
+11:40:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:12	running	1	0	0
+11:44:27 08/21/2009	good	Group0	Disk Space: C on \\NOTE-NONE	43% full, 11758MB free, 20473MB total	9:2	43	11758
+11:50:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:13	running	1	0	0
+11:54:27 08/21/2009	good	Group0	Disk Space: C on \\NOTE-NONE	43% full, 11758MB free, 20473MB total	9:3	43	11758
+11:56:37 08/21/2009	good	Group0	Disk Space: C on \\NOTE-NONE	43% full, 11758MB free, 20473MB total	9:4	43	11758
+12:00:15 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:14	running	1	0	0
+13:20:49 08/21/2009	good	Group0	Service: AFD on \\NOTE-NONE	running	8:14	running	1	0	0
+13:22:14 08/21/2009	good	Group0	Disk Space: C on \\NOTE-NONE	43% full, 11754MB free, 20473MB total	9:5	43	11754
+13:23:09 08/21/2009	good	Group0	Memory on \\NOTE-NONE	17% used, 4080MB free	10:1	17	4080	n/a
+14:02:28 08/21/2009	error	Group0	DHCP	Address already in use: Cannot bind	11:1	0	none	failure

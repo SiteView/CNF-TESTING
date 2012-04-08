@@ -1,0 +1,4 @@
+
+tss_dispatcher: Log started at 31/05/2005 14:40:51 .
+
+31/05/2005 14:40:54 ERROR   CTSSDispatcher::OnSocketConnect - accept() failed. Error code 10035

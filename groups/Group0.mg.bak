@@ -1,0 +1,52 @@
+_encoding=GBK
+_description=test group
+_dependsCondition=good
+_nextID=21
+_fileEncoding=UTF-8
+_name=test
+#
+_class=CPUMonitor
+_id=18
+_alertCondition=category eq 'error' and errorCount == 1	mailto _id:12 Default	83964282	_UIContext=Group0 18	_name=Alert
+_encoding=GBK
+_frequency=600
+_dependsCondition=good
+_internalId=83964281
+_machine=\\NOTE-NONE
+_name=CPU Utilization on \\NOTE-NONE
+#
+_class=PingMonitor
+_id=19
+_encoding=GBK
+_packetSize=32
+_frequency=600
+_dependsCondition=good
+_timeout=5000
+_name=Ping: 127.0.0.1
+_hostname=127.0.0.1
+#
+_snmpv3authtype=MD5
+_class=BrowsableSNMPMonitor
+_id=20
+_encoding=GBK
+_snmpversion=1
+_frequency=600
+_server=127.0.0.1
+_dependsCondition=good
+_browseName1=iso/org/dod/internet/mgmt/mib-2/system/sysContact
+_browseName2=iso/org/dod/internet/mgmt/mib-2/system/sysDescr
+_browseName3=iso/org/dod/internet/mgmt/mib-2/system/sysServices
+_browseName4=iso/org/dod/internet/mgmt/mib-2/system/sysName
+_browseName5=iso/org/dod/internet/mgmt/mib-2/system/sysUpTime
+_browseName6=iso/org/dod/internet/mgmt/mib-2/system/sysLocation
+_browseName7=iso/org/dod/internet/mgmt/mib-2/system/sysObjectID
+_mibfile=All MIBs
+_community=public
+_name=SNMP by MIB: 127.0.0.1
+_browseNameid1=17 1.3.6.1.2.1.1.4.0
+_browseNameid2=17 1.3.6.1.2.1.1.1.0
+_browseNameid3=17 1.3.6.1.2.1.1.7.0
+_browseNameid4=17 1.3.6.1.2.1.1.5.0
+_browseNameid5=17 1.3.6.1.2.1.1.3.0
+_browseNameid6=17 1.3.6.1.2.1.1.6.0
+_browseNameid7=17 1.3.6.1.2.1.1.2.0

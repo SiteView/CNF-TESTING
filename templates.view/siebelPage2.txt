@@ -1,0 +1,29 @@
+<input type="hidden" name="productName" value="SiteView for Siebel">
+<input type="hidden" name="account" value="administrator">
+<input type="hidden" name="page" value="siebelwzd">
+<input type="hidden" name="operation" value="groupCreate">
+<IMG SRC="/SiteView/htdocs/artwork/SSforSiebel.gif" border="0" alt="Starting SiteView for Siebel">
+<hr>
+<TABLE border="0" cellspacing="3">
+<tr><td><img src="/SiteView/htdocs/artwork/empty1111.gif" border="0" width="150" height="1"></td><td>&nbsp;</td></tr>
+<tr><td colspan="2" width="100%">
+<h3>3. Setup Monitor Groups for Siebel Monitoring</h3>
+<P>Next we will set up some SiteView monitor groups to organize the Siebel monitors. Enter the applicable information  below, and click the
+<b>Create Groups</b> button.
+</p></td></TR>
+<TR><TD align="right" valign="top" width="15%">
+Siebel Monitor Group Name:</TD><TD ALIGN=LEFT><TABLE><TR><TD ALIGN=LEFT>
+<input type="text" name="groupName" size="18" value=""></TD></TR>
+<TR><TD><FONT SIZE=-1>The name to use for the monitor groups. Do not use spaces in the name. You can use the underscore character.
+For example, Siebel_CallCenter or SiebelCRM </FONT></TD></TR></TABLE></TD></TR>
+<TR><td></td><TD><input type="submit" value="Create Group"><I></I></TD></TR>
+</table>
+</FORM>
+<TABLE border="0" cellspacing="3">
+<tr><td><img src="/SiteView/htdocs/artwork/empty1111.gif" border="0" width="150" height="1"></td><td>&nbsp;</td></tr>
+<TR><td width="15%">&nbsp;</td><TD ALIGN="LEFT" VALIGN="TOP">
+<FORM ACTION="/SiteView/htdocs/SiteView.html" method="GET">
+<input type="hidden" name="operation" value="Quit">
+<input type="submit" value=" Skip "> this setup wizard and open the SiteView main page</p><I></I></FORM></TD></TR>
+</TABLE>
+

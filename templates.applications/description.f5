@@ -1,0 +1,739 @@
+f5					f5
+f5systems					f5systems
+f53dns					f53dns
+f53dnsMIB					f53dnsMIB
+f53dnsMIBObjects					f53dnsMIBObjects
+globals					globals
+dataCenters					dataCenters
+lbRouters					lbRouters
+hosts					hosts
+lbDnsServs					lbDnsServs
+lbDomains					lbDomains
+summary					summary
+cache					cache
+threednsTrap					threednsTrap
+threednsTraps					threednsTraps
+globalCheckStaticDepends					 Indicates whether the availability of virtual servers on load-balancing routers and hosts is checked.  Normally true, but can be false for testing. 
+globalDefaultAlternate					Default static load-balancing mode.
+globalTimerGetLBRouterData					Interval in seconds between refreshes of load-balancing router data.
+globalTimerGetVServData					Interval in seconds between refreshes of virtual server data.
+globalTimerGetPathData					Interval in seconds between refreshes of path data.
+globalLBRouterTTL					Amount of time in seconds that load-balancing router data is considered valid for name resolution and load-balancing.
+globalVSTTL					Amount of time in seconds that virtual server data is considered valid for name resolution and load-balancing.
+globalPathTTL					Amount of time in seconds that path data is considered valid for name resolution and load-balancing.
+globalRTTTimeout					Amount of time in seconds that the RTT listener daemon waits for a probe.
+globalRTTSampleCount					Number of packets to send when measuring round-trip times.
+globalRTTPacketLength					Length in bytes of packets used for measuring round-trip times.
+globalRTTProbeProtocol					Probing protocol used for measuring round-trip times.
+globalEncryption					Indicates whether encryption is used for iQuery events.
+globalEncryptionKeyFile					The pathname of the key file used for encryption.
+globalPathHiWater					 Path memory usage level that triggers reaping, in bytes. 
+globalPathLoWater					 Path memory usage level at which reaping is discontinued, in bytes. 
+globalPathDuration					Interval in seconds between checks of path memory usage to determine whether to reap.
+globalPathReapAlg					Algorithm used for selecting paths to be discarded when reaping.
+globalTimerKeepAlive					Interval in seconds between periodic queries of load-balancing routers.
+globalRxBufSize					 Size of each socket receive buffer, in bytes. 
+globalTxBufSize					 Size of each socket transmit buffer, in bytes. 
+globalQosCoeffRTT					Relative weight given to the round-trip time in the quality of service load-balancing mode.
+globalQosCoeffCompletionRate					Relative weight given to the completion rate in the quality of service load-balancing mode.
+globalQosCoeffHops					Relative weight given to the hop count in the quality of service load-balancing mode.
+globalQosCoeffPacketRate					Relative weight given to the packet rate in the quality of service load-balancing mode.
+globalPathsNoClobber					Specifies whether the load-balancing DNS server overwrites existing path data with blank data when a path probe fails.
+globalPathsNeverDie					Specifies whether dynamic load-balancing modes can use path data even after the ttl for the path data has expired.
+globalRegulateInit					 Defines the initial amount of path probe requests 3-DNS will send to each big3d after initialization. After the first  series of probe requests, 3-DNS adjusts the number of future probe requests according to the amount received during the last probe interval (defined by timer_get_path_data) plus the increment defined by regulate_paths. 
+globalRegulatePaths					 If zero, no path regulation will be attempted. Every path  in the cache that is not fresh will be sent to each big3d  every timer_get_path_data seconds. If non-zero, this defines the increment over the amount of path's probed and refreshed over the past interval to determine an upper bound for probe requests to send to each big3d. 
+globalProberAddr					The default prober for host status.
+globalCheckDynamicDepends					Indicates whether the load-balancing DNS server checks the availability of a path before it uses the path for load balancing.
+globalDefaultFallback					The default load-balancing mode used for the fallback method.
+globalDefaultTTL					The amount of time (in seconds) that information is to be used for name resolution and load-balancing.
+globalPersistLDns					 If TRUE (default), then 3-DNS will remember all LDNS's that make requests in its cache. This must be TRUE in order to store and use path information. 
+globalFbRespectAcl					Indicates whether the load-balancing DNS server imposes access control when load-balancing switches to the specified fallback mode.
+globalFbRespectDepends					Indicates whether the load-balancing DNS server respects virtual server status when load-balancing switches to the specified fallback mode.
+globalHostTTL					The amount of time (in seconds) that host machine information is to be used for name resolution and load balancing.
+globalTimerGetHostData					The interval (in seconds) between refreshes of host information.
+globalRTTRetireZero					Default 0. Coefficient used in custom path prioritization algorithm.
+globalRTTPortDiscovery					 Indicates whether the load-balancing DNS server uses the discovery factory to find an alternate port to be used by the probing factory, if probing on port 53 fails. 
+globalRTTDiscoveryMethod					 Indicates the set of ports scanned when searching for an alternate port to be used bythe probing factory, if probing on port 53 fails. 
+globalRTTProbeDynamic					Indicates whether the load-balancing DNS server attempts a second probe using the alternate probe protocol if the probe protocol specified by globalRTTProbeProtocol fails during the first probe.
+globalResolverRXBufSize					The UDP receive buffer size.
+globalResolverTXBufSize					The TCP send buffer size.
+globalCoeffLastAccess					Default 0. Coefficient used in custom path prioritization algorithm.
+globalCoeffFreshRemain					Default 0. Coefficient used in custom path prioritization algorithm.
+globalCoeffAccessRefresh					Default 0. Coefficient used in custom path prioritization algorithm.
+globalCoeffAccessTotal					Default 0. Coefficient used in custom path prioritization algorithm.
+globalCoeffDRTT					Relative weighting for round trip time when the load-balancing mode is set to Quality of Service.
+globalCoeffDCompletionRate					Default 0. Coefficient used in custom path prioritization algorithm.
+globalQosCoeffTopology					Relative weighting for topology when the load-balancing mode is set to Quality of Service.
+globalQosFactorRTT					Factor used to normalize raw RTT values when computing the QOS score.
+globalQosFactorHops					Factor used to normalize raw RTT values when computing the QOS score.
+globalQosFactorCompletionRate					Factor used to normalize raw RTT values when computing the QOS score.
+globalQosFactorPacketRate					Factor used to normalize raw RTT values when computing the QOS score.
+globalQosFactorTopology					Factor used to normalize raw RTT values when computing the QOS score.
+globalLDnsHiWater					 LDNS memory usage level that triggers reaping, in bytes. 
+globalLDnsLoWater					 LDNS memory usage level at which reaping is discontinued, in bytes. 
+globalLDnsDuration					Interval in seconds between checks of LDNS memory usage to determine whether to reap.
+globalLDnsReapAlg					Algorithm used for selecting LDNS entries to be discarded when reaping.
+globalUseAltIqPort					 If true, the registered port 4353 is used for iQuery traffic.  If false, the traditional port 245 is used. 
+globalMultiplexIq					 If true, port 4353 is used for all incoming iQuery traffic. If false, ports from the ephemeral port range are used. 
+globalRTTProbeProtocolList					 List of RTT probe protocols to use. The protocols are listed in the order in which they will be attempted. If an attempt to use a specified protocol fails, the next one in the list will be used for a subsequent attempt. If the last protocol in the list fails the first one in the list will then be used. 
+globalRTTProbeProtocolState					The current RTT probe protocol being used. This will return the name of the protocol being used followed by a number signifying the position of that protocol in the list of protocols returned by globalRTTProbeProtocolList.
+globalResetCounters					Writing a one to this variable will cause counters within 3-DNS to be reset. If the counters have been reset this variable will have a value of 1. If the counters have not been reset the variable will  have a value of 2.
+globalResetCounterTime					The time of the last reset of the 3-DNS counters. If the counters have not been reset this variable will contain the time when  statistic gathering first started.
+globalRTTDiscoveryRandomize					 Randomize the selection of which port to use when performing tcp probing. This flag is only effective if the globalRTTDiscoveryMethod is set to short.
+globalRTTDiscoveryPortList					A user specified list of ports to use during RTT TCP probing. This list of ports is used when the globalRTTDiscoveryMethod is set to short.
+globalQosCoeffKBPS					Relative weight given to the current kilobytes per second rate in the quality of service load-balance mode.
+globalCacheTTL					Amount of time in seconds that 3-DNS data for a cache is considered valid for name resolution and load-balancing.
+dataCenterTable					Information describing the defined data centers.
+dataCenterEntry					This table contains a row for each data center.  The rows are indexed by the names of the data centers.
+dataCenterName					The name of the data center in this row of the table.
+dataCenterContact					Contact information for the data center in this row of the table.
+dataCenterLocation					The location of the data center in this row of the table.
+dataCenterPathCount					The number of paths in the data center in this row of the table.
+dataCenterDisabled					Is this datacenter disabled. If a datacenter is disabled then  all servers within the datacenter are treated as disabled.
+dataCenterDisableDuration					The duration of a disable of this datacenter.
+dataCenterServTable					Information about the servers associated with each data center.
+dataCenterServEntry					This table contains a row for each server in each data center.
+dataCenterServAddr					The IP address of the server.
+dataCenterServType					The server type.
+lbRouterTable					Information about the defined load-balancing routers.
+lbRouterEntry					This table contains a row for each load-balancing router known to the system.  It is indexed by the router's canonical IP address.
+lbRouterAddr					The load-balancing router's canonical IP address.
+lbRouterName					The load-balancing router's name.
+lbRouterVServCount					The number of virtual servers associated with the load-balancing router.
+lbRouterPicks					The number of times the specified load-balancing router has been chosen by the load-balancing DNS server.
+lbRouterRefreshes					The number of times that server and connection counts have been refreshed with new data from the load-balancing router.
+lbRouterDisabled					Is this load -balancing router disabled. If a load-balancing router is disabled then all of its virtual servers are  considered to be disabled.
+lbRouterDisableDuration					Duration of a disable of this load-balancing router.
+lbRouterIQProto					IQuery protocol to use for this load-balancing router.
+lbRouterRTTDiscoveryMethod					Method to use for selection of ports to use during TCP RTT discovery probing.
+lbRouterRTTDiscoveryPortList					A user specified list of ports to use during RTT TCP probing. This list of ports is used when the lbRouterRTTDiscoveryMethod is set to short.
+lbRouterRTTDiscoveryRandomize					Randomize the selection of which port to use when performing RTT TCP probing. This flag is only effective if the lbRouterRTTDiscoveryMethod is set to short.
+lbRouterQosKBPS					The current total kilobytes per second rate for all of the virtual servers  of this load-balancing router.  This rate is used as one of the components considered in the quality of service load-balancing mode.
+lbRouterKBPSThreshold					Threshold for the maximum number of kilobytes of data per second which the virtual servers of this load-balancing router can have before this load balancing router is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+lbRouterPacketsPSThreshold					Threshold for the maximum number of packets of data per second which the virtual servers of this load-balancing router can have before this load balancing router is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+lbRouterIfTable					Information about the network interfaces on a load-balancing router.
+lbRouterIfEntry					This table contains a row for each network interface associated with a load-balancing router.  It is indexed by the canonical IP address of the router and the specific IP address of the interface.
+lbRouterIfAddr					The specific IP address of the network interface in this row of the table.
+lbRouterIfShared					Whether the interface is the shared IP address of the load-balancing router.
+lbRouterIfStatus					The status of the network interface.
+lbRouterIfTXPackets					The number of packets that have been transmitted on the network interface.
+lbRouterIfRXPackets					The number of packets that have been received on the network interface.
+lbRouterIfPacketRate					The interface's current packet rate in packets per second.
+lbRouterIfUpTime					The amount of time the interface has been up.
+lbRouterIfAliveTime					The most recent date and time when the interface was known to be running.
+lbRouterIfDataTime					The most recent date and time when data was transmitted through the interface.
+lbRouterIfPathSentTime					The date and time when path data corresponding to the interface was most recently sent.
+lbRouterIfPathsSent					The number of paths sent in the most recent batch.
+lbRouterIfPathsRcvd					The number of paths received in the most recent batch.
+lbRouterIfPathSends					The number of batches of paths that have been sent.
+lbRouterIfPathRcvs					The number of batches of paths that have been received.
+lbRouterIfAvgPathsSentX1000					 The average sent path batch size, multiplied by 1000. 
+lbRouterIfAvgPathsRcvdX1000					 The average received path batch size, multiplied by 1000. 
+lbRouterIfFctryTable					Information about the factories running on each load-balancing router interface.
+lbRouterIfFctryEntry					This table gives the number of factories of each type that are running on each load-balancing router interface.
+lbRouterIfFctryType					The type of the factory in this row of the table.
+lbRouterIfFctryCount					The number of factories of the type corresponding to this row of the table.
+lbRouterVServTable					Information about the virtual servers associated with each load-balancing router.
+lbRouterVServEntry					This table contains a row for each virtual server on each load-balancing router.  It is indexed by the router address and by the address/port combination that defines the virtual server.
+lbRouterVServAddr					The IP address of the virtual server.
+lbRouterVServPort					The port number of the virtual server.
+lbRouterVServXlatedAddr					The translated (NAT) address of the virtual server.
+lbRouterVServXlatedPort					The translated (NAT) port number of the virtual server.
+lbRouterVServProbeProtocol					The probing protocol used for measuring round-trip times to the virtual server.
+lbRouterVServPicks					The number of times the specified virtual server has been chosen by the load-balancing DNS server.
+lbRouterVServRefreshes					The number of times that data associated with the virtual server have been refreshed with new information.
+lbRouterVServAliveTime					When the virtual server was last known to be up.
+lbRouterVServDataTime					When data was last received from the virtual server.
+lbRouterVServCurConns					The current number of connections being processed by the virtual server.
+lbRouterVServCurConnLimit					The current connection limit for the virtual server.
+lbRouterVServCurNodesUp					The current number of nodes associated with the virtual server that are up.
+lbRouterVServCurEnabled					Whether the virtual server is currently enabled.
+lbRouterVServDnsServDisabled					Whether the virtual server is currently disabled from the load-balancing  DNS server.
+lbRouterVServDisableDuration					Duration of a disable of this server by the load-balancing DNS server.
+lbRouterVServQosKBPS					The current kilobytes per second rate for this virtual server. This rate is used as one of the components considered in the quality of service load-balancing mode.
+lbRouterVServCPUUsageThreshold					Threshold for percentage of CPU usage allowed for this virtual server. If the cpu usage percentage exceeds this threshold the virtual server will be marked  as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+lbRouterVServMemoryAvailableThreshold					Threshold for the number of kilobytes of memory which must be available on this  virtual server. If the available memory does not exceed this threshold the  virtual server will be marked as unavailable. This variable will have a value  of -1 if a threshold has not been specified.
+lbRouterVServDiskAvailableThreshold					Threshold for the number of kilobytes of disk which must be available on this  virtual server. If the available disk space does not exceed this threshold the virtual server will be marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+lbRouterVServKBPSThreshold					Threshold for the maximum number of kilobytes of data per second which this virtual server can have before this virtual server is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+lbRouterVServPacketsPSThreshold					Threshold for the maximum number of packets of data per second which this  virtual server can have before this virtual server is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+hostTable					Information about the defined hosts other than load-balancing routers.
+hostEntry					This table contains a row for each host other than the load-balancing routers.  It is indexed by the canonical IP address of each host.
+hostAddr					The canonical IP address of the host.
+hostName					The name of the host.
+hostProber					The IP address of the prober for the host.
+hostProbeProtocol					The protocol used when probing the host.
+hostProbePort					The port to which probes are directed.
+hostVServCount					The number of virtual servers associated with the host.
+hostStatus					The current status of the host.
+hostPicks					The number of times the host has been chosen by the load-balancing DNS server.
+hostRefreshes					The number of times the data from the host has been refreshed with new information.
+hostDisabled					Is this load host disabled. If a host is disabled then all of its virtual servers are considered to be disabled.
+hostDisableDuration					Duration of a disable of this host.
+hostMetrics					Are Cisco virtual server metrics available for the virtual servers on this host.
+hostMemory					Total number of kilobytes of free virtual memory for this host. If this statistic is not available it will have a value of  -1.
+hostCPU					CPU utilization. All CPU utilization is expressed a percentage rounded up to the nearest integer. CPU utilization is computed differently for each SNMP agent. CPU usage is computed for the UCD mib as the load average in the last 5 minutes divided by a configured  maximum saturated load average. CPU usage is computed for the Solstice mib as the number of time ticks spent in user and system execution divided by the total number of elapsed time tics. If this statistic is not available it will have a value of  -1.
+hostDiskSpace					The amount of available disk space for / in kilobytes. If this statistic is not available it will have a value of -1.
+hostSNMPConfigured					Is an SNMP agent configured for this host.
+hostSNMPAgentType					Is an SNMP agent configured for this host.
+hostSNMPAddress					The IP address of the SNMP agent for this host. If no SNMP agent is configured for this host this will have a value of 0.0.0.0.
+hostSNMPPort					The port for the SNMP agent of this host. If no SNMP agent is configured for this host this will have a value of -1.
+hostSNMPRetries					Number of retries to use when attempting to query the SNMP agent of this host. If no SNMP agent is configured for this host this will have a value of -1.
+hostSNMPTimeout					Time in seconds to wait before retrying a query of the SNMP agent for this host. If no SNMP agent is configured for this host this will have a value of -1.
+hostSNMPVersion					SNMP version number to use when communicating with the SNMP agent for this host. If no SNMP agent is configured for this host this will have a value of -1.
+hostSNMPCommunity					SNMP community name to use when communicating with the SNMP agent for this host. If no SNMP agent is configured for this host this will have a value of  none.
+hostRTTDiscoveryMethod					Method to use for selection of ports to use during TCP RTT discovery probing.
+hostRTTDiscoveryPortList					A user specified list of ports to use during RTT TCP probing. This list of ports is used when the hostRTTDiscoveryMethod is set to short.
+hostRTTDiscoveryRandomize					Randomize the selection of which port to use when performing RTT TCP probing. This flag is only effective if the hostRTTDiscoveryMethod is set to short.
+hostQosKBPS					The current kilobytes per second rate for this host. This rate is used as one of the components considered in the quality of service load-balancing mode.
+hostCPUUsageThreshold					Threshold for percentage of CPU usage allowed for this host.  If the cpu usage percentage exceeds this threshold the host will be marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+hostMemoryAvailableThreshold					Threshold for the number of kilobytes of memory which must be available on this host. If the available memory does not exceed this threshold the host will be marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+hostDiskAvailableThreshold					Threshold for the number of kilobytes of disk which must be available on this host. If the available disk space does not exceed this threshold the host will be marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+hostKBPSThreshold					Threshold for the maximum number of kilobytes of data per second which this host can have before this host is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+hostPacketsPSThreshold					Threshold for the maximum number of packets of data per second which this host can have before this host is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+hostIfTable					Information about the network interfaces on a host.
+hostIfEntry					This table contains a row for each network interface associated with a host.  It is indexed by the canonical IP address of the host and the specific IP address of the interface.
+hostIfAddr					The specific IP address of the network interface in this row of the table.
+hostIfShared					Whether the interface is the shared IP address of the host.
+hostIfStatus					The status of the network interface.
+hostIfTXPackets					The number of packets that have been transmitted on the network interface.
+hostIfRXPackets					The number of packets that have been received on the network interface.
+hostIfUpTime					The amount of time the interface has been up.
+hostIfAliveTime					The most recent date and time when the interface was known to be running.
+hostIfDataTime					The most recent date and time when data was transmitted through the interface.
+hostIfPathSentTime					The date and time when path data corresponding to the interface was most recently sent.
+hostIfPathsSent					The number of paths sent in the most recent batch.
+hostIfPathsRcvd					The number of paths received in the most recent batch.
+hostIfPathSends					The number of batches of paths that have been sent.
+hostIfPathRcvs					The number of batches of paths that have been received.
+hostIfAvgPathsSentX1000					 The average sent path batch size, multiplied by 1000. 
+hostIfAvgPathsRcvdX1000					 The average received path batch size, multiplied by 1000. 
+hostIfFctryTable					Information about the factories running on each host interface.
+hostIfFctryEntry					This table gives the number of factories of each type that are running on each host interface.
+hostIfFctryType					The type of the factory in this row of the table.
+hostIfFctryCount					The number of factories of the type corresponding to this row of the table.
+hostVServTable					Information about the virtual servers associated with each host.
+hostVServEntry					This table contains a row for each virtual server on each host other than load-balancing routers.  It is indexed by the host address and by the address/port combination that defines the virtual server.
+hostVServAddr					The IP address of the virtual server.
+hostVServPort					The port number of the virtual server.
+hostVServXlatedAddr					The translated (NAT) address of the virtual server.
+hostVServXlatedPort					The translated (NAT) port number of the virtual server.
+hostVServProbeProtocol					The probing protocol used for measuring round-trip times to the virtual server.
+hostVServPicks					The number of times the specified virtual server has been chosen by the load-balancing DNS server.
+hostVServRefreshes					The number of times that data associated with the virtual server have been refreshed with new information.
+hostVServAliveTime					When the virtual server was last known to be up.
+hostVServDataTime					When data was last received from the virtual server.
+hostVServDisabled					Is this virtual server disabled. If a virtual server is disabled it is considered unavailable for load-balancing by 3-DNS.
+hostVServDisableDuration					Disable duration of this virtual server.
+hostVServQosKBPS					The current kilobytes per second rate for this virtual server. This rate is used as one of the components considered in the quality of service load-balancing mode.
+hostVServCPUUsageThreshold					Threshold for percentage of CPU usage allowed for this virtual server. If the cpu usage percentage exceeds this threshold the virtual server will be marked  as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+hostVServMemoryAvailableThreshold					Threshold for the number of kilobytes of memory which must be available on this  virtual server. If the available memory does not exceed this threshold the  virtual server will be marked as unavailable. This variable will have a value  of -1 if a threshold has not been specified.
+hostVServDiskAvailableThreshold					Threshold for the number of kilobytes of disk which must be available on this  virtual server. If the available disk space does not exceed this threshold the virtual server will be marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+hostVServKBPSThreshold					Threshold for the maximum number of kilobytes of data per second which this virtual server can have before this virtual server is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+hostVServPacketsPSThreshold					Threshold for the maximum number of packets of data per second which this  virtual server can have before this virtual server is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+lbDnsServTable					Information about the load-balancing DNS servers.
+lbDnsServEntry					 This table contains a row for each load-balancing DNS server, indexed by the server's canonical IP address. 
+lbDnsServAddr					The canonical IP address of the load-balancing DNS server.
+lbDnsServName					The name of the load-balancing DNS server.
+lbDnsServProber					The IP address of the server's prober.
+lbDnsServProbeProtocol					The The probing protocol used for measuring round-trip times to the server.
+lbDnsServProbePort					The port to which probes are directed.
+lbDnsServStatus					The current status of the server.
+lbDnsServPicks					The number of times the host has been chosen.
+lbDnsServRefreshes					The number of times the data from the server has been refreshed with new information.
+lbDnsServDisabled					Is this load-balancing DNS server disabled. If a load-balancing DNS server is disabled then  it is not available for load-balancing and it will not be included in any sync groups.
+lbDnsServDisableDuration					Duration of a disable of this load-balancing DNS server.
+lbDnsServIQProto					Iquery protocol to use for this load-balancing DNS server.
+lbDnsServRTTDiscoveryMethod					Method to use for selection of ports to use during TCP RTT discovery probing.
+lbDnsServRTTDiscoveryPortList					A user specified list of ports to use during RTT TCP probing. This list of ports is used when the lbDnsServRTTDiscoveryMethod is set to short.
+lbDnsServRTTDiscoveryRandomize					Randomize the selection of which port to use when performing RTT TCP probing. This flag is only effective if the lbDnsServRTTDiscoveryMethod is set to short.
+lbDnsServIfTable					Information about the network interfaces on a load-balancing DNS server.
+lbDnsServIfEntry					This table contains a row for each network interface associated with a load-balancing DNS server.  It is indexed by the canonical IP address of the server and the specific IP address of the interface.
+lbDnsServIfAddr					The specific IP address of the network interface in this row of the table.
+lbDnsServIfShared					Whether the interface is the shared IP address of the server.
+lbDnsServIfStatus					The status of the network interface.
+lbDnsServIfTXPackets					The number of packets that have been transmitted on the network interface.
+lbDnsServIfRXPackets					The number of packets that have been received on the network interface.
+lbDnsServIfUpTime					The amount of time the interface has been up.
+lbDnsServIfAliveTime					The most recent date and time when the interface was known to be running.
+lbDnsServIfDataTime					The most recent date and time when data was transmitted through the interface.
+lbDnsServIfPathSentTime					The date and time when path data corresponding to the interface was most recently sent.
+lbDnsServIfPathsSent					The number of paths sent in the most recent batch.
+lbDnsServIfPathsRcvd					The number of paths received in the most recent batch.
+lbDnsServIfPathSends					The number of batches of paths that have been sent.
+lbDnsServIfPathRcvs					The number of batches of paths that have been received.
+lbDnsServIfAvgPathsSentX1000					 The average sent path batch size, multiplied by 1000. 
+lbDnsServIfAvgPathsRcvdX1000					 The average received path batch size, multiplied by 1000. 
+lbDnsServIfFctryTable					Information about the factories running on each load-balancing DNS server interface.
+lbDnsServIfFctryEntry					This table gives the number of factories of each type that are running on each load-balancing DNS server interface.
+lbDnsServIfFctryType					The type of the factory in this row of the table.
+lbDnsServIfFctryCount					The number of factories of the type corresponding to this row of the table.
+lbDomainTable					Information about the load-balanced domains.
+lbDomainEntry					This table contains a row for each load-balanced domain. It is indexed by the domain name.
+lbDomainName					The domain name of the load-balanced domain in this row of the table.
+lbDomainAddr					The canonical IP address of the load-balanced domain.
+lbDomainPort					The load-balanced domain's default service port number.
+lbDomainTTL					The amount of time (in seconds) that the specified domain's information is to be used by the load-balancing DNS server for name resolution and load-balancing.
+lbDomainLBModePool					The load-balancing mode to use to balance requests over all pools.
+lbDomainQosCoeffRTT					Relative weighting for round trip time when the load-balancing mode is set to Quality of Service.
+lbDomainQosCoeffHops					Relative weighting for number of hops when the load-balancing mode is set to Quality of Service.
+lbDomainQosCoeffTopology					Relative weighting for topology when the load-balancing mode is set to Quality of Service.
+lbDomainQosCoeffCompletionRate					Relative weighting for completion rate when the load-balancing mode is set to Quality of Service.
+lbDomainQosCoeffPacketRate					Relative weighting for packet rate when the load-balancing mode is set to Quality of Service.
+lbDomainRequests					The number of DNS requests for this domain.
+lbDomainPreferredResolves					The number of times the domain has been resolved using the preferred mode.
+lbDomainAlternateResolves					The number of times the domain has been resolved using the alternate mode.
+lbDomainFallbackResolves					The number of times the domain has been resolved using the fallback mode.
+lbDomainReturnsToDns					The number of times the domain has been resolved using standard DNS.
+lbDomainLastResolve					When the domain was most recently resolved.
+lbDomainDisabled					Is this domain disabled. If a domain is disabled then all name resolution requests are returned to DNS.
+lbDomainDisableDuration					The duration of a disable of this domain.
+lbDomainPersist					When this is true this domain will maintain connections between LDNS's and virtual servers.
+lbDomainPersistTTL					The duration that the  domain will maintain connections between LDNS's and virtual servers.
+lbDomainAliasTable					Information about the domain names serverd by each load-balanced domain.
+lbDomainAliasEntry					This table contains a row for each domain name associated with a load-balanced domain.  The table is indexed by the canonical domain name as well as a numeric index into the list of associated domain names.
+lbDomainAliasIndex					The index into the list of domain names.
+lbDomainAliasName					The domain name in this row of the table.
+lbDomainAliasRequests					The number of requests for the domain name in this row of the table.
+lbDomainPortTable					Information about the ports associated with a load-balanced domain.
+lbDomainPortEntry					This table contains a row for each port associated with each load-balanced domain.  It is indexed by the canonical domain name and by the port number.
+lbDomainPortPort					A port number associated with the load-balanced domain.
+lbDomainPoolTable					Information about the resource pools associated with each load-balanced domain.
+lbDomainPoolEntry					This table contains a row for each resource pool associated with each load-balanced domain.  It is indexed by the canonical domain name as well as by a numeric index specifying the resource pool.
+lbDomainPoolIndex					A numeric index into the list of resource pools for this domain.
+lbDomainPoolName					The name of the resource pool in this row of the table.
+lbDomainPoolType					The type of the resource pool.
+lbDomainPoolState					The current state of the pool.
+lbDomainPoolVSCount					The number of virtual servers in the pool.
+lbDomainPoolLBMode					The preferred load-balancing mode for the pool.
+lbDomainPoolAlternateLBMode					The alternate load-balancing mode for the pool.
+lbDomainPoolFallbackLBMode					The fallback load-balancing mode for the pool.
+lbDomainPoolCheckStaticDepends					Indicates whether the availability of virtual servers in the pool is checked.
+lbDomainPoolCheckDynamicDepends					Indicates whether the availability of paths associated with the pool is checked.
+lbDomainPoolRatio					The default weighting to use with respect to other pools.
+lbDomainPoolRipeness					 The counter used to determine whether the pool can be chosen during load-balancing when the pool_lbmode is ratio. It is  initialized to the pool ratio value, and decremented each time the pool is chosen. When non-zero the pool can be chosen. When zero, the pool will be skipped. When all pools reach zero  ripeness, all pool ripeness values are re-initialized to their  ratio values. 
+lbDomainPoolPreferredResolves					The number of times the pool has been resolved using the preferred mode.
+lbDomainPoolAlternateResolves					The number of times the pool has been resolved using the alternate mode.
+lbDomainPoolFallbackResolves					The number of times the pool has been resolved using the fallback mode.
+lbDomainPoolReturnsToDns					The number of times the pool has been resolved using standard DNS.
+lbDomainPoolRRLdns					Enables passing of blocks of ip addresses back to local dns servers.
+lbDomainPoolRRLdnsLimit					The limit of the number of addresses to be passed back in an rr_ldns block. There will be no limit if this attribute is 0.
+lbDomainPoolVSTable					Information about the virtual servers in each resource pool.
+lbDomainPoolVSEntry					This table contains a row for each virtual server in each resource pool associated with each load-balanced domain.
+lbDomainPoolVSAddr					The IP address of the virtual server.
+lbDomainPoolVSPort					The port number of the virtual server.
+lbDomainPoolVSRatio					The weighting to use with respect to other virtual servers in the pool.
+lbDomainPoolVSRipeness					 The counter used to determine whether the VS can be chosen during load-balancing when the lbmode is ratio. It is initialized to the VS ratio value as specified in the pool, and decremented each time the VS is chosen. When non-zero the VS can be chosen. When zero, the VS will be skipped. When all VS reach zero ripeness, all VS ripeness values are re-initialized to their ratio values. 
+summaryVersion					The version number of the system.
+summaryUpTime					The elapsed time since the system was last initialized.
+summaryDate					The system's notion of the local date and time of day.
+summaryLastReload					The value of summaryUpTime when the system was most recently commanded to reload its DNS database.
+summaryLastDump					 The value of summaryUpTime when the system was most recently commanded to dump its database, cache, and status information. 
+summaryRequests					The total number of requests received.
+summarySyncMode					 Whether the system is a primary 3-DNS, secondary 3-DNS, or neither. 
+summarySyncFile					The pathname of the file to which sync dumps are written. Valid only if summarySyncMode is primary.
+summarySyncIns					The total number of incoming syncs performed.
+summarySyncInErrors					The total number of errors encountered when performing incoming syncs.
+summaryLastSyncIn					The value of summaryUpTime when the most recent incoming sync was performed.
+summarySyncOuts					The total number of outgoing syncs performed.
+summarySyncOutErrors					The total number of errors encountered when performing outgoing syncs.
+summaryLastSyncOut					The value of summaryUpTime when the most recent outgoing sync was performed.
+cacheTable					Information about the defined caches.
+cacheEntry					This table contains a row for each cache. It is indexed by the canonical IP address of each cache.
+cacheAddr					The canonical IP address of the cache.
+cacheName					The name of the cache.
+cacheProber					The IP address of the prober for the cache.
+cacheProbeProtocol					The protocol used when probing the cache.
+cacheProbePort					The port to which probes are directed.
+cacheVServCount					The number of virtual servers associated with the cache.
+cacheStatus					The current status of the cache.
+cachePicks					The number of times the cache has been chosen by the load-balancing DNS server.
+cacheRefreshes					The number of times the data from the cache has been refreshed with new information.
+cacheDisabled					Is this load cache disabled. If a cache is disabled then all of its virtual servers are considered to be disabled.
+cacheDisableDuration					Duration of a disable of this cache.
+cacheMemory					Total number of kilobytes of free virtual memory for this cache. If this statistic is not available it will have a value of  -1.
+cacheCPU					CPU utilization. All CPU utilization is expressed a percentage rounded up to the nearest integer. CPU utilization is computed differently for each SNMP agent. CPU usage is computed for the UCD mib as the load average in the last 5 minutes divided by a configured  maximum saturated load average. CPU usage is computed for the Solstice mib as the number of time ticks spent in user and system execution divided by the total number of elapsed time tics. If this statistic is not available it will have a value of  -1.
+cacheDiskSpace					The amount of available disk space for / in kilobytes. If this statistic is not available it will have a value of -1.
+cacheRTTDiscoveryMethod					Method to use for selection of ports to use during TCP RTT discovery probing.
+cacheRTTDiscoveryPortList					A user specified list of ports to use during RTT TCP probing. This list of ports is used when the cacheRTTDiscoveryMethod is set to short.
+cacheRTTDiscoveryRandomize					Randomize the selection of which port to use when performing RTT TCP probing. This flag is only effective if the cacheRTTDiscoveryMethod is set to short.
+cacheQosKBPS					The current kilobytes per second rate for this cache. This rate is used as one of the components considered in the quality of service load-balancing mode.
+cacheCPUUsageThreshold					Threshold for percentage of CPU usage allowed for this cache.  If the cpu usage percentage exceeds this threshold the cache will be marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+cacheMemoryAvailableThreshold					Threshold for the number of kilobytes of memory which must be available on this cache. If the available memory does not exceed this threshold the cache will be marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+cacheDiskAvailableThreshold					Threshold for the number of kilobytes of disk which must be available on this cache. If the available disk space does not exceed this threshold the cache will be marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+cacheKBPSThreshold					Threshold for the maximum number of kilobytes of data per second which this cache can have before this cache is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+cachePacketsPSThreshold					Threshold for the maximum number of packets of data per second which this cache can have before this cache is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+cacheIfTable					Information about the network interfaces on a cache.
+cacheIfEntry					This table contains a row for each network interface associated with a cache.  It is indexed by the canonical IP address of the cache and the specific IP address of the interface.
+cacheIfAddr					The specific IP address of the network interface in this row of the table.
+cacheIfShared					Whether the interface is the shared IP address of the cache.
+cacheIfStatus					The status of the network interface.
+cacheIfTXPackets					The number of packets that have been transmitted on the network interface.
+cacheIfRXPackets					The number of packets that have been received on the network interface.
+cacheIfUpTime					The amount of time the interface has been up.
+cacheIfAliveTime					The most recent date and time when the interface was known to be running.
+cacheIfDataTime					The most recent date and time when data was transmitted through the interface.
+cacheIfPathSentTime					The date and time when path data corresponding to the interface was most recently sent.
+cacheIfPathsSent					The number of paths sent in the most recent batch.
+cacheIfPathsRcvd					The number of paths received in the most recent batch.
+cacheIfPathSends					The number of batches of paths that have been sent.
+cacheIfPathRcvs					The number of batches of paths that have been received.
+cacheIfAvgPathsSentX1000					 The average sent path batch size, multiplied by 1000. 
+cacheIfAvgPathsRcvdX1000					 The average received path batch size, multiplied by 1000. 
+cacheIfFctryTable					Information about the factories running on each cache interface.
+cacheIfFctryEntry					This table gives the number of factories of each type that are running on each cache interface.
+cacheIfFctryType					The type of the factory in this row of the table.
+cacheIfFctryCount					The number of factories of the type corresponding to this row of the table.
+cacheVServTable					Information about the virtual servers associated with each cache.
+cacheVServEntry					This table contains a row for each virtual server on each cache other than load-balancing routers.  It is indexed by the cache address and by the address/port combination that defines the virtual server.
+cacheVServAddr					The IP address of the virtual server.
+cacheVServPort					The port number of the virtual server.
+cacheVServXlatedAddr					The translated (NAT) address of the virtual server.
+cacheVServXlatedPort					The translated (NAT) port number of the virtual server.
+cacheVServProbeProtocol					The probing protocol used for measuring round-trip times to the virtual server.
+cacheVServPicks					The number of times the specified virtual server has been chosen by the load-balancing DNS server.
+cacheVServRefreshes					The number of times that data associated with the virtual server have been refreshed with new information.
+cacheVServAliveTime					When the virtual server was last known to be up.
+cacheVServDataTime					When data was last received from the virtual server.
+cacheVServDisabled					Is this virtual server disabled. If a virtual server is disabled it is considered unavailable for load-balancing by 3-DNS.
+cacheVServDisableDuration					Disable duration of this virtual server.
+cacheVServQosKBPS					The current kilobytes per second rate for this virtual server. This rate is used as one of the components considered in the quality of service load-balancing mode.
+cacheVServCPUUsageThreshold					Threshold for percentage of CPU usage allowed for this virtual server. If the cpu usage percentage exceeds this threshold the virtual server will be marked  as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+cacheVServMemoryAvailableThreshold					Threshold for the number of kilobytes of memory which must be available on this  virtual server. If the available memory does not exceed this threshold the  virtual server will be marked as unavailable. This variable will have a value  of -1 if a threshold has not been specified.
+cacheVServDiskAvailableThreshold					Threshold for the number of kilobytes of disk which must be available on this  virtual server. If the available disk space does not exceed this threshold the virtual server will be marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+cacheVServKBPSThreshold					Threshold for the maximum number of kilobytes of data per second which this virtual server can have before this virtual server is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+cacheVServPacketsPSThreshold					Threshold for the maximum number of packets of data per second which this  virtual server can have before this virtual server is marked as unavailable. This variable will have a value of -1 if a threshold has not been specified.
+f5					f5
+f5systems					f5systems
+loadbal					loadbal
+virtualAddress					virtualAddress
+virtualServer					virtualServer
+snat					snat
+interface					interface
+ifaddress					ifaddress
+pool					pool
+poolMember					poolMember
+sslProxy					sslProxy
+vaddress					vaddress
+ndaddr					ndaddr
+nat					nat
+vport					vport
+member					member
+loadBalTrap					loadBalTrap
+loadBalTraps					loadBalTraps
+interfaceNumber					The number of interfaces on this BIG-IP.
+interfaceTable					A table containing information about the BIG-IP interfaces.
+interfaceEntry					Columns in the Interface Table.
+interfaceName					The name of the interface.
+interfaceIpAddresses					The list of IP addresses on this interface.
+interfaceDestination					This is a destination interface.
+interfaceSource					This is a source interface.
+interfaceTimeout					The seconds before a failover is triggered in failsafe mode.
+interfaceArmed					The interface will be armed if the interface failsafe mode is activated.
+interfaceVLANSEnabled					Is VLANS enabled for this interface.
+interfaceMasqueradeAddress					MAC masquerade address of this interface.
+interfaceLastTimeChanged					The last time the interface attributes were modified.
+interfaceSpeed					The speed of this interface.
+interfaceFullDuplex					Is this interface operating in full duplex mode.
+ifaddressNumber					The number of interface ip addresses on this BIG-IP.
+ifaddressTable					A table containing information about the BIG-IP interface ip addresses.
+ifaddressEntry					Columns in the Interface Table.
+ifaddressIpAddress					The ip address for this interface ip address.
+ifaddressInterfaceName					The name of the interface for this ip address.
+ifaddressNetmask					The netmask for this interface ip address.
+ifaddressBroadcast					The broadcast address for this interface ip address.
+ifaddressType					The type for this interface ip address.
+ifaddressUnitId					The unit id for this interface ip address.
+ifaddressVLANTag					The VLAN tag for this interface ip address.
+poolNumber					The number of pools on this BIG-IP.
+poolTable					A table containing information about the BIG-IP pools.
+poolEntry					Columns in the Pool Table.
+poolName					The name of this pool.
+poolLBMode					The load balance mode of this pool.
+poolDependent					Is this pool a dependent pool.
+poolMemberQty					The number of members in this pool.
+poolBitsin					The total bits in for this pool.
+poolBitsout					The total bits out for this pool.
+poolBitsinHi32					The total bits in for this pool.
+poolBitsoutHi32					The total bits out for this pool.
+poolPktsin					The total packets in for this pool.
+poolPktsout					The total packets out for this pool.
+poolPktsinHi32					The total packets in for this pool.
+poolPktsoutHi32					The total packets out for this pool.
+poolMaxConn					The maximum number of connections the members of   this pool have had open at any one time.
+poolCurrentConn					The current number of connections the members of   this pool have open.
+poolTotalConn					The total number of connections the members of  this pool have served since the pool started.
+poolPersistMode					Persistance mode for this pool.
+poolSSLTimeout					The timeout time in seconds for SSL persistence for this pool.
+poolSimpleTimeout					The timeout time in seconds for simple persistence for this pool.
+poolSimpleMask					The simple persistence mask for this pool.
+poolStickyMask					The sticky persistence mask for this pool.
+poolCookieMode					Cookie mode used with cookie persistence mode.
+poolCookieExpiration					The persistent cookie expiration time in seconds for this pool.
+poolCookieHashName					The cookie hash name for this pool.
+poolCookieHashOffset					The cookie hash offset for this pool.
+poolCookieHashLength					The cookie hash length for this pool.
+poolMemberNumber					The number of pool members on this BIG-IP.
+poolMemberTable					A table containing information about the BIG-IP pool members.
+poolMemberEntry					Columns in the Pool Member Table.
+poolMemberPoolName					The name of the pool which contains this member.
+poolMemberIpAddress					The ip address of this pool member.
+poolMemberPort					The port of this pool member.
+poolMemberMaintenance					Is this pool member in maintenance mode.
+poolMemberRatio					Load balancing ratio of the member within the pool.  Used by member ratio load balancing mode.
+poolMemberPriority					Priority level of the member within the pool. Used by priority member load balancing mode.
+poolMemberWeight					Weight of the member within the pool. Used during dynamically calculated ratio  load balancing.
+poolMemberRipeness					The current load balancing state in member ratio load balancing mode.
+poolMemberBitsin					The total bits in for this pool member.
+poolMemberBitsout					The total bits out for this pool member.
+poolMemberBitsinHi32					The total bits in for this pool member.
+poolMemberBitsoutHi32					The total bits out for this pool member.
+poolMemberPktsin					The total packets in for this pool member.
+poolMemberPktsout					The total packets out for this pool member.
+poolMemberPktsinHi32					The total packets in for this pool member.
+poolMemberPktsoutHi32					The total packets out for this pool member.
+poolMemberConnLimit					The maximum number of connections this pool member can have open at any one time.
+poolMemberMaxConn					The maximum number of connections this pool member has had open at any one time.
+poolMemberCurrentConn					The current number of connections this pool member has open.
+poolMemberTotalConn					The total number of connections this pool  member have served since the pool member started.
+sslProxyNumber					The number of SSL Proxies on this BIG-IP.
+sslProxyTable					A table containing information about the BIG-IP SSL Proxies.
+sslProxyEntry					Columns in the SSL Proxy Table.
+sslProxyOrigIpAddress					The original ip address of this SSL proxy.
+sslProxyOrigPort					The original port of this SSL proxy.
+sslProxyDestIpAddress					The destination ip address of this SSL proxy.
+sslProxyDestPort					The destination port of this SSL proxy.
+sslProxyNetmask					The netmask of this SSL proxy.
+sslProxyBroadcast					The broadcast address of this SSL proxy.
+sslProxyUnitId					The unit id of this SSL proxy.
+sslProxyEnabled					Is this SSL proxy enabled.
+sslProxyInterfaceName					The interface associated with this SSL proxy.
+sslProxyLastHopPool					The name of the last hop pool for this SSL proxy.
+virtualAddressNumber					The number of virtual addresses on this BIG-IP.
+virtualAddressTable					A table containing information about the BIG-IP Virtual Server addresses.
+virtualAddressEntry					Columns in the Virtual Address Table.
+virtualAddressIpAddress					The ip address for this virtual server.
+virtualAddressStatus					Is this server in maintainance mode?
+virtualAddressConnLimit					The total number of connections this virtual address can support at one time.
+virtualAddressNetmask					The netmask for this virtual address.
+virtualAddressBroadcast					The broadcast address for this virtual address.
+virtualAddressInterface					The name of the network interface that this address is attached to.
+virtualAddressFailoverFlags					The failover flags for the this virtual address. The virtualAddressFailoverFlag is no longer relevant. Mirroring is controlled through the virtualServerFailoverFlag.
+virtualAddressOctetsIn					The number of octets received from the network from this virtual server.
+virtualAddressOctetsOut					The number of octets sent to the network from this virtual server.
+virtualAddressPacketsIn					The number of packets received from the network from this virtual server.
+virtualAddressPacketsOut					The number of packets sent to the network from this virtual server.
+virtualAddressCurrentConn					The number of connections currently open on this virtual server.
+virtualAddressMaxConn					The maximum number of connections this virtual server has had open at any one time.
+virtualAddressTotalConn					The total number of connections this virtual server has served since the server started.
+virtualAddressOctetsInHi32					The number of octets received from the network from this virtual server.
+virtualAddressOctetsOutHi32					The number of octets sent to the network from this virtual server.
+virtualAddressPacketsInHi32					The number of packets received from the network from this virtual server.
+virtualAddressPacketsOutHi32					The number of packets sent to the network from this virtual server.
+virtualAddressUnitId					The unit id of this virtual server.
+virtualServerNumber					The number of virtual servers on this BIG-IP.
+virtualServerTable					A table containing BIG-IP Virtual server information.
+virtualServerEntry					Columns in the Virtual Server table.
+virtualServerIpAddress					The ip address for this virtual server.
+virtualServerPort					The port for this virtual server.
+virtualServerStatus					Is this server in maintainance mode?
+virtualServerConnLimit					The total number of connections this virtual server can support at one time.
+virtualServerAppProtocol					The application tunnelling protocol this virtual server uses.
+virtualServerAppProtocolTimeout					The timeout for persistence timeout for this this application protocol session.
+virtualServerAppProtocolReaper					The amount of idle time before we reap an application  protocol session.
+virtualServerPersistTimeout					The timeout for persistence on this connection.
+virtualServerPersistMask					The IP addresses matching this mask will have persistent connections. Those not covered by this mask will not.
+virtualServerSticky					Is Destination Address Affinity turned on for this connection?
+virtualServerStickyMask					The addresses matching this mask will have Destination Address Affinity if virtualServerSticky is true.
+virtualServerFailoverFlags					The failover flags for the this virtual server.
+virtualServerOctetsIn					The number of octets received from the network from this virtual server.
+virtualServerOctetsOut					The number of octets sent to the network from this virtual server.
+virtualServerPacketsIn					The number of packets received from the network from this virtual server.
+virtualServerPacketsOut					The number of packets sent to the network from this virtual server.
+virtualServerCurrentConn					The number of connections currently open on this virtual server.
+virtualServerMaxConn					The maximum number of connections this virtual server has had  open at any one time.
+virtualServerTotalConn					The total number of connections this virtual server has served since the server started.
+virtualServerSslNew					The number of new SSL sessions on this virtual server.
+virtualServerSslHits					The number of lookup successes in the SSL session id cache for valid session ids.
+virtualServerSslTimeouts					The number of lookup successes in the SSL session id cache for session ids that have already been reaped.
+virtualServerSslMisses					The number of lookup failures in the SSL session id cache.
+virtualServerOctetsInHi32					The number of octets received from the network from this virtual server.
+virtualServerOctetsOutHi32					The number of octets sent to the network from this virtual server.
+virtualServerPacketsInHi32					The number of packets received from the network from this virtual server.
+virtualServerPacketsOutHi32					The number of packets sent to the network from this virtual server.
+virtualServerCookieMethod					The cookie persistence method for this virtual server.
+virtualServerRule					The load balancing rule used by this virtual server.
+virtualServerPool					The load balancing pool used by this virtual server if a load balancing rule is not defined.
+snatTransTable					A table of all the secure NATS entries.
+snatTransEntry					Columns in the table of secure NATS entries.
+snatTransEnabled					Is this TransAddress enabled for SNAT?
+snatTransAddr					The ipaddress to the outside world for this SNAT.
+snatTransIface					The name of the interface that this trans address  exists on.
+snatTransNetmask					The network mask for the snatTransAddr.
+snatTransBroadcast					The broadcast address for the snatTransAddr.
+snatTransSecsCollectingStats					The number of seconds we have been collecting  statistics for this port.
+snatTransBitsIn					The total bits in for this SNAT.
+snatTransBitsOut					The total bits out for this SNAT.
+snatTransPktsIn					The total packets in for this SNAT.
+snatTransPktsOut					The total packets out for this SNAT.
+snatTransCurrConns					The number of connections currently open for this SNAT.
+snatTransMaxConns					The maximum number of connections this SNAT has had open at any one time.
+snatTransTotalConns					The total number of connections this SNAT has had since the SNAT started.
+snatTransBitsInHi32					The upper 32 bits of the total number of bits in for this SNAT.
+snatTransBitsOutHi32					The upper 32 bits of the total number of bits out for this SNAT.
+snatTransPktsInHi32					The upper 32 bits of the total number of packets in for this SNAT.
+snatTransPktsOutHi32					The upper 32 bits of the total number of packets out for this SNAT.
+snatTransLastTransPort					Last translated port accessed using the SNAT.
+snatTransUnitId					Unit number of the load balancer to which  the SNAT translation address is assigned.
+snatOrigTable					A table of all the secure NATS entries.
+snatOrigEntry					Columns in the table of secure NATS entries.
+snatOrigEnabled					Is this OrigAddress enabled for SNAT?
+snatOrigAddr					The ipaddress to the outside world for this SNAT.
+snatOrigConnLimit					The maximum number of connections through this snat.
+snatOrigTransAddr					The translation address corresponding to this original address.
+snatOrigTcpIdleTimeout					The idle timeout for TCP connections though this snat.
+snatOrigUdpIdleTimeout					The idle timeout for TCP connections though this snat.
+snatOrigStatsZeroTime					The time we started collecting  statistics for this port.
+snatOrigSecsCollectingStats					The number of seconds we have been collecting  statistics for this port.
+snatOrigBitsIn					Total bits in for this SNAT.
+snatOrigBitsOut					Total bits out for this SNAT.
+snatOrigPktsIn					Total packets in for this SNAT.
+snatOrigPktsOut					Total packets out for this SNAT.
+snatOrigCurrConns					The current number of connections for this SNAT.
+snatOrigMaxConns					The maximum number of connections this SNAT has had at any one time.
+snatOrigTotalConns					The total number of connections this SNAT has had since the SNAT started.
+snatOrigBitsInHi32					The upper 32 bits of the total number of bits in for this SNAT.
+snatOrigBitsOutHi32					The upper 32 bits of the total number of bits out for this SNAT.
+snatOrigPktsInHi32					The upper 32 bits of the total number of packets in for this SNAT.
+snatOrigPktsOutHi32					The upper 32 bits of the total number of packets out for this SNAT.
+snatOrigLastTransPort					Last translated port accessed using the SNAT.
+uptime					The uptime of this device -- not the uptime of the SNMP agent.
+contot					The total number of connections this balancer has serviced.
+concur					The number of current connections.
+conmax					The maximum number of connections that this balancer has serviced at one time.
+pktsin					The total count of all packets read off the network.
+pktsout					The total count of all packets written to the network.
+bitsin					The total number of bits read off the network.
+bitsout					The total count of all bits written to the network.
+portdeny					The count of port denies that has occuried.
+droppedin					The count of inbound packets that have been dropped.
+droppedout					The count of outbound packets that have been dropped.
+active					If this balancer in active or standby mode?
+mirrorenabled					Is mirroring enabled on this load balancer?
+resetcounters					Is mirroring enabled on this load balancer?
+pktsinHi32					The total count of all packets read off the network.
+pktsoutHi32					The total count of all packets written to the network.
+bitsinHi32					The total number of bits read off the network.
+bitsoutHi32					The total count of all bits written to the network.
+nodePing					Node ping interval in seconds.
+nodeTimeout					Node timeout interval in seconds.
+loadbalMode					The global load balance mode.
+watchDogArmed					Watch dog card state.
+snatConnLimit					Number of simultaneous connections allowed through a SNAT.
+snatTCPIdleTimeout					Default connection timeout for SNAT TCP connections.
+snatUDPIdleTimeout					Default timeout for SNAT UDP connections.
+gatewayFailsafe					Is gateway failsafe pinging enabled.
+unitId					Unit id(s) for this load balancer.
+memoryUsed					Memory used by the load balancer kernal.
+memoryTotal					Total memory available to the load balancer kernal.
+cpuTemperature					The current temperature of the cpu board in celsius. A temperature equal to -1 indicates this information is not  available on this BIG-IP.
+fanSpeed					The current speed of the BIG-IP cooling fan in RPM. A fan speed equal to -1 indicates this information is not  available on this BIG-IP.
+vaddressNumber					The number of virtual address's present on this system.
+vaddressTable					A list of virtual address's entries. The number of entries is given by the value of vaddressNumber.
+vaddressEntry					A vaddress entry containing vaddress information.
+vaddressIndex					A unique value for each virtual address defined.
+vaddressDescr					A textual string describing the virtual address.
+vaddressIpAddr					The IP address for this virtual address.
+vaddressPktsin					The total packets in for this virtual address.
+vaddressPktsout					The total packets out of this virtual address.
+vaddressBitsin					The total bits in for this virtual address.
+vaddressBitsout					The total bits out of this virtual address.
+vaddressConcur					The current number of connections on this virtual address.
+vaddressConmax					The maximum number of connections this virtual server has had open at any one time.
+vaddressConlimit					The total number of connections this virtual address can support at one time.
+vaddressContot					The total number of connections this virtual server has served since the server started.
+vaddressStatus					Status of this virtual address.
+vaddressPktsinHi32					The total packets in for this virtual address.
+vaddressPktsoutHi32					The total packets out of this virtual address.
+vaddressBitsinHi32					The total bits in for this virtual address.
+vaddressBitsoutHi32					The total bits out of this virtual address.
+ndaddrNumber					The number of ndaddrs present on this system.
+ndaddrTable					A list of ndaddr entries. The number of entries is given by the value of ndaddrNumber.
+ndaddrEntry					A ndaddr entry containing ndaddr statitics.
+ndaddrIndex					A unique value for each ndaddr defined.
+ndaddrDescr					A textual string describing the node address.
+ndaddrIpAddr					The Node address (IP Address).
+ndaddrPktsin					The total packets in for this node address.
+ndaddrPktsout					The total packets out for this node address.
+ndaddrBitsin					The total bits in for this node address.
+ndaddrBitsout					The total bits out for this node address.
+ndaddrConcur					The number of current connections for this node address.
+ndaddrConmax					The maximum number of connections this node address has had oppen at one time.
+ndaddrConlimit					The maximum number of connections this node address is allowed to have open at one time.
+ndaddrContot					The total connections that this node address had had.
+ndaddrStatus					The status of this node address.
+ndaddrPktsinHi32					The total packets in for this node address.
+ndaddrPktsoutHi32					The total packets out for this node address.
+ndaddrBitsinHi32					The total bits in for this node address.
+ndaddrBitsoutHi32					The total bits out for this node address.
+ndaddrMaintenance					Is this node address in maintenance mode.
+natNumber					The number of NATS present on this system.
+natTable					A list of NAT entries. The number of entries is given by the value of natNumber.
+natEntry					A NAT entry containing information by nat.
+natIndex					A unique value for each NAT defined.
+natDescr					A textual string describing the NAT.
+natIpAddrFR					The NAT's from IP Address.
+natIpAddrTO					The NAT's TO IP Address.
+natPktsin					The total packets in for this NAT.
+natPktsout					The total packets out for this NAT.
+natBitsin					The total bits in for this NAT.
+natBitsout					The total bits out for this NAT.
+natPktsinHi32					The total packets in for this NAT.
+natPktsoutHi32					The total packets out for this NAT.
+natBitsinHi32					The total bits in for this NAT.
+natBitsoutHi32					The total bits out for this NAT.
+natOutsideNetmask					The outside netmask for this NAT.
+natOutsideBroadcast					The outside broadcast address for this NAT.
+natInterface					The interface name for this NAT.
+natUnitId					The unit id associated with this NAT.
+vportNumber					The number of vports present on this system.
+vportTable					A list of vport entries. The number of entries is given by the value of vportNumber.
+vportEntry					A vport entry containing vport statitics.
+vportIndex					A unique value for each virtual port defined.
+vportPort					The Virutal port's port Number.
+vportDescr					A textual string describing the virtual port.
+vportPktsin					The total packets in for this virtual port.
+vportPktsout					The total packets out for this virtual port.
+vportBitsin					The total bits in for this virtual port.
+vportBitsout					The total bits out for this virtual port.
+vportConcur					The number of current connections for this virtual port
+vportConmax					The maximum number of connections this virtual port has had open at any one time.
+vportConlimit					The connection limit for this virtual port.
+vportContot					The total number of connections this virtual port has had open since the server started.
+vportReaped					The total connections reaped on this virtual port.
+vportPktsinHi32					The total packets in for this virtual port.
+vportPktsoutHi32					The total packets out for this virtual port.
+vportBitsinHi32					The total bits in for this virtual port.
+vportBitsoutHi32					The total bits out for this virtual port.
+vportAllowed					Is this port allowed.
+vportTCPpersistence					Number of seconds before TCP persistence expires for this virtual port.
+vportUDPpersistence					Number of seconds before UDP persistence expires for this virtual port.
+memberTable					A table containing balancer member information.
+memberEntry					Information Specific to Members.
+memberVirtualAddress					The virtual IP address.
+memberVirtualAddressPort					The virtual IP address port.
+memberOrdinal					The virtual IP address member ordinal number.
+memberAddress					The node ip address for this member.
+memberPort					The node port for this member.
+memberStatus					The status of this member.
+memberPktsin					The count of packets read off the network for this member.
+memberPktsout					The count of packets written to the network for this member.
+memberBitsin					The count of bits read off the network for this member.
+memberBitsout					The count of bits written to the network for this member.
+memberConcur					The number of connections currently open for this member.
+memberConmax					The maximum number of connections this member has had open at any one time.
+memberConlimit					The total number of connections this member can support at one time.
+memberContot					The total number of connections this member has served since the server started.
+memberPktsinHi32					The count of packets read off the network for this member.
+memberPktsoutHi32					The count of packets written to the network for this member.
+memberBitsinHi32					The count of bits read off the network for this member.
+memberBitsoutHi32					The count of bits written to the network for this member.

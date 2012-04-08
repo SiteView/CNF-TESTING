@@ -1,0 +1,21 @@
+15:00:13 07/31/2009	good	Group0.5	network	6K in/sec., 806 bytes out/sec., 0.00 packet errors/sec., 34 current connections.	2:1523	6593.002	806.6299	0.0	34
+15:01:46 07/31/2009	good	Group0.7	aaaa	2% avg, cpu1 0%, cpu2 3%	1:544	2	0	3
+15:02:48 07/31/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1524	5	4	6
+15:04:18 07/31/2009	good	Group0.6	memory	16% used, 4116MB free, 111.08 pages/sec	2:1545	16	4116	111.08618
+15:04:40 07/31/2009	good	Group0.6	NT Performance Counter: Logical Disk.pmc	% Free Space:_Total = 40.69%, % Disk Read Time:_Total = 0.22%, % Disk Write Time:_Total = 0.03%...	28:33	40.69	0	10	46579	0.22	0	0	2710779308	0.03	0	0	19130535276	0.26	0	0	21841314584	0
+15:04:53 07/31/2009	good	Group0.6	disk_c	40% full, 12387MB free, 20473MB total	3:1539	40	12387
+15:10:13 07/31/2009	good	Group0.5	network	6K in/sec., 834 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1524	6650.2373	834.1233	0.0	30
+15:11:38 07/31/2009	good	Group0.7	aaaa	5% avg, cpu1 5%, cpu2 6%	1:545	5	5	6
+15:12:41 07/31/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1525	5	4	6
+15:14:18 07/31/2009	good	Group0.6	memory	16% used, 4143MB free, 1.12 pages/sec	2:1546	16	4143	1.1271867
+15:14:35 07/31/2009	good	Group0.6	NT Performance Counter: Logical Disk.pmc	% Free Space:_Total = 40.69%, % Disk Read Time:_Total = 0.09%, % Disk Write Time:_Total = 0.13%...	28:34	40.69	0	10	46578	0.09	0	0	2716156447	0.13	0	0	19138709426	0.22	0	0	21854865873	0
+15:14:53 07/31/2009	good	Group0.6	disk_c	40% full, 12386MB free, 20473MB total	3:1540	40	12386
+15:20:13 07/31/2009	good	Group0.5	network	549 bytes in/sec., 322 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1525	549.16516	322.82004	0.0	28
+15:21:38 07/31/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 6%	1:546	5	4	6
+15:22:41 07/31/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1526	5	4	6
+15:24:18 07/31/2009	good	Group0.6	memory	15% used, 4184MB free, 3.24 pages/sec	2:1547	15	4184	3.2454088
+15:24:35 07/31/2009	good	Group0.6	NT Performance Counter: Logical Disk.pmc	% Free Space:_Total = 40.68%, % Disk Read Time:_Total = 0.01%, % Disk Write Time:_Total = 0.15%...	28:35	40.68	0	10	46577	0.01	0	0	2716970289	0.15	0	0	19148222355	0.17	0	0	21865192644	0
+15:24:53 07/31/2009	good	Group0.6	disk_c	40% full, 12386MB free, 20473MB total	3:1541	40	12386
+15:30:13 07/31/2009	good	Group0.5	network	449 bytes in/sec., 338 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1526	449.35544	338.85822	0.0	29
+15:31:38 07/31/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 4%	1:547	3	3	4
+15:32:41 07/31/2009	good	Group0.6	cpu	4% avg, cpu1 3%, cpu2 5%	1:1527	4	3	5

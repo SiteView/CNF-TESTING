@@ -1,0 +1,45 @@
+_monitorTemplateName=Topaz Oracle Database Server (Unix)
+_monitorTemplateDescription=Adds moniors for a Topaz Oracle Database Server machine
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Unix_remote_server _value=<choose_remote_unix_server_from_the_select_box_to_the_right_and_clear_this_text>
+$TOPAZ_ORACLE_SID$=_description=Oracle SID _value=1521
+#
+_name=Oracle Checkpoint Process on "$TOPAZ_HOST_NAME$" for SID $TOPAZ_ORACLE_SID$
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=/ora_ckpt_$TOPAZ_ORACLE_SID$/i
+_machine=$TOPAZ_MACHINE_NAME$
+_checkMemory=on
+#
+_name=Oracle Process Monitor on "$TOPAZ_HOST_NAME$" for SID $TOPAZ_ORACLE_SID$
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=/ora_pmon_$TOPAZ_ORACLE_SID$/i
+_machine=$TOPAZ_MACHINE_NAME$
+_checkMemory=on
+#
+_name=Oracle Service Monitor on "$TOPAZ_HOST_NAME$" for SID $TOPAZ_ORACLE_SID$
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=/ora_smon_$TOPAZ_ORACLE_SID$/i
+_machine=$TOPAZ_MACHINE_NAME$
+_checkMemory=on
+#
+_name=Oracle Database Writer Process on "$TOPAZ_HOST_NAME$" for SID $TOPAZ_ORACLE_SID$
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=/ora_dbw0_$TOPAZ_ORACLE_SID$/i
+_machine=$TOPAZ_MACHINE_NAME$
+_checkMemory=on
+#
+_name=Oracle Log Writer Processes on "$TOPAZ_HOST_NAME$" for SID $TOPAZ_ORACLE_SID$
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=/ora_lgwr_$TOPAZ_ORACLE_SID$/i
+_machine=$TOPAZ_MACHINE_NAME$
+_checkMemory=on

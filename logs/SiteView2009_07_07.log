@@ -1,0 +1,261 @@
+10:05:22 07/07/2009	good	Group0.5	network	390 bytes in/sec., 401 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:997	390.53806	401.66977	0.0	29
+10:06:32 07/07/2009	good	Group0.6	memory	15% used, 4171MB free, 4.34 pages/sec	2:1018	15	4171	4.34948
+10:06:41 07/07/2009	good	Group0.6	disk_c	37% full, 13078MB free, 20473MB total	3:1010	37	13078
+10:06:48 07/07/2009	good	Group0.6	cpu	2% avg, cpu1 2%, cpu2 2%	1:1005	2	2	2
+10:06:50 07/07/2009	error	Group0.6	asdfd	% Total Processor Time n/a, File Read Bytes/sec: = 4033.03/sec, File Write Bytes/sec: = 2202.22/sec	23:1	n/a	0	0	0	4033.03	0	10	6040146264	2202.22	0	10	168635220	1	nonfailure
+10:08:27 07/07/2009	good	Group0.7	aaaa	3% avg, cpu1 4%, cpu2 3%	1:19	3	4	3
+10:15:22 07/07/2009	good	Group0.5	network	312 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 25 current connections.	2:998	312.61597	293.13544	0.0	25
+10:16:32 07/07/2009	good	Group0.6	memory	16% used, 4151MB free, 2.01 pages/sec	2:1019	16	4151	2.0149212
+10:16:41 07/07/2009	good	Group0.6	disk_c	37% full, 13078MB free, 20473MB total	3:1011	37	13078
+10:16:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 8%	1:1006	6	5	8
+10:16:55 07/07/2009	error	Group0.6	asdfd	% Total Processor Time n/a, File Read Bytes/sec: = 86639.12/sec, File Write Bytes/sec: = 7948.43/sec	23:2	n/a	0	0	0	86639.12	0	10	6512966172	7948.43	0	10	171735285	1	nonfailure
+10:18:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 8%	1:20	6	5	8
+10:25:22 07/07/2009	good	Group0.5	network	312 bytes in/sec., 292 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:999	312.471	292.99954	0.0	28
+10:26:32 07/07/2009	good	Group0.6	memory	16% used, 4148MB free, 0.24 pages/sec	2:1020	16	4148	0.24499103
+10:26:41 07/07/2009	good	Group0.6	disk_c	37% full, 13077MB free, 20473MB total	3:1012	37	13077
+10:26:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1007	6	5	7
+10:28:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 8%	1:21	6	5	8
+10:35:22 07/07/2009	good	Group0.5	network	311 bytes in/sec., 311 bytes out/sec., 0.00 packet errors/sec., 26 current connections.	2:1000	311.5438	311.5438	0.0	26
+10:36:32 07/07/2009	good	Group0.6	memory	16% used, 4141MB free, 1.03 pages/sec	2:1021	16	4141	1.0383421
+10:36:41 07/07/2009	good	Group0.6	disk_c	37% full, 13076MB free, 20473MB total	3:1013	37	13076
+10:36:48 07/07/2009	good	Group0.6	cpu	9% avg, cpu1 7%, cpu2 11%	1:1008	9	7	11
+10:38:20 07/07/2009	good	Group0.7	aaaa	9% avg, cpu1 6%, cpu2 11%	1:22	9	6	11
+10:45:22 07/07/2009	good	Group0.5	network	434 bytes in/sec., 415 bytes out/sec., 0.00 packet errors/sec., 25 current connections.	2:1001	434.86322	415.39172	0.0	25
+10:46:32 07/07/2009	good	Group0.6	memory	16% used, 4124MB free, 18.70 pages/sec	2:1022	16	4124	18.706402
+10:46:41 07/07/2009	good	Group0.6	disk_c	37% full, 13075MB free, 20473MB total	3:1014	37	13075
+10:46:48 07/07/2009	good	Group0.6	cpu	13% avg, cpu1 12%, cpu2 13%	1:1009	13	12	13
+10:48:20 07/07/2009	good	Group0.7	aaaa	15% avg, cpu1 15%, cpu2 16%	1:23	15	15	16
+10:55:22 07/07/2009	good	Group0.5	network	312 bytes in/sec., 323 bytes out/sec., 0.00 packet errors/sec., 26 current connections.	2:1002	312.61597	323.7477	0.0	26
+10:56:32 07/07/2009	good	Group0.6	memory	17% used, 4105MB free, 18.35 pages/sec	2:1023	17	4105	18.356457
+10:56:41 07/07/2009	good	Group0.6	disk_c	37% full, 13075MB free, 20473MB total	3:1015	37	13075
+10:56:48 07/07/2009	good	Group0.6	cpu	17% avg, cpu1 17%, cpu2 17%	1:1010	17	17	17
+10:58:20 07/07/2009	good	Group0.7	aaaa	18% avg, cpu1 17%, cpu2 18%	1:24	18	17	18
+11:05:22 07/07/2009	good	Group0.5	network	312 bytes in/sec., 292 bytes out/sec., 0.00 packet errors/sec., 25 current connections.	2:1003	312.471	292.99954	0.0	25
+11:06:32 07/07/2009	good	Group0.6	memory	16% used, 4118MB free, 31.21 pages/sec	2:1024	16	4118	31.210835
+11:06:41 07/07/2009	good	Group0.6	disk_c	37% full, 13074MB free, 20473MB total	3:1016	37	13074
+11:06:48 07/07/2009	good	Group0.6	cpu	15% avg, cpu1 14%, cpu2 16%	1:1011	15	14	16
+11:08:20 07/07/2009	good	Group0.7	aaaa	11% avg, cpu1 11%, cpu2 12%	1:25	11	11	12
+11:15:22 07/07/2009	good	Group0.5	network	453 bytes in/sec., 322 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1004	453.9595	322.28363	0.0	24
+11:16:32 07/07/2009	good	Group0.6	memory	16% used, 4108MB free, 5.96 pages/sec	2:1025	16	4108	5.961473
+11:16:41 07/07/2009	good	Group0.6	disk_c	37% full, 13074MB free, 20473MB total	3:1017	37	13074
+11:16:48 07/07/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1012	5	4	6
+11:18:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:26	6	5	7
+11:25:22 07/07/2009	good	Group0.5	network	331 bytes in/sec., 311 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1005	331.0153	311.5438	0.0	24
+11:26:32 07/07/2009	good	Group0.6	memory	17% used, 4090MB free, 2.76 pages/sec	2:1026	17	4090	2.7601101
+11:26:41 07/07/2009	good	Group0.6	disk_c	37% full, 13074MB free, 20473MB total	3:1018	37	13074
+11:26:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1013	6	5	7
+11:28:20 07/07/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 5%	1:27	5	4	5
+11:35:22 07/07/2009	good	Group0.5	network	319 bytes in/sec., 319 bytes out/sec., 0.00 packet errors/sec., 76 current connections.	2:1006	319.60608	319.60608	0.0	76
+11:36:32 07/07/2009	good	Group0.6	memory	17% used, 4071MB free, 2.15 pages/sec	2:1027	17	4071	2.1533298
+11:36:41 07/07/2009	good	Group0.6	disk_c	37% full, 13073MB free, 20473MB total	3:1019	37	13073
+11:36:48 07/07/2009	good	Group0.6	cpu	5% avg, cpu1 5%, cpu2 6%	1:1014	5	5	6
+11:38:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:28	6	5	7
+11:45:22 07/07/2009	good	Group0.5	network	370 bytes in/sec., 323 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1007	370.88547	323.59756	0.0	24
+11:46:32 07/07/2009	good	Group0.6	memory	17% used, 4089MB free, 0.61 pages/sec	2:1028	17	4089	0.61499983
+11:46:41 07/07/2009	good	Group0.6	disk_c	37% full, 13073MB free, 20473MB total	3:1020	37	13073
+11:46:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1015	6	5	7
+11:48:20 07/07/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 6%	1:29	5	4	6
+11:55:22 07/07/2009	good	Group0.5	network	320 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 26 current connections.	2:1008	320.81595	274.45526	0.0	26
+11:56:32 07/07/2009	good	Group0.6	memory	17% used, 4077MB free, 42.75 pages/sec	2:1029	17	4077	42.75709
+11:56:41 07/07/2009	good	Group0.6	disk_c	37% full, 13073MB free, 20473MB total	3:1021	37	13073
+11:56:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 6%	1:1016	6	5	6
+11:58:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 6%	1:30	6	5	6
+12:05:22 07/07/2009	good	Group0.5	network	764 bytes in/sec., 619 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1009	764.37854	619.6661	0.0	28
+12:06:32 07/07/2009	good	Group0.6	memory	17% used, 4067MB free, 1.82 pages/sec	2:1030	17	4067	1.8283647
+12:06:41 07/07/2009	good	Group0.6	disk_c	37% full, 13072MB free, 20473MB total	3:1022	37	13072
+12:06:48 07/07/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 4%	1:1017	3	3	4
+12:08:20 07/07/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 4%	1:31	3	3	4
+12:15:22 07/07/2009	good	Group0.5	network	517 bytes in/sec., 292 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1010	517.38525	292.99954	0.0	29
+12:16:32 07/07/2009	good	Group0.6	memory	17% used, 4067MB free, 0.20 pages/sec	2:1031	17	4067	0.20666328
+12:16:41 07/07/2009	good	Group0.6	disk_c	37% full, 13072MB free, 20473MB total	3:1023	37	13072
+12:16:48 07/07/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 3%	1:1018	3	3	3
+12:18:20 07/07/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 3%	1:32	3	3	3
+12:25:22 07/07/2009	good	Group0.5	network	683 bytes in/sec., 300 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1011	683.3565	300.41724	0.0	28
+12:26:32 07/07/2009	good	Group0.6	memory	17% used, 4068MB free, 0.04 pages/sec	2:1032	17	4068	0.04666668
+12:26:41 07/07/2009	good	Group0.6	disk_c	37% full, 13072MB free, 20473MB total	3:1024	37	13072
+12:26:48 07/07/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 3%	1:1019	3	3	3
+12:28:20 07/07/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 3%	1:33	3	3	3
+12:35:22 07/07/2009	good	Group0.5	network	372 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 27 current connections.	2:1012	372.7399	274.45526	0.0	27
+12:36:32 07/07/2009	good	Group0.6	memory	17% used, 4068MB free, 0.05 pages/sec	2:1033	17	4068	0.056667406
+12:36:41 07/07/2009	good	Group0.6	disk_c	37% full, 13072MB free, 20473MB total	3:1025	37	13072
+12:36:48 07/07/2009	good	Group0.6	cpu	3% avg, cpu1 4%, cpu2 3%	1:1020	3	4	3
+12:38:20 07/07/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 3%	1:34	3	3	3
+12:45:22 07/07/2009	good	Group0.5	network	403 bytes in/sec., 290 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1013	403.31494	290.97607	0.0	28
+12:46:32 07/07/2009	good	Group0.6	memory	17% used, 4066MB free, 0.04 pages/sec	2:1034	17	4066	0.044999283
+12:46:41 07/07/2009	good	Group0.6	disk_c	37% full, 13072MB free, 20473MB total	3:1026	37	13072
+12:46:48 07/07/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 3%	1:1021	3	3	3
+12:48:20 07/07/2009	good	Group0.7	aaaa	3% avg, cpu1 3%, cpu2 3%	1:35	3	3	3
+12:55:22 07/07/2009	good	Group0.5	network	558 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 28 current connections.	2:1014	558.4416	274.58258	0.0	28
+12:56:32 07/07/2009	good	Group0.6	memory	17% used, 4066MB free, 0.05 pages/sec	2:1035	17	4066	0.051667675
+12:56:41 07/07/2009	good	Group0.6	disk_c	37% full, 13072MB free, 20473MB total	3:1027	37	13072
+12:56:48 07/07/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 3%	1:1022	3	3	3
+12:58:20 07/07/2009	good	Group0.7	aaaa	7% avg, cpu1 7%, cpu2 8%	1:36	7	7	8
+13:05:22 07/07/2009	good	Group0.5	network	293 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 56 current connections.	2:1015	293.13544	293.13544	0.0	56
+13:06:32 07/07/2009	good	Group0.6	memory	19% used, 4005MB free, 16.38 pages/sec	2:1036	19	4005	16.388296
+13:06:41 07/07/2009	good	Group0.6	disk_c	37% full, 13064MB free, 20473MB total	3:1028	37	13064
+13:06:48 07/07/2009	good	Group0.6	cpu	27% avg, cpu1 20%, cpu2 34%	1:1023	27	20	34
+13:08:20 07/07/2009	good	Group0.7	aaaa	24% avg, cpu1 18%, cpu2 30%	1:37	24	18	30
+13:15:22 07/07/2009	good	Group0.5	network	341 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 37 current connections.	2:1016	341.37292	293.13544	0.0	37
+13:16:32 07/07/2009	good	Group0.6	memory	17% used, 4060MB free, 0.26 pages/sec	2:1037	17	4060	0.2683304
+13:16:41 07/07/2009	good	Group0.6	disk_c	37% full, 13063MB free, 20473MB total	3:1029	37	13063
+13:16:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1024	6	5	7
+13:18:20 07/07/2009	good	Group0.7	aaaa	7% avg, cpu1 5%, cpu2 8%	1:38	7	5	8
+13:25:22 07/07/2009	good	Group0.5	network	327 bytes in/sec., 309 bytes out/sec., 0.00 packet errors/sec., 22 current connections.	2:1017	327.80847	309.39227	0.0	22
+13:26:32 07/07/2009	good	Group0.6	memory	18% used, 4045MB free, 16.97 pages/sec	2:1038	18	4045	16.973495
+13:26:41 07/07/2009	good	Group0.6	disk_c	37% full, 13062MB free, 20473MB total	3:1030	37	13062
+13:26:48 07/07/2009	good	Group0.6	cpu	7% avg, cpu1 6%, cpu2 8%	1:1025	7	6	8
+13:28:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 8%	1:39	6	5	8
+13:35:22 07/07/2009	good	Group0.5	network	313 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1018	313.5436	293.13544	0.0	24
+13:36:32 07/07/2009	good	Group0.6	memory	18% used, 4042MB free, 13.07 pages/sec	2:1039	18	4042	13.071817
+13:36:41 07/07/2009	good	Group0.6	disk_c	37% full, 13062MB free, 20473MB total	3:1031	37	13062
+13:36:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 8%	1:1026	6	5	8
+13:38:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:40	6	5	7
+13:45:22 07/07/2009	good	Group0.5	network	389 bytes in/sec., 370 bytes out/sec., 0.00 packet errors/sec., 27 current connections.	2:1019	389.42975	370.88547	0.0	27
+13:46:32 07/07/2009	good	Group0.6	memory	18% used, 4040MB free, 6.67 pages/sec	2:1040	18	4040	6.6700177
+13:46:41 07/07/2009	good	Group0.6	disk_c	37% full, 13062MB free, 20473MB total	3:1032	37	13062
+13:46:48 07/07/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1027	5	4	6
+13:48:20 07/07/2009	good	Group0.7	aaaa	5% avg, cpu1 5%, cpu2 6%	1:41	5	5	6
+13:55:22 07/07/2009	good	Group0.5	network	391 bytes in/sec., 370 bytes out/sec., 0.00 packet errors/sec., 27 current connections.	2:1020	391.28418	370.88547	0.0	27
+13:56:32 07/07/2009	good	Group0.6	memory	18% used, 4036MB free, 4.50 pages/sec	2:1041	18	4036	4.503054
+13:56:41 07/07/2009	good	Group0.6	disk_c	37% full, 13062MB free, 20473MB total	3:1033	37	13062
+13:56:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1028	6	5	7
+13:58:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 8%	1:42	6	5	8
+14:05:22 07/07/2009	good	Group0.5	network	371 bytes in/sec., 352 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1021	371.05753	352.50467	0.0	23
+14:06:32 07/07/2009	good	Group0.6	memory	18% used, 4021MB free, 7.64 pages/sec	2:1042	18	4021	7.640455
+14:06:41 07/07/2009	good	Group0.6	disk_c	37% full, 13062MB free, 20473MB total	3:1034	37	13062
+14:06:48 07/07/2009	good	Group0.6	cpu	7% avg, cpu1 6%, cpu2 8%	1:1029	7	6	8
+14:08:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 8%	1:43	6	5	8
+14:15:22 07/07/2009	good	Group0.5	network	332 bytes in/sec., 311 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1022	332.0965	311.68832	0.0	23
+14:16:32 07/07/2009	good	Group0.6	memory	18% used, 4021MB free, 13.40 pages/sec	2:1043	18	4021	13.406658
+14:16:41 07/07/2009	good	Group0.6	disk_c	37% full, 13061MB free, 20473MB total	3:1035	37	13061
+14:16:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 8%	1:1030	6	5	8
+14:18:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 8%	1:44	6	5	8
+14:25:22 07/07/2009	good	Group0.5	network	394 bytes in/sec., 375 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1023	394.1068	375.6906	0.0	24
+14:26:32 07/07/2009	good	Group0.6	memory	18% used, 4020MB free, 0.06 pages/sec	2:1044	18	4020	0.063334174
+14:26:41 07/07/2009	good	Group0.6	disk_c	37% full, 13061MB free, 20473MB total	3:1036	37	13061
+14:26:48 07/07/2009	good	Group0.6	cpu	3% avg, cpu1 3%, cpu2 4%	1:1031	3	3	4
+14:28:20 07/07/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 4%	1:45	4	3	4
+14:35:22 07/07/2009	good	Group0.5	network	313 bytes in/sec., 293 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1024	313.5436	293.13544	0.0	24
+14:36:32 07/07/2009	good	Group0.6	memory	18% used, 4015MB free, 17.10 pages/sec	2:1045	18	4015	17.103174
+14:36:41 07/07/2009	good	Group0.6	disk_c	37% full, 13061MB free, 20473MB total	3:1037	37	13061
+14:36:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1032	6	5	7
+14:38:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:46	6	5	7
+14:45:22 07/07/2009	good	Group0.5	network	311 bytes in/sec., 292 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1025	311.5438	292.99954	0.0	23
+14:46:32 07/07/2009	good	Group0.6	memory	18% used, 4012MB free, 8.01 pages/sec	2:1046	18	4012	8.019927
+14:46:41 07/07/2009	good	Group0.6	disk_c	37% full, 13061MB free, 20473MB total	3:1038	37	13061
+14:46:48 07/07/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1033	5	4	6
+14:48:20 07/07/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 6%	1:47	5	4	6
+14:55:22 07/07/2009	good	Group0.5	network	293 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1026	293.13544	274.58258	0.0	23
+14:56:32 07/07/2009	good	Group0.6	memory	18% used, 4010MB free, 1.06 pages/sec	2:1047	18	4010	1.0600147
+14:56:41 07/07/2009	good	Group0.6	disk_c	37% full, 13061MB free, 20473MB total	3:1039	37	13061
+14:56:48 07/07/2009	good	Group0.6	cpu	5% avg, cpu1 5%, cpu2 6%	1:1034	5	5	6
+14:58:20 07/07/2009	good	Group0.7	aaaa	5% avg, cpu1 5%, cpu2 6%	1:48	5	5	6
+15:05:22 07/07/2009	good	Group0.5	network	331 bytes in/sec., 311 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1027	331.9425	311.5438	0.0	23
+15:06:32 07/07/2009	good	Group0.6	memory	18% used, 4008MB free, 11.35 pages/sec	2:1048	18	4008	11.356572
+15:06:41 07/07/2009	good	Group0.6	disk_c	37% full, 13061MB free, 20473MB total	3:1040	37	13061
+15:06:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 6%	1:1035	6	5	6
+15:08:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:49	6	5	7
+15:15:22 07/07/2009	good	Group0.5	network	332 bytes in/sec., 311 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1028	332.0965	311.68832	0.0	24
+15:16:32 07/07/2009	good	Group0.6	memory	19% used, 4006MB free, 13.55 pages/sec	2:1049	19	4006	13.551646
+15:16:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1041	37	13060
+15:16:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 6%	1:1036	6	5	6
+15:18:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:50	6	5	7
+15:25:22 07/07/2009	good	Group0.5	network	330 bytes in/sec., 311 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1029	330.2412	311.68832	0.0	23
+15:26:32 07/07/2009	good	Group0.6	memory	19% used, 3989MB free, 0.15 pages/sec	2:1050	19	3989	0.15833734
+15:26:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1042	37	13060
+15:26:48 07/07/2009	good	Group0.6	cpu	7% avg, cpu1 6%, cpu2 9%	1:1037	7	6	9
+15:28:20 07/07/2009	good	Group0.7	aaaa	7% avg, cpu1 6%, cpu2 8%	1:51	7	6	8
+15:35:22 07/07/2009	good	Group0.5	network	311 bytes in/sec., 323 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1030	311.5438	323.59756	0.0	24
+15:36:32 07/07/2009	good	Group0.6	memory	19% used, 3987MB free, 3.86 pages/sec	2:1051	19	3987	3.8666465
+15:36:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1043	37	13060
+15:36:48 07/07/2009	good	Group0.6	cpu	4% avg, cpu1 4%, cpu2 5%	1:1038	4	4	5
+15:38:20 07/07/2009	good	Group0.7	aaaa	4% avg, cpu1 3%, cpu2 4%	1:52	4	3	4
+15:45:22 07/07/2009	good	Group0.5	network	313 bytes in/sec., 292 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1031	313.39822	292.99954	0.0	23
+15:46:32 07/07/2009	good	Group0.6	memory	19% used, 3982MB free, 3.70 pages/sec	2:1052	19	3982	3.7099917
+15:46:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1044	37	13060
+15:46:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 6%	1:1039	6	5	6
+15:48:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:53	6	5	7
+15:55:22 07/07/2009	good	Group0.5	network	371 bytes in/sec., 330 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1032	371.05753	330.2412	0.0	23
+15:56:32 07/07/2009	good	Group0.6	memory	20% used, 3949MB free, 5.57 pages/sec	2:1053	20	3949	5.5731564
+15:56:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1045	37	13060
+15:56:48 07/07/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 6%	1:1040	5	4	6
+15:58:20 07/07/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 6%	1:54	5	4	6
+16:05:22 07/07/2009	good	Group0.5	network	332 bytes in/sec., 311 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1033	332.0965	311.68832	0.0	24
+16:06:32 07/07/2009	good	Group0.6	memory	20% used, 3939MB free, 0.15 pages/sec	2:1054	20	3939	0.15833788
+16:06:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1046	37	13060
+16:06:48 07/07/2009	good	Group0.6	cpu	6% avg, cpu1 5%, cpu2 7%	1:1041	6	5	7
+16:08:20 07/07/2009	good	Group0.7	aaaa	6% avg, cpu1 5%, cpu2 7%	1:55	6	5	7
+16:15:22 07/07/2009	good	Group0.5	network	311 bytes in/sec., 292 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1034	311.5438	292.99954	0.0	23
+16:16:32 07/07/2009	good	Group0.6	memory	20% used, 3935MB free, 0.52 pages/sec	2:1055	20	3935	0.5250114
+16:16:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1047	37	13060
+16:16:48 07/07/2009	good	Group0.6	cpu	5% avg, cpu1 4%, cpu2 5%	1:1042	5	4	5
+16:18:20 07/07/2009	good	Group0.7	aaaa	5% avg, cpu1 4%, cpu2 5%	1:56	5	4	5
+16:25:22 07/07/2009	good	Group0.5	network	352 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1035	352.50467	274.58258	0.0	24
+16:26:32 07/07/2009	good	Group0.6	memory	20% used, 3925MB free, 0.63 pages/sec	2:1056	20	3925	0.63494873
+16:26:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1048	37	13060
+16:26:48 07/07/2009	good	Group0.6	cpu	7% avg, cpu1 6%, cpu2 8%	1:1043	7	6	8
+16:28:20 07/07/2009	good	Group0.7	aaaa	7% avg, cpu1 6%, cpu2 8%	1:57	7	6	8
+16:35:22 07/07/2009	good	Group0.5	network	294 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 23 current connections.	2:1036	294.99072	274.58258	0.0	23
+16:36:32 07/07/2009	good	Group0.6	memory	20% used, 3928MB free, 1.83 pages/sec	2:1057	20	3928	1.8318002
+16:36:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1049	37	13060
+16:36:48 07/07/2009	good	Group0.6	cpu	7% avg, cpu1 6%, cpu2 8%	1:1044	7	6	8
+16:38:20 07/07/2009	good	Group0.7	aaaa	7% avg, cpu1 6%, cpu2 8%	1:58	7	6	8
+16:45:22 07/07/2009	good	Group0.5	network	5K in/sec., 5K out/sec., 0.00 packet errors/sec., 31 current connections.	2:1037	5933.7017	5843.4624	0.0	31
+16:46:32 07/07/2009	good	Group0.6	memory	21% used, 3902MB free, 3.02 pages/sec	2:1058	21	3902	3.0216746
+16:46:41 07/07/2009	good	Group0.6	disk_c	37% full, 13060MB free, 20473MB total	3:1050	37	13060
+16:46:48 07/07/2009	good	Group0.6	cpu	11% avg, cpu1 9%, cpu2 12%	1:1045	11	9	12
+16:48:20 07/07/2009	good	Group0.7	aaaa	10% avg, cpu1 9%, cpu2 11%	1:59	10	9	11
+16:55:22 07/07/2009	good	Group0.5	network	293 bytes in/sec., 274 bytes out/sec., 0.00 packet errors/sec., 24 current connections.	2:1038	293.13544	274.58258	0.0	24
+16:56:32 07/07/2009	good	Group0.6	memory	21% used, 3895MB free, 0.17 pages/sec	2:1059	21	3895	0.17333294
+16:56:41 07/07/2009	good	Group0.6	disk_c	37% full, 13059MB free, 20473MB total	3:1051	37	13059
+16:56:48 07/07/2009	good	Group0.6	cpu	9% avg, cpu1 8%, cpu2 10%	1:1046	9	8	10
+16:58:20 07/07/2009	good	Group0.7	aaaa	10% avg, cpu1 8%, cpu2 11%	1:60	10	8	11
+17:05:22 07/07/2009	good	Group0.5	network	368 bytes in/sec., 272 bytes out/sec., 0.00 packet errors/sec., 25 current connections.	2:1039	368.49377	272.6854	0.0	25
+17:06:32 07/07/2009	good	Group0.6	memory	20% used, 3916MB free, 0.24 pages/sec	2:1060	20	3916	0.24166687
+17:06:41 07/07/2009	good	Group0.6	disk_c	37% full, 13059MB free, 20473MB total	3:1052	37	13059
+17:06:48 07/07/2009	good	Group0.6	cpu	8% avg, cpu1 6%, cpu2 10%	1:1047	8	6	10
+17:08:20 07/07/2009	good	Group0.7	aaaa	8% avg, cpu1 6%, cpu2 10%	1:61	8	6	10
+17:15:22 07/07/2009	good	Group0.5	network	363 bytes in/sec., 322 bytes out/sec., 0.00 packet errors/sec., 41 current connections.	2:1040	363.46777	322.67038	0.0	41
+17:16:32 07/07/2009	good	Group0.6	memory	21% used, 3870MB free, 1.94 pages/sec	2:1061	21	3870	1.9499992
+17:16:41 07/07/2009	good	Group0.6	disk_c	37% full, 13059MB free, 20473MB total	3:1053	37	13059
+17:16:48 07/07/2009	good	Group0.6	cpu	11% avg, cpu1 9%, cpu2 14%	1:1048	11	9	14
+17:18:20 07/07/2009	good	Group0.7	aaaa	11% avg, cpu1 9%, cpu2 13%	1:62	11	9	13
+17:19:01 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	Measurement = 8.80 K	24:1	ok	8.80
+17:20:18 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 16.49 K	24:2	ok	16.49
+17:20:51 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 0.00 K%	24:3	ok	0.00
+17:21:14 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 22.18 K	24:4	ok	22.18
+17:24:18 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	const = 6.76 minute	24:5	ok	6.76
+17:25:22 07/07/2009	good	Group0.5	network	361 bytes in/sec., 341 bytes out/sec., 0.00 packet errors/sec., 27 current connections.	2:1041	361.61334	341.21463	0.0	27
+17:25:57 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	Measurement = 8.40 minute	24:6	ok	8.40
+17:26:32 07/07/2009	good	Group0.6	memory	21% used, 3875MB free, 15.74 pages/sec	2:1062	21	3875	15.74584
+17:26:41 07/07/2009	good	Group0.6	disk_c	37% full, 13056MB free, 20473MB total	3:1054	37	13056
+17:26:48 07/07/2009	good	Group0.6	cpu	9% avg, cpu1 7%, cpu2 11%	1:1049	9	7	11
+17:27:44 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	Measurement = 10720.00	24:7	ok	10720.00
+17:28:05 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 2150.00	24:8	ok	2150.00
+17:28:20 07/07/2009	good	Group0.7	aaaa	8% avg, cpu1 6%, cpu2 11%	1:63	8	6	11
+17:28:26 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 65335	24:9	ok	65335
+17:28:49 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 67592	24:10	ok	67592
+17:35:22 07/07/2009	good	Group0.5	network	284 bytes in/sec., 284 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1042	284.81296	284.81296	0.0	29
+17:36:33 07/07/2009	good	Group0.6	memory	21% used, 3888MB free, 49.68 pages/sec	2:1063	21	3888	49.68307
+17:36:41 07/07/2009	good	Group0.6	disk_c	37% full, 13055MB free, 20473MB total	3:1055	37	13055
+17:36:48 07/07/2009	good	Group0.6	cpu	14% avg, cpu1 12%, cpu2 16%	1:1050	14	12	16
+17:38:20 07/07/2009	good	Group0.7	aaaa	14% avg, cpu1 12%, cpu2 16%	1:64	14	12	16
+17:38:49 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 127592	24:11	ok	127592
+17:45:22 07/07/2009	good	Group0.5	network	370 bytes in/sec., 349 bytes out/sec., 0.00 packet errors/sec., 30 current connections.	2:1043	370.16577	349.90793	0.0	30
+17:46:32 07/07/2009	good	Group0.6	memory	21% used, 3869MB free, 19.15 pages/sec	2:1064	21	3869	19.152975
+17:46:41 07/07/2009	good	Group0.6	disk_c	37% full, 13054MB free, 20473MB total	3:1056	37	13054
+17:46:48 07/07/2009	good	Group0.6	cpu	9% avg, cpu1 8%, cpu2 11%	1:1051	9	8	11
+17:48:20 07/07/2009	good	Group0.7	aaaa	10% avg, cpu1 8%, cpu2 12%	1:65	10	8	12
+17:48:49 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 187590	24:12	ok	187590
+17:55:22 07/07/2009	good	Group0.5	network	640 bytes in/sec., 622 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1044	640.884	622.4678	0.0	29
+17:56:32 07/07/2009	good	Group0.6	memory	22% used, 3846MB free, 13.98 pages/sec	2:1065	22	3846	13.980004
+17:56:41 07/07/2009	good	Group0.6	disk_c	37% full, 13053MB free, 20473MB total	3:1057	37	13053
+17:56:48 07/07/2009	good	Group0.6	cpu	9% avg, cpu1 9%, cpu2 9%	1:1052	9	9	9
+17:58:20 07/07/2009	good	Group0.7	aaaa	9% avg, cpu1 9%, cpu2 9%	1:66	9	9	9
+17:58:49 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 247590	24:13	ok	247590
+18:05:22 07/07/2009	good	Group0.5	network	370 bytes in/sec., 349 bytes out/sec., 0.00 packet errors/sec., 29 current connections.	2:1045	370.16577	349.90793	0.0	29
+18:06:32 07/07/2009	good	Group0.6	memory	23% used, 3807MB free, 25.65 pages/sec	2:1066	23	3807	25.656488
+18:06:41 07/07/2009	good	Group0.6	disk_c	37% full, 13051MB free, 20473MB total	3:1058	37	13051
+18:06:48 07/07/2009	disabled	Group0.6	cpu	disabled by schedule	1:1052	9	9	9
+18:08:20 07/07/2009	good	Group0.7	aaaa	10% avg, cpu1 8%, cpu2 12%	1:67	10	8	12
+18:08:49 07/07/2009	good	Group0.6	SNMP: 127.0.0.1 system.sysUpTime	 = 307590	24:14	ok	307590

@@ -1,0 +1,13 @@
+ <table border="0" width="90%">
+  <tr><td width="25%">
+<p><FORM ACTION="/SiteScope/cgi/go.exe/SiteScope" method="GET">
+ <input type="hidden" name="page" value="siebelwzd">
+ <input type="hidden" name="account" value="administrator">
+ <input type="hidden" name="operation" value="1">
+ <input type="submit" value="Siebel Wizard">
+ </FORM></p>
+ 
+ </td><td>
+ <p>Use this wizard to set up SiteScope montioring for one or more Siebel servers</p>
+
+ </td></tr></table><hr>

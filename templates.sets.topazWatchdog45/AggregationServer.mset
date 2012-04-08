@@ -1,0 +1,25 @@
+_monitorTemplateName=Topaz Aggregation Server
+_monitorTemplateDescription=Adds moniors for a Topaz Aggregation Server machine
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+$TOPAZ_FOLDER$=_description=Topaz_installation_path_on_the_machine _value=c$\Topaz
+#
+_name=Aggregation Engine Process (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_process=/aggregation/i
+#
+_name=Aggregation Engine Process (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 1500000000	error
+_classifier=processMemory >= 600000000	warning
+_classifier=processMemory < 600000000	good
+_process=/aggregation/i

@@ -1,0 +1,22 @@
+_monitorTemplateName=Topaz Graph Server (Unix)
+_monitorTemplateDescription=Adds moniors for a Topaz Graph Server machine (Unix)
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Unix_remote_server _value=<choose_remote_unix_server_from_the_select_box_to_the_right_and_clear_this_text>
+$TOPAZ_GRAPH_PROTOCOL$=_description=Graph_server_protocol(http/https) _value=http
+$TOPAZ_PROXY_SERVER$=_description=Proxy_server _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_PROXY_USERNAME$=_description=Proxy_username _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_PROXY_PASSWORD$=_description=Proxy_pass _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+#
+_name=URL: $TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/TopazVerify.jsp
+_class=URLMonitor
+_frequency=600
+_errorFrequency=60
+_errorContent=fail
+_url=$TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/TopazVerify.jsp
+_proxy=$TOPAZ_PROXY_SERVER$
+_proxyusername=$TOPAZ_PROXY_USERNAME$
+_proxypassword=$TOPAZ_PROXY_PASSWORD$
+_checkContent=on
+_dependsCondition=good
+_timeout=50
+_monitorRunCount=0

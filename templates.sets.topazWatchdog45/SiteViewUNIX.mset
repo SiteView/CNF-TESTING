@@ -1,0 +1,36 @@
+_monitorTemplateName=SiteView (UNIX)
+_monitorTemplateDescription=Adds moniors for a SiteView server (UNIX)
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_HOST_LOCATION$=_description=host_location _value=host's_location
+$TOPAZ_HOST_ID$=_description=Topaz_host_id_(unique_in_Topaz) _value=<host_id_(number)>
+#
+_name="$TOPAZ_HOST_NAME$" Last Connection Time
+_class=TopazHostLastPingTimeMonitor
+_frequency=600
+_errorFrequency=300
+_hostId=$TOPAZ_HOST_ID$
+_hostLocation=$TOPAZ_HOST_LOCATION$
+_classifier=timeSinceLastPing > 1500	error
+_classifier=timeSinceLastPing > 1445	warning
+#
+_name="$TOPAZ_HOST_NAME$" Last Reported Data Time
+_class=TopazHostLastDataTimeMonitor
+_frequency=600
+_errorFrequency=300
+_hostId=$TOPAZ_HOST_ID$
+_hostLocation=$TOPAZ_HOST_LOCATION$
+_classifier=timeSinceLastData > 30	error
+_classifier=timeSinceLastData > 15	warning
+_monitorDescription=<BR>Disable or delete this monitor if this SiteView is reporting data to Topaz.
+#
+_class=URLContentMonitor
+_url=http://$TOPAZ_HOST_NAME$:8888/SiteView?page=health&getStatus=true
+_frequency=600
+_errorFrequency=60
+_content=/<body><h1>(\w*)</h1></body>/
+_timeout=50
+_classifier=matchValue == 'Error'	error
+_classifier=matchValue == 'Warn'	warning
+_classifier=matchValue == 'good'	good
+_name=SiteView Health Status on "$TOPAZ_HOST_NAME$"
+_description=<A href=http://$TOPAZ_HOST_NAME$:8888/SiteView/cgi/go.exe/SiteView?page=health> <FONT SIZE=SIZE+4><B> Click here to open SiteView Health page on "$TOPAZ_HOST_NAME$"</B></FONT> </A>

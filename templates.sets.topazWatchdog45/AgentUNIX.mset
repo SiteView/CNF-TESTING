@@ -1,0 +1,23 @@
+_monitorTemplateName=Topaz Business Process Monitor
+_monitorTemplateDescription=Adds moniors for a Topaz Business Process Monitor
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_HOST_LOCATION$=_description=host_location _value=host's_location
+$TOPAZ_HOST_ID$=_description=Topaz_host_id_(unique_in_Topaz) _value=<host_id_(number)>
+#
+_name="$TOPAZ_HOST_NAME$" Last Connection Time
+_class=TopazHostLastPingTimeMonitor
+_frequency=600
+_errorFrequency=300
+_hostId=$TOPAZ_HOST_ID$
+_hostLocation=$TOPAZ_HOST_LOCATION$
+_classifier=timeSinceLastPing > 6	error
+_classifier=timeSinceLastPing > 4	warning
+#
+_name="$TOPAZ_HOST_NAME$" Last Reported Data Time
+_class=TopazHostLastDataTimeMonitor
+_frequency=600
+_errorFrequency=300
+_hostId=$TOPAZ_HOST_ID$
+_hostLocation=$TOPAZ_HOST_LOCATION$
+_classifier=frequencyMultiplier > 2	error
+_classifier=frequencyMultiplier > 1	warning

@@ -1,0 +1,25 @@
+_monitorTemplateName=Topaz Bus Server (Unix)
+_monitorTemplateDescription=Adds moniors for a Topaz Bus Server machine
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Unix_remote_server _value=<choose_remote_unix_server_from_the_select_box_to_the_right_and_clear_this_text>
+#
+_name=Topaz Bus Process on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=dispatcher
+_machine=$TOPAZ_MACHINE_NAME$
+#
+_name=Log File: /opt/Topaz/log/dispatcher_log.txt
+_class=LogMonitor
+_machine=$TOPAZ_MACHINE_NAME$
+_logFile=/opt/Topaz/log/dispatcher_log.txt
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_content=/ERROR/
+_classifier=matchCount > 1000	error
+_classifier=matchCount > 0	warning
+_alerting=once
+_match=/error/
+_monitorDescription=<BR>Indicates that the Topaz Bus Server cannot connect to the Topaz Admin Server, or has a problem in interpreting data collection reports.

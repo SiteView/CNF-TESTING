@@ -1,0 +1,32 @@
+<GroupMonitorList>
+  <Account>administrator</Account>
+  <GroupName>SiteViewGroup2</GroupName>
+  <Monitor>
+    <Name>101</Name>
+    <Id>7</Id>
+  </Monitor>
+  <Monitor>
+    <Name>sinadep12</Name>
+    <Id>8</Id>
+  </Monitor>
+  <Monitor>
+    <Name>sinadepgoogle</Name>
+    <Id>9</Id>
+  </Monitor>
+  <Monitor>
+    <Name>google</Name>
+    <Id>10</Id>
+  </Monitor>
+  <Monitor>
+    <Name>234</Name>
+    <Id>11</Id>
+  </Monitor>
+  <Monitor>
+    <Name>cxytest</Name>
+    <Id>23</Id>
+  </Monitor>
+  <Monitor>
+    <Name>101E:</Name>
+    <Id>24</Id>
+  </Monitor>
+</GroupMonitorList>

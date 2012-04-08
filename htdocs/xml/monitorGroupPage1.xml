@@ -1,0 +1,29 @@
+<MonitorGroup>
+  <MonitorTable>
+    <Monitor Name="101">
+      <TableStatusEntry StatusEntry="0.01 sec" />
+      <TableUpdatedEntry UpdatedEntry="" />
+    </Monitor>
+    <Monitor Name="sinadepgoogle">
+      <TableStatusEntry StatusEntry="disabled&lt;BR&gt; depended upon monitor is not OK" />
+      <TableUpdatedEntry UpdatedEntry="&amp;nbsp;" />
+    </Monitor>
+    <Monitor Name="google">
+      <TableStatusEntry StatusEntry="Data Unavailable command failed to execute" />
+      <TableUpdatedEntry UpdatedEntry="" />
+    </Monitor>
+    <Monitor Name="sinadep12">
+      <TableStatusEntry StatusEntry="disabled manually" />
+      <TableUpdatedEntry UpdatedEntry="&amp;nbsp;" />
+    </Monitor>
+    <Monitor Name="234">
+      <TableStatusEntry StatusEntry="disabled&lt;BR&gt; depended upon monitor is not OK" />
+      <TableUpdatedEntry UpdatedEntry="&amp;nbsp;" />
+    </Monitor>
+    <Monitor Name="cxytest" />
+    <Monitor Name="101E:">
+      <TableStatusEntry StatusEntry="61% full&lt;BR&gt; 29639MB free&lt;BR&gt; 74465MB total" />
+      <TableUpdatedEntry UpdatedEntry="" />
+    </Monitor>
+  </MonitorTable>
+</MonitorGroup>

@@ -1,0 +1,414 @@
+_monitorTemplateName=Core Services Server
+_monitorTemplateDescription=Adds monitors for a Core Services Server machine.
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+$TOPAZ_WEB_SERVER_PROCESS$=_description=Web_server_process_to_monitor _value=inetinfo
+$TOPAZ_GRAPH_PROTOCOL$=_description=Graph_server_protocol(http/https) _value=http
+$TOPAZ_PROXY_SERVER$=_description=Proxy_server _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_PROXY_USERNAME$=_description=Proxy_username _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_PROXY_PASSWORD$=_description=Proxy_pass _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_FOLDER$=_description=Topaz_installation_path_on_the_machine _value=c$\Topaz
+#
+_name=URL: $TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/ext/mod_mdrv_wrap.dll?type=test
+_class=URLMonitor
+_frequency=600
+_errorFrequency=60
+_url=$TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/ext/mod_mdrv_wrap.dll?type=test
+_proxy=$TOPAZ_PROXY_SERVER$
+_proxyusername=$TOPAZ_PROXY_USERNAME$
+_proxypassword=$TOPAZ_PROXY_PASSWORD$
+_timeout=50
+_monitorRunCount=0
+#
+_name=URL Test for SiteView Configuration Changes in Application Management
+_class=URLMonitor
+_frequency=600
+_errorFrequency=60
+_errorContent=failed
+_url=$TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/SiteView/conf/sample_dispatcher?action=log
+_proxy=$TOPAZ_PROXY_SERVER$
+_proxyusername=$TOPAZ_PROXY_USERNAME$
+_proxypassword=$TOPAZ_PROXY_PASSWORD$
+_dependsCondition=good
+_timeout=50
+_monitorRunCount=0
+#
+_name=Check for Exceptions in SiteView Integration Logs
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\EJBContainer\aims.ejb.log
+_frequency=600
+_alerting=each
+_classifier=matchCount > 0	error
+_alerting=once
+_match=/exception/
+#
+_name=Offline Aggregation Engine Process (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_process=/aggregation/i
+#
+_name=Offline Aggregation Engine Process (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 1500000000	error
+_classifier=processMemory >= 600000000	warning
+_classifier=processMemory < 600000000	good
+_process=/aggregation/i
+#
+_name=Online Aggregation Engine Process (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_process=/tpaggregator_se/i
+#
+_name=Online Aggregation Engine Process (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 1500000000	error
+_classifier=processMemory >= 600000000	warning
+_classifier=processMemory < 600000000	good
+_process=/tpaggregator_se/i
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\aggrconfig.txt
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\aggrconfig.txt
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_classifier=matchCount > 0	error
+_alerting=once
+_match=/(ERROR|FATAL)/
+_monitorDescription=<BR>Indicates that the online aggregator's configurator is not functioning correctly.
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\aes_tpaggrconfig.txt
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\aes_tpaggrconfig.txt
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_classifier=matchCount > 0	error
+_alerting=once
+_match=/(ERROR|FATAL)/
+_monitorDescription=<BR>Indicates that the online aggregator's engine is not functioning correctly.
+#
+_name=Check for Too Many Files on Online Aggregator's Guaranteed Delivery Buffers Input Folder
+_class=DirectoryMonitor
+_frequency=600
+_errorFrequency=60
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\lnch_persistent\$TOPAZ_CORE_MACHINE_NAME$_project_topaz\guarantee\+$TOPAZ_CORE_MACHINE_NAME$_project_topaz_$TOPAZ_HOST_NAME$_aes_tpaggrconfig_aes_samples\.msgs
+_classifier=fileCount > 30	error
+_classifier=fileCount > 15	warning
+_monitorDescription=<BR>Indicates that the online aggregator either does not work, or is not processing its input at a reasonable pace.
+#
+_name=Check for problems in updating Online Aggregator's persistency
+_class=DirectoryMonitor
+_frequency=1800
+_errorFrequency=1800
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\tpaggrconfig\filters
+_classifier=  size > 30000000	error
+_monitorDescription=<BR>Indicates that the online aggregator's persistency mechanism does not work well.
+#
+_name=Database Loading Process (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_process=/tp_loader/i
+#
+_name=Database Loading Process (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 400000000	error
+_classifier=processMemory >= 200000000	warning
+_classifier=processMemory < 200000000	good
+_process=/tp_loader/i
+#
+_name=Check for Too Many Files on the Database Loading Process's Guaranteed Delivery Buffers Input Folder
+_class=DirectoryMonitor
+_frequency=600
+_errorFrequency=60
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\lnch_persistent\$TOPAZ_CORE_MACHINE_NAME$_project_topaz\guarantee\+$TOPAZ_CORE_MACHINE_NAME$_project_topaz_$TOPAZ_HOST_NAME$_topaz_collector\.msgs
+_classifier=fileCount > 10	error
+_classifier=fileCount >  5	warning
+_monitorDescription=<BR>Indicates that the database loading process either does not work, or is not processing its input at a reasonable pace.
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\collector_log.txt (1)
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\collector_log.txt
+_frequency=600
+_checkContent=on
+_classifier=matchCount >= 1 	error
+_alerting=once
+_match=/FATAL|ERROR|\[Microsoft\]/
+_monitorDescription=<BR>Indicates that there are problems with the Database Loading Process.
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\collector_log.txt (2)
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\collector_log.txt
+_frequency=600
+_checkContent=on
+_classifier=matchCount >= 10 	error
+_classifier=matchCount >= 1	warning
+_alerting=once
+_match=/WARNING/
+_monitorDescription=<BR>Indicates that there are problems with the Database Loading Process.
+#
+_name=Alert Engine Process (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_process=AlertEngineMdrv
+#
+_name=Alert Engine Process (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 600000000	error
+_classifier=processMemory >= 200000000	warning
+_classifier=processMemory < 200000000	good
+_process=AlertEngineMdrv
+#
+_name=Check for Too Many Files on Alert Engine's Guaranteed Delivery Buffers Input Folder
+_class=DirectoryMonitor
+_frequency=600
+_errorFrequency=60
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\lnch_persistent\$TOPAZ_CORE_MACHINE_NAME$_project_topaz\guarantee\+$TOPAZ_CORE_MACHINE_NAME$_project_topaz_$TOPAZ_HOST_NAME$_topaz_alert\.msgs
+_classifier=fileCount > 20	error
+_classifier=fileCount > 5	warning
+_monitorDescription=<BR>Indicates that the alert functionality either does not work, or is not processing its input at a reasonable pace.
+#
+_name=Partition Manager (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 95	error
+_process=/topaz_pm/i
+#
+_name=Partition Manager Process (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 600000000	error
+_classifier=processMemory >= 250000000	warning
+_classifier=processMemory < 250000000	good
+_process=/topaz_pm/i
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\EJBContainer\pmanager.log
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\EJBContainer\pmanager.log
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_classifier=matchCount >= 3	error
+_classifier=matchCount >= 1	warning
+_alerting=once
+_match=/[\w]+\.[\w]*Exception/
+_monitorDescription=<BR>Indicates that there are problems with the Partition Manager Process.
+#
+_name=Bus Process (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_process=/dispatcher/i
+#
+_name=Bus Process (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 200000000	error
+_classifier=processMemory >= 100000000	warning
+_classifier=processMemory < 100000000	good
+_process=/dispatcher/i
+#
+_name=Process Working Set: dispatcher on "$TOPAZ_HOST_NAME$"
+_class=NTCounterMonitor
+_scale=1
+_pmcfile=(Custom Object)
+_instance=dispatcher
+_counter=Working Set
+_frequency=600
+_errorFrequency=60
+_object=Process
+_dependsCondition=good
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=value0 > 200000000	error
+_classifier=value0 == 'n/a'	warning
+_monitorRunCount=0
+#
+_name=Process Thread Count: dispatcher on "$TOPAZ_HOST_NAME$"
+_scale=1
+_pmcfile=(Custom Object)
+_class=NTCounterMonitor
+_instance=dispatcher
+_counter=Thread Count
+_frequency=600
+_errorFrequency=60
+_object=Process
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=value0 == 'n/a'	error
+_classifier=value0 > 60		warning
+_monitorRunCount=0
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\dispatcher_log.txt (1)
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\dispatcher_log.txt
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_classifier=matchCount > 40	error
+_classifier=matchCount > 12	warning
+_alerting=once
+_match=/ERROR\s+[TMC]/
+_monitorDescription=<BR>Indicates that the Application Management Core Services Server cannot connect to the Centers Server.
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\dispatcher_log.txt (2)
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\dispatcher_log.txt
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_classifier=matchCount > 100	error
+_classifier=matchCount > 0	warning
+_alerting=once
+_match=/The following sample is not published|Verification failed/
+_monitorDescription=<BR>Indicates a problem in interpreting data collection reports.
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\sample_load_balance_capi.log
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\sample_load_balance_capi.log
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_classifier=matchCount > 100	error
+_classifier=matchCount > 10	warning
+_alerting=once
+_match=/ERROR/
+_monitorDescription=<BR>Indicates a problem with the Bus process during load balancing.
+#
+_name=Directory: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue\ids2names
+_class=DirectoryMonitor
+_machine=$TOPAZ_MACHINE_NAME$
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue\ids2names
+_frequency=600
+_dependsCondition=good
+_classifier=	size > 20000000	error
+_classifier=	size >  5000000	warning
+_monitorDescription=<BR>Indicates a problem in intepreting data collection reports.
+#
+_name=Directory: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue\profile_exist
+_class=DirectoryMonitor
+_machine=$TOPAZ_MACHINE_NAME$
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue\profile_exist
+_frequency=600
+_dependsCondition=good
+_classifier=	size > 10000000	error
+_classifier=	size > 2500000	warning
+_monitorDescription=<BR>Indicates a problem with the incoming data collection reports, or with the connection to Application Management.
+#
+_name=Directory: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue\msg_prop
+_class=DirectoryMonitor
+_machine=$TOPAZ_MACHINE_NAME$
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue\msg_prop
+_frequency=600
+_dependsCondition=good
+_classifier=	size > 5000000	error
+_classifier=	size > 1250000	warning
+_monitorDescription=<BR>Indicates a problem with load balancing.
+#
+_name=Directory: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue\instance_id
+_class=DirectoryMonitor
+_machine=$TOPAZ_MACHINE_NAME$
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue\instance_id
+_frequency=600
+_dependsCondition=good
+_classifier=	size > 5000000	error
+_classifier=	size > 1250000	warning
+_monitorDescription=<BR>Indicates a problem when connecting to the Application Management server.
+#
+_name=Check for Too Many Files on Bus Guaranteed Delivery Buffers Input (from Web data entry) Folder
+_class=DirectoryMonitor
+_frequency=600
+_errorFrequency=60
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\lnch_persistent\$TOPAZ_HOST_NAME$_web_driver\guarantee\+$TOPAZ_HOST_NAME$_project_topaz_$TOPAZ_HOST_NAME$_webdataentry\.msgs
+_classifier=fileCount >  5	error
+_classifier=fileCount >  2	warning
+_monitorDescription=<BR>Indicates that the Bus process either does not work, or is not processing its input from the Web at a reasonable pace.
+#
+_name=Check for Too Many Files on Bus Guaranteed Delivery Buffers Input (from tpaggregator) Folder
+_class=DirectoryMonitor
+_frequency=600
+_errorFrequency=60
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\lnch_persistent\$TOPAZ_CORE_MACHINE_NAME$_aes_tpaggrconfig\guarantee\+$TOPAZ_HOST_NAME$_project_topaz_$TOPAZ_CORE_MACHINE_NAME$_aes_tpaggrconfig_aes_publisher\.msgs
+_classifier=fileCount > 30	error
+_classifier=fileCount > 15	warning
+_monitorDescription=<BR>Indicates that the Bus process either does not work, or is not processing its input from the Web at a reasonable pace.
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\web_data_entry.log (1)
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\web_data_entry.log
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_classifier=matchCount > 10000	error
+_classifier=matchCount > 2000	warning
+_alerting=once
+_match=/Failed to publish message on subject/
+_monitorDescription=<BR>Indicates that the Core Services Server cannot process incoming samples.
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\web_data_entry.log (2)
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\web_data_entry.log
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_classifier=matchCount > 100	error
+_classifier=matchCount > 20	warning
+_alerting=once
+_match=/Failed to create publisher on subject/
+_monitorDescription=<BR>Indicates that the Core Services Server cannot process incoming samples.
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\webserver_guard.log
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\webserver_guard.log
+_frequency=86400
+_checkContent=on
+_dependsCondition=good
+_classifier=matchCount > 100	error
+_classifier=matchCount > 20	warning
+_alerting=once
+_match=/Bad response from server|WebServer is going to be restarted/
+_monitorDescription=<BR>Indicates that the Web server on the Application Management Core Services Server is too loaded.
+
+

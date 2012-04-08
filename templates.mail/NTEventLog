@@ -1,0 +1,24 @@
+[Subject: SiteView Event Log Alert, <eventType>, <eventSource>:<eventID> on <eventMachine>]
+This event log alert is from SiteView at http://<_webserverAddress>:<_httpPort>/SiteView
+
+Event Information:
+
+Type:       <eventType>
+Event Time: <eventTime>
+Source:     <eventSource>
+ID:         <eventID>
+Category:   <eventCategory>
+Machine:    <eventMachine>
+Message:    <eventMessage>
+
+Monitor:    <name>
+Group:      <group>
+Sample #:   <sample>
+
+Time:       <time>
+
+----------------------   Detail   ----------------------
+
+<mainParameters>
+
+<mainStateProperties>

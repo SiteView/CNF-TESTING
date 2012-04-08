@@ -1,0 +1,12 @@
+_monitorTemplateName=MSDE Database Server
+_monitorTemplateDescription=Adds monitors for an MSDE Database Server machine.
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+#
+_name=Microsoft SQL Server Service on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=300
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_process=/sqlservr/i

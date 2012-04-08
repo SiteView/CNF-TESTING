@@ -1,0 +1,72 @@
+_monitorTemplateName=Centers Server
+_monitorTemplateDescription=Adds monitors for a Centers Server machine.
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+$TOPAZ_WEB_SERVER_PROCESS$=_description=Web_server_process_to_monitor _value=inetinfo
+$TOPAZ_GRAPH_PROTOCOL$=_description=Graph_server_protocol(http/https) _value=http
+$TOPAZ_PROXY_SERVER$=_description=Proxy_server _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_PROXY_USERNAME$=_description=Proxy_username _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_PROXY_PASSWORD$=_description=Proxy_pass _value=<if_irrelevant,_remove_this_parameter_from_the_monitor_set>
+$TOPAZ_FOLDER$=_description=Topaz_installation_path_on_the_machine _value=c$\Topaz
+#
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_name=Self-Alert Monitor Aggregated Event Engine (CPU) on "$TOPAZ_HOST_NAME$"
+_process=aes_twd
+#
+_name=Self-Alert Monitor Aggregated Event Engine (Memory) on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 1500000000	error
+_classifier=processMemory >= 600000000	warning
+_classifier=processMemory < 600000000	good
+_process=aes_twd
+#
+_name=URL: $TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/TopazVerify.jsp
+_class=URLMonitor
+_frequency=600
+_errorFrequency=60
+_errorContent=fail
+_url=$TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/TopazVerify.jsp
+_proxy=$TOPAZ_PROXY_SERVER$
+_proxyusername=$TOPAZ_PROXY_USERNAME$
+_proxypassword=$TOPAZ_PROXY_PASSWORD$
+_checkContent=on
+_dependsCondition=good
+_timeout=50
+_monitorRunCount=0
+#
+_name=Scheduled Reports Engine Process (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_process=/EmailReportsMdr/i
+#
+_name=Scheduled Reports Engine Process (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 600000000	error
+_classifier=processMemory >= 200000000	warning
+_classifier=processMemory < 200000000	good
+_process=/EmailReportsMdr/i
+#
+_name=Application Management directory services monitor on "$TOPAZ_HOST_NAME$"
+_class=LDAPMonitor
+_urlprovider=ldap://$TOPAZ_HOST_NAME$:9389
+_frequency=600
+_errorFrequency=60
+_dependsCondition=good
+_ldapquery=[LDAP-3]e=SSEnterprise

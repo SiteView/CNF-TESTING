@@ -1,0 +1,559 @@
+_monitorTemplateName=Siebel App Server
+_monitorTemplateDescription=Use to monitor Siebel App Server machine
+_monitorTemplateMoreInfo=<a href=../../docs/SiebelSolutionOverview.htm>Siebel Solution Overview</a>
+_helpFile=../docs/SiebelAppSolution.htm
+_propertyDisplayFilter=_id,class,xmlfile,encoding,depends,internal,assword,monitorDescription
+_propertyReplace=browseName=Metric_,classifier=thresholds
+$Server Machine#0$=_description=Siebel_server_machine_name _value= _server=true
+$Enterprise#1$=_description=Siebel_Enterprise_name _value=
+$Gateway#2$=_description=Siebel_Gateway_server_machine_name _value= 
+$Server Logical Instance Name#3$=_description=Siebel_server_logical_name _value=
+$Username#4$=_description=Siebel_Client_UserName _value=sadmin
+$Password#5$=_description=Siebel_Client_Password _value=
+$Srvrmgr Script Path#6$=_description=Siebel_server_manager_client_local_path,_for_example:_D:\sea703\client\bin _value=
+$Siebel Disk#7$=_description=Disk_name_where_Siebel_is_installed _value=
+$Siebel Root Dir#8$=_description=Shared_Siebel_root_dir,_for_example:_sea752 _value=
+$Siebel ODBC Name#9$=_description=Local_ODBC_name_for_accessing_Siebel_DB _value= 
+$DB Username#10$=_description=Database_UserName _value=
+$DB Password#11$=_description=Database_Password _value=
+
+// siebel component groups
+$CG Callcenter Name#12$=_description=Siebel_CallCenter_component_group_name _value=Siebel_Call_Center
+$CG Callcenter Alias#13$=_description=Siebel_CallCenter_component_group_alias _value=CallCenter
+$CG System Management Name#14$=_description=Siebel_System_Management_component_group_name _value=System_Management
+$CG System Management Alias#15$=_description=Siebel_System_Management_component_group_alias _value=System
+
+// siebel callcenter components
+$CP Callcenter Name#16$=_description=Siebel_CallCenter_component_name _value=Call_Center_Object_Manager_(ENU)
+$CP Callcenter Alias#17$=_description=Siebel_CallCenter_component_alias _value=SCCObjMgr\_enu
+$CP eService Name#18$=_description=Siebel_eService_component_name _value=eService_Object_Manager_(ENU)
+$CP eService Alias#19$=_description=Siebel_eService_component_alias _value=eServiceObjMgr\_enu
+
+// siebel system components
+$CP Srvr Request Broker Name#20$=_description=Siebel_Server_Request_Broker_component_name _value=Server_Request_Broker
+$CP Srvr Request Broker Alias#21$=_description=Siebel_Server_Request_Broker_component_alias _value=SRBroker
+$CP_Srvr_Request_Processor_Name#22$=_description=Siebel_Server_Request_Processor_component_name _value=Server_Request_Processor
+$CP Srvr Request Processor Alias#23$=_description=Siebel_Server_Request_Processor_component_alias _value=SRProc
+$CP Server Manager Name#24$=_description=Siebel_Server_Manager_component_name _value=Server_Manager
+$CP Server Manager Alias#25$=_description=Siebel_Server_Manager_component_alias _value=ServerMgr
+$CP File System Manager Name#26$=_description=Siebel_File_System_Manager_component_name _value=File_System_Manager
+$CP File System Manager Alias#27$=_description=Siebel_File_System_Manager_component_alias _value=FSMSrvr
+$CP Client Administration Name#28$=_description=Siebel_Client_Administration_component_name _value=Client_Administration
+$CP Client Administration Alias#29$=_description=Siebel_Client_Administration_component_alias _value=ClientAdmin
+
+_encoding=Cp1252
+_dependsCondition=good
+_fileEncoding=UTF-8
+#
+_class=CPUMonitor
+_id=1
+_encoding=Cp1252
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Machine#0$
+_name=CPU Utilization on \\$Server Machine#0$
+#
+_class=MemoryMonitor
+_id=2
+_encoding=Cp1252
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Machine#0$
+_name=Memory on \\$Server Machine#0$
+#
+_class=PingMonitor
+_id=3
+_encoding=Cp1252
+_packetSize=64
+_frequency=600
+_dependsCondition=good
+_timeout=5000
+_name=Ping: $Server Machine#0$
+_hostname=$Server Machine#0$
+#
+_class=ServiceMonitor
+_id=4
+_encoding=Cp1252
+_frequency=600
+_service=Siebel Server [$Enterprise#1$_$Server Logical Instance Name#3$]
+_dependsCondition=good
+_machine=\\$Server Machine#0$
+_name=Service: Siebel Server [$Enterprise#1$_$Server Logical Instance Name#3$] Service on \\$Server Machine#0$
+#
+_class=DirectoryMonitor
+_id=5
+_encoding=Cp1252
+_frequency=600
+_path=\\$Server Machine#0$\$Siebel Root Dir#8$\siebsrvr\LOG
+_classifier=fileCount >= 2000	error
+_dependsCondition=good
+_name=Directory: \\$Server Machine#0$\$Siebel Root Dir#8$\siebsrvr\LOG
+#
+_class=DirectoryMonitor
+_id=6
+_encoding=Cp1252
+_frequency=600
+_path=\\$Server Machine#0$\$Siebel Root Dir#8$\siebsrvr\DOCKING\TXNPROC
+_classifier=fileCount >= 2000	error
+_dependsCondition=good
+_name=Directory: \\$Server Machine#0$\$Siebel Root Dir#8$\siebsrvr\DOCKING\TXNPROC
+#
+_disk=$Siebel Disk#7$
+_class=DiskSpaceMonitor
+_id=7
+_encoding=Cp1252
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Machine#0$
+_name=Disk Space: $Siebel Disk#7$ on \\$Server Machine#0$
+#
+_class=SiebelLogMonitor
+_id=8
+_encoding=Cp1252
+_frequency=600
+_eventType=ServerLog
+_dependsCondition=good
+_machine=\\$Server Machine#0$
+_logFileRegex=/$Enterprise#1$.$Server Logical Instance Name#3$.log/
+_severity=0
+_name=Siebel Application Server Log on \\$Server Machine#0$
+_logPath=\\$Server Machine#0$\$Siebel Root Dir#8$\siebsrvr\LOG
+#
+_class=SiebelLogMonitor
+_id=9
+_encoding=Cp1252
+_frequency=600
+_eventType=GenericLog
+_dependsCondition=good
+_machine=\\$Server Machine#0$
+_logFileRegex=/$CP Callcenter Alias#17$.*\.log/
+_severity=0
+_name=Siebel $CP Callcenter Alias#17$ component Log on \\$Server Machine#0$
+_logPath=\\$Server Machine#0$\$Siebel Root Dir#8$\siebsrvr\LOG
+# 
+// Siebel Callcenter component group
+_class=SiebelCmdLineMonitor
+_id=10
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_classifier=browsableValue1 > 0	error
+_classifier=browsableValue2 doesNotContain '/[Online|Running]/'	error
+_browseName1=Server Stats/$Server Logical Instance Name#3$/No. of tasks in error
+_browseName2=Component Groups/$CG Callcenter Name#12$/CG_RUN_STATE
+_name=Siebel: $CG Callcenter Alias#13$ component group on $Server Logical Instance Name#3$
+_browseNameid1=45 $SERVERNAME$|||$Server Logical Instance Name#3$|||No. of tasks in error
+_browseNameid2=32 $CG$|||$CG Callcenter Alias#13$|||CG_RUN_STATE
+#
+// Siebel Callcenter - CallCenter component
+_class=SiebelCmdLineMonitor
+_id=11
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_classifier=browsableValue1 doesNotContain '/[Online|Running]/'	error
+_classifier=browsableValue2 <= 2000	error
+_classifier=browsableValue3 >= 1	error
+_classifier=browsableValue4 <= 30	error
+_classifier=browsableValue5 > 0	error
+_classifier=browsableValue6 > 0	error
+_classifier=browsableValue7 >= 1000000	error
+_classifier=browsableValue8 >= 90	error
+_classifier=browsableValue9 >= 2	error
+_browseName1=Component Objects/$CG Callcenter Name#12$/$CP Callcenter Name#16$/CP_DISP_RUN_STATE
+_browseName2=Component Stats/$CG Callcenter Name#12$/$CP Callcenter Name#16$/Average Response Time
+_browseName3=Component Stats/$CG Callcenter Name#12$/$CP Callcenter Name#16$/Avg SQL Execute Time
+_browseName4=Component Stats/$CG Callcenter Name#12$/$CP Callcenter Name#16$/Average Think Time
+_browseName5=Component Objects/$CG Callcenter Name#12$/$CP Callcenter Name#16$/No. of tasks in error
+_browseName6=Component Stats/$CG Callcenter Name#12$/$CP Callcenter Name#16$/Tasks Exceeding Configured Cap
+_browseName7=Component Objects/$CG Callcenter Name#12$/$CP Callcenter Name#16$/Max Memory Used
+_browseName8=Component Objects/$CG Callcenter Name#12$/$CP Callcenter Name#16$/Max %CPU Time
+_browseName9=Component Objects/$CG Callcenter Name#12$/$CP Callcenter Name#16$/No. of Running Instances
+_name=Siebel: $CP Callcenter Name#16$ component on $Server Logical Instance Name#3$
+_browseNameid1=51 $LISTCOMPONENT$|||$CP Callcenter Alias#17$|||CP_DISP_RUN_STATE
+_browseNameid2=51 $COMPONENT$|||$CP Callcenter Alias#17$|||Average Response Time
+_browseNameid3=50 $COMPONENT$|||$CP Callcenter Alias#17$|||Avg SQL Execute Time
+_browseNameid4=48 $COMPONENT$|||$CP Callcenter Alias#17$|||Average Think Time
+_browseNameid5=55 $LISTCOMPONENT$|||$CP Callcenter Alias#17$|||No. of tasks in error
+_browseNameid6=60 $COMPONENT$|||$CP Callcenter Alias#17$|||Tasks Exceeding Configured Cap
+_browseNameid7=44 $LISTCOMPONENT$|||$CP Callcenter Alias#17$|||Max Memory Used
+_browseNameid8=42 $LISTCOMPONENT$|||$CP Callcenter Alias#17$|||Max %CPU Time
+_browseNameid9=53 $LISTCOMPONENT$|||$CP Callcenter Alias#17$|||No. of Running Instances
+#
+// Siebel Callcenter - eService component
+_class=SiebelCmdLineMonitor
+_id=12
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_classifier=browsableValue1 doesNotContain '/[Online|Running]/'	error
+_classifier=browsableValue2 <= 2000	error
+_classifier=browsableValue3 >= 1	error
+_classifier=browsableValue4 <= 30	error
+_classifier=browsableValue5 > 0	error
+_classifier=browsableValue6 > 0	error
+_classifier=browsableValue7 >= 1000000	error
+_classifier=browsableValue8 >= 90	error
+_classifier=browsableValue9 >= 2	error
+_browseName1=Component Objects/$CG Callcenter Name#12$/$CP eService Name#18$/CP_DISP_RUN_STATE
+_browseName2=Component Stats/$CG Callcenter Name#12$/$CP eService Name#18$/Average Response Time
+_browseName3=Component Stats/$CG Callcenter Name#12$/$CP eService Name#18$/Avg SQL Execute Time
+_browseName4=Component Stats/$CG Callcenter Name#12$/$CP eService Name#18$/Average Think Time
+_browseName5=Component Objects/$CG Callcenter Name#12$/$CP eService Name#18$/No. of tasks in error
+_browseName6=Component Stats/$CG Callcenter Name#12$/$CP eService Name#18$/Tasks Exceeding Configured Cap
+_browseName7=Component Objects/$CG Callcenter Name#12$/$CP eService Name#18$/Max Memory Used
+_browseName8=Component Objects/$CG Callcenter Name#12$/$CP eService Name#18$/Max %CPU Time
+_browseName9=Component Objects/$CG Callcenter Name#12$/$CP eService Name#18$/No. of Running Instances
+_name=Siebel: $CP eService Name#18$ component on $Server Logical Instance Name#3$
+_browseNameid1=51 $LISTCOMPONENT$|||$CP Callcenter Alias#17$|||CP_DISP_RUN_STATE
+_browseNameid2=51 $COMPONENT$|||$CP eService Alias#19$|||Average Response Time
+_browseNameid3=50 $COMPONENT$|||$CP eService Alias#19$|||Avg SQL Execute Time
+_browseNameid4=48 $COMPONENT$|||$CP eService Alias#19$|||Average Think Time
+_browseNameid5=55 $LISTCOMPONENT$|||$CP eService Alias#19$|||No. of tasks in error
+_browseNameid6=60 $COMPONENT$|||$CP eService Alias#19$|||Tasks Exceeding Configured Cap
+_browseNameid7=44 $LISTCOMPONENT$|||$CP eService Alias#19$|||Max Memory Used
+_browseNameid8=42 $LISTCOMPONENT$|||$CP eService Alias#19$|||Max %CPU Time
+_browseNameid9=53 $LISTCOMPONENT$|||$CP eService Alias#19$|||No. of Running Instances
+#
+// Siebel System component group
+_class=SiebelCmdLineMonitor
+_id=13
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_classifier=browsableValue1 > 0	error
+_classifier=browsableValue2 doesNotContain '/[Online|Running]/'	error
+_browseName1=Server Stats/$Server Logical Instance Name#3$/No. of tasks in error
+_browseName2=Component Groups/$CG System Management Name#14$/CG_RUN_STATE
+_name=Siebel: $CG System Management Alias#15$ component group on $Server Logical Instance Name#3$
+_browseNameid1=45 $SERVERNAME$|||$Server Logical Instance Name#3$|||No. of tasks in error
+_browseNameid2=32 $CG$|||$CG System Management Alias#15$|||CG_RUN_STATE
+#
+// Siebel System - Server Request Broker component
+_class=SiebelCmdLineMonitor
+_id=14
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_classifier=browsableValue1 doesNotContain '/[Online|Running]/'	error
+_classifier=browsableValue2 >= 1	error
+_classifier=browsableValue3 > 0	error
+_classifier=browsableValue4 > 0	error
+_classifier=browsableValue5 >= 1000000	error
+_classifier=browsableValue6 >= 90	error
+_classifier=browsableValue7 >= 2	error
+_browseName1=Component Objects/$CG System Management Name#14$/$CP Srvr Request Broker Name#20$/CP_DISP_RUN_STATE
+_browseName2=Component Stats/$CG System Management Name#14$/$CP Srvr Request Broker Name#20$/Avg SQL Execute Time
+_browseName3=Component Objects/$CG System Management Name#14$/$CP Srvr Request Broker Name#20$/No. of tasks in error
+_browseName4=Component Stats/$CG System Management Name#14$/$CP Srvr Request Broker Name#20$/Tasks Exceeding Configured Cap
+_browseName5=Component Objects/$CG System Management Name#14$/$CP Srvr Request Broker Name#20$/Max Memory Used
+_browseName6=Component Objects/$CG System Management Name#14$/$CP Srvr Request Broker Name#20$/Max %CPU Time
+_browseName7=Component Objects/$CG System Management Name#14$/$CP Srvr Request Broker Name#20$/No. of Running Instances
+_name=Siebel: $CP Srvr Request Broker Alias#21$ component on $Server Logical Instance Name#3$
+_browseNameid1=51 $LISTCOMPONENT$|||$CP Srvr Request Broker Alias#21$|||CP_DISP_RUN_STATE
+_browseNameid2=50 $COMPONENT$|||$CP Srvr Request Broker Alias#21$|||Avg SQL Execute Time
+_browseNameid3=55 $LISTCOMPONENT$|||$CP Srvr Request Broker Alias#21$|||No. of tasks in error
+_browseNameid4=60 $COMPONENT$|||$CP Srvr Request Broker Alias#21$|||Tasks Exceeding Configured Cap
+_browseNameid5=44 $LISTCOMPONENT$|||$CP Srvr Request Broker Alias#21$|||Max Memory Used
+_browseNameid6=42 $LISTCOMPONENT$|||$CP Srvr Request Broker Alias#21$|||Max %CPU Time
+_browseNameid7=53 $LISTCOMPONENT$|||$CP Srvr Request Broker Alias#21$|||No. of Running Instances
+#
+// Siebel System - Server Request Processor component
+_class=SiebelCmdLineMonitor
+_id=15
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_classifier=browsableValue1 doesNotContain '/[Online|Running]/'	error
+_classifier=browsableValue2 >= 1	error
+_classifier=browsableValue3 > 0	error
+_classifier=browsableValue4 > 0	error
+_classifier=browsableValue5 >= 1000000	error
+_classifier=browsableValue6 >= 90	error
+_classifier=browsableValue7 >= 2	error
+_browseName1=Component Objects/$CG System Management Name#14$/$CP_Srvr_Request_Processor_Name#22$/CP_DISP_RUN_STATE
+_browseName2=Component Stats/$CG System Management Name#14$/$CP_Srvr_Request_Processor_Name#22$/Avg SQL Execute Time
+_browseName3=Component Objects/$CG System Management Name#14$/$CP_Srvr_Request_Processor_Name#22$/No. of tasks in error
+_browseName4=Component Stats/$CG System Management Name#14$/$CP_Srvr_Request_Processor_Name#22$/Tasks Exceeding Configured Cap
+_browseName5=Component Objects/$CG System Management Name#14$/$CP_Srvr_Request_Processor_Name#22$/Max Memory Used
+_browseName6=Component Objects/$CG System Management Name#14$/$CP_Srvr_Request_Processor_Name#22$/Max %CPU Time
+_browseName7=Component Objects/$CG System Management Name#14$/$CP_Srvr_Request_Processor_Name#22$/No. of Running Instances
+_name=Siebel: $CP Srvr Request Processor Alias#23$ component on $Server Logical Instance Name#3$
+_browseNameid1=51 $LISTCOMPONENT$|||$CP Srvr Request Processor Alias#23$|||CP_DISP_RUN_STATE
+_browseNameid2=50 $COMPONENT$|||$CP Srvr Request Processor Alias#23$|||Avg SQL Execute Time
+_browseNameid3=55 $LISTCOMPONENT$|||$CP Srvr Request Processor Alias#23$|||No. of tasks in error
+_browseNameid4=60 $COMPONENT$|||$CP Srvr Request Processor Alias#23$|||Tasks Exceeding Configured Cap
+_browseNameid5=44 $LISTCOMPONENT$|||$CP Srvr Request Processor Alias#23$|||Max Memory Used
+_browseNameid6=42 $LISTCOMPONENT$|||$CP Srvr Request Processor Alias#23$|||Max %CPU Time
+_browseNameid7=53 $LISTCOMPONENT$|||$CP Srvr Request Processor Alias#23$|||No. of Running Instances
+#
+// Siebel System - Server Manager component
+_class=SiebelCmdLineMonitor
+_id=16
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_classifier=browsableValue1 doesNotContain '/[Online|Running]/'	error
+_classifier=browsableValue2 >= 1	error
+_classifier=browsableValue3 > 0	error
+_classifier=browsableValue4 > 0	error
+_classifier=browsableValue5 >= 1000000	error
+_classifier=browsableValue6 >= 90	error
+_classifier=browsableValue7 >= 2	error
+_browseName1=Component Objects/$CG System Management Name#14$/$CP Server Manager Name#24$/CP_DISP_RUN_STATE
+_browseName2=Component Stats/$CG System Management Name#14$/$CP Server Manager Name#24$/Avg SQL Execute Time
+_browseName3=Component Objects/$CG System Management Name#14$/$CP Server Manager Name#24$/No. of tasks in error
+_browseName4=Component Stats/$CG System Management Name#14$/$CP Server Manager Name#24$/Tasks Exceeding Configured Cap
+_browseName5=Component Objects/$CG System Management Name#14$/$CP Server Manager Name#24$/Max Memory Used
+_browseName6=Component Objects/$CG System Management Name#14$/$CP Server Manager Name#24$/Max %CPU Time
+_browseName7=Component Objects/$CG System Management Name#14$/$CP Server Manager Name#24$/No. of Running Instances
+_name=Siebel: $CP Server Manager Alias#25$ component on $Server Logical Instance Name#3$
+_browseNameid1=51 $LISTCOMPONENT$|||$CP Server Manager Alias#25$|||CP_DISP_RUN_STATE
+_browseNameid2=50 $COMPONENT$|||$CP Server Manager Alias#25$|||Avg SQL Execute Time
+_browseNameid3=55 $LISTCOMPONENT$|||$CP Server Manager Alias#25$|||No. of tasks in error
+_browseNameid4=60 $COMPONENT$|||$CP Server Manager Alias#25$|||Tasks Exceeding Configured Cap
+_browseNameid5=44 $LISTCOMPONENT$|||$CP Server Manager Alias#25$|||Max Memory Used
+_browseNameid6=42 $LISTCOMPONENT$|||$CP Server Manager Alias#25$|||Max %CPU Time
+_browseNameid7=53 $LISTCOMPONENT$|||$CP Server Manager Alias#25$|||No. of Running Instances
+#
+// Siebel System - File System Manager component
+_class=SiebelCmdLineMonitor
+_id=17
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_classifier=browsableValue1 doesNotContain '/[Online|Running]/'	error
+_classifier=browsableValue2 >= 1	error
+_classifier=browsableValue3 > 0	error
+_classifier=browsableValue4 > 0	error
+_classifier=browsableValue5 >= 1000000	error
+_classifier=browsableValue6 >= 90	error
+_classifier=browsableValue7 >= 2	error
+_browseName1=Component Objects/$CG System Management Name#14$/$CP File System Manager Name#26$/CP_DISP_RUN_STATE
+_browseName2=Component Stats/$CG System Management Name#14$/$CP File System Manager Name#26$/Avg SQL Execute Time
+_browseName3=Component Objects/$CG System Management Name#14$/$CP File System Manager Name#26$/No. of tasks in error
+_browseName4=Component Stats/$CG System Management Name#14$/$CP File System Manager Name#26$/Tasks Exceeding Configured Cap
+_browseName5=Component Objects/$CG System Management Name#14$/$CP File System Manager Name#26$/Max Memory Used
+_browseName6=Component Objects/$CG System Management Name#14$/$CP File System Manager Name#26$/Max %CPU Time
+_browseName7=Component Objects/$CG System Management Name#14$/$CP File System Manager Name#26$/No. of Running Instances
+_name=Siebel: $CP File System Manager Alias#27$ component on $Server Logical Instance Name#3$
+_browseNameid1=51 $LISTCOMPONENT$|||$CP File System Manager Alias#27$|||CP_DISP_RUN_STATE
+_browseNameid2=50 $COMPONENT$|||$CP File System Manager Alias#27$|||Avg SQL Execute Time
+_browseNameid3=55 $LISTCOMPONENT$|||$CP File System Manager Alias#27$|||No. of tasks in error
+_browseNameid4=60 $COMPONENT$|||$CP File System Manager Alias#27$|||Tasks Exceeding Configured Cap
+_browseNameid5=44 $LISTCOMPONENT$|||$CP File System Manager Alias#27$|||Max Memory Used
+_browseNameid6=42 $LISTCOMPONENT$|||$CP File System Manager Alias#27$|||Max %CPU Time
+_browseNameid7=53 $LISTCOMPONENT$|||$CP File System Manager Alias#27$|||No. of Running Instances
+#
+// Siebel System - Client Administration component
+_class=SiebelCmdLineMonitor
+_id=18
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_classifier=browsableValue1 doesNotContain '/[Online|Running]/'	error
+_classifier=browsableValue2 >= 1	error
+_classifier=browsableValue3 > 0	error
+_classifier=browsableValue4 > 0	error
+_classifier=browsableValue5 >= 1000000	error
+_classifier=browsableValue6 >= 90	error
+_classifier=browsableValue7 >= 2	error
+_browseName1=Component Objects/$CG System Management Name#14$/$CP Client Administration Name#28$/CP_DISP_RUN_STATE
+_browseName2=Component Stats/$CG System Management Name#14$/$CP Client Administration Name#28$/Avg SQL Execute Time
+_browseName3=Component Objects/$CG System Management Name#14$/$CP Client Administration Name#28$/No. of tasks in error
+_browseName4=Component Stats/$CG System Management Name#14$/$CP Client Administration Name#28$/Tasks Exceeding Configured Cap
+_browseName5=Component Objects/$CG System Management Name#14$/$CP Client Administration Name#28$/Max Memory Used
+_browseName6=Component Objects/$CG System Management Name#14$/$CP Client Administration Name#28$/Max %CPU Time
+_browseName7=Component Objects/$CG System Management Name#14$/$CP Client Administration Name#28$/No. of Running Instances
+_name=Siebel: $CP Client Administration Alias#29$ component on $Server Logical Instance Name#3$
+_browseNameid1=51 $LISTCOMPONENT$|||$CP Client Administration Alias#29$|||CP_DISP_RUN_STATE
+_browseNameid2=50 $COMPONENT$|||$CP Client Administration Alias#29$|||Avg SQL Execute Time
+_browseNameid3=55 $LISTCOMPONENT$|||$CP Client Administration Alias#29$|||No. of tasks in error
+_browseNameid4=60 $COMPONENT$|||$CP Client Administration Alias#29$|||Tasks Exceeding Configured Cap
+_browseNameid5=44 $LISTCOMPONENT$|||$CP Client Administration Alias#29$|||Max Memory Used
+_browseNameid6=42 $LISTCOMPONENT$|||$CP Client Administration Alias#29$|||Max %CPU Time
+_browseNameid7=53 $LISTCOMPONENT$|||$CP Client Administration Alias#29$|||No. of Running Instances
+#
+_class=SiebelCmdLineMonitor
+_id=19
+_encoding=Cp1252
+_gateway=$Gateway#2$
+_frequency=600
+_path=$Srvrmgr Script Path#6$
+_password=$Password#5$
+_enterprise=$Enterprise#1$
+_server=$Server Logical Instance Name#3$
+_targetMachineName=$Server Machine#0$
+_tasksAgeFilter=60
+_dependsCondition=good
+_username=$Username#4$
+_name=Siebel Application Server: Siebel process on $Server Machine#0$
+_browseName1=Server Processes/Siebel Background Tasks (SIEBPROC / SIEBSH)/Max Memory Used
+_browseName2=Server Processes/Siebel Application Server Process (SIEBSVC)/Max Memory Used
+_browseName3=Server Processes/Siebel SrvrMgr Session (SIEBSESS)/Max %CPU Time
+_browseName4=Server Processes/Siebel Components (SIEBMTSH / SIEBMTSHMW)/No. of Running Instances
+_browseName5=Server Processes/Siebel Background Tasks (SIEBPROC / SIEBSH)/No. of Running Instances
+_browseName6=Server Processes/Siebel SrvrMgr Session (SIEBSESS)/No. of Running Instances
+_browseName7=Server Processes/Siebel Components (SIEBMTSH / SIEBMTSHMW)/Max %CPU Time
+_browseName8=Server Processes/Siebel Background Tasks (SIEBPROC / SIEBSH)/Max %CPU Time
+_browseName9=Server Processes/Siebel SrvrMgr Session (SIEBSESS)/Max Memory Used
+_browseNameid1=45 $PROCESS$|||siebproc|siebsh|||Max Memory Used
+_browseNameid2=37 $PROCESS$|||siebsvc|||Max Memory Used
+_browseNameid3=36 $PROCESS$|||siebsess|||Max %CPU Time
+_browseNameid4=58 $PROCESS$|||siebmtsh|siebmtshmw|||No. of Running Instances
+_browseNameid5=54 $PROCESS$|||siebproc|siebsh|||No. of Running Instances
+_browseNameid6=47 $PROCESS$|||siebsess|||No. of Running Instances
+_browseNameid7=47 $PROCESS$|||siebmtsh|siebmtshmw|||Max %CPU Time
+_browseNameid8=43 $PROCESS$|||siebproc|siebsh|||Max %CPU Time
+_browseNameid9=38 $PROCESS$|||siebsess|||Max Memory Used
+_browseNameid10=46 $PROCESS$|||siebsvc|||No. of Running Instances
+_browseNameid11=35 $PROCESS$|||siebsvc|||Max %CPU Time
+_browseNameid12=49 $PROCESS$|||siebmtsh|siebmtshmw|||Max Memory Used
+_browseName10=Server Processes/Siebel Application Server Process (SIEBSVC)/No. of Running Instances
+_browseName11=Server Processes/Siebel Application Server Process (SIEBSVC)/Max %CPU Time
+_browseName12=Server Processes/Siebel Components (SIEBMTSH / SIEBMTSHMW)/Max Memory Used
+_classifier=browsableValue1 >= 1000000	error
+_classifier=browsableValue2 >= 75000	error
+_classifier=browsableValue9 >= 500000	error
+_classifier=browsableValue12 >= 1000000	error
+_classifier=browsableValue4 >= 100	error
+_classifier=browsableValue5 >= 50	error
+_classifier=browsableValue6 >= 10	error
+_classifier=browsableValue10 >= 2	error
+_classifier=browsableValue3 >= 90	error
+_classifier=browsableValue7 >= 90	error
+_classifier=browsableValue8 >= 90	error
+_classifier=browsableValue11 >= 90	error
+#
+_driver=sun.jdbc.odbc.JdbcOdbcDriver
+_connectTimeout=60
+_database=jdbc:odbc:$Siebel ODBC Name#9$
+_class=DatabaseMonitor
+_id=20
+_encoding=Cp1252
+_user=$DB Username#10$
+_password=$DB Password#11$
+_targetMachineName=$Server Machine#0$
+_content=/TRUE/
+_frequency=600
+_dependsCondition=good
+_name=Siebel Transaction Logging process (is enabled?)
+_query=SELECT VAL FROM siebel.S_SYS_PREF WHERE (SYS_PREF_CD LIKE 'Docking:Transaction Logging')
+_queryTimeout=60
+#
+_driver=sun.jdbc.odbc.JdbcOdbcDriver
+_connectTimeout=60
+_database=jdbc:odbc:$Siebel ODBC Name#9$
+_class=DatabaseMonitor
+_id=21
+_encoding=Cp1252
+_user=$DB Username#10$
+_password=$DB Password#11$
+_targetMachineName=$Server Machine#0$
+_frequency=600
+_dependsCondition=good
+_name=Siebel Workflow Rules process (growth rate)
+_query=select count(*) from siebel.S_ESCL_REQ
+_queryTimeout=60
+#
+_driver=sun.jdbc.odbc.JdbcOdbcDriver
+_connectTimeout=60
+_database=jdbc:odbc:$Siebel ODBC Name#9$
+_class=DatabaseMonitor
+_id=22
+_encoding=Cp1252
+_user=$DB Username#10$
+_password=$DB Password#11$
+_targetMachineName=$Server Machine#0$
+_frequency=600
+_dependsCondition=good
+_name=Siebel Transaction Router process (growth rate)
+_query=select count(TXN_ID) from siebel.S_DOCK_TXN_LOG
+_queryTimeout=60
+#
+_driver=sun.jdbc.odbc.JdbcOdbcDriver
+_connectTimeout=60
+_database=jdbc:odbc:$Siebel ODBC Name#9$
+_class=DatabaseMonitor
+_id=23
+_encoding=Cp1252
+_user=$DB Username#10$
+_password=$DB Password#11$
+_targetMachineName=$Server Machine#0$
+_frequency=600
+_dependsCondition=good
+_name=Siebel Enterprise Integration Manager process (growth rate)
+_query=select count(*) from siebel.EIM_ACCOUNT
+_queryTimeout=60

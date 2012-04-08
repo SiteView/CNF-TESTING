@@ -1,0 +1,455 @@
+_monitorTemplateName=Active Directory
+_monitorTemplateDescription=Monitors Active Directory replication, domain controller availability and domain controller performance
+_monitorTemplateMoreInfo=<a href=../../docs/SiteView_Active_Directory_Best_Practices.pdf>Active Directory Solution Best Practices</a>
+_helpFile=../docs/ADSolution.htm
+_propertyDisplayFilter=_id,class,xmlfile,encoding,depends,internal,assword,monitorDescription
+_propertyReplace=browseName=Metric_,classifier=thresholds
+_platform=windows
+$Server Name#0$=_description=Domain_Controller_Name_(_This_server_must_be_defined_as_an_Nt_Remote.) _value=dc.your-company.com _server=true
+$Host Name#1$=_description=_Hostname_for_Domain_Controller _value=hostname
+$Replicating Domain Controllers#2$=_description=Comma_Seperated_list_of_Domain_controllers_that_Replicate_parts_of_this_Domain_Controller's_directory.
+$LDAP Security Principal#3$=_description=LDAP_Security_Principal_of_a_Domain_Admin_Account. _value=cn=DomainAdmin,cn=users,dc=your-company,dc=com
+$Password#4$=_description=Password_for_Domain_Admin_User.
+$Logical Drive#5$=_description=Logical_drive_name_that_contains_the_Active_Directory_database. _value=C
+$Global Catalog#6$=_checkbox=true _description=Select_if_domain_controller_is_a_global_catalog_server. _value=on _boolean=true _onTrue=3268 _onFalse=389
+#
+_class=BrowsableNTCounterMonitor
+_xmlfile=ad-securty.xml
+_id=33
+_encoding=Cp1252
+_frequency=900
+_server=\\$Server Name#0$
+_dependsCondition=good
+_internalId=24571
+_monitorDescription=<br>Performance metrics for key security volumes
+_browseName1=NTDS/KDC TGS Requests
+_browseName2=NTDS/NTLM Authentications
+_browseName3=NTDS/KDC AS Requests
+_browseNameid1=28 NTDSxSINGLExKDCxTGSxRequests
+_name=$Host Name#1$:DC - Security Subsystem
+_browseNameid2=32 NTDSxSINGLExNTLMxAuthentications
+_browseNameid3=27 NTDSxSINGLExKDCxASxRequests
+#
+_class=ServiceMonitor
+_id=7
+_encoding=Cp1252
+_frequency=900
+_service=Kerberos Key Distribution Center
+_dependsCondition=good
+_internalId=24541
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Necessary for issuance of Kerberos tickets
+_name=$Host Name#1$:DC - Service Monitor - Kerberos Key Distribution Center
+#
+_class=ServiceMonitor
+_id=6
+_encoding=Cp1252
+_frequency=900
+_service=Net Logon
+_dependsCondition=good
+_internalId=24540
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Necessary for registering DDNS records, enabling secure channel connections and several other functions
+_name=$Host Name#1$:DC - Service Monitor - NetLogon
+#
+_class=ServiceMonitor
+_id=8
+_encoding=Cp1252
+_frequency=900
+_service=Windows Time
+_dependsCondition=good
+_internalId=24542
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Necessary for Kerberos and resolving replication conflicts
+_name=$Host Name#1$:DC - Service Monitor - Windows Time
+#
+_eventKey=EVENTLOG:6006
+_class=NTEventLogMonitor
+_id=20
+_encoding=Cp1252
+_logName=System
+_frequency=900
+_eventType=/.*/
+_dependsCondition=good
+_internalId=24554
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Event log service has shutdown, often because of a reboot
+_name=$Host Name#1$:DC - System EventLog Stopped - 6006
+_alerting=once
+#
+_eventKey=KDC
+_class=NTEventLogMonitor
+_id=11
+_encoding=Cp1252
+_logName=System
+_frequency=600
+_eventType=Error
+_dependsCondition=good
+_internalId=24545
+_machine=\\$Server Name#0$
+_monitorDescription=<br>This event indicates problems with Kerberos, the default authentication protocol.
+_name=$Host Name#1$:DC Kerberos Error Events
+_alerting=once
+#
+_eventKey=NETLOGON
+_class=NTEventLogMonitor
+_id=12
+_encoding=Cp1252
+_logName=System
+_frequency=600
+_eventType=Error
+_dependsCondition=good
+_internalId=24546
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Critical NETLOGON service errors
+_name=$Host Name#1$:DC NETLOGON Error Events
+_alerting=once
+#
+_eventKey=EVENTLOG:6005
+_class=NTEventLogMonitor
+_id=19
+_encoding=Cp1252
+_logName=System
+_frequency=900
+_eventType=/.*/
+_dependsCondition=good
+_internalId=24553
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Event log service has started, often because of a reboot
+_name=$Host Name#1$:DC System Event Log started (6005)
+_alerting=once
+#
+_eventKey=W32TIME Error or Warning Events
+_class=NTEventLogMonitor
+_id=10
+_encoding=Cp1252
+_logName=System
+_frequency=600
+_eventType=/^Error|Warning$/
+_dependsCondition=good
+_internalId=24544
+_machine=\\$Server Name#0$
+_monitorDescription=<br>This event may indicate problems with the maintaining uniform time throughout the Active Directory forest.
+_name=$Host Name#1$:DC Windows Time
+_alerting=once
+#
+_eventKey=DNSAPI:/11150|1162/
+_class=NTEventLogMonitor
+_id=14
+_encoding=Cp1252
+_logName=System
+_frequency=900
+_eventType=/.*/
+_dependsCondition=good
+_internalId=24548
+_machine=\\$Server Name#0$
+_monitorDescription=<br>DNS server timed out
+_name=$Host Name#1$:DNS - System DNSAPI - 11150 or 1162
+_alerting=once
+#
+_eventKey=DNSAPI:/11151|11155|11163|11167/
+_class=NTEventLogMonitor
+_id=16
+_encoding=Cp1252
+_logName=System
+_frequency=900
+_eventType=/.*/
+_dependsCondition=good
+_internalId=24550
+_machine=\\$Server Name#0$
+_monitorDescription=<br>A resource record for the domain controller is not registered in DNS
+_name=$Host Name#1$:DNS - System DNSAPI - 11151, 11155, 11163, or 11167
+_alerting=once
+#
+_eventKey=DNSAPI:/11152|11153|11164|11165/
+_class=NTEventLogMonitor
+_id=15
+_encoding=Cp1252
+_logName=System
+_frequency=900
+_eventType=/.*/
+_dependsCondition=good
+_internalId=24549
+_machine=\\$Server Name#0$
+_monitorDescription=<br>The zone or the currently connected DNS server does not support dynamic update
+_name=$Host Name#1$:DNS - System DNSAPI - 11152, 11153, 11164, or 11165
+_alerting=once
+#
+_eventKey=DNSAPI:/11154|11166/
+_class=NTEventLogMonitor
+_id=13
+_encoding=Cp1252
+_logName=System
+_frequency=900
+_eventType=/.*/
+_dependsCondition=good
+_internalId=24547
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Domain controller does not have sufficient rights to perform a secure dynamic update
+_name=$Host Name#1$:DNS - System DNSAPI - 11154 or 11166
+_alerting=once
+#
+_eventKey=NETLOGON:5773
+_class=NTEventLogMonitor
+_id=17
+_encoding=Cp1252
+_logName=System
+_frequency=900
+_eventType=/.*/
+_dependsCondition=good
+_internalId=24551
+_machine=\\$Server Name#0$
+_monitorDescription=<br>One or more DC locator records are not registered because the primary DNS server does not support dynamic update
+_name=$Host Name#1$:DNS - System NETLOGON - 5773
+_alerting=once
+#
+_eventKey=NETLOGON:5774
+_class=NTEventLogMonitor
+_id=18
+_encoding=Cp1252
+_logName=System
+_frequency=900
+_eventType=/.*/
+_dependsCondition=good
+_internalId=24552
+_machine=\\$Server Name#0$
+_monitorDescription=<br>One or more DC locator records are not registered in DNS
+_name=$Host Name#1$:DNS - System NETLOGON - 5774
+_alerting=once
+#
+_class=BrowsableNTCounterMonitor
+_xmlfile=ad-core-ds.xml
+_id=35
+_encoding=Cp1252
+_frequency=900
+_server=\\$Server Name#0$
+_dependsCondition=good
+_internalId=24573
+_classifier=countersInError > 0	error
+_classifier=browsableValue6 > 2000000000	error
+_browseName1=NTDS/DS Search sub-operations/sec
+_browseName2=NTDS/LDAP Searches/sec
+_browseName3=NTDS/LDAP Client Sessions
+_browseName4=Process/LSASS/% Processor Time
+_browseName5=Process/LSASS/Handle Count
+_browseName6=Process/LSASS/Private Bytes
+_name=$Host Name#1$:DS - Core Directory Service
+_monitorDescription=<br>Performance metrics for the core Active Directory functions and services
+_browseNameid1=40 NTDSxSINGLExDSxSearchxsub-operations/sec
+_browseNameid2=29 NTDSxSINGLExLDAPxSearches/sec
+_browseNameid3=32 NTDSxSINGLExLDAPxClientxSessions
+_browseNameid4=30 ProcessxLSASSx%xProcessorxTime
+_browseNameid5=26 ProcessxLSASSxHandlexCount
+_browseNameid6=27 ProcessxLSASSxPrivatexBytes
+#
+_class=LDAPMonitor
+_urlprovider=ldap://$Server Name#0$:BOOLEAN[$Global Catalog#6$]
+_id=3
+_encoding=Cp437
+_frequency=600
+_dependsCondition=good
+_monitorDescription=<br>Verify that this Domain Controller is correctly advertised to allow clients and other domain controllers can locate and connect to them
+_internalId=24537
+_classifier=roundTripTime > 15000	error
+_classifier=roundTripTime > 5000	warning
+_matchstring=/(cn=$Host Name#1$)/i
+_name=$Host Name#1$:DS - Domain Controller is Advertised
+#
+_deployControlVar=$Global Catalog#6$
+_class=LDAPMonitor
+_urlprovider=ldap://$Server Name#0$:3268
+_id=1
+_encoding=Cp437
+_frequency=900
+_securityprincipal=$LDAP Security Principal#3$
+_password=$Password#4$
+_dependsCondition=good
+_internalId=24535
+_classifier=roundTripTime > 15000	error
+_classifier=roundTripTime > 5000	warning
+_monitorDescription=<br>Efficient global catalogue searches are needed for timely user account logons and by Active Directory aware applications such as Exchange
+_ldapfilter=(cn=*)
+_matchstring=/CN=Schema/i
+_ldapquery=$LDAP Security Principal#3$
+_name=$Host Name#1$:DS - Search of Global Catalouge
+#
+_class=NTEventLogMonitor
+_id=24
+_encoding=Cp1252
+_logName=Directory Service
+_frequency=600
+_eventType=Error
+_dependsCondition=good
+_internalId=24558
+_machine=\\$Server Name#0$
+_monitorDescription=<br>The  primary error events for the Active Directory service.
+_name=$Host Name#1$:DS Directory Service Error Logs
+_alerting=once
+#
+_eventKey=LSASS
+_class=NTEventLogMonitor
+_id=25
+_encoding=Cp1252
+_logName=System
+_frequency=600
+_eventType=Error
+_dependsCondition=good
+_internalId=24559
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Local Security Authority is the core security subsystem for Active Directory
+_name=$Host Name#1$:DS LSASS Error Events
+_alerting=once
+#
+_maxTime=600
+_domainController=$Server Name#0$
+_class=ADReplicationMonitor
+_pollingInterval=10
+_id=37
+_replicatingDomainControllers=$Replicating Domain Controllers#2$
+_encoding=Cp1252
+_frequency=3600
+_securityprincipal=$LDAP Security Principal#3$
+_password=$Password#4$
+_dependsCondition=good
+_internalId=24585
+_monitorDescription=<br> Calculates replication latency between domain controllers
+_name=$Host Name#1$:DS Replication Time between Domain Controllers
+#
+_class=BrowsableNTCounterMonitor
+_xmlfile=ad-replication.xml
+_id=32
+_encoding=Cp1252
+_frequency=900
+_server=\\$Server Name#0$
+_dependsCondition=good
+_internalId=24570
+_monitorDescription=<br> Performance metrics for monitoring the quantity of replicated data
+_browseName1=NTDS/DRA Outbound Bytes Compressed (Between Sites, After Compression) Since Boot
+_browseName2=NTDS/DRA Outbound Bytes Total/sec
+_browseName3=NTDS/DRA Inbound Bytes Compressed (Between Sites, After Compression) Since Boot
+_browseName4=NTDS/DRA Outbound Bytes Not Compressed (Within Site) Since Boot
+_browseNameid1=87 NTDSxSINGLExDRAxOutboundxBytesxCompressedx(BetweenxSites,xAfterxCompression)xSincexBoot
+_name=$Host Name#1$:FRS - Replication Health
+_browseNameid2=40 NTDSxSINGLExDRAxOutboundxBytesxTotal/sec
+_browseNameid3=86 NTDSxSINGLExDRAxInboundxBytesxCompressedx(BetweenxSites,xAfterxCompression)xSincexBoot
+_browseNameid4=70 NTDSxSINGLExDRAxOutboundxBytesxNotxCompressedx(WithinxSite)xSincexBoot
+#
+_class=ServiceMonitor
+_id=5
+_encoding=Cp1252
+_frequency=600
+_service=File Replication Service
+_dependsCondition=good
+_internalId=24539
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Necessary for sysvol replication
+_name=$Host Name#1$:FRS - Service Monitor - File Replication Service
+#
+_class=ServiceMonitor
+_id=9
+_encoding=Cp1252
+_frequency=900
+_service=Intersite Messaging
+_dependsCondition=good
+_internalId=24543
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Intersite messaging service needed for AD replication
+_name=$Host Name#1$:FRS - Service Monitor - Intersite Messaging
+#
+_cacheLife=0
+_class=ScriptMonitor
+_parameters=$Server Name#0$
+_id=36
+_encoding=Cp1252
+_maxMeasurement=0
+_frequency=900
+_dependsCondition=good
+_internalId=24574
+_monitorDescription=<br> Sysvol must be shared for group policy to be replicated and applied to domain controllers and other objects
+_name=$Host Name#1$:FRS - Sysvol available
+_remotescript=none
+_script=ad-sysvol.bat
+#
+_class=NTEventLogMonitor
+_id=29
+_encoding=Cp1252
+_logName=File Replication Service
+_frequency=600
+_eventType=Error
+_dependsCondition=good
+_internalId=24563
+_machine=\\$Server Name#0$
+_monitorDescription=<br>FRS is used to synchronize policy between all Domain Controllers in the Forest.
+_name=$Host Name#1$:FRS FRS Error Events
+_alerting=once
+#
+_eventKey=USERENV
+_class=NTEventLogMonitor
+_id=30
+_encoding=Cp1252
+_logName=Application
+_frequency=600
+_eventType=Error
+_dependsCondition=good
+_internalId=24564
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Responsible for the application of group policy and profiles on domain controllers
+_name=$Host Name#1$:FRS NT Application Log USERENV
+_alerting=once
+#
+_eventKey=SCECLI:1058
+_class=NTEventLogMonitor
+_id=31
+_encoding=Cp1252
+_logName=Application
+_frequency=1800
+_eventType=Error
+_dependsCondition=good
+_internalId=24565
+_classifier=matchCount > 5	error
+_machine=\\$Server Name#0$
+_monitorDescription=<br>Security Configuration Engine error messages<br> Often a transitory problem. Alert if > 5 events within 30 minutes
+_name=$Host Name#1$:FRS SCECLI Error Events
+_alerting=once
+#
+_class=BrowsableNTCounterMonitor
+_xmlfile=win2000sys.xml
+_id=34
+_encoding=Cp1252
+_frequency=300
+_server=\\$Server Name#0$
+_dependsCondition=good
+_internalId=24572
+_classifier=countersInError > 0	error
+_classifier=browsableValue3 >= 700	error
+_classifier=browsableValue10 >= 2	error
+_classifier=browsableValue1 >= 10	error
+_classifier=browsableValue6 <= 4	error
+_classifier=browsableValue8 >= 85	error
+_classifier=browsableValue4 >= 70000	error
+_classifier=browsableValue2 >= 9	error
+_classifier=browsableValue7 <= 50	error
+_classifier=browsableValue5 <= 10	error
+_monitorDescription=<br> Performance counter for the core operating system indicators that have a direct impact on Active Directory performance
+_browseName1=Processor/_Total/% DPC Time
+_browseName2=System/Processor Queue Length
+_browseName3=Memory/Page Faults/sec
+_browseName4=System/Context Switches/sec
+_browseName5=LogicalDisk/$Logical Drive#5$:/% Free Space
+_browseName6=Memory/Available MBytes
+_browseName7=LogicalDisk/$Logical Drive#5$:/Free Megabytes
+_browseName8=Processor/_Total/% Processor Time
+_browseName9=System/System Up Time
+_browseName10=PhysicalDisk/_Total/Current Disk Queue Length
+_browseNameid1=27 Processorx_Totalx%xDPCxTime
+_name=$Host Name#1$:OS - Core OS Metrics
+_browseNameid2=36 SystemxSINGLExProcessorxQueuexLength
+_browseNameid3=29 MemoryxSINGLExPagexFaults/sec
+_browseNameid4=34 SystemxSINGLExContextxSwitches/sec
+_browseNameid5=27 LogicalDiskxC:x%xFreexSpace
+_browseNameid6=30 MemoryxSINGLExAvailablexMBytes
+_browseNameid7=29 LogicalDiskxC:xFreexMegabytes
+_browseNameid8=33 Processorx_Totalx%xProcessorxTime
+_browseNameid9=28 SystemxSINGLExSystemxUpxTime
+_browseNameid10=45 PhysicalDiskx_TotalxCurrentxDiskxQueuexLength
+

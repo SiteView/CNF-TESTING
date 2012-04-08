@@ -1,0 +1,88 @@
+_monitorTemplateName=Topaz Bus Server
+_monitorTemplateDescription=Adds moniors for a Topaz Bus Server machine
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+$TOPAZ_FOLDER$=_description=Topaz_installation_path_on_the_machine _value=c$\Topaz
+#
+_name=Topaz Bus Process (CPU) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processCPU > 85	error
+_process=/dispatcher/i
+#
+_name=Topaz Bus Process (Memory) on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=processMemory >= 1500000000	error
+_classifier=processMemory >= 600000000	warning
+_classifier=processMemory < 600000000	good
+_process=/dispatcher/i
+#
+_name=Process Working Set: dispatcher on "$TOPAZ_HOST_NAME$"
+_class=NTCounterMonitor
+_scale=1
+_pmcfile=(Custom Object)
+_instance=dispatcher
+_counter=Working Set
+_frequency=600
+_errorFrequency=60
+_object=Process
+_dependsCondition=good
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=value0 > 1500000000	error
+_classifier=value0 == 'n/a'	warning
+_monitorRunCount=0
+#
+_scale=1
+_pmcfile=(Custom Object)
+_class=NTCounterMonitor
+_instance=dispatcher
+_counter=Thread Count
+_frequency=600
+_errorFrequency=60
+_object=Process
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=value0 > 10	error
+_classifier=value0 == 'n/a'	warning
+_classifier=value0 <= 80	good
+_monitorRunCount=0
+_name=Process Thread Count: dispatcher on "$TOPAZ_HOST_NAME$"
+#
+_name=Directory: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\lnch_persistent\$TOPAZ_HOST_NAME$_project_topaz\guarantee
+_class=DirectoryMonitor
+_machine=$TOPAZ_MACHINE_NAME$
+_frequency=600
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\lnch_persistent\$TOPAZ_HOST_NAME$_project_topaz\guarantee
+_dependsCondition=good
+_classifier=size >= 50000000	error
+_classifier=size >= 30000000	warning
+_monitorDescription=<BR>Indicates that the Topaz Bus Server is not receiving acknowledgements for messages it sends to other Topaz components.
+#
+_name=Log File: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\dispatcher_log.txt
+_class=LogMonitor
+_logFile=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\log\dispatcher_log.txt
+_frequency=600
+_checkContent=on
+_dependsCondition=good
+_content=/ERROR/
+_classifier=matchCount > 1000	error
+_classifier=matchCount > 0	warning
+_alerting=once
+_match=/error/
+_monitorDescription=<BR>Indicates that the Topaz Bus Server cannot connect to the Topaz Admin Server, or has a problem in interpreting data collection reports.
+#
+_name=Directory: $TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue
+_class=DirectoryMonitor
+_machine=$TOPAZ_MACHINE_NAME$
+_path=$TOPAZ_MACHINE_NAME$\$TOPAZ_FOLDER$\.persist_dir\dc_persist_queue
+_frequency=600
+_dependsCondition=good
+_classifier=fileCount >= 15	error
+_classifier=fileCount >= 5	warning
+_monitorDescription=<BR>Indicates a problem in intepreting data collection reports.

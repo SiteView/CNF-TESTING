@@ -1,0 +1,52 @@
+d3System				d3System
+d3LoadManagement				d3LoadManagement
+d3SessionTracking				d3SessionTracking
+d3DRPServer				d3DRPServer
+d3DBConnPooling				d3DBConnPooling
+sysServerName				The indentifying name given to this Dynamo.
+sysStatus				String indicating current status.  BUG: (should be replaced  w/ an ENUMERATED or something)
+sysUpTime				A timestamp from the time Dynamo was last initialized. BUG: (change to a DateAndTime)
+sysTotalMem				"The total amount of memory currently available for allocating objects, measured in bytes."
+sysFreeMem				"An approximation of the total amount of memory currently available for future allocated objects, measured in bytes."
+sysNumInfoMsgs				The number of system global info messages written.
+sysNumWarningMsgs				The number of system global warning messages written.
+sysNumErrorMsgs				The number of system global error messages written.
+sysGC				Forces the system to garbage collect.
+sysRunFinalizations				Forces the system to run finalizations.
+sysShutdown				Forces the system to shutdown.
+lmIsManager				True if this Dynamo is running a load manager.
+lmManagerIndex				Returns this Dynamo's offset into the list of  load managing entities.
+lmIsPrimaryManager				True if the load manager is an acting primary  manager.
+lmServicingCMs				True if the load manager has serviced any  connection module requests in the amount of  time set as the connection module polling  interval.
+lmCMLDRPAddress				The IP address of the connection module agent.
+lmCMLDRPPort				The port of the connection module agent.
+lmMngdEnttyTable				A list of load managed entities.
+lmMngdEnttyEntry				A managed entity entry containing load distribution information.
+lmIndex				A unique value for each managed entity.
+lmSNMPAddress				The IP address for entry's SNMP agent.
+lmSNMPPort				The port for the entry's SNMP agent.
+lmProbability				The probability that the entry will be given a new session.
+lmNewSessions				"Whether or not the entry is accepting new sessions, or if the load manager is allowing new sessions to be sent to the entry. This value is inclusive of any override indicated by lmNewSessionOverride."
+lmNewSessionOverride				The override set for whether or not a server is accepting new sessions.
+stCreatedSessionCnt				The number of created sessions.
+stValidSessionCnt				The number of valid sessions.
+stRestoredSessionCnt				The number of sessions migrated to server.
+stDictionaryServerStatus				none
+drpAddress				The IP address of the DRP server.
+drpPort				The port of the DRP server.
+drpTotalReqsServed				Total number of DRP requests serviced.
+drpTotalReqTime				Total service time in msecs for all DRP  requests.
+drpAvgReqTime				Average service time in msecs for each  DRP request.
+drpNewessions				True if this Dynamo is accepting new sessions.
+drpAvailable				True if this DRP server is available to handle requests.
+dbPoolsTable				A list of JDBC connection pooling services.
+dbPoolsEntry				A pooling service entry containing information about the pools configuration and current status.
+dbIndex				A unique value for each pooling service.
+dbPoolID				The name of the DB connection pool service.
+dbMinConn				The minimum number of connections pooled.
+dbMaxConn				The maximum number of connections pooled.
+dbMaxFreeConn				The maximum number of free pooled connections at a time.
+dbBlocking				Whether or not the pool is to block on check outs.
+dbConnOut				Returns the number of connections checked out.
+dbFreeResources				Returns the number of free connections in the pool.  This number refers to actually created connections that are not currently checked out.  It does not include how many more connections are allowed to be created as set by the maximum number of connections allowed in the pool.
+dbTotalResources				Returns the number of total connections in the pool.  This number refers to actually created connections and is not an indication of how many more connections may be created and used in the pool.

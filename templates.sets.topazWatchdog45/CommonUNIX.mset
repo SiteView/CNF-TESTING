@@ -1,0 +1,39 @@
+_monitorTemplateName=Topaz Server (UNIX) Common Resources
+_monitorTemplateDescription=Adds moniors for common resources among Topaz (UNIX) servers
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Unix_remote_server _value=<choose_remote_unix_server_from_the_select_box_to_the_right_and_clear_this_text>
+$TOPAZ_DRIVE_LETTER$=_description=System_drive_to_monitor_disk_Space _value=/dev/dsk/c1t0d0s3
+#
+_name=Ping: "$TOPAZ_HOST_NAME$"
+_class=PingMonitor
+_frequency=600
+_errorFrequency=60
+_timeout=5000
+_hostname=$TOPAZ_HOST_NAME$
+_packetSize=64
+#
+_name=CPU Utilization on "$TOPAZ_HOST_NAME$"
+_class=CPUMonitor
+_frequency=600
+_errorFrequency=60
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=utilizationPercentage > 70	error
+_classifier=utilizationPercentage == 'n/a'	warning
+_classifier=utilizationPercentage <= 50	good
+#
+_name=Disk Space: $TOPAZ_DRIVE_LETTER$ on "$TOPAZ_HOST_NAME$"
+_class=DiskSpaceMonitor
+_frequency=3600
+_errorFrequency=300
+_disk=$TOPAZ_DRIVE_LETTER$
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=percentFull > 85	error
+_classifier=percentFull == 'n/a'	warning
+#
+_name=Memory on "$TOPAZ_HOST_NAME$"
+_class=MemoryMonitor
+_frequency=600
+_errorFrequency=60
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=percentFull > 85	error
+_classifier=percentFull == 'n/a'	warning

@@ -1,0 +1,10 @@
+@echo off
+
+rem d:\netsvc sitescope %1 /stop
+rem d:\netsvc sitescope %1 /start
+
+
+
+echo "Restarted %1 successfully"
+
+

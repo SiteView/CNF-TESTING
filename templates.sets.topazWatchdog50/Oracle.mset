@@ -1,0 +1,20 @@
+_monitorTemplateName=Oracle Database Server
+_monitorTemplateDescription=Adds monitors for an Oracle Database Server machine.
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+#
+_name=Oracle Service on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_process=/oracle/i
+#
+_name=Oracle TNS Listener Service on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=(using Process Name)
+_machine=$TOPAZ_MACHINE_NAME$
+_process=/(tnslsnr|tnslistener)/i

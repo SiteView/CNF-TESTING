@@ -1,0 +1,19 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\Mercury Interactive\QuickTest Professional\Configuration_UI]
+"OnReplayError"="Stop"
+"SnapshotReportMode"=dword:00000003
+
+[HKEY_CURRENT_USER\Software\Mercury Interactive\QuickTest Professional\Configuration_UI\Packages\WebPackage\Settings]
+"DisableSnapshot"=dword:00000001
+"BrowserCleanup"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Mercury Interactive\QuickTest Professional\Configuration_UI\Packages\WebPackage\Settings\AgentFlags]
+"ReplayOnlyClick"=""
+"SaveAllPackets"=""
+"ForceStaticSource"=""
+"UseWinMouseEvents"=""
+"OnClick"=""
+"OnMouseDown"=""
+"OnMouseUp"=""
+

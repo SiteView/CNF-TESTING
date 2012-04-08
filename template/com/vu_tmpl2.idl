@@ -1,0 +1,40 @@
+// vu_tmpl2.idl : IDL source
+//
+// This file will be processed by the MIDL tool to
+// produce the type library: vu_tmpl2.tlb.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+	[
+		object,
+		uuid(48A94F4B-5E05-11D3-88A3-00105AAFE31C),
+		dual,
+		helpstring("LoadRunner COM vuser interface IVuser2"),
+		pointer_default(unique)
+	]
+	interface IVuser2 : IDispatch
+	{
+		[id(1), helpstring("method vuser_init")] HRESULT Init([out, retval] short *);
+		[id(2), helpstring("method Actions")] HRESULT Run([out, retval] short *);
+		[id(3), helpstring("method vuser_end")] HRESULT End([out, retval] short *);
+	};
+[
+	uuid(48A94F51-5E05-11D3-88A3-00105AAFE31C),
+	version(1.0),
+	helpstring("LoadRunner COM Vuser2 template")
+]
+library LoadRunnerVuser2Template
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(48A94F4D-5E05-11D3-88A3-00105AAFE31C),
+		helpstring("IVuser2 Class")
+	]
+	coclass Vuser2
+	{
+		[default] interface IVuser2;
+	};
+};

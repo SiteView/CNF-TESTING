@@ -1,0 +1,88 @@
+09:41:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:112	ok	16.4	100
+09:51:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:113	ok	10.0	100
+10:01:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:114	ok	10.0	100
+10:11:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:115	ok	10.0	100
+10:21:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:116	ok	10.0	100
+10:31:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.02 sec	7:117	ok	27.0	100
+10:41:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:118	ok	10.0	100
+10:51:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:119	ok	10.0	100
+11:01:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:120	ok	10.0	100
+11:11:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:121	ok	10.0	100
+11:21:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:122	ok	10.0	100
+11:31:04 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:123	ok	10.0	100
+11:40:52 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 12:40 PM 8/13/09	7:123	ok	10.0	100
+11:41:27 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:124	ok	10.0	100
+11:41:30 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:125	ok	10.0	100
+11:44:32 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 12:44 PM 8/13/09	7:125	ok	10.0	100
+11:45:00 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:126	ok	10.0	100
+11:45:40 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:127	ok	10.0	100
+11:47:24 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 12:47 PM 8/13/09	7:127	ok	10.0	100
+11:47:56 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:128	ok	10.0	100
+11:48:01 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:129	ok	10.0	100
+11:48:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+11:58:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+12:08:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+12:18:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+12:28:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+12:38:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+12:48:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+12:58:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+13:08:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+13:18:11 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled manually	7:129	ok	10.0	100
+13:24:30 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:131	ok	10.0	100
+13:28:51 08/13/2009	good	Group0.6	Ping: www.g.cn	0.06 sec	1:1	ok	63.0	100
+13:29:05 08/13/2009	disabled	Group0.6	Ping: www.g.cn	disabled until 2:29 PM 8/13/09	1:1	ok	63.0	100
+13:29:05 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 2:29 PM 8/13/09	7:131	ok	10.0	100
+13:29:52 08/13/2009	good	Group0.6	Ping: www.g.cn	0.06 sec	1:2	ok	66.0	100
+13:30:02 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:132	ok	10.0	100
+13:33:52 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 2:33 PM 8/13/09	7:132	ok	10.0	100
+13:34:21 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:133	ok	10.0	100
+13:35:23 08/13/2009	disabled	Group0.6	Ping: www.g.cn	disabled until 2:35 PM 8/13/09	1:2	ok	66.0	100
+13:35:23 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 2:35 PM 8/13/09	7:133	ok	10.0	100
+13:36:33 08/13/2009	good	Group0.6	Ping: www.g.cn	0.09 sec	1:3	ok	94.0	100
+13:36:44 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.02 sec	7:134	ok	28.8	100
+13:39:56 08/13/2009	good	Group0.6	Ping: www.g.cn	0.07 sec	1:4	ok	74.0	100
+13:40:06 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:135	ok	10.0	100
+13:49:56 08/13/2009	good	Group0.6	Ping: www.g.cn	0.08 sec	1:5	ok	81.0	100
+13:50:07 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.02 sec	7:136	ok	22.0	100
+13:59:57 08/13/2009	good	Group0.6	Ping: www.g.cn	0.21 sec	1:6	ok	216.0	100
+14:00:06 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:137	ok	10.0	100
+14:09:56 08/13/2009	good	Group0.6	Ping: www.g.cn	0.04 sec	1:7	ok	47.0	100
+14:10:06 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:138	ok	10.0	100
+14:19:56 08/13/2009	good	Group0.6	Ping: www.g.cn	0.05 sec	1:8	ok	51.0	100
+14:20:06 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:139	ok	10.0	100
+14:29:56 08/13/2009	good	Group0.6	Ping: www.g.cn	0.07 sec	1:9	ok	75.0	100
+14:30:06 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:140	ok	12.8	100
+14:35:19 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 3:35 PM 8/13/09	7:140	ok	12.8	100
+14:35:19 08/13/2009	disabled	Group0.6	Ping: www.g.cn	disabled until 3:35 PM 8/13/09	1:9	ok	75.0	100
+14:45:19 08/13/2009	disabled	Group0.6	Ping: www.g.cn	disabled until 3:35 PM 8/13/09	1:9	ok	75.0	100
+14:45:19 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 3:35 PM 8/13/09	7:140	ok	12.8	100
+14:55:19 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 3:35 PM 8/13/09	7:140	ok	12.8	100
+14:55:19 08/13/2009	disabled	Group0.6	Ping: www.g.cn	disabled until 3:35 PM 8/13/09	1:9	ok	75.0	100
+15:05:19 08/13/2009	disabled	Group0.6	Ping: www.g.cn	disabled until 3:35 PM 8/13/09	1:9	ok	75.0	100
+15:05:19 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 3:35 PM 8/13/09	7:140	ok	12.8	100
+15:15:19 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 3:35 PM 8/13/09	7:140	ok	12.8	100
+15:15:19 08/13/2009	disabled	Group0.6	Ping: www.g.cn	disabled until 3:35 PM 8/13/09	1:9	ok	75.0	100
+15:25:19 08/13/2009	disabled	Group0.6	Ping: www.g.cn	disabled until 3:35 PM 8/13/09	1:9	ok	75.0	100
+15:25:19 08/13/2009	disabled	Group0.5	Ping: 192.168.0.50	disabled until 3:35 PM 8/13/09	7:140	ok	12.8	100
+15:35:20 08/13/2009	good	Group0.6	Ping: www.g.cn	0.09 sec	1:10	ok	91.0	100
+15:35:30 08/13/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:141	ok	10.0	100
+16:13:40 08/13/2009	good	Group0	Disk Space: /dev/hda1 on 192.168.0.181	27% full, 13476MB free, 19375MB total	1:1	27	13476
+16:18:13 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:1	0	8001	0.0
+16:23:42 08/13/2009	good	Group0	Disk Space: /dev/hda1 on 192.168.0.181	27% full, 13476MB free, 19375MB total	1:2	27	13476
+16:28:20 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:2	0	8001	0.0
+16:33:42 08/13/2009	good	Group0	Disk Space: /dev/hda1 on 192.168.0.181	27% full, 13476MB free, 19375MB total	1:3	27	13476
+16:38:27 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:3	0	8001	0.0
+16:48:27 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:4	0	8001	0.0
+16:58:27 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:5	0	8001	0.0
+17:08:27 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:6	0	8001	0.0
+17:17:36 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:7	0	8001	0.0
+17:27:37 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:8	0	8001	0.0
+17:33:50 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:9	0	8001	0.0
+17:36:44 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:10	0	8001	0.0
+17:46:45 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:11	0	8001	0.0
+17:50:50 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:12	0	8001	0.0
+17:51:10 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:13	0	8001	0.0
+17:52:21 08/13/2009	disabled	Group0	Memory on 192.168.0.181	disabled until 6:52 PM 8/13/09	2:13	0	8001	0.0
+17:58:11 08/13/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:14	0	8001	0.0
+18:02:00 08/13/2009	disabled	Group0	Memory on 192.168.0.181	disabled until 7:01 PM 8/13/09	2:14	0	8001	0.0

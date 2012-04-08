@@ -1,0 +1,15 @@
+stream quality:Default
+live pause num
+live pause time
+buffering congestion num
+buffering congestion time
+buffering seek time
+buffering seek num
+buffering time
+buffering num
+first frame time
+network performance:Default
+bandwidth
+late packets
+lost packets
+recovered packets

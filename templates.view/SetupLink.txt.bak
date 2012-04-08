@@ -1,0 +1,12 @@
+ <table border="0" width="90%">
+  <tr><td width="25%">
+ <p><FORM ACTION="/SiteScope/cgi/go.exe/SiteScope" method="GET">
+ <input type="hidden" name="page" value="setupwzd">
+ <input type="hidden" name="account" value="administrator">
+ <input type="hidden" name="operation" value="Setupwzd">
+ <input type="submit" value="Setup Wizard">
+  </FORM></p>
+ </td><td>
+  <p>Use the Setup Wizard to define standard monitor types for multiple servers.</p>
+ </td></tr>
+ </table><hr>

@@ -1,0 +1,87 @@
+12:02:13 07/21/2009	good	Group0.6	memory	18% used, 4055MB free, 40.31 pages/sec	2:1437	18	4055	40.312542
+12:02:51 07/21/2009	good	Group0.6	cpu	23% avg, cpu1 20%, cpu2 25%	1:1420	23	20	25
+12:03:09 07/21/2009	good	Group0.5	network	34K in/sec., 34K out/sec., 0.00 packet errors/sec., 35 current connections.	2:1415	35738.492	35359.117	0.0	35
+12:03:10 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6113129	26:1	0	6113129
+12:03:10 07/21/2009	good	Group0.6	disk_c	43% full, 11834MB free, 20473MB total	3:1431	43	11834
+12:03:15 07/21/2009	good	Group0.6	aaa	Pages/sec: = 4.45/sec, Page Faults/sec: = 570.32/sec, Page Reads/sec: = 1.98/sec...	25:290	4.45	64.383	4	904829	570.32	4.434	10	10412831	1.98	0.001	2	144066	0.00	100.000	0	4782	0
+12:03:16 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6113175	26:2	0	6113175
+12:04:39 07/21/2009	good	Group0.7	aaaa	2% avg, cpu1 1%, cpu2 2%	1:436	2	1	2
+12:12:13 07/21/2009	good	Group0.6	memory	18% used, 4021MB free, 3.50 pages/sec	2:1438	18	4021	3.5030594
+12:12:51 07/21/2009	good	Group0.6	cpu	7% avg, cpu1 7%, cpu2 7%	1:1421	7	7	7
+12:13:09 07/21/2009	good	Group0.5	network	697 bytes in/sec., 299 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1416	697.58813	299.62897	0.0	32
+12:13:11 07/21/2009	good	Group0.6	disk_c	43% full, 11834MB free, 20473MB total	3:1432	43	11834
+12:13:15 07/21/2009	good	Group0.6	aaa	Pages/sec: = 1.48/sec, Page Faults/sec: = 285.78/sec, Page Reads/sec: = 0.20/sec...	25:291	1.48	64.383	1	905721	285.78	4.434	10	10584317	0.20	0.001	0	144188	0.04	100.000	0	4808	0
+12:13:16 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6118478	26:3	0	6118478
+12:14:32 07/21/2009	good	Group0.7	aaaa	7% avg, cpu1 8%, cpu2 7%	1:437	7	8	7
+12:22:13 07/21/2009	good	Group0.6	memory	18% used, 4013MB free, 1.76 pages/sec	2:1439	18	4013	1.7649882
+12:22:51 07/21/2009	good	Group0.6	cpu	22% avg, cpu1 24%, cpu2 21%	1:1422	22	24	21
+12:23:09 07/21/2009	good	Group0.5	network	545 bytes in/sec., 318 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1417	545.4546	318.18182	0.0	31
+12:23:10 07/21/2009	good	Group0.6	disk_c	43% full, 11834MB free, 20473MB total	3:1433	43	11834
+12:23:15 07/21/2009	good	Group0.6	aaa	Pages/sec: = 2.18/sec, Page Faults/sec: = 155.78/sec, Page Reads/sec: = 0.66/sec...	25:292	2.18	64.383	2	907031	155.78	4.434	10	10677782	0.66	0.001	1	144585	0.00	100.000	0	4808	0
+12:23:16 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6123793	26:4	0	6123793
+12:24:32 07/21/2009	good	Group0.7	aaaa	24% avg, cpu1 26%, cpu2 22%	1:438	24	26	22
+12:32:13 07/21/2009	good	Group0.6	memory	18% used, 4015MB free, 0.75 pages/sec	2:1440	18	4015	0.753344
+12:32:51 07/21/2009	good	Group0.6	cpu	24% avg, cpu1 26%, cpu2 22%	1:1423	24	26	22
+12:33:09 07/21/2009	good	Group0.5	network	456 bytes in/sec., 290 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1418	456.72192	290.97607	0.0	31
+12:33:10 07/21/2009	good	Group0.6	disk_c	43% full, 11834MB free, 20473MB total	3:1434	43	11834
+12:33:15 07/21/2009	good	Group0.6	aaa	Pages/sec: = 0.32/sec, Page Faults/sec: = 63.29/sec, Page Reads/sec: = 0.03/sec...	25:293	0.32	64.383	0	907227	63.29	4.434	10	10715757	0.03	0.001	0	144605	0.00	100.000	0	4808	0
+12:33:16 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6128842	26:5	0	6128842
+12:34:32 07/21/2009	good	Group0.7	aaaa	23% avg, cpu1 25%, cpu2 21%	1:439	23	25	21
+12:42:13 07/21/2009	good	Group0.6	memory	18% used, 4017MB free, 1.03 pages/sec	2:1441	18	4017	1.0366507
+12:42:51 07/21/2009	good	Group0.6	cpu	9% avg, cpu1 10%, cpu2 8%	1:1424	9	10	8
+12:43:09 07/21/2009	good	Group0.5	network	792 bytes in/sec., 640 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1419	792.8177	640.884	0.0	31
+12:43:11 07/21/2009	good	Group0.6	disk_c	43% full, 11834MB free, 20473MB total	3:1435	43	11834
+12:43:15 07/21/2009	good	Group0.6	aaa	Pages/sec: = 1.57/sec, Page Faults/sec: = 263.34/sec, Page Reads/sec: = 0.27/sec...	25:294	1.57	64.383	2	908172	263.34	4.434	10	10873769	0.27	0.001	0	144773	0.00	100.000	0	4808	0
+12:43:16 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6134098	26:6	0	6134098
+12:44:32 07/21/2009	good	Group0.7	aaaa	7% avg, cpu1 8%, cpu2 6%	1:440	7	8	6
+12:52:13 07/21/2009	good	Group0.6	memory	18% used, 4017MB free, 0.57 pages/sec	2:1442	18	4017	0.5749953
+12:52:51 07/21/2009	good	Group0.6	cpu	7% avg, cpu1 7%, cpu2 7%	1:1425	7	7	7
+12:53:09 07/21/2009	good	Group0.5	network	565 bytes in/sec., 464 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1420	565.86273	464.28574	0.0	31
+12:53:11 07/21/2009	good	Group0.6	disk_c	43% full, 11834MB free, 20473MB total	3:1436	43	11834
+12:53:15 07/21/2009	good	Group0.6	aaa	Pages/sec: = 0.03/sec, Page Faults/sec: = 265.21/sec, Page Reads/sec: = 0.01/sec...	25:295	0.03	64.383	0	908194	265.21	4.434	10	11032899	0.01	0.001	0	144780	0.00	100.000	0	4808	0
+12:53:16 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6139543	26:7	0	6139543
+12:54:32 07/21/2009	good	Group0.7	aaaa	7% avg, cpu1 8%, cpu2 7%	1:441	7	8	7
+13:02:13 07/21/2009	good	Group0.6	memory	19% used, 3966MB free, 26.33 pages/sec	2:1443	19	3966	26.335367
+13:02:51 07/21/2009	good	Group0.6	cpu	15% avg, cpu1 14%, cpu2 17%	1:1426	15	14	17
+13:03:09 07/21/2009	good	Group0.5	network	469 bytes in/sec., 371 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1421	469.3878	371.05753	0.0	31
+13:03:10 07/21/2009	good	Group0.6	disk_c	43% full, 11833MB free, 20473MB total	3:1437	43	11833
+13:03:15 07/21/2009	good	Group0.6	aaa	Pages/sec: = 26.66/sec, Page Faults/sec: = 763.58/sec, Page Reads/sec: = 8.62/sec...	25:296	26.66	64.383	10	924192	763.58	4.434	10	11491043	8.62	0.001	9	149954	0.04	100.000	0	4832	0
+13:03:16 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6144857	26:8	0	6144857
+13:04:32 07/21/2009	good	Group0.7	aaaa	16% avg, cpu1 14%, cpu2 18%	1:442	16	14	18
+13:12:13 07/21/2009	good	Group0.6	memory	18% used, 4023MB free, 1.52 pages/sec	2:1444	18	4023	1.5283256
+13:12:50 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6149651	26:9	0	6149651
+13:12:51 07/21/2009	good	Group0.6	cpu	10% avg, cpu1 9%, cpu2 10%	1:1427	10	9	10
+13:13:09 07/21/2009	good	Group0.5	network	669 bytes in/sec., 495 bytes out/sec., 0.00 packet errors/sec., 27 current connections.	2:1422	669.1042	495.42963	0.0	27
+13:13:11 07/21/2009	good	Group0.6	disk_c	43% full, 11833MB free, 20473MB total	3:1438	43	11833
+13:13:15 07/21/2009	good	Group0.6	aaa	Pages/sec: = 1.20/sec, Page Faults/sec: = 490.45/sec, Page Reads/sec: = 0.09/sec...	25:297	1.20	64.383	1	924916	490.45	4.434	10	11785344	0.09	0.001	0	150014	0.01	100.000	0	4844	0
+17:35:38 07/21/2009	good	Group0.6	disk_c	43% full, 11831MB free, 20473MB total	3:1439	43	11831
+17:36:32 07/21/2009	good	Group0.6	cpu	12% avg, cpu1 11%, cpu2 13%	1:1428	12	11	13
+17:37:01 07/21/2009	good	Group0.6	memory	20% used, 3931MB free, 11.76 pages/sec	2:1445	20	3931	11.761248
+17:37:01 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6300771, iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOperStatus/ifOperStatus.13 = 1	26:10	0	6300771	1
+17:37:01 07/21/2009	good	Group0.6	aaa	Pages/sec: = 11.80/sec, Page Faults/sec: = 704.78/sec, Page Reads/sec: = 2.25/sec...	25:298	11.80	64.383	10	1111804	704.78	4.434	10	22939603	2.25	0.001	2	185662	0.10	100.000	0	6436	0
+17:38:16 07/21/2009	good	Group0.5	network	9K in/sec., 1K out/sec., 0.00 packet errors/sec., 33 current connections.	2:1423	9758.684	1063.9854	0.0	33
+17:39:01 07/21/2009	good	Group0.7	aaaa	12% avg, cpu1 11%, cpu2 13%	1:443	12	11	13
+17:42:51 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/0/8802/1/1/1/1/1/2/1/5/iso.0.8802.1.1.1.1.1.2.1.5.14 = 2, iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6304740, iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOperStatus/ifOperStatus.13 = 1	26:11	0	2	6304740	1
+17:43:17 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6304948, iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOperStatus/ifOperStatus.13 = 1	26:12	0	6304948	1
+17:45:23 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/snmpV2/snmpModules/1/1/6/1/snmpModules.1.1.6.1.0 = 0, iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6305951, iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOperStatus/ifOperStatus.13 = 1	26:13	0	0	6305951	1
+17:45:38 07/21/2009	good	Group0.6	disk_c	43% full, 11831MB free, 20473MB total	3:1440	43	11831
+17:45:39 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6306088, iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOperStatus/ifOperStatus.13 = 1	26:14	0	6306088	1
+17:46:32 07/21/2009	good	Group0.6	cpu	12% avg, cpu1 11%, cpu2 12%	1:1429	12	11	12
+17:47:01 07/21/2009	good	Group0.6	memory	20% used, 3926MB free, 9.31 pages/sec	2:1446	20	3926	9.319558
+17:47:01 07/21/2009	good	Group0.6	aaa	Pages/sec: = 9.26/sec, Page Faults/sec: = 712.20/sec, Page Reads/sec: = 2.48/sec...	25:299	9.26	64.383	9	1117365	712.20	4.434	10	23366969	2.48	0.001	2	187153	0.09	100.000	0	6492	0
+17:48:16 07/21/2009	good	Group0.5	network	556 bytes in/sec., 298 bytes out/sec., 0.00 packet errors/sec., 31 current connections.	2:1424	556.16943	298.34256	0.0	31
+17:49:01 07/21/2009	good	Group0.7	aaaa	11% avg, cpu1 11%, cpu2 12%	1:444	11	11	12
+17:55:38 07/21/2009	good	Group0.6	disk_c	43% full, 11831MB free, 20473MB total	3:1441	43	11831
+17:55:39 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6312579, iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOperStatus/ifOperStatus.13 = 1	26:15	0	6312579	1
+17:56:32 07/21/2009	good	Group0.6	cpu	9% avg, cpu1 10%, cpu2 9%	1:1430	9	10	9
+17:57:01 07/21/2009	good	Group0.6	memory	20% used, 3926MB free, 1.65 pages/sec	2:1447	20	3926	1.653348
+17:57:01 07/21/2009	good	Group0.6	aaa	Pages/sec: = 1.64/sec, Page Faults/sec: = 583.82/sec, Page Reads/sec: = 0.25/sec...	25:300	1.64	64.383	2	1118352	583.82	4.434	10	23717238	0.25	0.001	0	187308	0.01	100.000	0	6500	0
+17:58:16 07/21/2009	good	Group0.5	network	360 bytes in/sec., 314 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1425	360.95764	314.91714	0.0	32
+17:59:01 07/21/2009	good	Group0.7	aaaa	10% avg, cpu1 11%, cpu2 10%	1:445	10	11	10
+18:05:38 07/21/2009	good	Group0.6	disk_c	43% full, 11831MB free, 20473MB total	3:1442	43	11831
+18:05:39 07/21/2009	good	Group0.6	SNMP by MIB: 192.168.0.251	iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOutNUcastPkts/ifOutNUcastPkts.13 = 6317797, iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry/ifOperStatus/ifOperStatus.13 = 1	26:16	0	6317797	1
+18:06:32 07/21/2009	disabled	Group0.6	cpu	disabled by schedule	1:1430	9	10	9
+18:07:01 07/21/2009	good	Group0.6	memory	21% used, 3883MB free, 14.24 pages/sec	2:1448	21	3883	14.246642
+18:07:01 07/21/2009	good	Group0.6	aaa	Pages/sec: = 14.24/sec, Page Faults/sec: = 624.98/sec, Page Reads/sec: = 2.78/sec...	25:301	14.24	64.383	10	1126900	624.98	4.434	10	24092245	2.78	0.001	3	188982	0.00	100.000	0	6506	0
+18:08:16 07/21/2009	good	Group0.5	network	369 bytes in/sec., 316 bytes out/sec., 0.00 packet errors/sec., 32 current connections.	2:1426	369.77777	316.44446	0.0	32
+18:09:01 07/21/2009	good	Group0.7	aaaa	18% avg, cpu1 17%, cpu2 18%	1:446	18	17	18

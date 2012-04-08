@@ -1,0 +1,29 @@
+_monitorTemplateName=Topaz Web Server (UNIX)
+_monitorTemplateDescription=Add moniors for a Topaz Web Server (UNIX) machine (Admin, Graph or Agent Server)
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=<choose_remote_unix_server_from_the_select_box_to_the_right_and_clear_this_text>
+#
+_name=Web Server Process on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=http
+_machine=$TOPAZ_MACHINE_NAME$
+#
+_name=Topaz Process on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=topaz
+_machine=$TOPAZ_MACHINE_NAME$
+#
+_name=Apache Web Server on "$TOPAZ_HOST_NAME$"
+_class=ApacheMonitor
+_frequency=600
+_errorFrequency=60
+_OS=Unix
+_url=http://$TOPAZ_HOST_NAME$:80/server-status?auto
+_counters=Total Accesses,ReqPerSec,BytesPerSec,BusyWorkers,IdleWorkers
+_timeout=50
+_disabled=on
+_monitorDescription=<BR>Enable and edit this monitor if an Apache Web Server<BR> is running on "$TOPAZ_HOST_NAME$" or add a new monitor <BR>for the Web server running on "$TOPAZ_HOST_NAME$".

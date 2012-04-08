@@ -1,0 +1,21 @@
+_monitorTemplateName=Mercury Application Management Monitors
+_monitorTemplateDescription=Adds monitors for an Application Management server machine (Centers Server or Core Services Server)
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+#
+_name=Mercury Application Management Service on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=300
+_service=Mercury Application Management
+_dependsCondition=good
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=status == 'not found (0)'	warning
+#
+_name=Mercury Application Management Process on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=300
+_service=(using Process Name)
+_dependsCondition=good
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=status == 'not found (0)'	warning
+_process=/magentservice/i

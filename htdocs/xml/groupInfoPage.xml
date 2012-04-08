@@ -1,0 +1,12 @@
+<AddMonitorGroup>
+  <GroupInfo Name="Mytest1" />
+  <GeneralProperties>
+    <GenMonitorProp Label="Group Name" Name="groupName" Description="" ControlType="TextInput" Value="" />
+  </GeneralProperties>
+  <AdvanceProperties>
+    <AdvanceMonitorProp Label="Description" Name="_description" Description="" ControlType="TextArea" />
+    <AdvanceMonitorProp Label="Depends Condition" Name="_dependsCondition" Description="" ControlType="ComboBox" Item="Ok^Error" ItemValue="good^error" SelItemValue="s6" />
+    <AdvanceMonitorProp Label="Depends On" Name="_dependsOn" Description="" ControlType="ComboBox" />
+    <AdvanceMonitorProp Label="Refresh Group every" Name="_frequency" Description="Refresh all the monitors in this group according to this schedule. This frequency should not be less than 60 seconds. When defining a group schedule, the monitors of this group will not run by their own schedule." Value="0" Unit="seconds^minutes^hours^days" SelUnit="minutes" ControlType="FrequencyControl" />
+  </AdvanceProperties>
+</AddMonitorGroup>

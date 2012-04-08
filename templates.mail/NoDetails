@@ -1,0 +1,15 @@
+This alert is from SiteView at <SiteViewURL>
+
+Monitor:  <name>
+Group:    <group>
+Status:   <state>
+Sample #: <sample>
+
+Time:     <time>
+
+For documentation about alerts, go to:
+  <alertHelpURL>
+
+<diagnosticText>
+
+

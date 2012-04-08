@@ -1,0 +1,112 @@
+09:36:09 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:35	ok	10.0	100
+09:46:09 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:36	ok	10.0	100
+09:56:10 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:37	ok	10.0	100
+09:56:42 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:2	request timed out	n/a	failure
+09:58:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:3	request timed out	n/a	failure
+10:06:11 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:38	ok	10.0	100
+10:08:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:4	request timed out	n/a	failure
+10:16:11 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:39	ok	10.0	100
+10:18:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:5	request timed out	n/a	failure
+10:26:11 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:40	ok	10.0	100
+10:28:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:6	request timed out	n/a	failure
+10:36:11 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:41	ok	10.0	100
+10:38:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:7	request timed out	n/a	failure
+10:46:11 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:42	ok	10.0	100
+10:48:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:8	request timed out	n/a	failure
+10:56:11 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:43	ok	10.0	100
+10:58:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:9	request timed out	n/a	failure
+11:06:11 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:44	ok	10.0	100
+11:08:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:10	request timed out	n/a	failure
+11:16:11 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:45	ok	10.0	100
+11:18:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:11	request timed out	n/a	failure
+11:26:11 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:46	ok	10.0	100
+11:28:15 08/11/2009	error	Group0.5	SNMP: 192.168.0.251 system.sysDescr	request timed out	8:12	request timed out	n/a	failure
+11:29:03 08/11/2009	good	Group0.5	URL: http://localhost:8000	0.39 sec	9:1	200	391	ok	72	1249961343		1	63	31	0	200	0
+11:29:37 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:2	200	31	ok	72	1249961377		1	16	15	0	200	0
+11:36:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:47	ok	10.0	100
+11:39:37 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:3	200	31	ok	72	1249961977		1	31	0	0	200	0
+11:46:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:48	ok	10.0	100
+11:49:37 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:4	200	32	ok	72	1249962577		1	32	0	0	200	0
+11:56:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:49	ok	10.0	100
+11:59:37 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:5	200	47	ok	72	1249963177		1	47	0	0	200	0
+12:06:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:50	ok	10.0	100
+12:09:37 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:6	200	31	ok	72	1249963777		1	31	0	0	200	0
+12:16:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:51	ok	10.0	100
+12:19:37 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:7	200	31	ok	72	1249964377		1	31	0	0	200	0
+12:26:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:52	ok	10.0	100
+12:29:37 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:8	200	31	ok	72	1249964977		1	31	0	0	200	0
+12:36:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:53	ok	10.0	100
+12:39:44 08/11/2009	error	Group0.5	URL: s/http://localhost:8000/	unknown error (-1) status=-1  URL: http://localhost:8000, host: localhost, port: 8000, UsingProxy: false, isHTTPS(SSL): false, java.net.ConnectException: Connection refused: connect, currentRetry: 0	9:9	-1	n/a	unknown error (-1)	n/a	n/a		n/a	n/a	n/a	n/a	-1	0	failure
+12:46:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:54	ok	10.0	100
+12:49:44 08/11/2009	error	Group0.5	URL: s/http://localhost:8000/	unknown error (-1) status=-1  URL: http://localhost:8000, host: localhost, port: 8000, UsingProxy: false, isHTTPS(SSL): false, java.net.ConnectException: Connection refused: connect, currentRetry: 0	9:10	-1	n/a	unknown error (-1)	n/a	n/a		n/a	n/a	n/a	n/a	-1	0	failure
+12:56:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:55	ok	10.0	100
+12:59:44 08/11/2009	error	Group0.5	URL: s/http://localhost:8000/	unknown error (-1) status=-1  URL: http://localhost:8000, host: localhost, port: 8000, UsingProxy: false, isHTTPS(SSL): false, java.net.ConnectException: Connection refused: connect, currentRetry: 0	9:11	-1	n/a	unknown error (-1)	n/a	n/a		n/a	n/a	n/a	n/a	-1	0	failure
+13:06:12 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:56	ok	10.0	100
+13:09:42 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:12	200	32	ok	72	1249967382		1	32	0	0	200	0
+13:14:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:13	200	31	ok	72	1249967641		1	31	16	0	200	0
+13:14:02 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:57	ok	10.0	100
+13:24:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:14	200	32	ok	72	1249968241		1	32	0	0	200	0
+13:24:03 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:58	ok	10.0	100
+13:34:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:15	200	31	ok	72	1249968841		1	16	15	0	200	0
+13:34:03 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:59	ok	10.0	100
+13:44:03 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:60	ok	10.0	100
+13:44:08 08/11/2009	error	Group0.5	URL: s/http://localhost:8000/	unknown error (-1) status=-1  URL: http://localhost:8000, host: localhost, port: 8000, UsingProxy: false, isHTTPS(SSL): false, java.net.ConnectException: Connection refused: connect, currentRetry: 0	9:16	-1	n/a	unknown error (-1)	n/a	n/a		n/a	n/a	n/a	n/a	-1	0	failure
+13:54:03 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:61	ok	10.0	100
+13:54:06 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:17	200	47	ok	72	1249970046		1	47	0	0	200	0
+14:04:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:18	200	31	ok	72	1249970641		1	31	0	0	200	0
+14:04:03 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:62	ok	10.0	100
+14:05:56 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:63	ok	10.0	100
+14:14:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:19	200	47	ok	72	1249971241		1	31	0	16	200	0
+14:15:56 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:64	ok	10.0	100
+14:24:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.03 sec	9:20	200	31	ok	72	1249971841		1	31	0	0	200	0
+14:25:56 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:65	ok	10.0	100
+14:34:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:21	200	46	ok	72	1249972441		1	46	0	0	200	0
+14:35:56 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:66	ok	10.0	100
+14:44:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:22	200	46	ok	72	1249973041		1	46	0	0	200	0
+14:45:56 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:67	ok	10.0	100
+14:54:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:23	200	47	ok	72	1249973641		1	31	16	0	200	0
+14:55:56 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:68	ok	10.0	100
+15:04:01 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:24	200	47	ok	72	1249974241		1	47	0	0	200	0
+15:04:27 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:69	ok	10.0	100
+15:07:56 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:25	200	46	ok	72	1249974476		1	46	0	0	200	0
+15:08:21 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:26	200	47	ok	72	1249974501		1	47	0	0	200	0
+15:08:37 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.04 sec	9:27	200	47	ok	72	1249974517		1	47	0	0	200	0
+15:08:48 08/11/2009	good	Group0.5	URL: s/http://localhost:8000/	0.06 sec	9:28	200	63	ok	72	1249974528		1	31	16	0	200	0
+15:09:11 08/11/2009	good	Group0.5	URL:http://localhost:8000/	0.04 sec	9:29	200	47	ok	72	1249974551		1	47	0	0	200	0
+15:09:28 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:30	200	31	ok	72	1249974568		1	31	16	0	200	0
+15:09:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:31	200	31	ok	72	1249974590		1	31	0	0	200	0
+15:14:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:70	ok	10.0	100
+15:19:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:32	200	31	ok	72	1249975190		1	31	0	0	200	0
+15:24:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:71	ok	10.0	100
+15:29:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.04 sec	9:33	200	47	ok	72	1249975790		15	32	0	0	200	0
+15:34:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:72	ok	10.0	100
+15:39:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:34	200	31	ok	72	1249976390		1	31	16	0	200	0
+15:44:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.03 sec	7:73	ok	35.0	100
+15:49:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:35	200	31	ok	72	1249976990		1	31	0	0	200	0
+15:54:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:74	ok	10.0	100
+15:59:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:36	200	31	ok	72	1249977590		1	31	0	0	200	0
+16:04:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:75	ok	10.0	100
+16:09:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.12 sec	9:37	200	125	ok	72	1249978190		1	110	15	0	200	0
+16:14:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:76	ok	10.0	100
+16:19:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:38	200	31	ok	72	1249978790		1	31	16	0	200	0
+16:24:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:77	ok	10.0	100
+16:29:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:39	200	31	ok	72	1249979390		1	31	0	0	200	0
+16:34:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:78	ok	10.0	100
+16:39:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:40	200	31	ok	72	1249979990		1	15	16	0	200	0
+16:44:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:79	ok	10.0	100
+16:49:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:41	200	31	ok	72	1249980590		1	31	0	0	200	0
+16:54:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:80	ok	10.0	100
+16:59:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:42	200	31	ok	72	1249981190		1	31	0	0	200	0
+17:04:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:81	ok	10.0	100
+17:09:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:43	200	31	ok	72	1249981790		1	31	0	0	200	0
+17:14:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:82	ok	10.0	100
+17:19:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.04 sec	9:44	200	47	ok	72	1249982390		1	31	16	0	200	0
+17:24:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:83	ok	10.0	100
+17:29:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:45	200	31	ok	72	1249982990		1	31	0	0	200	0
+17:34:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:84	ok	10.0	100
+17:39:57 08/11/2009	error	Group0.5	URL: http://localhost:8000/	unknown error (-1) status=-1  URL: http://localhost:8000, host: localhost, port: 8000, UsingProxy: false, isHTTPS(SSL): false, java.net.ConnectException: Connection refused: connect, currentRetry: 0	9:46	-1	n/a	unknown error (-1)	n/a	n/a		n/a	n/a	n/a	n/a	-1	0	failure
+17:44:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:85	ok	10.0	100
+17:49:55 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:47	200	31	ok	72	1249984195		1	15	16	0	200	0
+17:54:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:86	ok	10.0	100
+17:59:50 08/11/2009	good	Group0.5	URL: http://localhost:8000/	0.03 sec	9:48	200	31	ok	72	1249984790		1	15	16	0	200	0
+18:04:28 08/11/2009	good	Group0.5	Ping: 192.168.0.50	0.01 sec	7:87	ok	10.0	100

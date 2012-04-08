@@ -1,0 +1,12 @@
+<MonitorGroup>
+  <MonitorGroupInfo GroupName="SiteViewGroup2" GroupId="SiteViewGroup2" GroupDependOn="" />
+  <MonitorTable>
+    <Monitor ID="7" Name="101" Alert="Alert" StatusEntry="0.01 sec" MonitorDescription="101" EditEntry="Edit" RefreshEntry="Refresh" UpdatedEntry="" DeleteEntry="X" />
+    <Monitor ID="9" Name="sinadepgoogle" Alert="Alert" StatusEntry="disabled&lt;BR&gt; depended upon monitor is not OK" MonitorDescription="sinadepgoogle" EditEntry="Edit" RefreshEntry="Refresh" UpdatedEntry="&amp;nbsp;" DeleteEntry="X" />
+    <Monitor ID="10" Name="google" Alert="Alert" StatusEntry="Data Unavailable command failed to execute" MonitorDescription="google" EditEntry="Edit" RefreshEntry="Refresh" UpdatedEntry="" DeleteEntry="X" />
+    <Monitor ID="8" Name="sinadep12" Alert="Alert" StatusEntry="disabled manually" MonitorDescription="&lt;B&gt;(disabled)&lt;/B&gt;sinadep12432" EditEntry="Edit" RefreshEntry="" UpdatedEntry="&amp;nbsp;" DeleteEntry="X" />
+    <Monitor ID="11" Name="234" Alert="Alert" StatusEntry="disabled&lt;BR&gt; depended upon monitor is not OK" MonitorDescription="234" EditEntry="Edit" RefreshEntry="Refresh" UpdatedEntry="&amp;nbsp;" DeleteEntry="X" />
+    <Monitor ID="23" Name="cxytest" Alert="Alert" />
+    <Monitor ID="24" Name="101E:" Alert="Alert" StatusEntry="61% full&lt;BR&gt; 29537MB free&lt;BR&gt; 74465MB total" MonitorDescription="101E:" EditEntry="Edit" RefreshEntry="Refresh" UpdatedEntry="" DeleteEntry="X" />
+  </MonitorTable>
+</MonitorGroup>

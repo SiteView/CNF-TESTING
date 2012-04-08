@@ -1,0 +1,38 @@
+09:16:12 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:29	0	8001	0.0
+09:17:04 08/18/2009	error	Group0	NT Performance Counter: System.pmc	% Total Processor Time n/a, File Read Bytes/sec: = 1683083.80/sec, File Write Bytes/sec: = 11179.09/sec	5:1	n/a	0	0	0	1683083.80	0	10	1042485943	11179.09	0	10	82363005	1	nonfailure
+09:18:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.02 sec	1:13	ok	27.0	100
+09:20:42 08/18/2009	error	Group0	NT Performance Counter: System.pmc	% Total Processor Time n/a, File Read Bytes/sec: = 1720022.60/sec, File Write Bytes/sec: = 155016.42/sec	5:2	n/a	0	0	0	1720022.60	0	10	1579315587	155016.42	0	10	121804565	1	nonfailure
+09:22:24 08/18/2009	error	Group0	NT Performance Counter: EXHEALTH.PMW	% Total Processor Time n/a, % Processor Time n/a, % Processor Time n/a...	5:3	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	0.19	0	0	431319	5	nonfailure
+09:23:41 08/18/2009	error	Group0	NT Performance Counter: EXLOAD.PMW	Message Recipients Delivered/min n/a, Messages Submitted/min n/a, Message Recipients Delivered/min n/a...	5:4	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	10	nonfailure
+09:26:19 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:30	0	8001	0.0
+09:28:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.02 sec	1:14	ok	29.0	100
+09:28:57 08/18/2009	error	Group0	NT Performance Counter: EXLOAD.PMW	Message Recipients Delivered/min n/a, Messages Submitted/min n/a, Message Recipients Delivered/min n/a...	5:5	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	n/a	0	0	0	10	nonfailure
+09:29:18 08/18/2009	error	Group0	NT Performance Counter: System.pmc	% Total Processor Time n/a, File Read Bytes/sec: = 1685920.90/sec, File Write Bytes/sec: = 12108.96/sec	5:6	n/a	0	0	0	1685920.90	0	10	2226585413	12108.96	0	10	187921950	1	nonfailure
+09:36:27 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:31	0	8001	0.0
+09:38:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.02 sec	1:15	ok	29.0	100
+09:39:14 08/18/2009	error	Group0	NT Performance Counter: System.pmc	% Total Processor Time n/a, File Read Bytes/sec: = 512.63/sec, File Write Bytes/sec: = 11541.64/sec	5:7	n/a	0	0	0	512.63	0	10	2731779065	11541.64	0	10	198902821	1	nonfailure
+09:45:46 08/18/2009	error	Group0	NT Performance Counter: System.pmc	% Total Processor Time n/a, File Read Bytes/sec: = 191850.81/sec, File Write Bytes/sec: = 4048.71/sec	5:8	n/a	0	0	0	191850.81	0	10	3293510757	4048.71	0	10	211898777	1	nonfailure
+09:46:34 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:32	0	8001	0.0
+09:48:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.02 sec	1:16	ok	27.0	100
+09:55:46 08/18/2009	error	Group0	NT Performance Counter: System.pmc	% Total Processor Time n/a, File Read Bytes/sec: = 6649503.50/sec, File Write Bytes/sec: = 457779.88/sec	5:9	n/a	0	0	0	6649503.50	0	10	3952778490	457779.88	0	10	247547735	1	nonfailure
+09:56:34 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:33	0	8001	0.0
+09:57:04 08/18/2009	error	Group0	NT Performance Counter: EXLOAD.PMW	% Total Processor Time n/a, File Read Bytes/sec: = 4258648.50/sec, File Write Bytes/sec: = 36960.49/sec	5:10	n/a	0	0	0	4258648.50	0	10	4098133154	36960.49	0	10	297534997	1	nonfailure
+09:58:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.02 sec	1:17	ok	26.0	100
+10:06:41 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:34	0	8001	0.0
+10:07:04 08/18/2009	error	Group0	NT Performance Counter: EXLOAD.PMW	% Total Processor Time n/a, File Read Bytes/sec: = 786.85/sec, File Write Bytes/sec: = 14079.23/sec	5:11	n/a	0	0	0	786.85	0	10	5231704400	14079.23	0	10	352439982	1	nonfailure
+10:08:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.02 sec	1:18	ok	27.0	100
+10:16:41 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:35	0	8001	0.0
+10:17:04 08/18/2009	error	Group0	NT Performance Counter: EXLOAD.PMW	% Total Processor Time n/a, File Read Bytes/sec: = 1459.72/sec, File Write Bytes/sec: = 5521.08/sec	5:12	n/a	0	0	0	1459.72	0	10	5906336439	5521.08	0	10	425376295	1	nonfailure
+10:18:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.02 sec	1:19	ok	27.0	100
+10:26:41 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:36	0	8001	0.0
+10:27:04 08/18/2009	error	Group0	NT Performance Counter: EXLOAD.PMW	% Total Processor Time n/a, File Read Bytes/sec: = 196.45/sec, File Write Bytes/sec: = 251.40/sec	5:13	n/a	0	0	0	196.45	0	10	6527428788	251.40	0	10	467626347	1	nonfailure
+10:28:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.02 sec	1:20	ok	28.0	100
+10:36:41 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:37	0	8001	0.0
+10:37:04 08/18/2009	error	Group0	NT Performance Counter: EXLOAD.PMW	% Total Processor Time n/a, File Read Bytes/sec: = 2053.98/sec, File Write Bytes/sec: = 252.27/sec	5:14	n/a	0	0	0	2053.98	0	10	7182220025	252.27	0	10	473132733	1	nonfailure
+10:38:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.03 sec	1:21	ok	37.0	100
+10:46:41 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:38	0	8001	0.0
+10:47:04 08/18/2009	error	Group0	NT Performance Counter: EXLOAD.PMW	% Total Processor Time n/a, File Read Bytes/sec: = 1213595.10/sec, File Write Bytes/sec: = 333.56/sec	5:15	n/a	0	0	0	1213595.10	0	10	7784341695	333.56	0	10	523045377	1	nonfailure
+10:48:14 08/18/2009	good	Group0.1	Ping: www.g.cn	0.05 sec	1:22	ok	55.0	100
+10:53:54 08/18/2009	error	Group0	NT Performance Counter: EXLOAD.PMW	% Total Processor Time n/a, File Read Bytes/sec: = 754.76/sec, File Write Bytes/sec: = 9282.17/sec	5:16	n/a	0	0	0	754.76	0	10	8086497858	9282.17	0	10	528291604	1	nonfailure
+10:54:16 08/18/2009	error	Group0	NT Performance Counter: System.pmc	% Total Processor Time n/a, File Read Bytes/sec: = 2432.32/sec, File Write Bytes/sec: = 9397.44/sec	5:17	n/a	0	0	0	2432.32	0	10	8095274626	9397.44	0	10	528557237	1	nonfailure
+10:56:48 08/18/2009	good	Group0	Memory on 192.168.0.181	0% used, 8001MB free, 0.00 pages/sec	2:39	0	8001	0.0

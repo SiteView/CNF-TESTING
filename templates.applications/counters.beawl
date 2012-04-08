@@ -1,0 +1,20 @@
+ServerState:1.3.6.1.4.1.140.600.20.1.20:Default
+LoginEnabled:1.3.6.1.4.1.140.600.20.1.25:Default
+MaxHEapSpace:1.3.6.1.4.1.140.600.20.1.60:Default
+HeapUsedPct:1.3.6.1.4.1.140.600.20.1.65:Default
+QueueLength:1.3.6.1.4.1.140.600.20.1.70:Default
+QueueThroughput:1.3.6.1.4.1.140.600.20.1.75:Default
+NumEJBDeployment:1.3.6.1.4.1.140.600.20.1.80:Default
+NumEJBBeansDeployed:1.3.6.1.4.1.140.600.20.1.85:Default
+ListenPort:1.3.6.1.4.1.140.600.30.1.20
+ListenAdminOK:1.3.6.1.4.1.140.600.30.1.25
+ListenState:1.3.6.1.4.1.140.600.30.1.30
+CPType:1.3.6.1.4.1.140.600.40.1.10
+CPIndex:1.3.6.1.4.1.140.600.40.1.16
+JDBCCurrentPoolSize :1.3.6.1.4.1.140.600.50.1.25
+JDBCHighwaterConnect:1.3.6.1.4.1.140.600.50.1.40
+JDBCInitCapacity:1.3.6.1.4.1.140.600.50.1.20
+JDBCHighaterWait:1.3.6.1.4.1.140.600.50.1.45
+JDBCTotalConn:1.3.6.1.4.1.140.600.50.1.35
+JDBCCurrentInUse:1.3.6.1.4.1.140.600.50.1.30
+JDBCMaxCapacity:1.3.6.1.4.1.140.600.50.1.15

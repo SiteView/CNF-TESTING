@@ -1,0 +1,47 @@
+_monitorTemplateName=Topaz Admin Server (Unix)
+_monitorTemplateDescription=Adds moniors for a Topaz Admin Server machine
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Unix_remote_server _value=<choose_remote_unix_server_from_the_select_box_to_the_right_and_clear_this_text>
+#
+_name=Topaz Watchdog Aggregated Event Engine on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=aes_twd
+_machine=$TOPAZ_MACHINE_NAME$
+#
+_name=URL: $TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/TopazVerify.jsp
+_class=URLMonitor
+_frequency=600
+_errorFrequency=60
+_errorContent=fail
+_url=$TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/TopazVerify.jsp
+_proxy=$TOPAZ_PROXY_SERVER$
+_proxyusername=$TOPAZ_PROXY_USERNAME$
+_proxypassword=$TOPAZ_PROXY_PASSWORD$
+_checkContent=on
+_dependsCondition=good
+_timeout=50
+_monitorRunCount=0
+#
+_name=URL Test for Site Scope Configuration Changes in Topaz
+_class=URLMonitor
+_frequency=600
+_errorFrequency=60
+_errorContent=failed
+_url=$TOPAZ_GRAPH_PROTOCOL$://$TOPAZ_HOST_NAME$/topaz/sitescope/conf/sample_dispatcher?action=log
+_proxy=$TOPAZ_PROXY_SERVER$
+_proxyusername=$TOPAZ_PROXY_USERNAME$
+_proxypassword=$TOPAZ_PROXY_PASSWORD$
+_dependsCondition=good
+_timeout=50
+_monitorRunCount=0
+#
+_name=Check for exceptions in SiteScope integration logs
+_class=LogMonitor
+_frequency=600
+_logFile=/opt/Topaz/log/EJBContainer/aims.ejb.log
+_alerting=each
+_classifier=matchCount > 0	error
+_alerting=once
+_match=/exception/

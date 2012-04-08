@@ -1,0 +1,13 @@
+.*skipped #1.*:Default
+.*skipped #2.*:Default
+.*skipped #3.*:Default
+.*skipped #4.*:Default
+.*skipped #5.*:Default
+.*SiteView shutting down.*:Default
+.*Reached the limit of processes in the process pool.*:Default
+.*Error. data reporter failed to report chunk of data.*:Default
+.*Error. config reporter failed to report chunk of data.*:Default
+.*Error. Topaz failed to process data.*:Default
+.*Error. CacheSender. Got to the max number of cached files.*:Default
+.*Error. CacheSender. Got to the max old dir size.*:Default
+.*Topaz SEVERE.*:Default

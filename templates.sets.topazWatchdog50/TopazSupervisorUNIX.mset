@@ -1,0 +1,11 @@
+_monitorTemplateName=Application Management Monitors (UNIX)
+_monitorTemplateDescription=Adds monitors for an Application Management server machine (Centers Server or Core Services Server)
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Unix_remote_server _value=<choose_remote_unix_server_from_the_select_box_to_the_right_and_clear_this_text>
+#
+_name=Mercury Application Management Process on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_frequency=300
+_errorFrequency=60
+_service=m_agent_daemon
+_machine=$TOPAZ_MACHINE_NAME$

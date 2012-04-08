@@ -1,0 +1,118 @@
+_monitorTemplateName=Siebel Web Server
+_monitorTemplateDescription=Use to monitor Siebel Web Server machine
+_monitorTemplateMoreInfo=<a href=../../docs/SiebelSolutionOverview.htm>Siebel Solution Overview</a>
+_helpFile=../docs/SiebelWebSolution.htm
+_propertyDisplayFilter=_id,class,xmlfile,encoding,depends,internal,assword,monitorDescription
+_propertyReplace=browseName=Metric_,classifier=thresholds
+$Server Instance#0$=_description=Siebel_webserver_machine_name _server=true
+$Siebel Root Dir#1$=_description=Shared_Siebel_root_dir,_for_example:_sea752 _value=
+$Siebel Disk#2$=_description=Disk_name_where_siebel_is_installed _value=C:
+$Application#3$=_description=Siebel_application_to_monitor _value=callcenter\_enu
+$Username#4$=_description=Siebel_Client_UserName _value=sadmin
+$Password#5$=_description=Siebel_Client_Password _value=
+_encoding=Cp1252
+_dependsCondition=good
+_fileEncoding=UTF-8
+#
+_class=CPUMonitor
+_id=1
+_encoding=Cp1252
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Instance#0$
+_name=CPU Utilization on \\$Server Instance#0$
+#
+_class=DirectoryMonitor
+_id=2
+_encoding=Cp1252
+_frequency=600
+_path=\\$Server Instance#0$\$Siebel Root Dir#1$\SWEApp\LOG
+_dependsCondition=good
+_classifier=fileCount >= 2000	error
+_name=Directory: \\$Server Instance#0$\$Siebel Root Dir#1$\SWEApp\LOG
+#
+_disk=$Siebel Disk#2$
+_class=DiskSpaceMonitor
+_id=3
+_encoding=Cp1252
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Instance#0$
+_name=Disk Space: $Siebel Disk#2$ on \\$Server Instance#0$
+#
+_class=IISServerMonitor
+_id=4
+_encoding=Cp1252
+_counters=Web Service -- Bytes Sent/sec -- Default Web Site,Web Service -- Bytes Received/sec -- Default Web Site,Web Service -- Bytes Total/sec -- Default Web Site,Web Service -- Get Requests/sec -- Default Web Site,Web Service -- Post Requests/sec -- Default Web Site,Web Service -- Current Connections -- Default Web Site,Web Service -- Maximum Connections -- Default Web Site,Web Service -- Current NonAnonymous Users -- Default Web Site,Web Service -- Total Not Found Errors -- Default Web Site
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Instance#0$
+_classifier=value5 >= 1000	error
+_classifier=value2 >= 2000000	error
+_name=IIS Server on \\$Server Instance#0$
+#
+
+_class=MemoryMonitor
+_id=6
+_encoding=Cp1252
+_frequency=600
+_dependsCondition=good
+_machine=\\$Server Instance#0$
+_name=Memory on \\$Server Instance#0$
+#
+_class=PingMonitor
+_id=7
+_encoding=Cp1252
+_packetSize=64
+_frequency=600
+_dependsCondition=good
+_timeout=5000
+_name=Ping: $Server Instance#0$
+_hostname=$Server Instance#0$
+#
+_class=ServiceMonitor
+_id=8
+_encoding=Cp1252
+_frequency=600
+_service=IIS Admin Service
+_dependsCondition=good
+_machine=\\$Server Instance#0$
+_name=Service: IIS Admin Service on \\$Server Instance#0$
+#
+_class=URLMonitor
+_id=9
+_encoding=Cp1252
+_url=http://$Server Instance#0$/$Application#3$/start.swe?SWECmd=Start
+_frequency=600
+_dependsCondition=good
+_timeout=60
+_monitorRunCount=0
+_name=URL: http://$Server Instance#0$/$Application#3$/start.swe?SWECmd=Start
+#
+_class=PortMonitor
+_id=10
+_encoding=Cp1252
+_frequency=600
+_port=80
+_dependsCondition=good
+_timeout=60
+_name=Port 80 on $Server Instance#0$
+_hostname=$Server Instance#0$
+#
+_class=SiebelMonitor
+_id=11
+_encoding=Cp1252
+_frequency=600
+_password=$Password#5$
+_server=http://$Server Instance#0$/$Application#3$/_stats.swe
+_dependsCondition=good
+_username=$Username#4$
+_authFormName=[1]
+_authFormButton=[1]
+_classifier=browsableValue2 >= 10000	error
+_classifier=browsableValue1 >= 10000	error
+_browseName1=System Stats/Request Time/Frequency mean
+_browseName2=Applications//$Application#3$//Frequency mean
+_name=Siebel Web Server: http://$Server Instance#0$/$Application#3$/_stats.swe
+_browseNameid1=50 /Request Time.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si
+_browseNameid2=68 /<TD>\/$Application#3$\/.*?<BR>.*?<TD.*?<TD.*?<TD.*?<BR>(.*?)<BR>/si

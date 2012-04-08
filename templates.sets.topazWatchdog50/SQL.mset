@@ -1,0 +1,33 @@
+_monitorTemplateName=Microsoft SQL Server Database Server
+_monitorTemplateDescription=Adds monitors for a Microsoft SQL Server Database Server machine.
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Server_to_monitor_(UNC_name) _value=\\topazHostName
+#
+_name=Microsoft SQL Server Service on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_errorFrequency=60
+_frequency=600
+_service=MSSQLSERVER
+_dependsCondition=good
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=status == 'not found (0)'	warning
+#
+_name=Microsoft SQL Agent Service on "$TOPAZ_HOST_NAME$"
+_class=ServiceMonitor
+_errorFrequency=60
+_frequency=600
+_service=SQLSERVERAGENT
+_dependsCondition=good
+_machine=$TOPAZ_MACHINE_NAME$
+_classifier=status == 'not found (0)'	warning
+_disabled=on
+#
+_name=NT Event Viewer Application Log
+_class=NTEventLogMonitor
+_logName=Application
+_frequency=600
+_eventType=Error
+_dependsCondition=good
+_machine=$TOPAZ_MACHINE_NAME$
+_alerting=once
+

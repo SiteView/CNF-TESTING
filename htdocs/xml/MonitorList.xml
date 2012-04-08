@@ -1,0 +1,105 @@
+<MonitorList>
+  <Monitor Name="Active Directory Performance" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ADPerformanceMonitor" />
+  <Monitor Name="Database Query" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=DatabaseMonitor" />
+  <Monitor Name="Health of SiteView Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=HealthUnixServerMonitor" />
+  <Monitor Name="News" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=NewsMonitor" />
+  <Monitor Name="Sybase" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=SybaseMonitor" />
+  <Monitor Name="Active Directory Replication Monitor" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ADReplicationMonitor" />
+  <Monitor Name="DB2" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=DB2Monitor" />
+  <Monitor Name="History Health Monitor" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=HistoryHealthMonitor" />
+  <Monitor Name="Oracle Database" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=OracleJDBCMonitor" />
+  <Monitor Name="Telnet" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=TelnetMonitor" />
+  <Monitor Name="Apache Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ApacheMonitor" />
+  <Monitor Name="DHCP" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=DHCPMonitor" />
+  <Monitor Name="IIS Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=IISServerMonitor" />
+  <Monitor Name="Oracle9i Application Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=Oracle9iMonitor" />
+  <Monitor Name="testPing" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=testPingMonitor" />
+  <Monitor Name="Application Relationship Mapping Measurement" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ArmSisMonitor" />
+  <Monitor Name="Directory" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=DirectoryMonitor" />
+  <Monitor Name="IPlanet Application Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=IPlanetAppServerMonitor" />
+  <Monitor Name="OracleDB" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=OracleDBMonitor" />
+  <Monitor Name="Tivoli DM (Passive)" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=TivoliDmPassiveMonitor" />
+  <Monitor Name="ASP Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ASPMonitor" />
+  <Monitor Name="Disk Space" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=DiskSpaceMonitor" />
+  <Monitor Name="iPlanet Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=NetscapeMonitor" />
+  <Monitor Name="Ping" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=test" />
+  <Monitor Name="Tuxedo" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=TuxedoMonitor" />
+  <Monitor Name="Asset" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=AssetMonitor" />
+  <Monitor Name="DNS" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=DNSMonitor" />
+  <Monitor Name="IPlanet Web Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=IPlanetWSMonitor" />
+  <Monitor Name="Ping" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=PingMonitor" />
+  <Monitor Name="Unix Performance Counter" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=UnixCounterMonitor" />
+  <Monitor Name="Avalon Alert" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=AvalonMonitor" />
+  <Monitor Name="Dynamo Application Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=DynamoMonitor" />
+  <Monitor Name="IPMI" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=IPMIMonitor" />
+  <Monitor Name="Port" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=PortMonitor" />
+  <Monitor Name="URL" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=URLMonitor" />
+  <Monitor Name="BMC PATROL (Classic) Alert" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=BMCPatrolProbeMonitor" />
+  <Monitor Name="eBusiness Chain" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=EBusinessTransactionMonitor" />
+  <Monitor Name="J2EE (Realtime)" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=J2EERealtimeMonitor" />
+  <Monitor Name="Real Media Player" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=RealMediaPlayerMonitor" />
+  <Monitor Name="URL Content" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=URLContentMonitor" />
+  <Monitor Name="BMC PATROL Metrics" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=PatrolMonitor" />
+  <Monitor Name="EJB" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=EJBMonitor" />
+  <Monitor Name="J2EE (Report)" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=J2EEReportMonitor" />
+  <Monitor Name="Real Media Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=RealMonitor" />
+  <Monitor Name="URL List" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=URLListMonitor" />
+  <Monitor Name="Browsable Windows Performance Counters" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=BrowsableNTCounterMonitor" />
+  <Monitor Name="EMS Database" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=EMSDatabaseMonitor" />
+  <Monitor Name="Log Event Health Monitor" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=LogEventHealthMonitor" />
+  <Monitor Name="SAP" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=SAPMonitor" />
+  <Monitor Name="URL Sequence" Href="/SiteView/cgi/go.exe/SiteView?page=tranWizard&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=URLSequenceMonitor" />
+  <Monitor Name="Browsable WMI metrics" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=BrowsableWMIMonitor" />
+  <Monitor Name="EMS Log File" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=EMSLogMonitor" />
+  <Monitor Name="Log File" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=LogMonitor" />
+  <Monitor Name="Script" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ScriptMonitor" />
+  <Monitor Name="VM Ware" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=VMWareMonitor" />
+  <Monitor Name="CheckPoint Firewall-1" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=CheckPointMonitor" />
+  <Monitor Name="EMS SNMP Trap" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=EMSSNMPTrapMonitor" />
+  <Monitor Name="Mail" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=MailMonitor" />
+  <Monitor Name="Service" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ServiceMonitor" />
+  <Monitor Name="WebLogic 5.x Application Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=WebLogic5xMonitor" />
+  <Monitor Name="Cisco Works" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=CiscoMonitor" />
+  <Monitor Name="Exchange 2000/2003 Message Traffic" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=Exchange2k3MsgTrafficMonitor" />
+  <Monitor Name="MAPI" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=MAPIMonitor" />
+  <Monitor Name="Siebel Web Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=SiebelMonitor" />
+  <Monitor Name="WebLogic Application Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=WebLogic6xMonitor" />
+  <Monitor Name="Citrix Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=CitrixMonitor" />
+  <Monitor Name="Exchange 2003 Mailbox" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=Exchange2k3MailboxMonitor" />
+  <Monitor Name="Master Health Monitor" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=MasterHealthMonitor" />
+  <Monitor Name="SilverStream Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=SilverStreamMonitor" />
+  <Monitor Name="WhatsUp" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=WhatsUpMonitor" />
+  <Monitor Name="ColdFusion Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ColdFusionMonitor" />
+  <Monitor Name="Exchange 2003 Public Folder" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=Exchange2k3PublicFolderMonitor" />
+  <Monitor Name="Memory" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=MemoryMonitor" />
+  <Monitor Name="Simulation" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=SimulationMonitor" />
+  <Monitor Name="Windows Dial-up" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=NTDialupMonitor" />
+  <Monitor Name="COM+ Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ComPlusMonitor" />
+  <Monitor Name="Exchange 5.5 Message Traffic" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=Exchange55MsgTrafficMonitor" />
+  <Monitor Name="MG Health Monitor" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=MGHealthMonitor" />
+  <Monitor Name="SNMP" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=SNMPMonitor" />
+  <Monitor Name="Windows Event Log" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=NTEventLogMonitor" />
+  <Monitor Name="Compaq Insight Manager Alert" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=CIMMonitor" />
+  <Monitor Name="F5 Big-IP" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=F5Monitor" />
+  <Monitor Name="Monitor Load Monitor" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=MonitorLoadMonitor" />
+  <Monitor Name="SNMP by MIB" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=BrowsableSNMPMonitor" />
+  <Monitor Name="Windows Media Player" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=WindowsMediaPlayerMonitor" />
+  <Monitor Name="Composite" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=CompositeMonitor" />
+  <Monitor Name="File" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=FileMonitor" />
+  <Monitor Name="Multi Log" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=MultiLogMonitor" />
+  <Monitor Name="SNMP Trap" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=SNMPTrapMonitor" />
+  <Monitor Name="Windows Media Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=WindowsMediaMonitor" />
+  <Monitor Name="Concord Measurement" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=ConcordSisMonitor" />
+  <Monitor Name="Formula Composite" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=BandwidthMonitor" />
+  <Monitor Name="Netcool Alert" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=NetCoolMonitor" />
+  <Monitor Name="SQL Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=SQLServerMonitor" />
+  <Monitor Name="Windows Performance Counter" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=NTCounterMonitor" />
+  <Monitor Name="CPU Utilization" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=CPUMonitor" />
+  <Monitor Name="FTP" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=FTPMonitor" />
+  <Monitor Name="NetIQ Measurement" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=NetIQMeasurementMonitor" />
+  <Monitor Name="SunONE WebServer" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=SunOneMonitor" />
+  <Monitor Name="Windows Resources" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=PDHMonitor" />
+  <Monitor Name="Database Counter" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=DatabaseCounterMonitor" />
+  <Monitor Name="Health of SiteView Server" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=HealthServerLoadMonitor" />
+  <Monitor Name="Network" Href="/SiteView/cgi/go.exe/SiteView?page=monitor&amp;account=administrator&amp;operation=Add&amp;monitor&amp;group=hgj&amp;class=NetworkMonitor" />
+</MonitorList>

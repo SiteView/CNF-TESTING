@@ -1,0 +1,42 @@
+<IMG SRC=/SiteScope/htdocs/artwork/SS_1stXsetup_v2.gif border="0" alt="Starting SiteScope the First Time">
+<FORM ACTION="/SiteScope/cgi/go.exe/SiteScope" method="POST">
+<input type="hidden" name="page" value="setupwzd">
+<input type="hidden" name="account" value="administrator">
+<input type="hidden" name="licenseAccepted" value="yes">
+<input type="hidden" name="operation" value="Copy">
+<a name="Copy"></a><h3>Copy Monitor Configurations from another SiteScope</h3>
+<P>To copy SiteScope monitoring configurations from another SiteScope installation, enter the information below, 
+and click the <b>Update</b> button to copy SiteScope configuration files to this installation of SiteScope<br>
+<b>Note: The remote SiteScope instance you want to copy from  must be running and have 
+HTTP connectivity with the machine on which you are creating the new SiteScope installation (this machine).</b></p>
+<TABLE border=0 cellspacing=3>
+<TR><TD ALIGN=RIGHT VALIGN=TOP WIDTH=20%>Remote SiteScope Server Address and Port</TD>
+<TD><TABLE><TR><TD ALIGN=LEFT><input type=text name=server size=50 value=""></TD></TR>
+<TR><TD><FONT SIZE=-1>The server address and SiteScope port of the server to copy configurations 
+from (for example, demo.sitescope.com:8888)</FONT></TD></TR></TABLE></TD><TD><I></I></TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP>SiteScope Administrator User Name</TD>
+<TD><TABLE><TR><TD ALIGN=LEFT><input type=text name=username size=50 value=""></TD></TR>
+<TR><TD><FONT SIZE=-1>The SiteScope administrator user name on the remote SiteScope instance.  
+Leave blank if no administrator username has been defined.  <b>Note:</b> This is the administrator 
+username for accessing SiteScope (HTTP), not the administrative  login account on the remote machine 
+(telnet, rlogin, SSH, etc.).</FONT></TD></TR> </TABLE></TD><TD><I></I></TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP>SiteScope Administrator Password</TD>
+<TD><TABLE><TR><TD ALIGN=LEFT><input type=password name=password size=50 value=""></TD></TR>
+<TR><TD><FONT SIZE=-1>The SiteScope administrator password on the remote SiteScope instance.  
+Leave blank if no administrator password has been defined. </FONT></TD></TR></TABLE></TD><TD><I></I></TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP>Proxy</TD>
+<TD><TABLE><TR><TD ALIGN=LEFT><input type=text name=proxy size=50 value=""></TD></TR>
+<TR><TD><FONT SIZE=-1>Optional proxy server to use, including port number (for example, 
+proxy.this-company.com:8080)</FONT></TD></TR></TABLE></TD><TD><I></I></TD></TR>
+
+<TR><TD ALIGN=RIGHT VALIGN=TOP>International Version</TD>
+<TD><TABLE><TR><TD ALIGN=LEFT><input type=checkbox name=isI18N value=CHECKED ></TD></TR>
+<TR><TD><FONT SIZE=-1>Check this box if you are copying from a SiteScope that has the international 
+checkbox checked in preferences.</FONT></TD></TR></TABLE></TD><TD><I></I></TD></TR></TABLE>
+
+<TABLE><tr> <td width=15%>&nbsp;</td>
+<td ALIGN=RIGHT valign="top"><P><input type="submit" value="Copy"> files from another SiteScope 
+installation</p></td><td>&nbsp;</td></tr></TABLE></FORM>

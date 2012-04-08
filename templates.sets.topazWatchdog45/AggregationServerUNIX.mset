@@ -1,0 +1,11 @@
+_monitorTemplateName=Topaz Aggregation Server (Unix)
+_monitorTemplateDescription=Adds moniors for a Topaz Admin Server machine
+$TOPAZ_HOST_NAME$=_description=Server_to_monitor _value=topazHostName
+$TOPAZ_MACHINE_NAME$=_description=Unix_remote_server _value=<choose_remote_unix_server_from_the_select_box_to_the_right_and_clear_this_text>
+#
+_name=Aggregation Engine Process on "$TOPAZ_HOST_NAME$" 
+_class=ServiceMonitor
+_frequency=600
+_errorFrequency=60
+_service=Aggregation
+_machine=$TOPAZ_MACHINE_NAME$

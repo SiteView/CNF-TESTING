@@ -1,0 +1,18 @@
+This alert is from SiteView at <SiteViewUserURL>
+
+Monitor:  <name>
+Group:    <group>
+Status:   <state>
+Sample #: <sample>
+
+Time:     <time>
+
+<diagnosticText>
+
+----------------------   Detail   ----------------------
+
+<mainParameters>
+
+<mainStateProperties>
+
+

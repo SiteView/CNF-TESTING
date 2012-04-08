@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Monitor" type="monitorType"/>
+	<xs:complexType name="monitorType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="ConfigFilePathProperty" type="configFilePathPropertyType"/>
+			<xs:element name="TimeDiffProperty" type="timeDiffPropertyType"/>
+			<xs:element name="MeasurementConfigFilePathProperty" type="configFilePathPropertyType"/>
+			<xs:element name="StringProperty" type="stringPropertyType" maxOccurs="unbounded"/>
+			<xs:element name="PasswordProperty" type="stringPropertyType" maxOccurs="unbounded"/>
+			<xs:element name="HiddenStringProperty" type="hiddenStringPropertyType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="IntProperty" type="intPropertyType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:choice>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="emsFolderName" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="hiddenPropertyType">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="isState" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="hiddenStringPropertyType">
+		<xs:complexContent>
+			<xs:extension base="hiddenPropertyType">
+				<xs:attribute name="value" type="xs:string" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="intPropertyType">
+		<xs:complexContent>
+			<xs:extension base="propertyType">
+				<xs:attribute name="value" type="xs:number" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="propertyType">
+		<xs:attribute name="isAdvanced" type="xs:boolean" use="required"/>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="description" type="xs:string" use="required"/>
+		<xs:attribute name="label" type="xs:string" use="required"/>
+		<xs:attribute name="isEditable" type="xs:boolean" use="required"/>
+		<xs:attribute name="stateOptions" type="xs:int" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="stringPropertyType">
+		<xs:complexContent>
+			<xs:extension base="propertyType">
+				<xs:attribute name="value" type="xs:string" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="filePathPropertyType">
+		<xs:complexContent>
+			<xs:extension base="propertyType">
+				<xs:attribute name="value" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="configFilePathPropertyType"/>
+	<xs:complexType name="timeDiffPropertyType"/>
+	<xs:complexType name="numericPropertyType">
+		<xs:complexContent>
+			<xs:extension base="propertyType">
+				<xs:attribute name="value" type="xs:double" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
+

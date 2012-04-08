@@ -1,0 +1,13 @@
+#Websphere EMP Monitor Properties file
+#Tue Jan 08 12:16:49 GMT-08:00 2002
+
+port=4321
+jvm=javaw
+
+classpath1=353Keyring.jar
+classpath2=admin.jar
+classpath3=console.jar
+classpath4=ejs.jar
+classpath5=repository.jar
+classpath6=sslight.jar
+classpath7=ujc.jar

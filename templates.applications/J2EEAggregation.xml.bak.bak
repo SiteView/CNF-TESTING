@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root SYSTEM "conf_tree_1_0.dtd">
+<root>
+
+  <tree aggregator_id="SiteScopeAggregator" time_interval="15" num_of_buckets="2">
+    <monitor monitor_type="J2EEMonitor"/>
+    <node id="J2EE: %J2EE%" >
+      <calc calc_class_name="com.mercury.topaz.j2ee.aggregator.EJBUpperLevelCalculator" calc_start_level="0" calc_stop_level="2"/>
+      <node id="group: %group%">
+        <node id="class: %class%">
+          <node id="Method: %Method%">
+            <calc calc_class_name="com.mercury.topaz.j2ee.aggregator.EJBIsTsMethodLevelCalculator" calc_start_level="0" calc_stop_level="0"/>
+            <selector key="SQL" oper="exist"/>
+            <node id="SQL: %SQL%">
+              <calc calc_class_name="com.mercury.topaz.j2ee.aggregator.EJBSiteScopeSQLOverTimeCalculator" calc_start_level="0" calc_stop_level="0"/>
+              <node id="%TimeStamp%">
+                <calc calc_class_name="com.mercury.topaz.j2ee.aggregator.EJBTimeStampLevelCalculator" calc_start_level="0" calc_stop_level="0"/>
+              </node>
+            </node>
+          </node>
+          <node id="Method: %Method%">
+            <calc calc_class_name="com.mercury.topaz.j2ee.aggregator.EJBIsTsMethodLevelCalculator" calc_start_level="0" calc_stop_level="0"/>
+            <selector key="SQL" oper="not_exist"/>
+            <node id="%TimeStamp%">
+              <param id="TS" value="true" type="java.lang.Boolean"/>
+              <calc calc_class_name="com.mercury.topaz.j2ee.aggregator.EJBTimeStampLevelCalculator" calc_start_level="0" calc_stop_level="0"/>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+  </tree>
+</root>
+

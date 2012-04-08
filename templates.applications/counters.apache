@@ -1,0 +1,28 @@
+//Counters for server-status?auto
+Total Accesses:Default
+Total kBytes
+//(Note: CPULoad available on UNIX platforms ONLY)
+CPULoad
+Uptime
+ReqPerSec:Default
+BytesPerSec:Default
+BytesPerReq
+BusyWorkers:Default
+IdleWorkers:Default
+//Counters for server-status?refresh=30
+Server Version
+Server Built
+Current Time
+Restart Time
+Parent Server Generation
+Server uptime
+Total accesses
+Total Traffic
+//(Note: CPU Usage and CPU load available on UNIX platforms ONLY)
+CPU Usage
+CPU load
+requests/sec
+B/second
+B/request
+requests currently being processed
+idle workers
