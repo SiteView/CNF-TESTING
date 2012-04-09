@@ -47,7 +47,7 @@ public class TestAddMoniterPage extends COM.dragonflow.Page.CGI {
 
 	public static void createMonitor(List<Map<String, String>> list)
 			throws SiteViewException {
-		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[10];
+		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[list.size()];
 		for (int i = 0; i < list.size(); i++) {
 			Map<String, String> map = list.get(i);
 			for (Entry<String, String> entry : map.entrySet()) {
