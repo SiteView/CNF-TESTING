@@ -1,2 +1,2 @@
-将代码import到eclipse之后，修改Platform类中的tryGetRoot()方法的返回值为你的源代码所在的路径，才能正常启动。
+将代码import到eclipse之后
 启动的类为TestHttp

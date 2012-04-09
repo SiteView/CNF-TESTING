@@ -296,7 +296,7 @@ public class CPUMonitor extends ServerMonitor
 
  static 
  {
-     $assertionsDisabled = !(COM.dragonflow.StandardMonitor.CPUMonitor.class).desiredAssertionStatus();
+     $assertionsDisabled = !(CPUMonitor.class).desiredAssertionStatus();
      maxCPUs = 8;
      cpuEnableErrorAt100 = true;
      jgl.HashMap hashmap = MasterConfig.getMasterConfig();
@@ -341,21 +341,21 @@ public class CPUMonitor extends ServerMonitor
          astringproperty[k] = (StringProperty)array.at(k);
      }
 
-     addProperties("COM.dragonflow.StandardMonitor.CPUMonitor", astringproperty);
+     addProperties("CPUMonitor", astringproperty);
      if(cpuEnableErrorAt100)
      {
-         addClassElement("COM.dragonflow.StandardMonitor.CPUMonitor", Rule.stringToClassifier("utilizationPercentage == 100\terror", true));
+         addClassElement("CPUMonitor", Rule.stringToClassifier("utilizationPercentage == 100\terror", true));
      }
-     addClassElement("COM.dragonflow.StandardMonitor.CPUMonitor", Rule.stringToClassifier("utilizationPercentage > 90\twarning", true));
-     addClassElement("COM.dragonflow.StandardMonitor.CPUMonitor", Rule.stringToClassifier("utilizationPercentage == n/a\terror"));
-     addClassElement("COM.dragonflow.StandardMonitor.CPUMonitor", Rule.stringToClassifier("always\tgood"));
-     setClassProperty("COM.dragonflow.StandardMonitor.CPUMonitor", "description", "Measures the percentage of CPU time that is being used on a server.");
-     setClassProperty("COM.dragonflow.StandardMonitor.CPUMonitor", "help", "CpuMon.htm");
-     setClassProperty("COM.dragonflow.StandardMonitor.CPUMonitor", "title", "CPU Utilization");
-     setClassProperty("COM.dragonflow.StandardMonitor.CPUMonitor", "class", "CPUMonitor");
-     setClassProperty("COM.dragonflow.StandardMonitor.CPUMonitor", "target", "_cpu");
-     setClassProperty("COM.dragonflow.StandardMonitor.CPUMonitor", "topazName", "CPU");
-     setClassProperty("COM.dragonflow.StandardMonitor.CPUMonitor", "topazType", "System Resources");
-     setClassProperty("COM.dragonflow.StandardMonitor.CPUMonitor", "classType", "server");
+     addClassElement("CPUMonitor", Rule.stringToClassifier("utilizationPercentage > 90\twarning", true));
+     addClassElement("CPUMonitor", Rule.stringToClassifier("utilizationPercentage == n/a\terror"));
+     addClassElement("CPUMonitor", Rule.stringToClassifier("always\tgood"));
+     setClassProperty("CPUMonitor", "description", "Measures the percentage of CPU time that is being used on a server.");
+     setClassProperty("CPUMonitor", "help", "CpuMon.htm");
+     setClassProperty("CPUMonitor", "title", "CPU Utilization");
+     setClassProperty("CPUMonitor", "class", "CPUMonitor");
+     setClassProperty("CPUMonitor", "target", "_cpu");
+     setClassProperty("CPUMonitor", "topazName", "CPU");
+     setClassProperty("CPUMonitor", "topazType", "System Resources");
+     setClassProperty("CPUMonitor", "classType", "server");
  }
 }

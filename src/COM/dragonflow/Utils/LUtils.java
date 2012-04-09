@@ -24,6 +24,11 @@ import java.util.Timer;
 
 import jgl.Array;
 import jgl.HashMap;
+import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.MasterConfig;
+import COM.dragonflow.SiteView.Platform;
+import COM.dragonflow.SiteView.SiteViewGroup;
+import COM.dragonflow.SiteView.monitorUtils;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // TextUtils, I18N, LocaleUtils
@@ -215,9 +220,9 @@ public class LUtils
     {
     }
 
-    private static COM.dragonflow.SiteView.AtomicMonitor createMonitor(String s)
+    private static AtomicMonitor createMonitor(String s)
     {
-        COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = null;
+        AtomicMonitor atomicmonitor = null;
         try
         {
             int i = s.indexOf(' ');
@@ -225,10 +230,10 @@ public class LUtils
             {
                 String s1 = s.substring(0, i);
                 String s2 = s.substring(i + 1);
-                String s3 = COM.dragonflow.SiteView.Platform.getRoot() + "/groups/" + s1 + ".mg";
+                String s3 = Platform.getRoot() + "/groups/" + s1 + ".mg";
                 jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(s3);
-                jgl.HashMap hashmap = COM.dragonflow.SiteView.monitorUtils.findMonitor(array, s2);
-                atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)COM.dragonflow.SiteView.AtomicMonitor.createMonitor(hashmap, "");
+                jgl.HashMap hashmap = monitorUtils.findMonitor(array, s2);
+                atomicmonitor = (AtomicMonitor)AtomicMonitor.createMonitor(hashmap, "");
             }
         }
         catch(java.lang.Exception exception)
@@ -364,7 +369,7 @@ public class LUtils
                 if(array.at(j) instanceof String)
                 {
                     String s1 = (String)array.at(j);
-                    COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = createMonitor(s1);
+                    AtomicMonitor atomicmonitor = createMonitor(s1);
                     if(atomicmonitor != null)
                     {
                         i += atomicmonitor.getCostInLicensePoints();
@@ -391,7 +396,7 @@ public class LUtils
                         if(s6 != null && s6.equals("SubGroup"))
                         {
                             s2 = COM.dragonflow.Utils.I18N.toDefaultEncoding((String)hashmap.get("_group"));
-                            String s7 = COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + s2 + ".mg";
+                            String s7 = Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + s2 + ".mg";
                             try
                             {
                                 jgl.Array array2 = COM.dragonflow.Properties.FrameFile.readFromFile(s7);
@@ -425,13 +430,13 @@ public class LUtils
         return i;
     }
 
-    public static boolean isValidSSforXLicense(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
+    public static boolean isValidSSforXLicense(AtomicMonitor atomicmonitor)
     {
         String s = getLicenseForXKey();
         return isValidSSforXLicense(atomicmonitor, s);
     }
 
-    public static boolean isValidSSforXLicense(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s)
+    public static boolean isValidSSforXLicense(AtomicMonitor atomicmonitor, String s)
     {
         if(s.length() <= 0)
         {
@@ -586,7 +591,7 @@ public class LUtils
     public static String getLicenseExceededHTML(jgl.HashMap hashmap)
     {
         int i = getLicensedPoints();
-        String s = "<p>This operation would exceed your limit of " + i + " points for this license.\r\n" + "<p>Upgrade your license to allow more points by <a href=" + COM.dragonflow.SiteView.Platform.homeURLPrefix + "/OrderOpts.htm>Ordering Online</a> or sending e-mail to <a href=mailto:" + COM.dragonflow.SiteView.Platform.salesEmail + ">" + COM.dragonflow.SiteView.Platform.salesEmail + "</a>.\r\n" + "<p>Temporary licenses may also be available." + "<br><br>" + getLicenseSummary(hashmap, true) + "\r\n";
+        String s = "<p>This operation would exceed your limit of " + i + " points for this license.\r\n" + "<p>Upgrade your license to allow more points by <a href=" + Platform.homeURLPrefix + "/OrderOpts.htm>Ordering Online</a> or sending e-mail to <a href=mailto:" + Platform.salesEmail + ">" + Platform.salesEmail + "</a>.\r\n" + "<p>Temporary licenses may also be available." + "<br><br>" + getLicenseSummary(hashmap, true) + "\r\n";
         return s;
     }
 
@@ -632,14 +637,14 @@ public class LUtils
     {
         String s = getLicenseKey();
         boolean flag = true;
-        String s1 = COM.dragonflow.SiteView.Platform.productName;
+        String s1 = Platform.productName;
         return getLicenseSummary(s, flag, s1, false);
     }
 
     public static String getLicenseSummary(jgl.HashMap hashmap, boolean flag)
     {
         String s = getLicenseKey(hashmap);
-        String s1 = COM.dragonflow.SiteView.Platform.productName;
+        String s1 = Platform.productName;
         String s2 = getLicenseForXKey(hashmap);
         boolean flag1 = false;
         if(s2.length() > 0)
@@ -658,9 +663,9 @@ public class LUtils
             int k = getLicensedPoints(s);
             int i1 = getMonitorType(s);
             int j1 = getDaysRemaining(s);
-            COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-            COM.dragonflow.SiteView.SiteViewGroup _tmp = siteviewgroup;
-            int k1 = COM.dragonflow.SiteView.SiteViewGroup.totalPointsUsed;
+            SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+            SiteViewGroup _tmp = siteviewgroup;
+            int k1 = SiteViewGroup.totalPointsUsed;
             if(k > 0 && k1 > k)
             {
                 flag = true;
@@ -734,7 +739,7 @@ public class LUtils
                         s2 = s2 + COM.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseSiteViewPersonalEdition");
                     }
                 }
-                if(!COM.dragonflow.SiteView.Platform.isPortal() && i1 == 99)
+                if(!Platform.isPortal() && i1 == 99)
                 {
                     s2 = s2 + COM.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("Points") + " " + k;
                     s2 = s2 + COM.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("Used") + " " + k1;
@@ -919,7 +924,7 @@ public class LUtils
 
     private static jgl.HashMap getMasterConfig()
     {
-        return COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        return MasterConfig.getMasterConfig();
     }
 
     public static int getMonitorType(String s)
@@ -1044,7 +1049,7 @@ public class LUtils
 
     public static int getMonitorTypeByName(String s)
     {
-        boolean flag = COM.dragonflow.SiteView.Platform.isSiteSeerServer();
+        boolean flag = Platform.isSiteSeerServer();
         int i = s.lastIndexOf(".");
         if(i != -1)
         {
@@ -1067,7 +1072,7 @@ public class LUtils
         }
     }
 
-    public static int getMonitorType(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
+    public static int getMonitorType(AtomicMonitor atomicmonitor)
     {
         String s = atomicmonitor.getClass().toString();
         return getMonitorTypeByName(s);
@@ -1803,7 +1808,7 @@ public class LUtils
     public static boolean isCentraScopeLicense(String s)
     {
         boolean flag = false;
-        if(COM.dragonflow.SiteView.Platform.isPortal() && (isSubscriptionLicense(s) || getLicenseType(s) == 0))
+        if(Platform.isPortal() && (isSubscriptionLicense(s) || getLicenseType(s) == 0))
         {
             flag = true;
         }
@@ -1827,13 +1832,13 @@ public class LUtils
         return flag;
     }
 
-    public static boolean isMonitorTypeAllowed(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
+    public static boolean isMonitorTypeAllowed(AtomicMonitor atomicmonitor)
     {
         String s = getLicenseKey(getMasterConfig());
         return isMonitorTypeAllowed(atomicmonitor, s);
     }
 
-    public static boolean isMonitorTypeAllowed(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s)
+    public static boolean isMonitorTypeAllowed(AtomicMonitor atomicmonitor, String s)
     {
         boolean flag = false;
         int i = getMonitorType(s.trim());
@@ -1959,7 +1964,7 @@ public class LUtils
         return wouldExceedLimit(i);
     }
 
-    public static boolean wouldExceedLimit(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
+    public static boolean wouldExceedLimit(AtomicMonitor atomicmonitor)
     {
         int i = atomicmonitor.getCostInLicensePoints();
         return wouldExceedLimit(i);
@@ -1968,9 +1973,9 @@ public class LUtils
     public static boolean wouldExceedLimit(int i)
     {
         boolean flag = false;
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        COM.dragonflow.SiteView.SiteViewGroup _tmp = siteviewgroup;
-        int j = COM.dragonflow.SiteView.SiteViewGroup.totalPointsUsed;
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+        SiteViewGroup _tmp = siteviewgroup;
+        int j = SiteViewGroup.totalPointsUsed;
         int k = j + i;
         int l = getLicensedPoints();
         if(k > l)
@@ -2180,7 +2185,7 @@ public class LUtils
                 }
                 try
                 {
-                    boolean flag1 = isValidSSforXLicense((COM.dragonflow.SiteView.AtomicMonitor)class1.newInstance(), s1);
+                    boolean flag1 = isValidSSforXLicense((AtomicMonitor)class1.newInstance(), s1);
                     if((s3.equals("false") || COM.dragonflow.Properties.PropertiedObject.getClassPropertyByObject(as1[j], "loadable") == null) && flag1)
                     {
                         COM.dragonflow.Properties.PropertiedObject.setClassProperty(as1[j], "loadable", "true");
@@ -2235,7 +2240,7 @@ public class LUtils
     public static void updateSpecialLicense(String s, boolean flag)
         throws java.lang.Exception
     {
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         String as[] = COM.dragonflow.Utils.TextUtils.split(s, ",");
         for(int i = 0; i < as.length; i++)
         {
@@ -2259,14 +2264,14 @@ public class LUtils
             siteviewgroup.setProperty("_licenseForX", s);
             siteviewgroup.saveSettings();
         }
-        (new File(COM.dragonflow.SiteView.Platform.expiredName())).delete();
+        (new File(Platform.expiredName())).delete();
         addMonitorType(s);
     }
 
     public static void updateGeneralLicense(String s, boolean flag)
         throws java.lang.Exception
     {
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         if(isValidLicense(s))
         {
             if(flag)
@@ -2282,7 +2287,7 @@ public class LUtils
                 siteviewgroup.setProperty("_license", s);
                 siteviewgroup.saveSettings();
             }
-            (new File(COM.dragonflow.SiteView.Platform.expiredName())).delete();
+            (new File(Platform.expiredName())).delete();
         } else
         {
             throw new Exception("License is not valid");

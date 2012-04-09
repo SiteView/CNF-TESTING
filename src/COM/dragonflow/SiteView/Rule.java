@@ -35,33 +35,19 @@ import COM.dragonflow.Utils.TextUtils;
 public class Rule extends SiteViewObject {
 
     public static StringProperty pExpression;
-
     public static StringProperty pAction;
-
     public static StringProperty pDisplayThis;
-
     public static final int kClassifierRuleGroup = 1;
-
     static final int kActionRuleGroup = 2;
-
     static String cRulePackages[] = { "COM.dragonflow.SiteView.", "COM.dragonflow.StandardAction.", "CustomAction." };
-
     private static jgl.HashMap cCurrentActions = new jgl.HashMap();
-
     static jgl.HashMap setting;
-
     private static int topazAlertsEnabled = 0;
-
     int ruleGroup;
-
     boolean stopOnMatch;
-
     public boolean isDefaultRule;
-
     Expression cachedExpression;
-
     public Array includeFilter;
-
     public Array excludeFilter;
 
     public Rule() {
@@ -152,7 +138,6 @@ public class Rule extends SiteViewObject {
                             s2 = (String) en.nextElement();
                             s2 = '/' + s2.replace(' ', '/') + '/';
                         }
-
                     }
                 }
             } else {
@@ -185,12 +170,6 @@ public class Rule extends SiteViewObject {
         return stopOnMatch;
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @param sso
-     * @return
-     */
     public boolean match(SiteViewObject sso) {
         if (this.excludeFilter != null || this.includeFilter != null) {
             String s = sso.getOwner().getGroupPathID() + I18N.toDefaultEncoding(sso.getProperty(pID)) + "/";

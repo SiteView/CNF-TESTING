@@ -3669,11 +3669,8 @@ public class Platform {
 		 initOs();/*add by dingbing.xu*/
 		 if(isWindows())
 		 {
-//			 System.out.println("\n\n==============\n"+System.getProperty("user.dir"));
-//			 troot = "./";
 			 troot= System.getProperty("user.dir");
-//			 troot = "D:\\sv";
-			 //root = ".\\.\\siteview";
+
 		 }
 		 else
 			 troot = "/SiteView";

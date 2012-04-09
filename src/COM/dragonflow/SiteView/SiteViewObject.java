@@ -1,22 +1,5 @@
-/*
- * 
- * Created on 2005-2-15 10:48:31
- *
- * SiteViewObject.java
- *
- * History:
- *
- */
 package COM.dragonflow.SiteView;
 
-/**
- * Comment for <code>SiteViewObject</code>
- * 
- * @author
- * @version 0.0
- * 
- * 
- */
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;

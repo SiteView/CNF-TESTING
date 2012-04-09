@@ -216,8 +216,7 @@ public class PropertiedObject {
                                                                                                                     hashmap,
                                                                                                                     hashmap1,
                                                                                                                     0,
-                                                                                                                    hashmap
-                                                                                                                            .size()))
+                                                                                                                    hashmap.size()))
                 hashmap1 = (HashMap) hashmap.get(enumeration.nextElement());
 
         }
@@ -227,14 +226,6 @@ public class PropertiedObject {
         return Platform.getRoot() + "/groups/" + TEMPLATES_FILE;
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @param hashmap
-     * @param hashmap1
-     * @param i
-     * @param j
-     */
     static void resolveTemplateReferences(HashMap hashmap, HashMap hashmap1, int i, int j) {
         if (i > j) {
             LogManager.log("Error", "Loop detected in templates.config");

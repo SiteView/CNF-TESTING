@@ -9,14 +9,6 @@
  */
 package COM.dragonflow.StandardMonitor;
 
-/**
- * Comment for <code>NetworkBandwidthMonitor</code>
- * 
- * @author
- * @version 0.0
- * 
- * 
- */
 
 import java.io.StringWriter;
 import java.net.URLEncoder;
@@ -60,85 +52,46 @@ import COM.dragonflow.Utils.Snmp.Monitoring.NetworkBandwidthConfig;
 public class NetworkBandwidthMonitor extends BrowsableSNMPBase implements RealTimeReportingMonitor {
 
     private static final String PROPERTY_NAME_DELIMITER = "_";
-
     private static final String NO_DEVICE_TYPE = "NO_DEVICE";
-
     private static final String DEVICE_SPECIFIC_METRIC_ID = "_deviceSpecificMetricID";
-
     private static final String DEVICE_SPECIFIC_METRIC_NAME = "_deviceSpecificMetricName";
-
     private static final String DEVICE_SPECIFIC_METRIC_VALUE = "deviceSpecificMetricVal";
-
     private static final String DEVICE_SPECIFIC_RT_METRIC = "deviceSpecificRTMetric";
-
     private static final String SHOW_RT_TRAFFIC = "_showRTTraffic";
-
     private static final String INDEXING_METHOD = "_indexingMethod";
-
     private static final String DEVICE_TYPE = "_deviceType";
-
     private static final String DUPLEX_STATE = "_duplexState";
-
     private static final String MAX_VERT_AXIS = "_maxRTDataVerticalAxis";
-
     private static final String MAX_RT_DATA_WIN = "_maxRTDataWindow";
-
     private static final String MONITOR_VERSION = "_nbmonitorVersion";
-
     private static final String initialRTPropertyValue = "-1";
-
     private static final String getNextTestNode = ".1.3";
-
     private static StringProperty pShowRTTraffic;
-
     private static StringProperty pDuplexState;
-
     private static StringProperty pMaxRTDataWindow;
-
     private static StringProperty pMaxRTDataVerticalAxis;
-
     private static StringProperty pIndexingMethod;
-
     private static StringProperty pDeviceType;
-
     private static StringProperty pInterfaces[][];
-
     private static StringProperty pDeviceSpecificProperties[];
-
     private static StringProperty pDeviceSpecificIDs[];
-
     private static StringProperty pDeviceSpecificNames[];
-
     private static StringProperty pRTDeviceSpecificProps[];
-
     private static StringProperty pRTPropsPerInterface[][];
-
     private static StringProperty pLastRunTime;
-
     private static StringProperty pRTDeviceSpecificPropNameToLabel;
-
     private static StringProperty pDeviceSpecificPropNameToLabel;
-
     private static StringProperty pRTDeviceSpecificPropNameToGraphLabel;
-
     private static StringProperty pRTPropertiesOnSameGraphMap;
-
     private static StringProperty pLogOrStateProperties;
-
     private static StringProperty pMonitorVersion;
 
     private static final int VERSION_ONE = 1;
-
     private static final int VERSION_TWO = 2;
-
     private static int RTPropDefaultValue;
-
     private static int maxInterfaces;
-
     private static int maxDeviceSpecificProperties;
-
     private static String className;
-
     private SNMPSession session;
 
     private Vector interfaces;

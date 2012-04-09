@@ -383,15 +383,15 @@ public class FTPMonitor extends AtomicMonitor {
      * @param monitor
      * @return
      */
-    public static long[] checkFTP(String s1, String s2, String s3, String s4, boolean b1, String s6, String s7, String s8, String s9, StringBuffer stringBuffer1, long l11, StringBuffer stringBuffer2, int i13, long l14, java.io.PrintWriter printWriter1, COM.dragonflow.SiteView.Monitor monitor) {
+    public static long[] checkFTP(String s1, String s2, String s3, String s4, boolean b1, String s6, String s7, String s8, String s9, StringBuffer stringBuffer1, long l11, StringBuffer stringBuffer2, int i13, long l14, java.io.PrintWriter printWriter1, Monitor monitor) {
         long[] la = new long[4];
         la[0] = (long) kURLUnknownError;
         la[1] = 0;
         la[2] = 0;
         la[3] = 0;
-        SiteViewGroup currentSSG = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+        SiteViewGroup currentSSG = SiteViewGroup.currentSiteView();
         if (currentSSG.getSetting("_manDNSLookup").length() > 0) {
-            s1 = COM.dragonflow.SiteView.Platform.resolveDNS(s1);
+            s1 = Platform.resolveDNS(s1);
         }
         if (s2.length() != 0) {
             la = FTPMonitor.retrieveFileViaProxy(s1, s2, s3, s4, s6, s7, s8, stringBuffer1, l11, stringBuffer2, i13, printWriter1, monitor);
@@ -410,7 +410,7 @@ public class FTPMonitor extends AtomicMonitor {
                 
             //137
             try {
-                long l27 = COM.dragonflow.SiteView.Platform.timeMillis() + ((long) l14);
+                long l27 = Platform.timeMillis() + ((long) l14);
                 socket1 = new java.net.Socket(s1, i25);
                 printWriter2 = COM.dragonflow.Utils.FileUtils.MakeOutputWriter(socket1.getOutputStream());
                 bufferedReader1 = COM.dragonflow.Utils.FileUtils.MakeInputReader(socket1.getInputStream());
@@ -471,7 +471,7 @@ public class FTPMonitor extends AtomicMonitor {
                 la[0] = (long) kURLBadHostNameError;
             }
             catch (SocketException e) { //575
-                if (COM.dragonflow.SiteView.Platform.noRoute(e)) {
+                if (Platform.noRoute(e)) {
                     la[0] = (long) kURLNoRouteToHostError;
                   }
                   else {

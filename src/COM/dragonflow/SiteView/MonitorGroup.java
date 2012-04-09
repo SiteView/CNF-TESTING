@@ -233,39 +233,33 @@ public class MonitorGroup extends Monitor {
         return loadGroup(s, s1, true);
     }
 
-    public static MonitorGroup loadGroup(String s, String s1, boolean flag) {
+    public static MonitorGroup loadGroup(String s, String groupid, boolean flag) {
         MonitorGroup monitorgroup = null;
         try {
             monitorgroup = new MonitorGroup();
             monitorgroup.setProperty("_id", s);
             monitorgroup.setProperty("_name", s);
-            monitorgroup.file = new File(s1);
-            monitorgroup.readMonitors(s1, s);
+            monitorgroup.file = new File(groupid);
+            monitorgroup.readMonitors(groupid, s);
             monitorgroup.readDynamic();
             monitorgroup.initialize(monitorgroup.getValuesTable());
         } catch (FileNotFoundException filenotfoundexception) {
             monitorgroup = null;
             if (flag) {
-                LogManager.log("Error", "Error loading group, not found: " + s1);
+                LogManager.log("Error", "Error loading group, not found: " + groupid);
                 filenotfoundexception.printStackTrace();
             }
         } catch (Exception exception) {
             monitorgroup = null;
             if (flag) {
-                LogManager.log("Error", "Error loading group, file: " + s1 + ", error: " + exception);
+                LogManager.log("Error", "Error loading group, file: " + groupid + ", error: " + exception);
                 exception.printStackTrace();
             }
         }
         return monitorgroup;
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @param s
-     * @param s1
-     * @throws IOException
-     */
+
     void readMonitors(String s, String s1) throws IOException {
         Array array = FrameFile.readFromFile(s);
         String s2 = "";
@@ -310,10 +304,6 @@ public class MonitorGroup extends Monitor {
         return s.substring(0, i) + ".dyn";
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     */
     void readDynamic() {
         String s = getDynamicPath();
         int i = 0;
@@ -596,9 +586,9 @@ public class MonitorGroup extends Monitor {
     public String findLogInGroup(String s) {
         String s1 = "";
         if (s != null && s.length() > 0) {
-            String s2 = Platform.getRoot() + File.separator + "groups" + File.separator + s + ".mg";
+            String groupfile = Platform.getRoot() + File.separator + "groups" + File.separator + s + ".mg";
             try {
-                Array array = FrameFile.readFromFile(s2);
+                Array array = FrameFile.readFromFile(groupfile);
                 HashMap hashmap = (HashMap) array.at(0);
                 String s3 = (String) hashmap.get("_logInGroup");
                 if (s3 != null && s3.length() > 0) {
