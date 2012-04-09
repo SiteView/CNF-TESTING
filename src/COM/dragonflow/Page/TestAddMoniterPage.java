@@ -9,11 +9,14 @@
  */
 package COM.dragonflow.Page;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import jgl.HashMap;
 
 import COM.dragonflow.Api.APIMonitor;
 import COM.dragonflow.Api.SSInstanceProperty;
@@ -34,7 +37,20 @@ public class TestAddMoniterPage extends COM.dragonflow.Page.CGI {
 				+ "<a href=http://localhost:9999/SiteView>"
 				+ "<input type=\"button\" value=\"hello\" class=\"VerBl8\">\n"
 				+ "</a>" + "</FORM>\n");
-		// createMonitor();
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		Map<String, String> map = (Map<String, String>) new HashMap();
+		map.put("_host", "192.168.0.248");
+		map.put("_oidIndex", "0");
+		map.put("_timeout", "5");
+		map.put("_snmpversion", "v2");
+		map.put("_retryDelay", "1");
+		map.put("_community", "dragon");
+		map.put("_frequency", "600");
+		map.put("error-condition0", "default");
+		map.put("warning-condition0", "default");
+		map.put("good-condition0", "default"); 
+		list.add(map);
+		createMonitor("SNMPMonitor","Group0",list);
 	}
 
 	public static void main(String args[]) throws java.io.IOException {
@@ -45,11 +61,12 @@ public class TestAddMoniterPage extends COM.dragonflow.Page.CGI {
 		ftppage.handleRequest();
 	}
 
-	public static void createMonitor(List<Map<String, String>> list)
+	public static void createMonitor(String monitortype,String groupid,List<Map<String, String>> paramlist)
 			throws SiteViewException {
-		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[list.size()];
-		for (int i = 0; i < list.size(); i++) {
-			Map<String, String> map = list.get(i);
+		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[paramlist
+				.size()];
+		for (int i = 0; i < paramlist.size(); i++) {
+			Map<String, String> map = paramlist.get(i);
 			for (Entry<String, String> entry : map.entrySet()) {
 				String k = entry.getKey();
 				String v = entry.getValue();
@@ -72,7 +89,7 @@ public class TestAddMoniterPage extends COM.dragonflow.Page.CGI {
 //				"default");
 
 		COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue2 = apimonitor
-				.create("SNMPMonitor", "Group0", assinstanceproperty);
+				.create(monitortype, groupid, assinstanceproperty);
 
 		//
 		//
