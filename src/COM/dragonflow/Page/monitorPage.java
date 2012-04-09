@@ -19,6 +19,27 @@ import java.util.TreeMap;
 import jgl.Array;
 import jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
+import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.BrowsableBase;
+import COM.dragonflow.SiteView.BrowsableCache;
+import COM.dragonflow.SiteView.BrowsableMonitor;
+import COM.dragonflow.SiteView.IServerPropMonitor;
+import COM.dragonflow.SiteView.MasterConfig;
+import COM.dragonflow.SiteView.Monitor;
+import COM.dragonflow.SiteView.MonitorGroup;
+import COM.dragonflow.SiteView.MultiContentBase;
+import COM.dragonflow.SiteView.NTCounterBase;
+import COM.dragonflow.SiteView.Platform;
+import COM.dragonflow.SiteView.Portal;
+import COM.dragonflow.SiteView.PortalSiteView;
+import COM.dragonflow.SiteView.Rule;
+import COM.dragonflow.SiteView.SNMPBase;
+import COM.dragonflow.SiteView.ScheduleManager;
+import COM.dragonflow.SiteView.ServerMonitor;
+import COM.dragonflow.SiteView.SiteViewGroup;
+import COM.dragonflow.SiteView.SiteViewObject;
+import COM.dragonflow.SiteView.URLContentBase;
+import COM.dragonflow.SiteView.monitorUtils;
 import COM.dragonflow.Utils.GreaterCounterByXml;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -93,13 +114,13 @@ public class monitorPage extends COM.dragonflow.Page.CGI
         jgl.Array array = new Array();
         if(cgi != null && cgi.isPortalServerRequest())
         {
-            COM.dragonflow.SiteView.PortalSiteView portalsiteview = (COM.dragonflow.SiteView.PortalSiteView)cgi.getSiteView();
+            PortalSiteView portalsiteview = (PortalSiteView)cgi.getSiteView();
             if(portalsiteview != null)
             {
                 classFilter = portalsiteview.getMonitorClassFilter();
             }
         }
-        java.io.File file = new File(COM.dragonflow.SiteView.Platform.getRoot() + "/classes/COM/dragonflow/StandardMonitor");
+        java.io.File file = new File(Platform.getRoot() + "/classes/COM/dragonflow/StandardMonitor");
         String as[] = file.list();
         for(int i = 0; i < as.length; i++)
         {
@@ -118,13 +139,13 @@ public class monitorPage extends COM.dragonflow.Page.CGI
                 java.lang.Class class1 = java.lang.Class.forName("COM.dragonflow.StandardMonitor." + s);
                 if(flag)
                 {
-                    if(COM.dragonflow.SiteView.SiteViewObject.loadableClass(class1))
+                    if(SiteViewObject.loadableClass(class1))
                     {
                         array.add(class1);
                     }
                     continue;
                 }
-                if(COM.dragonflow.SiteView.SiteViewObject.loadableClass(class1) && COM.dragonflow.SiteView.SiteViewObject.addableClass(class1))
+                if(SiteViewObject.loadableClass(class1) && SiteViewObject.addableClass(class1))
                 {
                     array.add(class1);
                 }
@@ -132,7 +153,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
             catch(java.lang.Throwable throwable) { }
         }
 
-        java.io.File file1 = new File(COM.dragonflow.SiteView.Platform.getRoot() + "/classes/CustomMonitor");
+        java.io.File file1 = new File(Platform.getRoot() + "/classes/CustomMonitor");
         as = file1.list();
         if(as != null)
         {
@@ -151,7 +172,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
                 try
                 {
                     java.lang.Class class2 = java.lang.Class.forName("CustomMonitor." + s1);
-                    if(COM.dragonflow.SiteView.SiteViewObject.loadableClass(class2) && COM.dragonflow.SiteView.SiteViewObject.addableClass(class2))
+                    if(SiteViewObject.loadableClass(class2) && SiteViewObject.addableClass(class2))
                     {
                         array.add(class2);
                     }
@@ -163,7 +184,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
         return array;
     }
 
-    public void printProperty(COM.dragonflow.Properties.StringProperty stringproperty, java.io.PrintWriter printwriter, COM.dragonflow.SiteView.SiteViewObject siteviewobject, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap, boolean flag)
+    public void printProperty(COM.dragonflow.Properties.StringProperty stringproperty, java.io.PrintWriter printwriter, SiteViewObject siteviewobject, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap, boolean flag)
     {
         if(!siteviewobject.isPropertyExcluded(stringproperty, httprequest) && !httprequest.getPermission("_monitorProperty", stringproperty.getName()).equals("hidden") && !siteviewobject.propertyInTemplate(stringproperty))
         {
@@ -171,7 +192,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    boolean shouldPrintProperty(COM.dragonflow.SiteView.SiteViewObject siteviewobject, String s)
+    boolean shouldPrintProperty(SiteViewObject siteviewobject, String s)
     {
         return !siteviewobject.propertyInTemplate(s);
     }
@@ -203,7 +224,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
         return menus1;
     }
 
-    private String getNTAssociatedCountersContent(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s, String s1)
+    private String getNTAssociatedCountersContent(AtomicMonitor atomicmonitor, String s, String s1)
     {
         String s2 = "";
         StringBuffer stringbuffer = new StringBuffer();
@@ -216,7 +237,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
             as = COM.dragonflow.Utils.TextUtils.split(s4, ",");
         } else
         {
-            String s5 = ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).getCounterObjects();
+            String s5 = ((NTCounterBase)atomicmonitor).getCounterObjects();
             as = COM.dragonflow.Utils.TextUtils.split(s5, ",");
         }
         for(int i = 0; i < as.length; i++)
@@ -225,7 +246,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
             array.add(s6);
         }
 
-        jgl.Array array1 = COM.dragonflow.SiteView.NTCounterBase.getPerfCounters(s1, array, stringbuffer, "");
+        jgl.Array array1 = NTCounterBase.getPerfCounters(s1, array, stringbuffer, "");
         String as1[] = COM.dragonflow.Utils.TextUtils.split(s, ",");
         boolean flag = true;
 label0:
@@ -262,12 +283,12 @@ label0:
         return s2;
     }
 
-    private String getSNMPAssociatedCountersContent(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s)
+    private String getSNMPAssociatedCountersContent(AtomicMonitor atomicmonitor, String s)
     {
         String s1 = "";
-        COM.dragonflow.SiteView.SNMPBase _tmp = (COM.dragonflow.SiteView.SNMPBase)atomicmonitor;
-        COM.dragonflow.SiteView.SNMPBase _tmp1 = (COM.dragonflow.SiteView.SNMPBase)atomicmonitor;
-        String s2 = COM.dragonflow.SiteView.SNMPBase.getTemplateContent(COM.dragonflow.SiteView.SNMPBase.getTemplatePath(), ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).getTemplateFile(), true);
+        SNMPBase _tmp = (SNMPBase)atomicmonitor;
+        SNMPBase _tmp1 = (SNMPBase)atomicmonitor;
+        String s2 = SNMPBase.getTemplateContent(SNMPBase.getTemplatePath(), ((SNMPBase)atomicmonitor).getTemplateFile(), true);
         String as[] = COM.dragonflow.Utils.TextUtils.split(s2, ",");
         String as1[] = COM.dragonflow.Utils.TextUtils.split(s, ",");
         boolean flag = true;
@@ -300,11 +321,11 @@ label0:
         return s1;
     }
 
-    private String getURLContentAssociatedCountersContent(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s)
+    private String getURLContentAssociatedCountersContent(AtomicMonitor atomicmonitor, String s)
     {
-        COM.dragonflow.SiteView.URLContentBase _tmp = (COM.dragonflow.SiteView.URLContentBase)atomicmonitor;
-        COM.dragonflow.SiteView.URLContentBase _tmp1 = (COM.dragonflow.SiteView.URLContentBase)atomicmonitor;
-        String s1 = COM.dragonflow.SiteView.URLContentBase.getTemplateContent(COM.dragonflow.SiteView.URLContentBase.getTemplatePath(), ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).getTemplateFile(), true);
+        URLContentBase _tmp = (URLContentBase)atomicmonitor;
+        URLContentBase _tmp1 = (URLContentBase)atomicmonitor;
+        String s1 = URLContentBase.getTemplateContent(URLContentBase.getTemplatePath(), ((URLContentBase)atomicmonitor).getTemplateFile(), true);
         String as[] = COM.dragonflow.Utils.TextUtils.split(s1, ",");
         String as1[] = COM.dragonflow.Utils.TextUtils.split(s, ",");
         String s2 = "";
@@ -338,11 +359,11 @@ label0:
         return s2;
     }
 
-    private String getMultiContent(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s)
+    private String getMultiContent(AtomicMonitor atomicmonitor, String s)
     {
-        COM.dragonflow.SiteView.MultiContentBase _tmp = (COM.dragonflow.SiteView.MultiContentBase)atomicmonitor;
-        COM.dragonflow.SiteView.MultiContentBase _tmp1 = (COM.dragonflow.SiteView.MultiContentBase)atomicmonitor;
-        String s1 = COM.dragonflow.SiteView.MultiContentBase.getTemplateContent(COM.dragonflow.SiteView.MultiContentBase.getTemplatePath(), ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).getTemplateFile(), true);
+        MultiContentBase _tmp = (MultiContentBase)atomicmonitor;
+        MultiContentBase _tmp1 = (MultiContentBase)atomicmonitor;
+        String s1 = MultiContentBase.getTemplateContent(MultiContentBase.getTemplatePath(), ((MultiContentBase)atomicmonitor).getTemplateFile(), true);
         String as[] = COM.dragonflow.Utils.TextUtils.split(s1, ",");
         String as1[] = COM.dragonflow.Utils.TextUtils.split(s, ",");
         String s2 = "";
@@ -376,7 +397,7 @@ label0:
         return s2;
     }
 
-    private String getDynamicHealth(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s)
+    private String getDynamicHealth(AtomicMonitor atomicmonitor, String s)
     {
         String s1 = ((COM.dragonflow.StandardMonitor.HealthUnixServerMonitor)atomicmonitor).getContentCounters(true);
         String as[] = COM.dragonflow.Utils.TextUtils.split(s1, ",");
@@ -412,7 +433,7 @@ label0:
         return s2;
     }
 
-    public String getAssociatedCountersContent(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s)
+    public String getAssociatedCountersContent(AtomicMonitor atomicmonitor, String s)
     {
         String s1 = "";
         String s3 = request.getValue("counters");
@@ -452,7 +473,7 @@ label0:
         return s1;
     }
 
-    void printForm(String s, String s1, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, jgl.HashMap hashmap, jgl.Array array)
+    void printForm(String s, String s1, AtomicMonitor atomicmonitor, jgl.HashMap hashmap, jgl.Array array)
         throws java.io.IOException
     {
         String s2 = "";
@@ -460,11 +481,11 @@ label0:
         String s4 = COM.dragonflow.Utils.I18N.UnicodeToString(s1, COM.dragonflow.Utils.I18N.nullEncoding());
         s4 = COM.dragonflow.Utils.I18N.StringToUnicode(s4, "");
         String s5 = COM.dragonflow.HTTP.HTTPRequest.encodeString(s4);
-        COM.dragonflow.SiteView.AtomicMonitor _tmp = atomicmonitor;
-        String s6 = atomicmonitor.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pName);
+        AtomicMonitor _tmp = atomicmonitor;
+        String s6 = atomicmonitor.getProperty(AtomicMonitor.pName);
         String s7 = "";
         String s8 = (String)atomicmonitor.getClassProperty("title");
-        if((atomicmonitor instanceof COM.dragonflow.SiteView.IServerPropMonitor) && (!(atomicmonitor instanceof COM.dragonflow.SiteView.ServerMonitor) || COM.dragonflow.SiteView.ServerMonitor.pMachineName.isEditable))
+        if((atomicmonitor instanceof IServerPropMonitor) && (!(atomicmonitor instanceof ServerMonitor) || ServerMonitor.pMachineName.isEditable))
         {
             if(request.hasValue("server"))
             {
@@ -473,13 +494,13 @@ label0:
                 {
                     s9 = "";
                 }
-                atomicmonitor.setProperty(((COM.dragonflow.SiteView.IServerPropMonitor)atomicmonitor).getServerProperty(), s9);
+                atomicmonitor.setProperty(((IServerPropMonitor)atomicmonitor).getServerProperty(), s9);
             } else
             if(s.equals("Add"))
             {
                 jgl.HashMap hashmap1 = getMasterConfig();
                 String s11 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_defaultMachine");
-                atomicmonitor.setProperty(((COM.dragonflow.SiteView.IServerPropMonitor)atomicmonitor).getServerProperty(), s11);
+                atomicmonitor.setProperty(((IServerPropMonitor)atomicmonitor).getServerProperty(), s11);
             }
         }
         String s10 = "";
@@ -489,23 +510,23 @@ label0:
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("NTCounter"))
         {
-            String s12 = atomicmonitor.getProperty(COM.dragonflow.SiteView.ServerMonitor.pMachineName);
+            String s12 = atomicmonitor.getProperty(ServerMonitor.pMachineName);
             String s15 = "";
             s2 = "";
             boolean flag = true;
             if(request.hasValue("counters"))
             {
                 s2 = getAssociatedCountersContent(atomicmonitor, s12);
-                ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
+                ((NTCounterBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
             } else
             {
-                s2 = ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).getCountersContent();
+                s2 = ((NTCounterBase)atomicmonitor).getCountersContent();
                 if(s2.length() == 0)
                 {
-                    jgl.Array array1 = ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).getAvailableCounters();
+                    jgl.Array array1 = ((NTCounterBase)atomicmonitor).getAvailableCounters();
                     if(array1.size() > 0)
                     {
-                        s2 = ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).getDefaultCounters();
+                        s2 = ((NTCounterBase)atomicmonitor).getDefaultCounters();
                     } else
                     {
                         flag = false;
@@ -527,44 +548,44 @@ label0:
                 s3 = request.getValue("counters");
             } else
             {
-                s3 = ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).getCountersParameter(s2, s12);
+                s3 = ((NTCounterBase)atomicmonitor).getCountersParameter(s2, s12);
             }
             if(request.hasValue("counterobjects"))
             {
                 s15 = request.getValue("counterobjects");
             } else
             {
-                s15 = ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).getCounterObjects();
+                s15 = ((NTCounterBase)atomicmonitor).getCounterObjects();
             }
             if(s15.length() > 0)
             {
                 s15 = java.net.URLEncoder.encode(s15);
             }
-            ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).getReturnURL());
-            ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
-            ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counterobjects", s15);
-            ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("server", s12);
-            ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
-            ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
-            ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
-            s7 = ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((NTCounterBase)atomicmonitor).getReturnURL());
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counterobjects", s15);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("server", s12);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
+            s7 = ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("SNMP"))
         {
-            String s13 = atomicmonitor.getProperty(COM.dragonflow.SiteView.ServerMonitor.pMachineName);
+            String s13 = atomicmonitor.getProperty(ServerMonitor.pMachineName);
             s2 = "";
             if(request.hasValue("counters"))
             {
                 s2 = getAssociatedCountersContent(atomicmonitor, s13);
-                ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
+                ((SNMPBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
             } else
             {
-                s2 = ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).getCountersContent();
+                s2 = ((SNMPBase)atomicmonitor).getCountersContent();
                 if(s2.length() == 0)
                 {
-                    COM.dragonflow.SiteView.SNMPBase _tmp1 = (COM.dragonflow.SiteView.SNMPBase)atomicmonitor;
-                    COM.dragonflow.SiteView.SNMPBase _tmp2 = (COM.dragonflow.SiteView.SNMPBase)atomicmonitor;
-                    s2 = COM.dragonflow.SiteView.SNMPBase.getTemplateContent(COM.dragonflow.SiteView.SNMPBase.getTemplatePath(), ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).getTemplateFile(), false);
+                    SNMPBase _tmp1 = (SNMPBase)atomicmonitor;
+                    SNMPBase _tmp2 = (SNMPBase)atomicmonitor;
+                    s2 = SNMPBase.getTemplateContent(SNMPBase.getTemplatePath(), ((SNMPBase)atomicmonitor).getTemplateFile(), false);
                 }
                 if(s2.length() == 0)
                 {
@@ -576,32 +597,32 @@ label0:
                 s3 = request.getValue("counters");
             } else
             {
-                s3 = ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).getCountersParameter(s2, s13);
+                s3 = ((SNMPBase)atomicmonitor).getCountersParameter(s2, s13);
             }
-            ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).getReturnURL());
-            ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
-            ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("server", s13);
-            ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
-            ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
-            ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
-            s7 = ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((SNMPBase)atomicmonitor).getReturnURL());
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("server", s13);
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
+            s7 = ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("URLContent"))
         {
-            String s14 = atomicmonitor.getProperty(COM.dragonflow.SiteView.ServerMonitor.pMachineName);
+            String s14 = atomicmonitor.getProperty(ServerMonitor.pMachineName);
             s2 = "";
             if(request.hasValue("counters"))
             {
                 s2 = getAssociatedCountersContent(atomicmonitor, s14);
-                ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
+                ((URLContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
             } else
             {
-                s2 = ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).getCountersContent();
+                s2 = ((URLContentBase)atomicmonitor).getCountersContent();
                 if(s2.length() == 0)
                 {
-                    COM.dragonflow.SiteView.URLContentBase _tmp3 = (COM.dragonflow.SiteView.URLContentBase)atomicmonitor;
-                    COM.dragonflow.SiteView.URLContentBase _tmp4 = (COM.dragonflow.SiteView.URLContentBase)atomicmonitor;
-                    s2 = COM.dragonflow.SiteView.URLContentBase.getTemplateContent(COM.dragonflow.SiteView.URLContentBase.getTemplatePath(), ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).getTemplateFile(), false);
+                    URLContentBase _tmp3 = (URLContentBase)atomicmonitor;
+                    URLContentBase _tmp4 = (URLContentBase)atomicmonitor;
+                    s2 = URLContentBase.getTemplateContent(URLContentBase.getTemplatePath(), ((URLContentBase)atomicmonitor).getTemplateFile(), false);
                 }
                 if(s2.length() == 0)
                 {
@@ -613,15 +634,15 @@ label0:
                 s3 = request.getValue("counters");
             } else
             {
-                s3 = ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).getCountersParameter(s2, s14);
+                s3 = ((URLContentBase)atomicmonitor).getCountersParameter(s2, s14);
             }
-            ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).getReturnURL());
-            ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
-            ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("server", s14);
-            ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
-            ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
-            ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
-            s7 = ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((URLContentBase)atomicmonitor).getReturnURL());
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("server", s14);
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
+            s7 = ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("MultiContentBase") || atomicmonitor.getClassPropertyString("applicationType").equals("DynamicHealth"))
         {
@@ -629,7 +650,7 @@ label0:
             if(request.hasValue("counters"))
             {
                 s2 = getAssociatedCountersContent(atomicmonitor, "");
-                ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
+                ((MultiContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
             } else
             {
                 if(atomicmonitor.getClassPropertyString("applicationType").equals("DynamicHealth"))
@@ -637,12 +658,12 @@ label0:
                     s2 = ((COM.dragonflow.StandardMonitor.HealthUnixServerMonitor)atomicmonitor).getContentCounters(false);
                 } else
                 {
-                    s2 = ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).getCountersContent();
+                    s2 = ((MultiContentBase)atomicmonitor).getCountersContent();
                     if(s2.length() == 0)
                     {
-                        COM.dragonflow.SiteView.MultiContentBase _tmp5 = (COM.dragonflow.SiteView.MultiContentBase)atomicmonitor;
-                        COM.dragonflow.SiteView.MultiContentBase _tmp6 = (COM.dragonflow.SiteView.MultiContentBase)atomicmonitor;
-                        s2 = COM.dragonflow.SiteView.MultiContentBase.getTemplateContent(COM.dragonflow.SiteView.MultiContentBase.getTemplatePath(), ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).getTemplateFile(), false);
+                        MultiContentBase _tmp5 = (MultiContentBase)atomicmonitor;
+                        MultiContentBase _tmp6 = (MultiContentBase)atomicmonitor;
+                        s2 = MultiContentBase.getTemplateContent(MultiContentBase.getTemplatePath(), ((MultiContentBase)atomicmonitor).getTemplateFile(), false);
                     }
                 }
                 if(s2.length() == 0)
@@ -655,21 +676,21 @@ label0:
                 s3 = request.getValue("counters");
             } else
             {
-                s3 = ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).getCountersParameter(s2, "");
+                s3 = ((MultiContentBase)atomicmonitor).getCountersParameter(s2, "");
             }
-            ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).getReturnURL());
-            ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
-            ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
-            ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
-            ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
-            s7 = ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
+            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((MultiContentBase)atomicmonitor).getReturnURL());
+            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
+            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
+            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
+            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
+            s7 = ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
         }
         COM.dragonflow.Page.CGI.menus menus1 = getNavItems(request);
         printButtonBar((String)atomicmonitor.getClassProperty("help"), s4, menus1);
         String s16 = (String)atomicmonitor.getClassProperty("classType");
         if(s16 != null && s16.equals("beta"))
         {
-            outputStream.println("<hr> <h3 align=center>This Monitor is currently a beta feature of SiteView</h3>We would appreciate your feedback on the usefulness and function of this feature.&nbsp; <p><b>Please send your comments and/or suggestions to <a href=mailto:" + COM.dragonflow.SiteView.Platform.supportEmail + ">" + COM.dragonflow.SiteView.Platform.supportEmail + "</a>," + ". We promise a quick, personal response from one of our engineers." + "</b><hr>");
+            outputStream.println("<hr> <h3 align=center>This Monitor is currently a beta feature of SiteView</h3>We would appreciate your feedback on the usefulness and function of this feature.&nbsp; <p><b>Please send your comments and/or suggestions to <a href=mailto:" + Platform.supportEmail + ">" + Platform.supportEmail + "</a>," + ". We promise a quick, personal response from one of our engineers." + "</b><hr>");
         }
         outputStream.println("<p><H2>" + s + " " + s8 + " Monitor in Group : <A HREF=" + COM.dragonflow.Page.CGI.getGroupDetailURL(request, s4) + ">" + COM.dragonflow.Page.CGI.getGroupName(s4) + "</a></H2>\n");
         String s17 = request.getValue("_health").length() <= 0 ? "" : "<input type=hidden name=_health value=true>\n";
@@ -680,7 +701,7 @@ label0:
         }
         outputStream.println("<TABLE><tr><td><img src=\"/SiteView/htdocs/artwork/LabelSpacer.gif\"></td><td></td><td></td></tr>");
         boolean flag1 = false;
-        if((atomicmonitor instanceof COM.dragonflow.SiteView.IServerPropMonitor) && !COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().internalServerActive() && COM.dragonflow.SiteView.Platform.isNTRemote(atomicmonitor.getProperty(COM.dragonflow.SiteView.ServerMonitor.pMachineName)))
+        if((atomicmonitor instanceof IServerPropMonitor) && !SiteViewGroup.currentSiteView().internalServerActive() && Platform.isNTRemote(atomicmonitor.getProperty(ServerMonitor.pMachineName)))
         {
             flag1 = true;
         }
@@ -750,7 +771,7 @@ label0:
             if(stringproperty1.isEditable && stringproperty1.isAdvanced && (!stringproperty1.isVariableCountProperty() || stringproperty1.shouldPrintVariableCountProperty(i)))
             {
                 printProperty(stringproperty1, outputStream, atomicmonitor, request, hashmap, flag1);
-                if(stringproperty1 == COM.dragonflow.SiteView.Monitor.pDescription)
+                if(stringproperty1 == Monitor.pDescription)
                 {
                     printCustomProperties(atomicmonitor);
                 }
@@ -763,23 +784,23 @@ label0:
         printFooter(outputStream);
         if(atomicmonitor.getClassPropertyString("applicationType").equals("NTCounter"))
         {
-            ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", "");
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", "");
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("SNMP"))
         {
-            ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", "");
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", "");
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("URLContent"))
         {
-            ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", "");
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", "");
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("MultiContentBase") || atomicmonitor.getClassPropertyString("applicationType").equals("DynamicHealth"))
         {
-            ((COM.dragonflow.SiteView.MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", "");
+            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", "");
         }
     }
 
-    int saveOrdering(COM.dragonflow.SiteView.Monitor monitor, COM.dragonflow.HTTP.HTTPRequest httprequest)
+    int saveOrdering(Monitor monitor, COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
         int i = COM.dragonflow.Utils.TextUtils.toInt(httprequest.getValue("ordering"));
         if(i <= 0)
@@ -789,17 +810,17 @@ label0:
         return i;
     }
 
-    void printOrdering(COM.dragonflow.SiteView.Monitor monitor, jgl.Array array)
+    void printOrdering(Monitor monitor, jgl.Array array)
     {
-        COM.dragonflow.SiteView.Monitor _tmp = monitor;
-        String s = monitor.getProperty(COM.dragonflow.SiteView.Monitor.pID);
+        Monitor _tmp = monitor;
+        String s = monitor.getProperty(Monitor.pID);
         int i = array.size();
         int j = array.size();
         boolean flag = false;
         for(int k = 1; k < array.size(); k++)
         {
             jgl.HashMap hashmap = (jgl.HashMap)array.at(k);
-            if(!COM.dragonflow.SiteView.Monitor.isMonitorFrame(hashmap))
+            if(!Monitor.isMonitorFrame(hashmap))
             {
                 continue;
             }
@@ -827,7 +848,7 @@ label0:
                 continue;
             }
             jgl.HashMap hashmap1 = (jgl.HashMap)array.at(l);
-            if(!COM.dragonflow.SiteView.Monitor.isMonitorFrame(hashmap1))
+            if(!Monitor.isMonitorFrame(hashmap1))
             {
                 continue;
             }
@@ -848,9 +869,9 @@ label0:
         outputStream.println("<OPTION value=" + array.size() + " " + s1 + ">last</OPTION>\n" + "</SELECT></TD></TR>" + "<TR><TD><FONT SIZE=-1>choose where this monitor appears in the list of monitors on the Monitor Detail page</FONT></TD></TR>" + "</TABLE></TD></TR>");
     }
 
-    void printBaselineInfo(COM.dragonflow.SiteView.Monitor monitor)
+    void printBaselineInfo(Monitor monitor)
     {
-        if(monitor.hasValue(COM.dragonflow.SiteView.Monitor.pBaselineDate))
+        if(monitor.hasValue(Monitor.pBaselineDate))
         {
             COM.dragonflow.Properties.StringProperty stringproperty = null;
             Enumeration enumeration = monitor.getStatePropertyObjects(false);
@@ -858,27 +879,27 @@ label0:
             {
                 stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
             }
-            String s = monitor.getProperty(COM.dragonflow.SiteView.Monitor.pBaselineMean);
-            String s1 = monitor.getProperty(COM.dragonflow.SiteView.Monitor.pBaselineStdDev);
+            String s = monitor.getProperty(Monitor.pBaselineMean);
+            String s1 = monitor.getProperty(Monitor.pBaselineStdDev);
             if(stringproperty != null)
             {
                 s = stringproperty.valueString(s, 2);
                 s1 = stringproperty.valueString(s1, 2);
             } else
             {
-                COM.dragonflow.SiteView.Monitor _tmp = monitor;
-                s = COM.dragonflow.SiteView.Monitor.pBaselineMean.valueString(s, 2);
-                COM.dragonflow.SiteView.Monitor _tmp1 = monitor;
-                s1 = COM.dragonflow.SiteView.Monitor.pBaselineStdDev.valueString(s1, 2);
+                Monitor _tmp = monitor;
+                s = Monitor.pBaselineMean.valueString(s, 2);
+                Monitor _tmp1 = monitor;
+                s1 = Monitor.pBaselineStdDev.valueString(s1, 2);
             }
             int i = COM.dragonflow.Utils.TextUtils.toInt(request.getUserSetting("_timeOffset"));
-            COM.dragonflow.SiteView.Monitor _tmp2 = monitor;
-            String s2 = COM.dragonflow.Utils.TextUtils.prettyDate(new Date(monitor.getPropertyAsLong(COM.dragonflow.SiteView.Monitor.pBaselineDate) + (long)(i * 1000)));
+            Monitor _tmp2 = monitor;
+            String s2 = COM.dragonflow.Utils.TextUtils.prettyDate(new Date(monitor.getPropertyAsLong(Monitor.pBaselineDate) + (long)(i * 1000)));
             outputStream.println("<TR>\n<TD ALIGN=RIGHT><B>Baseline Info</B></TD>\n<TD>Baseline taken on: " + s2 + ". Average:" + s + ". StdDev:" + s1 + "</TD></TR>\n");
         }
     }
 
-    int calculateVariablePropertyCount(jgl.Array array, COM.dragonflow.SiteView.Monitor monitor)
+    int calculateVariablePropertyCount(jgl.Array array, Monitor monitor)
     {
         int i = -1;
         int j = -1;
@@ -928,18 +949,18 @@ label0:
         return i1;
     }
 
-    public boolean isMultipleTreshold(COM.dragonflow.SiteView.Monitor monitor)
+    public boolean isMultipleTreshold(Monitor monitor)
     {
-        if((monitor instanceof COM.dragonflow.SiteView.AtomicMonitor) && ((COM.dragonflow.SiteView.AtomicMonitor)monitor).isMultiThreshold())
+        if((monitor instanceof AtomicMonitor) && ((AtomicMonitor)monitor).isMultiThreshold())
         {
             return true;
         }
         return monitor.getClassProperty("class").equals("URLSequenceMonitor");
     }
 
-    void printThresholds(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, jgl.HashMap hashmap)
+    void printThresholds(AtomicMonitor atomicmonitor, jgl.HashMap hashmap)
     {
-        boolean flag = atomicmonitor.hasValue(COM.dragonflow.SiteView.Monitor.pBaselineDate);
+        boolean flag = atomicmonitor.hasValue(Monitor.pBaselineDate);
         Enumeration enumeration = atomicmonitor.getProperties().elements();
         Enumeration enumeration1 = atomicmonitor.getStatePropertyObjects(false);
         boolean flag1 = false;
@@ -959,13 +980,13 @@ label0:
             }
             if(!flag)
             {
-                COM.dragonflow.SiteView.AtomicMonitor _tmp = atomicmonitor;
-                if(stringproperty == COM.dragonflow.SiteView.AtomicMonitor.pNumStdDev)
+                AtomicMonitor _tmp = atomicmonitor;
+                if(stringproperty == AtomicMonitor.pNumStdDev)
                 {
                     continue;
                 }
-                COM.dragonflow.SiteView.AtomicMonitor _tmp1 = atomicmonitor;
-                if(stringproperty == COM.dragonflow.SiteView.AtomicMonitor.pNumPercent)
+                AtomicMonitor _tmp1 = atomicmonitor;
+                if(stringproperty == AtomicMonitor.pNumPercent)
                 {
                     continue;
                 }
@@ -1002,14 +1023,14 @@ label0:
                 {
                     break;
                 }
-                COM.dragonflow.SiteView.Rule rule = (COM.dragonflow.SiteView.Rule)enumeration3.nextElement();
-                if(i < byte0 && s.equals(rule.getProperty(COM.dragonflow.SiteView.Rule.pAction)))
+                Rule rule = (Rule)enumeration3.nextElement();
+                if(i < byte0 && s.equals(rule.getProperty(Rule.pAction)))
                 {
                     if(flag3)
                     {
-                        java.lang.System.out.println(rule.getProperty(COM.dragonflow.SiteView.Rule.pAction) + " " + rule.getProperty(COM.dragonflow.SiteView.Rule.pExpression));
+                        java.lang.System.out.println(rule.getProperty(Rule.pAction) + " " + rule.getProperty(Rule.pExpression));
                     }
-                    as1[i] = rule.getProperty(COM.dragonflow.SiteView.Rule.pExpression);
+                    as1[i] = rule.getProperty(Rule.pExpression);
                     if(rule.getOwner() != atomicmonitor && s1 == null)
                     {
                         if(i > 0)
@@ -1018,11 +1039,11 @@ label0:
                         }
                         if(s2 == null)
                         {
-                            s2 = rule.getProperty(COM.dragonflow.SiteView.Rule.pExpression);
+                            s2 = rule.getProperty(Rule.pExpression);
                         }
                         if(rule.isDefaultRule)
                         {
-                            s1 = rule.getProperty(COM.dragonflow.SiteView.Rule.pExpression);
+                            s1 = rule.getProperty(Rule.pExpression);
                         }
                     }
                     if(flag3)
@@ -1122,13 +1143,13 @@ label0:
                         s3 = "";
                         if(!flag)
                         {
-                            COM.dragonflow.SiteView.AtomicMonitor _tmp2 = atomicmonitor;
-                            if(stringproperty2 == COM.dragonflow.SiteView.AtomicMonitor.pNumStdDev)
+                            AtomicMonitor _tmp2 = atomicmonitor;
+                            if(stringproperty2 == AtomicMonitor.pNumStdDev)
                             {
                                 continue;
                             }
-                            COM.dragonflow.SiteView.AtomicMonitor _tmp3 = atomicmonitor;
-                            if(stringproperty2 == COM.dragonflow.SiteView.AtomicMonitor.pNumPercent)
+                            AtomicMonitor _tmp3 = atomicmonitor;
+                            if(stringproperty2 == AtomicMonitor.pNumPercent)
                             {
                                 continue;
                             }
@@ -1181,7 +1202,7 @@ label0:
 
     }
 
-    void saveThresholds(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap)
+    void saveThresholds(AtomicMonitor atomicmonitor, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap)
     {
         atomicmonitor.unsetProperty("_classifier");
         String as[] = {
@@ -1248,7 +1269,7 @@ label0:
                     java.lang.System.out.println("Classifier to add: " + s3);
                 }
                 atomicmonitor.addProperty("_classifier", s3);
-                COM.dragonflow.SiteView.Rule rule = COM.dragonflow.SiteView.Rule.stringToClassifier(s3);
+                Rule rule = Rule.stringToClassifier(s3);
                 if(rule != null)
                 {
                     atomicmonitor.addElement(rule);
@@ -1259,7 +1280,7 @@ label0:
 
     }
 
-    void printCustomProperties(COM.dragonflow.SiteView.Monitor monitor)
+    void printCustomProperties(Monitor monitor)
     {
         jgl.HashMap hashmap = getMasterConfig();
         Enumeration enumeration = hashmap.values("_monitorEditCustom");
@@ -1316,7 +1337,7 @@ label0:
         } while(true);
     }
 
-    void saveCustomProperties(COM.dragonflow.SiteView.Monitor monitor, COM.dragonflow.HTTP.HTTPRequest httprequest)
+    void saveCustomProperties(Monitor monitor, COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
         jgl.HashMap hashmap = getMasterConfig();
         Enumeration enumeration = hashmap.values("_monitorEditCustom");
@@ -1346,13 +1367,13 @@ label0:
         } while(true);
     }
 
-    void initializeTemplateTable(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
+    void initializeTemplateTable(AtomicMonitor atomicmonitor)
     {
         String s = request.getValue("group");
         String s1 = COM.dragonflow.Utils.I18N.UnicodeToString(s, COM.dragonflow.Utils.I18N.nullEncoding());
         s1 = COM.dragonflow.Utils.I18N.StringToUnicode(s1, "");
-        COM.dragonflow.SiteView.SiteViewObject siteviewobject = getSiteView();
-        COM.dragonflow.SiteView.SiteViewObject siteviewobject1 = siteviewobject.getElement(COM.dragonflow.Page.monitorPage.getGroupIDRelative(s1));
+        SiteViewObject siteviewobject = getSiteView();
+        SiteViewObject siteviewobject1 = siteviewobject.getElement(COM.dragonflow.Page.monitorPage.getGroupIDRelative(s1));
         if(siteviewobject1 != null)
         {
             atomicmonitor.setOwner(siteviewobject1);
@@ -1360,7 +1381,7 @@ label0:
         atomicmonitor.initializeTemplate();
     }
 
-    String MonitorUpdateProperty(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, COM.dragonflow.Properties.StringProperty stringproperty, COM.dragonflow.HTTP.HTTPRequest httprequest)
+    String MonitorUpdateProperty(AtomicMonitor atomicmonitor, COM.dragonflow.Properties.StringProperty stringproperty, COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
         return null;
     }
@@ -1371,7 +1392,7 @@ label0:
 label0:
         {
             jgl.Array array;
-            COM.dragonflow.SiteView.AtomicMonitor atomicmonitor;
+            AtomicMonitor atomicmonitor;
 label1:
             {
 label2:
@@ -1379,13 +1400,13 @@ label2:
                     array = ReadGroupFrames(s2);
                     if(s.equals("Add"))
                     {
-                        atomicmonitor = COM.dragonflow.SiteView.AtomicMonitor.MonitorCreate(request.getValue("class"), request);
+                        atomicmonitor = AtomicMonitor.MonitorCreate(request.getValue("class"), request);
                     } else
                     {
-                        atomicmonitor = COM.dragonflow.SiteView.AtomicMonitor.MonitorCreate(array, request.getValue("id"), request.getPortalServer(), request);
-//                        if(!COM.dragonflow.SiteView.TopazConfigurator.modMonitors.contains(atomicmonitor))
+                        atomicmonitor = AtomicMonitor.MonitorCreate(array, request.getValue("id"), request.getPortalServer(), request);
+//                        if(!TopazConfigurator.modMonitors.contains(atomicmonitor))
 //                        {
-//                            COM.dragonflow.SiteView.TopazConfigurator.modMonitors.add(atomicmonitor);
+//                            TopazConfigurator.modMonitors.add(atomicmonitor);
 //                        }
                     }
                     initializeTemplateTable(atomicmonitor);
@@ -1395,11 +1416,11 @@ label2:
                         printNotAvailable(atomicmonitor, s1);
                         return;
                     }
-                    COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+                    SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
                     if(s.equals("Add"))
                     {
-                        COM.dragonflow.SiteView.SiteViewObject siteviewobject = COM.dragonflow.SiteView.Portal.getSiteViewForID(s2);
-                        COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor)siteviewobject.getElement(s2);
+                        SiteViewObject siteviewobject = Portal.getSiteViewForID(s2);
+                        Monitor monitor = (Monitor)siteviewobject.getElement(s2);
                         if(COM.dragonflow.Utils.TextUtils.toInt(s3) > 0)
                         {
                             int j = monitor.countMonitorsOfClass(request.getValue("class"), request.getAccount());
@@ -1443,7 +1464,7 @@ label2:
                         {
                             siteviewgroup.checkDispatcherForStart(atomicmonitor);
                         }
-                        long l = atomicmonitor.getPropertyAsLong(COM.dragonflow.SiteView.AtomicMonitor.pFrequency);
+                        long l = atomicmonitor.getPropertyAsLong(AtomicMonitor.pFrequency);
                         java.lang.Object obj = atomicmonitor.getClassProperty("defaultFrequency");
                         if(obj instanceof String)
                         {
@@ -1457,7 +1478,7 @@ label2:
                         {
                             l = i;
                         }
-                        atomicmonitor.setProperty(COM.dragonflow.SiteView.AtomicMonitor.pFrequency, l);
+                        atomicmonitor.setProperty(AtomicMonitor.pFrequency, l);
                     }
                     if(!request.isPost())
                     {
@@ -1466,7 +1487,7 @@ label2:
                     String s5 = "";
                     String s6 = atomicmonitor.defaultTitle();
                     jgl.HashMap hashmap = new HashMap();
-                    String s7 = COM.dragonflow.SiteView.ServerMonitor.pMachineName.getName();
+                    String s7 = ServerMonitor.pMachineName.getName();
                     if(request.hasValue(s7))
                     {
                         COM.dragonflow.Properties.StringProperty stringproperty = atomicmonitor.getPropertyObject(s7);
@@ -1475,14 +1496,14 @@ label2:
                     }
                     if(request.hasValue("counters"))
                     {
-                        s5 = getAssociatedCountersContent(atomicmonitor, atomicmonitor.getProperty(COM.dragonflow.SiteView.ServerMonitor.pMachineName));
+                        s5 = getAssociatedCountersContent(atomicmonitor, atomicmonitor.getProperty(ServerMonitor.pMachineName));
                         if(atomicmonitor.getClassPropertyString("applicationType").equals("NTCounter"))
                         {
                             if(s5.length() == 0)
                             {
                                 s5 = "No Counters available for this machine";
                             }
-                            ((COM.dragonflow.SiteView.NTCounterBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s5);
+                            ((NTCounterBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s5);
                         }
                         if(atomicmonitor.getClassPropertyString("applicationType").equals("SNMP"))
                         {
@@ -1490,7 +1511,7 @@ label2:
                             {
                                 s5 = "No Counters available for this machine";
                             }
-                            ((COM.dragonflow.SiteView.SNMPBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s5);
+                            ((SNMPBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s5);
                         }
                         if(atomicmonitor.getClassPropertyString("applicationType").equals("URLContent"))
                         {
@@ -1498,17 +1519,17 @@ label2:
                             {
                                 s5 = "No Counters available for this machine";
                             }
-                            ((COM.dragonflow.SiteView.URLContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s5);
+                            ((URLContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s5);
                         }
                     }
-                    if(atomicmonitor instanceof COM.dragonflow.SiteView.BrowsableMonitor)
+                    if(atomicmonitor instanceof BrowsableMonitor)
                     {
                         String s8 = request.getValue("uniqueID");
-                        jgl.HashMap hashmap1 = COM.dragonflow.SiteView.BrowsableCache.getCache(s8, true, false);
+                        jgl.HashMap hashmap1 = BrowsableCache.getCache(s8, true, false);
                         jgl.HashMap hashmap2 = (jgl.HashMap)hashmap1.get("permanentSelectNames");
                         jgl.HashMap hashmap3 = (jgl.HashMap)hashmap1.get("permanentSelectIDs");
                         jgl.HashMap hashmap4 = (jgl.HashMap)hashmap1.get("cParms");
-                        jgl.Array array2 = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor).getConnectionProperties();
+                        jgl.Array array2 = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
                         for(int i2 = 0; i2 < array2.size(); i2++)
                         {
                             COM.dragonflow.Properties.StringProperty stringproperty2 = (COM.dragonflow.Properties.StringProperty)array2.at(i2);
@@ -1525,8 +1546,8 @@ label2:
                         }
 
                         int j2 = 1;
-                        String s14 = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor).getBrowseName();
-                        String s18 = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor).getBrowseID();
+                        String s14 = ((BrowsableMonitor)atomicmonitor).getBrowseName();
+                        String s18 = ((BrowsableMonitor)atomicmonitor).getBrowseID();
                         java.util.HashMap hashmap7 = new java.util.HashMap();
                         for(int k3 = 1; atomicmonitor.hasProperty(s14 + k3); k3++)
                         {
@@ -1541,14 +1562,14 @@ label2:
 
                         Enumeration enumeration3 = hashmap2.keys();
                         String s30 = "";
-                        boolean flag = (atomicmonitor instanceof COM.dragonflow.SiteView.BrowsableBase) && ((COM.dragonflow.SiteView.BrowsableBase)atomicmonitor).isSortedCounters();
+                        boolean flag = (atomicmonitor instanceof BrowsableBase) && ((BrowsableBase)atomicmonitor).isSortedCounters();
                         if(flag)
                         {
-                            COM.datachannel.xml.om.Document document = COM.dragonflow.SiteView.BrowsableCache.getXml(s8);
+                            COM.datachannel.xml.om.Document document = BrowsableCache.getXml(s8);
                             if(document.getDocumentElement() == null)
                             {
                                 StringBuffer stringbuffer = new StringBuffer();
-                                document.loadXML(((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor).getBrowseData(stringbuffer));
+                                document.loadXML(((BrowsableMonitor)atomicmonitor).getBrowseData(stringbuffer));
                             }
                             jgl.Array array6 = new Array();
                             for(; enumeration3.hasMoreElements(); array6.add(enumeration3.nextElement())) { }
@@ -1619,18 +1640,18 @@ label2:
                             {
                                 String s40 = as1[i5] + "-condition" + j5;
                                 String s41 = (String)hashmap9.get(s40);
-                                if(s41 == null || !s41.startsWith(COM.dragonflow.SiteView.BrowsableBase.PROPERTY_NAME_COUNTER_VALUE))
+                                if(s41 == null || !s41.startsWith(BrowsableBase.PROPERTY_NAME_COUNTER_VALUE))
                                 {
                                     continue;
                                 }
-                                int k5 = java.lang.Integer.parseInt(s41.substring(COM.dragonflow.SiteView.BrowsableBase.PROPERTY_NAME_COUNTER_VALUE.length()));
+                                int k5 = java.lang.Integer.parseInt(s41.substring(BrowsableBase.PROPERTY_NAME_COUNTER_VALUE.length()));
                                 java.lang.Integer integer1 = (java.lang.Integer)hashmap8.get(new Integer(k5));
                                 if(integer1 == null)
                                 {
                                     request.unsetValue(s40);
                                 } else
                                 {
-                                    String s42 = COM.dragonflow.SiteView.BrowsableBase.PROPERTY_NAME_COUNTER_VALUE + integer1.intValue();
+                                    String s42 = BrowsableBase.PROPERTY_NAME_COUNTER_VALUE + integer1.intValue();
                                     request.setValue(s40, s42);
                                 }
                             }
@@ -1641,7 +1662,7 @@ label2:
                     jgl.Array array1 = atomicmonitor.getProperties();
                     array1 = COM.dragonflow.Properties.StringProperty.sortByOrder(array1);
                     Enumeration enumeration = array1.elements();
-                    COM.dragonflow.SiteView.ScheduleManager schedulemanager = COM.dragonflow.SiteView.ScheduleManager.getInstance();
+                    ScheduleManager schedulemanager = ScheduleManager.getInstance();
                     String s9 = schedulemanager.getScheduleIdFromMonitor(atomicmonitor);
                     do
                     {
@@ -1679,20 +1700,20 @@ label2:
                                         String s26 = request.getValue("class");
                                         if(s26.equals("") && !s24.equals(""))
                                         {
-                                            String s33 = s2 + COM.dragonflow.SiteView.SiteViewObject.ID_SEPARATOR + s24;
-                                            COM.dragonflow.SiteView.Monitor monitor1 = (COM.dragonflow.SiteView.Monitor)siteviewgroup.getElement(s33);
+                                            String s33 = s2 + SiteViewObject.ID_SEPARATOR + s24;
+                                            Monitor monitor1 = (Monitor)siteviewgroup.getElement(s33);
                                             s26 = monitor1.getProperty("_class");
                                         }
                                         if(s26.startsWith("URLRemote"))
                                         {
-                                            COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(request.getAccount());
-                                            String s36 = monitorgroup.getProperty(COM.dragonflow.SiteView.Monitor.pGroupID);
+                                            MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(request.getAccount());
+                                            String s36 = monitorgroup.getProperty(Monitor.pGroupID);
                                             jgl.Array array5 = monitorgroup.getMonitorsOfClass("", s36);
                                             Enumeration enumeration5 = array5.elements();
                                             int l4 = 0;
                                             while (enumeration5.hasMoreElements())
                                                 {
-                                                COM.dragonflow.SiteView.Monitor monitor2 = (COM.dragonflow.SiteView.Monitor)enumeration5.nextElement();
+                                                Monitor monitor2 = (Monitor)enumeration5.nextElement();
                                                 if(!s20.equals("Edit"))
                                                 {
                                                     // XXX
@@ -1758,8 +1779,8 @@ label2:
                                             hashmap.put(stringproperty1, "For this account, monitors must run at intervals of " + COM.dragonflow.Utils.TextUtils.secondsToString(i) + " or more.");
                                         }
                                     }
-                                    COM.dragonflow.SiteView.AtomicMonitor _tmp = atomicmonitor;
-                                    if(stringproperty1 == COM.dragonflow.SiteView.AtomicMonitor.pName)
+                                    AtomicMonitor _tmp = atomicmonitor;
+                                    if(stringproperty1 == AtomicMonitor.pName)
                                     {
                                         if(s15.equals(s6))
                                         {
@@ -1772,7 +1793,7 @@ label2:
                                     if((stringproperty1 instanceof COM.dragonflow.Properties.ScalarProperty) && ((COM.dragonflow.Properties.ScalarProperty)stringproperty1).multiple)
                                     {
                                         jgl.Array array4 = new Array();
-                                        if(!COM.dragonflow.SiteView.Platform.isStandardAccount(request.getAccount()) && stringproperty1.getName().equals("_location"))
+                                        if(!Platform.isStandardAccount(request.getAccount()) && stringproperty1.getName().equals("_location"))
                                         {
                                             Enumeration enumeration1 = atomicmonitor.getMultipleValues(stringproperty1);
                                             String s27 = "";
@@ -1861,11 +1882,11 @@ label2:
                         printForm(s, s1, atomicmonitor, hashmap, array);
                         break label0;
                     }
-                    COM.dragonflow.SiteView.AtomicMonitor _tmp1 = atomicmonitor;
-                    if(atomicmonitor.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pName).length() == 0)
+                    AtomicMonitor _tmp1 = atomicmonitor;
+                    if(atomicmonitor.getProperty(AtomicMonitor.pName).length() == 0)
                     {
-                        COM.dragonflow.SiteView.AtomicMonitor _tmp2 = atomicmonitor;
-                        atomicmonitor.setProperty(COM.dragonflow.SiteView.AtomicMonitor.pName, atomicmonitor.defaultTitle());
+                        AtomicMonitor _tmp2 = atomicmonitor;
+                        atomicmonitor.setProperty(AtomicMonitor.pName, atomicmonitor.defaultTitle());
                     }
                     jgl.HashMap hashmap5 = atomicmonitor.getValuesTable();
                     jgl.Array array3 = ReadGroupFrames(s2);
@@ -1879,7 +1900,7 @@ label2:
                             s16 = "1";
                         }
                         hashmap5.remove("_id");
-                        atomicmonitor.setProperty(COM.dragonflow.SiteView.Monitor.pID, s16);
+                        atomicmonitor.setProperty(Monitor.pID, s16);
                         hashmap5.put("_class", request.getValue("class"));
                         array3.insert(k1, hashmap5);
                         String s25 = COM.dragonflow.Utils.TextUtils.increment(s16);
@@ -1887,7 +1908,7 @@ label2:
                     } else
                     {
                         s16 = request.getValue("id");
-                        int j3 = COM.dragonflow.SiteView.monitorUtils.findMonitorIndex(array3, s16);
+                        int j3 = monitorUtils.findMonitorIndex(array3, s16);
                         java.lang.Object obj1 = array3.at(j3);
                         array3.insert(k1, hashmap5);
                         array3.remove(obj1);
@@ -1898,7 +1919,7 @@ label2:
                     }
 //                    if(COM.dragonflow.TopazIntegration.TopazManager.getInstance().getTopazServerSettings().isConnected() && atomicmonitor.isDispatcher())
 //                    {
-//                        COM.dragonflow.SiteView.DispatcherMonitor.notifyDispatcherMonitor(COM.dragonflow.SiteView.DispatcherMonitor.EDIT_MON, atomicmonitor);
+//                        DispatcherMonitor.notifyDispatcherMonitor(DispatcherMonitor.EDIT_MON, atomicmonitor);
 //                    }
                     WriteGroupFrames(s2, array3);
                     if(s.equals("Add"))
@@ -1910,25 +1931,25 @@ label2:
                     }
                     if(s.equals("Edit") || s.equals("Add"))
                     {
-                        COM.dragonflow.SiteView.AtomicMonitor _tmp3 = atomicmonitor;
-                        if(atomicmonitor.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pDisabled).length() == 0 && atomicmonitor.getPropertyAsLong(COM.dragonflow.SiteView.AtomicMonitor.pFrequency) != 0L && COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().internalServerActive())
+                        AtomicMonitor _tmp3 = atomicmonitor;
+                        if(atomicmonitor.getProperty(AtomicMonitor.pDisabled).length() == 0 && atomicmonitor.getPropertyAsLong(AtomicMonitor.pFrequency) != 0L && SiteViewGroup.currentSiteView().internalServerActive())
                         {
                             autoFollowPortalRefresh = false;
                             if(isPortalServerRequest())
                             {
-                                COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages();
+                                SiteViewGroup.updateStaticPages();
                             }
                             printRefreshPage(getPageLink("monitor", "RefreshMonitor") + "&group=" + COM.dragonflow.HTTP.HTTPRequest.encodeString(s2) + "&id=" + s16, 0);
                             break label2;
                         }
                     }
-                    COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages(s2);
+                    SiteViewGroup.updateStaticPages(s2);
                     printReturnRefresh(COM.dragonflow.Page.CGI.getGroupDetailURL(request, s2), 0);
                 }
-                if(request.isPost() && COM.dragonflow.Page.treeControl.notHandled(request) && (atomicmonitor instanceof COM.dragonflow.SiteView.BrowsableMonitor))
+                if(request.isPost() && COM.dragonflow.Page.treeControl.notHandled(request) && (atomicmonitor instanceof BrowsableMonitor))
                 {
                     String s22 = request.getValue("uniqueID");
-                    COM.dragonflow.SiteView.BrowsableCache.getCache(s22, false, true);
+                    BrowsableCache.getCache(s22, false, true);
                 }
                 break label0;
             }
@@ -1936,7 +1957,7 @@ label2:
         }
     }
 
-    void printNotAvailable(COM.dragonflow.SiteView.Monitor monitor, String s)
+    void printNotAvailable(Monitor monitor, String s)
     {
         COM.dragonflow.Page.CGI.menus menus1 = getNavItems(request);
         printButtonBar((String)monitor.getClassProperty("help"), s, menus1);
@@ -1964,7 +1985,7 @@ label2:
         while (enumeration.hasMoreElements())
         {
         Class class1 = (java.lang.Class)enumeration.nextElement();
-        String s3 = (String)COM.dragonflow.SiteView.Monitor.getClassPropertyByObject(class1.getName(), "classType");
+        String s3 = (String)Monitor.getClassPropertyByObject(class1.getName(), "classType");
         if(s3 == null)
         {
             s3 = "";
@@ -1975,8 +1996,8 @@ label2:
         }
         try
         {
-        COM.dragonflow.SiteView.AtomicMonitor atomicmonitor;
-        atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)class1.newInstance();
+        AtomicMonitor atomicmonitor;
+        atomicmonitor = (AtomicMonitor)class1.newInstance();
         String s5 = request.getPermission("_monitorType", (String)atomicmonitor.getClassProperty("class"));
         if(s5.length() == 0)
         {
@@ -2058,7 +2079,7 @@ label2:
             {
                 s2 = "&portalserver=" + request.getPortalServer();
             }
-            COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+            SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
             String s4 = siteviewgroup.getSetting("_disableWebtrace");
             if(s4 == null || s4.length() <= 0)
             {
@@ -2135,7 +2156,7 @@ label2:
         while (enumeration.hasMoreElements())
         {
         Class class1 = (java.lang.Class)enumeration.nextElement();
-        String s3 = (String)COM.dragonflow.SiteView.Monitor.getClassPropertyByObject(class1.getName(), "classType");
+        String s3 = (String)Monitor.getClassPropertyByObject(class1.getName(), "classType");
         if(s3 == null)
         {
             s3 = "";
@@ -2147,9 +2168,9 @@ label2:
         
         try
         {
-        COM.dragonflow.SiteView.AtomicMonitor atomicmonitor;
+        AtomicMonitor atomicmonitor;
         String s4;
-        atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)class1.newInstance();
+        atomicmonitor = (AtomicMonitor)class1.newInstance();
         s4 = new String((String)atomicmonitor.getClassProperty("title"));
         if(s4 == null || s4.length() == 0)
         {
@@ -2157,8 +2178,8 @@ label2:
         }
         String s5;
         String s6;
-        boolean flag2 = (atomicmonitor instanceof COM.dragonflow.SiteView.ServerMonitor) && !(atomicmonitor instanceof COM.dragonflow.StandardMonitor.ScriptMonitor) && !(atomicmonitor instanceof COM.dragonflow.StandardMonitor.LogMonitor);
-        boolean flag3 = (atomicmonitor instanceof COM.dragonflow.SiteView.ServerMonitor) && ((COM.dragonflow.SiteView.ServerMonitor)atomicmonitor).remoteCommandLineAllowed();
+        boolean flag2 = (atomicmonitor instanceof ServerMonitor) && !(atomicmonitor instanceof COM.dragonflow.StandardMonitor.ScriptMonitor) && !(atomicmonitor instanceof COM.dragonflow.StandardMonitor.LogMonitor);
+        boolean flag3 = (atomicmonitor instanceof ServerMonitor) && ((ServerMonitor)atomicmonitor).remoteCommandLineAllowed();
         s5 = "";
         if(flag2)
         {
@@ -2227,7 +2248,7 @@ label2:
                 java.lang.Class class1 = (java.lang.Class)enumeration.nextElement();
                 try
                 {
-                    COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)class1.newInstance();
+                    AtomicMonitor atomicmonitor = (AtomicMonitor)class1.newInstance();
                     String s1 = (String)atomicmonitor.getClassProperty("class");
                     String s2 = (String)atomicmonitor.getClassProperty("title");
                     if(s2 != null && s2.length() > 0)
@@ -2314,7 +2335,7 @@ label2:
                 array = ReadGroupFrames(request.getAccount());
             } else
             {
-                String s2 = COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config";
+                String s2 = Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config";
                 java.io.File file = new File(s2);
                 if(!file.exists())
                 {
@@ -2340,7 +2361,7 @@ label2:
                 break;
             }
             jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
-            if(!COM.dragonflow.SiteView.Monitor.isReportFrame(hashmap))
+            if(!Monitor.isReportFrame(hashmap))
             {
                 array1.add(hashmap);
             } else
@@ -2395,7 +2416,7 @@ label2:
                 WriteGroupFrames(request.getAccount(), array1);
             } else
             {
-                COM.dragonflow.Properties.FrameFile.writeToFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config", array1);
+                COM.dragonflow.Properties.FrameFile.writeToFile(Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config", array1);
             }
         }
         catch(java.io.IOException ioexception1) { }
@@ -2410,16 +2431,16 @@ label2:
         {
             if(s.equals("Delete"))
             {
-                COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+                SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
                 jgl.Array array2 = ReadGroupFrames(s2);
-                COM.dragonflow.SiteView.AtomicMonitor atomicmonitor1 = COM.dragonflow.SiteView.AtomicMonitor.MonitorCreate(array2, s3, request.getPortalServer(), request);
-                COM.dragonflow.SiteView.AtomicMonitor atomicmonitor2 = (COM.dragonflow.SiteView.AtomicMonitor)siteviewgroup.getElement(s2 + COM.dragonflow.SiteView.SiteViewGroup.ID_SEPARATOR + atomicmonitor1.getFullID());
-//                if(!COM.dragonflow.SiteView.TopazConfigurator.delMonitors.contains(atomicmonitor2))
+                AtomicMonitor atomicmonitor1 = AtomicMonitor.MonitorCreate(array2, s3, request.getPortalServer(), request);
+                AtomicMonitor atomicmonitor2 = (AtomicMonitor)siteviewgroup.getElement(s2 + SiteViewGroup.ID_SEPARATOR + atomicmonitor1.getFullID());
+//                if(!TopazConfigurator.delMonitors.contains(atomicmonitor2))
 //                {
-//                    COM.dragonflow.SiteView.TopazConfigurator.delMonitors.add(atomicmonitor2);
+//                    TopazConfigurator.delMonitors.add(atomicmonitor2);
 //                }
                 siteviewgroup.notifyMonitorDeletion(atomicmonitor2);
-                COM.dragonflow.SiteView.ScheduleManager schedulemanager = COM.dragonflow.SiteView.ScheduleManager.getInstance();
+                ScheduleManager schedulemanager = ScheduleManager.getInstance();
                 schedulemanager.deleteMonitorFromScheduleObject(schedulemanager.getScheduleIdFromMonitor(atomicmonitor1), atomicmonitor2.getFullID());
             }
             try
@@ -2432,7 +2453,7 @@ label2:
                     printRefreshHeader("Deleting Monitor", COM.dragonflow.Page.CGI.getGroupDetailURL(request, s2), 5);
                 }
                 jgl.Array array = ReadGroupFrames(s2);
-                int i = COM.dragonflow.SiteView.monitorUtils.findMonitorIndex(array, s3);
+                int i = monitorUtils.findMonitorIndex(array, s3);
                 array.remove(i);
                 WriteGroupFrames(s2, array);
                 if(!isPortalServerRequest())
@@ -2441,7 +2462,7 @@ label2:
                 }
                 outputStream.println("<p><a href=" + COM.dragonflow.Page.CGI.getGroupDetailURL(request, s2) + ">Return to Group page</a>");
                 printFooter(outputStream);
-                COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages(s2);
+                SiteViewGroup.updateStaticPages(s2);
             }
             catch(java.lang.Exception exception)
             {
@@ -2450,9 +2471,9 @@ label2:
         } else
         {
             jgl.Array array1 = ReadGroupFrames(s2);
-            COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = COM.dragonflow.SiteView.AtomicMonitor.MonitorCreate(array1, s3, request.getPortalServer(), request);
-            COM.dragonflow.SiteView.AtomicMonitor _tmp = atomicmonitor;
-            String s4 = atomicmonitor.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pName);
+            AtomicMonitor atomicmonitor = AtomicMonitor.MonitorCreate(array1, s3, request.getPortalServer(), request);
+            AtomicMonitor _tmp = atomicmonitor;
+            String s4 = atomicmonitor.getProperty(AtomicMonitor.pName);
             COM.dragonflow.Page.CGI.menus menus1 = getNavItems(request);
             printButtonBar("Group.htm", "", menus1);
             outputStream.println("<h3>Delete Monitor</h3>");
@@ -2465,9 +2486,9 @@ label2:
 
     void printMonitorProgressPage(String s, String s1, String s2)
     {
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         boolean flag = false;
-        String s3 = s1 + COM.dragonflow.SiteView.SiteViewGroup.ID_SEPARATOR + s2;
+        String s3 = s1 + SiteViewGroup.ID_SEPARATOR + s2;
         if(siteviewgroup != null && siteviewgroup.internalServerActive() && siteviewgroup.getSetting("_disableRefreshPage").length() == 0)
         {
             outputStream.println("<H3>" + s + " monitor</H3><P>" + "<A HREF=" + getWhereURL(COM.dragonflow.Page.CGI.getGroupDetailURL(request, s1)) + ">" + getWhereLabel("Return to Group page") + "</A><P><HR>");
@@ -2480,20 +2501,20 @@ label2:
             if(!isPortalServerRequest())
             {
                 printContentStartComment();
-                COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)siteviewgroup.getElement(s3);
+                AtomicMonitor atomicmonitor = (AtomicMonitor)siteviewgroup.getElement(s3);
                 if(atomicmonitor != null)
                 {
-                    atomicmonitor.setProperty(COM.dragonflow.SiteView.Monitor.pLastUpdate, "-1");
-                    atomicmonitor.setProperty(COM.dragonflow.SiteView.Monitor.pForceRefresh, request.getValue("forceRefresh"));
+                    atomicmonitor.setProperty(Monitor.pLastUpdate, "-1");
+                    atomicmonitor.setProperty(Monitor.pForceRefresh, request.getValue("forceRefresh"));
                 }
-                COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages(s1);
-                COM.dragonflow.SiteView.AtomicMonitor atomicmonitor1 = (COM.dragonflow.SiteView.AtomicMonitor)siteviewgroup.getElement(s3);
+                SiteViewGroup.updateStaticPages(s1);
+                AtomicMonitor atomicmonitor1 = (AtomicMonitor)siteviewgroup.getElement(s3);
                 if(atomicmonitor1 != null)
                 {
                     if(atomicmonitor1.progressString.equals("Depends On Monitor Disabled\n"))
                     {
-                        COM.dragonflow.SiteView.AtomicMonitor _tmp = atomicmonitor1;
-                        outputStream.println("Monitor Disabled by Depends On: " + atomicmonitor1.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pName) + "<P>&nbsp;&nbsp;&nbsp;");
+                        AtomicMonitor _tmp = atomicmonitor1;
+                        outputStream.println("Monitor Disabled by Depends On: " + atomicmonitor1.getProperty(AtomicMonitor.pName) + "<P>&nbsp;&nbsp;&nbsp;");
                         outputStream.println("<HR>");
                         printFooter(outputStream);
                         printRefreshHeader("", COM.dragonflow.Page.CGI.getGroupDetailURL(request, s1), 3);
@@ -2502,23 +2523,23 @@ label2:
                     }
                     if(atomicmonitor1.progressString.startsWith("disabled"))
                     {
-                        COM.dragonflow.SiteView.AtomicMonitor _tmp1 = atomicmonitor1;
-                        outputStream.println("Monitor Disabled by Schedule: " + atomicmonitor1.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pName) + "<P>&nbsp;&nbsp;&nbsp;");
+                        AtomicMonitor _tmp1 = atomicmonitor1;
+                        outputStream.println("Monitor Disabled by Schedule: " + atomicmonitor1.getProperty(AtomicMonitor.pName) + "<P>&nbsp;&nbsp;&nbsp;");
                         outputStream.println("<HR>");
                         printFooter(outputStream);
                         printRefreshHeader("", COM.dragonflow.Page.CGI.getGroupDetailURL(request, s1), 3);
                         outputStream.flush();
                         return;
                     }
-                    COM.dragonflow.SiteView.AtomicMonitor _tmp2 = atomicmonitor1;
-                    outputStream.println("Asked SiteView to run monitor: " + atomicmonitor1.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pName) + "<P>&nbsp;&nbsp;&nbsp;");
+                    AtomicMonitor _tmp2 = atomicmonitor1;
+                    outputStream.println("Asked SiteView to run monitor: " + atomicmonitor1.getProperty(AtomicMonitor.pName) + "<P>&nbsp;&nbsp;&nbsp;");
                     outputStream.flush();
                     long l = 1000L;
-                    long l1 = COM.dragonflow.SiteView.Platform.timeMillis();
+                    long l1 = Platform.timeMillis();
                     long l2 = l1 + (long)(siteviewgroup.getSettingAsLong("_monitorProgressTimeout", 20) * 1000);
                     flag = true;
                     int i = 0;
-                    for(; atomicmonitor1.progressString.length() == 0 && COM.dragonflow.SiteView.Platform.timeMillis() <= l2; COM.dragonflow.SiteView.Platform.sleep(l))
+                    for(; atomicmonitor1.progressString.length() == 0 && Platform.timeMillis() <= l2; Platform.sleep(l))
                     {
                         if(i % 5 == 0)
                         {
@@ -2530,7 +2551,7 @@ label2:
 
                     String s5 = "";
                     i = 0;
-                    for(; atomicmonitor1.progressString.indexOf("\n\n") == -1 && COM.dragonflow.SiteView.Platform.timeMillis() <= l2; COM.dragonflow.SiteView.Platform.sleep(l))
+                    for(; atomicmonitor1.progressString.indexOf("\n\n") == -1 && Platform.timeMillis() <= l2; Platform.sleep(l))
                     {
                         i++;
                         if(s5.length() < atomicmonitor1.progressString.length())
@@ -2552,7 +2573,7 @@ label2:
                         outputStream.println(COM.dragonflow.Utils.TextUtils.replaceChar(atomicmonitor1.progressString.substring(s5.length()), '\n', "<br>&nbsp;&nbsp;&nbsp;\n"));
                         outputStream.flush();
                     }
-                    if(COM.dragonflow.SiteView.Platform.timeMillis() > l2)
+                    if(Platform.timeMillis() > l2)
                     {
                         outputStream.println("Monitor still running.<br>&nbsp;&nbsp;&nbsp;");
                     }
@@ -2561,7 +2582,7 @@ label2:
                 printContentEndComment();
             } else
             {
-                COM.dragonflow.SiteView.PortalSiteView portalsiteview = (COM.dragonflow.SiteView.PortalSiteView)getSiteView();
+                PortalSiteView portalsiteview = (PortalSiteView)getSiteView();
                 if(portalsiteview != null)
                 {
                     String s4 = portalsiteview.getURLContentsFromRemoteSiteView("/SiteView/cgi/go.exe/SiteView?page=monitor&operation=RefreshMonitor&account=administrator&refresh=true&group=" + COM.dragonflow.Page.monitorPage.getGroupIDRelative(s1) + "&id=" + s2, "_centrascopeRefreshMatch");
@@ -2606,8 +2627,8 @@ label2:
             {
                 s5 = s5 + "/" + request.getValue("id");
             }
-            COM.dragonflow.SiteView.SiteViewObject siteviewobject = COM.dragonflow.SiteView.Portal.getSiteViewForID(s5);
-            COM.dragonflow.SiteView.SiteViewObject siteviewobject1 = siteviewobject.getElement(s5);
+            SiteViewObject siteviewobject = Portal.getSiteViewForID(s5);
+            SiteViewObject siteviewobject1 = siteviewobject.getElement(s5);
             if(siteviewobject1 == null)
             {
                 siteviewobject1 = siteviewobject;
@@ -2672,7 +2693,7 @@ label2:
             String s2 = "Updating";
             if(request.getValue("refresh").length() > 0 && !isPortalServerRequest())
             {
-                COM.dragonflow.Properties.FrameFile.touchFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/" + s4 + ".mg");
+                COM.dragonflow.Properties.FrameFile.touchFile(Platform.getRoot() + "/groups/" + s4 + ".mg");
                 s2 = "Running";
             }
             printMonitorProgressPage(s2, s4, request.getValue("id"));
@@ -2686,7 +2707,7 @@ label2:
         throws java.io.IOException
     {
         COM.dragonflow.Page.monitorPage monitorpage = new monitorPage();
-        String s = COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "docs" + java.io.File.separator;
+        String s = Platform.getRoot() + java.io.File.separator + "docs" + java.io.File.separator;
         if(args.length > 0)
         {
             monitorpage.args = args;
@@ -2714,7 +2735,7 @@ label2:
                     }
                     try
                     {
-                        COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor)class1.newInstance();
+                        Monitor monitor = (Monitor)class1.newInstance();
                         jgl.Array array1 = monitor.getLogProperties();
                         printstream.println("<TABLE BORDER=1 cellspacing=0><CAPTION>");
                         printstream.println("Monitor Type: " + monitor.getClassProperty("title") + "(" + monitor.getClassProperty("class") + ")");
@@ -2754,7 +2775,7 @@ label2:
                     }
                     try
                     {
-                        COM.dragonflow.SiteView.Monitor monitor1 = (COM.dragonflow.SiteView.Monitor)class2.newInstance();
+                        Monitor monitor1 = (Monitor)class2.newInstance();
                         jgl.Array array2 = monitor1.getLogProperties();
                         printstream1.println("<TABLE BORDER=1 cellspacing=0><CAPTION>");
                         printstream1.println("Monitor Type: " + monitor1.getClassProperty("title") + "(" + monitor1.getClassProperty("class") + ")");
@@ -2796,7 +2817,7 @@ label2:
                     java.lang.Class class3 = (java.lang.Class)array.at(k);
                     try
                     {
-                        COM.dragonflow.SiteView.Monitor monitor2 = (COM.dragonflow.SiteView.Monitor)class3.newInstance();
+                        Monitor monitor2 = (Monitor)class3.newInstance();
                         if(k % 2 == 0)
                         {
                             printstream2.println("<TR>");
@@ -2819,7 +2840,7 @@ label2:
                     java.lang.Class class4 = (java.lang.Class)array.at(l);
                     try
                     {
-                        COM.dragonflow.SiteView.Monitor monitor3 = (COM.dragonflow.SiteView.Monitor)class4.newInstance();
+                        Monitor monitor3 = (Monitor)class4.newInstance();
                         printstream2.println("<TABLE BORDER=1 cellspacing=0><CAPTION>");
                         printstream2.println("<A NAME=" + monitor3.getClassProperty("class") + ">");
                         printstream2.println("Monitor Type: " + monitor3.getClassProperty("title"));
@@ -2892,7 +2913,7 @@ label2:
         return true;
     }
 
-    private boolean setCounerProperty(String s, String s1, jgl.HashMap hashmap, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, int i, String s2)
+    private boolean setCounerProperty(String s, String s1, jgl.HashMap hashmap, AtomicMonitor atomicmonitor, int i, String s2)
     {
         if(request.getValue(COM.dragonflow.Properties.BrowsableProperty.BROWSE + s1).length() > 0)
         {
@@ -2923,7 +2944,7 @@ label2:
         }
         if(!batch)
         {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            jgl.HashMap hashmap = MasterConfig.getMasterConfig();
             showMonitors = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_monitorsFilter");
             if(showMonitors.length() > 0)
             {

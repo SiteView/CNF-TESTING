@@ -1215,18 +1215,18 @@ public class APIMonitor extends APISiteView
         return sspropertydetails;
     }
 
-    public SSMonitorInstance[] getInstances(String s, int i)
+    public SSMonitorInstance[] getInstances(String groupid, int i)
         throws COM.dragonflow.SiteViewException.SiteViewException
     {
         SSMonitorInstance assmonitorinstance[] = null;
         try
         {
-            if(s == null || s.length() == 0)
+            if(groupid == null || groupid.length() == 0)
             {
                 throw new SiteViewParameterException(COM.dragonflow.Resource.SiteViewErrorCodes.ERR_PARAM_API_MONITOR_GROUP_ID_MISSING);
             }
             java.util.Vector vector = new Vector();
-            java.util.Collection collection = getMonitorsForGroup(s);
+            java.util.Collection collection = getMonitorsForGroup(groupid);
             String s1;
             String s2;
             SSInstanceProperty assinstanceproperty1[];
@@ -1234,7 +1234,7 @@ public class APIMonitor extends APISiteView
             {
                 COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor)iterator.next();
                 s1 = monitor.getProperty(COM.dragonflow.SiteView.Monitor.pOwnerID);
-                if(!$assertionsDisabled && !s1.equals(s))
+                if(!$assertionsDisabled && !s1.equals(groupid))
                 {
                     throw new AssertionError();
                 }
@@ -1280,19 +1280,19 @@ public class APIMonitor extends APISiteView
         return assmonitorinstance;
     }
 
-    public SSInstanceProperty[] getInstanceProperties(String s, String s1, int i, boolean flag)
+    public SSInstanceProperty[] getInstanceProperties(String monitorid, String groupid, int i, boolean flag)
         throws COM.dragonflow.SiteViewException.SiteViewException
     {
         SSInstanceProperty assinstanceproperty[] = null;
         try
         {
             COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = null;
-            java.util.Collection collection = getMonitorsForGroup(s1);
+            java.util.Collection collection = getMonitorsForGroup(groupid);
             java.util.Iterator iterator = collection.iterator();
             while (iterator.hasNext()) {
                 COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor)iterator.next();
                 String s2 = monitor.getProperty("_id");
-                if(s2 != null && s2.equals(s))
+                if(s2 != null && s2.equals(monitorid))
                 {
                 atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)monitor;
                 break;
@@ -1301,7 +1301,7 @@ public class APIMonitor extends APISiteView
             if(atomicmonitor != null)
             {
                 assinstanceproperty = getPropertiesForMonitorInstance(atomicmonitor, "", i);
-                if(flag && Alert.getInstance().getAlertsResidingInGroupOrMonitor(s1, s).size() > 0)
+                if(flag && Alert.getInstance().getAlertsResidingInGroupOrMonitor(groupid, monitorid).size() > 0)
                 {
                     SSInstanceProperty assinstanceproperty1[] = new SSInstanceProperty[assinstanceproperty.length + 1];
                     java.lang.System.arraycopy(assinstanceproperty, 0, assinstanceproperty1, 0, assinstanceproperty.length);
@@ -1311,7 +1311,7 @@ public class APIMonitor extends APISiteView
             } else
             {
                 throw new SiteViewParameterException(COM.dragonflow.Resource.SiteViewErrorCodes.ERR_PARAM_API_MONITOR_UNASSOCIATED_ID, new String[] {
-                    s1 + "/" + s
+                		groupid + "/" + monitorid
                 });
             }
         }
@@ -1329,13 +1329,13 @@ public class APIMonitor extends APISiteView
         return assinstanceproperty;
     }
 
-    public SSInstanceProperty[] getInstanceProperties(String s, String s1, int i)
+    public SSInstanceProperty[] getInstanceProperties(String monitorid, String groupid, int i)
         throws COM.dragonflow.SiteViewException.SiteViewException
     {
-        return getInstanceProperties(s, s1, i, false);
+        return getInstanceProperties(monitorid, groupid, i, false);
     }
 
-    public SSInstanceProperty getInstanceProperty(String s, String s1, String s2)
+    public SSInstanceProperty getInstanceProperty(String monitorid, String groupid, String s2)
         throws COM.dragonflow.SiteViewException.SiteViewException
     {
         SSInstanceProperty ssinstanceproperty = null;
@@ -1349,7 +1349,7 @@ public class APIMonitor extends APISiteView
             while (enumeration.hasMoreElements()) {
                 COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor)enumeration.nextElement();
                 String s3 = monitor.getProperty("_id");
-                if((s3 != null) & s3.equals(s1))
+                if((s3 != null) & s3.equals(groupid))
                 {
                 atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)monitor;
                 break;
@@ -1358,10 +1358,10 @@ public class APIMonitor extends APISiteView
             Object obj = null;
             if(atomicmonitor != null)
             {
-                SSInstanceProperty assinstanceproperty[] = getPropertiesForMonitorInstance(atomicmonitor, s, APISiteView.FILTER_ALL);
+                SSInstanceProperty assinstanceproperty[] = getPropertiesForMonitorInstance(atomicmonitor, monitorid, APISiteView.FILTER_ALL);
                 for(int i = 0; i < assinstanceproperty.length; i++)
                 {
-                    if(assinstanceproperty[i].getName().equals(s))
+                    if(assinstanceproperty[i].getName().equals(monitorid))
                     {
                         ssinstanceproperty = assinstanceproperty[i];
                     }
@@ -1370,7 +1370,7 @@ public class APIMonitor extends APISiteView
             } else
             {
                 throw new SiteViewParameterException(COM.dragonflow.Resource.SiteViewErrorCodes.ERR_PARAM_API_MONITOR_UNASSOCIATED_ID, new String[] {
-                    s2 + "/" + s1
+                    s2 + "/" + groupid
                 });
             }
         }

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteView.RealTimeReportingData;
 
 // Referenced classes of package COM.dragonflow.Utils.Snmp.Monitoring:
@@ -90,7 +91,7 @@ public class Device
         return true;
     }
 
-    public int populateRegularProperties(COM.dragonflow.Properties.StringProperty astringproperty[], COM.dragonflow.SiteView.Monitor monitor)
+    public int populateRegularProperties(StringProperty astringproperty[], COM.dragonflow.SiteView.Monitor monitor)
     {
         int i = 0;
         int j = metrics.size();
@@ -115,7 +116,7 @@ public class Device
         return (java.util.Vector)COM.dragonflow.Utils.SerializerUtils.decodeJavaObjectFromStringBase64(s);
     }
 
-    public int populateRTProperties(COM.dragonflow.Properties.StringProperty astringproperty[], COM.dragonflow.SiteView.Monitor monitor, COM.dragonflow.Properties.StringProperty stringproperty)
+    public int populateRTProperties(StringProperty astringproperty[], COM.dragonflow.SiteView.Monitor monitor, StringProperty stringproperty)
     {
         int i = 0;
         int j = metrics.size();
@@ -171,21 +172,21 @@ public class Device
         return i;
     }
 
-    public COM.dragonflow.Properties.StringProperty[] getPropertiesOnSameGraph(COM.dragonflow.SiteView.Monitor monitor, COM.dragonflow.Properties.StringProperty stringproperty, COM.dragonflow.Properties.StringProperty stringproperty1)
+    public StringProperty[] getPropertiesOnSameGraph(COM.dragonflow.SiteView.Monitor monitor, StringProperty stringproperty, StringProperty stringproperty1)
     {
         String s = monitor.getProperty(stringproperty1);
         java.util.HashMap hashmap;
         String as[];
         if((hashmap = (java.util.HashMap)COM.dragonflow.Utils.SerializerUtils.decodeJavaObjectFromStringBase64(s)) != null && (as = (String[])hashmap.get(stringproperty.getName())) != null)
         {
-            COM.dragonflow.Properties.StringProperty astringproperty[] = new COM.dragonflow.Properties.StringProperty[as.length];
+            StringProperty astringproperty[] = new StringProperty[as.length];
             for(int i = 0; i < as.length; i++)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty2 = monitor.getPropertyObject(as[i]);
+                StringProperty stringproperty2 = monitor.getPropertyObject(as[i]);
                 if(stringproperty2 == null)
                 {
                     COM.dragonflow.Log.LogManager.log("Error", "Device.getPropertiesOnSameGraph could not find property: " + as[i]);
-                    return (new COM.dragonflow.Properties.StringProperty[] {
+                    return (new StringProperty[] {
                         stringproperty
                     });
                 }
@@ -195,7 +196,7 @@ public class Device
             return astringproperty;
         } else
         {
-            return (new COM.dragonflow.Properties.StringProperty[] {
+            return (new StringProperty[] {
                 stringproperty
             });
         }
@@ -234,22 +235,22 @@ public class Device
         initialRTPropertyValue = "-1";
     }
 
-    public void updateRegularPropertyNameToLabelMap(COM.dragonflow.Properties.StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
+    public void updateRegularPropertyNameToLabelMap(StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
     {
         monitor.setProperty(stringproperty, COM.dragonflow.Utils.SerializerUtils.encodeObjectBase64(propertyNametoMetricLabel, false));
     }
 
-    public void updateRTPropertyNameToLabelMap(COM.dragonflow.Properties.StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
+    public void updateRTPropertyNameToLabelMap(StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
     {
         monitor.setProperty(stringproperty, COM.dragonflow.Utils.SerializerUtils.encodeObjectBase64(RTPropertyNametoMetricLabel, false));
     }
 
-    public void updateRTPropertyNameToGraphLabelMap(COM.dragonflow.Properties.StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
+    public void updateRTPropertyNameToGraphLabelMap(StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
     {
         monitor.setProperty(stringproperty, COM.dragonflow.Utils.SerializerUtils.encodeObjectBase64(RTPropertyNametoGraphLabel, false));
     }
 
-    public void setRegularyPropertyNameToLabelMap(COM.dragonflow.Properties.StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
+    public void setRegularyPropertyNameToLabelMap(StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
     {
         if(monitor.getProperty(stringproperty).length() > 0)
         {
@@ -257,7 +258,7 @@ public class Device
         }
     }
 
-    public void setRTPropertyNameToLabelMap(COM.dragonflow.Properties.StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
+    public void setRTPropertyNameToLabelMap(StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
     {
         if(monitor.getProperty(stringproperty).length() > 0)
         {
@@ -265,7 +266,7 @@ public class Device
         }
     }
 
-    public void setRTPropertyNameToGraphLabelMap(COM.dragonflow.Properties.StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
+    public void setRTPropertyNameToGraphLabelMap(StringProperty stringproperty, COM.dragonflow.SiteView.Monitor monitor)
     {
         if(monitor.getProperty(stringproperty).length() > 0)
         {
@@ -313,7 +314,7 @@ public class Device
         return numRequests;
     }
 
-    public int populateNamesAndIDs(COM.dragonflow.Properties.StringProperty astringproperty[], COM.dragonflow.Properties.StringProperty astringproperty1[], COM.dragonflow.SiteView.Monitor monitor, StringBuffer stringbuffer)
+    public int populateNamesAndIDs(StringProperty astringproperty[], StringProperty astringproperty1[], COM.dragonflow.SiteView.Monitor monitor, StringBuffer stringbuffer)
     {
         if(!$assertionsDisabled && astringproperty.length != astringproperty1.length)
         {

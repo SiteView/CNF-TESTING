@@ -56,7 +56,7 @@ public class HTTPServer
         typeMap = new HashMap();
         sslEnabled = false;
         keepAliveEnabled = false;
-        port = 8888;
+        port = 9999;
         numConnections = 0;
         maxConnections = 0;
         lastTime = 0L;

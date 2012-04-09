@@ -56,7 +56,7 @@ public class ProxyHandler {
         if (s.indexOf("siteviewRecordStop") >= 0) {
             started = false;
             COM.dragonflow.Utils.TextUtils.debugPrint("ENDING");
-            String s2 = "<HTML><HEAD><TITLE>Done Recording</TITLE></HEAD>\n<BODY><H2>Done Recording</H2>\n<P><A HREF=http://localhost:8888" + COM.dragonflow.Page.CGI.getGroupDetailURL(httprequest, groupID) + ">Go to group</A>\n"
+            String s2 = "<HTML><HEAD><TITLE>Done Recording</TITLE></HEAD>\n<BODY><H2>Done Recording</H2>\n<P><A HREF=http://localhost:9999" + COM.dragonflow.Page.CGI.getGroupDetailURL(httprequest, groupID) + ">Go to group</A>\n"
                     + "</BODY></HTML>";
             COM.dragonflow.HTTP.HTTPRequest _tmp1 = httprequest;
             COM.dragonflow.HTTP.HTTPRequest.printHeader(printwriter, 500, "Internal Server Error", "text/html", s2.length(), null, -1L, -1L);

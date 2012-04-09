@@ -14,7 +14,11 @@ import java.util.Vector;
 import jgl.Array;
 import COM.datachannel.xml.om.Document;
 import COM.dragonflow.Api.APIMonitor;
+import COM.dragonflow.Api.APISiteView;
 import COM.dragonflow.Api.SSInstanceProperty;
+import COM.dragonflow.Api.SSMonitorInstance;
+import COM.dragonflow.Api.SSPropertyDetails;
+import COM.dragonflow.Api.SSStringReturnValue;
 
 // Referenced classes of package COM.dragonflow.Page:
 // apiMasterTestPage
@@ -25,7 +29,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
     private int level;
     private String selectedMonitorType;
     private String selectedMonitorOperationType;
-    private COM.dragonflow.Api.SSInstanceProperty currentPropertyState[];
+    private SSInstanceProperty currentPropertyState[];
 
     public apiMonitorTestPage()
     {
@@ -40,14 +44,14 @@ public class apiMonitorTestPage extends apiMasterTestPage
     {
         try
         {
-            COM.dragonflow.Api.APIMonitor apimonitor = new APIMonitor();
+            APIMonitor apimonitor = new APIMonitor();
             if(request.getValue("testName").equals("createMonitorProperties"))
             {
                 try
                 {
                     selectedMonitorType = request.getValue("selectedMonitorTypeCreate");
                     String s = request.getValue("createMonitorGroupID");
-                    COM.dragonflow.Api.SSPropertyDetails asspropertydetails1[] = apimonitor.getClassPropertiesDetails(selectedMonitorType, COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL, new COM.dragonflow.Api.SSInstanceProperty[0]);
+                    SSPropertyDetails asspropertydetails1[] = apimonitor.getClassPropertiesDetails(selectedMonitorType, APISiteView.FILTER_CONFIGURATION_ADD_ALL, new SSInstanceProperty[0]);
                     String s31 = "";
                     for(int l = 0; l < asspropertydetails1.length; l++)
                     {
@@ -97,7 +101,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                         }
                     }
 
-                    COM.dragonflow.Api.SSInstanceProperty assinstanceproperty6[] = new COM.dragonflow.Api.SSInstanceProperty[i1];
+                    SSInstanceProperty assinstanceproperty6[] = new SSInstanceProperty[i1];
                     int l3 = 0;
                     for(int j5 = 0; j5 < as.length; j5++)
                     {
@@ -108,8 +112,14 @@ public class apiMonitorTestPage extends apiMasterTestPage
                             l3++;
                         }
                     }
+                    
+                    assinstanceproperty6[0] = new SSInstanceProperty("_server", "192.168.0.248");
+                    assinstanceproperty6[1] = new SSInstanceProperty("_snmpversion", "v2");
+                    assinstanceproperty6[2] = new SSInstanceProperty("_showRTTraffic", "true");
+                    assinstanceproperty6[3] = new SSInstanceProperty("_community", "dragon");
+                    
 
-                    COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue2 = apimonitor.create(selectedMonitorType, s1, assinstanceproperty6);
+                    SSStringReturnValue ssstringreturnvalue2 = apimonitor.create(selectedMonitorType, s1, assinstanceproperty6);
                     outputStream.println("<p>Successful! The created id is: " + ssstringreturnvalue2.getValue());
                     outputStream.println("<br><p>Remember that you MUST press the \"forceSignalReload\" button in order to see the results of the operation!</form>");
                 }
@@ -125,7 +135,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                 String s19 = request.getValue("editMonitorGroupID");
                 try
                 {
-                    COM.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = apimonitor.getInstanceProperties(s2, s19, COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+                    SSInstanceProperty assinstanceproperty1[] = apimonitor.getInstanceProperties(s2, s19, APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
                     String s40 = "";
                     for(int k2 = 0; k2 < assinstanceproperty1.length; k2++)
                     {
@@ -166,7 +176,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                         }
                     }
 
-                    COM.dragonflow.Api.SSInstanceProperty assinstanceproperty9[] = new COM.dragonflow.Api.SSInstanceProperty[l2];
+                    SSInstanceProperty assinstanceproperty9[] = new SSInstanceProperty[l2];
                     int l5 = 0;
                     for(int l6 = 0; l6 < as3.length; l6++)
                     {
@@ -235,7 +245,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                 {
                     try
                     {
-                        COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue = apimonitor.move(s5, s22, s33);
+                        SSStringReturnValue ssstringreturnvalue = apimonitor.move(s5, s22, s33);
                         if(s33 == null || s33.length() == 0)
                         {
                             s33 = "top-level group";
@@ -269,7 +279,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                 {
                     try
                     {
-                        COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue1 = apimonitor.copy(s6, s23, s34);
+                        SSStringReturnValue ssstringreturnvalue1 = apimonitor.copy(s6, s23, s34);
                         if(s34 == null || s34.length() == 0)
                         {
                             s34 = "top-level group";
@@ -298,9 +308,9 @@ public class apiMonitorTestPage extends apiMasterTestPage
                 {
                     try
                     {
-                        COM.dragonflow.Api.SSMonitorInstance ssmonitorinstance = apimonitor.runExisting(s7, s24, 10000L);
+                        SSMonitorInstance ssmonitorinstance = apimonitor.runExisting(s7, s24, 10000L);
                         outputStream.println("Here are the Run-Time properties after running the Existing monitor instance: \"" + s24 + "\" monitorID: \"" + s7 + "\"");
-                        COM.dragonflow.Api.SSInstanceProperty assinstanceproperty3[] = ssmonitorinstance.getInstanceProperties();
+                        SSInstanceProperty assinstanceproperty3[] = ssmonitorinstance.getInstanceProperties();
                         printInstancePropertyArray(assinstanceproperty3);
                     }
                     catch(java.lang.Exception exception17)
@@ -316,7 +326,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                 {
                     selectedMonitorType = request.getValue("selectedMonitorTypeRunTemporary");
                     String s8 = request.getValue("runTemporaryMonitorGroupID");
-                    COM.dragonflow.Api.SSPropertyDetails asspropertydetails2[] = apimonitor.getClassPropertiesDetails(selectedMonitorType, COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL, new COM.dragonflow.Api.SSInstanceProperty[0]);
+                    SSPropertyDetails asspropertydetails2[] = apimonitor.getClassPropertiesDetails(selectedMonitorType, APISiteView.FILTER_CONFIGURATION_ADD_ALL, new SSInstanceProperty[0]);
                     String s35 = "";
                     for(int j1 = 0; j1 < asspropertydetails2.length; j1++)
                     {
@@ -366,7 +376,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                         }
                     }
 
-                    COM.dragonflow.Api.SSInstanceProperty assinstanceproperty7[] = new COM.dragonflow.Api.SSInstanceProperty[k1];
+                    SSInstanceProperty assinstanceproperty7[] = new SSInstanceProperty[k1];
                     int k4 = 0;
                     for(int i6 = 0; i6 < as1.length; i6++)
                     {
@@ -378,7 +388,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                         }
                     }
 
-                    COM.dragonflow.Api.SSInstanceProperty assinstanceproperty10[] = apimonitor.runTemporary(selectedMonitorType, assinstanceproperty7, 10000L);
+                    SSInstanceProperty assinstanceproperty10[] = apimonitor.runTemporary(selectedMonitorType, assinstanceproperty7, 10000L);
                     outputStream.println("<p>The returned properties are:");
                     printInstancePropertyArray(assinstanceproperty10);
                 }
@@ -395,7 +405,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                     level = 1;
                     selectedMonitorType = request.getValue("selectedMonitorTypeA");
                     outputStream.println("<p>List of all the attributes of a " + selectedMonitorType + "</p>\n");
-                    COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = apimonitor.getClassAttributes(selectedMonitorType);
+                    SSInstanceProperty assinstanceproperty[] = apimonitor.getClassAttributes(selectedMonitorType);
                     printInstancePropertyArray(assinstanceproperty);
                 }
                 catch(java.lang.Exception exception6)
@@ -412,7 +422,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                     selectedMonitorType = request.getValue("selectedMonitorType");
                     selectedMonitorOperationType = request.getValue("selectedMonitorOperationType");
                     outputStream.println("<p>List of all the properties of a " + selectedMonitorType + "</p>\n");
-                    COM.dragonflow.Api.SSPropertyDetails asspropertydetails[] = apimonitor.getClassPropertiesDetails(selectedMonitorType, (new Integer(selectedMonitorOperationType)).intValue(), new COM.dragonflow.Api.SSInstanceProperty[0]);
+                    SSPropertyDetails asspropertydetails[] = apimonitor.getClassPropertiesDetails(selectedMonitorType, (new Integer(selectedMonitorOperationType)).intValue(), new SSInstanceProperty[0]);
                     printPropertyDetails(asspropertydetails, 0);
                 }
                 catch(java.lang.Exception exception7)
@@ -428,7 +438,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                 {
                     int i;
                     for(i = 0; request.hasValue("currentPropertyStateKey" + i); i++) { }
-                    currentPropertyState = new COM.dragonflow.Api.SSInstanceProperty[i];
+                    currentPropertyState = new SSInstanceProperty[i];
                     for(int j = 0; request.hasValue("currentPropertyStateKey" + j); j++)
                     {
                         currentPropertyState[j] = new SSInstanceProperty(request.getValue("currentPropertyStateKey" + j), request.getValue("currentPropertyStateValue" + j));
@@ -436,7 +446,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
 
                     selectedMonitorType = request.getValue("selectedMonitorType");
                     selectedMonitorOperationType = request.getValue("selectedMonitorOperationType");
-                    COM.dragonflow.Api.SSPropertyDetails asspropertydetails4[] = apimonitor.getClassPropertiesDetails(selectedMonitorType, (new Integer(selectedMonitorOperationType)).intValue(), currentPropertyState);
+                    SSPropertyDetails asspropertydetails4[] = apimonitor.getClassPropertiesDetails(selectedMonitorType, (new Integer(selectedMonitorOperationType)).intValue(), currentPropertyState);
                     printPropertyDetails(asspropertydetails4, level);
                 }
                 catch(java.lang.Exception exception8)
@@ -453,7 +463,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                     String s26 = request.getValue("getMonitorInstancePropertyGroupID");
                     String s36 = request.getValue("getMonitorInstancePropertyMonitorID");
                     outputStream.println("<p>List of the details of a property " + s10 + "of a group instance: " + s26 + " </p>\n");
-                    COM.dragonflow.Api.SSPropertyDetails asspropertydetails5[] = new COM.dragonflow.Api.SSPropertyDetails[1];
+                    SSPropertyDetails asspropertydetails5[] = new SSPropertyDetails[1];
                     asspropertydetails5[0] = apimonitor.getInstancePropertyDetails(s10, s36, s26);
                     printPropertyDetails(asspropertydetails5, 0);
                 }
@@ -474,11 +484,11 @@ public class apiMonitorTestPage extends apiMasterTestPage
                     try
                     {
                         selectedMonitorOperationType = request.getValue("selectedMonitorInstanceOperationTypeChild");
-                        COM.dragonflow.Api.SSMonitorInstance assmonitorinstance[] = apimonitor.getInstances(s11, (new Integer(selectedMonitorOperationType)).intValue());
+                        SSMonitorInstance assmonitorinstance[] = apimonitor.getInstances(s11, (new Integer(selectedMonitorOperationType)).intValue());
                         outputStream.println("List ALL monitor instance properties of groupID: \"" + s11 + "\" for Operation Type " + selectedMonitorOperationType);
                         for(int k = 0; k < assmonitorinstance.length; k++)
                         {
-                            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty4[] = assmonitorinstance[k].getInstanceProperties();
+                            SSInstanceProperty assinstanceproperty4[] = assmonitorinstance[k].getInstanceProperties();
                             outputStream.println("<p><b>Monitor ID:</b> " + assmonitorinstance[k].getMonitorId());
                             outputStream.println("<b>Group ID:</b> " + assmonitorinstance[k].getGroupId());
                             printInstancePropertyArray(assinstanceproperty4);
@@ -509,7 +519,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                     {
                         selectedMonitorOperationType = request.getValue("selectedMonitorInstanceOperationType");
                         outputStream.println("List monitor instance properties of monitorID: \"" + s12 + "\" and groupID: " + s27 + "\" for Operation Type " + selectedMonitorOperationType);
-                        COM.dragonflow.Api.SSInstanceProperty assinstanceproperty2[] = apimonitor.getInstanceProperties(s12, s27, (new Integer(selectedMonitorOperationType)).intValue());
+                        SSInstanceProperty assinstanceproperty2[] = apimonitor.getInstanceProperties(s12, s27, (new Integer(selectedMonitorOperationType)).intValue());
                         printInstancePropertyArray(assinstanceproperty2);
                     }
                     catch(java.lang.Exception exception18)
@@ -540,7 +550,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                     try
                     {
                         selectedMonitorOperationType = request.getValue("selectedMonitorInstanceOperationTypeChild");
-                        COM.dragonflow.Api.SSInstanceProperty assinstanceproperty5[] = new COM.dragonflow.Api.SSInstanceProperty[1];
+                        SSInstanceProperty assinstanceproperty5[] = new SSInstanceProperty[1];
                         assinstanceproperty5[0] = apimonitor.getInstanceProperty(s37, s28, s13);
                         outputStream.println("List ALL monitor instance properties details of groupID: \"" + s13 + "\" and monitorID: \"" + s28 + "\" for Operation Type " + selectedMonitorOperationType);
                         printInstancePropertyArray(assinstanceproperty5);
@@ -573,7 +583,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                     try
                     {
                         selectedMonitorOperationType = request.getValue("selectedMonitorInstanceOperationTypeChild");
-                        COM.dragonflow.Api.SSPropertyDetails asspropertydetails6[] = new COM.dragonflow.Api.SSPropertyDetails[1];
+                        SSPropertyDetails asspropertydetails6[] = new SSPropertyDetails[1];
                         asspropertydetails6[0] = apimonitor.getInstancePropertyDetails(s38, s29, s14);
                         outputStream.println("List ALL monitor instance properties details of groupID: \"" + s14 + "\" and monitorID: \"" + s29 + "\" for Operation Type " + selectedMonitorOperationType);
                         printPropertyDetails(asspropertydetails6, 0);
@@ -590,7 +600,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                 try
                 {
                     String s15 = request.getValue("getURLStepGroupID");
-                    COM.dragonflow.Api.SSPropertyDetails asspropertydetails3[] = apimonitor.getClassPropertiesDetails("URLSequenceMonitor", COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL, new COM.dragonflow.Api.SSInstanceProperty[0]);
+                    SSPropertyDetails asspropertydetails3[] = apimonitor.getClassPropertiesDetails("URLSequenceMonitor", APISiteView.FILTER_CONFIGURATION_ADD_ALL, new SSInstanceProperty[0]);
                     String s39 = "";
                     for(int l1 = 0; l1 < asspropertydetails3.length; l1++)
                     {
@@ -638,7 +648,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                         }
                     }
 
-                    COM.dragonflow.Api.SSInstanceProperty assinstanceproperty8[] = new COM.dragonflow.Api.SSInstanceProperty[i2];
+                    SSInstanceProperty assinstanceproperty8[] = new SSInstanceProperty[i2];
                     int i5 = 0;
                     for(int j6 = 0; j6 < as2.length; j6++)
                     {
@@ -650,7 +660,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
                         }
                     }
 
-                    COM.dragonflow.Api.SSInstanceProperty assinstanceproperty11[] = apimonitor.getURLStepProperties("URLSequenceMonitor", s16, assinstanceproperty8, "1");
+                    SSInstanceProperty assinstanceproperty11[] = apimonitor.getURLStepProperties("URLSequenceMonitor", s16, assinstanceproperty8, "1");
                     outputStream.println("<p>The returned properties are:");
                     printInstancePropertyArray(assinstanceproperty11);
                 }
@@ -702,7 +712,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
         }
     }
 
-    private void printInstancePropertyArray(COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    private void printInstancePropertyArray(SSInstanceProperty assinstanceproperty[])
     {
         if(assinstanceproperty.length > 0)
         {
@@ -739,7 +749,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
         }
     }
 
-    private void printPropertyDetails(COM.dragonflow.Api.SSPropertyDetails asspropertydetails[], int i)
+    private void printPropertyDetails(SSPropertyDetails asspropertydetails[], int i)
     {
         if(i > 0)
         {

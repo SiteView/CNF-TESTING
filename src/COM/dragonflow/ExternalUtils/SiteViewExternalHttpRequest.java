@@ -69,7 +69,7 @@ public class SiteViewExternalHttpRequest
     private static void printUsage()
     {
         java.lang.System.out.println("usage:");
-        java.lang.System.out.println("-page page - will perform an HTTPRequest to this page on the same SS machine, port 8888");
+        java.lang.System.out.println("-page page - will perform an HTTPRequest to this page on the same SS machine, port 9999");
         java.lang.System.out.println("-url fullUrl - will perform an HTTPRequest to the specified URL");
     }
 }

@@ -15,8 +15,24 @@ import java.util.Vector;
 
 import jgl.Array;
 import jgl.HashMap;
+import COM.dragonflow.Properties.FrameFile;
+import COM.dragonflow.Properties.FrequencyProperty;
+import COM.dragonflow.Properties.ScalarProperty;
+import COM.dragonflow.Properties.StringProperty;
+import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.Machine;
+import COM.dragonflow.SiteView.Monitor;
+import COM.dragonflow.SiteView.Platform;
+import COM.dragonflow.SiteView.Portal;
+import COM.dragonflow.SiteView.ServerMonitor;
+import COM.dragonflow.SiteView.SiteViewGroup;
+import COM.dragonflow.SiteView.SiteViewObject;
+import COM.dragonflow.SiteView.monitorUtils;
 import COM.dragonflow.StandardMonitor.ADReplicationMonitor;
 import COM.dragonflow.StandardMonitor.Exchange2k3MailboxMonitor;
+import COM.dragonflow.Utils.I18N;
+import COM.dragonflow.Utils.LUtils;
+import COM.dragonflow.Utils.TextUtils;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, SSrtn, monitorSetTemplate, monitorSetFilter,
@@ -137,11 +153,11 @@ public class monitorSetPage extends CGI
         if(request.getValue("refreshURL").length() > 0)
         {
             String s2 = "/SiteView/cgi/go.exe/SiteView?page=" + request.getValue("refreshURL") + "&account=" + request.getAccount();
-            monitorSetPage.printRefreshHeader(outputStream, COM.dragonflow.SiteView.Platform.productName + " " + s1, s2, 8);
+            monitorSetPage.printRefreshHeader(outputStream, Platform.productName + " " + s1, s2, 8);
             printButtonBar(helpPage, "", menus1);
         } else
         {
-            printBodyHeader(COM.dragonflow.SiteView.Platform.productName + " " + s1);
+            printBodyHeader(Platform.productName + " " + s1);
             printButtonBar(helpPage, "", menus1);
         }
         outputStream.println(HTMLPage);
@@ -154,7 +170,7 @@ public class monitorSetPage extends CGI
         SSrtn ssrtn = new SSrtn();
         String s = COM.dragonflow.HTTP.HTTPRequest.encodeString(request.getValue("group"));
         helpPage = "../docs/Solutions.htm";
-        HTMLPage.append("<H2>Add a Monitoring Solution to group : <A HREF=" + CGI.getGroupDetailURL(request, COM.dragonflow.Utils.I18N.toDefaultEncoding(s)) + ">" + CGI.getGroupName(COM.dragonflow.Utils.I18N.toDefaultEncoding(s)) + "</a></H2>\n");
+        HTMLPage.append("<H2>Add a Monitoring Solution to group : <A HREF=" + CGI.getGroupDetailURL(request, I18N.toDefaultEncoding(s)) + ">" + CGI.getGroupName(I18N.toDefaultEncoding(s)) + "</a></H2>\n");
         HTMLPage.append("<h3>Available Monitoring Solutions:</h3><p>");
         HTMLPage.append("<br>");
         HTMLPage.append("<hr>");
@@ -184,42 +200,42 @@ public class monitorSetPage extends CGI
             String s3 = as3[i];
             if(s1.toUpperCase().indexOf("EXCHANGE") >= 0)
             {
-                if(COM.dragonflow.Utils.LUtils.isValidSSforXLicense(new Exchange2k3MailboxMonitor()))
+                if(LUtils.isValidSSforXLicense(new Exchange2k3MailboxMonitor()))
                 {
                     flag = true;
                 }
             } else
             if(s1.toUpperCase().indexOf("ACTIVE") >= 0)
             {
-                if(COM.dragonflow.Utils.LUtils.isValidSSforXLicense(new ADReplicationMonitor()))
+                if(LUtils.isValidSSforXLicense(new ADReplicationMonitor()))
                 {
                     flag = true;
                 }
             } else
             if(s1.toUpperCase().indexOf("WEBSPHERE") >= 0)
             {
-                if(COM.dragonflow.Utils.LUtils.isValidSSforXLicense("WebSphereSolution"))
+                if(LUtils.isValidSSforXLicense("WebSphereSolution"))
                 {
                     flag = true;
                 }
             } else
             if(s1.toUpperCase().indexOf("WEBLOGIC") >= 0)
             {
-                if(COM.dragonflow.Utils.LUtils.isValidSSforXLicense("WebLogicSolution"))
+                if(LUtils.isValidSSforXLicense("WebLogicSolution"))
                 {
                     flag = true;
                 }
             } else
             if(s1.toUpperCase().indexOf("ORACLE") >= 0)
             {
-                if(COM.dragonflow.Utils.LUtils.isValidSSforXLicense("OracleSolution"))
+                if(LUtils.isValidSSforXLicense("OracleSolution"))
                 {
                     flag = true;
                 }
             } else
             if(s1.toUpperCase().indexOf("SIEBEL") >= 0)
             {
-                if(COM.dragonflow.Utils.LUtils.isValidSSforXLicense("SiebelSolution"))
+                if(LUtils.isValidSSforXLicense("SiebelSolution"))
                 {
                     flag = true;
                 }
@@ -243,7 +259,7 @@ public class monitorSetPage extends CGI
     public boolean createMonitorSet(String s, String s1, jgl.HashMap hashmap)
     {
         SSrtn ssrtn = new SSrtn();
-        String s2 = COM.dragonflow.Utils.I18N.toDefaultEncoding(s);
+        String s2 = I18N.toDefaultEncoding(s);
         String s3 = TEMPLATES_DIR + java.io.File.separator + s1;
         monitorSetTemplate monitorsettemplate = new monitorSetTemplate(s3);
         String as[] = monitorsettemplate.getVariables();
@@ -278,7 +294,7 @@ public class monitorSetPage extends CGI
             HTMLPage.append("Successfully created monitor. Check group page for status.<br></p>\n");
         }
 
-        COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages(s2);
+        SiteViewGroup.updateStaticPages(s2);
         return true;
     }
 
@@ -286,7 +302,7 @@ public class monitorSetPage extends CGI
     {
         SSrtn ssrtn = new SSrtn();
         String s = request.getValue("group");
-        HTMLPage.append("<H2>Add Monitor Set to group : <A HREF=" + CGI.getGroupDetailURL(request, COM.dragonflow.Utils.I18N.toDefaultEncoding(s)) + ">" + CGI.getGroupName(COM.dragonflow.Utils.I18N.toDefaultEncoding(s)) + "</a></H2>\n");
+        HTMLPage.append("<H2>Add Monitor Set to group : <A HREF=" + CGI.getGroupDetailURL(request, I18N.toDefaultEncoding(s)) + ">" + CGI.getGroupName(I18N.toDefaultEncoding(s)) + "</a></H2>\n");
         HTMLPage.append("<h3>Current Monitor Set Templates:</h3>");
         String as[] = getAvailableTemplates();
         if(as == null || as.length == 0)
@@ -412,7 +428,7 @@ public class monitorSetPage extends CGI
 
     private String getRemotesHTML()
     {
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.Machine.getMachineTable();
+        jgl.HashMap hashmap = Machine.getMachineTable();
         String s = "";
         Enumeration enumeration = hashmap.keys();
         java.util.Vector vector = new Vector();
@@ -425,7 +441,7 @@ public class monitorSetPage extends CGI
             String s2 = "";
             if(!flag)
             {
-                COM.dragonflow.SiteView.Machine machine = (COM.dragonflow.SiteView.Machine)hashmap.get(s1);
+                Machine machine = (Machine)hashmap.get(s1);
                 s2 = machine.getProperty("_name");
             } else
             {
@@ -450,11 +466,11 @@ public class monitorSetPage extends CGI
         {
             String s1 = as[i];
             jgl.HashMap hashmap = monitorsettemplate.getVariableInfo(s1);
-            String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_description");
-            String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_value");
-            boolean flag1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_scalar").length() > 0;
-            boolean flag2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_server").length() > 0;
-            boolean flag3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_checkbox").length() > 0;
+            String s2 = TextUtils.getValue(hashmap, "_description");
+            String s3 = TextUtils.getValue(hashmap, "_value");
+            boolean flag1 = TextUtils.getValue(hashmap, "_scalar").length() > 0;
+            boolean flag2 = TextUtils.getValue(hashmap, "_server").length() > 0;
+            boolean flag3 = TextUtils.getValue(hashmap, "_checkbox").length() > 0;
             String s4 = getDisplayVariable(s1);
             String as1[] = monitorsettemplate.getWhereUsed(s1);
             if(flag)
@@ -486,7 +502,7 @@ public class monitorSetPage extends CGI
                         } else
                         if(s17.startsWith("remote:"))
                         {
-                            s19 = COM.dragonflow.SiteView.Machine.getMachineName(s17);
+                            s19 = Machine.getMachineName(s17);
                         }
                     }
                     HTMLPage.append("<TR><TD ALIGN=\"RIGHT\" VALIGN=\"TOP\">Server</TD><TD><TABLE><TR><TD ALIGN=\"left\" VALIGN=\"top\"><TABLE border=1 cellspacing=0><TR><TD>" + s19 + "</TD></TR></TABLE></TD><TD>" + "<input type=hidden name=\"" + s1 + "\" value=\"" + s17 + "\">" + "<a href=" + getPageLink("server", "") + "&server=" + java.net.URLEncoder.encode(s9) + s11 + "&returnURL=" + java.net.URLEncoder.encode(request.rawURL) + "&noremote=" + s12 + "&noNTRemote=" + s14 + ">choose server</a>" + "</TD></TR><TR><TD ALIGN=\"left\" VALIGN=\"top\"><FONT SIZE=-1>" + s2 + "</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + s16 + "</I></TD></TR>");
@@ -501,7 +517,7 @@ public class monitorSetPage extends CGI
                 } else
                 if(flag1)
                 {
-                    String s6 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_scalarValues");
+                    String s6 = TextUtils.getValue(hashmap, "_scalarValues");
                     String as2[] = s6.split(",");
                     if(s6 != null)
                     {
@@ -708,9 +724,9 @@ public class monitorSetPage extends CGI
         for(int l = 0; l < j; l++)
         {
             jgl.HashMap hashmap3 = monitorsettemplate.getNthMonitor(l);
-            String s8 = COM.dragonflow.Utils.TextUtils.getValue(hashmap3, "_class");
-            String s10 = COM.dragonflow.Utils.TextUtils.getValue(hashmap3, "_name");
-            String s11 = COM.dragonflow.Utils.TextUtils.getValue(hashmap3, "_monitorDescription");
+            String s8 = TextUtils.getValue(hashmap3, "_class");
+            String s10 = TextUtils.getValue(hashmap3, "_name");
+            String s11 = TextUtils.getValue(hashmap3, "_monitorDescription");
             if(doNotDeployMonitor(hashmap3))
             {
                 continue;
@@ -751,7 +767,7 @@ public class monitorSetPage extends CGI
                         continue;
                     }
                 }
-                jgl.Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap3, s12);
+                jgl.Array array = TextUtils.getMultipleValues(hashmap3, s12);
                 StringBuffer stringbuffer = new StringBuffer();
                 for(int j1 = 0; j1 < array.size(); j1++)
                 {
@@ -776,7 +792,7 @@ public class monitorSetPage extends CGI
                 String s16 = stringbuffer.toString();
                 if(stringbuffer.toString().matches("remote:\\d+"))
                 {
-                    s16 = COM.dragonflow.SiteView.Machine.getMachineName(stringbuffer.toString());
+                    s16 = Machine.getMachineName(stringbuffer.toString());
                 }
                 if(flag2)
                 {
@@ -806,9 +822,9 @@ public class monitorSetPage extends CGI
                     java.lang.Object obj = enumeration3.nextElement();
                     String s15 = (String)hashmap5.get(obj);
                     String s17;
-                    if(obj instanceof COM.dragonflow.Properties.StringProperty)
+                    if(obj instanceof StringProperty)
                     {
-                        s17 = ((COM.dragonflow.Properties.StringProperty)obj).getName();
+                        s17 = ((StringProperty)obj).getName();
                     } else
                     {
                         s17 = (String)obj;
@@ -843,7 +859,7 @@ public class monitorSetPage extends CGI
         for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); HTMLPage.append("<input type=hidden name=\"" + s7 + "\" value=\"" + s9 + "\">\n"))
         {
             s7 = (String)enumeration.nextElement();
-            s9 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, s7);
+            s9 = TextUtils.getValue(hashmap, s7);
         }
 
         jgl.HashMap hashmap4;
@@ -891,7 +907,7 @@ public class monitorSetPage extends CGI
     {
         if(hashmap.get("_deployControlVar") != null)
         {
-            if(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_deployControlVar").length() == 0)
+            if(TextUtils.getValue(hashmap, "_deployControlVar").length() == 0)
             {
                 return true;
             }
@@ -904,7 +920,7 @@ public class monitorSetPage extends CGI
         throws java.lang.Exception
     {
         SSrtn ssrtn = new SSrtn();
-        String s = COM.dragonflow.Utils.I18N.toDefaultEncoding(request.getValue("group"));
+        String s = I18N.toDefaultEncoding(request.getValue("group"));
         String s1 = request.getValue("templatefile");
         String s2 = request.getValue("debug");
         boolean flag = s2.length() > 0;
@@ -930,8 +946,8 @@ public class monitorSetPage extends CGI
                 continue;
             }
             hashmap2.remove("_internalId");
-            String s6 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_class");
-            String s7 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_name");
+            String s6 = TextUtils.getValue(hashmap2, "_class");
+            String s7 = TextUtils.getValue(hashmap2, "_name");
             HTMLPage.append("<p>Creating Monitor: " + s6 + ": " + s7 + " ... ");
             if(flag)
             {
@@ -945,7 +961,7 @@ public class monitorSetPage extends CGI
                     String s8 = (String)enumeration.nextElement();
                     if(!s8.equals("_class") && !s8.equals("_id") && !s8.equals("_group"))
                     {
-                        jgl.Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap2, s8);
+                        jgl.Array array = TextUtils.getMultipleValues(hashmap2, s8);
                         StringBuffer stringbuffer = new StringBuffer();
                         for(int k = 0; k < array.size(); k++)
                         {
@@ -976,7 +992,7 @@ public class monitorSetPage extends CGI
             HTMLPage.append("Successfully created monitor. Check group page for status.<br></p>\n");
         }
 
-        COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages(s);
+        SiteViewGroup.updateStaticPages(s);
         String s5 = "";
         if(request.getValue("refreshURL").length() > 0)
         {
@@ -1102,22 +1118,22 @@ public class monitorSetPage extends CGI
         }, s1);
     }
 
-    boolean checkPermissions(String s, jgl.HashMap hashmap, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, SSrtn ssrtn)
+    boolean checkPermissions(String s, jgl.HashMap hashmap, AtomicMonitor atomicmonitor, SSrtn ssrtn)
         throws java.lang.Exception
     {
-        String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class");
+        String s1 = TextUtils.getValue(hashmap, "_class");
         String s2 = request.getPermission("_monitorType", s1);
         if(s2.equals("optional"))
         {
             ssrtn.setError(SSrtn.ERR_MonNotAvailable, "This monitor cannot be part of this monitor set");
             return false;
         }
-        COM.dragonflow.SiteView.SiteViewObject siteviewobject = COM.dragonflow.SiteView.Portal.getSiteViewForID(s);
-        COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor)siteviewobject.getElement(s);
-        if(COM.dragonflow.Utils.TextUtils.toInt(s2) > 0)
+        SiteViewObject siteviewobject = Portal.getSiteViewForID(s);
+        Monitor monitor = (Monitor)siteviewobject.getElement(s);
+        if(TextUtils.toInt(s2) > 0)
         {
             int i = monitor.countMonitorsOfClass(s1);
-            if(i >= COM.dragonflow.Utils.TextUtils.toInt(s2))
+            if(i >= TextUtils.toInt(s2))
             {
                 ssrtn.setError(SSrtn.ERR_MonTooManyClass, "This monitor cannot be part of this monitor set");
                 return false;
@@ -1133,22 +1149,22 @@ public class monitorSetPage extends CGI
                 return false;
             }
         }
-        if(COM.dragonflow.Utils.LUtils.wouldExceedLimit(atomicmonitor))
+        if(LUtils.wouldExceedLimit(atomicmonitor))
         {
             ssrtn.setError(SSrtn.ERR_MonTooManyLicense, "This monitor cannot be part of this monitor set");
             return false;
         }
-        if(!COM.dragonflow.Utils.LUtils.isMonitorTypeAllowed(atomicmonitor))
+        if(!LUtils.isMonitorTypeAllowed(atomicmonitor))
         {
             ssrtn.setError(SSrtn.ERR_MonTooManyClass, "This monitor cannot be part of this monitor set");
             return false;
         }
-        String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_getImages");
-        String s4 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_getFrames");
+        String s3 = TextUtils.getValue(hashmap, "_getImages");
+        String s4 = TextUtils.getValue(hashmap, "_getFrames");
         if((s3.equals("on") || s4.equals("on")) && s1.startsWith("URLRemote") && request.isSiteSeerAccount())
         {
             int l = request.getPermissionAsInteger("_maximumFAndIMonitors");
-            if(COM.dragonflow.SiteView.monitorUtils.countFrameAndImageMonitors(s) > l)
+            if(monitorUtils.countFrameAndImageMonitors(s) > l)
             {
                 ssrtn.setError(SSrtn.ERR_MonTooManyFAndI, "This monitor cannot be part of this monitor set");
                 return false;
@@ -1161,21 +1177,21 @@ public class monitorSetPage extends CGI
         throws java.lang.Exception
     {
         SSrtn ssrtn = new SSrtn();
-        String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class");
+        String s1 = TextUtils.getValue(hashmap, "_class");
         jgl.HashMap hashmap1 = new HashMap();
         if(s1.indexOf("SubGroup") == -1)
         {
-            COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = COM.dragonflow.SiteView.AtomicMonitor.MonitorCreate(s1);
+            AtomicMonitor atomicmonitor = AtomicMonitor.MonitorCreate(s1);
             if(!checkPermissions(s, hashmap, atomicmonitor, ssrtn))
             {
                 return ssrtn;
             }
             int i = request.getPermissionAsInteger("_minimumFrequency");
-            long l = atomicmonitor.getPropertyAsLong(COM.dragonflow.SiteView.AtomicMonitor.pFrequency);
+            long l = atomicmonitor.getPropertyAsLong(AtomicMonitor.pFrequency);
             java.lang.Object obj = atomicmonitor.getClassProperty("defaultFrequency");
             if(obj instanceof String)
             {
-                long l1 = COM.dragonflow.Utils.TextUtils.toInt((String)obj);
+                long l1 = TextUtils.toInt((String)obj);
                 if(l1 > 0L)
                 {
                     l = l1;
@@ -1185,22 +1201,22 @@ public class monitorSetPage extends CGI
             {
                 l = i;
             }
-            atomicmonitor.setProperty(COM.dragonflow.SiteView.AtomicMonitor.pFrequency, l);
+            atomicmonitor.setProperty(AtomicMonitor.pFrequency, l);
             String s6 = atomicmonitor.defaultTitle();
             jgl.HashMap hashmap4 = new HashMap();
-            if(request.hasValue(COM.dragonflow.SiteView.ServerMonitor.pMachineName.getName()))
+            if(request.hasValue(ServerMonitor.pMachineName.getName()))
             {
-                atomicmonitor.setProperty(COM.dragonflow.SiteView.ServerMonitor.pMachineName, request.getValue(COM.dragonflow.SiteView.ServerMonitor.pMachineName.getName()));
+                atomicmonitor.setProperty(ServerMonitor.pMachineName, request.getValue(ServerMonitor.pMachineName.getName()));
             }
             jgl.Array array2 = atomicmonitor.getProperties();
-            array2 = COM.dragonflow.Properties.StringProperty.sortByOrder(array2);
+            array2 = StringProperty.sortByOrder(array2);
             for(Enumeration enumeration = array2.elements(); enumeration.hasMoreElements();)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                StringProperty stringproperty = (StringProperty)enumeration.nextElement();
                 String s7 = stringproperty.getName();
                 if(stringproperty.isMultiLine)
                 {
-                    jgl.Array array3 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, stringproperty.getName());
+                    jgl.Array array3 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
                     atomicmonitor.unsetProperty(stringproperty);
                     int k = 0;
                     while(k < array3.size()) 
@@ -1212,18 +1228,18 @@ public class monitorSetPage extends CGI
                     }
                 } else
                 {
-                    String s9 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, s7);
-                    if(i > 0 && (stringproperty instanceof COM.dragonflow.Properties.FrequencyProperty))
+                    String s9 = TextUtils.getValue(hashmap, s7);
+                    if(i > 0 && (stringproperty instanceof FrequencyProperty))
                     {
-                        int i1 = COM.dragonflow.Utils.TextUtils.toInt(s9);
+                        int i1 = TextUtils.toInt(s9);
                         if(i1 != 0 && i1 < i)
                         {
-                            hashmap4.put(stringproperty, "For this account, monitors must run at intervals of " + COM.dragonflow.Utils.TextUtils.secondsToString(i) + " or more.");
+                            hashmap4.put(stringproperty, "For this account, monitors must run at intervals of " + TextUtils.secondsToString(i) + " or more.");
                         }
                     }
-                    if((stringproperty instanceof COM.dragonflow.Properties.ScalarProperty) && ((COM.dragonflow.Properties.ScalarProperty)stringproperty).multiple)
+                    if((stringproperty instanceof ScalarProperty) && ((ScalarProperty)stringproperty).multiple)
                     {
-                        jgl.Array array4 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, stringproperty.getName());
+                        jgl.Array array4 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
                         atomicmonitor.unsetProperty(stringproperty);
                         int j1 = 0;
                         while(j1 < array4.size()) 
@@ -1235,7 +1251,7 @@ public class monitorSetPage extends CGI
                         }
                     } else
                     {
-                        if(stringproperty == COM.dragonflow.SiteView.AtomicMonitor.pName)
+                        if(stringproperty == AtomicMonitor.pName)
                         {
                             if(s9.equals(s6))
                             {
@@ -1259,7 +1275,7 @@ public class monitorSetPage extends CGI
                     break;
                 }
                 String s8 = (String)enumeration1.nextElement();
-                String as[] = COM.dragonflow.Utils.TextUtils.split(s8, "|");
+                String as[] = TextUtils.split(s8, "|");
                 String s10 = as[0];
                 if(s10.length() > 0)
                 {
@@ -1267,27 +1283,27 @@ public class monitorSetPage extends CGI
                     {
                         s10 = "_" + s10;
                     }
-                    String s12 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, s10);
+                    String s12 = TextUtils.getValue(hashmap, s10);
                     s12 = s12.replace('\r', ' ');
                     s12 = s12.replace('\n', ' ');
                     atomicmonitor.setProperty(s10, s12);
                 }
             } while(true);
-            COM.dragonflow.SiteView.AtomicMonitor.saveThresholds(atomicmonitor, hashmap, hashmap4);
-            COM.dragonflow.SiteView.AtomicMonitor.saveClassifier(atomicmonitor, hashmap, hashmap4);
-            COM.dragonflow.SiteView.AtomicMonitor.saveCustomProperties(getMasterConfig(), atomicmonitor, request);
-            if(atomicmonitor.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pName).length() == 0)
+            AtomicMonitor.saveThresholds(atomicmonitor, hashmap, hashmap4);
+            AtomicMonitor.saveClassifier(atomicmonitor, hashmap, hashmap4);
+            AtomicMonitor.saveCustomProperties(getMasterConfig(), atomicmonitor, request);
+            if(atomicmonitor.getProperty(AtomicMonitor.pName).length() == 0)
             {
-                atomicmonitor.setProperty(COM.dragonflow.SiteView.AtomicMonitor.pName, atomicmonitor.defaultTitle());
+                atomicmonitor.setProperty(AtomicMonitor.pName, atomicmonitor.defaultTitle());
             }
             hashmap1 = atomicmonitor.getValuesTable();
         } else
         {
-            String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_name");
+            String s2 = TextUtils.getValue(hashmap, "_name");
             String s3 = "";
             if(s2.indexOf(' ') != -1)
             {
-                s3 = COM.dragonflow.Utils.TextUtils.replaceChar(s2, ' ', "_");
+                s3 = TextUtils.replaceChar(s2, ' ', "_");
             } else
             {
                 s3 = s2;
@@ -1305,27 +1321,27 @@ public class monitorSetPage extends CGI
             array1.add(hashmap2);
             try
             {
-                COM.dragonflow.Properties.FrameFile.writeToFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_group") + ".mg", array1);
+                FrameFile.writeToFile(Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + TextUtils.getValue(hashmap1, "_group") + ".mg", array1);
             }
             catch(java.lang.Exception exception)
             {
-                java.lang.System.out.println(exception + "An error occurred when trying to write the file: " + COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_group"));
+                java.lang.System.out.println(exception + "An error occurred when trying to write the file: " + TextUtils.getValue(hashmap1, "_group"));
             }
         }
         jgl.Array array = ReadGroupFrames(s);
         String s4 = "";
         int j = array.size();
         jgl.HashMap hashmap3 = (jgl.HashMap)array.at(0);
-        s4 = COM.dragonflow.Utils.TextUtils.getValue(hashmap3, "_nextID");
+        s4 = TextUtils.getValue(hashmap3, "_nextID");
         if(s4.length() == 0)
         {
             s4 = "1";
         }
-        hashmap1.remove(COM.dragonflow.SiteView.Monitor.pID);
+        hashmap1.remove(Monitor.pID);
         hashmap1.remove("_id");
         hashmap1.put("_id", s4);
         array.insert(j++, hashmap1);
-        String s5 = COM.dragonflow.Utils.TextUtils.increment(s4);
+        String s5 = TextUtils.increment(s4);
         hashmap3.put("_nextID", s5);
         WriteGroupFrames(s, array);
         return ssrtn;
@@ -1335,21 +1351,21 @@ public class monitorSetPage extends CGI
         throws java.lang.Exception
     {
         SSrtn ssrtn = new SSrtn();
-        String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class");
+        String s1 = TextUtils.getValue(hashmap, "_class");
         String s2;
         if(s1.indexOf("SubGroup") == -1)
         {
-            COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = COM.dragonflow.SiteView.AtomicMonitor.MonitorCreate(s1);
+            AtomicMonitor atomicmonitor = AtomicMonitor.MonitorCreate(s1);
             if(!checkPermissions(s, hashmap, atomicmonitor, ssrtn))
             {
                 return ssrtn;
             }
             int i = request.getPermissionAsInteger("_minimumFrequency");
-            long l = atomicmonitor.getPropertyAsLong(COM.dragonflow.SiteView.AtomicMonitor.pFrequency);
+            long l = atomicmonitor.getPropertyAsLong(AtomicMonitor.pFrequency);
             java.lang.Object obj = atomicmonitor.getClassProperty("defaultFrequency");
             if(obj instanceof String)
             {
-                long l1 = COM.dragonflow.Utils.TextUtils.toInt((String)obj);
+                long l1 = TextUtils.toInt((String)obj);
                 if(l1 > 0L)
                 {
                     l = l1;
@@ -1359,15 +1375,15 @@ public class monitorSetPage extends CGI
             {
                 l = i;
             }
-            atomicmonitor.setProperty(COM.dragonflow.SiteView.AtomicMonitor.pFrequency, l);
+            atomicmonitor.setProperty(AtomicMonitor.pFrequency, l);
             jgl.HashMap hashmap1 = new HashMap();
             ssrtn.setErrorList(hashmap1);
-            if(request.hasValue(COM.dragonflow.SiteView.ServerMonitor.pMachineName.getName()))
+            if(request.hasValue(ServerMonitor.pMachineName.getName()))
             {
-                atomicmonitor.setProperty(COM.dragonflow.SiteView.ServerMonitor.pMachineName, request.getValue(COM.dragonflow.SiteView.ServerMonitor.pMachineName.getName()));
+                atomicmonitor.setProperty(ServerMonitor.pMachineName, request.getValue(ServerMonitor.pMachineName.getName()));
             }
             jgl.Array array = atomicmonitor.getProperties();
-            array = COM.dragonflow.Properties.StringProperty.sortByOrder(array);
+            array = StringProperty.sortByOrder(array);
             Enumeration enumeration = array.elements();
             do
             {
@@ -1375,10 +1391,10 @@ public class monitorSetPage extends CGI
                 {
                     break;
                 }
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                StringProperty stringproperty = (StringProperty)enumeration.nextElement();
                 if(stringproperty.isMultiLine)
                 {
-                    jgl.Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, stringproperty.getName());
+                    jgl.Array array1 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
                     int j = 0;
                     while(j < array1.size()) 
                     {
@@ -1390,10 +1406,10 @@ public class monitorSetPage extends CGI
                 } else
                 {
                     String s3 = stringproperty.getName();
-                    String s4 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, s3);
-                    if((stringproperty instanceof COM.dragonflow.Properties.ScalarProperty) && ((COM.dragonflow.Properties.ScalarProperty)stringproperty).multiple)
+                    String s4 = TextUtils.getValue(hashmap, s3);
+                    if((stringproperty instanceof ScalarProperty) && ((ScalarProperty)stringproperty).multiple)
                     {
-                        jgl.Array array2 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, stringproperty.getName());
+                        jgl.Array array2 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
                         for(int i1 = 0; i1 < array2.size(); i1++)
                         {
                             String s6 = (String)array2.at(i1);
@@ -1406,20 +1422,20 @@ public class monitorSetPage extends CGI
                         s4 = atomicmonitor.verify(stringproperty, s4, request, hashmap1);
                         atomicmonitor.addProperty(stringproperty, s4);
                     }
-                    if(i > 0 && (stringproperty instanceof COM.dragonflow.Properties.FrequencyProperty))
+                    if(i > 0 && (stringproperty instanceof FrequencyProperty))
                     {
-                        int k = COM.dragonflow.Utils.TextUtils.toInt(s4);
+                        int k = TextUtils.toInt(s4);
                         if(k != 0 && k < i)
                         {
-                            hashmap1.put(stringproperty, "For this account, monitors must run at intervals of " + COM.dragonflow.Utils.TextUtils.secondsToString(i) + " or more.");
+                            hashmap1.put(stringproperty, "For this account, monitors must run at intervals of " + TextUtils.secondsToString(i) + " or more.");
                         }
                     }
                 }
             } while(true);
-            COM.dragonflow.SiteView.AtomicMonitor.checkThresholds(hashmap, hashmap1);
+            AtomicMonitor.checkThresholds(hashmap, hashmap1);
         } else
         {
-            s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_group");
+            s2 = TextUtils.getValue(hashmap, "_group");
         }
         return ssrtn;
     }
@@ -1444,7 +1460,7 @@ public class monitorSetPage extends CGI
 
     static 
     {
-        TEMPLATES_DIR = COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "templates.sets";
-        SOLUTIONS_DIR = COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "templates.solutions";
+        TEMPLATES_DIR = Platform.getRoot() + java.io.File.separator + "templates.sets";
+        SOLUTIONS_DIR = Platform.getRoot() + java.io.File.separator + "templates.solutions";
     }
 }

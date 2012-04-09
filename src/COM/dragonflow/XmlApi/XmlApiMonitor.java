@@ -23,16 +23,21 @@ import java.util.Vector;
 import jgl.HashMap;
 import COM.dragonflow.Api.APIAlert;
 import COM.dragonflow.Api.APIMonitor;
+import COM.dragonflow.Api.APISiteView;
+import COM.dragonflow.Api.Alert;
 import COM.dragonflow.Api.SSInstanceProperty;
+import COM.dragonflow.Api.SSMonitorInstance;
+import COM.dragonflow.Api.SSPropertyDetails;
+import COM.dragonflow.Api.SSStringReturnValue;
 
 // Referenced classes of package COM.dragonflow.XmlApi:
 // XmlApiResponse
 
 public class XmlApiMonitor {
 
-    private COM.dragonflow.Api.APIMonitor api;
+    private APIMonitor api;
 
-    private COM.dragonflow.Api.APIAlert apiAlert;
+    private APIAlert apiAlert;
 
     public XmlApiMonitor() {
         api = null;
@@ -69,19 +74,19 @@ public class XmlApiMonitor {
                     s7 = (String) hashmap.get("runTimeout");
                     hashmap.remove("runTimeout");
                 }
-                COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new COM.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+                SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
                 Enumeration enumeration1 = hashmap.keys();
                 for (int j = 0; enumeration1.hasMoreElements(); j ++) {
                     String s8 = (String) enumeration1.nextElement();
                     assinstanceproperty[j] = new SSInstanceProperty(s8, hashmap.get(s8));
                 }
 
-                COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue = api.create(s2, s4, assinstanceproperty);
-                COM.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = null;
+                SSStringReturnValue ssstringreturnvalue = api.create(s2, s4, assinstanceproperty);
+                SSInstanceProperty assinstanceproperty1[] = null;
                 if (!boolean1.booleanValue()) {
-                    assinstanceproperty1 = api.getInstanceProperties(ssstringreturnvalue.getValue(), s4, COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ALL);
+                    assinstanceproperty1 = api.getInstanceProperties(ssstringreturnvalue.getValue(), s4, APISiteView.FILTER_CONFIGURATION_ALL);
                 } else {
-                    COM.dragonflow.Api.SSMonitorInstance ssmonitorinstance = api.runExisting(ssstringreturnvalue.getValue(), s4, (new Long(s7)).longValue());
+                    SSMonitorInstance ssmonitorinstance = api.runExisting(ssstringreturnvalue.getValue(), s4, (new Long(s7)).longValue());
                     assinstanceproperty1 = ssmonitorinstance.getInstanceProperties();
                 }
                 jgl.HashMap hashmap1 = new HashMap();
@@ -157,8 +162,8 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue = api.copy(s, s1, s2);
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(ssstringreturnvalue.getValue(), s2, COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ALL, true);
+            SSStringReturnValue ssstringreturnvalue = api.copy(s, s1, s2);
+            SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(ssstringreturnvalue.getValue(), s2, APISiteView.FILTER_CONFIGURATION_ALL, true);
             jgl.HashMap hashmap = new HashMap();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 hashmap.put(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -177,13 +182,13 @@ public class XmlApiMonitor {
         try {
             java.util.Vector vector = new Vector();
             jgl.HashMap hashmap = new HashMap();
-            COM.dragonflow.Api.SSMonitorInstance ssmonitorinstance = null;
+            SSMonitorInstance ssmonitorinstance = null;
             if (boolean1 != null) {
                 ssmonitorinstance = api.runExisting(s, s1, (new Long(s2)).longValue(), boolean1.booleanValue());
             } else {
                 ssmonitorinstance = api.runExisting(s, s1, (new Long(s2)).longValue(), false);
             }
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = ssmonitorinstance.getInstanceProperties();
+            SSInstanceProperty assinstanceproperty[] = ssmonitorinstance.getInstanceProperties();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 hashmap.put(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
             }
@@ -217,14 +222,14 @@ public class XmlApiMonitor {
                 String s3 = (String) array2.at(i);
                 String s5 = (String) array3.at(i);
                 jgl.HashMap hashmap = (jgl.HashMap) array1.at(i);
-                COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new COM.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+                SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
                 Enumeration enumeration1 = hashmap.keys();
                 for (int j = 0; enumeration1.hasMoreElements(); j ++) {
                     String s6 = (String) enumeration1.nextElement();
                     assinstanceproperty[j] = new SSInstanceProperty(s6, hashmap.get(s6));
                 }
 
-                COM.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = null;
+                SSInstanceProperty assinstanceproperty1[] = null;
                 if (s5 != null) {
                     assinstanceproperty1 = api.runTemporary(s1, assinstanceproperty, (new Long(s3)).longValue(), (new Boolean(s5)).booleanValue());
                 } else {
@@ -252,7 +257,7 @@ public class XmlApiMonitor {
             java.util.Vector vector = new Vector();
             java.util.HashMap hashmap1 = COM.dragonflow.Utils.jglUtils.fromJgl(hashmap);
             api.addBrowsableCounters(s, s1, hashmap1);
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s, s1, COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ALL_NOT_EMPTY);
+            SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s, s1, APISiteView.FILTER_CONFIGURATION_ALL_NOT_EMPTY);
             jgl.HashMap hashmap2 = new HashMap();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 hashmap2.put(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -272,7 +277,7 @@ public class XmlApiMonitor {
             java.util.Vector vector = new Vector();
             java.util.HashMap hashmap1 = COM.dragonflow.Utils.jglUtils.fromJgl(hashmap);
             api.removeBrowsableCounters(s, s1, hashmap1);
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s, s1, COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ALL_NOT_EMPTY);
+            SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s, s1, APISiteView.FILTER_CONFIGURATION_ALL_NOT_EMPTY);
             jgl.HashMap hashmap2 = new HashMap();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 hashmap2.put(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -290,7 +295,7 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new COM.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+            SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
             Enumeration enumeration = hashmap.keys();
             for (int i = 0; enumeration.hasMoreElements(); i ++) {
                 String s1 = (String) enumeration.nextElement();
@@ -298,10 +303,10 @@ public class XmlApiMonitor {
                 assinstanceproperty[i] = new SSInstanceProperty(s1, s2);
             }
 
-            COM.dragonflow.Api.SSPropertyDetails asspropertydetails[] = api.getClassPropertiesDetails(s, integer.intValue(), assinstanceproperty);
+            SSPropertyDetails asspropertydetails[] = api.getClassPropertiesDetails(s, integer.intValue(), assinstanceproperty);
             for (int j = 0; j < asspropertydetails.length; j ++) {
                 jgl.HashMap hashmap1 = new HashMap();
-                COM.dragonflow.Api.SSPropertyDetails.extractDetailsIntoHashMap(asspropertydetails[j], hashmap1);
+                SSPropertyDetails.extractDetailsIntoHashMap(asspropertydetails[j], hashmap1);
                 vector.add(hashmap1);
             }
 
@@ -316,7 +321,7 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new COM.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+            SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
             Enumeration enumeration = hashmap.keys();
             for (int i = 0; enumeration.hasMoreElements(); i ++) {
                 String s2 = (String) enumeration.nextElement();
@@ -326,9 +331,9 @@ public class XmlApiMonitor {
 
             String as[] = COM.dragonflow.Utils.TextUtils.split(s, ",");
             for (int j = 0; j < as.length; j ++) {
-                COM.dragonflow.Api.SSPropertyDetails sspropertydetails = api.getClassPropertyDetails(as[j], s1, assinstanceproperty);
+                SSPropertyDetails sspropertydetails = api.getClassPropertyDetails(as[j], s1, assinstanceproperty);
                 jgl.HashMap hashmap1 = new HashMap();
-                COM.dragonflow.Api.SSPropertyDetails.extractDetailsIntoHashMap(sspropertydetails, hashmap1);
+                SSPropertyDetails.extractDetailsIntoHashMap(sspropertydetails, hashmap1);
                 vector.add(hashmap1);
             }
 
@@ -343,7 +348,7 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new COM.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+            SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
             Enumeration enumeration = hashmap.keys();
             for (int i = 0; enumeration.hasMoreElements(); i ++) {
                 String s2 = (String) enumeration.nextElement();
@@ -351,7 +356,7 @@ public class XmlApiMonitor {
                 assinstanceproperty[i] = new SSInstanceProperty(s2, s3);
             }
 
-            COM.dragonflow.Api.SSPropertyDetails sspropertydetails = api.getClassPropertyDetails(s, s1, assinstanceproperty);
+            SSPropertyDetails sspropertydetails = api.getClassPropertyDetails(s, s1, assinstanceproperty);
             vector.add(sspropertydetails.getName());
             vector.add(sspropertydetails.getSelectionIDs());
             vector.add(sspropertydetails.getSelectionDisplayNames());
@@ -366,7 +371,7 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new COM.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+            SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
             Enumeration enumeration = hashmap.keys();
             for (int i = 0; enumeration.hasMoreElements(); i ++) {
                 String s3 = (String) enumeration.nextElement();
@@ -374,7 +379,7 @@ public class XmlApiMonitor {
                 assinstanceproperty[i] = new SSInstanceProperty(s3, s4);
             }
 
-            COM.dragonflow.Api.SSPropertyDetails sspropertydetails = api.getInstancePropertyDetails(s, s1, s2);
+            SSPropertyDetails sspropertydetails = api.getInstancePropertyDetails(s, s1, s2);
             vector.add(sspropertydetails.getName());
             vector.add(sspropertydetails.getSelectionIDs());
             vector.add(sspropertydetails.getSelectionDisplayNames());
@@ -389,7 +394,7 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new COM.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+            SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
             Enumeration enumeration = hashmap.keys();
             for (int i = 0; enumeration.hasMoreElements(); i ++) {
                 String s3 = (String) enumeration.nextElement();
@@ -399,9 +404,9 @@ public class XmlApiMonitor {
 
             String as[] = COM.dragonflow.Utils.TextUtils.split(s, " ,");
             for (int j = 0; j < as.length; j ++) {
-                COM.dragonflow.Api.SSPropertyDetails sspropertydetails = api.getInstancePropertyDetails(as[j], s1, s2);
+                SSPropertyDetails sspropertydetails = api.getInstancePropertyDetails(as[j], s1, s2);
                 jgl.HashMap hashmap1 = new HashMap();
-                COM.dragonflow.Api.SSPropertyDetails.extractDetailsIntoHashMap(sspropertydetails, hashmap1);
+                SSPropertyDetails.extractDetailsIntoHashMap(sspropertydetails, hashmap1);
                 vector.add(hashmap1);
             }
 
@@ -416,12 +421,12 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSMonitorInstance assmonitorinstance[] = api.getInstances(s, integer.intValue());
+            SSMonitorInstance assmonitorinstance[] = api.getInstances(s, integer.intValue());
             if (apiAlert == null) {
                 apiAlert = new APIAlert();
             }
             for (int i = 0; i < assmonitorinstance.length; i ++) {
-                COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = assmonitorinstance[i].getInstanceProperties();
+                SSInstanceProperty assinstanceproperty[] = assmonitorinstance[i].getInstanceProperties();
                 jgl.HashMap hashmap = new HashMap();
                 for (int j = 0; j < assinstanceproperty.length; j ++) {
                     hashmap.put(assinstanceproperty[j].getName(), assinstanceproperty[j].getValue());
@@ -429,7 +434,7 @@ public class XmlApiMonitor {
 
                 String s4 = (String) hashmap.get("_id");
                 String s5 = s;
-                if (COM.dragonflow.Api.Alert.getInstance().getAlertsResidingInGroupOrMonitor(s5, s4).size() > 0) {
+                if (Alert.getInstance().getAlertsResidingInGroupOrMonitor(s5, s4).size() > 0) {
                     hashmap.put("hasDependencies", "true");
                 }
                 vector.add(hashmap);
@@ -446,7 +451,7 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s, s1, integer.intValue());
+            SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s, s1, integer.intValue());
             jgl.HashMap hashmap = new HashMap();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 hashmap.put(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -467,7 +472,7 @@ public class XmlApiMonitor {
             jgl.HashMap hashmap = new HashMap();
             String as[] = COM.dragonflow.Utils.TextUtils.split(s, " ,");
             for (int i = 0; i < as.length; i ++) {
-                COM.dragonflow.Api.SSInstanceProperty ssinstanceproperty = api.getInstanceProperty(as[i], s1, s2);
+                SSInstanceProperty ssinstanceproperty = api.getInstanceProperty(as[i], s1, s2);
                 hashmap.put(as[i], ssinstanceproperty.getValue());
             }
 
@@ -499,7 +504,7 @@ public class XmlApiMonitor {
                 if ((String) hashmap.get("webserviceurl") != null) {
                     s5 = (String) hashmap.get("webserviceurl");
                 }
-                COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new COM.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+                SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
                 Enumeration enumeration1 = hashmap.keys();
                 for (int j = 0; enumeration1.hasMoreElements(); j ++) {
                     String s6 = (String) enumeration1.nextElement();
@@ -507,7 +512,7 @@ public class XmlApiMonitor {
                 }
 
                 api.update(s1, s3, assinstanceproperty);
-                COM.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = api.getInstanceProperties(s1, s3, COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ALL);
+                SSInstanceProperty assinstanceproperty1[] = api.getInstanceProperties(s1, s3, APISiteView.FILTER_CONFIGURATION_ALL);
                 jgl.HashMap hashmap1 = new HashMap();
                 for (int k = 0; k < assinstanceproperty1.length; k ++) {
                     hashmap1.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
@@ -560,7 +565,7 @@ public class XmlApiMonitor {
                 String s3 = (String) array1.at(i);
                 String s5 = (String) array3.at(i);
                 java.util.HashMap hashmap = (java.util.HashMap) array2.at(i);
-                COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new COM.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+                SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
                 java.util.Set set = hashmap.keySet();
                 java.util.Iterator iterator = set.iterator();
                 for (int j = 0; iterator.hasNext(); j ++) {
@@ -568,7 +573,7 @@ public class XmlApiMonitor {
                     assinstanceproperty[j] = new SSInstanceProperty(s6, hashmap.get(s6));
                 }
 
-                COM.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = api.getURLStepProperties(s1, s3, assinstanceproperty, s5);
+                SSInstanceProperty assinstanceproperty1[] = api.getURLStepProperties(s1, s3, assinstanceproperty, s5);
                 jgl.HashMap hashmap1 = new HashMap();
                 for (int k = 0; k < assinstanceproperty1.length; k ++) {
                     hashmap1.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
@@ -589,7 +594,7 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSStringReturnValue assstringreturnvalue[] = api.getMonitorTypes();
+            SSStringReturnValue assstringreturnvalue[] = api.getMonitorTypes();
             for (int i = 0; i < assstringreturnvalue.length; i ++) {
                 vector.add(assstringreturnvalue[i].getValue());
             }
@@ -605,7 +610,7 @@ public class XmlApiMonitor {
         COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue = api.getTopazID(s, s1);
+            SSStringReturnValue ssstringreturnvalue = api.getTopazID(s, s1);
             vector.add(ssstringreturnvalue.getValue());
             xmlapiresponse.setReturnVector(vector);
         } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
@@ -633,8 +638,8 @@ public class XmlApiMonitor {
         try {
             java.util.Vector vector = new Vector();
             jgl.HashMap hashmap = new HashMap();
-            COM.dragonflow.Api.SSMonitorInstance ssmonitorinstance = api.resetCounters(s, s1);
-            COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = ssmonitorinstance.getInstanceProperties();
+            SSMonitorInstance ssmonitorinstance = api.resetCounters(s, s1);
+            SSInstanceProperty assinstanceproperty[] = ssmonitorinstance.getInstanceProperties();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 hashmap.put(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
             }

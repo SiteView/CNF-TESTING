@@ -108,10 +108,6 @@ public class monitorSetTemplate {
         m_frames = array;
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     *
-     */
     private void parseTemplate() {
         m_varTbl = new HashMap();
         jgl.HashMap hashmap = (jgl.HashMap) m_frames.at(0);

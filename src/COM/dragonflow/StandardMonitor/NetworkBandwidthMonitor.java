@@ -291,11 +291,6 @@ public class NetworkBandwidthMonitor extends BrowsableSNMPBase implements RealTi
 
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @return
-     */
     private int findNumInterfaces() {
         int i = 0;
         for (i = 0; i < nMaxCounters; i ++) {
@@ -974,36 +969,36 @@ public class NetworkBandwidthMonitor extends BrowsableSNMPBase implements RealTi
         super.onMonitorCreateFromPage(httprequest);
         String s = httprequest.getValue("_server");
         boolean flag = s.length() > 0;
-        String s1 = httprequest.getValue("uniqueID");
+        String uniqueID = httprequest.getValue("uniqueID");
         String s2 = httprequest.getValue("_indexingMethod");
         String s3 = httprequest.getValue("_maxRTDataWindow");
         String s4 = httprequest.getValue("_maxRTDataVerticalAxis");
         String s5 = httprequest.getValue("_duplexState");
-        String s6 = httprequest.getValue("_deviceType");
-        String s7 = httprequest.getValue("_showRTTraffic");
-        if (s1.length() <= 0) {
+        String deviceType = httprequest.getValue("_deviceType");
+        String showRTTraffic = httprequest.getValue("_showRTTraffic");
+        if (uniqueID.length() <= 0) {
             return;
         }
         if (flag) {
-            HashMap hashmap = BrowsableCache.getCache(s1, true, false);
+            HashMap hashmap = BrowsableCache.getCache(uniqueID, true, false);
             if (hashmap != null) {
                 HashMap hashmap3 = (HashMap) hashmap.get("mProp");
                 Object obj = hashmap3.get("_server");
                 if (obj != null && !obj.equals(s)) {
-                    BrowsableCache.getCache(s1, false, true);
-                    HashMap hashmap1 = BrowsableCache.getCache(s1, true, false);
+                    BrowsableCache.getCache(uniqueID, false, true);
+                    HashMap hashmap1 = BrowsableCache.getCache(uniqueID, true, false);
                     hashmap3 = (HashMap) hashmap1.get("mProp");
                 }
                 hashmap3.put("_indexingMethod", s2);
                 hashmap3.put("_maxRTDataWindow", s3);
                 hashmap3.put("_maxRTDataVerticalAxis", s4);
                 hashmap3.put("_duplexState", s5);
-                hashmap3.put("_deviceType", s6);
-                hashmap3.put("_showRTTraffic", s7);
-                BrowsableCache.saveCache(s1);
+                hashmap3.put("_deviceType", deviceType);
+                hashmap3.put("_showRTTraffic", showRTTraffic);
+                BrowsableCache.saveCache(uniqueID);
             }
         } else {
-            HashMap hashmap2 = BrowsableCache.getCache(s1, false, false);
+            HashMap hashmap2 = BrowsableCache.getCache(uniqueID, false, false);
             if (hashmap2 != null) {
                 HashMap hashmap4 = (HashMap) hashmap2.get("mProp");
                 String s8;

@@ -27,19 +27,19 @@ public class SSInstanceProperty extends COM.dragonflow.Api.SSBaseReturnValues {
 
     private java.lang.Object value;
 
-    public SSInstanceProperty(String s, java.lang.Object obj) {
-        name = s;
-        value = obj;
+    public SSInstanceProperty(String name, java.lang.Object value) {
+        this.name = name;
+        this.value = value;
     }
 
     public String toString() {
         return "(" + name + ", " + label + ", " + (String) value + ")";
     }
 
-    public SSInstanceProperty(String s, String s1, java.lang.Object obj) {
-        name = s;
-        label = s1;
-        value = obj;
+    public SSInstanceProperty(String name, String label, java.lang.Object value) {
+        this.name = name;
+        this.label = label;
+        this.value = value;
     }
 
     public java.lang.Object getReturnValueType() {
