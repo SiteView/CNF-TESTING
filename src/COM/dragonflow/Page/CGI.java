@@ -70,7 +70,7 @@ public abstract class CGI {
     public COM.dragonflow.HTTP.HTTPRequest request;
 
     public java.io.PrintWriter outputStream;
-    public Configuration cfg ;
+    public static Configuration cfg ;
 
     protected boolean autoFollowPortalRefresh;
 
@@ -114,6 +114,7 @@ public abstract class CGI {
         privateConfigCache = null;
         privateLocalConfigCache = null;
         settingsArray = null;
+
     }
 
     public abstract void printBody() throws java.lang.Exception;
@@ -123,15 +124,7 @@ public abstract class CGI {
         request = httprequest;
         outputStream = printwriter;
         
-        /* Create and adjust the configuration */
-        Configuration cfg = new Configuration();
-        try {
-			cfg.setDirectoryForTemplateLoading(new File(Platform.getRoot()+"/templates.freemarker"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        cfg.setObjectWrapper(new DefaultObjectWrapper());
+
 		/*开始调试request参数*/
 		System.out.println(request.queryString);
 		
