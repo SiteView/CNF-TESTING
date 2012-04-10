@@ -9,6 +9,7 @@
  */
 package COM.dragonflow.Page;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Enumeration;
@@ -19,6 +20,9 @@ import jgl.HashMap;
 import jgl.LessString;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.HashMapOrdered;
+import COM.dragonflow.SiteView.Platform;
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
 
 // Referenced classes of package COM.dragonflow.Page:
 // treeControl
@@ -66,6 +70,7 @@ public abstract class CGI {
     public COM.dragonflow.HTTP.HTTPRequest request;
 
     public java.io.PrintWriter outputStream;
+    public Configuration cfg ;
 
     protected boolean autoFollowPortalRefresh;
 
@@ -117,7 +122,16 @@ public abstract class CGI {
             java.io.PrintWriter printwriter) {
         request = httprequest;
         outputStream = printwriter;
-		
+        
+        /* Create and adjust the configuration */
+        Configuration cfg = new Configuration();
+        try {
+			cfg.setDirectoryForTemplateLoading(new File(Platform.getRoot()+"/templates.freemarker"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        cfg.setObjectWrapper(new DefaultObjectWrapper());
 		/*开始调试request参数*/
 		System.out.println(request.queryString);
 		

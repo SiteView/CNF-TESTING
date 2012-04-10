@@ -35,5 +35,6 @@
 	<classpathentry kind="lib" path="lib/missed/WebSphere5/pmi.jar"/>
 	<classpathentry kind="lib" path="lib/missed/WebSphere5/pmiclient.jar"/>
 	<classpathentry kind="lib" path="lib/missed/WebSphere5/wssec.jar"/>
+	<classpathentry kind="lib" path="lib/ext/freemarker.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
