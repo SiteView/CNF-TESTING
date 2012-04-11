@@ -13,7 +13,7 @@ import freemarker.template.Template;
 
 // visit: http://localhost:9999/SiteView/cgi/go.exe/SiteView?page=Hello
 
-public class HelloPage extends COM.dragonflow.Page.CGI
+public class HelloPage extends CGI
 {
 
     public HelloPage()
@@ -28,7 +28,7 @@ public class HelloPage extends COM.dragonflow.Page.CGI
         Configuration cfg = new Configuration();
         cfg.setDirectoryForTemplateLoading(new File(Platform.getRoot()+"/templates.freemarker"));
         cfg.setObjectWrapper(new DefaultObjectWrapper());
-        Template template = cfg.getTemplate("hello.html");
+        Template template = cfg.getTemplate("hello.ftl");
 //
 //        /* Create a data-model */
         Map<String,String> root = new HashMap();
