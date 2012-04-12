@@ -201,7 +201,6 @@ public class SiteViewGroup extends MonitorGroup {
         httpsServer = null;
         stopping = false;
         sseeLogger = null;
-//        topazLogger = null;
         groupsCache = new HashMap();
         progressSummary = "Starting...";
         String s = Platform.getRoot();
@@ -674,23 +673,23 @@ public class SiteViewGroup extends MonitorGroup {
 
     void startHTTPServer() {
         int i = 0;
-        String s = getSetting("_httpPort");
-        if (s.length() > 0) {
-            i = StringProperty.toInteger(s);
+        String httpPort = getSetting("_httpPort");
+        if (httpPort.length() > 0) {
+            i = StringProperty.toInteger(httpPort);
         }
         if (i == -1) {
             LogManager.log("RunMonitor", " access using HTTP disabled");
             return;
         }
         int j = i;
-        String s1 = getSetting("_httpActivePort");
-        if (s1.length() > 0) {
-            j = StringProperty.toInteger(s1);
+        String httpActivePort = getSetting("_httpActivePort");
+        if (httpActivePort.length() > 0) {
+            j = StringProperty.toInteger(httpActivePort);
         }
         int k = 0;
-        String s2 = getSetting("_httpMaxConnections");
-        if (s2.length() > 0) {
-            k = StringProperty.toInteger(s2);
+        String httpMaxConnections = getSetting("_httpMaxConnections");
+        if (httpMaxConnections.length() > 0) {
+            k = StringProperty.toInteger(httpMaxConnections);
         }
         String s3 = getSetting("_postLogFile");
         if (s3.length() > 0) {
@@ -1019,16 +1018,6 @@ public class SiteViewGroup extends MonitorGroup {
         sseeLogger = null;
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @param s
-     * @param i
-     * @param s1
-     * @param j
-     * @param s2
-     * @throws Exception
-     */
     public synchronized void registerSSEELogger(String s, int i, String s1, int j, String s2) throws Exception {
         try {
             if (sseeLogger != null) {
@@ -1324,12 +1313,6 @@ public class SiteViewGroup extends MonitorGroup {
         }
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @param array
-     * @return
-     */
     private Enumeration addGroups(Array array) {
         Array array1 = new Array();
         Enumeration enumeration = array.elements();
@@ -1434,11 +1417,6 @@ public class SiteViewGroup extends MonitorGroup {
         virtualmachine.schedule();
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @param flag
-     */
     void loadDynamic(boolean flag) {
         String s = groupsDirectory.getAbsolutePath() + File.separator + "dynamic.config";
         file = new File(s);
@@ -1477,11 +1455,6 @@ public class SiteViewGroup extends MonitorGroup {
         loadHistory(true);
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @param flag
-     */
     void loadHistory(boolean flag) {
         String s = groupsDirectory.getAbsolutePath() + File.separator + "history.config";
         file = new File(s);
@@ -1671,13 +1644,6 @@ public class SiteViewGroup extends MonitorGroup {
 
         return false;
     }
-
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @param httprequest
-     * @return
-     */
     public Array getTopLevelMonitors(HTTPRequest httprequest) {
         Enumeration enumeration = getMonitors();
         Array array = new Array();
@@ -1883,9 +1849,9 @@ public class SiteViewGroup extends MonitorGroup {
         StringBuffer stringbuffer1 = new StringBuffer();
         stringbuffer1
                 .append("<!-- * * * * * *  * * * * * * * Start of Dashboard BORDER CONTAINER Tables * * * * * * *   -->\n<table border=0 cellpadding=0 cellspacing=0 align=center><tr><td rowspan=8 colspan=8 valign=bottom align=right><img src=/SiteView/htdocs/artwork/modUpperLeft.gif border=0></td><td><img src=/SiteView/htdocs/artwork/spacer11.gif height=1 width=78 border=0></td><td rowspan=8 colspan=8 valign=bottom align=left><img src=/SiteView/htdocs/artwork/modUpperRight.gif border=0></td></tr>\n<tr><td bgcolor=#303030><img src=/SiteView/htdocs/artwork/spacer11.gif height=3 width=78 border=0></td></tr>\n<tr><td bgcolor=#787878><img src=/SiteView/htdocs/artwork/spacer11.gif height=1 width=78 border=0></td></tr>\n<tr><td bgcolor=#9A9A9A><img src=/SiteView/htdocs/artwork/spacer11.gif height=1 width=78 border=0></td></tr>\n");
-        String s5 = getSetting("_mainPageTitle");
-        if (s5.length() <= 0) {
-            s5 = "Main View";
+        String mainPageTitle = getSetting("_mainPageTitle");
+        if (mainPageTitle.length() <= 0) {
+            mainPageTitle = "Main View";
         }
         String s6 = "";
         if (httprequest.actionAllowed("_alertEdit") && httprequest.actionAllowed("_alertList") && getSetting("_alertIconLink").length() > 0) {
@@ -1901,7 +1867,7 @@ public class SiteViewGroup extends MonitorGroup {
                         + "\" height=21 width=20></td>"
                         + "<td valign=\"middle\">"
                         + "<p style=\"color: #a5a5a5; font-weight: bold; font-family: 'Arial', 'Helvetica', sans-serif;\">"
-                        + s5
+                        + mainPageTitle
                         + "</td> " + s6 + "</tr>\n" + "</table>\n</td></tr>\n");
         stringbuffer1
                 .append("\n<tr><td bgcolor=#3F3F3F><img src=/SiteView/htdocs/artwork/spacer11.gif height=1 width=78 border=0></td></tr>\n<tr><td bgcolor=#303030><img src=/SiteView/htdocs/artwork/spacer11.gif height=5 width=78 border=0></td></tr>\n<tr><td bgcolor=#000000><img src=/SiteView/htdocs/artwork/spacer11.gif height=15 width=78 border=0></td></tr>\n<!-- start the middle section -->\n<!-- left hand side columns -->\n<tr>    <td width=1><img src=/SiteView/htdocs/artwork/spacer11.gif height=79 width=1 border=0></td>        <td bgcolor=#4F4F4F><img src=/SiteView/htdocs/artwork/spacer11.gif height=79 width=4 border=0></td>        <td bgcolor=#9A9A9A><img src=/SiteView/htdocs/artwork/spacer11.gif height=79 width=2 border=0></td>        <td bgcolor=#787878><img src=/SiteView/htdocs/artwork/spacer11.gif height=79 width=2 border=0></td>        <td bgcolor=#5A5A5A><img src=/SiteView/htdocs/artwork/spacer11.gif height=79 width=20 border=0></td>    <td bgcolor=#3F3F3F><img src=/SiteView/htdocs/artwork/spacer11.gif height=79 width=5 border=0></td>    <td bgcolor=#303030><img src=/SiteView/htdocs/artwork/spacer11.gif height=79 width=3 border=0></td>        <td bgcolor=#000000><img src=/SiteView/htdocs/artwork/spacer11.gif height=79 width=15 border=0></td>    <td align=\"center\" bgcolor=\"#000000\">");

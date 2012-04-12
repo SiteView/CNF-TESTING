@@ -1,22 +1,5 @@
-/*
- * 
- * Created on 2005-3-7 0:54:27
- *
- * CPUMonitor.java
- *
- * History:
- *
- */
 package COM.dragonflow.StandardMonitor;
 
-/**
- * Comment for <code>CPUMonitor</code>
- * 
- * @author 
- * @version 0.0
- *
- *
- */
 import java.net.URLEncoder;
 import java.util.Enumeration;
 
@@ -57,8 +40,8 @@ public class CPUMonitor extends ServerMonitor
  protected boolean update()
      throws SiteViewException
  {
-     String s = getProperty(pMachineName);
-     String s1 = TextUtils.stripChars(s, ".-_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+     String machineName = getProperty(pMachineName);
+     String s1 = TextUtils.stripChars(machineName, ".-_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
      String s2 = getProperty(pGetHostName);
      s2 = TextUtils.stripChars(s2, ".-_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
      if(s2 != null && s2.length() > 0 && !s2.equals(s1))
@@ -88,7 +71,7 @@ public class CPUMonitor extends ServerMonitor
      long al1[] = null;
      try
      {
-         al1 = Platform.cpuUsed(s, l1, l, al, this, array);
+         al1 = Platform.cpuUsed(machineName, l1, l, al, this, array);
      }
      catch(SiteViewException siteviewexception1)
      {

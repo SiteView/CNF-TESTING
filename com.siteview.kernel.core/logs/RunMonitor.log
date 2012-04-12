@@ -2912,3 +2912,297 @@
 17:38:06 04/08/2012	  waiting 438 seconds: will update monitor Group0:19  Ping: 127.0.0.1
 17:45:26 04/08/2012	  waiting 23 seconds: will update monitor Group0:18  CPU Utilization on \\NOTE-NONE
 17:45:57 04/08/2012	  waiting 113 seconds: will update monitor Group0:20  SNMP by MIB: 127.0.0.1
+06:58:28 04/12/2012	Updating master.config file from "750" to "750"
+06:58:28 04/12/2012	SiteView process started, 
+06:58:28 04/12/2012	 Windows 7 6.1
+06:58:28 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+06:58:28 04/12/2012	 Time zone offset is -8.0 hours
+06:58:28 04/12/2012	 Maximum monitor threads: 100
+06:58:28 04/12/2012	Using java SSL libraries
+06:58:28 04/12/2012	
+06:58:28 04/12/2012	Starting HTTP Server listener on localhost:9999
+06:58:28 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+06:58:28 04/12/2012	  
+06:58:28 04/12/2012	Open your web browser to:
+06:58:28 04/12/2012	  http://32.1.0.0:9999/SiteView
+06:58:32 04/12/2012	Process name tss_dispatcher was not running
+06:58:34 04/12/2012	Process name tss_monitor was not running
+06:58:34 04/12/2012	Loading master.config
+06:58:34 04/12/2012	Loading users.config
+06:58:34 04/12/2012	Loading multi.config
+06:58:34 04/12/2012	Loading group: Group0
+07:15:40 04/12/2012	Updating master.config file from "750" to "750"
+07:15:40 04/12/2012	SiteView process started, 
+07:15:40 04/12/2012	 Windows 7 6.1
+07:15:40 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+07:15:40 04/12/2012	 Time zone offset is -8.0 hours
+07:15:40 04/12/2012	 Maximum monitor threads: 100
+07:15:40 04/12/2012	Using java SSL libraries
+07:15:40 04/12/2012	
+07:15:40 04/12/2012	Starting HTTP Server listener on localhost:9999
+07:15:40 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+07:15:40 04/12/2012	  
+07:15:40 04/12/2012	Open your web browser to:
+07:15:40 04/12/2012	  http://32.1.0.0:9999/SiteView
+07:15:44 04/12/2012	Process name tss_dispatcher was not running
+07:15:47 04/12/2012	Process name tss_monitor was not running
+07:15:47 04/12/2012	Loading master.config
+07:15:47 04/12/2012	Loading users.config
+07:15:47 04/12/2012	Loading multi.config
+07:15:47 04/12/2012	Loading group: Group0
+07:16:09 04/12/2012	Updating master.config file from "750" to "750"
+07:16:09 04/12/2012	SiteView process started, 
+07:16:09 04/12/2012	 Windows 7 6.1
+07:16:09 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+07:16:09 04/12/2012	 Time zone offset is -8.0 hours
+07:16:09 04/12/2012	 Maximum monitor threads: 100
+07:16:09 04/12/2012	Using java SSL libraries
+07:16:09 04/12/2012	
+07:20:12 04/12/2012	Starting HTTP Server listener on localhost:9999
+07:20:28 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+07:23:01 04/12/2012	  
+07:23:02 04/12/2012	Open your web browser to:
+07:23:03 04/12/2012	  http://32.1.0.0:9999/SiteView
+07:23:38 04/12/2012	Process name tss_dispatcher was not running
+07:23:41 04/12/2012	Process name tss_monitor was not running
+07:24:04 04/12/2012	Loading master.config
+07:24:04 04/12/2012	Loading users.config
+07:24:04 04/12/2012	Loading multi.config
+07:24:04 04/12/2012	Loading group: Group0
+07:32:45 04/12/2012	Updating master.config file from "750" to "750"
+07:32:45 04/12/2012	SiteView process started, 
+07:32:45 04/12/2012	 Windows 7 6.1
+07:32:45 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+07:32:45 04/12/2012	 Time zone offset is -8.0 hours
+07:32:45 04/12/2012	 Maximum monitor threads: 100
+07:32:45 04/12/2012	Using java SSL libraries
+07:32:45 04/12/2012	
+07:32:51 04/12/2012	Starting HTTP Server listener on localhost:9999
+07:32:51 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+07:32:51 04/12/2012	  
+07:32:51 04/12/2012	Open your web browser to:
+07:32:51 04/12/2012	  http://32.1.0.0:9999/SiteView
+07:32:56 04/12/2012	Process name tss_dispatcher was not running
+07:32:58 04/12/2012	Process name tss_monitor was not running
+07:36:02 04/12/2012	Loading master.config
+07:36:02 04/12/2012	Loading users.config
+07:36:02 04/12/2012	Loading multi.config
+07:36:02 04/12/2012	Loading group: Group0
+07:39:15 04/12/2012	Updating master.config file from "750" to "750"
+07:39:15 04/12/2012	SiteView process started, 
+07:39:15 04/12/2012	 Windows 7 6.1
+07:39:15 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+07:39:15 04/12/2012	 Time zone offset is -8.0 hours
+07:39:15 04/12/2012	 Maximum monitor threads: 100
+07:39:15 04/12/2012	Using java SSL libraries
+07:39:15 04/12/2012	
+07:39:15 04/12/2012	Starting HTTP Server listener on localhost:9999
+07:39:15 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+07:39:15 04/12/2012	  
+07:39:15 04/12/2012	Open your web browser to:
+07:39:15 04/12/2012	  http://32.1.0.0:9999/SiteView
+07:39:19 04/12/2012	Process name tss_dispatcher was not running
+07:39:21 04/12/2012	Process name tss_monitor was not running
+07:39:21 04/12/2012	Loading master.config
+07:39:21 04/12/2012	Loading users.config
+07:39:21 04/12/2012	Loading multi.config
+07:39:21 04/12/2012	Loading group: __Health__
+07:39:21 04/12/2012	Loading dynamic.config
+07:39:21 04/12/2012	Loading history.config
+07:39:21 04/12/2012	  
+07:39:21 04/12/2012	SiteView is active...
+07:39:21 04/12/2012	SiteView Startup Completed
+07:39:21 04/12/2012	  (will auto restart in 24 hours)
+07:39:35 04/12/2012	Date format: United States (English)
+07:39:42 04/12/2012	Loading group: test
+07:39:42 04/12/2012	Date format: United States (English)
+08:08:35 04/12/2012	Date format: United States (English)
+08:08:41 04/12/2012	Date format: United States (English)
+08:09:04 04/12/2012	Loading group: test
+08:09:05 04/12/2012	  waiting 598 seconds: will update monitor test:1  Ping: www.siteview.com
+08:09:11 04/12/2012	Date format: United States (English)
+08:09:21 04/12/2012	Loading group: test
+08:10:08 04/12/2012	Date format: United States (English)
+08:11:09 04/12/2012	Date format: United States (English)
+08:12:10 04/12/2012	Date format: United States (English)
+08:13:24 04/12/2012	Updating master.config file from "750" to "750"
+08:13:24 04/12/2012	SiteView process started, 
+08:13:24 04/12/2012	 Windows 7 6.1
+08:13:24 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+08:13:24 04/12/2012	 Time zone offset is -8.0 hours
+08:13:24 04/12/2012	 Maximum monitor threads: 100
+08:13:24 04/12/2012	Using java SSL libraries
+08:13:24 04/12/2012	
+08:13:24 04/12/2012	Starting HTTP Server listener on localhost:9999
+08:13:24 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+08:13:24 04/12/2012	  
+08:13:24 04/12/2012	Open your web browser to:
+08:13:24 04/12/2012	  http://32.1.0.0:9999/SiteView
+08:13:28 04/12/2012	Process name tss_dispatcher was not running
+08:13:31 04/12/2012	Process name tss_monitor was not running
+08:13:31 04/12/2012	Loading master.config
+08:13:31 04/12/2012	Loading users.config
+08:13:31 04/12/2012	Loading multi.config
+08:13:31 04/12/2012	Loading group: test
+08:13:31 04/12/2012	Loading group: __Health__
+08:13:31 04/12/2012	Loading dynamic.config
+08:13:31 04/12/2012	Loading history.config
+08:13:31 04/12/2012	  
+08:13:31 04/12/2012	SiteView is active...
+08:13:31 04/12/2012	SiteView Startup Completed
+08:13:31 04/12/2012	  (will auto restart in 24 hours)
+08:15:09 04/12/2012	Date format: United States (English)
+08:15:11 04/12/2012	Date format: United States (English)
+08:16:07 04/12/2012	Date format: United States (English)
+08:16:52 04/12/2012	Date format: United States (English)
+08:17:22 04/12/2012	Date format: United States (English)
+08:17:24 04/12/2012	Date format: United States (English)
+08:17:32 04/12/2012	Date format: United States (English)
+08:18:33 04/12/2012	Date format: United States (English)
+08:19:06 04/12/2012	  waiting 598 seconds: will update monitor test:1  Ping: www.siteview.com
+08:19:25 04/12/2012	Date format: United States (English)
+08:19:31 04/12/2012	Loading master.config
+08:19:36 04/12/2012	Updating master.config file from "750" to "750"
+08:19:36 04/12/2012	SiteView process started, 
+08:19:36 04/12/2012	 Windows 7 6.1
+08:19:36 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+08:19:36 04/12/2012	 Time zone offset is -8.0 hours
+08:19:36 04/12/2012	 Maximum monitor threads: 100
+08:19:36 04/12/2012	Using java SSL libraries
+08:19:36 04/12/2012	
+08:19:36 04/12/2012	Starting HTTP Server listener on localhost:9999
+08:19:36 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+08:19:36 04/12/2012	  
+08:19:36 04/12/2012	Open your web browser to:
+08:19:36 04/12/2012	  http://32.1.0.0:9999/SiteView
+08:19:40 04/12/2012	Process name tss_dispatcher was not running
+08:19:42 04/12/2012	Process name tss_monitor was not running
+08:19:42 04/12/2012	Loading master.config
+08:19:42 04/12/2012	Loading users.config
+08:19:42 04/12/2012	Loading multi.config
+08:19:42 04/12/2012	Loading group: test
+08:19:42 04/12/2012	Loading group: __Health__
+08:19:42 04/12/2012	Loading dynamic.config
+08:19:42 04/12/2012	Loading history.config
+08:19:42 04/12/2012	  
+08:19:42 04/12/2012	SiteView is active...
+08:19:42 04/12/2012	SiteView Startup Completed
+08:19:42 04/12/2012	  (will auto restart in 24 hours)
+08:20:22 04/12/2012	Updating master.config file from "750" to "750"
+08:20:22 04/12/2012	SiteView process started, 
+08:20:22 04/12/2012	 Windows 7 6.1
+08:20:22 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+08:20:22 04/12/2012	 Time zone offset is -8.0 hours
+08:20:22 04/12/2012	 Maximum monitor threads: 100
+08:20:22 04/12/2012	Using java SSL libraries
+08:20:22 04/12/2012	
+08:20:22 04/12/2012	Starting HTTP Server listener on localhost:9999
+08:20:22 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+08:20:22 04/12/2012	  
+08:20:22 04/12/2012	Open your web browser to:
+08:20:22 04/12/2012	  http://32.1.0.0:9999/SiteView
+08:20:26 04/12/2012	Process name tss_dispatcher was not running
+08:20:28 04/12/2012	Process name tss_monitor was not running
+08:20:28 04/12/2012	Loading master.config
+08:20:28 04/12/2012	Loading users.config
+08:20:28 04/12/2012	Loading multi.config
+08:20:28 04/12/2012	Loading group: test
+08:20:28 04/12/2012	Loading group: __Health__
+08:20:28 04/12/2012	Loading dynamic.config
+08:20:28 04/12/2012	Loading history.config
+08:20:28 04/12/2012	  
+08:20:28 04/12/2012	SiteView is active...
+08:20:28 04/12/2012	SiteView Startup Completed
+08:20:28 04/12/2012	  (will auto restart in 24 hours)
+08:20:34 04/12/2012	Date format: United States (English)
+08:20:37 04/12/2012	Date format: United States (English)
+08:26:53 04/12/2012	Updating master.config file from "750" to "750"
+08:26:53 04/12/2012	SiteView process started, 
+08:26:53 04/12/2012	 Windows 7 6.1
+08:26:53 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+08:26:53 04/12/2012	 Time zone offset is -8.0 hours
+08:26:53 04/12/2012	 Maximum monitor threads: 100
+08:26:53 04/12/2012	Using java SSL libraries
+08:26:53 04/12/2012	
+08:26:53 04/12/2012	Starting HTTP Server listener on localhost:9999
+08:26:53 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+08:26:53 04/12/2012	  
+08:26:53 04/12/2012	Open your web browser to:
+08:26:53 04/12/2012	  http://32.1.0.0:9999/SiteView
+08:26:58 04/12/2012	Process name tss_dispatcher was not running
+08:27:00 04/12/2012	Process name tss_monitor was not running
+08:27:00 04/12/2012	Loading master.config
+08:27:00 04/12/2012	Loading users.config
+08:27:00 04/12/2012	Loading multi.config
+08:27:00 04/12/2012	Loading group: test
+08:27:00 04/12/2012	Loading group: __Health__
+08:27:00 04/12/2012	Loading dynamic.config
+08:27:00 04/12/2012	Loading history.config
+08:27:00 04/12/2012	  
+08:27:00 04/12/2012	SiteView is active...
+08:27:00 04/12/2012	SiteView Startup Completed
+08:27:00 04/12/2012	  (will auto restart in 24 hours)
+08:27:03 04/12/2012	Date format: United States (English)
+08:28:03 04/12/2012	Date format: United States (English)
+08:29:04 04/12/2012	Date format: United States (English)
+08:29:07 04/12/2012	  waiting 598 seconds: will update monitor test:1  Ping: www.siteview.com
+08:30:05 04/12/2012	Date format: United States (English)
+08:31:05 04/12/2012	Date format: United States (English)
+08:32:06 04/12/2012	Date format: United States (English)
+08:33:06 04/12/2012	Date format: United States (English)
+08:34:07 04/12/2012	Date format: United States (English)
+08:34:17 04/12/2012	Updating master.config file from "750" to "750"
+08:34:17 04/12/2012	SiteView process started, 
+08:34:17 04/12/2012	 Windows 7 6.1
+08:34:17 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+08:34:17 04/12/2012	 Time zone offset is -8.0 hours
+08:34:17 04/12/2012	 Maximum monitor threads: 100
+08:34:17 04/12/2012	Using java SSL libraries
+08:34:17 04/12/2012	
+08:34:17 04/12/2012	Starting HTTP Server listener on localhost:9999
+08:34:17 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+08:34:17 04/12/2012	  
+08:34:17 04/12/2012	Open your web browser to:
+08:34:17 04/12/2012	  http://32.1.0.0:9999/SiteView
+08:34:21 04/12/2012	Process name tss_dispatcher was not running
+08:34:23 04/12/2012	Process name tss_monitor was not running
+08:34:24 04/12/2012	Loading master.config
+08:34:24 04/12/2012	Loading users.config
+08:34:24 04/12/2012	Loading multi.config
+08:34:24 04/12/2012	Loading group: test
+08:34:24 04/12/2012	Loading group: __Health__
+08:34:24 04/12/2012	Loading dynamic.config
+08:34:24 04/12/2012	Loading history.config
+08:34:24 04/12/2012	  
+08:34:24 04/12/2012	SiteView is active...
+08:34:24 04/12/2012	SiteView Startup Completed
+08:34:24 04/12/2012	  (will auto restart in 24 hours)
+08:35:08 04/12/2012	Date format: United States (English)
+08:36:00 04/12/2012	Updating master.config file from "750" to "750"
+08:36:00 04/12/2012	SiteView process started, 
+08:36:00 04/12/2012	 Windows 7 6.1
+08:36:00 04/12/2012	 Java HotSpot(TM) 64-Bit Server VM, 22.0-b10
+08:36:00 04/12/2012	 Time zone offset is -8.0 hours
+08:36:00 04/12/2012	 Maximum monitor threads: 100
+08:36:00 04/12/2012	Using java SSL libraries
+08:36:00 04/12/2012	
+08:36:00 04/12/2012	Starting HTTP Server listener on localhost:9999
+08:36:00 04/12/2012	Number of maximum connections accepted is : 20 on localhost:9999
+08:36:00 04/12/2012	  
+08:36:00 04/12/2012	Open your web browser to:
+08:36:00 04/12/2012	  http://32.1.0.0:9999/SiteView
+08:36:04 04/12/2012	Process name tss_dispatcher was not running
+08:36:07 04/12/2012	Process name tss_monitor was not running
+08:36:07 04/12/2012	Loading master.config
+08:36:07 04/12/2012	Loading users.config
+08:36:07 04/12/2012	Loading multi.config
+08:36:07 04/12/2012	Loading group: test
+08:36:07 04/12/2012	Loading group: __Health__
+08:36:07 04/12/2012	Loading dynamic.config
+08:36:07 04/12/2012	Loading history.config
+08:36:07 04/12/2012	  
+08:36:07 04/12/2012	SiteView is active...
+08:36:07 04/12/2012	SiteView Startup Completed
+08:36:07 04/12/2012	  (will auto restart in 24 hours)
+08:36:08 04/12/2012	Date format: United States (English)
+08:37:09 04/12/2012	Date format: United States (English)

@@ -98,6 +98,7 @@ _mailServer=mail.dragonflow.com
 _mailServerBackup=mail.dragonflow.com
 _mailSubjectMax=160
 _mainGaugesPerRow=3
+_mainPageTitle =������ͼ
 _mainRefreshRate=60
 _maxAmountToRead=50000
 _maxAuxLogSize=1000000

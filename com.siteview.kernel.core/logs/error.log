@@ -3177,3 +3177,44 @@ COM.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:112)
 17:35:57 04/08/2012	CPU Monitor error (\\NOTE-NONE): 53 monitor: SiteView/Group0/18
 17:45:52 04/08/2012	CPU Monitor error (\\NOTE-NONE): 53 monitor: SiteView/Group0/18
 17:45:57 04/08/2012	CPU Monitor error (\\NOTE-NONE): 53 monitor: SiteView/Group0/18
+06:58:28 04/12/2012	SiteView process started, 
+07:15:40 04/12/2012	SiteView process started, 
+07:16:09 04/12/2012	SiteView process started, 
+07:32:45 04/12/2012	SiteView process started, 
+07:39:15 04/12/2012	SiteView process started, 
+07:39:45 04/12/2012	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+07:39:45 04/12/2012	java.lang.NullPointerException
+COM.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Unknown Source)
+COM.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:139)
+COM.dragonflow.Page.monitorPage.printAddListForm(monitorPage.java:2310)
+COM.dragonflow.Page.monitorPage.printBody(monitorPage.java:2653)
+COM.dragonflow.Page.CGI.printBody(CGI.java:149)
+COM.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:171)
+COM.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+COM.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:621)
+COM.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:112)
+
+08:13:24 04/12/2012	SiteView process started, 
+08:16:58 04/12/2012	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+08:16:58 04/12/2012	java.lang.NullPointerException
+COM.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Unknown Source)
+COM.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:139)
+COM.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:109)
+COM.dragonflow.Page.managePage.printBrowseFilterOptionForm(managePage.java:1108)
+COM.dragonflow.Page.managePage.printListForm(managePage.java:2487)
+COM.dragonflow.Page.managePage.printBody(managePage.java:3328)
+COM.dragonflow.Page.CGI.printBody(CGI.java:149)
+COM.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:171)
+COM.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+COM.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:621)
+COM.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:112)
+
+08:19:36 04/12/2012	SiteView process started, 
+08:20:22 04/12/2012	SiteView process started, 
+08:26:53 04/12/2012	SiteView process started, 
+08:34:17 04/12/2012	SiteView process started, 
+08:36:00 04/12/2012	SiteView process started, 

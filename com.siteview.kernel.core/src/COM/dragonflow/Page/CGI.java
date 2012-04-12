@@ -9,7 +9,6 @@
  */
 package COM.dragonflow.Page;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Enumeration;
@@ -20,9 +19,19 @@ import jgl.HashMap;
 import jgl.LessString;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.HashMapOrdered;
+import COM.dragonflow.SiteView.Health;
+import COM.dragonflow.SiteView.Machine;
+import COM.dragonflow.SiteView.MasterConfig;
+import COM.dragonflow.SiteView.Monitor;
+import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteView.Platform;
+import COM.dragonflow.SiteView.Portal;
+import COM.dragonflow.SiteView.PortalSiteView;
+import COM.dragonflow.SiteView.SiteViewGroup;
+import COM.dragonflow.SiteView.SiteViewObject;
+import COM.dragonflow.SiteView.SubGroup;
+import COM.dragonflow.SiteView.User;
 import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
 
 // Referenced classes of package COM.dragonflow.Page:
 // treeControl
@@ -165,10 +174,10 @@ public abstract class CGI {
 
     public static void printFooter(java.io.PrintWriter printwriter,
             String s, boolean flag, boolean flag1) {
-        if (!COM.dragonflow.SiteView.Platform.isSiteSeerAccount(s)) {
+        if (!Platform.isSiteSeerAccount(s)) {
             String s1 = "";
             String s3 = "SiteViewlogo.gif";
-            if (COM.dragonflow.SiteView.Platform.isPortal()) {
+            if (Platform.isPortal()) {
                 s3 = "SiteReliancelogo.gif";
             }
             String s5 = "";
@@ -182,21 +191,21 @@ public abstract class CGI {
             }
             String s7 = "";
             if (flag1) {
-                s7 = "<center>" + COM.dragonflow.SiteView.Platform.companyLogo
+                s7 = "<center>" + Platform.companyLogo
                         + "</center>";
             }
-            String s8 = COM.dragonflow.SiteView.Platform.getVersion();
+            String s8 = Platform.getVersion();
             printwriter
                     .println("<table class=fine border=0 cellspacing=0 width=500 align=center><tr><td><p class=fine align=center>"
                             + s7
                             + "<br>\n"
                             + "<small>"
-                            + COM.dragonflow.SiteView.Platform.productName
+                            + Platform.productName
                             + " "
                             + s8
                             + ", "
                             + "<p>"
-                            + COM.dragonflow.SiteView.Platform.copyright
+                            + Platform.copyright
                             + s1
                             + "</small>"
                             + s5
@@ -205,7 +214,7 @@ public abstract class CGI {
             String s2 = "";
             if (flag1) {
                 s2 = "<img src=http://www.dragonflow.com/images/common/dragonflow_logo.gif  width=\"184\" height=\"69\" border=\"\" alt=\""
-                        + COM.dragonflow.SiteView.Platform.companyName
+                        + Platform.companyName
                         + "\"></a>\n";
             }
             String s4 = "";
@@ -217,25 +226,25 @@ public abstract class CGI {
                                                 "TermsAndConditions"), 1,
                                 "/SiteView/license.html") + "</font>";
             }
-            String s6 = COM.dragonflow.SiteView.Platform.getVersion();
+            String s6 = Platform.getVersion();
             printwriter
                     .println("<table class=fine border=0 cellspacing=0 width=\"100%\" align=center><tr><td><p class=fine align=center><a href="
-                            + COM.dragonflow.SiteView.Platform.homeURLPrefix
+                            + Platform.homeURLPrefix
                             + ">"
                             + s2
                             + "<br><small>"
-                            + COM.dragonflow.SiteView.Platform.productName
+                            + Platform.productName
                             + " "
                             + s6
                             + "<br>"
                             + "<a href=\""
-                            + COM.dragonflow.SiteView.Platform.homeURLPrefix
+                            + Platform.homeURLPrefix
                             + "\">dragonflow.com</a> | \n"
                             + "<a href=\"http://support.dragonflow.com\">Customer Support</a> | \n"
                             + "<a href=\""
-                            + COM.dragonflow.SiteView.Platform.homeURLPrefix
+                            + Platform.homeURLPrefix
                             + "/company/contact_us/\">Contact Us</a> | \n"
-                            + COM.dragonflow.SiteView.Platform.copyright
+                            + Platform.copyright
                             + "</small>"
                             + s4
                             + "</p>\n</center>\n</td></tr></table></BODY></HTML>");
@@ -249,20 +258,20 @@ public abstract class CGI {
 
     jgl.Array _getUsedMonitorClasses() {
         jgl.Array array = new Array();
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
+        SiteViewGroup siteviewgroup = SiteViewGroup
                 .currentSiteView();
         Enumeration enumeration = siteviewgroup.getGroupIDs()
                 .elements();
         jgl.HashMap hashmap = new HashMap();
         while (enumeration.hasMoreElements()) {
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = COM.dragonflow.SiteView.SiteViewGroup
+            MonitorGroup monitorgroup = SiteViewGroup
                     .currentSiteView().getGroup(
                             COM.dragonflow.Utils.I18N
                                     .toDefaultEncoding(enumeration
                                             .nextElement().toString()));
             Enumeration enumeration1 = monitorgroup.getMonitors();
             while (enumeration1.hasMoreElements()) {
-                COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor) enumeration1
+                Monitor monitor = (Monitor) enumeration1
                         .nextElement();
                 String s = monitor.getClass().getName();
                 s = s.substring(s.lastIndexOf(".") + 1);
@@ -276,19 +285,19 @@ public abstract class CGI {
     public static void printFooter(java.io.PrintWriter printwriter,
             COM.dragonflow.HTTP.HTTPRequest httprequest, boolean flag) {
         if (httprequest == null
-                || !COM.dragonflow.SiteView.Platform
+                || !Platform
                         .isSiteSeerAccount(httprequest.getAccount())) {
             String s = "";
             String s2 = "SiteViewlogo.gif";
-            if (COM.dragonflow.SiteView.Platform.isPortal()) {
+            if (Platform.isPortal()) {
                 s2 = "SiteReliancelogo.gif";
             }
             if (httprequest != null) {
                 String s4 = httprequest.getPermission("_partner");
                 if (s4.length() > 0) {
-                    COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
+                    SiteViewGroup siteviewgroup = SiteViewGroup
                             .currentSiteView();
-                    COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) siteviewgroup
+                    MonitorGroup monitorgroup = (MonitorGroup) siteviewgroup
                             .getElement(s4);
                     if (monitorgroup != null) {
                         s = monitorgroup.getProperty("_partnerCopyrightHTML");
@@ -304,44 +313,44 @@ public abstract class CGI {
                                                 "TermsAndConditions"), 1,
                                 "/SiteView/license.html") + "</font>";
             }
-            String s6 = COM.dragonflow.SiteView.Platform.getVersion();
+            String s6 = Platform.getVersion();
             printwriter
                     .println("<table class=fine border=0 cellspacing=0 width=500 align=center><tr><td><p class=fine align=center>"
-                            + COM.dragonflow.SiteView.Platform.companyLogo
+                            + Platform.companyLogo
                             + "<p>\n"
                             + "<p class=fine align=center><small>"
-                            + COM.dragonflow.SiteView.Platform.productName
+                            + Platform.productName
                             + " "
                             + s6
                             + ", "
-                            + COM.dragonflow.SiteView.Platform.copyright
+                            + Platform.copyright
                             + s
                             + "</small>"
                             + s5
                             + "</p>\n</center>\n</td></tr></table></BODY></HTML>");
         } else {
             String s1 = "http://www.dragonflow.com/images/common/dragonflow_logo.gif";
-            String s3 = COM.dragonflow.SiteView.Platform.getVersion();
+            String s3 = Platform.getVersion();
             printwriter
                     .println("<table class=fine border=0 cellspacing=0 width=\"100%\" align=center><tr><td><p class=fine align=center><a href="
-                            + COM.dragonflow.SiteView.Platform.homeURLPrefix
+                            + Platform.homeURLPrefix
                             + ">"
-                            + COM.dragonflow.SiteView.Platform.companyLogo
-                            + COM.dragonflow.SiteView.Platform.companyName
+                            + Platform.companyLogo
+                            + Platform.companyName
                             + "\"></a>\n"
                             + "<br><small>"
-                            + COM.dragonflow.SiteView.Platform.productName
+                            + Platform.productName
                             + " "
                             + s3
                             + "<br>"
                             + "<a href=\""
-                            + COM.dragonflow.SiteView.Platform.homeURLPrefix
+                            + Platform.homeURLPrefix
                             + "\">dragonflow.com</a> | \n"
                             + "<a href=\"http://support.dragonflow.com\">Customer Support</a> | \n"
                             + "<a href=\""
-                            + COM.dragonflow.SiteView.Platform.homeURLPrefix
+                            + Platform.homeURLPrefix
                             + "/company/contact_us/\">Contact Us</a> | \n"
-                            + COM.dragonflow.SiteView.Platform.copyright
+                            + Platform.copyright
                             + "</small>"
                             + "</p>\n</center>\n</td></tr></table></BODY></HTML>");
         }
@@ -369,7 +378,7 @@ public abstract class CGI {
     public static String reportURL(
             COM.dragonflow.HTTP.HTTPRequest httprequest) {
         if (httprequest.getAccount().equals("user")) {
-            return COM.dragonflow.SiteView.Platform.getURLPath("userhtml",
+            return Platform.getURLPath("userhtml",
                     httprequest.getAccount())
                     + "/Reports.html";
         } else {
@@ -381,7 +390,7 @@ public abstract class CGI {
     public static void printCurrentSiteView(java.io.PrintWriter printwriter,
             COM.dragonflow.HTTP.HTTPRequest httprequest) {
         if (COM.dragonflow.Page.CGI.isPortalServerRequest(httprequest)) {
-            COM.dragonflow.SiteView.PortalSiteView portalsiteview = (COM.dragonflow.SiteView.PortalSiteView) COM.dragonflow.SiteView.Portal
+            PortalSiteView portalsiteview = (PortalSiteView) Portal
                     .getSiteViewForID(httprequest.getPortalServer());
             if (portalsiteview != null) {
                 printwriter.println("<HR><B><FONT SIZE=+2>"
@@ -420,7 +429,7 @@ public abstract class CGI {
                         "page", "View current monitor settings"));
             }
         }
-        if (COM.dragonflow.SiteView.Platform.isSiteSeerAccount(httprequest
+        if (Platform.isSiteSeerAccount(httprequest
                 .getAccount())) {
             return;
         }
@@ -484,7 +493,7 @@ public abstract class CGI {
 
     private static void printSecondNavBar(java.io.PrintWriter printwriter,
             COM.dragonflow.HTTP.HTTPRequest httprequest, int i, boolean flag) {
-        if (COM.dragonflow.SiteView.Platform.isSiteSeerAccount(httprequest
+        if (Platform.isSiteSeerAccount(httprequest
                 .getAccount())) {
             return;
         }
@@ -571,16 +580,16 @@ public abstract class CGI {
             String s, String s1,
             COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap,
             menus menus1, boolean flag) {
-        if (COM.dragonflow.SiteView.Platform.isPortal()) {
+        if (Platform.isPortal()) {
             if (httprequest.getValue("toolbar").equals("off")) {
                 return;
             }
-            COM.dragonflow.SiteView.User user = httprequest.getUser();
+            User user = httprequest.getUser();
             String s3 = user.getProperty("_buttonBar");
             if (s3.length() == 0) {
                 s3 = "Toolbar.htm";
             }
-            String s5 = COM.dragonflow.SiteView.Portal
+            String s5 = Portal
                     .getViewContent(s3, httprequest);
             s5 = COM.dragonflow.Utils.TextUtils.replaceString(s5,
                     "CentraScopeTOC.htm", s);
@@ -624,7 +633,7 @@ public abstract class CGI {
         String s12 = "alerts";
         String s13 = "reports";
         String s14 = "overview";
-        String s15 = COM.dragonflow.SiteView.Health.getHealthState();
+        String s15 = Health.getHealthState();
         if (s15.equals("nodata")) {
             s15 = "disable";
         }
@@ -664,9 +673,9 @@ public abstract class CGI {
             String s17 = "";
             String s18 = httprequest.getPermission("_partner");
             if (s18.length() > 0) {
-                COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
+                SiteViewGroup siteviewgroup = SiteViewGroup
                         .currentSiteView();
-                COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) siteviewgroup
+                MonitorGroup monitorgroup = (MonitorGroup) siteviewgroup
                         .getElement(s18);
                 if (monitorgroup != null) {
                     s17 = monitorgroup.getProperty("_partnerHeaderHTML");
@@ -676,7 +685,7 @@ public abstract class CGI {
                 s17 = COM.dragonflow.Page.CGI.getValue(hashmap, "_headerHTML");
             }
             printwriter.print(s17);
-            printwriter.println(COM.dragonflow.SiteView.Platform.licenseHeader(
+            printwriter.println(Platform.licenseHeader(
                     hashmap, true, httprequest.getAccount()));
         }
         printwriter
@@ -684,7 +693,7 @@ public abstract class CGI {
         printwriter
                 .print("<table class=\"topnav\" border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\"><TR class=\"topnav\">\n<TD><IMG SRC=/SiteView/htdocs/artwork/left.gif width=35 height=44 alt=\"\" border=0></td>");
         byte byte0 = 106;
-        String s19 = COM.dragonflow.SiteView.Platform.productName;
+        String s19 = Platform.productName;
         printwriter
                 .println("<TD><a href="
                         + s2
@@ -707,7 +716,7 @@ public abstract class CGI {
                         + "<IMG SRC=/SiteView/htdocs/artwork/"
                         + s13
                         + ".gif ALT=\"View/create/edit automated and adhoc reports\" width=82 height=44 border=0></a></td>\n");
-        if (!COM.dragonflow.SiteView.Platform.isSiteSeerAccount(httprequest
+        if (!Platform.isSiteSeerAccount(httprequest
                 .getAccount())) {
             printwriter
                     .println("<TD><a href="
@@ -758,15 +767,15 @@ public abstract class CGI {
     public static void printHeadTag(java.io.PrintWriter printwriter,
             String s, String s1) {
         COM.dragonflow.Page.CGI.printHeadTag(printwriter, s, s1,
-                COM.dragonflow.SiteView.Platform.charSetTag);
+                Platform.charSetTag);
     }
 
     public static void printHeadTag(java.io.PrintWriter printwriter,
             String s, String s1, String s2) {
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
+        SiteViewGroup siteviewgroup = SiteViewGroup
                 .currentSiteView();
-        COM.dragonflow.SiteView.SiteViewGroup _tmp = siteviewgroup;
-        String s3 = COM.dragonflow.SiteView.SiteViewGroup
+        SiteViewGroup _tmp = siteviewgroup;
+        String s3 = SiteViewGroup
                 .getServerID();
         printwriter.println("<HEAD>\n" + nocacheHeader + s2 + s1 + "\n<TITLE>"
                 + s3 + " : " + s + "</TITLE>\n");
@@ -801,7 +810,7 @@ public abstract class CGI {
             s3 = "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html;CHARSET="
                     + s2 + "\">\n";
         } else {
-            s3 = COM.dragonflow.SiteView.Platform.charSetTag;
+            s3 = Platform.charSetTag;
         }
         COM.dragonflow.Page.CGI.printHeadTag(printwriter, s, s1, s3);
         String s4 = "";
@@ -893,7 +902,7 @@ public abstract class CGI {
                         + ">this link</A> to continue.</p>"
                         + "<br><hr>\n"
                         + "<p class=fine align=center>"
-                        + COM.dragonflow.SiteView.Platform.companyLogo
+                        + Platform.companyLogo
                         + "</body></html>");
     }
 
@@ -911,7 +920,7 @@ public abstract class CGI {
         outputStream.flush();
     }
 
-    public void printLicenseExceeded(COM.dragonflow.SiteView.Monitor monitor,
+    public void printLicenseExceeded(Monitor monitor,
             String s, int i, String s1) {
         String s2 = (String) monitor
                 .getClassProperty("title");
@@ -982,24 +991,24 @@ public abstract class CGI {
     }
 
     public static boolean isRelated(String s, String s1) {
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
+        SiteViewGroup siteviewgroup = SiteViewGroup
                 .currentSiteView();
         Object obj = null;
         while (s.length() != 0) {
             if (s.equals(s1)) {
                 return true;
             }
-            COM.dragonflow.SiteView.Monitor monitor;
+            Monitor monitor;
             if (COM.dragonflow.Page.treeControl.useTree()) {
                 String as[] = COM.dragonflow.Utils.TextUtils.split(s,
                         "/");
                 if (as[0].equals(s1)) {
                     return true;
                 }
-                monitor = (COM.dragonflow.SiteView.Monitor) siteviewgroup
+                monitor = (Monitor) siteviewgroup
                         .getElement(as[0]);
             } else {
-                monitor = (COM.dragonflow.SiteView.Monitor) siteviewgroup
+                monitor = (Monitor) siteviewgroup
                         .getElement(s);
             }
             if (monitor == null) {
@@ -1014,22 +1023,22 @@ public abstract class CGI {
     public static jgl.Array getAllowedGroupIDsForAccount(
             COM.dragonflow.HTTP.HTTPRequest httprequest) {
         if (COM.dragonflow.Page.CGI.isPortalServerRequest(httprequest)) {
-            jgl.Array array = COM.dragonflow.SiteView.Portal.findObjects(
+            jgl.Array array = Portal.findObjects(
                     "item=" + httprequest.getPortalServer(), 2, httprequest);
             jgl.Array array2 = new Array();
             for (int i = 0; i < array.size(); i++) {
-                COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) array
+                MonitorGroup monitorgroup = (MonitorGroup) array
                         .at(i);
                 array2
                         .add(COM.dragonflow.Utils.I18N
                                 .toDefaultEncoding(monitorgroup
-                                        .getProperty(COM.dragonflow.SiteView.MonitorGroup.pID)));
+                                        .getProperty(MonitorGroup.pID)));
             }
 
             return array2;
         } else {
             jgl.Array array1 = COM.dragonflow.Utils.I18N
-                    .toDefaultArray(COM.dragonflow.SiteView.SiteViewGroup
+                    .toDefaultArray(SiteViewGroup
                             .currentSiteView().getGroupIDs());
             return COM.dragonflow.Page.CGI.filterGroupsForAccount(array1,
                     httprequest);
@@ -1041,7 +1050,7 @@ public abstract class CGI {
         jgl.Array array = new Array();
         String s = httprequest.getAccount();
         String s1 = httprequest.getValue("groupFilter");
-        if (COM.dragonflow.SiteView.Platform.isStandardAccount(s)) {
+        if (Platform.isStandardAccount(s)) {
             Enumeration enumeration = httprequest.getUser()
                     .getMultipleValues("_group");
             if (enumeration.hasMoreElements()) {
@@ -1063,13 +1072,13 @@ public abstract class CGI {
             } else {
                 array.add(COM.dragonflow.Utils.I18N.toDefaultEncoding(s1));
             }
-            COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
+            SiteViewGroup siteviewgroup = SiteViewGroup
                     .currentSiteView();
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) siteviewgroup
+            MonitorGroup monitorgroup = (MonitorGroup) siteviewgroup
                     .getElement(s);
             if (monitorgroup != null
                     && s.equals(monitorgroup.getProperty("_partnerFilter"))) {
-                COM.dragonflow.SiteView.SiteViewGroup siteviewgroup1 = COM.dragonflow.SiteView.SiteViewGroup
+                SiteViewGroup siteviewgroup1 = SiteViewGroup
                         .currentSiteView();
                 jgl.Array array1 = siteviewgroup1.getGroupIDs();
                 Enumeration enumeration1 = array1.elements();
@@ -1077,7 +1086,7 @@ public abstract class CGI {
                     String s3 = COM.dragonflow.Utils.I18N
                             .toDefaultEncoding((String) enumeration1
                                     .nextElement());
-                    COM.dragonflow.SiteView.MonitorGroup monitorgroup1 = (COM.dragonflow.SiteView.MonitorGroup) siteviewgroup1
+                    MonitorGroup monitorgroup1 = (MonitorGroup) siteviewgroup1
                             .getElement(s3);
                     if (monitorgroup1 != null
                             && monitorgroup1.getProperty("_partner").equals(s)) {
@@ -1136,39 +1145,39 @@ public abstract class CGI {
     }
 
     public static String getGroupFullLinks(
-            COM.dragonflow.SiteView.Monitor monitor) {
+            Monitor monitor) {
         return COM.dragonflow.Page.CGI.getGroupFullLinks(monitor, null);
     }
 
     public static String getGroupFullLinks(
-            COM.dragonflow.SiteView.Monitor monitor,
+            Monitor monitor,
             COM.dragonflow.HTTP.HTTPRequest httprequest) {
         String s = COM.dragonflow.Utils.I18N.toDefaultEncoding(monitor
-                .getProperty(COM.dragonflow.SiteView.Monitor.pID));
+                .getProperty(Monitor.pID));
         return COM.dragonflow.Page.CGI.getGroupPath(monitor, s, true,
                 httprequest);
     }
 
     public static String getGroupFullName(String s) {
         COM.dragonflow.Utils.I18N.test(s, 0);
-        COM.dragonflow.SiteView.SiteViewObject siteviewobject = COM.dragonflow.SiteView.Portal
+        SiteViewObject siteviewobject = Portal
                 .getSiteViewForID(s);
-        COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor) siteviewobject
+        Monitor monitor = (Monitor) siteviewobject
                 .getElementByID(COM.dragonflow.Page.CGI.getGroupIDRelative(s));
         return COM.dragonflow.Page.CGI.getGroupPath(monitor, s, false);
     }
 
     public static String getGroupPath(
-            COM.dragonflow.SiteView.Monitor monitor, String s,
+            Monitor monitor, String s,
             boolean flag) {
         return COM.dragonflow.Page.CGI.getGroupPath(monitor, s, flag, null);
     }
 
     public static String getGroupPath(
-            COM.dragonflow.SiteView.Monitor monitor, String s,
+            Monitor monitor, String s,
             boolean flag, COM.dragonflow.HTTP.HTTPRequest httprequest) {
         COM.dragonflow.Utils.I18N.test(s, 0);
-        COM.dragonflow.SiteView.SiteViewObject siteviewobject = COM.dragonflow.SiteView.Portal
+        SiteViewObject siteviewobject = Portal
                 .getSiteViewForID(s);
         String s1 = httprequest == null
                 || httprequest.getValue("_health").length() <= 0 ? ""
@@ -1195,14 +1204,14 @@ public abstract class CGI {
             if (s == null || s.length() == 0) {
                 break;
             }
-            monitor = (COM.dragonflow.SiteView.Monitor) siteviewobject
+            monitor = (Monitor) siteviewobject
                     .getElement(s);
         } 
         return s2;
     }
 
     public static String getGroupName(
-            COM.dragonflow.SiteView.Monitor monitor, String s) {
+            Monitor monitor, String s) {
         COM.dragonflow.Utils.I18N.test(s, 0);
         String s1;
         if (monitor == null) {
@@ -1248,18 +1257,18 @@ public abstract class CGI {
             String s) {
         String s1 = null;
         COM.dragonflow.Utils.I18N.test(s, 0);
-        if (COM.dragonflow.SiteView.Portal.isPortalID(s)) {
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) COM.dragonflow.SiteView.Portal
+        if (Portal.isPortalID(s)) {
+            MonitorGroup monitorgroup = (MonitorGroup) Portal
                     .getPortal().getElement(s);
             if (monitorgroup != null) {
-                COM.dragonflow.SiteView.PortalSiteView portalsiteview = (COM.dragonflow.SiteView.PortalSiteView) monitorgroup
+                PortalSiteView portalsiteview = (PortalSiteView) monitorgroup
                         .getOwner();
                 if (portalsiteview != null) {
                     s1 = monitorgroup
-                            .getProperty(COM.dragonflow.SiteView.MonitorGroup.pName)
+                            .getProperty(MonitorGroup.pName)
                             + " on "
                             + portalsiteview
-                                    .getProperty(COM.dragonflow.SiteView.PortalSiteView.pTitle);
+                                    .getProperty(PortalSiteView.pTitle);
                 }
             }
             if (s1 == null) {
@@ -1278,18 +1287,18 @@ public abstract class CGI {
 
     public static String getGroupIDFull(String s,
             String s1) {
-        if (s1.length() > 0 && COM.dragonflow.SiteView.Portal.isPortalID(s1)) {
-            s = COM.dragonflow.SiteView.Portal.makePortalID(
-                    COM.dragonflow.SiteView.Portal.getServerID(s1), s, "");
+        if (s1.length() > 0 && Portal.isPortalID(s1)) {
+            s = Portal.makePortalID(
+                    Portal.getServerID(s1), s, "");
         }
         return s;
     }
 
     public static String getGroupIDFull(String s,
-            COM.dragonflow.SiteView.SiteViewObject siteviewobject) {
-        if (siteviewobject instanceof COM.dragonflow.SiteView.PortalSiteView) {
-            s = COM.dragonflow.SiteView.Portal.makePortalID(siteviewobject
-                    .getProperty(COM.dragonflow.SiteView.PortalSiteView.pID),
+            SiteViewObject siteviewobject) {
+        if (siteviewobject instanceof PortalSiteView) {
+            s = Portal.makePortalID(siteviewobject
+                    .getProperty(PortalSiteView.pID),
                     s, "");
         }
         return s;
@@ -1301,14 +1310,14 @@ public abstract class CGI {
     }
 
     public static String getGroupIDRelative(String s) {
-        if (COM.dragonflow.SiteView.Portal.isPortalID(s)) {
-            s = COM.dragonflow.SiteView.Portal.getGroupID(s);
+        if (Portal.isPortalID(s)) {
+            s = Portal.getGroupID(s);
         }
         return s;
     }
 
-    public COM.dragonflow.SiteView.SiteViewObject getSiteView() {
-        return COM.dragonflow.SiteView.Portal.getSiteViewForID(request
+    public SiteViewObject getSiteView() {
+        return Portal.getSiteViewForID(request
                 .getPortalServer());
     }
 
@@ -1321,7 +1330,7 @@ public abstract class CGI {
         String s1 = s;
         s = COM.dragonflow.Page.CGI.getGroupIDRelative(s);
         s = s.replace(' ', '_');
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
+        SiteViewGroup siteviewgroup = SiteViewGroup
                 .currentSiteView();
         jgl.Array array = siteviewgroup.getGroupFileIDs();
         String s2 = s.toUpperCase() + ".";
@@ -1357,11 +1366,11 @@ public abstract class CGI {
             COM.dragonflow.HTTP.HTTPRequest httprequest, String s1) {
         String s2 = "";
         if (httprequest != null) {
-            s2 = COM.dragonflow.SiteView.Portal.cleanPortalServerID(httprequest
+            s2 = Portal.cleanPortalServerID(httprequest
                     .getPortalServer());
         }
-        if (COM.dragonflow.SiteView.Portal.isPortalID(s)) {
-            String as[] = COM.dragonflow.SiteView.Portal
+        if (Portal.isPortalID(s)) {
+            String as[] = Portal
                     .getIDComponents(s);
             s2 = as[0];
             s = as[1];
@@ -1376,10 +1385,10 @@ public abstract class CGI {
         }
         String s4 = "";
         if (s2.length() > 0) {
-            s4 = COM.dragonflow.SiteView.Portal.getPortalSiteViewRootPath(s2)
+            s4 = Portal.getPortalSiteViewRootPath(s2)
                     + s3;
         } else {
-            s4 = COM.dragonflow.SiteView.Platform.getRoot() + s3;
+            s4 = Platform.getRoot() + s3;
         }
         return s4;
     }
@@ -1437,7 +1446,7 @@ public abstract class CGI {
         }
         while (enumeration.hasMoreElements()) {
             jgl.HashMap hashmap = (jgl.HashMap) enumeration.nextElement();
-            if (COM.dragonflow.SiteView.Monitor.isMonitorFrame(hashmap)) {
+            if (Monitor.isMonitorFrame(hashmap)) {
                 array1.add(hashmap);
             }
         } 
@@ -1457,7 +1466,7 @@ public abstract class CGI {
         int j = -1;
         while (enumeration.hasMoreElements()) {
             jgl.HashMap hashmap = (jgl.HashMap) enumeration.nextElement();
-            if (COM.dragonflow.SiteView.Monitor.isMonitorFrame(hashmap)
+            if (Monitor.isMonitorFrame(hashmap)
                     && hashmap.get("_id").equals(s)) {
                 j = i;
                 break;
@@ -1482,7 +1491,7 @@ public abstract class CGI {
         int j = -1;
         for (; enumeration.hasMoreElements(); i++) {
             jgl.HashMap hashmap = (jgl.HashMap) enumeration.nextElement();
-            if (!COM.dragonflow.SiteView.Monitor.isMonitorFrame(hashmap)) {
+            if (!Monitor.isMonitorFrame(hashmap)) {
                 continue;
             }
             String s1 = COM.dragonflow.Utils.TextUtils.getValue(
@@ -1562,7 +1571,7 @@ public abstract class CGI {
         String s = COM.dragonflow.Page.CGI.getGroupFilePath("_master",
                 httprequest);
         COM.dragonflow.Properties.FrameFile.writeToFile(s, array, true);
-        COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages(httprequest);
+        SiteViewGroup.updateStaticPages(httprequest);
     }
 
     public static jgl.HashMap findMonitor(jgl.Array array, String s)
@@ -1591,7 +1600,7 @@ public abstract class CGI {
         } else {
             settingsArray.put(0, hashmap);
             WriteGroupFrames(request.getAccount(), settingsArray);
-            COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages(request
+            SiteViewGroup.updateStaticPages(request
                     .getAccount());
         }
     }
@@ -1661,10 +1670,10 @@ public abstract class CGI {
             String s1 = (String) enumeration.nextElement();
             Enumeration enumeration1 = hashmapordered.values(s1);
             while (enumeration1.hasMoreElements()) {
-                COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) enumeration1
+                MonitorGroup monitorgroup = (MonitorGroup) enumeration1
                         .nextElement();
                 String s2 = monitorgroup
-                        .getProperty(COM.dragonflow.SiteView.Monitor.pID);
+                        .getProperty(Monitor.pID);
                 Enumeration enumeration2 = monitorgroup.getMonitors();
                 if ((i & 2) != 0) {
                     String s3 = "";
@@ -1693,13 +1702,13 @@ public abstract class CGI {
                     }
                 }
                 while (enumeration2.hasMoreElements()) {
-                    COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor) enumeration2
+                    Monitor monitor = (Monitor) enumeration2
                             .nextElement();
-                    if (!(monitor instanceof COM.dragonflow.SiteView.SubGroup)
+                    if (!(monitor instanceof SubGroup)
                             && (i & 1) != 0) {
                         String s4 = "";
                         String s6 = monitor
-                                .getProperty(COM.dragonflow.SiteView.Monitor.pID);
+                                .getProperty(Monitor.pID);
                         String s7;
                         if ((i & 0x20) != 0) {
                             s7 = s6 + " " + s2;
@@ -1733,7 +1742,7 @@ public abstract class CGI {
                             stringbuffer7.append(": ");
                         }
                         String s10 = monitor
-                                .getProperty(COM.dragonflow.SiteView.Monitor.pName);
+                                .getProperty(Monitor.pName);
                         if (monitor.getTreeSetting("_truncateMonitorName")
                                 .length() > 0) {
                             String s11 = monitor
@@ -1764,7 +1773,7 @@ public abstract class CGI {
 
     public jgl.Array getGroupNameList(jgl.HashMap hashmap,
             jgl.HashMap hashmap1, jgl.HashMap hashmap2, boolean flag) {
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
+        SiteViewGroup siteviewgroup = SiteViewGroup
                 .currentSiteView();
         jgl.Array array = null;
         array = getAllowedGroupIDs();
@@ -1776,11 +1785,11 @@ public abstract class CGI {
             String s2 = (String) enumeration.nextElement();
             if ((hashmap1 == null || hashmap1.get(s2) == null)
                     && (hashmap2 == null || hashmap2.get(s2) != null)) {
-                COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) siteviewgroup
+                MonitorGroup monitorgroup = (MonitorGroup) siteviewgroup
                         .getElement(s2);
                 if (monitorgroup != null
                         && (!flag || monitorgroup.getProperty(
-                                COM.dragonflow.SiteView.MonitorGroup.pParent)
+                                MonitorGroup.pParent)
                                 .length() <= 0)) {
                     String s3 = COM.dragonflow.Page.CGI.getGroupPath(
                             monitorgroup, COM.dragonflow.Page.CGI
@@ -1814,7 +1823,7 @@ public abstract class CGI {
     }
 
     public static String getStartTimeHTML(long l) {
-        java.util.Date date = COM.dragonflow.SiteView.Platform.makeDate();
+        java.util.Date date = Platform.makeDate();
         l *= 1000L;
         return COM.dragonflow.Page.CGI
                 .getTimeHTML(
@@ -1824,7 +1833,7 @@ public abstract class CGI {
     }
 
     public static String getEndTimeHTML(long l) {
-        java.util.Date date = COM.dragonflow.SiteView.Platform.makeDate();
+        java.util.Date date = Platform.makeDate();
         l *= 1000L;
         return COM.dragonflow.Page.CGI.getTimeHTML(new Date(date.getTime() + l),
                 "end");
@@ -1911,25 +1920,25 @@ public abstract class CGI {
     public static void expandSubgroupIDs(String s, jgl.Array array,
             COM.dragonflow.Page.CGI cgi) {
         COM.dragonflow.Utils.I18N.test(s, 0);
-        java.lang.Object obj = COM.dragonflow.SiteView.SiteViewGroup
+        java.lang.Object obj = SiteViewGroup
                 .currentSiteView();
         if (cgi != null) {
             obj = cgi.getSiteView();
         }
         array.add(s);
-        COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) ((COM.dragonflow.SiteView.SiteViewObject) (obj))
+        MonitorGroup monitorgroup = (MonitorGroup) ((SiteViewObject) (obj))
                 .getElement(s);
         if (monitorgroup != null) {
             Enumeration enumeration = monitorgroup.getMonitors();
             while (enumeration.hasMoreElements()) {
-                COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor) enumeration
+                Monitor monitor = (Monitor) enumeration
                         .nextElement();
-                if (monitor instanceof COM.dragonflow.SiteView.SubGroup) {
+                if (monitor instanceof SubGroup) {
                     COM.dragonflow.Page.CGI
                             .expandSubgroupIDs(
                                     COM.dragonflow.Utils.I18N
                                             .toDefaultEncoding(monitor
-                                                    .getProperty(COM.dragonflow.SiteView.SubGroup.pGroup)),
+                                                    .getProperty(SubGroup.pGroup)),
                                     array, cgi);
                 }
             }
@@ -2155,31 +2164,31 @@ public abstract class CGI {
     }
 
     public int platformOS() {
-        int i = COM.dragonflow.SiteView.Platform.getLocalPlatform();
+        int i = Platform.getLocalPlatform();
         if (isPortalServerRequest()) {
-            COM.dragonflow.SiteView.PortalSiteView portalsiteview = (COM.dragonflow.SiteView.PortalSiteView) COM.dragonflow.SiteView.Portal
-                    .getSiteViewForServerID(COM.dragonflow.SiteView.Portal
+            PortalSiteView portalsiteview = (PortalSiteView) Portal
+                    .getSiteViewForServerID(Portal
                             .cleanPortalServerID(request.getPortalServer()));
             if (portalsiteview != null) {
                 String s = portalsiteview
-                        .getProperty(COM.dragonflow.SiteView.PortalSiteView.pPlatformOS);
-                i = COM.dragonflow.SiteView.Machine.stringToOS(s);
+                        .getProperty(PortalSiteView.pPlatformOS);
+                i = Machine.stringToOS(s);
             }
         }
         return i;
     }
 
     private static void printNavBarMessages(java.io.PrintWriter printwriter) {
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig
+        jgl.HashMap hashmap = MasterConfig
                 .getMasterConfig();
         if (COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_suspendMonitors")
                 .equals("CHECKED")) {
             printwriter
                     .println("<TABLE class=\"subnav\" width=\"600\" bgcolor=\"#CCCCCC\" bordercolor=\"#666666\" border=\"1\" align=\"center\" cellpadding=\"2\" cellspacing=\"0\"><TR class=\"subnav\"><td><p class=\"navbar\" align=\"center\"> <font size=\"-1\" face=Arial, sans-serif><b>SiteView is in Suspended mode; no monitors are currently running.</b><br>To reactivate monitoring, clear the <b>Suspend Monitors</b> setting on the  <a href=/SiteView/docs/GenPref.htm#suspend target=\"Help\"> General Preferences</a> page.</font></p></TD></TR></TABLE>");
         }
-        if (COM.dragonflow.SiteView.SiteViewGroup.currentSiteView()
+        if (SiteViewGroup.currentSiteView()
                 .hasCircularGroups()
-                && COM.dragonflow.SiteView.SiteViewGroup.currentSiteView()
+                && SiteViewGroup.currentSiteView()
                         .checkForCircularGroups()) {
             printwriter
                     .println("<TABLE class=\"subnav\" width=\"600\" bgcolor=\"#CCCCCC\" bordercolor=\"#666666\" border=\"1\" align=\"center\" cellpadding=\"2\" cellspacing=\"0\"><TR class=\"subnav\"><td><p class=\"navbar\" align=\"center\"> <font size=\"-1\" face=Arial, sans-serif><b>A circular group hierarchy has been detected.  Check the error log for details.</b><br>It is recommended that SiteView be shut down until the problem is fixed. </font></p></TD></TR></TABLE>");

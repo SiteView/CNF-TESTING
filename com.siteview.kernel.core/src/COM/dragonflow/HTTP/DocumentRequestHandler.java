@@ -26,9 +26,9 @@ import java.util.Date;
 // HTTPRequestHandler, HTTPRequestException, HTTPRequest, HTTPServer,
 // VirtualDirectory
 
-public class DocumentRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandler {
+public class DocumentRequestHandler extends HTTPRequestHandler {
 
-    COM.dragonflow.HTTP.HTTPServer httpServer;
+    HTTPServer httpServer;
 
     static boolean debug = false;
 
@@ -36,17 +36,17 @@ public class DocumentRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandl
 
     static int maxAds = 10;
 
-    public DocumentRequestHandler(COM.dragonflow.HTTP.HTTPServer httpserver) {
+    public DocumentRequestHandler(HTTPServer httpserver) {
         httpServer = httpserver;
     }
 
-    String randomAd(COM.dragonflow.HTTP.VirtualDirectory virtualdirectory, String s) {
+    String randomAd(VirtualDirectory virtualdirectory, String s) {
         int i = (int) (java.lang.Math.random() * (double) maxAds) + 1;
         s = s.substring(0, s.length() - bannerSuffix.length()) + "banner" + i + ".gif";
         return s;
     }
 
-    void printReportPage(java.io.PrintWriter printwriter, String s, COM.dragonflow.HTTP.HTTPRequest httprequest) throws java.lang.Exception {
+    void printReportPage(java.io.PrintWriter printwriter, String s, HTTPRequest httprequest) throws java.lang.Exception {
         int i = s.indexOf("/accounts");
         int j = s.indexOf("/htdocs");
         if (i != -1 && j != -1) {
@@ -72,12 +72,12 @@ public class DocumentRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandl
         printwriter.print(s1);
     }
 
-    public void handleRequest(COM.dragonflow.HTTP.HTTPRequest httprequest) throws java.lang.Exception {
+    public void handleRequest(HTTPRequest httprequest) throws java.lang.Exception {
         String s = httprequest.getURL();
         if (s.endsWith("/")) {
             s = s + "index.html";
         }
-        COM.dragonflow.HTTP.VirtualDirectory virtualdirectory = httpServer.getVirtualDirectory(s);
+        VirtualDirectory virtualdirectory = httpServer.getVirtualDirectory(s);
         String s1 = null;
         if (virtualdirectory != null) {
             s1 = virtualdirectory.getFullDocumentPath(s);
@@ -92,13 +92,13 @@ public class DocumentRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandl
             throw new HTTPRequestException(403, s);
         }
         boolean flag = false;
-        s1 = COM.dragonflow.Utils.I18N.StringToUnicode(COM.dragonflow.HTTP.HTTPRequest.decodeString(s1));
+        s1 = COM.dragonflow.Utils.I18N.StringToUnicode(HTTPRequest.decodeString(s1));
         if (s1.indexOf("/logs/") != -1) {
             if (debug) {
                 java.lang.System.out.println("DOCUHANDLER - docpath is a log = " + s1);
             }
-            COM.dragonflow.HTTP.HTTPRequest _tmp = httprequest;
-            COM.dragonflow.HTTP.HTTPRequest.noCache = true;
+            HTTPRequest _tmp = httprequest;
+            HTTPRequest.noCache = true;
             if (httprequest.isStandardAccount()) {
                 if (!httprequest.actionAllowed("_logs")) {
                     throw new HTTPRequestException(557);
@@ -119,11 +119,11 @@ public class DocumentRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandl
         java.util.Date date = new Date();
         boolean flag1 = httprequest.isStandardAccount() && s1.indexOf("/htdocs/Reports-") != -1;
         int k = s1.lastIndexOf('.');
-        String s2 = "text/plain";
+        String requestType = "text/plain";
         if (k >= 0) {
-            s2 = httpServer.getType(s1.substring(k));
+            requestType = httpServer.getType(s1.substring(k));
         }
-        if (flag1 && s2.startsWith("image")) {
+        if (flag1 && requestType.startsWith("image")) {
             if (debug) {
                 java.lang.System.out.println("DOCUHANDLER - docpath is an image = " + s1);
             }
@@ -167,22 +167,22 @@ public class DocumentRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandl
         }
         try {
             String s3 = new String("<pre>\n");
-            httprequest.setContentType(s2);
+            httprequest.setContentType(requestType);
             if (file == null) {
                 if (debug) {
                     java.lang.System.out.println("DOCUHANDLER - file is null - calling printSpecial");
                 }
-                COM.dragonflow.HTTP.HTTPRequest _tmp1 = httprequest;
-                COM.dragonflow.HTTP.HTTPRequest.noCache = true;
+                HTTPRequest _tmp1 = httprequest;
+                HTTPRequest.noCache = true;
 
 				httprequest.printHeader(outputStream);
                 COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.cCurrentSiteView;
                 if (siteviewgroup != null) {
                     siteviewgroup.printSpecial(s1, outputStream, httprequest);
                 }
-            } else if (s1.indexOf("SiteView/docs/") != -1 && !s2.startsWith("image")) {
+            } else if (s1.indexOf("SiteView/docs/") != -1 && !requestType.startsWith("image")) {
                 if (debug) {
-                    java.lang.System.out.println("DOCUHANDLER - document type " + s2 + " for " + s1);
+                    java.lang.System.out.println("DOCUHANDLER - document type " + requestType + " for " + s1);
                     java.lang.System.out.println("DOCUHANDLER - file in docs - handling help file " + s1);
                 }
                 long l1 = file.length();
@@ -193,7 +193,7 @@ public class DocumentRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandl
                 java.io.FileInputStream fileinputstream = new FileInputStream(file);
                 java.io.BufferedReader bufferedreader = COM.dragonflow.Utils.FileUtils.MakeEncodedInputReader(fileinputstream, "");
                 Object obj = null;
-                if (s2.equals("application/pdf")) {
+                if (requestType.equals("application/pdf")) {
                     byte abyte0[] = new byte[20480];
                     for (int j2 = -1; (j2 = fileinputstream.read(abyte0, 0, abyte0.length)) != -1;) {
                         rawOutput.write(abyte0, 0, j2);

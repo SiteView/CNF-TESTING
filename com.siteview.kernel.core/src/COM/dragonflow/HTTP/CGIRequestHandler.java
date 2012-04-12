@@ -24,7 +24,7 @@ import COM.dragonflow.Utils.CommandLine;
 // Referenced classes of package COM.dragonflow.HTTP:
 // HTTPRequestHandler, HTTPRequestException, HTTPRequest, HTTPServer
 
-public class CGIRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandler {
+public class CGIRequestHandler extends HTTPRequestHandler {
 
     HTTPServer httpServer;
 
@@ -32,10 +32,7 @@ public class CGIRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandler {
         httpServer = httpserver;
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     */
-    public void handleRequest(COM.dragonflow.HTTP.HTTPRequest httprequest) throws java.lang.Exception {
+    public void handleRequest(HTTPRequest httprequest) throws java.lang.Exception {
         String s1;
         if (httprequest.getURL().indexOf("go.exe") < 0) {
             throw new HTTPRequestException(404, httprequest.getURL());
@@ -48,8 +45,8 @@ public class CGIRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandler {
         if (s1 == null || s1.length() == 0) {
             s1 = "index";
         }
-        COM.dragonflow.HTTP.HTTPRequest _tmp = httprequest;
-        COM.dragonflow.HTTP.HTTPRequest.noCache = true;
+        HTTPRequest _tmp = httprequest;
+        HTTPRequest.noCache = true;
         if (s1.equals("perfex")) {
             printDebugHeader(httprequest, s1);
             outputStream.println("<PRE>");
@@ -178,7 +175,7 @@ public class CGIRequestHandler extends COM.dragonflow.HTTP.HTTPRequestHandler {
         }
     }
 
-    private void printDebugHeader(COM.dragonflow.HTTP.HTTPRequest httprequest, String s) {
+    private void printDebugHeader(HTTPRequest httprequest, String s) {
         httprequest.printHeader(outputStream);
         outputStream.println("<HTML>");
         outputStream.println("<HEAD>");

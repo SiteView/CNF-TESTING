@@ -22,6 +22,10 @@ import java.util.Enumeration;
 
 import jgl.Array;
 import COM.dragonflow.Page.loginPage;
+import COM.dragonflow.SiteView.MasterConfig;
+import COM.dragonflow.SiteView.Platform;
+import COM.dragonflow.SiteView.SiteViewGroup;
+import COM.dragonflow.SiteView.User;
 import COM.dragonflow.Utils.ThreadPool;
 
 // Referenced classes of package COM.dragonflow.HTTP:
@@ -81,7 +85,7 @@ public class HTTPRequestThread implements java.lang.Runnable {
         thread.setNameIfNeeded("HTTPRequestThread");
         socket = socket1;
         keepAliveEnabled = flag;
-        COM.dragonflow.SiteView.Platform.setSocketTimeout(socket1, 0x3a980);
+        Platform.setSocketTimeout(socket1, 0x3a980);
         httpServer = httpserver;
         thread.setPriorityIfNeeded(6);
         thread.activate(this);
@@ -178,12 +182,12 @@ public class HTTPRequestThread implements java.lang.Runnable {
         StringBuffer stringbuffer2 = new StringBuffer(s2);
         COM.dragonflow.Utils.SocketSession socketsession = COM.dragonflow.Utils.SocketSession.getSession(null);
         long l = 50000L;
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
         long l1 = COM.dragonflow.Utils.TextUtils.toLong(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_urlContentMatchMax"));
         if (l1 > 1L) {
             l = l1;
         }
-        jgl.Array array1 = COM.dragonflow.SiteView.Platform.split('&', s5);
+        jgl.Array array1 = Platform.split('&', s5);
         int j = -1;
         int k = -1;
         StringBuffer stringbuffer3 = new StringBuffer();
@@ -267,7 +271,7 @@ public class HTTPRequestThread implements java.lang.Runnable {
         httprequest.setContentType("text/plain");
         httprequest.printHeader(outputStream);
         String s = httprequest.getValue("host");
-        String s1 = COM.dragonflow.SiteView.Platform.pingCommand(s, 5000, 5, 64);
+        String s1 = Platform.pingCommand(s, 5000, 5, 64);
         boolean flag = false;
         try {
             java.lang.Process process = COM.dragonflow.Utils.CommandLine.execSync(s1);
@@ -301,7 +305,7 @@ public class HTTPRequestThread implements java.lang.Runnable {
         httprequest.setContentType("text/plain");
         httprequest.printHeader(outputStream);
         String s = httprequest.getValue("host");
-        String s1 = COM.dragonflow.SiteView.Platform.traceCommand(s, COM.dragonflow.Utils.TextUtils.getValue(COM.dragonflow.SiteView.MasterConfig.getMasterConfig(), "_tracerouteCommand"));
+        String s1 = Platform.traceCommand(s, COM.dragonflow.Utils.TextUtils.getValue(MasterConfig.getMasterConfig(), "_tracerouteCommand"));
         boolean flag = false;
         try {
             java.lang.Process process = COM.dragonflow.Utils.CommandLine.execSync(s1);
@@ -344,19 +348,19 @@ public class HTTPRequestThread implements java.lang.Runnable {
         int j;
 
         try {
-            int i = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().getSettingAsLong("_httpKeepAliveTimeout", 240);
-            COM.dragonflow.SiteView.Platform.setSocketTimeout(socket, i * 1000);
+            int i = SiteViewGroup.currentSiteView().getSettingAsLong("_httpKeepAliveTimeout", 240);
+            Platform.setSocketTimeout(socket, i * 1000);
             inputStream = COM.dragonflow.Utils.FileUtils.MakeInputReader(socket.getInputStream());
             rawOutput = socket.getOutputStream();
             outputStream = null;
             j = 0;
 
             while (true) {
-                String s;
-                String s1;
+                String url;
+                String page;
                 try {
                     httprequest = new HTTPRequest(inputStream, true);
-                    s = httprequest.getURL();
+                    url = httprequest.getURL();
 					//if(!s.endsWith(".gif")&&!s.endsWith(".css"))
 						//s = COM.dragonflow.Utils.I18N.StringToUnicode(HTTPRequest.decodeString(s), COM.dragonflow.Utils.I18N.nullEncoding());
 					
@@ -364,8 +368,8 @@ public class HTTPRequestThread implements java.lang.Runnable {
                     if (rawOutput == null) {
                         rawOutput = socket.getOutputStream();
                     }
-                    s1 = httprequest.getValue("page");
-                    if (!COM.dragonflow.HTTP.HTTPServer.filter.isEmpty() && !COM.dragonflow.HTTP.HTTPServer.filter.contains(s1.toLowerCase())) {
+                    page = httprequest.getValue("page");
+                    if (!COM.dragonflow.HTTP.HTTPServer.filter.isEmpty() && !COM.dragonflow.HTTP.HTTPServer.filter.contains(page.toLowerCase())) {
                         if (httprequest != null) {
                             httprequest.writeAccessLog();
                         }
@@ -402,16 +406,16 @@ public class HTTPRequestThread implements java.lang.Runnable {
                         return;
                     }
 
-                    COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.cCurrentSiteView;
-                    if (s.equals("/") || s.equals("/SiteView") || s.equals("/SiteView/") || s.startsWith("/siteview")) {
+                    SiteViewGroup siteviewgroup = SiteViewGroup.cCurrentSiteView;
+                    if (url.equals("/") || url.equals("/SiteView") || url.equals("/SiteView/") || url.startsWith("/siteview")) {
                         httprequest.setURL("/SiteView/cgi/go.exe/SiteView");
                     }
                     thread.setNameIfNeeded("HTTPRequest " + httprequest.getURL());
                     java.net.InetAddress inetaddress = socket.getInetAddress();
-                    String s3 = COM.dragonflow.SiteView.Platform.dottedIPString(inetaddress.getAddress());
+                    String s3 = Platform.dottedIPString(inetaddress.getAddress());
                     httprequest.setRemoteAddress(s3);
 
-                    if (s.indexOf("/groups/") != -1) {
+                    if (url.indexOf("/groups/") != -1) {
                         throw new HTTPRequestException(404);
                     }
                     if (httpServer.getMaxConnections() > 0 && httpServer.getConnections() > httpServer.getMaxConnections()) {
@@ -483,7 +487,7 @@ public class HTTPRequestThread implements java.lang.Runnable {
                             String s9;
                             long l = siteviewgroup.getSettingAsLong("_adminExpireDays");
                             if (l > 0L) {
-                                java.util.Date date = COM.dragonflow.SiteView.Platform.makeDate();
+                                java.util.Date date = Platform.makeDate();
                                 java.util.Date date1 = new Date(0L);
                                 String s8 = siteviewgroup.getSetting("_adminChangedDate");
                                 if (s8.length() > 0) {
@@ -496,7 +500,7 @@ public class HTTPRequestThread implements java.lang.Runnable {
                                     if (httprequest.getURL().indexOf("page=changepassword") != -1) {
                                         String s10 = httprequest.getValue("adminPassword");
                                         String s11 = httprequest.getValue("adminPassword2");
-                                        String s12 = COM.dragonflow.SiteView.User.checkPassword(COM.dragonflow.SiteView.MasterConfig.getMasterConfig(), s10, s11);
+                                        String s12 = User.checkPassword(MasterConfig.getMasterConfig(), s10, s11);
                                         if (s12.length() > 0) {
                                             s9 = "<b>New password was not saved: " + s12 + "</b>";
                                         } else if (s10.equals(siteviewgroup.getSetting("_adminPassword"))) {
