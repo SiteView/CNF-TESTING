@@ -25,6 +25,8 @@ import jgl.HashMap;
 
 import org.xml.sax.InputSource;
 
+import COM.dragonflow.Log.LogManager;
+
 // Referenced classes of package COM.dragonflow.XmlApi:
 // XmlApiRequest, XmlApiObject
 
@@ -58,14 +60,14 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
             javax.xml.parsers.DocumentBuilder documentbuilder = documentbuilderfactory.newDocumentBuilder();
             document = documentbuilder.parse(new InputSource(new StringReader(s)));
         } catch (java.lang.Exception exception) {
-            COM.dragonflow.Log.LogManager.log("Error", "SiteView API: Exception, " + exception.getMessage());
+            LogManager.log("Error", "SiteView API: Exception, " + exception.getMessage());
             return;
         }
         if (document.getDocumentElement() != null) {
             encodeValues = true;
             processNode(document.getDocumentElement(), request);
         } else {
-            COM.dragonflow.Log.LogManager.log("error", "APIRequestXML: Document element is null");
+            LogManager.log("error", "APIRequestXML: Document element is null");
         }
     }
 

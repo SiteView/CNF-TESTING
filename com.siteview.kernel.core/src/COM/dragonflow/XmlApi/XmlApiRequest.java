@@ -39,7 +39,7 @@ public class XmlApiRequest
     public static final String API_GET_CURRENT_VERSION_OPERATION = "getCurrentApiVersion";
     static java.lang.Object mutex = new Object();
     protected boolean debug;
-    COM.dragonflow.XmlApi.XmlApiObject request;
+    XmlApiObject request;
     private static jgl.HashMap apiLookup = new HashMap();
     private static java.util.HashSet detachAllowedOperations = null;
     private static java.lang.Object detachAllowedOperationsSync = new Object();
@@ -59,10 +59,10 @@ public class XmlApiRequest
     public void doRequests()
     {
         String s = request.getName();
-        COM.dragonflow.XmlApi.XmlApiObject xmlapiobject;
+        XmlApiObject xmlapiobject;
         for(Enumeration enumeration = request.elements(); enumeration.hasMoreElements(); processRequest(s, xmlapiobject))
         {
-            xmlapiobject = (COM.dragonflow.XmlApi.XmlApiObject)enumeration.nextElement();
+            xmlapiobject = (XmlApiObject)enumeration.nextElement();
         }
 
         try
@@ -80,7 +80,7 @@ public class XmlApiRequest
         }
     }
 
-    public void processRequest(String s, COM.dragonflow.XmlApi.XmlApiObject xmlapiobject)
+    public void processRequest(String s, XmlApiObject xmlapiobject)
     {
         String s1 = xmlapiobject.getName();
         if(debug && (s1 == null || s1.length() == 0))
@@ -88,13 +88,13 @@ public class XmlApiRequest
             java.lang.System.out.println("documentName=" + s + ", operation=" + s1);
             java.lang.System.out.println(xmlapiobject.toString());
         }
-        String s2 = "COM.dragonflow.XmlApi." + s;
+        String s2 = "" + s;
         java.lang.Object aobj[] = new java.lang.Object[1];
         aobj[0] = xmlapiobject;
         try
         {
             String s3 = xmlapiobject.getDocumentProperty("controllingHost");
-//            COM.dragonflow.TopazIntegration.MAManager.validateControllingHost(s3, COM.dragonflow.XmlApi.XmlApiRequest.isDetachAllowedOperation(s1));
+//            COM.dragonflow.TopazIntegration.MAManager.validateControllingHost(s3, XmlApiRequest.isDetachAllowedOperation(s1));
             String s4 = COM.dragonflow.SiteView.Platform.getVersion();
             double d = COM.dragonflow.Api.APISiteView.getCurrentApiVersion();
             String s5 = xmlapiobject.getDocumentProperty("version");
@@ -128,7 +128,7 @@ public class XmlApiRequest
             xmlapiobject.setProperty("errorcode", String.valueOf(siteviewoperationalexception.getErrorCode()), false);
             return;
         }
-        java.lang.Object obj = COM.dragonflow.XmlApi.XmlApiRequest.invokeMethod(s2, s1, aobj);
+        java.lang.Object obj = XmlApiRequest.invokeMethod(s2, s1, aobj);
         if(obj instanceof java.lang.Exception)
         {
             java.lang.Exception exception = (java.lang.Exception)obj;
@@ -141,7 +141,7 @@ public class XmlApiRequest
             }
 
             stringbuffer.append(")");
-            java.lang.reflect.Method amethod[] = COM.dragonflow.XmlApi.XmlApiRequest.listAvailableMethods(s2, aobj);
+            java.lang.reflect.Method amethod[] = XmlApiRequest.listAvailableMethods(s2, aobj);
             for(int j = 0; j < amethod.length; j++)
             {
                 stringbuffer.append(",  " + amethod[j].getName() + "(");
@@ -199,7 +199,7 @@ public class XmlApiRequest
         return request;
     }
 
-    public void setAPIRequest(COM.dragonflow.XmlApi.XmlApiObject xmlapiobject)
+    public void setAPIRequest(XmlApiObject xmlapiobject)
     {
         request = xmlapiobject;
     }
@@ -237,7 +237,7 @@ public class XmlApiRequest
         }
         catch(java.lang.Exception exception)
         {
-            COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+            XmlApiResponse xmlapiresponse = new XmlApiResponse();
             COM.dragonflow.SiteViewException.SiteViewOperationalException siteviewoperationalexception = new SiteViewOperationalException(COM.dragonflow.Resource.SiteViewErrorCodes.ERR_OP_SS_EXCEPTION, new String[] {
                 s, s1
             }, 0L, exception.getMessage());
@@ -274,7 +274,7 @@ public class XmlApiRequest
             for(int j = 0; j < amethod1.length; j++)
             {
                 java.lang.Class aclass[] = amethod1[j].getParameterTypes();
-                if(aobj == null || COM.dragonflow.XmlApi.XmlApiRequest.parmsMatch(aclass, aobj))
+                if(aobj == null || XmlApiRequest.parmsMatch(aclass, aobj))
                 {
                     array.add(amethod1[j]);
                 }
@@ -340,7 +340,7 @@ public class XmlApiRequest
 
     public static jgl.Array getSiteViewObjects()
     {
-        return COM.dragonflow.XmlApi.XmlApiRequest.getStandardObjects();
+        return XmlApiRequest.getStandardObjects();
     }
 
     public static jgl.Array getObjects(String s)

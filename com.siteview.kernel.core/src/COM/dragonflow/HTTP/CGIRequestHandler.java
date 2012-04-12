@@ -37,8 +37,8 @@ public class CGIRequestHandler extends HTTPRequestHandler {
         if (httprequest.getURL().indexOf("go.exe") < 0) {
             throw new HTTPRequestException(404, httprequest.getURL());
         }
-        String s = COM.dragonflow.Utils.I18N.toDefaultEncoding(httprequest.getValue("group"));
-        if (s.length() > 0 && !COM.dragonflow.Page.CGI.isGroupAllowedForAccount(s, httprequest)) {
+        String group = COM.dragonflow.Utils.I18N.toDefaultEncoding(httprequest.getValue("group"));
+        if (group.length() > 0 && !COM.dragonflow.Page.CGI.isGroupAllowedForAccount(group, httprequest)) {
             throw new HTTPRequestException(557);
         }
         s1 = httprequest.getValue("page");
