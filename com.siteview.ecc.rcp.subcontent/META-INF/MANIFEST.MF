@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SiteView CNF Sub Content
+Bundle-SymbolicName: com.siteview.ecc.rcp.cnf.subcontent;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.siteview.ecc.rcp.cnf.subcontent.internal.CNFSubActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.navigator;bundle-version="3.4.0",
+ com.siteview.ecc.rcp.cnf;bundle-version="1.0.0",
+ org.eclipse.core.expressions;bundle-version="3.4.100"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
