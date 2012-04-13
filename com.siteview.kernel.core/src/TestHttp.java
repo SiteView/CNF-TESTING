@@ -18,7 +18,7 @@ public class TestHttp {
             SiteViewSupport.InitProcess();
             SiteViewSupport.InitProcess2();
             SiteViewSupport.StartProcess();/*∆Ù∂Øº‡≤‚œﬂ≥Ã*/
-            ApiForOfbiz.DisplayAllMonitor();
+
             SiteViewSupport.WaitForProcess();
         }
         catch(Exception exception)

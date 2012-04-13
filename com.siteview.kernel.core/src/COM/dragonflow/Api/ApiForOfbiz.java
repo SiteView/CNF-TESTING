@@ -1,7 +1,13 @@
 package COM.dragonflow.Api;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Vector;
+
+import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.Monitor;
 
 
 public class ApiForOfbiz
@@ -12,20 +18,20 @@ public class ApiForOfbiz
 		try
 		{
 			COM.dragonflow.Api.APIMonitor apim = new APIMonitor();
-			java.util.Collection collection = apim.getAllMonitors();
-			java.util.Vector vector = (java.util.Vector) collection;
+			Collection collection = apim.getAllMonitors();
+			Vector vector = (Vector) collection;
 
-			COM.dragonflow.SiteView.Monitor monitor;
+			Monitor monitor;
 			int index = 0;
-			for (java.util.Iterator iterator = collection.iterator(); iterator.hasNext();)
+			for (Iterator iterator = collection.iterator(); iterator.hasNext();)
 			{
-				monitor = (COM.dragonflow.SiteView.Monitor) iterator.next();
+				monitor = (Monitor) iterator.next();
 				
 				HashMap<String, String> ndata = new HashMap<String, String>();
-				ndata.put(new String("Name"), monitor.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pName));
-				ndata.put(new String("GroupID"), monitor.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pOwnerID));
-				ndata.put(new String("MonitorID"), monitor.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pID));
-				ndata.put(new String("Type"), monitor.getProperty(COM.dragonflow.SiteView.AtomicMonitor.pClass));
+				ndata.put(new String("Name"), monitor.getProperty(AtomicMonitor.pName));
+				ndata.put(new String("GroupID"), monitor.getProperty(AtomicMonitor.pOwnerID));
+				ndata.put(new String("MonitorID"), monitor.getProperty(AtomicMonitor.pID));
+				ndata.put(new String("Type"), monitor.getProperty(AtomicMonitor.pClass));
 				list.add(ndata);
 			}
 		} catch (java.lang.Exception e)
