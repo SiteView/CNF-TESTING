@@ -260,7 +260,7 @@ public class SubGroup extends Monitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public boolean isDisabled() {
         try {

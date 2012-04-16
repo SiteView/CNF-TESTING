@@ -332,7 +332,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      */
     public String getHostname() {
@@ -426,7 +426,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         if (!Platform.getVersion().startsWith("7")) {
@@ -810,7 +810,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param l
@@ -889,7 +889,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public Enumeration getStatePropertyObjects(boolean flag) {
         Enumeration enumeration = super.getStatePropertyObjects(flag);
@@ -1096,7 +1096,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @param s
@@ -1138,7 +1138,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @return
@@ -1163,7 +1163,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @return
@@ -1185,7 +1185,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @return
@@ -1207,7 +1207,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @return
@@ -1230,7 +1230,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     static String getHostHeader(Array array, String s, int i, String s1) {
         String s2;
@@ -1262,7 +1262,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @return
@@ -1348,7 +1348,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     static long sendSSLRequest(String s, SocketSession socketsession, Array array, CounterLock counterlock, Array array1) {
         long l;
@@ -1531,7 +1531,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     private static long[] checkInternalURL(SocketSession socketsession, String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7, Array array, String s8, String s9, String s10, StringBuffer stringbuffer, long l, String s11,
             int i, long l1, StringBuffer stringbuffer1, StringBuffer stringbuffer2) {

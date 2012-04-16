@@ -670,7 +670,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     }
     
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

@@ -320,7 +320,7 @@ public final class WebSphereMonitorEPM {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param node
      * @param s

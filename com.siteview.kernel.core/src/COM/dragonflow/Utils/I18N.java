@@ -195,7 +195,7 @@ public class I18N
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -255,7 +255,7 @@ public class I18N
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -306,7 +306,7 @@ public class I18N
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param abyte0
      * @return
@@ -337,7 +337,7 @@ public class I18N
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

@@ -13,6 +13,8 @@ import java.util.Enumeration;
 
 import COM.dragonflow.Resource.SiteViewErrorCodes;
 import COM.dragonflow.Resource.SiteViewResource;
+import COM.dragonflow.SiteView.MasterConfig;
+import COM.dragonflow.SiteView.User;
 import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.TextUtils;
 import COM.dragonflow.XmlApi.XmlApiObject;
@@ -27,10 +29,10 @@ public class xmlApiPage extends COM.dragonflow.Page.CGI {
     }
 
     public void printBody() {
-        String s = request.getValue("_login");
-        String s1 = request.getValue("_password");
-        String s2 = request.getValue("account");
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig
+        String login = request.getValue("_login");
+        String password = request.getValue("_password");
+        String account = request.getValue("account");
+        jgl.HashMap hashmap = MasterConfig
                 .getMasterConfig();
         String s3 = "";
         String requestXml = null;
@@ -46,7 +48,7 @@ public class xmlApiPage extends COM.dragonflow.Page.CGI {
         } else {
             requestXml = request.getValue("xml");
         }
-        java.lang.Boolean boolean1 = new Boolean(request
+        java.lang.Boolean licenseExpired = new Boolean(request
                 .getValue("licenseExpired"));
         java.lang.System.out.println("APIRequest: \r\n" + requestXml);
         XmlApiRequestXML xmlapirequestxml = new XmlApiRequestXML(requestXml);
@@ -54,15 +56,14 @@ public class xmlApiPage extends COM.dragonflow.Page.CGI {
         Enumeration enumeration = xmlapirequest.elements();
         XmlApiObject xmlapiobject1 = (XmlApiObject) enumeration.nextElement();
         String s7 = xmlapiobject1.getName();
-        if (!boolean1.booleanValue() || s7.equals("updateLicense")) {
-            if (s2.length() == 0) {
-                s2 = "administrator";
+        if (!licenseExpired.booleanValue() || s7.equals("updateLicense")) {
+            if (account.length() == 0) {
+                account = "administrator";
             }
-            COM.dragonflow.SiteView.User user = COM.dragonflow.SiteView.User
-                    .getUserForAccount(s2);
+            User user = User.getUserForAccount(account);
             if (user != null) {
-                if (user.getProperty("_login").equalsIgnoreCase(s)
-                        && user.getProperty("_password").equals(s1)) {
+                if (user.getProperty("_login").equalsIgnoreCase(login)
+                        && user.getProperty("_password").equals(password)) {
                     if (user.getProperty("_disabled").length() > 0) {
                         if (TextUtils.getValue(hashmap,
                                 "_loginDisabledMessage").length() > 0) {
@@ -91,7 +92,7 @@ public class xmlApiPage extends COM.dragonflow.Page.CGI {
                                 "_loginIncorrectMessage");
                     }
                     if (s3.length() == 0) {
-                        s3 = "Login incorrect for account: " + s2;
+                        s3 = "Login incorrect for account: " + account;
                     }
                     xmlapirequest.setProperty("errortype", "operational", false);
                     xmlapirequest

@@ -231,7 +231,7 @@ public class EMSDatabaseMonitor extends AtomicMonitor
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      * @throws JdbcMonitorVerificationException

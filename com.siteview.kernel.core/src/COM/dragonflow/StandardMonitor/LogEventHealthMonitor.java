@@ -54,7 +54,7 @@ public class LogEventHealthMonitor extends MultiContentBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         try {

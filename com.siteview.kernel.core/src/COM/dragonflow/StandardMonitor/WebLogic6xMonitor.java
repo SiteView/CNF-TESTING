@@ -151,7 +151,7 @@ public class WebLogic6xMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public String getBrowseData(StringBuffer stringbuffer) {
         try {
@@ -171,7 +171,7 @@ public class WebLogic6xMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param as
      * @param as1
@@ -188,7 +188,7 @@ public class WebLogic6xMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param aclass
@@ -323,7 +323,7 @@ public class WebLogic6xMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

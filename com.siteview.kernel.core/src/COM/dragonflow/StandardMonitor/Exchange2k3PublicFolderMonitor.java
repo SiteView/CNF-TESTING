@@ -46,7 +46,7 @@ public class Exchange2k3PublicFolderMonitor extends ExchangeWMIToolBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         try {

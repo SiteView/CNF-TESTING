@@ -389,7 +389,7 @@ public class CommandLine
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param as
      * @param counterlock
@@ -629,7 +629,7 @@ public class CommandLine
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param as
      * @param s
@@ -878,7 +878,7 @@ public class CommandLine
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param i

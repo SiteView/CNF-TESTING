@@ -214,7 +214,7 @@ public class SoapRpc
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param stringbuffer
@@ -318,7 +318,7 @@ public class SoapRpc
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

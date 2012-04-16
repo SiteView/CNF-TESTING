@@ -226,7 +226,7 @@ public class APIAlert extends COM.dragonflow.Api.APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -320,7 +320,7 @@ public class APIAlert extends COM.dragonflow.Api.APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param alert
      * @return
@@ -390,7 +390,7 @@ public class APIAlert extends COM.dragonflow.Api.APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param action
      * @param hashmap

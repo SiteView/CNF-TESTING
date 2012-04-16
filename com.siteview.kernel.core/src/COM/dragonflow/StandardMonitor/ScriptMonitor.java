@@ -118,7 +118,7 @@ public class ScriptMonitor extends ServerMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -229,7 +229,7 @@ public class ScriptMonitor extends ServerMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -270,7 +270,7 @@ public class ScriptMonitor extends ServerMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         long l = Platform.timeMillis();

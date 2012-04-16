@@ -234,7 +234,7 @@ public class WebSphereMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param l
      * @param s
@@ -267,7 +267,7 @@ public class WebSphereMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param stringbuffer
      * @return
@@ -489,7 +489,7 @@ public class WebSphereMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param awebspherecounter
      * @param stringbuffer

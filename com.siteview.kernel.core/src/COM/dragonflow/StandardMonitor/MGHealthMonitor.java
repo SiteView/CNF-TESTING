@@ -31,7 +31,7 @@ public class MGHealthMonitor extends HealthMonitorBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         try {

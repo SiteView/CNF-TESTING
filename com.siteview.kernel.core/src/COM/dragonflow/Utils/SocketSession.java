@@ -394,7 +394,7 @@ public class SocketSession
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @return

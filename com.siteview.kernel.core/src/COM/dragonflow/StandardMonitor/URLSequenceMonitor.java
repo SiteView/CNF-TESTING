@@ -696,7 +696,7 @@ public class URLSequenceMonitor extends AtomicMonitor
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public String getHostname()
     {

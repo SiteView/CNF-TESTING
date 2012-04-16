@@ -327,7 +327,7 @@ public class WebServerMonitor extends ServerMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param file
      * @return

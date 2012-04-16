@@ -174,7 +174,7 @@ public class monitorSummaryPage extends COM.dragonflow.Page.CGI
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void printBody()
         throws java.lang.Exception

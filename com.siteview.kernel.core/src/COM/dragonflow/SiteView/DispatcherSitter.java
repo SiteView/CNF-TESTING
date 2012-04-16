@@ -271,7 +271,7 @@ public class DispatcherSitter extends Thread {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void run() {
         while_25_: // TODO need review

@@ -255,7 +255,7 @@ public class JdbcConfig extends Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -512,7 +512,7 @@ public class JdbcConfig extends Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

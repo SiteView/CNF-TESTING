@@ -422,7 +422,7 @@ label1:          {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param flag
      */

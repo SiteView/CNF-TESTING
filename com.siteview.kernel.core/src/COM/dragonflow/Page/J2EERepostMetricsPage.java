@@ -54,7 +54,7 @@ public class J2EERepostMetricsPage extends COM.dragonflow.Page.CGI {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

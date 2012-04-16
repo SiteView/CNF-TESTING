@@ -79,7 +79,7 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public java.util.Vector getPreferenceProperties(String s, String s1, String s2, String s3, int i) throws COM.dragonflow.SiteViewException.SiteViewException {
         java.util.Vector vector = new Vector();
@@ -217,7 +217,7 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @param s

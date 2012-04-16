@@ -459,7 +459,7 @@ public class XmlApiSiteView {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

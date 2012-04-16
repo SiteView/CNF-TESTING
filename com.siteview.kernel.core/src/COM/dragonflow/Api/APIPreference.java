@@ -278,7 +278,7 @@ public class APIPreference extends COM.dragonflow.Api.APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

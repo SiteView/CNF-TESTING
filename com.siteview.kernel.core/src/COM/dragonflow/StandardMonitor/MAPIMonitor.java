@@ -186,7 +186,7 @@ public class MAPIMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param stringbuffer
@@ -231,7 +231,7 @@ public class MAPIMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      */
     protected boolean update() {

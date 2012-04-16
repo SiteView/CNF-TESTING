@@ -26,11 +26,13 @@ import jgl.HashMap;
 import org.xml.sax.InputSource;
 
 import COM.dragonflow.Log.LogManager;
+import COM.dragonflow.Utils.I18N;
+import COM.dragonflow.Utils.TextUtils;
 
 // Referenced classes of package COM.dragonflow.XmlApi:
 // XmlApiRequest, XmlApiObject
 
-public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
+public class XmlApiRequestXML extends XmlApiRequest {
 
     private static String headers[] = { "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" };
 
@@ -92,7 +94,7 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
         return xmlResponse.toString();
     }
 
-    private void processNode(org.w3c.dom.Node node, COM.dragonflow.XmlApi.XmlApiObject xmlapiobject) {
+    private void processNode(org.w3c.dom.Node node, XmlApiObject xmlapiobject) {
         if (node.getNodeType() == 1) {
             String s = node.getNodeName();
             if (s != null && s.length() > 0) {
@@ -106,13 +108,13 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
                     }
                     String s1 = attr.getValue();
                     if (s1 != null) {
-                        s1 = COM.dragonflow.Utils.TextUtils.enlighten(s1);
+                        s1 = TextUtils.enlighten(s1);
                     }
                     hashmap.put(attr.getName(), s1);
                 }
 
                 org.w3c.dom.NodeList nodelist = node.getChildNodes();
-                java.util.Vector vector = findPropNodes(nodelist);
+                Vector vector = findPropNodes(nodelist);
                 for (int j = 0; j < vector.size(); j ++) {
                     org.w3c.dom.Node node1 = (org.w3c.dom.Node) vector.elementAt(j);
                     org.w3c.dom.NodeList nodelist1 = node1.getChildNodes();
@@ -131,7 +133,7 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
 
                 xmlapiobject.setProperties(hashmap);
                 xmlapiobject.setName(s);
-                java.util.Vector vector1 = findChildrenNodes(nodelist);
+                Vector vector1 = findChildrenNodes(nodelist);
                 for (int k = 0; k < vector1.size(); k ++) {
                     org.w3c.dom.Node node2 = (org.w3c.dom.Node) vector1.elementAt(k);
                     processNode(node2, xmlapiobject.add());
@@ -141,8 +143,8 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
         }
     }
 
-    private java.util.Vector findPropNodes(org.w3c.dom.NodeList nodelist) {
-        java.util.Vector vector = new Vector();
+    private Vector findPropNodes(org.w3c.dom.NodeList nodelist) {
+        Vector vector = new Vector();
         int i = nodelist.getLength();
         for (int j = 0; j < i; j ++) {
             org.w3c.dom.Node node = nodelist.item(j);
@@ -174,7 +176,7 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
     }
 
     private String[] findValueNodes(org.w3c.dom.NodeList nodelist) {
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         int i = nodelist.getLength();
         for (int j = 0; j < i; j ++) {
             org.w3c.dom.Node node = nodelist.item(j);
@@ -197,8 +199,8 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
         return as;
     }
 
-    private java.util.Vector findChildrenNodes(org.w3c.dom.NodeList nodelist) {
-        java.util.Vector vector = new Vector();
+    private Vector findChildrenNodes(org.w3c.dom.NodeList nodelist) {
+        Vector vector = new Vector();
         int i = nodelist.getLength();
         for (int j = 0; j < i; j ++) {
             org.w3c.dom.Node node = nodelist.item(j);
@@ -210,11 +212,11 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
         return vector;
     }
 
-    private void addXmlElement(COM.dragonflow.XmlApi.XmlApiObject xmlapiobject) {
+    private void addXmlElement(XmlApiObject xmlapiobject) {
         startXmlElement(xmlapiobject.getName(), xmlapiobject.getProperties(false));
-        COM.dragonflow.XmlApi.XmlApiObject xmlapiobject1;
+        XmlApiObject xmlapiobject1;
         for (Enumeration enumeration = xmlapiobject.elements(); enumeration.hasMoreElements(); endXmlElement(xmlapiobject1)) {
-            xmlapiobject1 = (COM.dragonflow.XmlApi.XmlApiObject) enumeration.nextElement();
+            xmlapiobject1 = (XmlApiObject) enumeration.nextElement();
             addXmlElement(xmlapiobject1);
         }
 
@@ -222,7 +224,7 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
 
     private void startXmlElement(String s, jgl.HashMap hashmap) {
         boolean flag = false;
-        java.util.Vector vector = null;
+        Vector vector = null;
         xmlResponse.append("<" + s);
         if (hashmap != null) {
             Enumeration enumeration = hashmap.keys();
@@ -236,10 +238,10 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
                     }
                     vector.addElement(s1);
                 } else if (obj instanceof String) {
-                    if (COM.dragonflow.Utils.I18N.isNullEncoding(obj.toString())) {
-                        xmlResponse.append(" " + s1 + "=\"" + COM.dragonflow.Utils.TextUtils.escapeHTML(COM.dragonflow.Utils.I18N.toDefaultEncoding(obj.toString())) + "\"");
+                    if (I18N.isNullEncoding(obj.toString())) {
+                        xmlResponse.append(" " + s1 + "=\"" + TextUtils.escapeHTML(I18N.toDefaultEncoding(obj.toString())) + "\"");
                     } else {
-                        xmlResponse.append(" " + s1 + "=\"" + COM.dragonflow.Utils.TextUtils.escapeHTML(obj.toString()) + "\"");
+                        xmlResponse.append(" " + s1 + "=\"" + TextUtils.escapeHTML(obj.toString()) + "\"");
                     }
                 }
             } 
@@ -255,7 +257,7 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
                             continue;
                         }
                         if (encodeValues) {
-                            String s3 = COM.dragonflow.XmlApi.XmlApiRequestXML.escapeXML(as[j]);
+                            String s3 = XmlApiRequestXML.escapeXML(as[j]);
                             xmlResponse.append("<value>" + s3 + "</value>\r\n");
                         } else {
                             xmlResponse.append("<value>" + as[j] + "</value>\r\n");
@@ -269,7 +271,7 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
         }
     }
 
-    private void endXmlElement(COM.dragonflow.XmlApi.XmlApiObject xmlapiobject) {
+    private void endXmlElement(XmlApiObject xmlapiobject) {
         xmlResponse.append("</" + xmlapiobject.getName() + ">\r\n");
     }
 
@@ -307,7 +309,7 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
             if (i >= s.length()) {
                 break;
             }
-            for (int j = 0; (j = COM.dragonflow.XmlApi.XmlApiRequestXML.isEscaped(stringbuffer, s, i)) > 0 && i < s.length(); i += j) {
+            for (int j = 0; (j = XmlApiRequestXML.isEscaped(stringbuffer, s, i)) > 0 && i < s.length(); i += j) {
             }
             if (i >= s.length()) {
                 break;
@@ -316,7 +318,7 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
             if (s1.indexOf(c) >= 0) {
                 stringbuffer.append(c);
             } else {
-                COM.dragonflow.Utils.TextUtils.escapeChar(c, stringbuffer);
+                TextUtils.escapeChar(c, stringbuffer);
             }
         } while (true);
         return stringbuffer.toString();
@@ -330,7 +332,7 @@ public class XmlApiRequestXML extends COM.dragonflow.XmlApi.XmlApiRequest {
                 break;
             }
             char c = s.charAt(i ++);
-            if (!COM.dragonflow.XmlApi.XmlApiRequestXML.escapeSpecial(c, stringbuffer)) {
+            if (!XmlApiRequestXML.escapeSpecial(c, stringbuffer)) {
                 stringbuffer.append(c);
             }
         } while (true);

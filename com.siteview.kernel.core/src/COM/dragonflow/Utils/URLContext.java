@@ -211,7 +211,7 @@ public class URLContext {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @return

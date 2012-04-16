@@ -398,12 +398,6 @@ public class User extends SiteViewObject {
         }
     }
 
-    /**
-     * CAUTION: Decompiled by hand.
-     * 
-     * @param s
-     * @return
-     */
     public static User getUserForAccount(String s) {
         if (accountTable.size() > 0) {
             return getFirstUserForAccount(s);
@@ -440,7 +434,7 @@ public class User extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

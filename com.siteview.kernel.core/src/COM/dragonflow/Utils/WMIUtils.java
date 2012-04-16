@@ -59,7 +59,7 @@ public class WMIUtils {
 //    }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -109,7 +109,7 @@ public class WMIUtils {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param i
      * @param xdrmarshaller
@@ -156,7 +156,7 @@ public class WMIUtils {
 //    }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param i
      * @param xdrmarshaller

@@ -66,7 +66,7 @@ public class J2EEReportMonitor extends J2EEMonitor {
     protected static final String VALUE_STR = "value";
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -137,7 +137,7 @@ public class J2EEReportMonitor extends J2EEMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         if (stillActive()) {

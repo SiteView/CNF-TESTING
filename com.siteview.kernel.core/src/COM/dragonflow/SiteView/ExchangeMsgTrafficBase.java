@@ -162,7 +162,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         try {
@@ -272,7 +272,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param map
      * @param i
@@ -301,7 +301,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param map
      * @param i
@@ -344,7 +344,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param vector
      * @return
@@ -374,7 +374,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param map
      * @param s

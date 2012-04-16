@@ -165,7 +165,7 @@ public class DispatcherMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @return

@@ -167,7 +167,7 @@ public class WebSphereJMXObject extends JMXObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

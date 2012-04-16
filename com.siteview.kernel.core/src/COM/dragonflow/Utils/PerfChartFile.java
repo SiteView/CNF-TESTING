@@ -127,7 +127,7 @@ public class PerfChartFile {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

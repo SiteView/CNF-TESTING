@@ -151,7 +151,7 @@ public abstract class EMSLogMonitorBase extends LogMonitorBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param path
      * @return

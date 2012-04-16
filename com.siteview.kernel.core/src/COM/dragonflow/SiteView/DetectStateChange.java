@@ -36,7 +36,7 @@ public class DetectStateChange extends Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public boolean execute() {
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();

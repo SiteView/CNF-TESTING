@@ -605,7 +605,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

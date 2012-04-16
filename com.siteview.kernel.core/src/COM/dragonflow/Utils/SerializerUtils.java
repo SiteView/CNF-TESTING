@@ -36,7 +36,7 @@ public class SerializerUtils {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param propertybag
      * @return
@@ -56,7 +56,7 @@ public class SerializerUtils {
 //    }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param serializable
      * @return
@@ -84,7 +84,7 @@ public class SerializerUtils {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param serializable
      * @param flag
@@ -169,7 +169,7 @@ public class SerializerUtils {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param abyte0
      * @return

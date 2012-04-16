@@ -56,7 +56,7 @@ public class BrowsableProperty extends StringProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param node
      * @return
@@ -86,7 +86,7 @@ public class BrowsableProperty extends StringProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param node
      * @return
@@ -199,7 +199,7 @@ public class BrowsableProperty extends StringProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param atomicmonitor
      * @param s

@@ -292,7 +292,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param array

@@ -96,7 +96,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

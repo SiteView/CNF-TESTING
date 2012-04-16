@@ -182,7 +182,7 @@ public class FTPMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -218,7 +218,7 @@ public class FTPMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -254,7 +254,7 @@ public class FTPMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         int i = StringProperty.toInteger(getProperty(pTimeout));
@@ -363,7 +363,7 @@ public class FTPMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s1
      * @param s2

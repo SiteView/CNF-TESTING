@@ -412,7 +412,7 @@ public abstract class FileBase {
         }
 
         /**
-         * CAUTION: Decompiled by hand.
+         * 
          * 
          * @param s
          * @param s1

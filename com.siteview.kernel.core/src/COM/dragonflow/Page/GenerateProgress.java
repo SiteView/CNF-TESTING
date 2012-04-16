@@ -153,7 +153,7 @@ public class GenerateProgress extends COM.dragonflow.SiteView.Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @param monitor
@@ -232,7 +232,7 @@ public class GenerateProgress extends COM.dragonflow.SiteView.Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @param httprequest

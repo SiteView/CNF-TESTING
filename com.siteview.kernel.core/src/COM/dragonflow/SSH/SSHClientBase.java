@@ -95,7 +95,7 @@ public abstract class SSHClientBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      * @throws java.io.IOException
@@ -224,7 +224,7 @@ public abstract class SSHClientBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param array
@@ -323,7 +323,7 @@ public abstract class SSHClientBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      */
     private void closeFileForOutuput() {

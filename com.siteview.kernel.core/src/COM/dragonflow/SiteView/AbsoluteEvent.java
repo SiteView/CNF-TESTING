@@ -134,7 +134,7 @@ class AbsoluteEvent extends ScheduleEvent {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @throws Exception
      */
@@ -173,7 +173,7 @@ class AbsoluteEvent extends ScheduleEvent {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @throws Exception
      */

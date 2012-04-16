@@ -120,7 +120,7 @@ public class AlertReport {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @param printwriter

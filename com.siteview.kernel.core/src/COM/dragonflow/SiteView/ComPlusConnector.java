@@ -119,7 +119,7 @@ public class ComPlusConnector {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param stringbuffer
      * @param monitor
@@ -313,7 +313,7 @@ public class ComPlusConnector {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @param stringbuffer

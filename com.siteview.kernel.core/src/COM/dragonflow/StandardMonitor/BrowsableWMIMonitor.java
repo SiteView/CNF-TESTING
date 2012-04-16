@@ -240,7 +240,7 @@ public class BrowsableWMIMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public String getBrowseData(StringBuffer stringbuffer) {
         try {

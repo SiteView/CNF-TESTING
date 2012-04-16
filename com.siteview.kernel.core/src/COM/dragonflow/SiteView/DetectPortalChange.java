@@ -128,7 +128,7 @@ public class DetectPortalChange extends Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      *
      */
     void checkPortals() {

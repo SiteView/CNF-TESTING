@@ -230,7 +230,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * CAUTION: Decompiled by hand.
+	 * 
 	 * 
 	 * @param s
 	 * @param s1
@@ -903,7 +903,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * CAUTION: Decompiled by hand.
+	 * 
 	 * 
 	 * @param s
 	 * @throws java.io.IOException
@@ -2297,7 +2297,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * CAUTION: Decompiled by hand.
+	 * 
 	 * 
 	 * @param array
 	 * @param s
@@ -2370,7 +2370,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * CAUTION: Decompiled by hand.
+	 * 
 	 * 
 	 * @return
 	 * @throws java.io.IOException
@@ -2557,7 +2557,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * CAUTION: Decompiled by hand.
+	 * 
 	 * 
 	 * @param s
 	 */

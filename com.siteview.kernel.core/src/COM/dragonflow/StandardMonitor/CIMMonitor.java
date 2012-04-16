@@ -62,7 +62,7 @@ public class CIMMonitor extends AtomicMonitor
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

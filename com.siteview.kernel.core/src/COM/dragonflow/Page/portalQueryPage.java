@@ -75,7 +75,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     void printAdvancedProperties(jgl.HashMap hashmap, jgl.HashMap hashmap1) {
         jgl.HashMap hashmap2 = COM.dragonflow.SiteView.PortalFilter

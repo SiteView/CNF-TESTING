@@ -150,7 +150,7 @@ public class SNMPMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -415,7 +415,7 @@ public class SNMPMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         long l = getPropertyAsLong(pMeasurementTime);

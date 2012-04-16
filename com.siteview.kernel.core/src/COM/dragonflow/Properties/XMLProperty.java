@@ -46,7 +46,7 @@ public class XMLProperty extends StringProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -66,7 +66,7 @@ public class XMLProperty extends StringProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param document
      * @return

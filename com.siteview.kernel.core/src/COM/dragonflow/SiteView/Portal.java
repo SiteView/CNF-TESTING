@@ -209,7 +209,7 @@ public class Portal extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      */

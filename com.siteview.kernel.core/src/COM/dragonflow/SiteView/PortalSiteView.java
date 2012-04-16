@@ -279,7 +279,7 @@ public class PortalSiteView extends MonitorGroup {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param flag
      * @return

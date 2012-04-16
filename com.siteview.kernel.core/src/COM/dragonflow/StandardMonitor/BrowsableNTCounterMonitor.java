@@ -464,7 +464,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param date
      * @return
@@ -530,7 +530,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public String getBrowseData(StringBuffer stringbuffer) {
         try {

@@ -88,7 +88,7 @@ public class WebSphereMonitorJMX extends WebSphereMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void connect() throws ConnectionException {
         if (debug) {
@@ -150,7 +150,7 @@ public class WebSphereMonitorJMX extends WebSphereMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public boolean getCounterList(StringBuffer stringbuffer) {
         if (debug) {
@@ -342,7 +342,7 @@ public class WebSphereMonitorJMX extends WebSphereMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param obj
@@ -385,7 +385,7 @@ public class WebSphereMonitorJMX extends WebSphereMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public WebSphereCounter[] getCounterValues(WebSphereCounter awebspherecounter[]) {
         if (debug) {
@@ -472,7 +472,7 @@ public class WebSphereMonitorJMX extends WebSphereMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      * @throws ConnectionException
@@ -577,7 +577,7 @@ public class WebSphereMonitorJMX extends WebSphereMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

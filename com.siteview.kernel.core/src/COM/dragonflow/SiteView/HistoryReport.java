@@ -350,7 +350,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param printwriter
@@ -553,7 +553,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     void readFromHashMap(HashMap hashmap) {
         Enumeration enumeration = hashmap.values("groups");
@@ -600,7 +600,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @throws SiteViewException
      */
@@ -681,7 +681,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @throws SiteViewException
@@ -775,7 +775,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -806,7 +806,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @throws SiteViewException
@@ -1234,7 +1234,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @param array
@@ -1688,7 +1688,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -1705,7 +1705,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @param i
@@ -1754,7 +1754,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @param i
@@ -1811,7 +1811,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      */
@@ -1849,7 +1849,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      */
@@ -1882,7 +1882,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      */
@@ -1915,7 +1915,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      */
@@ -2005,7 +2005,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      */
@@ -2025,7 +2025,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      */
@@ -2087,7 +2087,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -2186,7 +2186,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param flag
@@ -2323,7 +2323,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param flag
@@ -2373,7 +2373,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param flag
@@ -2496,7 +2496,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -2554,7 +2554,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -2575,7 +2575,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -2609,7 +2609,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -2647,7 +2647,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -2682,7 +2682,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -2717,7 +2717,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -2752,7 +2752,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      */
@@ -2948,7 +2948,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @param s
@@ -3014,7 +3014,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @param array
@@ -3337,7 +3337,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @throws SiteViewException
      */
@@ -3516,7 +3516,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param historyreport
      * @param s
@@ -3952,7 +3952,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param stringbuffer
      * @param s
@@ -4023,7 +4023,7 @@ public class HistoryReport extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param monitor
      * @param array

@@ -127,7 +127,7 @@ public class SSHJavaClient extends COM.dragonflow.SSH.SSHClientBase implements C
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public int execute(COM.dragonflow.Utils.RemoteCommandLine remotecommandline, String s, int i, java.io.PrintWriter printwriter, jgl.Array array) {
         timeoutTime = java.lang.System.currentTimeMillis() + (long) i;
@@ -212,7 +212,7 @@ public class SSHJavaClient extends COM.dragonflow.SSH.SSHClientBase implements C
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param sshconnectionproperties
      * @param flag
@@ -263,7 +263,7 @@ public class SSHJavaClient extends COM.dragonflow.SSH.SSHClientBase implements C
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected int fillBuffer(java.io.BufferedReader bufferedreader, StringBuffer stringbuffer, java.io.PrintWriter printwriter) throws java.io.IOException {
         int i;

@@ -7,8 +7,8 @@ Bundle-Activator: com.siteview.ecc.rcp.cnf.internal.CNFActivator
 Bundle-Vendor: Dragonflow Network, Inc
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.ui.navigator;bundle-version="3.3.101",
- org.eclipse.core.expressions;bundle-version="3.4.100"
+ org.eclipse.ui.navigator;bundle-version="3.5.101",
+ org.eclipse.core.expressions;bundle-version="3.4.300"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: com.siteview.ecc.rcp.cnf.data

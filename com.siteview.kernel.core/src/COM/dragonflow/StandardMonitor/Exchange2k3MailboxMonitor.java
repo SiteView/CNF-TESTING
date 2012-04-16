@@ -77,7 +77,7 @@ public class Exchange2k3MailboxMonitor extends ExchangeWMIToolBase
  }
 
  /**
-  * CAUTION: Decompiled by hand.
+  * 
   */
  protected boolean update()
  {

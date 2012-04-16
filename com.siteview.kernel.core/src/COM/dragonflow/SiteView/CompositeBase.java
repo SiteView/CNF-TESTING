@@ -117,7 +117,7 @@ public abstract class CompositeBase extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param ai
      * @param as
@@ -352,7 +352,7 @@ public abstract class CompositeBase extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

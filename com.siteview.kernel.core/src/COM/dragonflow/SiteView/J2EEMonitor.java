@@ -256,7 +256,7 @@ public abstract class J2EEMonitor extends AtomicMonitor implements
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

@@ -473,7 +473,7 @@ public class ADReplicationMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param ldapsession
      * @param al

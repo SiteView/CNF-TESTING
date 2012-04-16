@@ -553,7 +553,7 @@ public class NetworkBandwidthMonitor extends BrowsableSNMPBase implements RealTi
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public RealTimeReportingData[] getRealTimeData(StringProperty stringproperty) {
         RealTimeReportingData arealtimereportingdata[] = null;

@@ -43,7 +43,7 @@ public class Exchange55MsgTrafficMonitor extends ExchangeMsgTrafficBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected Vector getExchangeMessages() {
         try {

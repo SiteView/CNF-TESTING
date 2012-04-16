@@ -279,7 +279,7 @@ public class NumericProperty extends StringProperty
  }
 
  /**
-  * CAUTION: Decompiled by hand.
+  * 
   */
  public void increment(PropertiedObject po)
  {

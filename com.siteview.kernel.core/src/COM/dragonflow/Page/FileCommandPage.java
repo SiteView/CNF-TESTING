@@ -164,7 +164,7 @@ public class FileCommandPage extends COM.dragonflow.Page.CGI {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

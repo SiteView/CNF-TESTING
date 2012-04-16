@@ -78,7 +78,7 @@ public class webTracePage extends COM.dragonflow.Page.CGI {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

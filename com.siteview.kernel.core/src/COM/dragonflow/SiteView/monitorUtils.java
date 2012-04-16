@@ -68,7 +68,7 @@ public class monitorUtils {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @param s
@@ -106,7 +106,7 @@ public class monitorUtils {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

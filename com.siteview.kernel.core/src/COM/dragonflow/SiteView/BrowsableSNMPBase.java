@@ -217,7 +217,7 @@ public abstract class BrowsableSNMPBase extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         int i = 0;
@@ -410,7 +410,7 @@ public abstract class BrowsableSNMPBase extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param peername
      * @param msg
@@ -659,7 +659,7 @@ public abstract class BrowsableSNMPBase extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void onMonitorCreateFromPage(HTTPRequest httprequest) {
         super.onMonitorCreateFromPage(httprequest);

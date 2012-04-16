@@ -163,7 +163,7 @@ public class MgCompositeGroup extends COM.dragonflow.Health.MgCompositeGroupPart
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public boolean reportToErrorLog() {
         java.util.Iterator iterator = messages.iterator();
@@ -185,7 +185,7 @@ public class MgCompositeGroup extends COM.dragonflow.Health.MgCompositeGroupPart
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public boolean add(COM.dragonflow.Health.MgCompositeGroupParts mgcompositegroupparts) {
         try {

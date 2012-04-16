@@ -76,7 +76,7 @@ public class WebLogic5xMonitor extends SNMPBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected void getSNMPData(String s, Array array) {
         StringBuffer stringbuffer = new StringBuffer();

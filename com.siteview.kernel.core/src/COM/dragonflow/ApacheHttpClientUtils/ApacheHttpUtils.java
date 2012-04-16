@@ -102,7 +102,7 @@ public class ApacheHttpUtils {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param httpmethodbase
      * @param httprequestsettings

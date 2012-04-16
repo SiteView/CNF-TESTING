@@ -215,7 +215,7 @@ public abstract class SNMPTrapBase extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

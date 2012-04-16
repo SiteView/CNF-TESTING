@@ -598,7 +598,7 @@ public class monitorSetPage extends CGI
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param as
      * @return

@@ -123,7 +123,7 @@ public class VirtualMachine extends SiteViewObject {
 	}
 
 	/**
-	 * CAUTION: Decompiled by hand.
+	 * 
 	 * 
 	 * @param stringBuffer
 	 * @param queryString
@@ -243,7 +243,7 @@ public class VirtualMachine extends SiteViewObject {
 	}
 
 	/**
-	 * CAUTION: Decompiled by hand.
+	 * 
 	 * 
 	 */
 /*	public synchronized void checkForNodes() {
@@ -854,7 +854,7 @@ label0:
 	}
 
 	/**
-	 * CAUTION: Decompiled by hand.
+	 * 
 	 * 
 	 * @param s
 	 * @param hashmap

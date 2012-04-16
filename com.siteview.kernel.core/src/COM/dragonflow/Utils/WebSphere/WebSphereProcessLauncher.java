@@ -62,7 +62,7 @@ public class WebSphereProcessLauncher {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param i
      * @return

@@ -378,7 +378,7 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public String getProperty(StringProperty stringproperty) throws NullPointerException {
         String s = "";
@@ -764,7 +764,7 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @param httprequest
@@ -1017,7 +1017,7 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @param httprequest
@@ -1283,7 +1283,7 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param httprequest
      * @param printwriter
@@ -1376,7 +1376,7 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param httprequest
      * @param enumeration
@@ -1413,7 +1413,7 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param monitor
      * @param hashmap
@@ -1444,7 +1444,7 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param monitorgroup
      * @param array
@@ -1494,7 +1494,7 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param args
      * @throws IOException

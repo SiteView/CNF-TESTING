@@ -108,7 +108,7 @@ public class BrowsableCache {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param flag
@@ -143,7 +143,7 @@ public class BrowsableCache {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param browsablemonitor
      * @param s

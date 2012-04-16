@@ -330,7 +330,7 @@ public class SocketStream {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param abyte0
      * @param l
@@ -351,7 +351,7 @@ public class SocketStream {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param socket1
      * @param bufferedinputstream
@@ -437,7 +437,7 @@ public class SocketStream {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param abyte0
      * @param i

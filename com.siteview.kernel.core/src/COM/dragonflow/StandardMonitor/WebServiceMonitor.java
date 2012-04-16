@@ -98,7 +98,7 @@ public class WebServiceMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         String s = getProperty(pWSDLurl);

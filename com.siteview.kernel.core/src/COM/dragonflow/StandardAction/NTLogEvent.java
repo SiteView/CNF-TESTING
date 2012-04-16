@@ -178,7 +178,7 @@ public class NTLogEvent extends COM.dragonflow.SiteView.Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public boolean execute() {
         boolean flag;

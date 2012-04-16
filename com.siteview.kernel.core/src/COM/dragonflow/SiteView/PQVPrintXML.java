@@ -217,7 +217,7 @@ public class PQVPrintXML extends PortalQueryVisitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     boolean enterprisePre() {
         println(XML_HEADER);
@@ -438,7 +438,7 @@ public class PQVPrintXML extends PortalQueryVisitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param siteviewobject
      */

@@ -94,7 +94,7 @@ public class SSHManager {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      */
     public void closeAll() {

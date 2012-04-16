@@ -170,7 +170,7 @@ public class LinkFinder
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param flag
      */
@@ -245,7 +245,7 @@ public class LinkFinder
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -312,7 +312,7 @@ public class LinkFinder
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param urlinfo
      * @param flag

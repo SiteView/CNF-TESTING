@@ -148,7 +148,7 @@ public class DispatcherConnection {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

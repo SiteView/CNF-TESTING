@@ -914,7 +914,7 @@ public class FileUtils
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param args
      */

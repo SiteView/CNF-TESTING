@@ -164,7 +164,7 @@ public class XMLMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param xslFileName
@@ -319,7 +319,7 @@ public class XMLMonitor extends BrowsableBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         this.networkTime = 0L;

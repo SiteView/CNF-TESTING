@@ -426,7 +426,7 @@ public class MirrorConfiguration extends Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param flag
      * @return
@@ -884,7 +884,7 @@ public class MirrorConfiguration extends Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

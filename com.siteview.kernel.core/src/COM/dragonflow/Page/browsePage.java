@@ -81,7 +81,7 @@ public class browsePage extends COM.dragonflow.Page.CGI
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void printBody()
         throws java.lang.Exception
@@ -407,7 +407,7 @@ label0:
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

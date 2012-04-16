@@ -64,7 +64,7 @@ public class AbsoluteScheduleInstancePreferences extends COM.dragonflow.Standard
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public java.util.Vector getPreferenceProperties(String s, String s1, String s2, String s3, int i) throws COM.dragonflow.SiteViewException.SiteViewException {
         java.util.Vector vector = new Vector();

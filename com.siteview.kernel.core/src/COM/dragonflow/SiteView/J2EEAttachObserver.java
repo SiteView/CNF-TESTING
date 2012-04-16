@@ -115,7 +115,7 @@ public class J2EEAttachObserver extends Thread //implements AttachObserver
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void run() {
         try {
@@ -169,7 +169,7 @@ public class J2EEAttachObserver extends Thread //implements AttachObserver
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     private void publishQueue() {
         synchronized (this.mQueue) {
@@ -208,7 +208,7 @@ public class J2EEAttachObserver extends Thread //implements AttachObserver
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param list
      * @return

@@ -717,7 +717,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -1087,7 +1087,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param l
@@ -1478,7 +1478,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -1550,7 +1550,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -1746,7 +1746,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -1919,7 +1919,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param i
@@ -2570,7 +2570,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param flag
@@ -2855,7 +2855,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -2931,7 +2931,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -3044,7 +3044,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -3182,7 +3182,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -3245,7 +3245,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -3313,7 +3313,7 @@ public class Platform {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param file
      * @return

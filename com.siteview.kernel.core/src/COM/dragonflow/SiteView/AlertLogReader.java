@@ -40,7 +40,7 @@ public class AlertLogReader extends LogReader {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @param array

@@ -26,7 +26,7 @@ public abstract class Literal extends COM.dragonflow.Utils.Expression {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

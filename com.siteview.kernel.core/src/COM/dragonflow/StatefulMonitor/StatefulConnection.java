@@ -60,7 +60,7 @@ public abstract class StatefulConnection {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -71,7 +71,7 @@ public abstract class StatefulConnection {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param statefulconnectionuser
      * @return

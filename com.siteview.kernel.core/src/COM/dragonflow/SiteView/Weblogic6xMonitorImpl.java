@@ -110,7 +110,7 @@ public class Weblogic6xMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -189,7 +189,7 @@ public class Weblogic6xMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param stringbuffer
      * @return
@@ -238,7 +238,7 @@ public class Weblogic6xMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @throws Exception
      */

@@ -175,7 +175,7 @@ public class SSHRemote implements COM.dragonflow.SSH.ISSHCloseable {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void close() {
         java.lang.Thread athread[];

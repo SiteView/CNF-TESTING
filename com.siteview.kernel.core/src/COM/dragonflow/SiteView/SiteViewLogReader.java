@@ -619,7 +619,7 @@ public class SiteViewLogReader extends LogReader {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     static {
         HashMap hashmap = MasterConfig.getMasterConfig();

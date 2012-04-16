@@ -30,7 +30,7 @@ public class HistoryHealthMonitor extends HealthMonitorBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         try {

@@ -198,7 +198,7 @@ public class LDAPSession
  }
 
  /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -226,7 +226,7 @@ public class LDAPSession
  }
 
  /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param attributes

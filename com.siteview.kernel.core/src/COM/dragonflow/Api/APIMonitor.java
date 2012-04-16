@@ -769,7 +769,7 @@ public class APIMonitor extends APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @deprecated Method runExisting is deprecated
      */
@@ -882,7 +882,7 @@ public class APIMonitor extends APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @deprecated Method runTemporary is deprecated
      */
@@ -961,7 +961,7 @@ public class APIMonitor extends APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -1609,7 +1609,7 @@ public class APIMonitor extends APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -3612,7 +3612,7 @@ public class APIMonitor extends APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -3671,7 +3671,7 @@ public class APIMonitor extends APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param atomicmonitor
@@ -4702,7 +4702,7 @@ public class APIMonitor extends APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * @param s
      * @param s1
      * @return

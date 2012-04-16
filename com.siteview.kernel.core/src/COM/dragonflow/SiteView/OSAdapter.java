@@ -162,7 +162,7 @@ public class OSAdapter {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -205,7 +205,7 @@ public class OSAdapter {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param args
      * @throws IOException
@@ -272,7 +272,7 @@ public class OSAdapter {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param machine
      * @param hashmap
@@ -411,7 +411,7 @@ public class OSAdapter {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param printwriter
      * @param atomicmonitor

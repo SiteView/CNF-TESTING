@@ -98,7 +98,7 @@ public class Imap {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

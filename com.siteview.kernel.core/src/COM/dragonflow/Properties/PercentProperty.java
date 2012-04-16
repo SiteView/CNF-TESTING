@@ -41,7 +41,7 @@ public class PercentProperty extends NumericProperty
  }
 
  /**
-  * CAUTION: Decompiled by hand.
+  * 
   */
  public String verify(String s)
  {

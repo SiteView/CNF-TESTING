@@ -80,7 +80,7 @@ public class Health implements CfgChangesSink {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      */
     private static void insureMinHealth() {
@@ -286,7 +286,7 @@ public class Health implements CfgChangesSink {
     }
 
    /**
-    * CAUTION: Decompiled by hand.
+    * 
     *
     */
     public static void loadHealthGroupList() {
@@ -334,7 +334,7 @@ public class Health implements CfgChangesSink {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param subgroup
      */

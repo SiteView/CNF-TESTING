@@ -755,7 +755,7 @@ public class APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      * @throws COM.dragonflow.SiteViewException.SiteViewException
@@ -1864,7 +1864,7 @@ public class APISiteView
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param stringproperty
      * @param i

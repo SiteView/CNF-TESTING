@@ -289,7 +289,7 @@ public class JdbcLogger extends COM.dragonflow.Log.Logger
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public synchronized void log(String s, java.util.Date date, COM.dragonflow.Properties.PropertiedObject propertiedobject)
     {
@@ -469,7 +469,7 @@ public class JdbcLogger extends COM.dragonflow.Log.Logger
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param date
      * @param propertiedobject
@@ -597,7 +597,7 @@ public class JdbcLogger extends COM.dragonflow.Log.Logger
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public synchronized void log(String s, java.util.Date date, String s1)
     {
@@ -884,7 +884,7 @@ public class JdbcLogger extends COM.dragonflow.Log.Logger
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param date
      * @param propertiedobject
@@ -1158,7 +1158,7 @@ public class JdbcLogger extends COM.dragonflow.Log.Logger
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param propertiedobject
      * @param array

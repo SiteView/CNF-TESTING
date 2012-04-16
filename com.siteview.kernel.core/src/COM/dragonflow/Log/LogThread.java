@@ -35,7 +35,7 @@ public class LogThread extends java.lang.Thread {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void run() {
         while (!timeToEnd) {
@@ -103,7 +103,7 @@ public class LogThread extends java.lang.Thread {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param logger
      */

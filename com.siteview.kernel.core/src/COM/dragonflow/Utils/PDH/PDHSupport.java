@@ -36,7 +36,7 @@ public class PDHSupport {
 //    }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param i
      * @param xdrmarshaller

@@ -129,7 +129,7 @@ public class PortalQuery {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -231,7 +231,7 @@ public class PortalQuery {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param monitorgroup
      * @param portalsiteview
@@ -319,7 +319,7 @@ public class PortalQuery {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param portalsiteview
      * @param monitorgroup

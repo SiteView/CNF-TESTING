@@ -97,7 +97,7 @@ public class BinaryFileRequestHandler {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param httprequest
      * @param outputstream

@@ -164,7 +164,7 @@ public class Disable extends COM.dragonflow.SiteView.Action {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public boolean execute() {
         String s = "true";

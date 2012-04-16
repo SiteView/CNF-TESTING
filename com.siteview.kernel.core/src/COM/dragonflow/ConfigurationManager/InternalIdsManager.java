@@ -102,7 +102,7 @@ public class InternalIdsManager {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param collection
      * @param hashset
@@ -128,7 +128,7 @@ public class InternalIdsManager {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param vector
      * @return

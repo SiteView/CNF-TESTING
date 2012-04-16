@@ -412,7 +412,7 @@ public class ScheduleProperty extends ScalarProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @param i

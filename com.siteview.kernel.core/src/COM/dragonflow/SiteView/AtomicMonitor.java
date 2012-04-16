@@ -548,7 +548,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void run() {
         try {

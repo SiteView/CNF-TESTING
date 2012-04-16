@@ -125,7 +125,7 @@ public abstract class MgCompositeGroupParts {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmapduplicates
      * @return

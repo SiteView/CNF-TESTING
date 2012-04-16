@@ -182,7 +182,7 @@ public class Machine extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      */
@@ -226,7 +226,7 @@ public class Machine extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param enumeration
      * @param s
@@ -265,7 +265,7 @@ public class Machine extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param enumeration
      * @return
@@ -585,7 +585,7 @@ public class Machine extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param machine
      * @return
@@ -684,7 +684,7 @@ public class Machine extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hostName
      * @return

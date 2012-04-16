@@ -244,7 +244,7 @@ public class FrameFile {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param array
@@ -288,7 +288,7 @@ public class FrameFile {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param file
      * @param array
@@ -526,7 +526,7 @@ public class FrameFile {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param flag
@@ -619,7 +619,7 @@ public class FrameFile {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param enumeration
      * @return
@@ -638,7 +638,7 @@ public class FrameFile {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param enumeration
      * @param s
@@ -737,7 +737,7 @@ public class FrameFile {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param args
      * @throws Exception

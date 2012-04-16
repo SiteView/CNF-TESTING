@@ -62,7 +62,7 @@ public class CounterValueXMLProperty extends XMLProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param astringproperty
      * @return

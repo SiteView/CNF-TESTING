@@ -63,7 +63,7 @@ public class PortalSync {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      */

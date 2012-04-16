@@ -67,7 +67,7 @@ public class Weblogic6xObject extends JMXObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

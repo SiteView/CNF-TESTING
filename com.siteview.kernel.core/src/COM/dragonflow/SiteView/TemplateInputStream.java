@@ -48,7 +48,7 @@ public class TemplateInputStream extends FilterInputStream {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public int read() throws IOException {
         if (bufferStream != null) {

@@ -503,7 +503,7 @@ public class SiteViewGroup extends MonitorGroup {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -1273,7 +1273,7 @@ public class SiteViewGroup extends MonitorGroup {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      */
@@ -2248,7 +2248,7 @@ public class SiteViewGroup extends MonitorGroup {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -2396,7 +2396,7 @@ public class SiteViewGroup extends MonitorGroup {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @return
@@ -2454,7 +2454,7 @@ public class SiteViewGroup extends MonitorGroup {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -2474,7 +2474,7 @@ public class SiteViewGroup extends MonitorGroup {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

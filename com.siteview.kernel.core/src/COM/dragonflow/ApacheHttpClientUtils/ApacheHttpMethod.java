@@ -108,7 +108,7 @@ public class ApacheHttpMethod {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -121,7 +121,7 @@ public class ApacheHttpMethod {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -298,7 +298,7 @@ public class ApacheHttpMethod {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

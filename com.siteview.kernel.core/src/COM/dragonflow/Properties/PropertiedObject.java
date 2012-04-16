@@ -295,7 +295,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @param hashmap1
@@ -342,7 +342,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param stringproperty
      * @return
@@ -409,7 +409,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -440,7 +440,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -477,7 +477,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param stringproperty
      * @return
@@ -494,7 +494,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param stringproperty
      * @return
@@ -633,7 +633,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      */
@@ -735,7 +735,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param i
      * @return
@@ -758,7 +758,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param flag
      * @return
@@ -779,7 +779,7 @@ public class PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

@@ -89,7 +89,7 @@ public class perfmonPage extends COM.dragonflow.Page.CGI {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void printBody() throws java.lang.Exception {
         String s = request.getValue("perfmonClass");
@@ -121,7 +121,7 @@ public class perfmonPage extends COM.dragonflow.Page.CGI {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param perfmonmonitorbase

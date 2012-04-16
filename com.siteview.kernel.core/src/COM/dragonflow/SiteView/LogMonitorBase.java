@@ -165,7 +165,7 @@ public abstract class LogMonitorBase extends ServerMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -477,7 +477,7 @@ public abstract class LogMonitorBase extends ServerMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param stringbuffer
      * @param l
@@ -667,7 +667,7 @@ public abstract class LogMonitorBase extends ServerMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1

@@ -137,7 +137,7 @@ public class RemedyARsMonitor extends AtomicMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         synchronized (RemedyARsMonitor.s_Lock) {

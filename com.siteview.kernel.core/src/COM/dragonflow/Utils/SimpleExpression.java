@@ -118,7 +118,7 @@ public class SimpleExpression extends COM.dragonflow.Utils.Expression
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     java.lang.Object interpret(COM.dragonflow.SiteView.SiteViewObject siteviewobject, COM.dragonflow.SiteView.Rule rule)
         throws COM.dragonflow.Utils.InterpreterException

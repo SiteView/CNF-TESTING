@@ -62,7 +62,7 @@ public class ArmSisMonitor extends AtomicMonitor //implements JdbcMonitorCallbac
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

@@ -268,7 +268,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param array
@@ -312,7 +312,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param flag
@@ -512,7 +512,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @throws Exception
      */
@@ -720,7 +720,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param array
@@ -836,7 +836,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      */
@@ -934,7 +934,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @throws Exception
@@ -1014,7 +1014,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param hashmap
      * @return
@@ -1353,7 +1353,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param vector
      * @param vector1
@@ -1378,7 +1378,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param enumeration
      * @param vector
@@ -1402,7 +1402,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param vector
      * @param vector1
@@ -1464,7 +1464,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param monitorgroup
      * @param vector
@@ -1619,7 +1619,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param collection
      * @return
@@ -1671,7 +1671,7 @@ public class ConfigurationChanger {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param collection
      * @param vector

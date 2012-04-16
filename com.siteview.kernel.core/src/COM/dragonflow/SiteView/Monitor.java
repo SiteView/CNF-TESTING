@@ -219,7 +219,7 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */
@@ -499,7 +499,7 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void initialize(HashMap hashmap) {
         super.initialize(hashmap);
@@ -614,7 +614,7 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @param s1
@@ -708,7 +708,7 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param i
      * @param flag
@@ -788,7 +788,7 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param i
      * @param monitor
@@ -1386,7 +1386,7 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param flag
      * @param httprequest

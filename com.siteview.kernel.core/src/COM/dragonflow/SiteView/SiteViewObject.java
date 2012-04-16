@@ -334,7 +334,7 @@ public abstract class SiteViewObject extends PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public int acceptVisitor(Visitor visitor) {
         int i = super.acceptVisitor(visitor);
@@ -890,7 +890,7 @@ public abstract class SiteViewObject extends PropertiedObject {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

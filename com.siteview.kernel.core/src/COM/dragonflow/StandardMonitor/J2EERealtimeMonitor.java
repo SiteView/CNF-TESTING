@@ -146,7 +146,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         if (stillActive()) {
@@ -318,7 +318,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

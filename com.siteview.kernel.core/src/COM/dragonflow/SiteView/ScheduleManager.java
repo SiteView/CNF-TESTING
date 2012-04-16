@@ -220,7 +220,7 @@ public class ScheduleManager {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

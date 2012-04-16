@@ -448,7 +448,7 @@ public class AppletLineChart {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return

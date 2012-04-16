@@ -59,7 +59,7 @@ public class ScriptMonitorCache {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

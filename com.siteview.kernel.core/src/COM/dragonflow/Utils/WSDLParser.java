@@ -144,7 +144,7 @@
      }
      
      /**
-      * CAUTION: Decompiled by hand.
+      * 
       * 
       * @param stringbuffer
       * @return
@@ -228,7 +228,7 @@
      }
      
      /**
-      * CAUTION: Decompiled by hand.
+      * 
       * 
       * @param s
       * @param stringbuffer

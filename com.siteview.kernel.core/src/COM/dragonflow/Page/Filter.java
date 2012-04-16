@@ -72,7 +72,7 @@ public class Filter {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

@@ -539,7 +539,7 @@ class LogPullerReadThread extends Thread {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param portalsiteview
      * @param s
@@ -661,7 +661,7 @@ class LogPullerReadThread extends Thread {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param portalsiteview
      * @param s

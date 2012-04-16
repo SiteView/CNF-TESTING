@@ -112,7 +112,7 @@ public class StringProperty {
     boolean platforms[];
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -126,7 +126,7 @@ public class StringProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -144,7 +144,7 @@ public class StringProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param s
      * @return
@@ -264,7 +264,7 @@ public class StringProperty {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param cgi
      * @param printwriter

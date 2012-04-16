@@ -322,7 +322,7 @@ public class DatabaseCounterMonitor extends BrowsableBase
  }
 
  /**
-  * CAUTION: Decompiled by hand.
+  * 
   * 
   * @param stringbuffer
   * @param s
@@ -465,7 +465,7 @@ while(resultset.next())
  }
 
  /**
-  * CAUTION: Decompiled by hand.
+  * 
   */
  public String getBrowseData(StringBuffer stringbuffer)
  {

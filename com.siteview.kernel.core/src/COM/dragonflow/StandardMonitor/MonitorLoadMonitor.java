@@ -80,7 +80,7 @@ public class MonitorLoadMonitor extends MultiContentBase {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     protected boolean update() {
         try {

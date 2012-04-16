@@ -50,7 +50,7 @@ public final class WebSphereMonitorPMI extends WebSphereMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void connect() throws ConnectionException {
         if (debug) {
@@ -217,7 +217,7 @@ public final class WebSphereMonitorPMI extends WebSphereMonitorImpl {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public WebSphereCounter[] getCounterValues(WebSphereCounter awebspherecounter[]) {
         if (debug) {

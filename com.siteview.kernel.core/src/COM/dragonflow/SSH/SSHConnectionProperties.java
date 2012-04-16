@@ -102,7 +102,7 @@ public class SSHConnectionProperties extends java.util.Properties {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

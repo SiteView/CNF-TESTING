@@ -336,7 +336,7 @@ public class HTTPRequestThread implements java.lang.Runnable {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      */
     public void run() {
         COM.dragonflow.HTTP.HTTPRequest httprequest;

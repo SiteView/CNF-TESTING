@@ -601,7 +601,7 @@ public class IPMIMonitor extends BrowsableBase {
 //    }
 //
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @return
      */

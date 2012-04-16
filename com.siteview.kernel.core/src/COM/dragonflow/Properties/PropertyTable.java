@@ -68,7 +68,7 @@ public class PropertyTable extends HashMap {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param array
      * @param i
@@ -87,7 +87,7 @@ public class PropertyTable extends HashMap {
     }
 
     /**
-     * CAUTION: Decompiled by hand.
+     * 
      * 
      * @param i
      * @return
