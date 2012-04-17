@@ -1,5 +1,8 @@
 package com.siteview.ecc.rcp.cnf.provider;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
@@ -19,9 +22,9 @@ public class CNFLabelProvider extends LabelProvider implements ILabelProvider, I
 {
     public String getText(Object element)
     {
-        if (element instanceof Parent)
+        if (element instanceof HashMap)
         {
-            return ((Child)element).getName() + " [ " +((Parent)element).getChildren().length + " ]";
+            return (String) ((HashMap)element).get("Name");
         } else if (element instanceof Child) 
         {
             return ((Child)element).getName();

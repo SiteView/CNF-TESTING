@@ -2399,7 +2399,7 @@ public class APISiteView
         return arraylist;
     }
     
-    protected  Collection getTopLevelAllowedGroups()
+    protected  ArrayList getTopLevelAllowedGroups()
     {
         jgl.Array array = getAllAllowedGroupIDs();
         ArrayList arraylist = new ArrayList(array.size());

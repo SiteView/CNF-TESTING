@@ -5,11 +5,23 @@ import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Vector;
+
+import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.Group;
+import COM.dragonflow.SiteView.Monitor;
+import COM.dragonflow.SiteView.MonitorGroup;
+import COM.dragonflow.SiteViewException.SiteViewException;
 
 public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements APIInterfaces{
 	String address;
 	Registry registry; 
+	APIGroup apigroup;
+	APIMonitor apimonitor;
 
 
 	public ApiRmiServer() throws RemoteException{
@@ -23,7 +35,10 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		System.out.println("this address=" + address +  ",port=" + port);
 		try{
 			registry = LocateRegistry.createRegistry(port);
-			registry.rebind("rmiServer", this);
+			registry.rebind("kernelRmiServer", this);
+			
+			apigroup = new APIGroup();
+			apimonitor = new APIMonitor();
 		}
 		catch(RemoteException e){
 			System.out.println("remote exception"+ e);
@@ -31,14 +46,61 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	}
 
 
-	public Collection getAllGroupInstances() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection getAllGroupInstances() throws SiteViewException {		
+		return apigroup.getAllGroupInstances();
 	}
 
 
-	public Collection getTopLevelGroupInstances() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<HashMap<String, String>> getTopLevelGroupInstances() throws RemoteException, SiteViewException {		
+		
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		
+		try
+		{
+			APIGroup apimg = new APIGroup();
+			ArrayList<MonitorGroup> mg = apigroup.getTopLevelGroupInstances();
+
+			for(MonitorGroup group:mg)
+			{
+				HashMap<String, String> nodedata = new HashMap<String, String>();
+				nodedata.put(new String("Name"), group.getProperty(MonitorGroup.pName));
+				nodedata.put(new String("GroupID"), group.getProperty(MonitorGroup.pGroupID));
+				list.add(nodedata);
+			}
+		} catch (java.lang.Exception e)
+		{
+			System.out.println(e);
+		}
+		return list;
+		
+	}
+	
+	static public ArrayList<HashMap<String, String>> getMonitorsData()
+	{		
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		try
+		{
+			APIMonitor apim = new APIMonitor();
+			Collection collection = apim.getAllMonitors();
+			Vector vector = (Vector) collection;
+
+			Monitor monitor;
+			int index = 0;
+			for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+			{
+				monitor = (Monitor) iterator.next();
+				
+				HashMap<String, String> ndata = new HashMap<String, String>();
+				ndata.put(new String("Name"), monitor.getProperty(AtomicMonitor.pName));
+				ndata.put(new String("GroupID"), monitor.getProperty(AtomicMonitor.pOwnerID));
+				ndata.put(new String("MonitorID"), monitor.getProperty(AtomicMonitor.pID));
+				ndata.put(new String("Type"), monitor.getProperty(AtomicMonitor.pClass));
+				list.add(ndata);
+			}
+		} catch (java.lang.Exception e)
+		{
+			System.out.println(e);
+		}
+		return list;
 	}
 }

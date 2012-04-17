@@ -18,6 +18,7 @@ package COM.dragonflow.Api;
  */
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -628,7 +629,7 @@ public class APIGroup extends APISiteView
         return getAllAllowedGroups();
     }
     
-    public Collection getTopLevelGroupInstances()
+    public ArrayList getTopLevelGroupInstances()
             throws SiteViewException
     {
             return getTopLevelAllowedGroups();

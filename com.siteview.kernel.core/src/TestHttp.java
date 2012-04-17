@@ -1,6 +1,6 @@
-import java.io.*;
+import java.io.IOException;
 
-import COM.dragonflow.Api.ApiForOfbiz;
+import COM.dragonflow.Api.ApiRmiServer;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.SiteView.Platform;
 import SiteViewMain.SiteViewSupport;
@@ -18,7 +18,7 @@ public class TestHttp {
             SiteViewSupport.InitProcess();
             SiteViewSupport.InitProcess2();
             SiteViewSupport.StartProcess();/*∆Ù∂Øº‡≤‚œﬂ≥Ã*/
-
+            ApiRmiServer server = new ApiRmiServer();
             SiteViewSupport.WaitForProcess();
         }
         catch(Exception exception)
