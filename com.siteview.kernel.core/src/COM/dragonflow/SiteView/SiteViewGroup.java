@@ -1650,9 +1650,9 @@ public class SiteViewGroup extends MonitorGroup {
         Array array1 = CGI.getGroupFilterForAccount(httprequest);
         while (enumeration.hasMoreElements()) {
             Monitor monitor = (Monitor) enumeration.nextElement();
-            String s = monitor.getProperty("_health");
-            String s1 = monitor.getProperty("_parent");
-            if (array1.size() != 0 ? CGI.allowedByGroupFilter(I18N.toDefaultEncoding(monitor.getProperty(pID)), array1) && !isParentInFilter(array1, s1) : s1.length() == 0 && s.length() == 0) {
+            String health = monitor.getProperty("_health");
+            String parent = monitor.getProperty("_parent");
+            if (array1.size() != 0 ? CGI.allowedByGroupFilter(I18N.toDefaultEncoding(monitor.getProperty(pID)), array1) && !isParentInFilter(array1, parent) : parent.length() == 0 && health.length() == 0) {
                 array.add(monitor);
             }
         }
@@ -1857,7 +1857,8 @@ public class SiteViewGroup extends MonitorGroup {
         if (httprequest.actionAllowed("_alertEdit") && httprequest.actionAllowed("_alertList") && getSetting("_alertIconLink").length() > 0) {
             Array array2 = new Array();
             getGroupAlerts("SiteView", array2);
-            s6 = "<td valign=\"middle\" align=\"right\"><p style=\"color: #a5a5a5; font-size:8pt; font-weight: bold; font-family: 'Arial', 'Helvetica', sans-serif;\">Global Alerts: </td>" + printAlertIconLink(httprequest, "_master", "_config", array2);
+            s6 = "<td valign=\"middle\" align=\"right\"><p style=\"color: #a5a5a5; font-size:8pt; font-weight: bold; font-family: 'Arial', 'Helvetica', sans-serif;\">Global Alerts: </td>" 
+            + printAlertIconLink(httprequest, "_master", "_config", array2);
         }
         stringbuffer1
                 .append("<tr><td>\n<table bgcolor=\"#5A5A5A\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" ><tr><td bgcolor=#5A5A5A><img src=SiteView/htdocs/artwork/spacer11.gif height=32 width=1 border=0></td><td align=\"left\"><img border=0 src=\""

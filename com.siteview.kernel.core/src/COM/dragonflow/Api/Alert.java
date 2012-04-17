@@ -501,9 +501,9 @@ public class Alert
         }
     }
 
-    private COM.dragonflow.Api.Alert createAlertFromPropertyMap(String s, String s1, java.util.Map map)
+    private Alert createAlertFromPropertyMap(String s, String s1, java.util.Map map)
     {
-        COM.dragonflow.Api.Alert alert = new Alert((String)map.get("_id"));
+        Alert alert = new Alert((String)map.get("_id"));
         alert.setGroup(s);
         alert.setIncludeFilter((String)map.get("_includeFilter"));
         alert.setMonitorID(s1);

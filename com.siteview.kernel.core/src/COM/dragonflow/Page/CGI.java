@@ -600,7 +600,7 @@ public abstract class CGI {
         }
         String s2 = "/SiteView/" + httprequest.getAccountDirectory()
                 + "/SiteView.html";
-        String s4 = COM.dragonflow.Page.CGI.reportURL(httprequest);
+        String s4 = reportURL(httprequest);
         String s6 = "";
         if (httprequest.actionAllowed("_alertList")) {
             s6 = "/SiteView/cgi/go.exe/SiteView?page=alert&operation=List&view=Alert&account="
@@ -1126,17 +1126,14 @@ public abstract class CGI {
         }
     }
 
-    public static jgl.Array filterGroupsForAccount(jgl.Array array,
-            COM.dragonflow.HTTP.HTTPRequest httprequest) {
-        jgl.Array array1 = COM.dragonflow.Page.CGI
-                .getGroupFilterForAccount(httprequest);
+    public static jgl.Array filterGroupsForAccount(jgl.Array array,HTTPRequest httprequest) {
+        jgl.Array array1 = CGI.getGroupFilterForAccount(httprequest);
         if (array1 != null && array1.size() != 0) {
             Enumeration enumeration = array.elements();
             array = new Array();
             while (enumeration.hasMoreElements()) {
-                String s = (String) enumeration
-                        .nextElement();
-                if (COM.dragonflow.Page.CGI.allowedByGroupFilter(s, array1)) {
+                String s = (String) enumeration.nextElement();
+                if (CGI.allowedByGroupFilter(s, array1)) {
                     array.add(s);
                 }
             } 

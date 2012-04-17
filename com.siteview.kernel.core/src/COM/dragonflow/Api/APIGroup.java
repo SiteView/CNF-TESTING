@@ -18,6 +18,7 @@ package COM.dragonflow.Api;
  */
 
 import java.io.File;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -25,24 +26,37 @@ import jgl.Array;
 import jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.HashMapOrdered;
+import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Resource.SiteViewErrorCodes;
+import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.ConfigurationChanger;
+import COM.dragonflow.SiteView.DetectConfigurationChange;
 import COM.dragonflow.SiteView.Group;
+import COM.dragonflow.SiteView.Monitor;
+import COM.dragonflow.SiteView.MonitorGroup;
+import COM.dragonflow.SiteView.Platform;
+import COM.dragonflow.SiteView.SiteViewGroup;
+import COM.dragonflow.SiteView.SiteViewObject;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 import COM.dragonflow.SiteViewException.SiteViewParameterException;
+import COM.dragonflow.Utils.FileUtils;
+import COM.dragonflow.Utils.I18N;
+import COM.dragonflow.Utils.LUtils;
+import COM.dragonflow.Utils.TextUtils;
 
 // Referenced classes of package COM.dragonflow.Api:
 // APISiteView, SSStringReturnValue, SSPropertyDetails, APIAlert,
 // SSInstanceProperty, SSGroupInstance, Alert
 
-public class APIGroup extends COM.dragonflow.Api.APISiteView
+public class APIGroup extends APISiteView
 {
 
     public APIGroup()
     {
     }
 
-    public COM.dragonflow.Api.SSStringReturnValue create(String s, String s1, COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    public SSStringReturnValue create(String s, String s1, SSInstanceProperty assinstanceproperty[])
         throws SiteViewException
     {
         String s2 = null;
@@ -52,12 +66,12 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_NAME_MISSING);
             }
-            if(!COM.dragonflow.Utils.I18N.isI18N)
+            if(!I18N.isI18N)
             {
-                s2 = COM.dragonflow.Utils.TextUtils.keepChars(s, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+                s2 = TextUtils.keepChars(s, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
             } else
             {
-                s2 = COM.dragonflow.Utils.FileUtils.getGroupNewFileName();
+                s2 = FileUtils.getGroupNewFileName();
             }
             s2 = computeGroupName(s2);
             if(s2.length() == 0)
@@ -78,7 +92,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                 hashmap.add(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
             }
 
-            if(!COM.dragonflow.SiteView.Platform.isStandardAccount(account))
+            if(!Platform.isStandardAccount(account))
             {
                 s2 = computeGroupName(account + "$" + s2);
             } else
@@ -92,7 +106,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                     hashmapordered.put("_parent", s1);
                     jgl.Array array1 = ReadGroupFrames(s1);
                     jgl.HashMap hashmap1 = (jgl.HashMap)array1.at(0);
-                    String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_nextID");
+                    String s3 = TextUtils.getValue(hashmap1, "_nextID");
                     if(s3.length() == 0)
                     {
                         s3 = "1";
@@ -103,7 +117,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                     hashmap2.put("_group", s2);
                     hashmap2.put("_name", s);
                     array1.insert(array1.size(), hashmap2);
-                    String s4 = COM.dragonflow.Utils.TextUtils.increment(s3);
+                    String s4 = TextUtils.increment(s3);
                     hashmap1.put("_nextID", s4);
                     WriteGroupFrames(s1, array1);
                 }
@@ -120,7 +134,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                 updateConfig("_frequency", "", hashmap, hashmapordered);
                 updateConfig("_description", "", hashmap, hashmapordered);
                 WriteGroupFrames(s2, array);
-                COM.dragonflow.Api.APIGroup.forceConfigurationRefresh();
+                APIGroup.forceConfigurationRefresh();
             }
         }
         catch(SiteViewException siteviewexception)
@@ -137,7 +151,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return new SSStringReturnValue(s2);
     }
 
-    public void update(String s, COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    public void update(String s, SSInstanceProperty assinstanceproperty[])
         throws SiteViewException
     {
         try
@@ -166,7 +180,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             updateConfig("__template", "", hashmap1, hashmap);
             updateConfig("_frequency", "", hashmap1, hashmap);
             updateConfig("_description", "", hashmap1, hashmap);
-            String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_parent");
+            String s1 = TextUtils.getValue(hashmap, "_parent");
             if(s1.length() != 0)
             {
                 jgl.Array array1 = ReadGroupFrames(s1);
@@ -176,7 +190,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                 WriteGroupFrames(s1, array1);
             }
             WriteGroupFrames(s, array);
-            COM.dragonflow.Api.APIGroup.forceConfigurationRefresh();
+            APIGroup.forceConfigurationRefresh();
         }
         catch(SiteViewException siteviewexception)
         {
@@ -202,7 +216,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             }
             deleteGroupInternal(s);
             saveGroups();
-            COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+            DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }
         catch(SiteViewException siteviewexception)
@@ -218,7 +232,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         }
     }
 
-    public COM.dragonflow.Api.SSStringReturnValue move(String s, String s1)
+    public SSStringReturnValue move(String s, String s1)
         throws SiteViewException
     {
         String s2 = null;
@@ -247,7 +261,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                 s4 = s3;
             } while(s3 != null && s3.length() > 0);
             s2 = moveGroup(s, s1, new HashMap(), false);
-            COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+            DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }
         catch(SiteViewException siteviewexception)
@@ -264,7 +278,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return new SSStringReturnValue(s2);
     }
 
-    public COM.dragonflow.Api.SSStringReturnValue copy(String s, String s1)
+    public SSStringReturnValue copy(String s, String s1)
         throws SiteViewException
     {
         String s2 = null;
@@ -296,7 +310,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                 } while(s3 != null && s3.length() > 0);
             }
             s2 = moveGroup(s, s1, new HashMap(), true);
-            COM.dragonflow.Api.APIGroup.forceConfigurationRefresh();
+            APIGroup.forceConfigurationRefresh();
         }
         catch(SiteViewException siteviewexception)
         {
@@ -312,15 +326,15 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return new SSStringReturnValue(s2);
     }
 
-    public COM.dragonflow.Api.SSPropertyDetails getClassPropertyDetails(String s)
+    public SSPropertyDetails getClassPropertyDetails(String s)
         throws SiteViewException
     {
-        COM.dragonflow.Api.SSPropertyDetails sspropertydetails = null;
+        SSPropertyDetails sspropertydetails = null;
         try
         {
-            String s1 = "COM.dragonflow.SiteView.Group";
+            String s1 = "Group";
             java.lang.Class class1 = java.lang.Class.forName(s1);
-            COM.dragonflow.SiteView.SiteViewObject siteviewobject = (COM.dragonflow.SiteView.SiteViewObject)class1.newInstance();
+            SiteViewObject siteviewobject = (SiteViewObject)class1.newInstance();
             COM.dragonflow.Properties.StringProperty stringproperty = siteviewobject.getPropertyObject(s);
             if(stringproperty == null)
             {
@@ -344,17 +358,17 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return sspropertydetails;
     }
 
-    public COM.dragonflow.Api.SSPropertyDetails[] getClassPropertiesDetails(int i)
+    public SSPropertyDetails[] getClassPropertiesDetails(int i)
         throws SiteViewException
     {
-        COM.dragonflow.Api.SSPropertyDetails asspropertydetails[] = null;
+        SSPropertyDetails asspropertydetails[] = null;
         try
         {
-            String s = "COM.dragonflow.SiteView.Group";
+            String s = "Group";
             java.lang.Class class1 = java.lang.Class.forName(s);
-            COM.dragonflow.SiteView.SiteViewObject siteviewobject = (COM.dragonflow.SiteView.SiteViewObject)class1.newInstance();
+            SiteViewObject siteviewobject = (SiteViewObject)class1.newInstance();
             jgl.Array array = getPropertiesForClass(siteviewobject, s, "Group", i);
-            asspropertydetails = new COM.dragonflow.Api.SSPropertyDetails[array.size()];
+            asspropertydetails = new SSPropertyDetails[array.size()];
             for(int j = 0; j < array.size(); j++)
             {
                 asspropertydetails[j] = getClassProperty((COM.dragonflow.Properties.StringProperty)array.at(j), null);
@@ -375,15 +389,15 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return asspropertydetails;
     }
 
-    public COM.dragonflow.Api.SSPropertyDetails getInstancePropertyScalars(String s, String s1)
+    public SSPropertyDetails getInstancePropertyScalars(String s, String s1)
         throws SiteViewException
     {
-        COM.dragonflow.Api.SSPropertyDetails sspropertydetails = null;
+        SSPropertyDetails sspropertydetails = null;
         try
         {
-            String s2 = "COM.dragonflow.SiteView.Group";
+            String s2 = "Group";
             java.lang.Class class1 = java.lang.Class.forName(s2);
-            COM.dragonflow.SiteView.SiteViewObject siteviewobject = (COM.dragonflow.SiteView.SiteViewObject)class1.newInstance();
+            SiteViewObject siteviewobject = (SiteViewObject)class1.newInstance();
             COM.dragonflow.Properties.StringProperty stringproperty = siteviewobject.getPropertyObject(s);
             sspropertydetails = getClassProperty(stringproperty, s1);
         }
@@ -401,14 +415,14 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return sspropertydetails;
     }
 
-    public COM.dragonflow.Api.SSGroupInstance[] getInstances(String s, int i)
+    public SSGroupInstance[] getInstances(String s, int i)
         throws SiteViewException
     {
         if(!isGroupAllowedForAccount(s))
         {
             throw new SiteViewParameterException(SiteViewErrorCodes.ERR_OP_SS_GROUP_ACCESS_EXCEPTION);
         }
-        COM.dragonflow.Api.SSGroupInstance assgroupinstance[] = null;
+        SSGroupInstance assgroupinstance[] = null;
         try
         {
             boolean flag = true;
@@ -420,25 +434,25 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             java.lang.Object obj = null;
             if(flag)
             {
-                obj = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().getTopLevelGroups();
+                obj = SiteViewGroup.currentSiteView().getTopLevelGroups();
             } else
             {
                 obj = getSubGroups(s);
             }
-            COM.dragonflow.Api.APIAlert apialert = new APIAlert();
+            APIAlert apialert = new APIAlert();
             java.util.Iterator iterator = ((java.util.Collection) (obj)).iterator();
             while (iterator.hasNext()) {
-                COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)iterator.next();
-                String s1 = monitorgroup.getProperty(COM.dragonflow.SiteView.MonitorGroup.pID);
+                MonitorGroup monitorgroup = (MonitorGroup)iterator.next();
+                String s1 = monitorgroup.getProperty(MonitorGroup.pID);
                 if(isGroupAllowedForAccount(s1))
                 {
-                    String s2 = monitorgroup.getProperty(COM.dragonflow.SiteView.MonitorGroup.pParent);
+                    String s2 = monitorgroup.getProperty(MonitorGroup.pParent);
                     if(flag && (s2 == null || s2.length() == 0) || !flag && s2 != null && s2.equals(s))
                     {
-                        COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = getInstanceProperties(s1, i);
+                        SSInstanceProperty assinstanceproperty[] = getInstanceProperties(s1, i);
                         int k = 0;
                         boolean flag1 = false;
-                        if(COM.dragonflow.Api.Alert.getInstance().groupHasAlerts(s1))
+                        if(Alert.getInstance().groupHasAlerts(s1))
                         {
                             flag1 = true;
                             k++;
@@ -450,7 +464,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                             k++;
                         }
                         int l = 0;
-                        COM.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = new COM.dragonflow.Api.SSInstanceProperty[assinstanceproperty.length + k];
+                        SSInstanceProperty assinstanceproperty1[] = new SSInstanceProperty[assinstanceproperty.length + k];
                         if(flag1)
                         {
                             assinstanceproperty1[l] = new SSInstanceProperty("hasDependencies", "true");
@@ -475,10 +489,10 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                     }
                 }
             } 
-            assgroupinstance = new COM.dragonflow.Api.SSGroupInstance[vector.size()];
+            assgroupinstance = new SSGroupInstance[vector.size()];
             for(int j = 0; j < vector.size(); j++)
             {
-                assgroupinstance[j] = (COM.dragonflow.Api.SSGroupInstance)vector.get(j);
+                assgroupinstance[j] = (SSGroupInstance)vector.get(j);
             }
 
         }
@@ -496,23 +510,23 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return assgroupinstance;
     }
 
-    public COM.dragonflow.Api.SSInstanceProperty[] getInstanceProperties(String s, int i)
+    public SSInstanceProperty[] getInstanceProperties(String s, int i)
         throws SiteViewException
     {
-        COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = null;
+        SSInstanceProperty assinstanceproperty[] = null;
         try
         {
             if(s.length() == 0 || s == null)
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_EMPTY);
             }
-            jgl.Array array = getPropertiesForGroupInstance("COM.dragonflow.SiteView.Group", i);
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = COM.dragonflow.SiteView.SiteViewGroup.getMonitorGroup(s);
+            jgl.Array array = getPropertiesForGroupInstance("Group", i);
+            MonitorGroup monitorgroup = SiteViewGroup.getMonitorGroup(s);
             int j = 0;
-            COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue = null;
+            SSStringReturnValue ssstringreturnvalue = null;
             try
             {
-                if(i == COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ALL || i == COM.dragonflow.Api.APISiteView.FILTER_ALL)
+                if(i == APISiteView.FILTER_CONFIGURATION_ALL || i == APISiteView.FILTER_ALL)
                 {
                     j = 1;
 //                    ssstringreturnvalue = getTopazID(s);
@@ -522,7 +536,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             {
                 j = 0;
             }
-            assinstanceproperty = new COM.dragonflow.Api.SSInstanceProperty[j + array.size()];
+            assinstanceproperty = new SSInstanceProperty[j + array.size()];
             int k = 0;
             for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements();)
             {
@@ -530,7 +544,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                 String s1 = monitorgroup.getProperty(stringproperty.getName());
                 if(stringproperty.isPassword)
                 {
-                    s1 = COM.dragonflow.Utils.TextUtils.obscure(s1);
+                    s1 = TextUtils.obscure(s1);
                 }
                 assinstanceproperty[k] = new SSInstanceProperty(stringproperty.getName(), s1);
                 k++;
@@ -538,7 +552,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
 
             if(j > 0)
             {
-//                assinstanceproperty[k] = new SSInstanceProperty("topazGroupID", COM.dragonflow.SiteView.TopazInfo.getTopazName() + " Group ID", ssstringreturnvalue.getValue());
+//                assinstanceproperty[k] = new SSInstanceProperty("topazGroupID", TopazInfo.getTopazName() + " Group ID", ssstringreturnvalue.getValue());
             }
         }
         catch(SiteViewException siteviewexception)
@@ -555,25 +569,25 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return assinstanceproperty;
     }
 
-    public COM.dragonflow.Api.SSInstanceProperty getInstanceProperty(String s, String s1, int i)
+    public SSInstanceProperty getInstanceProperty(String s, String s1, int i)
         throws SiteViewException
     {
-        COM.dragonflow.Api.SSInstanceProperty ssinstanceproperty = null;
+        SSInstanceProperty ssinstanceproperty = null;
         try
         {
             if(s1.length() == 0 || s1 == null)
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_EMPTY);
             }
-            jgl.Array array = getPropertiesForGroupInstance("COM.dragonflow.SiteView.Group", i);
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = COM.dragonflow.SiteView.SiteViewGroup.getMonitorGroup(s1);
+            jgl.Array array = getPropertiesForGroupInstance("Group", i);
+            MonitorGroup monitorgroup = SiteViewGroup.getMonitorGroup(s1);
             Enumeration enumeration = array.elements();
             while (enumeration.hasMoreElements()) {
                 COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
                 String s2 = monitorgroup.getProperty(stringproperty.getName());
                 if(stringproperty.isPassword)
                 {
-                    s2 = COM.dragonflow.Utils.TextUtils.obscure(s2);
+                    s2 = TextUtils.obscure(s2);
                 }
                 if(stringproperty.getName().equals(s))
                 {
@@ -585,8 +599,8 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             {
                 try
                 {
-//                    COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue = getTopazID(s1);
-//                    ssinstanceproperty = new SSInstanceProperty("topazGroupID", COM.dragonflow.SiteView.TopazInfo.getTopazName() + " Group ID", ssstringreturnvalue.getValue());
+//                    SSStringReturnValue ssstringreturnvalue = getTopazID(s1);
+//                    ssinstanceproperty = new SSInstanceProperty("topazGroupID", TopazInfo.getTopazName() + " Group ID", ssstringreturnvalue.getValue());
                 }
                 catch(java.lang.Exception exception1)
                 {
@@ -608,13 +622,19 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return ssinstanceproperty;
     }
 
-    public java.util.Collection getAllGroupInstances()
+    public Collection getAllGroupInstances()
         throws SiteViewException
     {
         return getAllAllowedGroups();
     }
+    
+    public Collection getTopLevelGroupInstances()
+            throws SiteViewException
+    {
+            return getTopLevelAllowedGroups();
+    }
 
-    public java.util.Collection getChildGroupInstances(String s)
+    public Collection getChildGroupInstances(String s)
         throws SiteViewException
     {
         return getSubGroups(s);
@@ -629,22 +649,22 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_EMPTY);
             }
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().getElementByID(s);
+            MonitorGroup monitorgroup = (MonitorGroup)SiteViewGroup.currentSiteView().getElementByID(s);
             if(monitorgroup == null)
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_NOT_VALID, new String[] {
                     s
                 });
             }
-            COM.dragonflow.SiteView.MonitorGroup _tmp = monitorgroup;
-            monitorgroup.setProperty(COM.dragonflow.SiteView.MonitorGroup.pLastUpdate, String.valueOf(java.lang.System.currentTimeMillis()));
+            MonitorGroup _tmp = monitorgroup;
+            monitorgroup.setProperty(MonitorGroup.pLastUpdate, String.valueOf(java.lang.System.currentTimeMillis()));
             java.util.Vector vector = new Vector();
             vector.add(monitorgroup);
             java.util.Vector vector1 = new Vector();
-            COM.dragonflow.SiteView.ConfigurationChanger.getGroupsMonitors(vector, vector1, null, flag);
+            ConfigurationChanger.getGroupsMonitors(vector, vector1, null, flag);
             for(int i = 0; i < vector1.size(); i++)
             {
-                ((COM.dragonflow.SiteView.AtomicMonitor)vector1.get(i)).runUpdate(false);
+                ((AtomicMonitor)vector1.get(i)).runUpdate(false);
             }
 
         }
@@ -656,10 +676,10 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         }
     }
 
-//    public COM.dragonflow.Api.SSStringReturnValue getTopazID(String s)
+//    public SSStringReturnValue getTopazID(String s)
 //        throws SiteViewException
 //    {
-//        COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue = null;
+//        SSStringReturnValue ssstringreturnvalue = null;
 ////        COM.dragonflow.TopazIntegration.TopazServerSettings topazserversettings = COM.dragonflow.TopazIntegration.TopazManager.getInstance().getTopazServerSettings();
 //        if(topazserversettings.isConnected())
 //        {
@@ -677,7 +697,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         jgl.Array array = new Array();
         try
         {
-            COM.dragonflow.SiteView.Group group = new Group();
+            Group group = new Group();
             jgl.Array array1 = group.getProperties();
             array1 = COM.dragonflow.Properties.StringProperty.sortByOrder(array1);
             Enumeration enumeration = array1.elements();
@@ -706,14 +726,14 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         return array;
     }
 
-    private COM.dragonflow.Api.SSPropertyDetails getClassProperty(COM.dragonflow.Properties.StringProperty stringproperty, String s)
+    private SSPropertyDetails getClassProperty(StringProperty stringproperty, String s)
         throws SiteViewException
     {
         String s1 = "TEXT";
         String s2 = "LIST";
         String as[] = null;
         String as1[] = null;
-        COM.dragonflow.SiteView.SiteViewObject siteviewobject = null;
+        SiteViewObject siteviewobject = null;
         String s3 = "";
         try
         {
@@ -774,12 +794,12 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             if(stringproperty instanceof COM.dragonflow.Properties.ScalarProperty)
             {
                 COM.dragonflow.Properties.ScalarProperty scalarproperty = (COM.dragonflow.Properties.ScalarProperty)stringproperty;
-                java.lang.Class class1 = java.lang.Class.forName("COM.dragonflow.SiteView.Group");
+                java.lang.Class class1 = java.lang.Class.forName("Group");
                 if(s != null)
                 {
                     httprequest.setValue("groupID", s);
                 }
-                siteviewobject = (COM.dragonflow.SiteView.SiteViewObject)class1.newInstance();
+                siteviewobject = (SiteViewObject)class1.newInstance();
                 java.lang.Class class2 = java.lang.Class.forName("COM.dragonflow.Page.groupPage");
                 COM.dragonflow.Page.CGI cgi = (COM.dragonflow.Page.CGI)class2.newInstance();
                 cgi.initialize(httprequest, null);
@@ -873,7 +893,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                     jgl.Array array2 = ReadGroupFrames(s1);
                     jgl.HashMap hashmap1 = (jgl.HashMap)array2.at(0);
                     jgl.HashMap hashmap2 = new HashMap();
-                    String s5 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_nextID");
+                    String s5 = TextUtils.getValue(hashmap1, "_nextID");
                     if(s5.length() == 0)
                     {
                         s5 = "1";
@@ -881,7 +901,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                     hashmap2.put("_id", s5);
                     hashmap2.put("_class", "SubGroup");
                     hashmap2.put("_group", s);
-                    String s6 = COM.dragonflow.Utils.TextUtils.increment(s5);
+                    String s6 = TextUtils.increment(s5);
                     hashmap1.put("_nextID", s6);
                     hashmap2.put("_name", s4);
                     array2.insert(array2.size(), hashmap2);
@@ -903,7 +923,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             {
                 removeAlertContextProperties(array);
                 WriteGroupFrames(s, array);
-                COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+                DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
                 detectconfigurationchange.setConfigChangeFlag();
             }
             catch(SiteViewException siteviewexception2)
@@ -943,16 +963,16 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         for(int i = 0; i < array.size(); i++)
         {
             jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
-            jgl.Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_alertCondition");
+            jgl.Array array1 = TextUtils.getMultipleValues(hashmap, "_alertCondition");
             java.util.HashMap hashmap1 = new java.util.HashMap();
             for(int j = 0; j < array1.size(); j++)
             {
                 hashmap1.clear();
-                COM.dragonflow.Api.Alert.getInstance().parseCondition((String)array1.at(j), hashmap1);
+                Alert.getInstance().parseCondition((String)array1.at(j), hashmap1);
                 if(hashmap1.get("_UIContext") != null)
                 {
                     hashmap1.put("_UIContext", "");
-                    array1.put(j, COM.dragonflow.Api.Alert.getInstance().createCondStr(hashmap1));
+                    array1.put(j, Alert.getInstance().createCondStr(hashmap1));
                     flag = true;
                 }
             }
@@ -976,18 +996,18 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             boolean flag = false;
             while (enumeration.hasMoreElements()) {
                 jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
-                if(COM.dragonflow.SiteView.Monitor.isMonitorFrame(hashmap) && hashmap.get("_class").equals("SubGroup"))
+                if(Monitor.isMonitorFrame(hashmap) && hashmap.get("_class").equals("SubGroup"))
                 {
-                    String s1 = COM.dragonflow.Utils.I18N.toDefaultEncoding(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_group"));
+                    String s1 = I18N.toDefaultEncoding(TextUtils.getValue(hashmap, "_group"));
                     jgl.Array array2 = ReadGroupFrames(s1);
                     s1 = computeGroupName(s1);
                     if(array2.size() > 0)
                     {
                         jgl.HashMap hashmap1 = (jgl.HashMap)array2.at(0);
-                        String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_name");
+                        String s3 = TextUtils.getValue(hashmap1, "_name");
                         if(s3 != null && s3.length() > 0 && s3.equalsIgnoreCase("config"))
                         {
-                            hashmap1.put("_name", COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_name"));
+                            hashmap1.put("_name", TextUtils.getValue(hashmap, "_name"));
                         }
                         hashmap1.put("_parent", s);
                         WriteGroupFrames(s1, array2);
@@ -1025,7 +1045,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
     private void updateConfig(String s, String s1, jgl.HashMap hashmap, jgl.HashMap hashmap1)
     {
         String s2 = "";
-        String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, s);
+        String s3 = TextUtils.getValue(hashmap, s);
         if(s3 != null && s3.length() > 0)
         {
             s2 = s3;
@@ -1052,13 +1072,13 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
     private void updateDescription(jgl.HashMap hashmap, String s)
     {
         hashmap.remove("_description");
-        jgl.Array array = COM.dragonflow.SiteView.Platform.split('\n', s);
+        jgl.Array array = Platform.split('\n', s);
         for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); hashmap.add("_description", enumeration.nextElement())) { }
     }
 
     private boolean exceedsLicenseLimit(jgl.Array array, String s)
     {
-        boolean flag = COM.dragonflow.Utils.LUtils.wouldExceedLimit(array, s);
+        boolean flag = LUtils.wouldExceedLimit(array, s);
         return flag;
     }
 
@@ -1068,12 +1088,12 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         jgl.Array array = new Array();
         try
         {
-            if(!COM.dragonflow.SiteView.Platform.isStandardAccount(account))
+            if(!Platform.isStandardAccount(account))
             {
                 array = ReadGroupFrames(account);
             } else
             {
-                array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config");
+                array = COM.dragonflow.Properties.FrameFile.readFromFile(Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config");
             }
         }
         catch(SiteViewException siteviewexception)
@@ -1100,11 +1120,11 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         for(; enumeration.hasMoreElements(); i++)
         {
             jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
-            if(!COM.dragonflow.SiteView.Monitor.isMonitorFrame(hashmap))
+            if(!Monitor.isMonitorFrame(hashmap))
             {
                 continue;
             }
-            String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_group");
+            String s1 = TextUtils.getValue(hashmap, "_group");
             if(s1.length() == 0 || !s1.equals(s))
             {
                 continue;
@@ -1129,12 +1149,12 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
     {
         try
         {
-            if(!COM.dragonflow.SiteView.Platform.isStandardAccount(s))
+            if(!Platform.isStandardAccount(s))
             {
                 WriteGroupFrames(s, array);
             } else
             {
-                COM.dragonflow.Properties.FrameFile.writeToFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config", array);
+                COM.dragonflow.Properties.FrameFile.writeToFile(Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config", array);
             }
         }
         catch(SiteViewException siteviewexception)
@@ -1166,7 +1186,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             Enumeration enumeration = array1.elements();
             while (enumeration.hasMoreElements()) {
                 jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
-                if(!COM.dragonflow.SiteView.Monitor.isReportFrame(hashmap))
+                if(!Monitor.isReportFrame(hashmap))
                 {
                     array.add(hashmap);
                 } else
@@ -1176,7 +1196,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
                     Enumeration enumeration1 = hashmap.values("monitors");
                     while (enumeration1.hasMoreElements()) {
                         String s = (String)enumeration1.nextElement();
-                        String as[] = COM.dragonflow.Utils.TextUtils.split(s);
+                        String as[] = TextUtils.split(s);
                         if(as.length >= 1)
                         {
                             hashmap1.add("monitors", s);
@@ -1230,12 +1250,12 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
         {
             if(debug)
             {
-                COM.dragonflow.Utils.TextUtils.debugPrint("DELETING GROUP " + s);
+                TextUtils.debugPrint("DELETING GROUP " + s);
             }
             java.io.File file = new File(getGroupFilePath(s, ".mg"));
             if(debug)
             {
-                COM.dragonflow.Utils.TextUtils.debugPrint("DELETING GROUP IN FILE " + file);
+                TextUtils.debugPrint("DELETING GROUP IN FILE " + file);
             }
             if(!file.exists())
             {
@@ -1246,7 +1266,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             jgl.Array array = getGroupFrames(s);
             Enumeration enumeration = array.elements();
             jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
-            String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_parent");
+            String s1 = TextUtils.getValue(hashmap, "_parent");
             if(s1.length() != 0)
             {
                 jgl.Array array1 = getGroupFrames(s1);
@@ -1260,40 +1280,40 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             jgl.Array array3 = new Array();
             while (enumeration.hasMoreElements()) {
                 jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
-                String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_class");
+                String s2 = TextUtils.getValue(hashmap1, "_class");
                 if(s2.equals("SubGroup"))
                 {
-                    String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_group");
+                    String s3 = TextUtils.getValue(hashmap1, "_group");
                     if(s3.length() != 0)
                     {
                         array2.add(s3);
                     }
                 } else
                 {
-                    COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-                    String s4 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_id");
-                    String s5 = COM.dragonflow.Utils.I18N.toDefaultEncoding(s + COM.dragonflow.SiteView.SiteViewGroup.ID_SEPARATOR + s4);
-                    COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)siteviewgroup.getElement(s5);
+                    SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+                    String s4 = TextUtils.getValue(hashmap1, "_id");
+                    String s5 = I18N.toDefaultEncoding(s + SiteViewGroup.ID_SEPARATOR + s4);
+                    AtomicMonitor atomicmonitor = (AtomicMonitor)siteviewgroup.getElement(s5);
                     if(atomicmonitor != null)
                     {
                         if(!s2.equals("SubGroup"))
                         {
                             siteviewgroup.notifyMonitorDeletion(atomicmonitor);
                         }
-//                        if(COM.dragonflow.SiteView.TopazConfigurator.configInTopazAndRegistered() && !s2.equals("SubGroup"))
+//                        if(TopazConfigurator.configInTopazAndRegistered() && !s2.equals("SubGroup"))
 //                        {
 //                            array3.add(atomicmonitor);
 //                        }
                     }
                 }
             } 
-//            if(COM.dragonflow.SiteView.TopazConfigurator.configInTopazAndRegistered())
+//            if(TopazConfigurator.configInTopazAndRegistered())
 //            {
 //                StringBuffer stringbuffer = new StringBuffer();
-//                COM.dragonflow.SiteView.TopazConfigurator.updateTopaz(array3, 1, stringbuffer, false, null);
+//                TopazConfigurator.updateTopaz(array3, 1, stringbuffer, false, null);
 //                if(stringbuffer.length() > 0)
 //                {
-//                    COM.dragonflow.Log.LogManager.log("Topaz", " Error occurred during delete of group in " + COM.dragonflow.SiteView.TopazInfo.getTopazName() + " " + stringbuffer);
+//                    COM.dragonflow.Log.LogManager.log("Topaz", " Error occurred during delete of group in " + TopazInfo.getTopazName() + " " + stringbuffer);
 //                }
 //            }
             for(int j = 0; j < array2.size(); j++)
@@ -1305,14 +1325,14 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             {
                 COM.dragonflow.Properties.JdbcConfig.deleteGroupFromDB(s);
             }
-//            if(COM.dragonflow.SiteView.TopazConfigurator.configInTopazAndRegistered())
+//            if(TopazConfigurator.configInTopazAndRegistered())
 //            {
-//                COM.dragonflow.SiteView.TopazConfigurator.deleteGroupFromTopaz(s);
+//                TopazConfigurator.deleteGroupFromTopaz(s);
 //            }
             deleteGroupFromReport();
             if(debug)
             {
-                COM.dragonflow.Utils.TextUtils.debugPrint("DELETING FILE " + file);
+                TextUtils.debugPrint("DELETING FILE " + file);
             }
             file.delete();
             java.io.File file1 = new File(getGroupFilePath(s, ".mg.bak"));
@@ -1347,7 +1367,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
 
     private String computeGroupName(String s)
     {
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         jgl.Array array = siteviewgroup.getGroupFileIDs();
         String s1 = s.toUpperCase() + ".";
         int i = -1;
@@ -1357,7 +1377,7 @@ public class APIGroup extends COM.dragonflow.Api.APISiteView
             s2 = s2.toUpperCase() + '.';
             if(s2.startsWith(s1))
             {
-                int j = COM.dragonflow.Utils.TextUtils.readInteger(s2, s1.length());
+                int j = TextUtils.readInteger(s2, s1.length());
                 if(j < 0)
                 {
                     j = 0;

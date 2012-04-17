@@ -20,6 +20,7 @@ package COM.dragonflow.Api;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
@@ -28,16 +29,42 @@ import java.util.Vector;
 
 import jgl.Array;
 import jgl.HashMap;
+import jgl.Reversing;
+import jgl.Sorting;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
+import COM.dragonflow.Page.CGI;
 import COM.dragonflow.Properties.StringProperty;
+import COM.dragonflow.Resource.SiteViewErrorCodes;
+import COM.dragonflow.SiteView.Action;
+import COM.dragonflow.SiteView.ApplicationBase;
+import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.BrowsableMonitor;
 import COM.dragonflow.SiteView.CompareSlot;
+import COM.dragonflow.SiteView.ConfigurationChanger;
+import COM.dragonflow.SiteView.DetectConfigurationChange;
 import COM.dragonflow.SiteView.FindRunningMonitors;
+import COM.dragonflow.SiteView.GreaterEqualMonitorName;
+import COM.dragonflow.SiteView.Group;
+import COM.dragonflow.SiteView.Machine;
+import COM.dragonflow.SiteView.MasterConfig;
+import COM.dragonflow.SiteView.Monitor;
+import COM.dragonflow.SiteView.MonitorGroup;
+import COM.dragonflow.SiteView.MonitorQueue;
+import COM.dragonflow.SiteView.NTCounterBase;
+import COM.dragonflow.SiteView.OSAdapter;
+import COM.dragonflow.SiteView.PerfmonMonitorBase;
 import COM.dragonflow.SiteView.Platform;
+import COM.dragonflow.SiteView.Preferences;
+import COM.dragonflow.SiteView.SiteViewGroup;
+import COM.dragonflow.SiteView.SiteViewObject;
+import COM.dragonflow.SiteView.User;
+import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 import COM.dragonflow.SiteViewException.SiteViewParameterException;
 import COM.dragonflow.StandardMonitor.ADReplicationMonitor;
 import COM.dragonflow.StandardMonitor.Exchange2k3MailboxMonitor;
+import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.WSDLParser;
 
 // Referenced classes of package COM.dragonflow.Api:
@@ -102,7 +129,7 @@ public class APISiteView
     }
 
 
-    protected COM.dragonflow.SiteView.User user;
+    protected User user;
     protected String account;
     protected boolean debug;
     protected jgl.HashMap groups;
@@ -154,7 +181,7 @@ public class APISiteView
         debug = false;
         groups = null;
         account = "administrator";
-        user = COM.dragonflow.SiteView.User.getUserForAccount(account);
+        user = User.getUserForAccount(account);
         groups = new HashMap();
     }
 
@@ -164,13 +191,13 @@ public class APISiteView
     }
 
     public void enableRealTimeStatusInformation(String s, int i, String s1, int j, long l, String s2)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
             if(savedRespondHostname == null || savedRespondHostname.equals(s))
             {
-                COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+                SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
                 siteviewgroup.registerSSEELogger(s, i, s1, j, s2);
                 enableHeartbeats(s1, j, l);
                 savedRespondHostname = s;
@@ -180,7 +207,7 @@ public class APISiteView
                 COM.dragonflow.Log.LogManager.log("RunMonitor", "Ignoring enableRealTimeStatus from a alternate configuration console: " + s + ":" + (new Integer(i)).toString());
             }
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -194,13 +221,13 @@ public class APISiteView
     }
 
     public void disableRealTimeStatusInformation(String s, int i)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
             if(savedRespondHostname.equals(s))
             {
-                COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+                SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
                 siteviewgroup.unregisterSSEELogger();
                 disableHeartbeats();
                 savedRespondHostname = null;
@@ -219,7 +246,7 @@ public class APISiteView
     }
 
     public java.util.Vector getSiteViewInfo(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.Vector vector = new Vector();
         try
@@ -269,7 +296,7 @@ public class APISiteView
             }
             hashmap.put("osType", s2);
             hashmap.put("osVersion", s3);
-            String s5 = COM.dragonflow.SiteView.Platform.getVersion();
+            String s5 = Platform.getVersion();
             String as[] = COM.dragonflow.Utils.TextUtils.split(s5, " ");
             String s6 = as[0];
             String s7 = as[1] + " " + as[2];
@@ -281,7 +308,7 @@ public class APISiteView
             hashmap.put("ssBuildNumber", s9);
             vector.add(hashmap);
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -296,12 +323,12 @@ public class APISiteView
     }
 
     public void releaseSiteView()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
 //            COM.dragonflow.TopazIntegration.MAManager.releaseSiteView();
-            COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+            DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }
         catch(java.lang.Exception exception)
@@ -313,7 +340,7 @@ public class APISiteView
     }
 
     public void controlSiteView(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
@@ -323,10 +350,10 @@ public class APISiteView
 //                throw new SiteViewOperationalException(COM.dragonflow.Resource.SiteViewErrorCodes.ERR_OP_SS_ALREADY_ATTACHED, null);
 //            }
 //            COM.dragonflow.TopazIntegration.MAManager.attachToHost(s);
-            COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+            DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -340,13 +367,13 @@ public class APISiteView
     }
 
     public static void forceConfigurationRefresh()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
-            COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+            DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
-            COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages();
+            SiteViewGroup.updateStaticPages();
         }
         catch(java.lang.Exception exception)
         {
@@ -358,47 +385,47 @@ public class APISiteView
 
     public COM.dragonflow.Api.SSHealthStats getCurrentMonitorsPerMinute()
     {
-        java.lang.Float float1 = new Float(COM.dragonflow.SiteView.AtomicMonitor.monitorStats.getCountPerTimePeriod());
+        java.lang.Float float1 = new Float(AtomicMonitor.monitorStats.getCountPerTimePeriod());
         return new SSHealthStats("Current Monitors Per Minute", null, "CURRENT_MONITORS_PER_MINUTE", float1, null);
     }
 
     public COM.dragonflow.Api.SSHealthStats getCurrentMonitorsRunning()
     {
-        java.lang.Integer integer = new Integer(COM.dragonflow.SiteView.MonitorQueue.getRunningCount());
+        java.lang.Integer integer = new Integer(MonitorQueue.getRunningCount());
         return new SSHealthStats("Current Monitors Running", null, "CURRENT_MONITORS_RUNNING", integer, null);
     }
 
     public COM.dragonflow.Api.SSHealthStats getCurrentMonitorsWaiting()
     {
-        java.lang.Integer integer = new Integer(COM.dragonflow.SiteView.MonitorQueue.readyMonitors.size());
+        java.lang.Integer integer = new Integer(MonitorQueue.readyMonitors.size());
         return new SSHealthStats("Current Monitors Waiting", null, "CURRENT_MONITORS_WAITING", integer, null);
     }
 
     public COM.dragonflow.Api.SSHealthStats getMaximumMonitorsPerMinute()
     {
-        java.lang.Float float1 = new Float(COM.dragonflow.SiteView.AtomicMonitor.monitorStats.getMaximumCountPerTimePeriod());
-        java.lang.Float float2 = new Float(COM.dragonflow.SiteView.AtomicMonitor.monitorStats.getMaximumCountPerTimePeriodTime());
+        java.lang.Float float1 = new Float(AtomicMonitor.monitorStats.getMaximumCountPerTimePeriod());
+        java.lang.Float float2 = new Float(AtomicMonitor.monitorStats.getMaximumCountPerTimePeriodTime());
         return new SSHealthStats("Maximum Monitors Per Minute", null, "MAXIMUM_MONITORS_PER_MINUTE", float1, float2);
     }
 
     public COM.dragonflow.Api.SSHealthStats getMaximumMonitorsRunning()
     {
-        java.lang.Float float1 = new Float(COM.dragonflow.SiteView.AtomicMonitor.monitorStats.getMaximum());
-        java.lang.Float float2 = new Float(COM.dragonflow.SiteView.AtomicMonitor.monitorStats.getMaximumTime());
+        java.lang.Float float1 = new Float(AtomicMonitor.monitorStats.getMaximum());
+        java.lang.Float float2 = new Float(AtomicMonitor.monitorStats.getMaximumTime());
         return new SSHealthStats("Maximum Monitors Running", null, "MAXIMUM_MONITORS_RUNNING", float1, float2);
     }
 
     public COM.dragonflow.Api.SSHealthStats getMaximumMonitorsWaiting()
     {
-        java.lang.Float float1 = new Float(COM.dragonflow.SiteView.MonitorQueue.maxReadyMonitors);
-        java.lang.Float float2 = new Float(COM.dragonflow.SiteView.MonitorQueue.maxReadyMonitorsTime);
+        java.lang.Float float1 = new Float(MonitorQueue.maxReadyMonitors);
+        java.lang.Float float2 = new Float(MonitorQueue.maxReadyMonitorsTime);
         return new SSHealthStats("Maximum Monitors Waiting", null, "MAXIMUM_MONITORS_WAITING", float1, float2);
     }
 
     public COM.dragonflow.Api.SSHealthStats[] getRunningMonitorStats()
     {
-        COM.dragonflow.SiteView.FindRunningMonitors findrunningmonitors = new FindRunningMonitors();
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+        FindRunningMonitors findrunningmonitors = new FindRunningMonitors();
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         siteviewgroup.acceptVisitor(findrunningmonitors);
         Enumeration enumeration = findrunningmonitors.getResultsElements();
         java.util.Vector vector = new Vector();
@@ -407,20 +434,20 @@ public class APISiteView
             COM.dragonflow.Api.SSHealthStats sshealthstats;
             for(; enumeration.hasMoreElements(); vector.add(sshealthstats))
             {
-                COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor)enumeration.nextElement();
-                String s = monitor.getProperty(COM.dragonflow.SiteView.Monitor.pName);
+                Monitor monitor = (Monitor)enumeration.nextElement();
+                String s = monitor.getProperty(Monitor.pName);
                 String s1 = monitor.currentStatus;
                 String s2 = "N/A";
-                long l = monitor.getPropertyAsLong(COM.dragonflow.SiteView.Monitor.pLastUpdate);
+                long l = monitor.getPropertyAsLong(Monitor.pLastUpdate);
                 if(l > 0L)
                 {
                     s2 = " (previous update at " + COM.dragonflow.Utils.TextUtils.prettyDate(new Date(l)) + ")";
                 }
-                String s3 = monitor.getProperty(COM.dragonflow.SiteView.SiteViewObject.pOwnerID);
-                COM.dragonflow.SiteView.Monitor monitor1 = (COM.dragonflow.SiteView.Monitor)siteviewgroup.getElement(s3);
+                String s3 = monitor.getProperty(SiteViewObject.pOwnerID);
+                Monitor monitor1 = (Monitor)siteviewgroup.getElement(s3);
                 if(monitor1 != null)
                 {
-                    s3 = monitor1.getProperty(COM.dragonflow.SiteView.Monitor.pName);
+                    s3 = monitor1.getProperty(Monitor.pName);
                 }
                 sshealthstats = new SSHealthStats(s, s1, "RUNNING_MONITOR_STATS", "Last Update: " + s2, "Group: " + s3);
             }
@@ -436,12 +463,12 @@ public class APISiteView
     }
 
     public java.util.Vector getWebServers(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.Vector vector = new Vector();
         try
         {
-            vector = COM.dragonflow.SiteView.Platform.getWebServers(s);
+            vector = Platform.getWebServers(s);
         }
         catch(java.lang.Exception exception)
         {
@@ -453,13 +480,13 @@ public class APISiteView
     }
 
     public java.util.Vector getOSs()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.Vector vector = new Vector();
         try
         {
             jgl.Array array = new Array();
-            array = COM.dragonflow.SiteView.OSAdapter.getOSs(array);
+            array = OSAdapter.getOSs(array);
             for(int i = 0; i < array.size(); i++)
             {
                 vector.add(array.at(i));
@@ -476,10 +503,10 @@ public class APISiteView
     }
 
     public java.util.Vector getWebServiceFiles()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.Vector vector = new Vector();
-        java.io.File file = new File(COM.dragonflow.SiteView.Platform.getUsedDirectoryPath("templates.wsdl", account));
+        java.io.File file = new File(Platform.getUsedDirectoryPath("templates.wsdl", account));
         if(!file.exists())
         {
             return vector;
@@ -507,7 +534,7 @@ public class APISiteView
     }
 
     public java.util.Vector getWebServiceMethodsAndURL(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.Vector vector = new Vector();
         try
@@ -517,7 +544,7 @@ public class APISiteView
             String s1 = "";
             if(s.indexOf("http") < 0)
             {
-                String s2 = COM.dragonflow.SiteView.Platform.getUsedDirectoryPath("templates.wsdl", account);
+                String s2 = Platform.getUsedDirectoryPath("templates.wsdl", account);
                 s1 = s2 + "/" + s;
             } else
             {
@@ -564,7 +591,7 @@ public class APISiteView
     }
 
     public java.util.Vector getWebServiceArgs(String s, String s1)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.Vector vector = new Vector();
         try
@@ -574,7 +601,7 @@ public class APISiteView
             String s2 = "";
             if(s.indexOf("http") < 0)
             {
-                String s3 = COM.dragonflow.SiteView.Platform.getUsedDirectoryPath("templates.wsdl", account);
+                String s3 = Platform.getUsedDirectoryPath("templates.wsdl", account);
                 s2 = s3 + "/" + s;
             } else
             {
@@ -624,13 +651,13 @@ public class APISiteView
     }
 
     public void createSession(long l)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
             COM.dragonflow.Utils.LUtils.createSession(l);
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -642,13 +669,13 @@ public class APISiteView
     }
 
     public void sendHeartbeat()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
             COM.dragonflow.Utils.LUtils.sendHeartbeat();
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -660,15 +687,15 @@ public class APISiteView
     }
 
     public void updateGeneralLicense(String s, boolean flag)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
             COM.dragonflow.Utils.LUtils.updateGeneralLicense(s, flag);
-            COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+            DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -680,16 +707,16 @@ public class APISiteView
     }
 
     public void updateSpecialLicense(String s, boolean flag)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
             COM.dragonflow.Utils.LUtils.updateSpecialLicense(s, flag);
             COM.dragonflow.Api.APISiteView.refreshSSChildObjects();
-            COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+            DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -701,7 +728,7 @@ public class APISiteView
     }
 
     public void shutdownSiteView()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
@@ -716,13 +743,13 @@ public class APISiteView
     }
 
     public boolean isTopazConnected()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         return false;
     }
 
     public boolean isAMIntegrationActivated(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         boolean flag = false;
 //        try
@@ -740,7 +767,7 @@ public class APISiteView
 //                flag = COM.dragonflow.TopazIntegration.TopazManager.getInstance().getTopazServerSettings(s) != null;
 //            }
 //        }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -758,10 +785,10 @@ public class APISiteView
      * 
      * 
      * @return
-     * @throws COM.dragonflow.SiteViewException.SiteViewException
+     * @throws SiteViewException
      */
     public boolean isUIControled()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try {
 		return false;
@@ -775,7 +802,7 @@ public class APISiteView
     }
 
     public boolean isServerRegistered(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         boolean flag = false;
         try
@@ -793,7 +820,7 @@ public class APISiteView
     }
 
     public java.util.HashMap getFreeProfiles(java.util.HashMap hashmap)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.HashMap hashmap1 = new java.util.HashMap();
 //        try
@@ -808,7 +835,7 @@ public class APISiteView
 //                });
 //            }
 //        }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -823,7 +850,7 @@ public class APISiteView
     }
 
     public boolean isTopazDisabled(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         boolean flag = true;
 //        try
@@ -841,7 +868,7 @@ public class APISiteView
 //            }
 //            flag = topazserversettings.isDisabled();
 //        }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -856,7 +883,7 @@ public class APISiteView
     }
 
     public void setTopazDisabled(String s, boolean flag)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
 //        try
 //        {
@@ -873,7 +900,7 @@ public class APISiteView
 //                        amreturnvalue.getErrorString()
 //                    });
 //                }
-//                COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+//                DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
 //                detectconfigurationchange.setConfigChangeFlag();
 //            } else
 //            {
@@ -882,7 +909,7 @@ public class APISiteView
 //                });
 //            }
 //        }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -896,7 +923,7 @@ public class APISiteView
     }
 
     public void flushTopazData()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
 //        try
 //        {
@@ -910,7 +937,7 @@ public class APISiteView
 //                });
 //            }
 //        }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -924,7 +951,7 @@ public class APISiteView
     }
 
     public void resyncTopazData(boolean flag)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
@@ -936,7 +963,7 @@ public class APISiteView
             }
 //            COM.dragonflow.TopazIntegration.TopazManager.getInstance().reSync(COM.dragonflow.TopazIntegration.TopazManager.getInstance().getTopazPrimaryServerSettings(), flag);
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -950,7 +977,7 @@ public class APISiteView
     }
 
 //    public void resetTopazProfile(String s)
-//        throws COM.dragonflow.SiteViewException.SiteViewException
+//        throws SiteViewException
 //    {
 //        try
 //        {
@@ -970,7 +997,7 @@ public class APISiteView
 //                    amreturnvalue.getErrorString()
 //                });
 //            }
-//            COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+//            DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
 //            detectconfigurationchange.setConfigChangeFlag();
 //        }
 //        catch(java.lang.Exception exception)
@@ -982,7 +1009,7 @@ public class APISiteView
 //    }
 
     public void deleteSiteView(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
@@ -999,7 +1026,7 @@ public class APISiteView
     }
 
 //    public java.util.HashMap getServerSettingsByEntity(String s)
-//        throws COM.dragonflow.SiteViewException.SiteViewException
+//        throws SiteViewException
 //    {
 //        String s1 = COM.dragonflow.TopazIntegration.TopazManager.getInstance().getServerAddressByEntity(s);
 //        if(s1 == null)
@@ -1012,7 +1039,7 @@ public class APISiteView
 //    }
 
 //    public java.util.HashMap getTopazServerSettings(String s)
-//        throws COM.dragonflow.SiteViewException.SiteViewException
+//        throws SiteViewException
 //    {
 //        java.util.HashMap hashmap = new java.util.HashMap();
 //        try
@@ -1053,7 +1080,7 @@ public class APISiteView
 //                });
 //            }
 //        }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -1068,7 +1095,7 @@ public class APISiteView
 //    }
 
 //    public void registerTopazProfile(String s, String s1, java.util.HashMap hashmap)
-//        throws COM.dragonflow.SiteViewException.SiteViewOperationalException
+//        throws SiteViewOperationalException
 //    {
 //        try
 //        {
@@ -1095,7 +1122,7 @@ public class APISiteView
 //                }
 //            }
 //            COM.dragonflow.TopazIntegration.TopazManager.getInstance().registerNew(s, s1, hashmap);
-//            COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+//            DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
 //            detectconfigurationchange.setConfigChangeFlag();
 //        }
 //        catch(java.lang.Exception exception)
@@ -1107,7 +1134,7 @@ public class APISiteView
 //    }
 //
 //    public void reRegisterTopazProfile(java.util.HashMap hashmap)
-//        throws COM.dragonflow.SiteViewException.SiteViewException
+//        throws SiteViewException
 //    {
 //        try
 //        {
@@ -1119,7 +1146,7 @@ public class APISiteView
 //            if(isAMIntegrationActivated(s))
 //            {
 //                COM.dragonflow.TopazIntegration.TopazManager.getInstance().reRegister(hashmap);
-//                COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
+//                DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
 //                detectconfigurationchange.setConfigChangeFlag();
 //            } else
 //            {
@@ -1128,7 +1155,7 @@ public class APISiteView
 //                });
 //            }
 //        }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -1142,7 +1169,7 @@ public class APISiteView
 //    }
 
 //    public String getTopazFullId(int i)
-//        throws COM.dragonflow.SiteViewException.SiteViewException
+//        throws SiteViewException
 //    {
 //        String s = "";
 //        try
@@ -1155,7 +1182,7 @@ public class APISiteView
 //                });
 //            }
 //        }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -1170,7 +1197,7 @@ public class APISiteView
 //    }
 
 //    public java.util.Vector issueSiebelCmd(String s)
-//        throws COM.dragonflow.SiteViewException.SiteViewException
+//        throws SiteViewException
 //    {
 //        java.util.Vector vector = new Vector();
 //        try
@@ -1206,7 +1233,7 @@ public class APISiteView
 //                });
 //            }
 //        }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -1221,19 +1248,19 @@ public class APISiteView
 //    }
 
     public java.util.Vector getSystemTime(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.Vector vector = new Vector();
         try
         {
             StringBuffer stringbuffer = new StringBuffer();
-            java.util.Calendar calendar = COM.dragonflow.SiteView.Platform.getSystemTime(s, stringbuffer);
+            java.util.Calendar calendar = Platform.getSystemTime(s, stringbuffer);
             java.text.SimpleDateFormat simpledateformat = new SimpleDateFormat("EEE MM-dd-yyyy HH:mm:ss ('GMT'Z)");
             simpledateformat.setTimeZone(calendar.getTimeZone());
             java.util.Date date = calendar.getTime();
             vector.add(simpledateformat.format(date));
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -1248,13 +1275,13 @@ public class APISiteView
     }
 
     public java.util.Vector getFileList(String s, String s1, StringBuffer stringbuffer)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.Vector vector = new Vector();
         try
         {
             String as[][];
-            if((as = COM.dragonflow.SiteView.Platform.getFileList(s, s1, stringbuffer)) == null)
+            if((as = Platform.getFileList(s, s1, stringbuffer)) == null)
             {
                 throw new SiteViewOperationalException(COM.dragonflow.Resource.SiteViewErrorCodes.ERR_OP_SS_RUN_COMMAND, 0L, stringbuffer.toString());
             }
@@ -1264,7 +1291,7 @@ public class APISiteView
             }
 
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -1279,7 +1306,7 @@ public class APISiteView
     }
 
     protected void createSSEEDefaultUser()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.HashMap hashmap = new java.util.HashMap();
         hashmap.put("_preference", "true");
@@ -1336,9 +1363,9 @@ public class APISiteView
         {
             apipreference.create("UserInstancePreferences", assinstanceproperty);
         }
-        COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages();
-        COM.dragonflow.SiteView.User.unloadUsers();
-        COM.dragonflow.SiteView.User.loadUsers();
+        SiteViewGroup.updateStaticPages();
+        User.unloadUsers();
+        User.loadUsers();
     }
 
     protected static void initSSChildObjects()
@@ -1349,7 +1376,7 @@ public class APISiteView
             siteViewObjects = new Vector();
             try
             {
-                java.io.File file = new File(COM.dragonflow.SiteView.Platform.getRoot() + "/classes/COM/dragonflow/Api");
+                java.io.File file = new File(Platform.getRoot() + "/classes/COM/dragonflow/Api");
                 String as[] = file.list();
                 for(int i = 0; i < as.length; i++)
                 {
@@ -1433,7 +1460,7 @@ public class APISiteView
         }
     }
 
-    protected jgl.Array getPropertiesForClass(COM.dragonflow.SiteView.SiteViewObject siteviewobject, String s, String s1, int i)
+    protected jgl.Array getPropertiesForClass(SiteViewObject siteviewobject, String s, String s1, int i)
         throws java.lang.Exception
     {
         jgl.Array array = new Array();
@@ -1451,14 +1478,14 @@ public class APISiteView
             }
         }
         
-        if(siteviewobject instanceof COM.dragonflow.SiteView.BrowsableMonitor)
+        if(siteviewobject instanceof BrowsableMonitor)
         {
             COM.dragonflow.Properties.StringProperty stringproperty = new StringProperty("availableCounters", "", "Available Counters");
             array.add(stringproperty);
             COM.dragonflow.Properties.StringProperty stringproperty4 = new StringProperty("availableCountersHierarchical", "", "Available Counters Hierarchical");
             array.add(stringproperty4);
         } else
-        if(siteviewobject instanceof COM.dragonflow.SiteView.ApplicationBase)
+        if(siteviewobject instanceof ApplicationBase)
         {
             COM.dragonflow.Properties.StringProperty stringproperty1 = new StringProperty("availableObjects", "", "Available Objects");
             array.add(stringproperty1);
@@ -1469,7 +1496,7 @@ public class APISiteView
             COM.dragonflow.Properties.StringProperty stringproperty9 = new StringProperty("defaultCounters", "", "Default Counters");
             array.add(stringproperty9);
         } else
-        if((siteviewobject instanceof COM.dragonflow.SiteView.NTCounterBase) || (siteviewobject instanceof COM.dragonflow.SiteView.PerfmonMonitorBase))
+        if((siteviewobject instanceof NTCounterBase) || (siteviewobject instanceof PerfmonMonitorBase))
         {
             COM.dragonflow.Properties.StringProperty stringproperty2 = new StringProperty("counterObject", "", "Selected Counter Object");
             array.add(stringproperty2);
@@ -1492,7 +1519,7 @@ public class APISiteView
         {
             s = "Action";
         }
-        java.io.File file = new File(COM.dragonflow.SiteView.Platform.getRoot() + "/classes/COM/dragonflow/Standard" + s);
+        java.io.File file = new File(Platform.getRoot() + "/classes/COM/dragonflow/Standard" + s);
         String as[] = file.list();
         if(as != null)
         {
@@ -1527,7 +1554,7 @@ public class APISiteView
             }
 
         }
-        file = new File(COM.dragonflow.SiteView.Platform.getRoot() + "/classes/Custom" + s);
+        file = new File(Platform.getRoot() + "/classes/Custom" + s);
         as = file.list();
         if(as != null)
         {
@@ -1565,8 +1592,7 @@ public class APISiteView
         return array;
     }
 
-    protected jgl.Array getGroupFrames(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    protected jgl.Array getGroupFrames(String s) throws SiteViewException
     {
         jgl.Array array = new Array();
         try
@@ -1585,7 +1611,7 @@ public class APISiteView
     }
 
     protected jgl.Array ReadGroupFrames(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         jgl.Array array = new Array();
         try
@@ -1632,7 +1658,7 @@ public class APISiteView
     protected jgl.Array getGroupFilterForAccount(String s)
     {
         jgl.Array array = new Array();
-        if(COM.dragonflow.SiteView.Platform.isStandardAccount(account))
+        if(Platform.isStandardAccount(account))
         {
             Enumeration enumeration = user.getMultipleValues("_group");
             if(enumeration.hasMoreElements())
@@ -1668,24 +1694,24 @@ public class APISiteView
     }
 
     protected void WriteGroupFrames(String s, jgl.Array array)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
             String s1 = getGroupFilePath(s, ".mg");
             COM.dragonflow.Properties.FrameFile.writeToFile(s1, array, "_", true);
-//            if(COM.dragonflow.SiteView.TopazConfigurator.configInTopazAndRegistered())
+//            if(TopazConfigurator.configInTopazAndRegistered())
 //            {
 //                jgl.Array array1 = new Array();
-//                COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-//                COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s);
+//                SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+//                MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(s);
 //                array1.add(monitorgroup);
 //                siteviewgroup.removeElement(monitorgroup);
 //                StringBuffer stringbuffer = new StringBuffer();
-//                COM.dragonflow.SiteView.TopazConfigurator.updateTopazGroups(array1, 0, stringbuffer);
+//                TopazConfigurator.updateTopazGroups(array1, 0, stringbuffer);
 //            }
         }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -1700,7 +1726,7 @@ public class APISiteView
 
     protected boolean isRelated(String s, String s1)
     {
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         do
         {
             if(s.length() == 0)
@@ -1711,7 +1737,7 @@ public class APISiteView
             {
                 return true;
             }
-            COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor)siteviewgroup.getElement(s);
+            Monitor monitor = (Monitor)siteviewgroup.getElement(s);
             if(monitor == null)
             {
                 break;
@@ -1735,11 +1761,11 @@ public class APISiteView
         {
             s2 = "/groups/" + s + s1;
         }
-        return COM.dragonflow.SiteView.Platform.getRoot() + s2;
+        return Platform.getRoot() + s2;
     }
 
     protected int findMonitorIndex(jgl.Array array, String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         if(s.equals("_config"))
         {
@@ -1752,7 +1778,7 @@ public class APISiteView
         int j = -1;
         while (enumeration.hasMoreElements()) {
             jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
-            if(COM.dragonflow.SiteView.Monitor.isMonitorFrame(hashmap) && hashmap.get("_id").equals(s))
+            if(Monitor.isMonitorFrame(hashmap) && hashmap.get("_id").equals(s))
             {
                 j = i;
                 break;
@@ -1771,7 +1797,7 @@ public class APISiteView
     }
 
     protected void saveGroups()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
@@ -1792,7 +1818,7 @@ public class APISiteView
                 }
             } 
         }
-//        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+//        catch(SiteViewException siteviewexception)
 //        {
 //            siteviewexception.fillInStackTrace();
 //            throw siteviewexception;
@@ -1828,12 +1854,12 @@ public class APISiteView
         }
     }
 
-    protected int getThresholdNum(COM.dragonflow.SiteView.Monitor monitor)
+    protected int getThresholdNum(Monitor monitor)
     {
-        int i = ((COM.dragonflow.SiteView.AtomicMonitor)monitor).getMaxCounters();
+        int i = ((AtomicMonitor)monitor).getMaxCounters();
         if(i == 0)
         {
-            if(((COM.dragonflow.SiteView.AtomicMonitor)monitor).isMultiThreshold() || monitor.getClassProperty("class").equals("URLSequenceMonitor"))
+            if(((AtomicMonitor)monitor).isMultiThreshold() || monitor.getClassProperty("class").equals("URLSequenceMonitor"))
             {
                 i = 10;
             } else
@@ -1871,10 +1897,10 @@ public class APISiteView
      * @param siteviewobject
      * @param s
      * @return
-     * @throws COM.dragonflow.SiteViewException.SiteViewException
+     * @throws SiteViewException
      */
-    protected boolean returnProperty(COM.dragonflow.Properties.StringProperty stringproperty, int i, COM.dragonflow.SiteView.SiteViewObject siteviewobject, String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    protected boolean returnProperty(COM.dragonflow.Properties.StringProperty stringproperty, int i, SiteViewObject siteviewobject, String s)
+        throws SiteViewException
     {
         boolean flag;
             flag = false;
@@ -1902,19 +1928,19 @@ public class APISiteView
             else if(i == PREREQ_OP)
             {
                 COM.dragonflow.Api.SSPropertyDetails sspropertydetails = null;
-                if(siteviewobject instanceof COM.dragonflow.SiteView.AtomicMonitor)
+                if(siteviewobject instanceof AtomicMonitor)
                 {
                     sspropertydetails = ((COM.dragonflow.Api.APIMonitor)this).getClassPropertyDetails(stringproperty.getName(), s, new COM.dragonflow.Api.SSInstanceProperty[0]);
                 } else
-                if(siteviewobject instanceof COM.dragonflow.SiteView.Preferences)
+                if(siteviewobject instanceof Preferences)
                 {
                     sspropertydetails = ((COM.dragonflow.Api.APIPreference)this).getClassPropertyDetails(stringproperty.getName(), s, FILTER_CONFIGURATION_ALL);
                 } else
-                if(siteviewobject instanceof COM.dragonflow.SiteView.Group)
+                if(siteviewobject instanceof Group)
                 {
                     sspropertydetails = ((COM.dragonflow.Api.APIGroup)this).getClassPropertyDetails(stringproperty.getName());
                 } else
-                if(siteviewobject instanceof COM.dragonflow.SiteView.Action)
+                if(siteviewobject instanceof Action)
                 {
                     sspropertydetails = ((COM.dragonflow.Api.APIAlert)this).getClassPropertyDetails(stringproperty.getName(), s, new HashMap());
                 }
@@ -1939,14 +1965,14 @@ public class APISiteView
             }
             else if(i == FILTER_CONFIGURATION_EDIT_ALL)
             {
-                if(siteviewobject instanceof COM.dragonflow.SiteView.BrowsableMonitor)
+                if(siteviewobject instanceof BrowsableMonitor)
                 {
-                    if(stringproperty.getName().startsWith(((COM.dragonflow.SiteView.BrowsableMonitor)siteviewobject).getBrowseName()) || stringproperty.getName().startsWith(((COM.dragonflow.SiteView.BrowsableMonitor)siteviewobject).getBrowseID()))
+                    if(stringproperty.getName().startsWith(((BrowsableMonitor)siteviewobject).getBrowseName()) || stringproperty.getName().startsWith(((BrowsableMonitor)siteviewobject).getBrowseID()))
                     {
                         flag = true;
                     }
                 } else
-                if(((siteviewobject instanceof COM.dragonflow.SiteView.ApplicationBase) || (siteviewobject instanceof COM.dragonflow.SiteView.NTCounterBase)) && stringproperty.getName().equals("_counters"))
+                if(((siteviewobject instanceof ApplicationBase) || (siteviewobject instanceof NTCounterBase)) && stringproperty.getName().equals("_counters"))
                 {
                     flag = true;
                 }
@@ -2001,7 +2027,7 @@ public class APISiteView
     }
 
     protected java.util.Vector getLocalServers()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.util.Vector vector = new Vector();
         try
@@ -2010,7 +2036,7 @@ public class APISiteView
             java.lang.Class class1 = java.lang.Class.forName("COM.dragonflow.Page.serverPage");
             COM.dragonflow.Page.CGI cgi = (COM.dragonflow.Page.CGI)class1.newInstance();
             cgi.initialize(httprequest, null);
-            vector = COM.dragonflow.SiteView.Platform.getServers();
+            vector = Platform.getServers();
             try
             {
                 java.net.InetAddress inetaddress = java.net.InetAddress.getLocalHost();
@@ -2031,7 +2057,7 @@ public class APISiteView
                 });
             }
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -2050,7 +2076,7 @@ public class APISiteView
     {
         COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
         jgl.Array array = readMachines(s);
-        jgl.Sorting.sort(array, new CompareSlot("_name", COM.dragonflow.SiteView.CompareSlot.DIRECTION_LESS));
+        jgl.Sorting.sort(array, new CompareSlot("_name", CompareSlot.DIRECTION_LESS));
         boolean flag1 = s.indexOf("NT") == -1;
         for(int i = 0; i < array.size(); i++)
         {
@@ -2058,10 +2084,10 @@ public class APISiteView
             String s1 = "";
             if(flag1)
             {
-                s1 = COM.dragonflow.SiteView.Machine.getFullMachineID(COM.dragonflow.SiteView.Machine.REMOTE_PREFIX + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id"), httprequest);
+                s1 = Machine.getFullMachineID(Machine.REMOTE_PREFIX + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id"), httprequest);
             } else
             {
-                s1 = COM.dragonflow.SiteView.Machine.getFullMachineID(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_host"), httprequest);
+                s1 = Machine.getFullMachineID(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_host"), httprequest);
             }
             String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_name");
             if(s2.length() == 0)
@@ -2089,7 +2115,7 @@ public class APISiteView
         throws java.io.IOException
     {
         jgl.Array array = new Array();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
         String s1;
         for(Enumeration enumeration = hashmap.values(s); enumeration.hasMoreElements(); array.add(COM.dragonflow.Utils.TextUtils.stringToHashMap(s1)))
         {
@@ -2151,17 +2177,17 @@ public class APISiteView
             {
                 array = new Array();
             }
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
-            COM.dragonflow.SiteView.User.initializeUsersList(array, hashmap);
+            jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+            User.initializeUsersList(array, hashmap);
         } else
         {
-            array = COM.dragonflow.SiteView.User.readUsers();
+            array = User.readUsers();
         }
         return array;
     }
 
     public static java.lang.Object invokeTestMethod(String s, String s1, java.lang.Object aobj[])
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         java.lang.Object obj = null;
         try
@@ -2206,7 +2232,7 @@ public class APISiteView
         timer = new Timer();
         if(COM.dragonflow.Log.LogManager.loggerRegistered("SSEELog"))
         {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            jgl.HashMap hashmap = MasterConfig.getMasterConfig();
             String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_sseeHeartbeatTimer");
             if(s1 != null && s1.length() > 0)
             {
@@ -2217,7 +2243,7 @@ public class APISiteView
     }
 
     protected int findType(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         int i = -1;
         COM.dragonflow.Api.APISiteView.initSSChildObjects();
@@ -2239,7 +2265,7 @@ public class APISiteView
     }
 
     public boolean hasSolutionLicense(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         if(!$assertionsDisabled && s == null)
         {
@@ -2322,7 +2348,7 @@ public class APISiteView
             return COM.dragonflow.Api.APISiteView.getGroup(s);
         } else
         {
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = COM.dragonflow.SiteView.MonitorGroup.getMonitorGroup(s);
+            MonitorGroup monitorgroup = MonitorGroup.getMonitorGroup(s);
             return monitorgroup != null ? monitorgroup.getProperty("_parent") : "";
         }
     }
@@ -2348,19 +2374,19 @@ public class APISiteView
 
     private jgl.Array getAllAllowedGroupIDs()
     {
-        jgl.Array array = COM.dragonflow.Utils.I18N.toDefaultArray(COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().getGroupIDs());
-        COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
+        jgl.Array array = I18N.toDefaultArray(SiteViewGroup.currentSiteView().getGroupIDs());
+        HTTPRequest httprequest = new HTTPRequest();
         httprequest.setValue("account", account);
         httprequest.setUser(user);
-        jgl.Array array1 = COM.dragonflow.Page.CGI.filterGroupsForAccount(array, httprequest);
+        jgl.Array array1 = CGI.filterGroupsForAccount(array, httprequest);
         return array1;
     }
 
-    protected java.util.Collection getAllAllowedGroups()
+    protected Collection getAllAllowedGroups()
     {
         jgl.Array array = getAllAllowedGroupIDs();
-        java.util.ArrayList arraylist = new ArrayList(array.size());
-        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+        ArrayList arraylist = new ArrayList(array.size());
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         for(int i = 0; i < array.size(); i++)
         {
             String s = (String)array.at(i);
@@ -2372,20 +2398,40 @@ public class APISiteView
 
         return arraylist;
     }
+    
+    protected  Collection getTopLevelAllowedGroups()
+    {
+        jgl.Array array = getAllAllowedGroupIDs();
+        ArrayList arraylist = new ArrayList(array.size());
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+        for(int i = 0; i < array.size(); i++)
+        {
+            String s = (String)array.at(i);
+            String parent = siteviewgroup.getGroup(s).getProperty("_parent");
+            if(!s.equals("__Health__") && parent.isEmpty())
+            {            	
+            	arraylist.add(siteviewgroup.getGroup(s));
+            }
+        }
+
+        return arraylist;
+    }
+    
+
 
     protected java.util.Collection getMonitorsForGroup(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewParameterException
+        throws SiteViewParameterException
     {
         if(isGroupAllowedForAccount(s))
         {
             java.util.Vector vector = new Vector();
-            COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s);
+            SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+            MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(s);
             java.util.ArrayList arraylist = new ArrayList();
             if(monitorgroup != null)
             {
                 arraylist.add(monitorgroup);
-                COM.dragonflow.SiteView.ConfigurationChanger.getGroupsMonitors(arraylist, vector, null, false);
+                ConfigurationChanger.getGroupsMonitors(arraylist, vector, null, false);
                 return vector;
             } else
             {
@@ -2393,33 +2439,33 @@ public class APISiteView
             }
         } else
         {
-            throw new SiteViewParameterException(COM.dragonflow.Resource.SiteViewErrorCodes.ERR_OP_SS_GROUP_ACCESS_EXCEPTION);
+            throw new SiteViewParameterException(SiteViewErrorCodes.ERR_OP_SS_GROUP_ACCESS_EXCEPTION);
         }
     }
 
-    protected java.util.Collection getSubGroups(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewParameterException
+    protected Collection getSubGroups(String groupid)
+        throws SiteViewParameterException
     {
-        if(isGroupAllowedForAccount(s))
+        if(isGroupAllowedForAccount(groupid))
         {
-            java.util.Vector vector = new Vector();
-            COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s);
-            java.util.ArrayList arraylist = new ArrayList();
+            Vector vector = new Vector();
+            SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+            MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(groupid);
+            ArrayList arraylist = new ArrayList();
             if(monitorgroup != null)
             {
                 arraylist.add(monitorgroup);
-                COM.dragonflow.SiteView.ConfigurationChanger.getGroupsMonitors(arraylist, null, vector, false);
+                ConfigurationChanger.getGroupsMonitors(arraylist, null, vector, false);
             }
             return vector;
         } else
         {
-            throw new SiteViewParameterException(COM.dragonflow.Resource.SiteViewErrorCodes.ERR_OP_SS_GROUP_ACCESS_EXCEPTION);
+            throw new SiteViewParameterException(SiteViewErrorCodes.ERR_OP_SS_GROUP_ACCESS_EXCEPTION);
         }
     }
 
     protected void fixDisableAlertingParams(jgl.HashMap hashmap)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         String s = (String)hashmap.get("groupAlertsDisable");
         if(s == null)
@@ -2484,8 +2530,8 @@ public class APISiteView
         hashmap.put("_alertDisabled", stringbuffer.toString());
     }
 
-    protected void fixDisableAlertingParamsOut(COM.dragonflow.SiteView.Monitor monitor, java.util.Vector vector)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    protected void fixDisableAlertingParamsOut(Monitor monitor, java.util.Vector vector)
+        throws SiteViewException
     {
         String s = monitor.getProperty("_alertDisabled");
         if(s == null || s.equals(""))
@@ -2549,7 +2595,7 @@ public class APISiteView
     }
 
     protected void fixDisableGroupOrMonitorParams(jgl.HashMap hashmap)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         String s = (String)hashmap.get("monitorsDisable");
         String s1 = (String)hashmap.get("monitorDisableDescription");
@@ -2559,15 +2605,15 @@ public class APISiteView
         }
         if(s.equals("undo"))
         {
-            hashmap.put(COM.dragonflow.SiteView.Monitor.pDisabled.getName(), "");
-            hashmap.put(COM.dragonflow.SiteView.Monitor.pTimedDisable.getName(), "");
-            hashmap.put(COM.dragonflow.SiteView.Monitor.pDisabledDescription.getName(), "");
+            hashmap.put(Monitor.pDisabled.getName(), "");
+            hashmap.put(Monitor.pTimedDisable.getName(), "");
+            hashmap.put(Monitor.pDisabledDescription.getName(), "");
         } else
         if(s.equals("permanent"))
         {
-            hashmap.put(COM.dragonflow.SiteView.Monitor.pDisabled.getName(), "checked");
-            hashmap.put(COM.dragonflow.SiteView.Monitor.pDisabledDescription.getName(), s1);
-            hashmap.put(COM.dragonflow.SiteView.Monitor.pTimedDisable.getName(), "");
+            hashmap.put(Monitor.pDisabled.getName(), "checked");
+            hashmap.put(Monitor.pDisabledDescription.getName(), s1);
+            hashmap.put(Monitor.pTimedDisable.getName(), "");
         } else
         if(s.equals("timed") || s.equals("schedule"))
         {
@@ -2613,18 +2659,18 @@ public class APISiteView
                 stringbuffer.append(";");
                 stringbuffer.append(mSiteViewDisableFormat.format(date1));
             }
-            hashmap.put(COM.dragonflow.SiteView.Monitor.pTimedDisable.getName(), stringbuffer.toString());
-            hashmap.put(COM.dragonflow.SiteView.Monitor.pDisabled.getName(), "");
-            hashmap.put(COM.dragonflow.SiteView.Monitor.pDisabledDescription.getName(), s1);
+            hashmap.put(Monitor.pTimedDisable.getName(), stringbuffer.toString());
+            hashmap.put(Monitor.pDisabled.getName(), "");
+            hashmap.put(Monitor.pDisabledDescription.getName(), s1);
         }
     }
 
-    protected void fixDisableGroupOrMonitorParamsOut(COM.dragonflow.SiteView.Monitor monitor, java.util.Vector vector)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    protected void fixDisableGroupOrMonitorParamsOut(Monitor monitor, java.util.Vector vector)
+        throws SiteViewException
     {
-        String s = monitor.getProperty(COM.dragonflow.SiteView.Monitor.pDisabled);
-        String s1 = monitor.getProperty(COM.dragonflow.SiteView.Monitor.pTimedDisable);
-        String s2 = monitor.getProperty(COM.dragonflow.SiteView.Monitor.pDisabledDescription);
+        String s = monitor.getProperty(Monitor.pDisabled);
+        String s1 = monitor.getProperty(Monitor.pTimedDisable);
+        String s2 = monitor.getProperty(Monitor.pDisabledDescription);
         if((s == null || s.equals("")) && (s1 == null || s1.equals("")))
         {
             vector.add(new SSInstanceProperty("monitorsDisable", "undo"));
@@ -2693,14 +2739,13 @@ public class APISiteView
         }
     }
 
-    protected void processWSDLParameters(jgl.HashMap hashmap)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    protected void processWSDLParameters(jgl.HashMap hashmap) throws SiteViewException
     {
         String s = "";
         if(hashmap.get("webserviceurl") == null || hashmap.get("webserviceurl").equals("http://") || hashmap.get("webserviceurl").equals(""))
         {
             String s1 = (String)hashmap.get("wsdlfile");
-            String s2 = COM.dragonflow.SiteView.Platform.getUsedDirectoryPath("templates.wsdl", account);
+            String s2 = Platform.getUsedDirectoryPath("templates.wsdl", account);
             s = s2 + "/" + s1;
         } else
         {

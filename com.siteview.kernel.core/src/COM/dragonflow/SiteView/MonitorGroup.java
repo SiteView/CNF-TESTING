@@ -126,23 +126,23 @@ public class MonitorGroup extends Monitor {
         file = null;
     }
 
-    public COM.dragonflow.Page.CGI.menus getNavItems(HTTPRequest httprequest) {
-        COM.dragonflow.Page.CGI.menus menus1 = new COM.dragonflow.Page.CGI.menus();
+    public CGI.menus getNavItems(HTTPRequest httprequest) {
+        CGI.menus menus1 = new CGI.menus();
         if (httprequest.actionAllowed("_browse")) {
-            menus1.add(new COM.dragonflow.Page.CGI.menuItems("Browse", "browse", "", "page", "Browse Monitors"));
+            menus1.add(new CGI.menuItems("Browse", "browse", "", "page", "Browse Monitors"));
         }
         if (httprequest.actionAllowed("_preference")) {
-            menus1.add(new COM.dragonflow.Page.CGI.menuItems("Remote UNIX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
-            menus1.add(new COM.dragonflow.Page.CGI.menuItems("Remote NT", "ntmachine", "", "page", "Add/Edit Remote Win NT/2000 profiles"));
+            menus1.add(new CGI.menuItems("Remote UNIX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
+            menus1.add(new CGI.menuItems("Remote NT", "ntmachine", "", "page", "Add/Edit Remote Win NT/2000 profiles"));
         }
         if (httprequest.actionAllowed("_tools")) {
-            menus1.add(new COM.dragonflow.Page.CGI.menuItems("Tools", "monitor", "Tools", "operation", "Use monitor diagnostic tools"));
+            menus1.add(new CGI.menuItems("Tools", "monitor", "Tools", "operation", "Use monitor diagnostic tools"));
         }
         if (httprequest.actionAllowed("_progress")) {
-            menus1.add(new COM.dragonflow.Page.CGI.menuItems("Progress", "Progress", "", "url", "View current monitoring progress"));
+            menus1.add(new CGI.menuItems("Progress", "Progress", "", "url", "View current monitoring progress"));
         }
         if (httprequest.actionAllowed("_browse")) {
-            menus1.add(new COM.dragonflow.Page.CGI.menuItems("Summary", "monitorSummary", "", "page", "View current monitor settings"));
+            menus1.add(new CGI.menuItems("Summary", "monitorSummary", "", "page", "View current monitor settings"));
         }
         return menus1;
     }
@@ -787,11 +787,11 @@ public class MonitorGroup extends Monitor {
         int i = getSettingAsLong("_groupRefreshRate", 60);
         if (flag) {
             CGI.printBodyHeader(printwriter, "SiteView Health", siteviewgroup.refreshTag(i, "/SiteView/" + httprequest.getAccountDirectory() + "/Detail" + s2 + ".html?_health=true"), I18N.nullEncoding());
-            COM.dragonflow.Page.CGI.menus menus1 = getNavItems(httprequest);
+            CGI.menus menus1 = getNavItems(httprequest);
             CGI.printButtonBar(printwriter, "Health.htm", "Health", httprequest, MasterConfig.getMasterConfig(), menus1, false);
         } else {
             CGI.printBodyHeader(printwriter, s + " Detail", siteviewgroup.refreshTag(i, "Detail" + s2 + ".html"));
-            COM.dragonflow.Page.CGI.menus menus2 = getNavItems(httprequest);
+            CGI.menus menus2 = getNavItems(httprequest);
             CGI.printButtonBar(printwriter, "Group.htm#detail", "", httprequest, MasterConfig.getMasterConfig(), menus2, false);
         }
         Array array = CGI.getGroupFilterForAccount(httprequest);

@@ -3,34 +3,49 @@ package com.siteview.ecc.rcp.cnf.provider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+import COM.dragonflow.Api.APIGroup;
+import COM.dragonflow.Api.APIMonitor;
+import COM.dragonflow.SiteView.MonitorGroup;
+import COM.dragonflow.SiteViewException.SiteViewException;
+
 import com.siteview.ecc.rcp.cnf.data.Child;
 import com.siteview.ecc.rcp.cnf.data.Parent;
 import com.siteview.ecc.rcp.cnf.data.Root;
 
-/**
- * Content provider for the parent child non-resource based CNF viewer
- * @author Dragonflow
- * @version $Id$
- */
 public class CNFContentProvider implements ITreeContentProvider
 {
 
     private static final Object[] EMPTY_ARRAY = new Object[0];
-    private Parent[] parents;
+    private APIGroup apigroup;
 
     public Object[] getChildren(Object parentElement)
     {
         if (parentElement instanceof Root)
         {
-            if (parents == null)
-            {
-                initializeParents(parentElement);
-            }
-            return parents;
-        } else if (parentElement instanceof Parent)
+            if (apigroup == null) 
+            	this.apigroup = new APIGroup();
+
+            try {
+				return apigroup.getTopLevelGroupInstances().toArray();
+			} catch (SiteViewException e) {
+				e.printStackTrace();
+				return EMPTY_ARRAY;
+			}
+            
+        } else if (parentElement instanceof MonitorGroup)
         {
-            return ((Parent) parentElement).getChildren();
-        } else if (parentElement instanceof Child)
+        	try {
+				return apigroup.getChildGroupInstances(((MonitorGroup) parentElement).getProperty("_id")).toArray();
+			} catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SiteViewException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	return EMPTY_ARRAY;
+//            return ((Parent) parentElement).getChildren();
+        } else if (parentElement instanceof APIMonitor)
         {
             return EMPTY_ARRAY;
         } else
@@ -63,30 +78,11 @@ public class CNFContentProvider implements ITreeContentProvider
 
     public void dispose()
     {
-        this.parents = null;
+        this.apigroup = null;
     }
 
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput)
     { /* ... */
-    }
-
-    /**
-     * Init code for empty model
-     */
-    private void initializeParents(Object parentElement)
-    {
-        this.parents = new Parent[3];
-        for (int i = 0; i < this.parents.length; i++)
-        {
-            this.parents[i] = new Parent("Parent " + i);
-            this.parents[i].setRoot(parentElement);
-            Child[] children = new Child[3];
-            for (int j = 0; j < children.length; j++)
-            {
-                children[j] = new Child("Child " + i + j);
-            }
-            this.parents[i].setChildren(children);
-        }
     }
 
 }
