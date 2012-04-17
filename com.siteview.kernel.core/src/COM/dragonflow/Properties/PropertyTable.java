@@ -25,7 +25,7 @@ import jgl.HashMap;
 // Referenced classes of package COM.dragonflow.Properties:
 // StringProperty
 
-public class PropertyTable extends HashMap {
+public class PropertyTable extends HashMap implements java.io.Serializable {
 
     private PropertyTable parent;
 

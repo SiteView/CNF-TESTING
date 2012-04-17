@@ -35,7 +35,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		System.out.println("this address=" + address +  ",port=" + port);
 		try{
 			registry = LocateRegistry.createRegistry(port);
-			registry.rebind("kernelRmiServer", this);
+			registry.rebind("kernelApiRmiServer", this);
 			
 			apigroup = new APIGroup();
 			apimonitor = new APIMonitor();
@@ -46,19 +46,20 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	}
 
 
-	public Collection getAllGroupInstances() throws SiteViewException {		
-		return apigroup.getAllGroupInstances();
+	public ArrayList<MonitorGroup> getAllGroupInstances() throws SiteViewException {
+		ArrayList<MonitorGroup> mg = apigroup.getAllGroupInstances();
+		return mg;
 	}
 
 
-	public ArrayList<HashMap<String, String>> getTopLevelGroupInstances() throws RemoteException, SiteViewException {		
+	public ArrayList<HashMap<String, String>> getTopLevelAllowedGroupInstances() throws RemoteException, SiteViewException {		
 		
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 		
 		try
 		{
 			APIGroup apimg = new APIGroup();
-			ArrayList<MonitorGroup> mg = apigroup.getTopLevelGroupInstances();
+			ArrayList<MonitorGroup> mg = apigroup.getTopLevelAllowedGroupInstances();
 
 			for(MonitorGroup group:mg)
 			{

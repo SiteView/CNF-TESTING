@@ -416,10 +416,10 @@ public class APIGroup extends APISiteView
         return sspropertydetails;
     }
 
-    public SSGroupInstance[] getInstances(String s, int i)
+    public SSGroupInstance[] getInstances(String groupid, int i)
         throws SiteViewException
     {
-        if(!isGroupAllowedForAccount(s))
+        if(!isGroupAllowedForAccount(groupid))
         {
             throw new SiteViewParameterException(SiteViewErrorCodes.ERR_OP_SS_GROUP_ACCESS_EXCEPTION);
         }
@@ -427,7 +427,7 @@ public class APIGroup extends APISiteView
         try
         {
             boolean flag = true;
-            if(s != null && s.length() > 0)
+            if(groupid != null && groupid.length() > 0)
             {
                 flag = false;
             }
@@ -438,7 +438,7 @@ public class APIGroup extends APISiteView
                 obj = SiteViewGroup.currentSiteView().getTopLevelGroups();
             } else
             {
-                obj = getSubGroups(s);
+                obj = getSubGroups(groupid);
             }
             APIAlert apialert = new APIAlert();
             java.util.Iterator iterator = ((java.util.Collection) (obj)).iterator();
@@ -448,7 +448,7 @@ public class APIGroup extends APISiteView
                 if(isGroupAllowedForAccount(s1))
                 {
                     String s2 = monitorgroup.getProperty(MonitorGroup.pParent);
-                    if(flag && (s2 == null || s2.length() == 0) || !flag && s2 != null && s2.equals(s))
+                    if(flag && (s2 == null || s2.length() == 0) || !flag && s2 != null && s2.equals(groupid))
                     {
                         SSInstanceProperty assinstanceproperty[] = getInstanceProperties(s1, i);
                         int k = 0;
@@ -511,23 +511,23 @@ public class APIGroup extends APISiteView
         return assgroupinstance;
     }
 
-    public SSInstanceProperty[] getInstanceProperties(String s, int i)
+    public SSInstanceProperty[] getInstanceProperties(String groupid, int filter)
         throws SiteViewException
     {
         SSInstanceProperty assinstanceproperty[] = null;
         try
         {
-            if(s.length() == 0 || s == null)
+            if(groupid.length() == 0 || groupid == null)
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_EMPTY);
             }
-            jgl.Array array = getPropertiesForGroupInstance("Group", i);
-            MonitorGroup monitorgroup = SiteViewGroup.getMonitorGroup(s);
+            jgl.Array array = getPropertiesForGroupInstance("Group", filter);
+            MonitorGroup monitorgroup = SiteViewGroup.getMonitorGroup(groupid);
             int j = 0;
             SSStringReturnValue ssstringreturnvalue = null;
             try
             {
-                if(i == APISiteView.FILTER_CONFIGURATION_ALL || i == APISiteView.FILTER_ALL)
+                if(filter == APISiteView.FILTER_CONFIGURATION_ALL || filter == APISiteView.FILTER_ALL)
                 {
                     j = 1;
 //                    ssstringreturnvalue = getTopazID(s);
@@ -623,14 +623,13 @@ public class APIGroup extends APISiteView
         return ssinstanceproperty;
     }
 
-    public Collection getAllGroupInstances()
+    public ArrayList<MonitorGroup>  getAllGroupInstances()
         throws SiteViewException
     {
         return getAllAllowedGroups();
     }
     
-    public ArrayList getTopLevelGroupInstances()
-            throws SiteViewException
+    public ArrayList getTopLevelAllowedGroupInstances()  throws SiteViewException
     {
             return getTopLevelAllowedGroups();
     }

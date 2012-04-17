@@ -13,6 +13,7 @@ import COM.dragonflow.Api.SSGroupInstance;
 import COM.dragonflow.Api.SSInstanceProperty;
 import COM.dragonflow.Api.SSPropertyDetails;
 import COM.dragonflow.Api.SSStringReturnValue;
+import COM.dragonflow.SiteViewException.SiteViewException;
 
 // Referenced classes of package COM.dragonflow.XmlApi:
 // XmlApiResponse
@@ -30,7 +31,7 @@ public class XmlApiGroup {
     }
 
     public java.lang.Object add(jgl.Array array, jgl.Array array1, jgl.Array array2, String s) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             int i = 0;
             String s1 = "";
@@ -61,14 +62,14 @@ public class XmlApiGroup {
                 i ++;
             }
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object update(jgl.Array array, jgl.Array array1, jgl.Array array2, jgl.Array array3, jgl.Array array4) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             int i = 0;
             String s = "";
@@ -99,14 +100,14 @@ public class XmlApiGroup {
             }
 
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object delete(jgl.Array array, jgl.Array array1, jgl.Array array2, jgl.Array array3) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             String s = "";
             java.util.Vector vector = new Vector();
@@ -119,14 +120,14 @@ public class XmlApiGroup {
             }
 
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object move(jgl.Array array, jgl.Array array1, jgl.Array array2) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             Enumeration enumeration = array.elements();
             int i = 0;
@@ -141,14 +142,14 @@ public class XmlApiGroup {
             }
 
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object copy(String s, String s1, String s2) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
             SSStringReturnValue ssstringreturnvalue = api.copy(s, s2);
@@ -161,14 +162,14 @@ public class XmlApiGroup {
             hashmap.put("_id", ssstringreturnvalue.getValue());
             vector.add(hashmap);
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object getClassPropertyDetails(String s, String s1, jgl.HashMap hashmap) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
             SSPropertyDetails asspropertydetails[] = api.getClassPropertiesDetails(APISiteView.FILTER_ALL);
@@ -182,14 +183,14 @@ public class XmlApiGroup {
 
             xmlapiresponse.setReturnVector(vector);
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object getClassPropertyScalars(String s, String s1, jgl.HashMap hashmap) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
             SSPropertyDetails sspropertydetails = api.getClassPropertyDetails(s);
@@ -198,14 +199,14 @@ public class XmlApiGroup {
             vector.add(sspropertydetails.getSelectionDisplayNames());
             xmlapiresponse.setReturnVector(vector);
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object getInstancePropertyScalars(String s, String s1, String s2, jgl.HashMap hashmap) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
             SSPropertyDetails sspropertydetails = api.getInstancePropertyScalars(s, s1);
@@ -213,14 +214,14 @@ public class XmlApiGroup {
             vector.add(sspropertydetails.getSelectionIDs());
             vector.add(sspropertydetails.getSelectionDisplayNames());
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object getInstances(String s, String s1, String s2, String s3, java.lang.Integer integer) throws java.lang.Exception {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
             SSGroupInstance assgroupinstance[] = api.getInstances(s, integer.intValue());
@@ -246,14 +247,14 @@ public class XmlApiGroup {
             }
 
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object getInstanceProperties(String s, String s1, String s2, String s3, java.lang.Integer integer) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
             SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s, integer.intValue());
@@ -264,27 +265,27 @@ public class XmlApiGroup {
 
             vector.add(hashmap);
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
-    public java.lang.Object refreshGroup(String s) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+    public java.lang.Object refreshGroup(String groupid) {
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
-            api.refreshGroup(s, true);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+            api.refreshGroup(groupid, true);
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
-    public java.lang.Object getInstanceProperty(String s, String s1, String s2, String s3, java.lang.Integer integer) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+    public java.lang.Object getInstanceProperty(String s, String groupid, String s2, String s3, Integer filter) {
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s1, integer.intValue());
+            SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(groupid, filter.intValue());
             jgl.HashMap hashmap = new HashMap();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 if (s.indexOf(assinstanceproperty[i].getName()) != -1) {
@@ -294,41 +295,41 @@ public class XmlApiGroup {
 
             vector.add(hashmap);
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
     public java.lang.Object getCount(String s) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
             java.util.Collection collection = api.getAllGroupInstances();
             java.lang.Long long1 = new Long(collection.size());
             vector.add(long1);
             xmlapiresponse.setReturnVector(vector);
-        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+        } catch (SiteViewException siteviewexception) {
             xmlapiresponse.setErrorResponse(siteviewexception);
         }
         return xmlapiresponse;
     }
 
 //    public java.lang.Object getTopazId(String s, String s1) {
-//        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+//        XmlApiResponse xmlapiresponse = new XmlApiResponse();
 //        try {
 //            java.util.Vector vector = new Vector();
 //            SSStringReturnValue ssstringreturnvalue = api.getTopazID(s);
 //            vector.add(ssstringreturnvalue.getValue());
 //            xmlapiresponse.setReturnVector(vector);
-//        } catch (COM.dragonflow.SiteViewException.SiteViewException siteviewexception) {
+//        } catch (SiteViewException siteviewexception) {
 //            xmlapiresponse.setErrorResponse(siteviewexception);
 //        }
 //        return xmlapiresponse;
 //    }
 
     public java.lang.Object listObjects(String s) {
-        COM.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
+        XmlApiResponse xmlapiresponse = new XmlApiResponse();
         java.util.Vector vector = new Vector();
         String as[] = null;
         as = new String[3];

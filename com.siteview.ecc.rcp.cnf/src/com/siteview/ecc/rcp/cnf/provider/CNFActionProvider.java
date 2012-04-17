@@ -15,8 +15,6 @@ import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.navigator.ICommonViewerSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 
-import com.siteview.ecc.rcp.cnf.data.Child;
-
 /**
  * @author Dragonflow
  * @version $Id$
@@ -85,7 +83,7 @@ public class CNFActionProvider extends CommonActionProvider
     class OpenChildAction extends Action
     {
         private ISelectionProvider provider;
-        private Child data;
+//        private Child data;
 
         public OpenChildAction(IWorkbenchPage workbenchPage, ISelectionProvider selectionProvider)
         {
@@ -98,10 +96,10 @@ public class CNFActionProvider extends CommonActionProvider
         public void run()
         {
             
-            if (data != null)
-            {
-                System.out.println("Run on " + data.getName());
-            } 
+//            if (data != null)
+//            {
+//                System.out.println("Run on " + data.getName());
+//            } 
             super.run();
         }
 
@@ -109,15 +107,15 @@ public class CNFActionProvider extends CommonActionProvider
         public boolean isEnabled()
         {
             ISelection selection = provider.getSelection();
-            if (!selection.isEmpty())
-            {
-                IStructuredSelection sSelection = (IStructuredSelection) selection;
-                if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof Child) 
-                {
-                    data = (Child)sSelection.getFirstElement();
-                    return true;
-                }
-            }
+//            if (!selection.isEmpty())
+//            {
+//                IStructuredSelection sSelection = (IStructuredSelection) selection;
+//                if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof Child) 
+//                {
+//                    data = (Child)sSelection.getFirstElement();
+//                    return true;
+//                }
+//            }
             return false;
         }
 

@@ -16,8 +16,7 @@ import COM.dragonflow.Api.APIMonitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteViewException.SiteViewException;
 
-import com.siteview.ecc.rcp.cnf.data.Child;
-import com.siteview.ecc.rcp.cnf.data.Parent;
+
 import com.siteview.ecc.rcp.cnf.data.Root;
 
 public class CNFContentProvider implements ITreeContentProvider
@@ -32,23 +31,23 @@ public class CNFContentProvider implements ITreeContentProvider
 
     public Object[] getChildren(Object parentElement)
     {
-        if (parentElement instanceof Root)
+        if (rmiServer == null) {
+  		  try {
+			registry=LocateRegistry.getRegistry(serverAddress,(new Integer(serverPort)).intValue());
+  		  	rmiServer=(APIInterfaces)(registry.lookup("kernelApiRmiServer"));
+  		  } catch (NumberFormatException e) {
+			e.printStackTrace();
+  		  } catch (RemoteException e) {
+			e.printStackTrace();
+  		  } catch (NotBoundException e) {
+			e.printStackTrace();
+  		  }
+        }
+        
+    	if (parentElement instanceof Root)
         {
-            if (rmiServer == null) {
-      		  try {
-				registry=LocateRegistry.getRegistry(serverAddress,(new Integer(serverPort)).intValue());
-	  		  	rmiServer=(APIInterfaces)(registry.lookup("kernelRmiServer"));
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			} catch (NotBoundException e) {
-				e.printStackTrace();
-			}
-            }
-
             try {
-            	ArrayList<HashMap<String, String>> groups = rmiServer.getTopLevelGroupInstances();
+            	ArrayList<HashMap<String, String>> groups = rmiServer.getTopLevelAllowedGroupInstances();
 				return groups.toArray();
 			} catch (SiteViewException e) {
 				e.printStackTrace();
@@ -58,7 +57,7 @@ public class CNFContentProvider implements ITreeContentProvider
 				return EMPTY_ARRAY;
 			}
             
-        } else if (parentElement instanceof ArrayList)
+        } else if (parentElement instanceof HashMap)
         {
         	try {
 				return apigroup.getChildGroupInstances(((MonitorGroup) parentElement).getProperty("_id")).toArray();
@@ -68,7 +67,6 @@ public class CNFContentProvider implements ITreeContentProvider
 				e.printStackTrace();
 			}
         	return EMPTY_ARRAY;
-//            return ((Parent) parentElement).getChildren();
         } else if (parentElement instanceof APIMonitor)
         {
             return EMPTY_ARRAY;
@@ -80,19 +78,13 @@ public class CNFContentProvider implements ITreeContentProvider
 
     public Object getParent(Object element)
     {
-        if (element instanceof Child)
-        {
-            return ((Child) element).getParent();
-        } else if (element instanceof Parent)
-        {
-            return ((Parent) element).getRoot();
-        }
+
         return null;
     }
 
     public boolean hasChildren(Object element)
     {
-        return (element instanceof Root || element instanceof Parent);
+        return false;
     }
 
     public Object[] getElements(Object inputElement)

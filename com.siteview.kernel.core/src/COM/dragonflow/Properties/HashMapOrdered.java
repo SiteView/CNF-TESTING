@@ -23,8 +23,7 @@ import java.util.Enumeration;
 import jgl.Array;
 import jgl.HashMap;
 
-public class HashMapOrdered extends HashMap
-{
+public class HashMapOrdered extends HashMap implements java.io.Serializable {
 
  public HashMapOrdered(boolean flag)
  {

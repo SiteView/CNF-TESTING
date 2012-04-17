@@ -39,9 +39,9 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
-            class="com.siteview.ecc.rcp.cnf.provider.CNFNavigator"
+            class="com.siteview.ecc.rcp.cnf.provider.MonitorExplorer"
             id="com.siteview.ecc.rcp.cnf.view"
-            name="Virtual CNF"
+            name="Virtual Content"
             restorable="true">
       </view>
    </extension>
@@ -92,7 +92,7 @@
             contentProvider="com.siteview.ecc.rcp.cnf.provider.CNFContentProvider"
             id="com.siteview.ecc.rcp.cnf.content.VirtualContent"
             labelProvider="com.siteview.ecc.rcp.cnf.provider.CNFLabelProvider"
-            name="Virtual content"
+            name="Monitor Explorer"
             priority="normal">
          <actionProvider
                class="com.siteview.ecc.rcp.cnf.provider.CNFActionProvider"
