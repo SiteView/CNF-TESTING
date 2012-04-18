@@ -4134,7 +4134,7 @@ public class APIMonitor extends APISiteView
                 hashmap.remove("_id");
                 hashmap.put("_id", s3);
                 hashmap.put("_class", atomicmonitor.getClassProperty("class"));
-                array.insert(i, hashmap);
+                array.insert(i, i,hashmap);
                 String s4 = COM.dragonflow.Utils.TextUtils.increment(s3);
                 hashmap1.put("_nextID", s4);
             } else
@@ -4142,7 +4142,7 @@ public class APIMonitor extends APISiteView
                 int j = monitorUtils.findMonitorIndex(array, s1);
                 java.lang.Object obj = array.get(j);
                 array.remove(obj);
-                array.insert(j, hashmap);
+                array.insert(j,j, hashmap);
             }
 //            if(TopazConfigurator.configInTopazAndRegistered())
 //            {

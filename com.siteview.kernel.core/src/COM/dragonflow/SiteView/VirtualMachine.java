@@ -963,7 +963,7 @@ label0:
 		hashmap3.remove(Monitor.pID);
 		hashmap3.remove("_id");
 		hashmap3.put("_id", s7);
-		singleframes.insert(j++, hashmap3);
+		singleframes.insert(j++,j, hashmap3);
 		String s12 = TextUtils.increment(s7);
 		hashmap4.put("_nextID", s12);
 		Platform.sleep(2000L);
@@ -1072,7 +1072,7 @@ label0:
 		hashmap3.remove(Monitor.pID);
 		hashmap3.remove("_id");
 		hashmap3.put("_id", s8);
-		array2.insert(k++, hashmap3);
+		array2.insert(k++,k, hashmap3);
 		String s12 = TextUtils.increment(s8);
 		hashmap4.put("_nextID", s12);
 		CGI.WriteGroupFrames(s, array2, request);

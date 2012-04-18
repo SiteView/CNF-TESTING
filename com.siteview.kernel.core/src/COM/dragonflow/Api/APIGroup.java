@@ -130,7 +130,7 @@ public class APIGroup extends APISiteView
                     hashmap2.put("_class", "SubGroup");
                     hashmap2.put("_group", s2);
                     hashmap2.put("_name", s);
-                    array1.insert(array1.size(), hashmap2);
+                    array1.insert(array1.size(),array1.size(), hashmap2);
                     String s4 = TextUtils.increment(s3);
                     hashmap1.put("_nextID", s4);
                     WriteGroupFrames(s1, array1);
@@ -917,7 +917,7 @@ public class APIGroup extends APISiteView
                     String s6 = TextUtils.increment(s5);
                     hashmap1.put("_nextID", s6);
                     hashmap2.put("_name", s4);
-                    array2.insert(array2.size(), hashmap2);
+                    array2.insert(array2.size(),array2.size(), hashmap2);
                     WriteGroupFrames(s1, array2);
                 }
                 catch(SiteViewException siteviewexception1)
