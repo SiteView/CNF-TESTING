@@ -16,6 +16,11 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.TreeMap;
 
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.BinaryPredicate;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
+
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.BrowsableBase;
@@ -39,11 +44,6 @@ import COM.dragonflow.SiteView.SiteViewObject;
 import COM.dragonflow.SiteView.URLContentBase;
 import COM.dragonflow.SiteView.monitorUtils;
 import COM.dragonflow.Utils.GreaterCounterByXml;
-
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.BinaryPredicate;
-import com.recursionsw.jgl.HashMap;
-import com.recursionsw.jgl.algorithms.Sorting;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, treeControl, managePage
@@ -1905,7 +1905,7 @@ label2:
                         hashmap5.remove("_id");
                         atomicmonitor.setProperty(Monitor.pID, s16);
                         hashmap5.put("_class", request.getValue("class"));
-                        array3.insert(k1, hashmap5);
+                        array3.insert(k1, k1, hashmap5);
                         String s25 = COM.dragonflow.Utils.TextUtils.increment(s16);
                         hashmap6.put("_nextID", s25);
                     } else
@@ -1913,7 +1913,7 @@ label2:
                         s16 = request.getValue("id");
                         int j3 = monitorUtils.findMonitorIndex(array3, s16);
                         java.lang.Object obj1 = array3.get(j3);
-                        array3.insert(k1, hashmap5);
+                        array3.insert(k1, k1, hashmap5);
                         array3.remove(obj1);
                     }
                     if(!request.isPost() || !COM.dragonflow.Page.treeControl.notHandled(request))

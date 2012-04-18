@@ -9,10 +9,10 @@
  */
 package COM.dragonflow.Page;
 
+import com.recursionsw.jgl.HashMap;
+
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Utils.CommandLine;
-
-import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI

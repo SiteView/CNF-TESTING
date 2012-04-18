@@ -445,7 +445,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                 if (s.equals("Add")) {
                     array.add(hashmap);
                 } else {
-                    array.insert(i, hashmap);
+                    array.insert(i, i, hashmap);
                 }
             }
 

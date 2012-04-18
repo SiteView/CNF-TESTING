@@ -13,11 +13,10 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import COM.dragonflow.HTTP.HTTPRequestException;
-import COM.dragonflow.Properties.HashMapOrdered;
-
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+import COM.dragonflow.HTTP.HTTPRequestException;
+import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
 // prefsPage, CGI, treeControl
@@ -151,7 +150,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
                 hashmap1.put("_group", COM.dragonflow.Page.vMachinePage
                         .getGroupIDRelative(s1));
                 hashmap1.put("_name", s2);
-                array1.insert(array1.size(), hashmap1);
+                array1.insert(array1.size(),array1.size(), hashmap1);
                 String s6 = COM.dragonflow.Utils.TextUtils.increment(s5);
                 hashmap.put("_nextID", s6);
                 cgi.WriteGroupFrames(s3, array1);

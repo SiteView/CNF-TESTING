@@ -1340,7 +1340,7 @@ public class monitorSetPage extends CGI
         hashmap1.remove(Monitor.pID);
         hashmap1.remove("_id");
         hashmap1.put("_id", s4);
-        array.insert(j++, hashmap1);
+        array.insert(j++, j++, hashmap1);
         String s5 = TextUtils.increment(s4);
         hashmap3.put("_nextID", s5);
         WriteGroupFrames(s, array);

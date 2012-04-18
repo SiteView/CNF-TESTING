@@ -13,11 +13,11 @@ import java.io.File;
 import java.io.StringBufferInputStream;
 import java.util.Enumeration;
 
-import COM.dragonflow.Properties.LessEqualPropertyName;
-
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
 import com.recursionsw.jgl.algorithms.Sorting;
+
+import COM.dragonflow.Properties.LessEqualPropertyName;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI

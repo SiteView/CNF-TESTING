@@ -12,10 +12,9 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import COM.dragonflow.Utils.HTMLTagParser;
-
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+import COM.dragonflow.Utils.HTMLTagParser;
 
 // Referenced classes of package COM.dragonflow.Page:
 // monitorPage, CGI

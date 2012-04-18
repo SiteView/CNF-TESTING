@@ -14,13 +14,13 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import COM.dragonflow.Properties.HashMapOrdered;
-import COM.dragonflow.SiteView.CompareSlot;
-import COM.dragonflow.SiteView.PortalFilter;
-
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
 import com.recursionsw.jgl.algorithms.Sorting;
+
+import COM.dragonflow.Properties.HashMapOrdered;
+import COM.dragonflow.SiteView.CompareSlot;
+import COM.dragonflow.SiteView.PortalFilter;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, adhocReportPage, treeControl, portalChooserPage

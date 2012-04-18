@@ -15,13 +15,12 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.Utils.SMTP;
 import COM.dragonflow.Utils.TextUtils;
-
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
 
 public class GSRPage extends COM.dragonflow.Page.CGI {
     

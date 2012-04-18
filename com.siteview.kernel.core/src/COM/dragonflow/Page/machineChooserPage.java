@@ -11,11 +11,11 @@ package COM.dragonflow.Page;
 
 import java.util.Vector;
 
-import COM.dragonflow.SiteView.CompareSlot;
-
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
 import com.recursionsw.jgl.algorithms.Sorting;
+
+import COM.dragonflow.SiteView.CompareSlot;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI

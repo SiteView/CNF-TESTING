@@ -11,6 +11,8 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
+import com.recursionsw.jgl.HashMap;
+
 import COM.dragonflow.Resource.SiteViewErrorCodes;
 import COM.dragonflow.Resource.SiteViewResource;
 import COM.dragonflow.SiteView.MasterConfig;
@@ -19,8 +21,6 @@ import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.TextUtils;
 import COM.dragonflow.XmlApi.XmlApiObject;
 import COM.dragonflow.XmlApi.XmlApiRequestXML;
-
-import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
