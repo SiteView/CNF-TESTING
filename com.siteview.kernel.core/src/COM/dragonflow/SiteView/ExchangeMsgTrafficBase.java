@@ -178,8 +178,8 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
             }
 
             Document document = createNewDocument("Exchange Message Statistics");
-            Map map = findOutboundMessages(vector);
-            Map map1 = findInboundMessages(vector);
+            HashMap map = findOutboundMessages(vector);
+            HashMap map1 = findInboundMessages(vector);
             showTopNSendingDomains(map1, document);
             showTopNOutgoingUsers(map, document);
             showSentMsgsLargerThanN(map, document);
@@ -217,7 +217,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
         }
     }
 
-    private void showTopNSendingDomains(Map map, Document document) {
+    private void showTopNSendingDomains(HashMap map, Document document) {
         int i = getPropertyAsInteger(pTopSendingDomainsN);
         Vector vector = getTopNSendingDomains(map, i);
         addListContent(vector, "Top " + i + " Sending Domains", document);
@@ -243,7 +243,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
 
     protected abstract Vector getExchangeMessages();
 
-    private Vector getTopNSendingDomains(Map map, int i) {
+    private Vector getTopNSendingDomains(HashMap map, int i) {
         Vector vector = new Vector();
         if (i > 0) {
             java.util.Map.Entry aentry[] = findCollapsedCounts(map, "SendingDomain");

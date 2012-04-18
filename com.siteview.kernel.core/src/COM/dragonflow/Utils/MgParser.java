@@ -23,10 +23,10 @@ import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
-import jgl.ArrayIterator;
-import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // TextUtils
@@ -149,7 +149,7 @@ public class MgParser
                 java.lang.System.out.println("readFromFile " + vector.elementAt(i1) + " failed");
                 return null;
             }
-            jgl.ArrayIterator arrayiterator = new ArrayIterator(array, 0);
+            ArrayIterator arrayiterator = new ArrayIterator(array, 0);
             HashMap hashmap1 = new HashMap();
             while (arrayiterator.hasMoreElements())
                 {

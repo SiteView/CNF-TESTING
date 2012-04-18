@@ -2443,7 +2443,7 @@ public class HistoryReport extends SiteViewObject {
         stringbuffer.append(s1);
         for (int j1 = 0; j1 < array.size(); j1 ++) {
             HashMap hashmap2 = (HashMap) array.get(j1);
-            for (Enumeration enumeration2 = hashmap2.keys(); enumeration2.hasMoreElements();) {
+            for (Enumeration enumeration2 = (Enumeration) hashmap2.keys(); enumeration2.hasMoreElements();) {
                 String s5 = (String) enumeration2.nextElement();
                 Array array3 = (Array) hashmap2.get(s5);
                 int l1 = 0;
@@ -3600,7 +3600,7 @@ public class HistoryReport extends SiteViewObject {
             }
 
             FileUtils.copyFile(new File(Platform.getRoot() + File.separator + "htdocs" + File.separator + "artwork" + File.separator + logoFile), new File(file1, logoFile));
-            Enumeration enumeration = hashmap1.keys();
+            Enumeration enumeration = (Enumeration) hashmap1.keys();
             while (enumeration.hasMoreElements()) {
                 File file9 = new File(file1, (String) enumeration.nextElement());
                 boolean flag4 = file9.delete();

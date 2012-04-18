@@ -274,7 +274,10 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                     {
                         HashMap hashmap8 = COM.dragonflow.SiteView.BrowsableCache.getCache(request.getValue("uniqueID"), false, false);
                         HashMap hashmap10 = (HashMap)hashmap8.get("cParms");
+
                         Enumeration enumeration = (Enumeration) hashmap10.iterator();
+
+
                         if(enumeration.hasMoreElements())
                         {
                             String s9;

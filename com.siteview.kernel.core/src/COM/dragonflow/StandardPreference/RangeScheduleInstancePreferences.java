@@ -152,7 +152,7 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
                     vector.add(hashmap1);
                 }
             } else {
-                java.util.HashMap hashmap2 = new HashMap();
+                HashMap hashmap2 = new HashMap();
                 Array array = preferences.getProperties();
                 for (int k = 0; k < array.size(); k ++) {
                     String s6 = (String) hashmap.get(((COM.dragonflow.Properties.StringProperty) array.get(k)).getName());
