@@ -35,7 +35,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		System.out.println("this address=" + address +  ",port=" + port);
 		try{
 			registry = LocateRegistry.createRegistry(port);
-			registry.rebind("kernelRmiServer", this);
+			registry.rebind("kernelApiRmiServer", this);
 			
 			apigroup = new APIGroup();
 			apimonitor = new APIMonitor();
@@ -46,12 +46,13 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	}
 
 
-	public Collection getAllGroupInstances() throws SiteViewException {		
-		return apigroup.getAllGroupInstances();
+	public ArrayList<MonitorGroup> getAllGroupInstances() throws SiteViewException {
+		ArrayList<MonitorGroup> mg = (ArrayList<MonitorGroup>) apigroup.getAllGroupInstances();
+		return mg;
 	}
 
 
-	public ArrayList<HashMap<String, String>> getTopLevelGroupInstances() throws RemoteException, SiteViewException {		
+	public ArrayList<HashMap<String, String>> getTopLevelAllowedGroupInstances() throws RemoteException, SiteViewException {		
 		
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 		
@@ -65,6 +66,9 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 				HashMap<String, String> nodedata = new HashMap<String, String>();
 				nodedata.put(new String("Name"), group.getProperty(MonitorGroup.pName));
 				nodedata.put(new String("GroupID"), group.getProperty(MonitorGroup.pGroupID));
+//				group.getChildren(monitorgroup, array)
+//				if(group.getParent() != null)
+//					nodedata.put(new String("Parent"), group.getParent().getProperty(MonitorGroup.pGroupID));
 				list.add(nodedata);
 			}
 		} catch (java.lang.Exception e)
@@ -74,6 +78,61 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		return list;
 		
 	}
+
+	public ArrayList<HashMap<String, String>> getChildGroupInstances(String strId) throws RemoteException, SiteViewException {		
+		
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		
+		try
+		{
+			APIGroup apimg = new APIGroup();
+			Collection collection = (Collection)apigroup.getChildGroupInstances(strId);
+//			Vector vector = (Vector) collection;
+
+			for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+			{
+				MonitorGroup group = (MonitorGroup) iterator.next();
+				HashMap<String, String> nodedata = new HashMap<String, String>();
+				nodedata.put(new String("Name"), group.getProperty(MonitorGroup.pName));
+				nodedata.put(new String("GroupID"), group.getProperty(MonitorGroup.pGroupID));
+				list.add(nodedata);				
+			}
+			
+		} catch (java.lang.Exception e)
+		{
+			System.out.println(e);
+		}
+		return list;
+		
+	}
+	
+	public ArrayList<HashMap<String, String>> getChildMonitors(String strId) throws RemoteException, SiteViewException {		
+		
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		
+		try
+		{
+			APIMonitor apimonitor = new APIMonitor();
+			Collection collection = (Collection)apimonitor.getChildMonitors(strId);
+//			Vector vector = (Vector) collection;
+
+			for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+			{
+				Monitor monitor = (Monitor) iterator.next();
+				HashMap<String, String> nodedata = new HashMap<String, String>();
+				nodedata.put(new String("Name"), monitor.getProperty(Monitor.pName));
+				nodedata.put(new String("MonitorID"), monitor.getProperty(Monitor.pID));
+				list.add(nodedata);			
+			}
+			
+		} catch (java.lang.Exception e)
+		{
+			System.out.println(e);
+		}
+		return list;
+		
+	}	
+	
 	
 	static public ArrayList<HashMap<String, String>> getMonitorsData()
 	{		
