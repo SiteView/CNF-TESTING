@@ -445,7 +445,7 @@ public class MirrorConfiguration extends Action {
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         Object obj = null;
         HashMapOrdered hashmapordered = new HashMapOrdered(true);
-        Enumeration enumeration = mirrorConfig.values("masterExclusion");
+        Enumeration enumeration = (Enumeration) mirrorConfig.values("masterExclusion");
         if (enumeration.hasMoreElements()) {
             Object obj1 = enumeration.nextElement();
             if (obj1 instanceof Array) {
@@ -526,7 +526,7 @@ public class MirrorConfiguration extends Action {
             siteviewgroup.loadSettings();
             String s11;
             String s13;
-            for (Enumeration enumeration1 = hashmapordered.keys(); enumeration1
+            for (Enumeration enumeration1 = (Enumeration) hashmapordered.keys(); enumeration1
                     .hasMoreElements(); siteviewgroup.setProperty(s11, s13)) {
                 s11 = (String) enumeration1.nextElement();
                 s13 = (String) hashmapordered.get(s11);
@@ -897,7 +897,7 @@ public class MirrorConfiguration extends Action {
             if (mirrorConfig.get(s2) == null) {
                 break label0;
             }
-            Enumeration enumeration = mirrorConfig.values(s2);
+            Enumeration enumeration = (Enumeration) mirrorConfig.values(s2);
             String s3;
             do {
                 if (!enumeration.hasMoreElements()) {

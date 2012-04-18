@@ -24,10 +24,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.StringProperty;
@@ -35,10 +33,12 @@ import COM.dragonflow.SiteView.BrowsableBase;
 import COM.dragonflow.SiteView.MasterConfig;
 import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.SiteView.Rule;
-//import COM.dragonflow.SiteView.TopazInfo;
 import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.RawXmlWriter;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardMonitor:
 // URLMonitor

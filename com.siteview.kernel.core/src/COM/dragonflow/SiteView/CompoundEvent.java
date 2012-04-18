@@ -38,7 +38,7 @@ class CompoundEvent extends ScheduleEvent {
     }
 
     long calculateNextTime(long l) {
-        Enumeration enumeration = events.elements();
+        Enumeration enumeration = (Enumeration) events.iterator();
         ScheduleEvent scheduleevent;
         for (time = 0x7fffffffffffffffL; enumeration.hasMoreElements(); time = Math
                 .min(time, scheduleevent.calculateNextTime())) {

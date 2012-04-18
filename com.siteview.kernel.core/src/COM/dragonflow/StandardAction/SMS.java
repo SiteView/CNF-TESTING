@@ -20,9 +20,11 @@ package COM.dragonflow.StandardAction;
 import java.io.File;
 import java.util.Enumeration;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.CommandLine;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class SMS extends COM.dragonflow.SiteView.Action {
 

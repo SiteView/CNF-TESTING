@@ -469,7 +469,7 @@ public class PortalFilter {
                 return "could not find query ID " + rawQueryString;
             }
         }
-        Enumeration enumeration = rawQuery.values("item");
+        Enumeration enumeration = (Enumeration) rawQuery.values("item");
         StringBuffer stringbuffer = new StringBuffer();
         String s = "all servers";
         while (enumeration.hasMoreElements()) {
@@ -561,7 +561,7 @@ public class PortalFilter {
         if (itemFilter == null) {
             System.out.println("All servers allowed");
         } else {
-            for (Enumeration enumeration = itemFilter.keys(); enumeration
+            for (Enumeration enumeration = (Enumeration) itemFilter.keys(); enumeration
                     .hasMoreElements();) {
                 String s = (String) enumeration.nextElement();
                 Object obj = itemFilter.get(s);
@@ -580,7 +580,7 @@ public class PortalFilter {
                         } else {
                             System.out.println("  " + s1);
                             HashMap hashmap1 = (HashMap) obj1;
-                            Enumeration enumeration4 = hashmap1.keys();
+                            Enumeration enumeration4 = (Enumeration) hashmap1.keys();
                             while (enumeration4.hasMoreElements()) {
                                 String s2 = (String) enumeration4.nextElement();
                                 System.out.println("    " + s2);
@@ -599,7 +599,7 @@ public class PortalFilter {
         }
         if (categoryFilter != null) {
             System.out.print("Category:");
-            for (Enumeration enumeration1 = categoryFilter.keys(); enumeration1
+            for (Enumeration enumeration1 = (Enumeration) categoryFilter.keys(); enumeration1
                     .hasMoreElements(); System.out.print(" "
                     + enumeration1.nextElement())) {
             }
@@ -607,7 +607,7 @@ public class PortalFilter {
         }
         if (typeFilter != null) {
             System.out.print("Monitor Type:");
-            for (Enumeration enumeration2 = typeFilter.keys(); enumeration2
+            for (Enumeration enumeration2 = (Enumeration) typeFilter.keys(); enumeration2
                     .hasMoreElements(); System.out.print(" "
                     + enumeration2.nextElement())) {
             }

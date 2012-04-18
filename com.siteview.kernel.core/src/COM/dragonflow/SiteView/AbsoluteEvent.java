@@ -96,7 +96,7 @@ class AbsoluteEvent extends ScheduleEvent {
     long calculateNextTime(long l) {
         Date date = new Date(l);
         AbsoluteSchedule absoluteschedule = null;
-        Enumeration enumeration = scheduleItems.elements();
+        Enumeration enumeration = (Enumeration) scheduleItems.iterator();
         while (enumeration.hasMoreElements()) {
             AbsoluteSchedule absoluteschedule1 = (AbsoluteSchedule) enumeration
                     .nextElement();
@@ -143,7 +143,7 @@ class AbsoluteEvent extends ScheduleEvent {
         System.out.println("Weekly schedules are:\n");
         System.out.println(s + "\n");
         AbsoluteEvent absoluteevent = new AbsoluteEvent(null, s);
-        Enumeration enumeration = absoluteevent.scheduleItems.elements();
+        Enumeration enumeration = (Enumeration) absoluteevent.scheduleItems.iterator();
         while (enumeration.hasMoreElements()) {
             System.out.println("item: " + enumeration.nextElement());
         }
@@ -182,7 +182,7 @@ class AbsoluteEvent extends ScheduleEvent {
         System.out.println("Monthly schedules are:\n");
         System.out.println(s + "\n");
         AbsoluteEvent absoluteevent = new AbsoluteEvent(null, s);
-        Enumeration enumeration = absoluteevent.scheduleItems.elements();
+        Enumeration enumeration = (Enumeration) absoluteevent.scheduleItems.iterator();
         while ( enumeration.hasMoreElements()) {
             System.out.println("item: " + enumeration.nextElement());
         }

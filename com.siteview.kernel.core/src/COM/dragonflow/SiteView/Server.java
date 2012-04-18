@@ -238,7 +238,7 @@ public class Server {
                 hashmap.put("server", "_local");
                 serversCache.add(hashmap);
             }
-            Enumeration enumeration = serversCache.elements();
+            Enumeration enumeration = (Enumeration) serversCache.iterator();
             while (enumeration.hasMoreElements()) {
                 HashMap hashmap1 = (HashMap) enumeration.nextElement();
                 if (hashmap1 != null) {
@@ -260,7 +260,7 @@ public class Server {
                 }
             } 
             
-            enumeration = serversCache.elements();
+            enumeration = (Enumeration) serversCache.iterator();
             while (enumeration.hasMoreElements()) {
                 HashMap hashmap2 = (HashMap) enumeration.nextElement();
                 String s1 = TextUtils.getValue(hashmap2, "parent");

@@ -26,7 +26,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
@@ -54,6 +53,7 @@ import COM.dragonflow.Utils.LUtils;
 import COM.dragonflow.Utils.TextUtils;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class DatabaseCounterMonitor extends BrowsableBase
 {

@@ -155,7 +155,7 @@ public class Health implements CfgChangesSink {
                     HashMap hashmap3 = new HashMap();
                     hashmap3.put("_id", s5);
                     String s6;
-                    for (Enumeration enumeration = hashmap2.keys(); enumeration
+                    for (Enumeration enumeration = (Enumeration) hashmap2.keys(); enumeration
                             .hasMoreElements(); hashmap3.put(s6, hashmap2
                             .get(s6))) {
                         s6 = (String) enumeration.nextElement();

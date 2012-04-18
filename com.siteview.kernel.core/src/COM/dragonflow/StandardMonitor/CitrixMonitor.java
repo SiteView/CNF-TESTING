@@ -121,7 +121,7 @@ public class CitrixMonitor extends BrowsablePdhBase
          {
              HashMap hashmap4 = (HashMap)hashmap2.get("mProp");
              String s3;
-             for(Enumeration enumeration1 = hashmap4.keys(); enumeration1.hasMoreElements(); setProperty(s3, (String)hashmap4.get(s3)))
+             for(Enumeration enumeration1 = (Enumeration) hashmap4.keys(); enumeration1.hasMoreElements(); setProperty(s3, (String)hashmap4.get(s3)))
              {
                  s3 = (String)enumeration1.nextElement();
              }

@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.BrowsableProperty;
@@ -36,6 +35,8 @@ import COM.dragonflow.StatefulMonitor.StatefulConnection;
 import COM.dragonflow.StatefulMonitor.StatefulConnectionUser;
 import COM.dragonflow.StatefulMonitor.StatefulConnsMgr;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
 
 //import com.dragonflow.topaz.j2ee.aggregator.Node;
 //import com.dragonflow.topaz.j2ee.aggregator.SiteViewAggregator;

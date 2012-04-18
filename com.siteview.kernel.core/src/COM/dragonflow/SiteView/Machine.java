@@ -211,7 +211,7 @@ public class Machine extends SiteViewObject {
                 hashmap1.put(s2, machine);
             }
 
-            Enumeration enumeration1 = hashmap2.keys();
+            Enumeration enumeration1 = (Enumeration) hashmap2.keys();
             while (enumeration1.hasMoreElements()) {
                 Object obj1 = enumeration1.nextElement();
                 if (((Machine) hashmap1.get(obj1)).owner == s) {
@@ -249,7 +249,7 @@ public class Machine extends SiteViewObject {
                 hashmap.put(s1, machine);
             }
 
-            Enumeration enumeration1 = hashmap1.keys();
+            Enumeration enumeration1 = (Enumeration) hashmap1.keys();
             while (enumeration1.hasMoreElements()) {
                 Object obj1 = enumeration1.nextElement();
                 if (((Machine) hashmap.get(obj1)).owner == s) {

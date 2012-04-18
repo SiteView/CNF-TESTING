@@ -710,7 +710,7 @@ public abstract class BrowsableSNMPBase extends BrowsableBase {
             if (hashmap2 != null) {
                 HashMap hashmap4 = (HashMap) hashmap2.get("mProp");
                 String s14;
-                for (Enumeration enumeration = hashmap4.keys(); enumeration.hasMoreElements(); setProperty(s14, (String) hashmap4.get(s14))) {
+                for (Enumeration enumeration = (Enumeration) hashmap4.keys(); enumeration.hasMoreElements(); setProperty(s14, (String) hashmap4.get(s14))) {
                     s14 = (String) enumeration.nextElement();
                 }
 

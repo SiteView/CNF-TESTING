@@ -80,7 +80,7 @@ public class DetectConfigurationChange extends Action {
             File file2 = null;
             File file3 = null;
             HashSet hashset = new HashSet();
-            for (Enumeration enumeration1 = fileNameMap.keys(); enumeration1
+            for (Enumeration enumeration1 = (Enumeration) fileNameMap.keys(); enumeration1
                     .hasMoreElements(); hashset.add(enumeration1.nextElement())) {
             }
             String s;

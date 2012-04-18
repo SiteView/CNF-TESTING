@@ -926,7 +926,7 @@ label0:
 		}
 
 		HashMap hashmap2 = MasterConfig.getMasterConfig();
-		Enumeration enumeration1 = hashmap2.values("_monitorEditCustom");
+		Enumeration enumeration1 = (Enumeration) hashmap2.values("_monitorEditCustom");
 		while (enumeration1.hasMoreElements()) {
 			String s5 = (String) enumeration1.nextElement();
 			String as[] = TextUtils.split(s5, "|");
@@ -1034,7 +1034,7 @@ label0:
 		}
 
 		HashMap hashmap2 = MasterConfig.getMasterConfig();
-		Enumeration enumeration1 = hashmap2.values("_monitorEditCustom");
+		Enumeration enumeration1 = (Enumeration) hashmap2.values("_monitorEditCustom");
 		while (enumeration1.hasMoreElements()) {
 			String s5 = (String) enumeration1.nextElement();
 			String as[] = TextUtils.split(s5, "|");

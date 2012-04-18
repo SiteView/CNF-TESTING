@@ -25,6 +25,9 @@ import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.CommandLine;
 import COM.dragonflow.Utils.CounterLock;
 
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+
 public class NTLogEvent extends COM.dragonflow.SiteView.Action {
 
     static COM.dragonflow.Properties.StringProperty pTemplate;

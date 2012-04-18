@@ -18,7 +18,6 @@ package COM.dragonflow.StandardPreference;
  */
 
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -28,6 +27,7 @@ import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardPreference:
 // ScheduleInstancePreferences
@@ -86,7 +86,7 @@ public class AbsoluteScheduleInstancePreferences extends COM.dragonflow.Standard
             if (s1 != null && s1.length() > 0) {
                 Enumeration enumeration = (Enumeration) hashmap.values(s1);
                 while (enumeration.hasMoreElements()) {
-                    java.util.HashMap hashmap1 = new HashMap();
+                    HashMap hashmap1 = new HashMap();
                     String s5 = "";
                     boolean flag = false;
                     s5 = (String) enumeration.nextElement();
@@ -224,7 +224,7 @@ public class AbsoluteScheduleInstancePreferences extends COM.dragonflow.Standard
         return stringbuffer.toString();
     }
 
-    public java.util.HashMap synthesizePropertiesForSchedule(java.util.HashMap hashmap, String s) {
+    public HashMap synthesizePropertiesForSchedule(HashMap hashmap, String s) {
         String as[] = COM.dragonflow.Utils.TextUtils.split(s, COM.dragonflow.Properties.ScheduleProperty.schedule_day_separator);
         for (int i = 0; i < days.length; i ++) {
             boolean flag = false;
@@ -257,7 +257,7 @@ public class AbsoluteScheduleInstancePreferences extends COM.dragonflow.Standard
     public java.util.HashMap validateProperties(java.util.HashMap hashmap, Array array, java.util.HashMap hashmap1) throws java.lang.Exception {
         java.util.Set set = hashmap.keySet();
         java.util.Iterator iterator = set.iterator();
-        java.util.HashMap hashmap2 = new HashMap();
+        HashMap hashmap2 = new HashMap();
         String s = "";
         java.util.TreeMap treemap = new TreeMap();
         while (iterator.hasNext()) {

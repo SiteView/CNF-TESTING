@@ -10,7 +10,8 @@
 package COM.dragonflow.Utils.WebSphere;
 
 import java.io.File;
-import java.util.HashMap;
+
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils.WebSphere:
 // WebSphereProcessProperties
@@ -23,7 +24,7 @@ public class WebSphereProcessLauncher {
 
     public static final int PROCESS_FAILED = 2;
 
-    private static java.util.Map webSphereRMIProcesses = java.util.Collections.synchronizedMap(new HashMap());
+    private static HashMap webSphereRMIProcesses = java.util.Collections.synchronizedMap(new HashMap());
 
     private static java.rmi.registry.Registry registry = null;
 

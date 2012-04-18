@@ -26,7 +26,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -44,8 +43,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import com.recursionsw.jgl.Array;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -73,6 +70,9 @@ import COM.dragonflow.Utils.PerfCounter;
 import COM.dragonflow.Utils.PropertyNameLiteral;
 import COM.dragonflow.Utils.SimpleExpression;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardMonitor:
 // NTCounterMonitor
@@ -107,7 +107,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
 
     private static int nMaxCounters;
 
-    private static Map mBrowseIdMap = new HashMap();
+    private static HashMap mBrowseIdMap = new HashMap();
 
     static final String notAvailable = "n/a";
 
@@ -535,7 +535,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
     public String getBrowseData(StringBuffer stringbuffer) {
         try {
             Document document = parseCounterFile();
-            Map map = findCounters(document);
+            HashMap map = findCounters(document);
             String s = buildBrowseString(document, map);
             return s;
         } catch (Exception e) {
@@ -545,7 +545,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
         }
     }
 
-    private String buildBrowseString(Document document, Map map) {
+    private String buildBrowseString(Document document, HashMap map) {
         String s = getCounterFilename();
         HashMap hashmap = new HashMap();
         mBrowseIdMap.put(s, hashmap);
@@ -646,7 +646,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
         }
     }
 
-    private Map findCounters(Document document) {
+    private HashMap findCounters(Document document) {
         Array array = new Array();
         Element element = document.getDocumentElement();
         NodeList nodelist = element.getElementsByTagName("object");

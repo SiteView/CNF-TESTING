@@ -22,10 +22,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
 
 //import com.dragonflow.infra.xdr.XDRMemInputStream;
 //import com.dragonflow.infra.xdr.XDRMemOutputStream;

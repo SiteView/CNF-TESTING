@@ -511,7 +511,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
                 }
             }
         } else {
-            Enumeration enumeration = mapObject.keys();
+            Enumeration enumeration = (Enumeration) mapObject.keys();
             while (enumeration.hasMoreElements())
             	strCmds.append("-o ").append("\"").append(
                         enumeration.nextElement()).append("\" ");
@@ -557,7 +557,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
             LogManager.log("Error", ("Counter Monitor error, "
                     + (Object) stringbuffer + iExitCode + ", " + s
                     + ", monitor id: " + atomicmonitor.getFullID()));
-            Enumeration enumeration = array_55_.elements();
+            Enumeration enumeration = (Enumeration) array_55_.iterator();
             if (flag) {
                 while (enumeration.hasMoreElements())
                     LogManager.log("Error",
@@ -567,7 +567,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
                                     .getFullID()));
             }
         } else {
-            Enumeration enumeration = array_55_.elements();
+        	Enumeration enumeration = (Enumeration) array_55_.iterator();
             boolean bInstance = false;
             String strName = "";
             String strObject = "";

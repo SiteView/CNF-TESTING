@@ -19,13 +19,15 @@ package COM.dragonflow.StandardPreference;
 
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
-import jgl.LessString;
 import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
+import com.recursionsw.jgl.predicates.LessString;
 
 public class DynamicUpdateInstancePreferences extends COM.dragonflow.SiteView.Preferences {
 

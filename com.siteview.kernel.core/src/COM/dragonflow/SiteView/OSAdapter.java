@@ -51,7 +51,7 @@ public class OSAdapter {
     HashMap osProperties;
 
     public static Array getOSIDs() {
-        return TextUtils.enumToArray(adapters.keys());
+        return TextUtils.enumToArray((Enumeration) adapters.keys());
     }
 
     public static Array getOSs(Array array) {

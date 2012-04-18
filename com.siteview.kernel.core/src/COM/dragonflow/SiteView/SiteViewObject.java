@@ -194,9 +194,9 @@ public abstract class SiteViewObject extends PropertiedObject {
 
     Enumeration getElements() {
         if (elements == null)
-            return cEmpty(Enumeration) array.iterator();
+            return (Enumeration) cEmptyArray.iterator();
         else
-            return elements.elements();
+            return (Enumeration) elements.iterator();
     }
 
     public Array getRawElements() {
@@ -339,7 +339,7 @@ public abstract class SiteViewObject extends PropertiedObject {
     public int acceptVisitor(Visitor visitor) {
         int i = super.acceptVisitor(visitor);
         if (elements != null && i == 0) {
-            Enumeration enumeration = elements.elements();
+            Enumeration enumeration = (Enumeration) elements.iterator();
             /*while (enumeration.hasMoreElements()) {
                 SiteViewObject siteviewobject = (SiteViewObject) enumeration
                         .nextElement();
@@ -683,7 +683,7 @@ public abstract class SiteViewObject extends PropertiedObject {
                 } 
             }
             if (s2.equalsIgnoreCase("secondaryStateProperties")) {
-                Enumeration enumeration1 = getProperties().elements();
+                Enumeration enumeration1 = (Enumeration) getProperties().iterator();
                 do {
                     StringProperty stringproperty2;
                     do {
@@ -697,7 +697,7 @@ public abstract class SiteViewObject extends PropertiedObject {
                 } while (true);
             }
             if (s2.equalsIgnoreCase("errorOnly")) {
-                Enumeration enumeration2 = getProperties().elements();
+                Enumeration enumeration2 = (Enumeration) getProperties().iterator();
                 do {
                     StringProperty stringproperty3;
                     String s16;
@@ -731,7 +731,7 @@ public abstract class SiteViewObject extends PropertiedObject {
                 } while (true);
             }
             if (s2.equalsIgnoreCase("secondaryParameters")) {
-                Enumeration enumeration3 = getProperties().elements();
+                Enumeration enumeration3 = (Enumeration) getProperties().iterator();
                 do {
                     StringProperty stringproperty4;
                     do {
@@ -897,7 +897,7 @@ public abstract class SiteViewObject extends PropertiedObject {
     public String matchExpects() {
         StringBuffer stringbuffer = new StringBuffer();
         boolean flag = false;
-        Enumeration enumeration = valuesTable.keys();
+        Enumeration enumeration = (Enumeration) valuesTable.keys();
         while (!enumeration.hasMoreElements()) {
             String s = enumeration.nextElement().toString();
             if (!s.startsWith("_expect-"))

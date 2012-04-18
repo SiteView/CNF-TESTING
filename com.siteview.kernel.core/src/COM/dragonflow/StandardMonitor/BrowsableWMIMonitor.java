@@ -20,7 +20,6 @@ package COM.dragonflow.StandardMonitor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.StringReader;
-import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -44,6 +43,7 @@ import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.Utils.TextUtils;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class BrowsableWMIMonitor extends BrowsableBase {
 

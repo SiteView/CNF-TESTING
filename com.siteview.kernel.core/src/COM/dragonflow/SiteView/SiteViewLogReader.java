@@ -413,7 +413,7 @@ public class SiteViewLogReader extends LogReader {
                                             (int) l16)) {
                                 s7 = Monitor.FILTERED_CATEGORY;
                             }
-                            for (Enumeration enumeration1 = hashmap1.values(s6); enumeration1
+                            for (Enumeration enumeration1 = (Enumeration) hashmap1.values(s6); enumeration1
                                     .hasMoreElements();) {
                                 SampleCollector samplecollector1 = (SampleCollector) enumeration1
                                         .nextElement();

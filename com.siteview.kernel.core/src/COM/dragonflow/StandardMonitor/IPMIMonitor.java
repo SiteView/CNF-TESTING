@@ -19,7 +19,6 @@ package COM.dragonflow.StandardMonitor;
  */
 
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -33,6 +32,7 @@ import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.Utils.TextUtils;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 //import com.dragonflow.IPMI.IPMIException;
 //import com.dragonflow.IPMI.Commands.AnalogSensorReadingRecord;

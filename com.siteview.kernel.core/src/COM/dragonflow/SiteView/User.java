@@ -268,9 +268,9 @@ public class User extends SiteViewObject {
 
     public static Array findUsersForLogin(String s, String s1) {
         Array array = new Array();
-        for (Enumeration enumeration = accountTable.keys(); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration = (Enumeration) accountTable.keys(); enumeration.hasMoreElements();) {
             String s2 = (String) enumeration.nextElement();
-            Enumeration enumeration1 = accountTable.values(s2);
+            Enumeration enumeration1 = (Enumeration) accountTable.values(s2);
             while (enumeration1.hasMoreElements()) {
                 User user = (User) enumeration1.nextElement();
                 if (user.getProperty(pLogin).equalsIgnoreCase(s) && user.getProperty(pPassword).equals(s1)) {
@@ -386,7 +386,7 @@ public class User extends SiteViewObject {
         if (accountTable.size() == 0) {
             getUserForAccount(s);
         }
-        return accountTable.values(s);
+        return (Enumeration) accountTable.values(s);
     }
 
     public static User getFirstUserForAccount(String s) {
@@ -442,7 +442,7 @@ public class User extends SiteViewObject {
     public Vector getPermissions(String s) {
         Vector vector = new Vector();
         if (permissions != null) {
-            Enumeration enumeration = permissions.values(s);
+            Enumeration enumeration = (Enumeration) permissions.values(s);
             String as[] = new String[2];
             while (enumeration.hasMoreElements()) {
                 String s1 = (String) enumeration.nextElement();
@@ -462,7 +462,7 @@ public class User extends SiteViewObject {
         if (permissions == null) {
             return "";
         }
-        for (Enumeration enumeration = permissions.values(s); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration = (Enumeration) permissions.values(s); enumeration.hasMoreElements();) {
             String s2 = (String) enumeration.nextElement();
             String as[] = TextUtils.split(s2, ",");
             if (as.length == 2 && as[0].equals(s1)) {

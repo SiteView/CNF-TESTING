@@ -25,11 +25,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.StringProperty;
@@ -38,6 +36,9 @@ import COM.dragonflow.Utils.CommandLine;
 import COM.dragonflow.Utils.LogFileFilter;
 import COM.dragonflow.Utils.SerializerUtils;
 import COM.oroinc.text.perl.Perl5Util;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // ServerMonitor, Platform, Machine

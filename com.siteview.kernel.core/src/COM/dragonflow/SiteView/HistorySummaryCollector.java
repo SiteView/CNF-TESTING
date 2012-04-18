@@ -52,11 +52,11 @@ class HistorySummaryCollector {
     }
 
     Enumeration getMonitorNames() {
-        return uniqueMonitorNames.elements();
+        return (Enumeration) uniqueMonitorNames.iterator();
     }
 
     Enumeration getMonitorIDs() {
-        return uniqueMonitorIDs.elements();
+        return (Enumeration) uniqueMonitorNames.iterator();
     }
 
     HistorySummaryEntry getEntry(Date date, String s) {

@@ -20,7 +20,6 @@ package COM.dragonflow.StandardAction;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
 
@@ -40,6 +39,8 @@ import com.netaphor.snmp.TimeTicks;
 import com.netaphor.snmp.TrapPDU;
 import com.netaphor.snmp.UsmUser;
 import com.netaphor.snmp.VariableBinding;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardAction:
 // SNMPVariableBinding

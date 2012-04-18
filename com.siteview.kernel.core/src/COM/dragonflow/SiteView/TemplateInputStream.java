@@ -115,7 +115,7 @@ public class TemplateInputStream extends FilterInputStream {
                     k++;
                 } 
             } else if (s.equalsIgnoreCase("secondaryStateProperties")) {
-                Enumeration enumeration1 = object.getProperties().elements();
+                Enumeration enumeration1 = (Enumeration) object.getProperties().iterator();
                 while (enumeration1.hasMoreElements()) {
                     StringProperty stringproperty2 = (StringProperty) enumeration1
                             .nextElement();
@@ -131,7 +131,7 @@ public class TemplateInputStream extends FilterInputStream {
                     }
                 } 
             } else if (s.equalsIgnoreCase("secondaryParameters")) {
-                Enumeration enumeration2 = object.getProperties().elements();
+                Enumeration enumeration2 = (Enumeration) object.getProperties().iterator();
                 while (enumeration2.hasMoreElements()) {
                     StringProperty stringproperty3 = (StringProperty) enumeration2
                             .nextElement();

@@ -20,11 +20,12 @@ package COM.dragonflow.SiteView;
 import java.util.Date;
 import java.util.Enumeration;
 
-import com.recursionsw.jgl.HashMap;
-import jgl.PriorityQueue;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.PriorityQueue;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // GreaterEqualTime, AbsoluteEvent, PeriodicEvent, CompoundEvent,
@@ -397,7 +398,7 @@ label1:          {
         }
         stringbuffer.append("------- " + thread + "Schedules -------\n");
         int i = 0;
-        for (Enumeration enumeration = queue.elements(); enumeration
+        for (Enumeration enumeration = (Enumeration) queue.iterator(); enumeration
                 .hasMoreElements(); stringbuffer.append("\n")) {
             ScheduleEvent scheduleevent = (ScheduleEvent) enumeration
                     .nextElement();
@@ -427,7 +428,7 @@ label1:          {
      * @param flag
      */
     protected void killActions(boolean flag) {
-        Enumeration enumeration = queue.elements();
+        Enumeration enumeration = (Enumeration) queue.iterator();
 		int i=0;
         while (enumeration.hasMoreElements()) {
             ScheduleEvent scheduleevent = (ScheduleEvent) enumeration

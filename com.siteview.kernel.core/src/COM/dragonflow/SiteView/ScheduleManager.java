@@ -19,11 +19,13 @@ package COM.dragonflow.SiteView;
  */
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 
+import COM.dragonflow.SiteView.ScheduleManager.ScheduleObject;
 import COM.dragonflow.StandardAction.UpdateMonitor;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // AtomicMonitor, MonitorGroup, Monitor, SubGroup,

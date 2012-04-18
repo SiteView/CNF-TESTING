@@ -22,13 +22,15 @@ import java.io.FileOutputStream;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.CommandLine;
 import COM.dragonflow.Utils.CounterLock;
 import COM.dragonflow.Utils.RemoteFile;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class Run extends COM.dragonflow.SiteView.ServerAction
 {

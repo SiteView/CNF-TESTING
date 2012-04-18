@@ -26,11 +26,6 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
-import jgl.Filtering;
-import com.recursionsw.jgl.HashMap;
-import com.recursionsw.jgl.algorithms.Reversing;
-import com.recursionsw.jgl.algorithms.Sorting;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Log.DailyFileLogger;
@@ -49,6 +44,12 @@ import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.LocaleUtils;
 import COM.dragonflow.Utils.TextUtils;
 import SiteViewMain.SiteViewSupport;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Filtering;
+import com.recursionsw.jgl.algorithms.Reversing;
+import com.recursionsw.jgl.algorithms.Sorting;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // Monitor, HistoryReport, RuleGroupIs, Rule,
@@ -374,7 +375,7 @@ public class MonitorGroup extends Monitor {
                 return  (Enumeration) array1.iterator();
             }
         }
-        return cEmpty(Enumeration) array.iterator();
+        return (Enumeration) cEmptyArray.iterator();
     }
 
     /**
@@ -1550,7 +1551,7 @@ public class MonitorGroup extends Monitor {
                     HashMap hashmap1 = (HashMap) array1.get(0);
                     hashmap = (HashMap) MasterConfig.getMasterConfig().clone();
                     String s4;
-                    for (Enumeration enumeration1 = hashmap1.keys(); enumeration1.hasMoreElements(); hashmap.put(s4, hashmap1.get(s4))) {
+                    for (Enumeration enumeration1 = (Enumeration) hashmap1.keys(); enumeration1.hasMoreElements(); hashmap.put(s4, hashmap1.get(s4))) {
                         s4 = (String) enumeration1.nextElement();
                     }
 
@@ -1624,7 +1625,7 @@ public class MonitorGroup extends Monitor {
                             l11 ++;
                             HashMap hashmap2 = monitor.getValuesTable();
                             Object obj;
-                            for (Enumeration enumeration3 = hashmap2.keys(); enumeration3.hasMoreElements(); printwriter.println(obj + "=" + hashmap2.get(obj))) {
+                            for (Enumeration enumeration3 = (Enumeration) hashmap2.keys(); enumeration3.hasMoreElements(); printwriter.println(obj + "=" + hashmap2.get(obj))) {
                                 obj = enumeration3.nextElement();
                             }
 

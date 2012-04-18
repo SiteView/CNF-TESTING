@@ -517,7 +517,7 @@ public class ConfigurationChanger {
      * @throws Exception
      */
     public void saveGroups() throws Exception {
-        Enumeration enumeration = groups.keys();
+        Enumeration enumeration = (Enumeration) groups.keys();
         while (enumeration.hasMoreElements()) {
             String s = (String) enumeration.nextElement();
             Array array = (Array) groups.get(s);
@@ -885,7 +885,7 @@ public class ConfigurationChanger {
                         }
                     }
                 }
-                enumeration1 = hashmap1.values("monitors");
+                enumeration1 = (Enumeration) hashmap1.values("monitors");
                 if (enumeration1.hasMoreElements()) {
                     array.add(hashmap1);
                 } else {

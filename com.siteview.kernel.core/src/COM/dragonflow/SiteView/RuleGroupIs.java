@@ -17,7 +17,7 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.UnaryPredicate;
+import com.recursionsw.jgl.UnaryPredicate;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // Rule

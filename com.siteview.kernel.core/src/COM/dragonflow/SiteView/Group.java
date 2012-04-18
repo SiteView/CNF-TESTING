@@ -107,7 +107,7 @@ public class Group extends SiteViewObject {
                 HashMap hashmap = MasterConfig.getMasterConfig();
                 Vector vector2 = new Vector();
                 String s2;
-                for (Enumeration enumeration = hashmap
+                for (Enumeration enumeration = (Enumeration) hashmap
                         .values("_httpCharSetOption"); enumeration
                         .hasMoreElements(); vector2.addElement(s2)) {
                     String s = (String) enumeration.nextElement();

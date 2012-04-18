@@ -20,7 +20,6 @@ package COM.dragonflow.StandardMonitor;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -49,6 +48,7 @@ import COM.dragonflow.Utils.J2EEDummyMonitor;
 import COM.dragonflow.Utils.LUtils;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 //import com.dragonflow.topaz.j2ee.comm.HashedSample;
 
@@ -68,7 +68,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
 
     public static final int AVAILABILITY_ERROR = 3;
 
-    private static Map availabilityCodeMap;
+    private static HashMap availabilityCodeMap;
 
     private static final String GROUP_STR = "group:";
 
@@ -90,7 +90,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
 
     private Object groups[];
 
-    private Map groupsMap;
+    private HashMap groupsMap;
 
     private Array pGroupStates;
 
@@ -168,7 +168,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
         return true;
     }
 
-    private Map getRules() {
+    private HashMap getRules() {
         HashMap hashmap = new HashMap();
         Enumeration enumeration = getRules(1);
         for (int i = 0; i < groups.length; i ++) {
@@ -233,7 +233,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
         }
         ArrayList arraylist = new ArrayList();
         long l = Platform.timeMillis() / 1000L + attachObserver.mTimeDiff / 1000L;
-        Map map1 = getRules();
+        HashMap map1 = getRules();
         HashMap hashmap = new HashMap();
         Iterator iterator = map.entrySet().iterator();
         do {
@@ -243,7 +243,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
             java.util.Map.Entry entry = (java.util.Map.Entry) iterator.next();
             COM.dragonflow.SiteView.J2EEMonitor.CounterResult counterresult = (COM.dragonflow.SiteView.J2EEMonitor.CounterResult) entry.getValue();
             String s2 = (String) entry.getKey();
-            Map map2 = getElementMap(J2EEConnection.parseName(s2));
+            HashMap map2 = getElementMap(J2EEConnection.parseName(s2));
 //            HashedSample hashedsample = new HashedSample(l, "J2EE_ONLINE");
 //            double d = getDouble(counterresult.getART());
 //            hashedsample.addValue("ART", new Double(d));
@@ -304,7 +304,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
         }
     }
 
-    private Map getElementMap(String as[]) {
+    private HashMap getElementMap(String as[]) {
         HashMap hashmap = new HashMap();
         for (int i = 0; i < as.length; i ++) {
             int j = as[i].indexOf(':');
@@ -459,7 +459,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
                 s = (String) hashmap1.get("_server");
                 HashMap hashmap2 = (HashMap) hashmap.get("selectNames");
                 String s2;
-                for (Enumeration enumeration2 = hashmap2.keys(); enumeration2.hasMoreElements(); allGroups.add(J2EEConnection.getGroupFromCounterName(HTTPRequest.decodeString(s2)))) {
+                for (Enumeration enumeration2 = (Enumeration) hashmap2.keys(); enumeration2.hasMoreElements(); allGroups.add(J2EEConnection.getGroupFromCounterName(HTTPRequest.decodeString(s2)))) {
                     s2 = (String) enumeration2.nextElement();
                 }
 

@@ -18,12 +18,10 @@ package COM.dragonflow.SiteView;
  * 
  */
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Api.APISiteView;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
@@ -42,6 +40,9 @@ import COM.dragonflow.StandardPreference.RemoteUnixInstancePreferences;
 import COM.dragonflow.StandardPreference.SNMPInstancePreferences;
 import COM.dragonflow.StandardPreference.ScheduleInstancePreferences;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // SiteViewObject, MasterConfig
@@ -193,7 +194,7 @@ public class Preferences extends SiteViewObject {
         HashMap hashmap1 = MasterConfig.getMasterConfig();
         String as[] = new String[2];
         if (hasMultipleValues()) {
-            Enumeration enumeration = hashmap1.values(getSettingName());
+            Enumeration enumeration = (Enumeration) hashmap1.values(getSettingName());
             boolean flag = false;
             Array array = new Array();
             while (enumeration.hasMoreElements()) {

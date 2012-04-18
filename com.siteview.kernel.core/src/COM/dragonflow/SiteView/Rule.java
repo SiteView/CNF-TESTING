@@ -20,13 +20,15 @@ package COM.dragonflow.SiteView;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.Expression;
 import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // SiteViewObject, Monitor, Platform, AtomicMonitor,
@@ -175,7 +177,7 @@ public class Rule extends SiteViewObject {
             String s = sso.getOwner().getGroupPathID() + I18N.toDefaultEncoding(sso.getProperty(pID)) + "/";
             if (this.excludeFilter != null) {
                 boolean exclude = false;
-                for (Enumeration en = excludeFilter.elements(); en.hasMoreElements();) {
+                for (Enumeration en = (Enumeration) excludeFilter.iterator(); en.hasMoreElements();) {
                     String s2 = (String) en.nextElement();
                     if (s.indexOf(s2) != -1) {
                         exclude = true;
@@ -198,7 +200,7 @@ public class Rule extends SiteViewObject {
 
             if (this.includeFilter != null) {
                 boolean include = false;
-                Enumeration ifEnum = this.includeFilter.elements();
+                Enumeration ifEnum = (Enumeration) this.includeFilter.iterator();
                 while (ifEnum.hasMoreElements()) {
                     String s3 = (String) ifEnum.nextElement();
                     if (s.indexOf(s3) == -1) {

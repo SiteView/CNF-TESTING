@@ -18,7 +18,6 @@ package COM.dragonflow.StandardPreference;
  */
 
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -29,6 +28,7 @@ import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardPreference:
 // ScheduleInstancePreferences
@@ -101,7 +101,7 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
             if (s1 != null && s1.length() > 0) {
                 Enumeration enumeration = (Enumeration) hashmap.values(s1);
                 while (enumeration.hasMoreElements()) {
-                    java.util.HashMap hashmap1 = new HashMap();
+                    HashMap hashmap1 = new HashMap();
                     String s5 = "";
                     boolean flag = false;
                     s5 = (String) enumeration.nextElement();
@@ -169,9 +169,9 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
             }
             if (vector != null) {
                 for (int j = 0; j < vector.size(); j ++) {
-                    java.util.HashMap hashmap3 = new HashMap();
+                    HashMap hashmap3 = new HashMap();
                     COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
-                    java.util.HashMap hashmap4 = (java.util.HashMap) vector.get(j);
+                    HashMap hashmap4 = (HashMap) vector.get(j);
                     java.util.Set set = hashmap4.keySet();
                     java.util.Iterator iterator = set.iterator();
                     while (iterator.hasNext()) {
@@ -225,7 +225,7 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
      * @param s
      * @return
      */
-    public java.util.HashMap synthesizePropertiesForSchedule(java.util.HashMap hashmap, String s) {
+    public HashMap synthesizePropertiesForSchedule(HashMap hashmap, String s) {
         String as[] = COM.dragonflow.Utils.TextUtils.split(s, COM.dragonflow.Properties.ScheduleProperty.schedule_day_separator);
         for (int i = 0; i < as.length; i ++) {
             for (int j = 0; j < days.length; j ++) {
@@ -337,7 +337,7 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
         hashmap.put("_schedule", s11);
         java.util.Set set1 = hashmap.keySet();
         java.util.Iterator iterator2 = set1.iterator();
-        java.util.HashMap hashmap2 = new HashMap();
+        HashMap hashmap2 = new HashMap();
         while (iterator2.hasNext()) {
             String s9 = (String) iterator2.next();
             int l = s9.indexOf("enabled");

@@ -20,10 +20,7 @@ package COM.dragonflow.SiteView;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Iterator;
-
-import com.recursionsw.jgl.Array;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -41,6 +38,9 @@ import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.SocketSession;
 import COM.dragonflow.Utils.TextUtils;
 import COM.dragonflow.Utils.XSLUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // BrowsableBase, Monitor, Platform, MasterConfig

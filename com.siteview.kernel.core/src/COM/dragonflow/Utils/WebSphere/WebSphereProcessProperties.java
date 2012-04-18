@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.recursionsw.jgl.HashMap;
+
 // Referenced classes of package COM.dragonflow.Utils.WebSphere:
 // ProcessWaiter, ReaderThread, WebSphereProcessLauncher
 
