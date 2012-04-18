@@ -44,7 +44,7 @@ public class portalMainPage extends COM.dragonflow.Page.portalChooserPage
         super.printBody();
     }
 
-    protected COM.dragonflow.SiteView.PortalQueryVisitor createPQVToPrint(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    protected COM.dragonflow.SiteView.PortalQueryVisitor createPQVToPrint(HashMap hashmap, HashMap hashmap1)
     {
         return new PQVPrintMainHTML(this, hashmap, hashmap1);
     }

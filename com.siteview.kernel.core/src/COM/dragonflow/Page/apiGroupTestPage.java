@@ -9,7 +9,7 @@
  */
 package COM.dragonflow.Page;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Api.APIGroup;
 import COM.dragonflow.Api.SSInstanceProperty;
 
@@ -520,7 +520,7 @@ public class apiGroupTestPage extends COM.dragonflow.Page.apiMasterTestPage
 
     private String[] splitString(String s, String s1)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         int i = s1.length();
         int j = 0;
         for(int k = s.indexOf(s1); k != -1; k = s.indexOf(s1, j))
@@ -532,7 +532,7 @@ public class apiGroupTestPage extends COM.dragonflow.Page.apiMasterTestPage
         String as[] = new String[array.size()];
         for(int l = 0; l < as.length; l++)
         {
-            as[l] = (String)array.at(l);
+            as[l] = (String)array.get(l);
         }
 
         return as;

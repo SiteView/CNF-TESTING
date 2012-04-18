@@ -65,7 +65,7 @@ public class demoPage extends COM.dragonflow.Page.CGI
         outputStream.flush();
         try
         {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
             siteviewgroup.startingUp = true;
             saveMasterConfig(hashmap);

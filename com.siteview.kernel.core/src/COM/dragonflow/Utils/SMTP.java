@@ -23,7 +23,8 @@ import java.net.ProtocolException;
 import java.net.Socket;
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // Base64Encoder, TextUtils, I18N, FileUtils
@@ -32,7 +33,7 @@ public class SMTP
 {
 
     public static int defaultTimeout = 60000;
-    public static jgl.Array noLogging = null;
+    public static Array noLogging = null;
     public static int defaultSMTPPort = 25;
     public static String CRLF = "\r\n";
     private String contentType;
@@ -40,10 +41,10 @@ public class SMTP
     private java.io.BufferedReader reply;
     private java.io.PrintWriter send;
     private java.net.Socket server;
-    private jgl.Array log;
+    private Array log;
     private String value;
 
-    public SMTP(String s, int i, jgl.Array array)
+    public SMTP(String s, int i, Array array)
         throws java.net.UnknownHostException, java.io.IOException
     {
         contentType = null;
@@ -118,7 +119,7 @@ public class SMTP
     private void InitMailEncoding()
         throws java.io.IOException
     {
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s = null;
         String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_httpCharSet");
         if(s1 != null && s1.length() > 0)
@@ -161,7 +162,7 @@ public class SMTP
         String s1 = s;
         if(subjectCharSet != null)
         {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_mailSubjectCharSet");
             if(s2 == null || s2.equals(""))
             {
@@ -630,7 +631,7 @@ public class SMTP
     public static void main(String args[])
         throws java.lang.Exception
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s = "siteseer1.dragonflowinteractive.com";
         String s1 = "siteviewtest@siteview.com";
         String s2 = "siteviewtest@siteview.com";
@@ -664,7 +665,7 @@ public class SMTP
         {
             java.lang.System.out.println(exception + "\n");
         }
-        for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); java.lang.System.out.println(enumeration.nextElement())) { }
+        for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); java.lang.System.out.println(enumeration.nextElement())) { }
     }
 
 }

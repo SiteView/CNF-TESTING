@@ -21,8 +21,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.StringProperty;
@@ -92,7 +92,7 @@ public abstract class BrowsableExeBase extends BrowsableBase {
                 } else if (j != 0) {
                     StringBuffer stringbuffer = new StringBuffer();
                     for (int j1 = k; j1 < array3.size(); j1++) {
-                        stringbuffer.append((String) array3.at(j1) + " ");
+                        stringbuffer.append((String) array3.get(j1) + " ");
                     }
 
                     setProperty(pNoData, "n/a");
@@ -156,7 +156,7 @@ public abstract class BrowsableExeBase extends BrowsableBase {
         String s = "";
         HashMap hashmap = new HashMap();
         for (int j = i; j < array.size(); j++) {
-            String s1 = (String) array.at(j);
+            String s1 = (String) array.get(j);
             int l = s1.indexOf('=');
             String s4 = s1.substring(0, l);
             String s5 = s1.substring(l + 1);
@@ -187,7 +187,7 @@ public abstract class BrowsableExeBase extends BrowsableBase {
             return -1;
         }
         for (int i = 0; i < array.size() - 1; i++) {
-            if (array.at(i).equals(VALID_RES_START_INDICATOR)) {
+            if (array.get(i).equals(VALID_RES_START_INDICATOR)) {
                 return i + 1;
             }
         }
@@ -213,14 +213,14 @@ public abstract class BrowsableExeBase extends BrowsableBase {
             stringbuffer.append("Failed to get browse data. Error code: " + i
                     + ". Description: ");
             for (int k = j; k < array2.size(); k++) {
-                stringbuffer.append((String) array2.at(k));
+                stringbuffer.append((String) array2.get(k));
             }
 
             return "";
         }
         int l = 0;
         for (int i1 = j; i1 < array2.size(); i1++) {
-            l += ((String) array2.at(i1)).length();
+            l += ((String) array2.get(i1)).length();
         }
 
         if (l <= 0) {
@@ -229,7 +229,7 @@ public abstract class BrowsableExeBase extends BrowsableBase {
         }
         StringBuffer stringbuffer1 = new StringBuffer(l);
         for (int j1 = j; j1 < array2.size(); j1++) {
-            stringbuffer1.append((String) array2.at(j1));
+            stringbuffer1.append((String) array2.get(j1));
         }
 
         return stringbuffer1.toString().trim();
@@ -240,7 +240,7 @@ public abstract class BrowsableExeBase extends BrowsableBase {
         int i = array.size();
         Array array1 = new Array();
         for (int j = 0; j < i; j++) {
-            StringProperty stringproperty = (StringProperty) array.at(j);
+            StringProperty stringproperty = (StringProperty) array.get(j);
             String s = stringproperty.getName().substring(1);
             array1.add(s + "=" + getProperty(stringproperty));
         }
@@ -313,7 +313,7 @@ public abstract class BrowsableExeBase extends BrowsableBase {
             int k = browsableexebase.exec(s2, array3);
             System.out.println("exitCode: " + k);
             for (int l = 0; l < array3.size(); l++) {
-                System.out.println(array3.at(l));
+                System.out.println(array3.get(l));
             }
 
         } catch (Exception exception) {

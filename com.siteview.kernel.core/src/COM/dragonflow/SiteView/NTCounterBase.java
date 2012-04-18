@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
@@ -127,10 +127,10 @@ public abstract class NTCounterBase extends ServerMonitor implements
                 if (k >= array.size()) {
                     continue label0;
                 }
-                String s4 = ((PerfCounter) array.at(k)).object + " -- ";
-                s4 = s4 + ((PerfCounter) array.at(k)).counterName;
-                if (((PerfCounter) array.at(k)).instance.length() > 0) {
-                    s4 = s4 + " -- " + ((PerfCounter) array.at(k)).instance;
+                String s4 = ((PerfCounter) array.get(k)).object + " -- ";
+                s4 = s4 + ((PerfCounter) array.get(k)).counterName;
+                if (((PerfCounter) array.get(k)).instance.length() > 0) {
+                    s4 = s4 + " -- " + ((PerfCounter) array.get(k)).instance;
                 }
                 if (s3.equals(s4)) {
                     i++;
@@ -194,7 +194,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
         hashmap = new HashMap();
         Array array = getCounters();
         for (int i = 0; i < array.size(); i++) {
-            PerfCounter perfcounter = (PerfCounter) array.at(i);
+            PerfCounter perfcounter = (PerfCounter) array.get(i);
             hashmap.add("Counter " + (i + 1) + " Value", perfcounter.object
                     + " : " + perfcounter.counterName + ":"
                     + perfcounter.instance);
@@ -212,7 +212,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
             }
         }
 
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Array getLogProperties() {
@@ -308,7 +308,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
         Array array1 = new Array();
         String s2 = "";
         for (int i = 0; i < array.size(); i++) {
-            s2 = s2 + "-o \"" + (String) array.at(i) + "\" ";
+            s2 = s2 + "-o \"" + (String) array.get(i) + "\" ";
         }
 
         s2 = s2.trim();
@@ -340,7 +340,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
                 if (as.length > 0) {
                     s4 = as[l].trim();
                 }
-                Enumeration enumeration = array2.elements();
+                Enumeration enumeration =  (Enumeration) array2.iterator();
                 boolean flag1 = false;
                 boolean flag2 = false;
                 PerfCounter perfcounter = null;
@@ -363,7 +363,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
                             if (k1 >= array.size()) {
                                 continue label0;
                             }
-                            if (array.at(k1).equals(s5)) {
+                            if (array.get(k1).equals(s5)) {
                                 flag2 = true;
                                 continue label0;
                             }
@@ -440,7 +440,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
             StringBuffer stringbuffer, boolean flag,
             AtomicMonitor atomicmonitor, Array array1, Map map) {
         boolean bMapOk = map != null;
-        jgl.HashMap hashmap = new jgl.HashMap();
+        HashMap hashmap = new jgl.HashMap();
         int iCounters = array.size() > nMaxCounters ? nMaxCounters : array.size();
         String strPerfTime100nSec = "";
         String strPerfFreq = "";
@@ -454,7 +454,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
         jgl.HashMap mapObject = new jgl.HashMap();
         for (int i = 0; i < iCounters; i++) {
         	bCounterAv[i] = false;
-            PerfCounter perfcounter = (PerfCounter) array.at(i);
+            PerfCounter perfcounter = (PerfCounter) array.get(i);
             List list = (List) mapObject.get(perfcounter.object);
             if (list == null)
             	mapObject.put(perfcounter.object, list = new ArrayList());
@@ -634,7 +634,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
                 }
                 
                 for (int j = 0; j < iCounters; j++) {
-                    PerfCounter perfcounter = (PerfCounter) array.at(j);
+                    PerfCounter perfcounter = (PerfCounter) array.get(j);
                     
                     if (perfcounter.object.equalsIgnoreCase(strObject)) {
                         boolean bool_66_ = false;
@@ -717,7 +717,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
                 array_74_.add(string_76_);
             }
             if (flag) {
-                PerfCounter perfcounter = (PerfCounter) array.at(i);
+                PerfCounter perfcounter = (PerfCounter) array.get(i);
                 LogManager.log("RunMonitor", ("Counter Monitor, "
                         + perfcounter.counterName + "/" + perfcounter.object
                         + "/" + perfcounter.instance + ", " + bCounterAv[i]
@@ -732,7 +732,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
         java.util.HashMap hashmap = new java.util.HashMap();
         java.util.HashMap hashmap1 = new java.util.HashMap();
         for (int i = 0; i < array.size(); i++) {
-            PerfCounter perfcounter = (PerfCounter) array.at(i);
+            PerfCounter perfcounter = (PerfCounter) array.get(i);
             hashmap1.put(perfcounter.counterName.toLowerCase(),
                     perfcounter.counterName);
             hashmap1.put(perfcounter.object.toLowerCase(), perfcounter.object);
@@ -744,7 +744,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
             String s2 = "id:";
             String s3 = "name:";
             for (int j = 0; j < array1.size(); j++) {
-                String s4 = (String) array1.at(j);
+                String s4 = (String) array1.get(j);
                 if (!s4.startsWith(s2)) {
                     continue;
                 }
@@ -830,7 +830,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
             Array array2 = getPerfData(s, array, stringbuffer, showDebug, this,
                     array1, map);
             s3 = stringbuffer.toString();
-            enumeration = array2.elements();
+            enumeration =  (Enumeration) array2.iterator();
             if (enumeration.hasMoreElements()) {
                 perfresult.measurementTime = TextUtils
                         .toLong((String) enumeration.nextElement());
@@ -879,7 +879,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
         }
 
         for (int j = 0; enumeration.hasMoreElements(); j++) {
-            PerfCounter perfcounter = (PerfCounter) array.at(j);
+            PerfCounter perfcounter = (PerfCounter) array.get(j);
             perfresult.precision = 2;
             perfresult.percent = false;
             perfresult.perSec = false;
@@ -1029,7 +1029,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
         array.add(pLastMeasurementTicks);
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for (int j = 0; j < array.size(); j++) {
-            astringproperty[j] = (StringProperty) array.at(j);
+            astringproperty[j] = (StringProperty) array.get(j);
         }
 
         addProperties("COM.dragonflow.SiteView.NTCounterBase", astringproperty);

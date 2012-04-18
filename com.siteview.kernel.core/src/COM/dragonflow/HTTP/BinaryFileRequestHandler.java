@@ -22,7 +22,8 @@ import java.util.Date;
 import java.util.Random;
 import java.util.zip.GZIPOutputStream;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.HTTP:
 // HTTPRequestException, HTTPRequest, HTTPServer
@@ -128,10 +129,10 @@ public class BinaryFileRequestHandler {
 
         else if ((machine = COM.dragonflow.SiteView.Machine.getMachineByHost(s1)) != null) {
             String s3 = COM.dragonflow.SiteView.Machine.REMOTE_PREFIX + machine.getProperty(COM.dragonflow.SiteView.Machine.pID);
-            jgl.HashMap hashmap = new HashMap();
+            HashMap hashmap = new HashMap();
             hashmap.put("file", s);
             String s4 = COM.dragonflow.SiteView.Machine.getCommandString("catFile", s3, hashmap);
-            jgl.Array array = null;
+            Array array = null;
             COM.dragonflow.Utils.RemoteCommandLine remotecommandline = null;
             remotecommandline = COM.dragonflow.SiteView.Machine.getRemoteCommandLine(machine);
             if (rand == null) {
@@ -143,7 +144,7 @@ public class BinaryFileRequestHandler {
             array = remotecommandline.exec(s4, machine);
             if (array != null && remotecommandline.exitValue == 0 && array.size() > 0) {
                 COM.dragonflow.Utils.RemoteCommandLine _tmp = remotecommandline;
-                if (array.at(0).equals(" sIiTeSsCoPeReDiReCTtOkEN* ")) {
+                if (array.get(0).equals(" sIiTeSsCoPeReDiReCTtOkEN* ")) {
                     getCompressedFileLocal(s6, outputstream, "cat: cannot open");
                 }
             } else {

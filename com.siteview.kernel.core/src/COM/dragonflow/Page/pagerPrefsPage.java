@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.StandardAction.Page;
@@ -30,7 +30,7 @@ public class pagerPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
 
     public String saveAdditionalPagerPrefs()
     {
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         hashmap.put("_name", request.getValue("additionalPagerName").replace(' ', '_'));
         hashmap.put("_disabled", request.getValue("additionalPagerDisabled"));
         StringBuffer stringbuffer = new StringBuffer();
@@ -59,7 +59,7 @@ public class pagerPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
     {
         try
         {
-            jgl.HashMap hashmap = getSettings();
+            HashMap hashmap = getSettings();
             if(request.isSiteSeerAccount())
             {
                 request.setValue("pagerAlphaPhone", COM.dragonflow.Utils.TextUtils.checkPhone(request.getValue("pagerAlphaPhone")));
@@ -94,8 +94,8 @@ public class pagerPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
     void printDeleteForm(String s)
     {
         String s1 = request.getValue("additionalPager");
-        jgl.HashMap hashmap = getSettings();
-        jgl.HashMap hashmap1 = null;
+        HashMap hashmap = getSettings();
+        HashMap hashmap1 = null;
         Enumeration enumeration = COM.dragonflow.Page.pagerPrefsPage.getValues(hashmap, "_additionalPager");
         do
         {
@@ -103,7 +103,7 @@ public class pagerPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
             {
                 break;
             }
-            jgl.HashMap hashmap2 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
+            HashMap hashmap2 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
             if(COM.dragonflow.Page.pagerPrefsPage.getValue(hashmap2, "_id").equals(s1))
             {
                 hashmap1 = hashmap2;
@@ -140,14 +140,14 @@ label1:
                     break label0;
                 }
                 flag = true;
-                Enumeration enumeration = COM.dragonflow.Page.pagerPrefsPage.getValues(((jgl.HashMap) (obj)), "_additionalPager");
+                Enumeration enumeration = COM.dragonflow.Page.pagerPrefsPage.getValues(((HashMap) (obj)), "_additionalPager");
                 obj = null;
                 if(request.getValue("_additionalPager").equals("new"))
                 {
                     break label1;
                 }
                 String s1 = request.getValue("additionalPager");
-                jgl.HashMap hashmap;
+                HashMap hashmap;
                 do
                 {
                     if(!enumeration.hasMoreElements())
@@ -165,26 +165,26 @@ label1:
         }
         String s = "";
         String s2 = "";
-        String s3 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerType").equals("alpha") ? "CHECKED" : "";
-        String s4 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerType").equals("direct") ? "CHECKED" : "";
-        String s5 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerType").equals("option") ? "CHECKED" : "";
-        String s6 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerType").equals("custom") ? "CHECKED" : "";
+        String s3 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerType").equals("alpha") ? "CHECKED" : "";
+        String s4 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerType").equals("direct") ? "CHECKED" : "";
+        String s5 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerType").equals("option") ? "CHECKED" : "";
+        String s6 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerType").equals("custom") ? "CHECKED" : "";
         if(!flag && !request.getPermission("_editPagerPort").equals("hidden"))
         {
             if(COM.dragonflow.SiteView.Platform.isWindows(platformOS()))
             {
-                String s7 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerPort").equals("COM1") ? "SELECTED" : "";
-                String s9 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerPort").equals("COM2") ? "SELECTED" : "";
-                String s11 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerPort").equals("COM3") ? "SELECTED" : "";
-                String s13 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerPort").equals("COM4") ? "SELECTED" : "";
-                String s15 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerPort").equals("COM5") ? "SELECTED" : "";
-                String s17 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerPort").equals("COM6") ? "SELECTED" : "";
-                String s19 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerPort").equals("COM7") ? "SELECTED" : "";
-                String s20 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerPort").equals("COM8") ? "SELECTED" : "";
+                String s7 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerPort").equals("COM1") ? "SELECTED" : "";
+                String s9 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerPort").equals("COM2") ? "SELECTED" : "";
+                String s11 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerPort").equals("COM3") ? "SELECTED" : "";
+                String s13 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerPort").equals("COM4") ? "SELECTED" : "";
+                String s15 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerPort").equals("COM5") ? "SELECTED" : "";
+                String s17 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerPort").equals("COM6") ? "SELECTED" : "";
+                String s19 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerPort").equals("COM7") ? "SELECTED" : "";
+                String s20 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerPort").equals("COM8") ? "SELECTED" : "";
                 s = "<select name=pagerPort size=1><option " + s7 + ">COM1" + "<option " + s9 + ">COM2" + "<option " + s11 + ">COM3" + "<option " + s13 + ">COM4" + "<option " + s15 + ">COM5" + "<option " + s17 + ">COM6" + "<option " + s19 + ">COM7" + "<option " + s20 + ">COM8" + "</select>\n";
             } else
             {
-                s = " <input type=text name=pagerPort size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerPort") + "\"><br>\n";
+                s = " <input type=text name=pagerPort size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerPort") + "\"><br>\n";
                 if(COM.dragonflow.SiteView.Platform.isSolaris())
                 {
                     s = s + "(for example, the path for port b is /dev/term/b)\n";
@@ -199,11 +199,11 @@ label1:
                 }
             }
         }
-        String s8 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerSpeed").equals("300") ? "SELECTED" : "";
-        String s10 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerSpeed").equals("1200") ? "SELECTED" : "";
-        String s12 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerSpeed").equals("2400") ? "SELECTED" : "";
-        String s14 = COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerSpeed").equals("9600") ? "SELECTED" : "";
-        if(COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerSpeed").length() == 0)
+        String s8 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerSpeed").equals("300") ? "SELECTED" : "";
+        String s10 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerSpeed").equals("1200") ? "SELECTED" : "";
+        String s12 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerSpeed").equals("2400") ? "SELECTED" : "";
+        String s14 = COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerSpeed").equals("9600") ? "SELECTED" : "";
+        if(COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerSpeed").length() == 0)
         {
             s10 = "SELECTED";
         }
@@ -230,16 +230,16 @@ label1:
         outputStream.println("<p><CENTER><H2>" + s16 + "</H2></CENTER><p>\n" + getPagePOST("pagerPrefs", "save"));
         if(flag)
         {
-            outputStream.println("The name of these pager settings is used to specify pagers when adding alerts<BLOCKQUOTE>\nSetting Name <input type=text size=30 name=additionalPagerName value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_name") + "\">\n" + "</BLOCKQUOTE>\n" + "Disabling the pager settings prevents alert pages from being sent via that pager setting" + "<BLOCKQUOTE>\n" + "<input type=checkbox " + COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_disabled") + " name=additionalPagerDisabled value=CHECKED>Disabled\n" + "</BLOCKQUOTE>\n" + "Most paging companies use 1200 baud - you only need to change the modem speed if your paging company requires it." + "<BLOCKQUOTE>\n" + s2 + "</BLOCKQUOTE>\n");
+            outputStream.println("The name of these pager settings is used to specify pagers when adding alerts<BLOCKQUOTE>\nSetting Name <input type=text size=30 name=additionalPagerName value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_name") + "\">\n" + "</BLOCKQUOTE>\n" + "Disabling the pager settings prevents alert pages from being sent via that pager setting" + "<BLOCKQUOTE>\n" + "<input type=checkbox " + COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_disabled") + " name=additionalPagerDisabled value=CHECKED>Disabled\n" + "</BLOCKQUOTE>\n" + "Most paging companies use 1200 baud - you only need to change the modem speed if your paging company requires it." + "<BLOCKQUOTE>\n" + s2 + "</BLOCKQUOTE>\n");
         } else
         {
             outputStream.println("<hr><TABLE border=0 width=100% cellspacing=0 cellpadding=5><TR><TD>Modem port/path:&nbsp;</td><td>\n" + s + "</TD><td> SiteView Pager Alerts are sent using a modem connected directly to the SiteView server." + "</td></TR><TR><TD>Connection speed:&nbsp;</td><TD>" + s2 + "</td><td>Use the default speed of 1200 unless your paging service provider tells you otherwise.\n" + "</TD></TR></TABLE>\n");
         }
         outputStream.println("<h3>Pager Connection Options:</h3><hr><TABLE border=0 width=100% cellspacing=0><tr><td width=15%></td><td></td><td></td></tr>\n");
-        outputStream.println("<tr><td colspan=2 valign=top><input type=radio name=pagerType value=alpha " + s3 + "><b>Modem-to-Modem Connection (Preferred)</b></td><td> Send alphanumeric pager messages by connecting to a modem at paging service.<p></td></tr>\n" + "<tr><td valign=top><p>Modem number:</p></td><td valign=top><input type=text name=pagerAlphaPhone size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerAlphaPhone") + "\"></td>\n" + "<td valign=top>Contact your paging service to find out the Modem Number (TAP/IXO number) for paging.  \n" + "<br>  <A href=/SiteView/docs/PagerPref.htm#ModemNumber TARGET=Help>Common pager service modem numbers</a></td></tr> \n" + "<tr><td valign=top><p>PIN number:</p></td><td> <input type=text name=pagerAlphaPIN size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerAlphaPIN") + "\"></td>\n" + "<td valign=top><p>Enter the last seven digits of your pager's PIN number.</td></tr>\n");
-        outputStream.println("<tr><td colspan=3><hr></td></tr>\n<tr><td colspan=2 valign=top><input type=radio name=pagerType value=direct " + s4 + "><b>Dial and Enter Message</b></td>\n" + "<td valign=top>Use a direct phone number to send a numeric page.  Works with most local paging services.<p></td></tr>\n" + "<tr><td valign=top><p>Phone number:</p></td><td><input type=text name=pagerDirectPhone size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerDirectPhone") + "\"></td><td></td></tr>\n");
-        outputStream.println("<tr><td colspan=3><hr></td></tr>\n<tr><td colspan=2 valign=top><input type=radio name=pagerType value=option " + s5 + "><b>Dial, Enter Command, and Enter Message</b></td>\n" + "<td valign=top>\n" + "Use a direct number but enter a command\n" + "before sending a page.  Use this option if your paging company requires a \n" + "PIN number before sending a page.<p></td></tr> \n" + "<tr><td valign=top><p>Phone number:</p></td><td valign=top> <input type=text name=pagerOptionPhone size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerOptionPhone") + "\"></td><td></td></tr>\n" + "<tr><td valign=top><p>Send page command:</p></td><td valign=top> <input type=text name=pagerOption size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerOption") + "\"></td><td></td></tr>\n");
-        outputStream.println("<tr><td colspan=3><hr></td></tr>\n<tr><td colspan=2 valign=top><input type=radio name=pagerType value=custom " + s6 + "><b>Custom Modem Connection</b></td>\n" + "<td valign=top>Use this option if custom modem commands are required.<p></td></tr>\n" + "<tr><td valign=top><p>Modem command:</p></td> <td valign=top> <input type=text name=pagerCustom size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_pagerCustom") + "\"></td><td></td></tr>\n" + "<tr><td>&nbsp;</td><td colspan=2>The modem command string should contain the phone number to dial, any additional digits, followed by $message.  SiteView" + "replaces <tt>$message</tt> variable with the message specified in the Pager Alert definition" + "where the message should be inserted.  The comma character creates a short pause.<p>\n" + "For example: if the pager company's number is 123-4567, your pager PIN is 333-3333, and each command must be followed by the # key, the Modem command\n" + "might look like <tt>ATDT 123-4567,,333-3333#,,$message#</tt>\n" + "<p></td></tr>\n");
+        outputStream.println("<tr><td colspan=2 valign=top><input type=radio name=pagerType value=alpha " + s3 + "><b>Modem-to-Modem Connection (Preferred)</b></td><td> Send alphanumeric pager messages by connecting to a modem at paging service.<p></td></tr>\n" + "<tr><td valign=top><p>Modem number:</p></td><td valign=top><input type=text name=pagerAlphaPhone size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerAlphaPhone") + "\"></td>\n" + "<td valign=top>Contact your paging service to find out the Modem Number (TAP/IXO number) for paging.  \n" + "<br>  <A href=/SiteView/docs/PagerPref.htm#ModemNumber TARGET=Help>Common pager service modem numbers</a></td></tr> \n" + "<tr><td valign=top><p>PIN number:</p></td><td> <input type=text name=pagerAlphaPIN size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerAlphaPIN") + "\"></td>\n" + "<td valign=top><p>Enter the last seven digits of your pager's PIN number.</td></tr>\n");
+        outputStream.println("<tr><td colspan=3><hr></td></tr>\n<tr><td colspan=2 valign=top><input type=radio name=pagerType value=direct " + s4 + "><b>Dial and Enter Message</b></td>\n" + "<td valign=top>Use a direct phone number to send a numeric page.  Works with most local paging services.<p></td></tr>\n" + "<tr><td valign=top><p>Phone number:</p></td><td><input type=text name=pagerDirectPhone size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerDirectPhone") + "\"></td><td></td></tr>\n");
+        outputStream.println("<tr><td colspan=3><hr></td></tr>\n<tr><td colspan=2 valign=top><input type=radio name=pagerType value=option " + s5 + "><b>Dial, Enter Command, and Enter Message</b></td>\n" + "<td valign=top>\n" + "Use a direct number but enter a command\n" + "before sending a page.  Use this option if your paging company requires a \n" + "PIN number before sending a page.<p></td></tr> \n" + "<tr><td valign=top><p>Phone number:</p></td><td valign=top> <input type=text name=pagerOptionPhone size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerOptionPhone") + "\"></td><td></td></tr>\n" + "<tr><td valign=top><p>Send page command:</p></td><td valign=top> <input type=text name=pagerOption size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerOption") + "\"></td><td></td></tr>\n");
+        outputStream.println("<tr><td colspan=3><hr></td></tr>\n<tr><td colspan=2 valign=top><input type=radio name=pagerType value=custom " + s6 + "><b>Custom Modem Connection</b></td>\n" + "<td valign=top>Use this option if custom modem commands are required.<p></td></tr>\n" + "<tr><td valign=top><p>Modem command:</p></td> <td valign=top> <input type=text name=pagerCustom size=40 value=\"" + COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_pagerCustom") + "\"></td><td></td></tr>\n" + "<tr><td>&nbsp;</td><td colspan=2>The modem command string should contain the phone number to dial, any additional digits, followed by $message.  SiteView" + "replaces <tt>$message</tt> variable with the message specified in the Pager Alert definition" + "where the message should be inserted.  The comma character creates a short pause.<p>\n" + "For example: if the pager company's number is 123-4567, your pager PIN is 333-3333, and each command must be followed by the # key, the Modem command\n" + "might look like <tt>ATDT 123-4567,,333-3333#,,$message#</tt>\n" + "<p></td></tr>\n");
         outputStream.println("</TABLE>\n");
         if(flag)
         {
@@ -251,7 +251,7 @@ label1:
         if(flag && !request.getPermission("_pagerSchedule").equals("hidden"))
         {
             outputStream.println("<p><HR><CENTER><H3>Advanced Options</H3></CENTER><TABLE><TR><TD>Schedule</TD><TD>\n");
-            COM.dragonflow.Properties.ScheduleProperty.printScheduleTable(outputStream, COM.dragonflow.Page.pagerPrefsPage.getValue(((jgl.HashMap) (obj)), "_schedule"), "");
+            COM.dragonflow.Properties.ScheduleProperty.printScheduleTable(outputStream, COM.dragonflow.Page.pagerPrefsPage.getValue(((HashMap) (obj)), "_schedule"), "");
             outputStream.println("</TD></TR><TR><TD COLSPAN=2>optional schedule for these settings to be enabled - for example, enable Sunday from 10:00 to 22:00</TD></TR></TABLE><P>");
             if(COM.dragonflow.SiteView.Platform.isSiteSeerAccount(request.getAccount()))
             {
@@ -261,14 +261,14 @@ label1:
         outputStream.println("</FORM>\n");
         if(!flag)
         {
-            Enumeration enumeration1 = COM.dragonflow.Page.pagerPrefsPage.getValues(((jgl.HashMap) (obj)), "_additionalPager");
+            Enumeration enumeration1 = COM.dragonflow.Page.pagerPrefsPage.getValues(((HashMap) (obj)), "_additionalPager");
             outputStream.print("<p><HR><A NAME=additionalPager>Additional pager settings allow you to create named settings, which you can then specify\nwhen creating pager alerts.</A><P><CENTER>\n<TABLE WIDTH=\"100%\" BORDER=1 cellspacing=0><CAPTION align=left><font size=4><b>Additional Pager Settings</b></font></CAPTION>\n<TR CLASS=\"tabhead\">\n<TH>Name</TH>\n<TH>Status</TH>\n<TH>Type</TH>\n<TH>Phone</TH>\n<TH>PIN</TH>\n<TH WIDTH=\"2%\">Edit</TH>\n<TH WIDTH=\"2%\">Test</TH>\n<TH WIDTH=\"1%\">Del</TH>\n");
             if(!enumeration1.hasMoreElements())
             {
                 outputStream.println("<TR><TD></TD><TD></TD><TD align=center>no additional pager settings</TD><TD></TD><TD></TD></TR>\n");
             } else
             {
-                jgl.HashMap hashmap1;
+                HashMap hashmap1;
                 for(; enumeration1.hasMoreElements(); outputStream.println("<TD align=center><A HREF=" + getPageLink("pagerPrefs", "Delete") + "&additionalPager=" + COM.dragonflow.Page.pagerPrefsPage.getValue(hashmap1, "_id") + ">X</TD></TR>"))
                 {
                     hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration1.nextElement());
@@ -315,13 +315,13 @@ label1:
         printFooter(outputStream);
     }
 
-    COM.dragonflow.StandardAction.Page getPageObject(jgl.HashMap hashmap)
+    COM.dragonflow.StandardAction.Page getPageObject(HashMap hashmap)
     {
         COM.dragonflow.SiteView.SiteViewObject siteviewobject = getSettingsGroup();
         COM.dragonflow.StandardAction.Page page = new Page();
         if(hashmap != null)
         {
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             do
             {
                 if(!enumeration.hasMoreElements())
@@ -357,16 +357,16 @@ label1:
         {
             s4 = page.getSetting("_pagerPort");
         }
-        jgl.Array array = page.pagerExec(s4, s3, 0, s, s1, s2);
+        Array array = page.pagerExec(s4, s3, 0, s, s1, s2);
         outputStream.print("<PRE>");
-        for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); outputStream.println(enumeration.nextElement())) { }
+        for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); outputStream.println(enumeration.nextElement())) { }
         outputStream.println("</PRE>");
         printFooter(outputStream);
     }
 
     void printTestForm()
     {
-        jgl.HashMap hashmap = getAdditionalSettings(type, request.getValue("additionalPager"));
+        HashMap hashmap = getAdditionalSettings(type, request.getValue("additionalPager"));
         String s = "Pager Test";
         if(hashmap != null)
         {
@@ -384,7 +384,7 @@ label1:
 
     void testPage()
     {
-        jgl.HashMap hashmap = getAdditionalSettings(type, request.getValue("additionalPager"));
+        HashMap hashmap = getAdditionalSettings(type, request.getValue("additionalPager"));
         String s = "Pager Test";
         if(hashmap != null)
         {
@@ -422,12 +422,12 @@ label1:
             }
             String s1 = request.getValue("message");
             String s3 = page.getPagerCommand(s1);
-            jgl.Array array = page.pagerSend(s1);
+            Array array = page.pagerSend(s1);
             String s4 = "";
             String s5 = "";
             if(array != null)
             {
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 do
                 {
                     if(!enumeration.hasMoreElements())
@@ -442,7 +442,7 @@ label1:
                     s5 = "The message was rejected - this is usually because the PIN number is incorrect or expired. If you're using a 10 digit PIN, try using just the last 7 digits, and no punctuation. If this does not work, try using all 10 digits of the PIN. Less commonly, this error can occur if the message is too long for the paging service.";
                     break;
                 } while(true);
-                for(Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements();)
+                for(Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1.hasMoreElements();)
                 {
                     s4 = s4 + (String)enumeration1.nextElement() + "\n";
                 }

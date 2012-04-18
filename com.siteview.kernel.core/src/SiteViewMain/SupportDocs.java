@@ -9,10 +9,10 @@ import java.io.RandomAccessFile;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.BinaryPredicate;
-import jgl.HashMap;
-import jgl.Sorting;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.BinaryPredicate;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -115,7 +115,7 @@ public class SupportDocs
                 indexwriter.mergeFactor = 20;
                 for(int j = 0; j < array.size(); j++)
                 {
-                    HashMap hashmap = (HashMap)array.at(j);
+                    HashMap hashmap = (HashMap)array.get(j);
                     indexNote(indexwriter, hashmap);
                 }
 
@@ -159,7 +159,7 @@ public class SupportDocs
         HashMap hashmap = new HashMap();
         for(int i = 0; i < array.size(); i++)
         {
-            HashMap hashmap1 = (HashMap)array.at(i);
+            HashMap hashmap1 = (HashMap)array.get(i);
             String s2 = TOPICS_DIRECTORY + "topic" + TextUtils.getValue(hashmap1, "id") + ".htm";
             hashmap1.put("filename", s2);
             System.out.println("Processing topic " + TextUtils.getValue(hashmap1, "title"));
@@ -167,9 +167,9 @@ public class SupportDocs
             Array array2 = new Array();
             for(int j1 = 0; j1 < array1.size(); j1++)
             {
-                HashMap hashmap7 = (HashMap)array1.at(j1);
+                HashMap hashmap7 = (HashMap)array1.get(j1);
                 boolean flag1 = false;
-                Enumeration enumeration = hashmap7.values("topic");
+                Enumeration enumeration = (Enumeration) hashmap7.values("topic");
                 do
                 {
                     if(!enumeration.hasMoreElements())
@@ -219,7 +219,7 @@ public class SupportDocs
         System.out.println("Looking for note inconsistencies...");
         for(int j = 0; j < array1.size(); j++)
         {
-            HashMap hashmap3 = (HashMap)array1.at(j);
+            HashMap hashmap3 = (HashMap)array1.get(j);
             if(hashmap3.get("topicList") == null)
             {
                 flag = true;
@@ -236,7 +236,7 @@ public class SupportDocs
         HashMap hashmap2 = new HashMap();
         for(int k = 0; k < array1.size(); k++)
         {
-            HashMap hashmap4 = (HashMap)array1.at(k);
+            HashMap hashmap4 = (HashMap)array1.get(k);
             String s4 = TextUtils.getValue(hashmap4, "idnum");
             HashMap hashmap6 = (HashMap)hashmap2.get(s4);
             if(hashmap6 != null)
@@ -259,17 +259,17 @@ public class SupportDocs
         System.out.println("Writing note files...");
         for(int l = 0; l < array1.size(); l++)
         {
-            HashMap hashmap5 = (HashMap)array1.at(l);
+            HashMap hashmap5 = (HashMap)array1.get(l);
             SupportNoteUtils.writeNoteFile(s, hashmap5, notePublicTemplate);
             if(TextUtils.getValue(hashmap5, "id").length() > 0)
                 SupportNoteUtils.writeIDNoteFile(s, hashmap5, noteRedirectTemplate);
             if(s1.length() > 0)
-                SupportNoteUtils.writeNoteFile(s1, (HashMap)array1.at(l), noteInternalTemplate);
+                SupportNoteUtils.writeNoteFile(s1, (HashMap)array1.get(l), noteInternalTemplate);
         }
 
         System.out.println("Writing topic files...");
         for(int i1 = 0; i1 < array.size(); i1++)
-            writeTopicFile(s, (HashMap)array.at(i1));
+            writeTopicFile(s, (HashMap)array.get(i1));
 
         System.out.println("Writing index files...");
         writeIndexFiles(s, array, "", "");
@@ -319,7 +319,7 @@ public class SupportDocs
             stringbuffer.append("Subtopics: <BR>\n");
             for(int i = 0; i < array1.size(); i++)
             {
-                HashMap hashmap1 = (HashMap)array1.at(i);
+                HashMap hashmap1 = (HashMap)array1.get(i);
                 stringbuffer.append("<BR><A HREF=../" + TextUtils.getValue(hashmap1, "filename") + ">" + TextUtils.getValue(hashmap1, "title") + "</A>\n");
             }
 
@@ -328,7 +328,7 @@ public class SupportDocs
         stringbuffer.append("<P>Notes on this topic: <P>\n");
         for(int j = 0; j < array.size(); j++)
         {
-            HashMap hashmap2 = (HashMap)array.at(j);
+            HashMap hashmap2 = (HashMap)array.get(j);
             stringbuffer.append("<P><A HREF=../" + TextUtils.getValue(hashmap2, "filename") + ">" + TextUtils.getValue(hashmap2, "title") + "</A>\n");
         }
 
@@ -470,14 +470,14 @@ public class SupportDocs
         for(int i = 0; i < array.size(); i++)
         {
             boolean flag1 = false;
-            HashMap hashmap2 = (HashMap)array.at(i);
+            HashMap hashmap2 = (HashMap)array.get(i);
             Array array1 = (Array)hashmap2.get("notes");
             StringBuffer stringbuffer4 = new StringBuffer();
             if(array1 == null)
                 continue;
             for(int j = 0; j < array1.size(); j++)
             {
-                HashMap hashmap3 = (HashMap)array1.at(j);
+                HashMap hashmap3 = (HashMap)array1.get(j);
                 boolean flag2 = true;
                 if(as != null)
                 {

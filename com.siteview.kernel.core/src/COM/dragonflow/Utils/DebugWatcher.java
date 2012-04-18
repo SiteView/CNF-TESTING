@@ -97,7 +97,7 @@ public class DebugWatcher
             StringBuffer stringbuffer = new StringBuffer();
             stringbuffer.append("------- Monitors -------\n");
             int i = 0;
-            for(Enumeration enumeration = findobjectsofclassvisitor.getResults().elements(); enumeration.hasMoreElements(); stringbuffer.append("\n"))
+            for(Enumeration enumeration = (Enumeration) findobjectsofclassvisitor.getResults().iterator(); enumeration.hasMoreElements(); stringbuffer.append("\n"))
             {
                 COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)enumeration.nextElement();
                 i++;

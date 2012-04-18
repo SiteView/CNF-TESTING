@@ -27,8 +27,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Api.Alert;
 import COM.dragonflow.ConfigurationManager.CfgChangesSink;
 import COM.dragonflow.ConfigurationManager.InternalIdsManager;
@@ -199,7 +199,7 @@ public class ConfigurationChanger {
         if (groupIDList.size() > 0) {
             printProgressMessage(s + " group" + (groupIDList.size() <= 1 ? "" : "s") + "<BR>");
             for (int i = 0; i < groupIDList.size(); i ++) {
-                String s1 = (String) groupIDList.at(i);
+                String s1 = (String) groupIDList.get(i);
                 setGroupTopazLogFilter(s1, s);
             }
 
@@ -209,7 +209,7 @@ public class ConfigurationChanger {
     private void setMonitorTopazLogFilter(String s) {
         HashMap hashmap = new HashMap();
         for (int i = 0; i < monitorIDList.size(); i ++) {
-            String s1 = (String) monitorIDList.at(i);
+            String s1 = (String) monitorIDList.get(i);
             int j = s1.indexOf(' ');
             if (j < 0) {
                 continue;
@@ -232,7 +232,7 @@ public class ConfigurationChanger {
         }
 
         String s2;
-        for (Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); setMonitorTopazLogProperties(s2, (Array) hashmap.get(s2), s)) {
+        for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements(); setMonitorTopazLogProperties(s2, (Array) hashmap.get(s2), s)) {
             s2 = (String) enumeration.nextElement();
         }
 
@@ -348,7 +348,7 @@ public class ConfigurationChanger {
             try {
                 for (int i = 0; i < array.size(); i ++) {
                     Array array2 = getGroupFrames(s);
-                    HashMap hashmap = CGI.findMonitor(array2, (String) array.at(i));
+                    HashMap hashmap = CGI.findMonitor(array2, (String) array.get(i));
                     AtomicMonitor atomicmonitor = (AtomicMonitor) AtomicMonitor.createMonitor(hashmap, "");
                     setTopazLogProperties(atomicmonitor, array1, s1);
                 }
@@ -371,7 +371,7 @@ public class ConfigurationChanger {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        HashMap hashmap = (HashMap) array.at(i);
+        HashMap hashmap = (HashMap) array.get(i);
         atomicmonitor.unsetProperty(AtomicMonitor.pOnlyLogMonitorData);
         atomicmonitor.unsetProperty(AtomicMonitor.pOnlyLogStatusChanges);
         atomicmonitor.unsetProperty(AtomicMonitor.pOnlyLogThresholdMeas);
@@ -437,7 +437,7 @@ public class ConfigurationChanger {
         if (monitorIDList.size() > 0) {
             printProgressMessage("Deleting monitor" + (monitorIDList.size() <= 1 ? "" : "s") + "<BR>");
             for (int i = 0; i < monitorIDList.size(); i ++) {
-                String s = (String) monitorIDList.at(i);
+                String s = (String) monitorIDList.get(i);
                 deleteMonitorInternal(s.replace('/', ' '));
             }
 
@@ -446,7 +446,7 @@ public class ConfigurationChanger {
         if (groupIDList.size() > 0) {
             printProgressMessage("Deleting group" + (groupIDList.size() <= 1 ? "" : "s") + "<BR>");
             for (int j = 0; j < groupIDList.size(); j ++) {
-                String s1 = (String) groupIDList.at(j);
+                String s1 = (String) groupIDList.get(j);
                 deleteGroupInternal(s1);
             }
 
@@ -469,7 +469,7 @@ public class ConfigurationChanger {
         if (monitorIDList.size() > 0) {
             printProgressMessage(s1 + " monitor" + (monitorIDList.size() <= 1 ? "" : "s") + "<BR>");
             for (int i = 0; i < monitorIDList.size(); i ++) {
-                String s2 = (String) monitorIDList.at(i);
+                String s2 = (String) monitorIDList.get(i);
                 disableMonitor(s2, s1, replaces, timedDisable, alertDisable);
             }
 
@@ -477,7 +477,7 @@ public class ConfigurationChanger {
         if (groupIDList.size() > 0) {
             printProgressMessage(s1 + " group" + (groupIDList.size() <= 1 ? "" : "s") + "<BR>");
             for (int j = 0; j < groupIDList.size(); j ++) {
-                String s3 = (String) groupIDList.at(j);
+                String s3 = (String) groupIDList.get(j);
                 disableGroup(s3, s1, replaces, timedDisable, alertDisable);
             }
 
@@ -550,8 +550,8 @@ public class ConfigurationChanger {
         }
         Array array2 = new Array();
         for (int i = 0; i < array.size(); i ++) {
-            String s1 = (String) array.at(i);
-            String s2 = (String) array1.at(i);
+            String s1 = (String) array.get(i);
+            String s2 = (String) array1.get(i);
             if (debug) {
                 TextUtils.debugPrint("MONITORSPEC=" + s1);
             }
@@ -574,7 +574,7 @@ public class ConfigurationChanger {
             if (l < 1) {
                 continue;
             }
-            HashMap hashmap2 = (HashMap) array4.at(l);
+            HashMap hashmap2 = (HashMap) array4.get(l);
             if (flag) {
                 if (debug) {
                     TextUtils.debugPrint("REMOVING MONITOR - INDEX=" + l);
@@ -607,7 +607,7 @@ public class ConfigurationChanger {
             s3 = "1";
         }
         for (int j = 0; j < array2.size(); j ++) {
-            HashMap hashmap1 = (HashMap) array2.at(j);
+            HashMap hashmap1 = (HashMap) array2.get(j);
             hashmap1.put("_id", s3);
             s3 = TextUtils.increment(s3);
             array3.add(hashmap1);
@@ -630,9 +630,9 @@ public class ConfigurationChanger {
     public void manageGroups(Array array, Array array1, String s, boolean flag, String as[]) throws Exception {
         Array array2 = new Array();
         for (int i = 0; i < array.size(); i ++) {
-            String s1 = (String) array.at(i);
+            String s1 = (String) array.get(i);
             String s2 = CGI.getGroupIDRelative(s1);
-            String s3 = (String) array1.at(i);
+            String s3 = (String) array1.get(i);
             if (s3.length() == 0) {
                 s3 = s1;
             }
@@ -654,7 +654,7 @@ public class ConfigurationChanger {
                 Array array5 = getGroupFrames(s6);
                 int k = CGI.findSubGroupIndex(array5, s2);
                 if (k >= 1) {
-                    obj = (HashMap) array5.at(k);
+                    obj = (HashMap) array5.get(k);
                     if (flag) {
                         if (debug) {
                             TextUtils.debugPrint("REMOVING SUBGROUP - INDEX=" + k);
@@ -702,7 +702,7 @@ public class ConfigurationChanger {
                 s4 = "1";
             }
             for (int j = 0; j < array2.size(); j ++) {
-                HashMap hashmap2 = (HashMap) array2.at(j);
+                HashMap hashmap2 = (HashMap) array2.get(j);
                 hashmap2.put("_id", s4);
                 s4 = TextUtils.increment(s4);
                 array3.add(hashmap2);
@@ -737,7 +737,7 @@ public class ConfigurationChanger {
         s = CGI.computeGroupName(s, request);
         s1 = CGI.getGroupIDRelative(s);
         if (as.length > 0) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                 HashMap hashmap1 = (HashMap) enumeration.nextElement();
                 if (as.length > 0 && Monitor.isMonitorFrame(hashmap1)) {
@@ -752,7 +752,7 @@ public class ConfigurationChanger {
             hashmap.put("_group", I18N.toNullEncoding(s1));
         }
         for (int i = 1; i < array.size(); i ++) {
-            HashMap hashmap2 = (HashMap) array.at(i);
+            HashMap hashmap2 = (HashMap) array.get(i);
             if (!TextUtils.getValue(hashmap2, "_class").equals("SubGroup")) {
                 continue;
             }
@@ -765,7 +765,7 @@ public class ConfigurationChanger {
                 array3 = null;
             }
             if (array3 != null && array3.size() > 0) {
-                HashMap hashmap4 = (HashMap) array3.at(0);
+                HashMap hashmap4 = (HashMap) array3.get(0);
                 hashmap4.put("_parent", I18N.toNullEncoding(s1));
                 duplicateGroupFile(s3, array3, hashmap2, as);
             }
@@ -777,7 +777,7 @@ public class ConfigurationChanger {
         CGI.WriteGroupFrames(s, array, request);
         SiteViewGroup.updateStaticPages(s);
         Array array1 = getGroupFrames(s);
-        Enumeration enumeration1 = array1.elements();
+        Enumeration enumeration1 =  (Enumeration) array1.iterator();
         Array array2 = new Array();
         while (enumeration1.hasMoreElements()) {
             HashMap hashmap3 = (HashMap) enumeration1.nextElement();
@@ -857,7 +857,7 @@ public class ConfigurationChanger {
         }
         Array array = new Array();
         Array array1 = getReportFrameList();
-        for (Enumeration enumeration = array1.elements(); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration =  (Enumeration) array1.iterator(); enumeration.hasMoreElements();) {
             HashMap hashmap = (HashMap) enumeration.nextElement();
             if (!Monitor.isReportFrame(hashmap)) {
                 array.add(hashmap);
@@ -865,7 +865,7 @@ public class ConfigurationChanger {
                 HashMap hashmap1 = copyHashMap(hashmap);
                 hashmap1.remove("monitors");
                 String s5 = TextUtils.getValue(hashmap1, "title");
-                Enumeration enumeration1 = hashmap.values("monitors");
+                Enumeration enumeration1 = (Enumeration) hashmap.values("monitors");
                 while (enumeration1.hasMoreElements()) {
                     String s6 = (String) enumeration1.nextElement();
                     String as[] = TextUtils.split(s6);
@@ -951,7 +951,7 @@ public class ConfigurationChanger {
             return;
         }
         Array array = getGroupFrames(s);
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         HashMap hashmap = (HashMap) enumeration.nextElement();
         String s1 = I18N.toDefaultEncoding(TextUtils.getValue(hashmap, "_parent"));
         if (s1.length() != 0) {
@@ -983,7 +983,7 @@ public class ConfigurationChanger {
         }
 
         for (int j = 0; j < array2.size(); j ++) {
-            deleteGroupInternal((String) array2.at(j));
+            deleteGroupInternal((String) array2.get(j));
         }
 
         if (JdbcConfig.configInDB()) {
@@ -1027,7 +1027,7 @@ public class ConfigurationChanger {
             obj = new HashMap();
         }
         Object obj1;
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         while (enumeration.hasMoreElements()) {
             obj1 = enumeration.nextElement();
             ((HashMap) (obj)).put(obj1, hashmap.get(obj1));
@@ -1049,7 +1049,7 @@ public class ConfigurationChanger {
         }
         printProgressMessage(s1 + " " + s4 + " Group<BR>");
         for (int i = 1; i < array.size(); i ++) {
-            HashMap hashmap = (HashMap) array.at(i);
+            HashMap hashmap = (HashMap) array.get(i);
             String s6 = TextUtils.getValue(hashmap, "_class");
             if (s6.equals("SubGroup")) {
                 String s7 = I18N.toDefaultEncoding(TextUtils.getValue(hashmap, "_group"));
@@ -1244,7 +1244,7 @@ public class ConfigurationChanger {
         monitorgroup.unsetProperty(MonitorGroup.pID);
         HashMap hashmap = new HashMap(monitorgroup.getValuesTable());
         monitorgroup.setProperty(MonitorGroup.pID, s1);
-        array.replace(array.at(0), hashmap);
+        array.replace(array.get(0), hashmap);
         java.util.HashMap hashmap1 = getMonitorFramesById(s, array);
         Vector vector = new Vector();
         vector.add(monitorgroup);
@@ -1305,7 +1305,7 @@ public class ConfigurationChanger {
     public static java.util.HashMap getMonitorFramesById(String s, Array array) {
         java.util.HashMap hashmap = new java.util.HashMap();
         for (int i = 1; i < array.size(); i ++) {
-            HashMap hashmap1 = (HashMap) array.at(i);
+            HashMap hashmap1 = (HashMap) array.get(i);
             String s1 = (String) hashmap1.get("_class");
             if (s1 == null || s1.equalsIgnoreCase("SubGroup")) {
                 continue;
@@ -1326,7 +1326,7 @@ public class ConfigurationChanger {
     }
 
     private static int getNextId(Array array, boolean flag) {
-        HashMap hashmap = (HashMap) array.at(0);
+        HashMap hashmap = (HashMap) array.get(0);
         int i = 1;
         int j = TextUtils.toInt(TextUtils.getValue(hashmap, SiteViewObject.pNextID.getName()));
         if (j > i) {
@@ -1336,7 +1336,7 @@ public class ConfigurationChanger {
             return i;
         }
         for (int k = 1; k < array.size(); k ++) {
-            HashMap hashmap1 = (HashMap) array.at(k);
+            HashMap hashmap1 = (HashMap) array.get(k);
             int l = TextUtils.toInt((String) hashmap1.get(Monitor.pID.getName()));
             if (l >= i) {
                 i = l + 1;
@@ -1521,7 +1521,7 @@ public class ConfigurationChanger {
         Vector vector1 = getGroupsFromFile(array1);
         Vector vector2 = new Vector();
         for (int i = 0; i < array2.size(); i ++) {
-            String s = getGroupIdFromFile((File) array2.at(i));
+            String s = getGroupIdFromFile((File) array2.get(i));
             if (s != null) {
                 vector2.add(s);
             }
@@ -1599,7 +1599,7 @@ public class ConfigurationChanger {
 
     private static boolean listContainsFile(Array array, String s) {
         for (int i = 0; array != null && i < array.size(); i ++) {
-            File file = (File) array.at(i);
+            File file = (File) array.get(i);
             if (file.getAbsolutePath().endsWith(s)) {
                 return true;
             }
@@ -1642,7 +1642,7 @@ public class ConfigurationChanger {
     private static Vector getGroupsFromFile(Array array) {
         Vector vector = new Vector();
         for (int i = 0; array != null && i < array.size(); i ++) {
-            File file = (File) array.at(i);
+            File file = (File) array.get(i);
             String s = getGroupIdFromFile(file);
             if (s != null) {
                 vector.add(s);

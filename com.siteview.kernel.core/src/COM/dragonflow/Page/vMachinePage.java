@@ -13,8 +13,8 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 
@@ -129,7 +129,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         }
 
         s1 = cgi.computeGroupName(s1);
-        jgl.Array array = new Array();
+        Array array = new Array();
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(
                 true);
         hashmapordered.put("_name", "config");
@@ -137,14 +137,14 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
             hashmapordered.put("_parent", COM.dragonflow.Page.vMachinePage
                     .getGroupIDRelative(s3));
             try {
-                jgl.Array array1 = cgi.ReadGroupFrames(s3);
-                jgl.HashMap hashmap = (jgl.HashMap) array1.at(0);
+                Array array1 = cgi.ReadGroupFrames(s3);
+                HashMap hashmap = (HashMap) array1.get(0);
                 String s5 = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                         "_nextID");
                 if (s5.length() == 0) {
                     s5 = "1";
                 }
-                jgl.HashMap hashmap1 = new HashMap();
+                HashMap hashmap1 = new HashMap();
                 hashmap1.put("_id", s5);
                 hashmap1.put("_class", "SubGroup");
                 hashmap1.put("_group", COM.dragonflow.Page.vMachinePage
@@ -227,8 +227,8 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         return true;
     }
 
-    public static jgl.Array readDynamicSets() {
-        jgl.Array array = new Array();
+    public static Array readDynamicSets() {
+        Array array = new Array();
         java.io.File file = new File(dynamicFilePath);
         if (file.exists()) {
             try {
@@ -248,7 +248,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         if (s1.length() == 0) {
             printPrefsBar(getPrefTitle());
         }
-        jgl.Array array = getListTableHeaders();
+        Array array = getListTableHeaders();
         outputStream
                 .println("<p><H2>"
                         + s2
@@ -257,22 +257,22 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
                         + " <a href=/SiteView/docs/MonitorSet.htm>Monitor Sets</a></p>"
                         + "<TABLE WIDTH=100% BORDER=1 cellspacing=0><TR>");
         for (int i = 0; i < array.size(); i++) {
-            outputStream.println("<TH align=left>" + array.at(i) + "</TH>");
+            outputStream.println("<TH align=left>" + array.get(i) + "</TH>");
         }
 
         outputStream.println("</TR>");
-        jgl.Array array1 = COM.dragonflow.Page.vMachinePage.readDynamicSets();
+        Array array1 = COM.dragonflow.Page.vMachinePage.readDynamicSets();
         if (array1.size() == 0) {
             outputStream
                     .println("<TR><TD> </TD><TD align=center>no Dynamic Update Sets defined</TD><TD> </TD></TR>\n");
         } else {
-            for (Enumeration enumeration = array1.elements(); enumeration
+            for (Enumeration enumeration =  (Enumeration) array1.iterator(); enumeration
                     .hasMoreElements(); outputStream.println("</TR>")) {
-                jgl.HashMap hashmap = (jgl.HashMap) enumeration.nextElement();
-                jgl.Array array2 = getListTableRow(hashmap);
+                HashMap hashmap = (HashMap) enumeration.nextElement();
+                Array array2 = getListTableRow(hashmap);
                 outputStream.println("<TR>");
                 for (int j = 0; j < array2.size(); j++) {
-                    outputStream.println("<TD align=left>" + array2.at(j)
+                    outputStream.println("<TD align=left>" + array2.get(j)
                             + "</TD>");
                 }
 
@@ -320,24 +320,24 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         adjustDynamicConfig(null, s);
     }
 
-    void addDynamicSet(jgl.HashMap hashmap) {
+    void addDynamicSet(HashMap hashmap) {
         adjustDynamicConfig(hashmap, null);
     }
 
-    void changeDynamicSet(jgl.HashMap hashmap) {
+    void changeDynamicSet(HashMap hashmap) {
         adjustDynamicConfig(hashmap, COM.dragonflow.Utils.TextUtils.getValue(
                 hashmap, "_id"));
     }
 
-    void adjustDynamicConfig(jgl.HashMap hashmap, String s) {
-        jgl.Array array = null;
+    void adjustDynamicConfig(HashMap hashmap, String s) {
+        Array array = null;
         array = COM.dragonflow.Page.vMachinePage.readDynamicSets();
-        jgl.Array array1;
+        Array array1;
         if (hashmap != null && s == null) {
             try {
-                jgl.HashMap hashmap1 = getMasterConfig();
+                HashMap hashmap1 = getMasterConfig();
                 if (!request.isStandardAccount()) {
-                    hashmap1 = (jgl.HashMap) array.at(0);
+                    hashmap1 = (HashMap) array.get(0);
                 } else {
                     hashmap1 = getMasterConfig();
                 }
@@ -359,9 +359,9 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
             array1.add(hashmap);
         } else {
             array1 = new Array();
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap2 = (jgl.HashMap) enumeration.nextElement();
+                HashMap hashmap2 = (HashMap) enumeration.nextElement();
                 String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2,
                         "_id");
                 if (s1 != null
@@ -379,7 +379,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         saveDynamicFrameList(array1, request.getAccount());
     }
 
-    public void saveDynamicFrameList(jgl.Array array, String s) {
+    public void saveDynamicFrameList(Array array, String s) {
         try {
             if (!COM.dragonflow.SiteView.Platform.isStandardAccount(s)) {
                 WriteGroupFrames(s, array);
@@ -396,7 +396,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         }
     }
 
-    void displayForm(jgl.HashMap hashmap, String s) {
+    void displayForm(HashMap hashmap, String s) {
         java.util.Vector vector = COM.dragonflow.SiteView.SiteViewGroup
                 .getTemplateList("templates.sets", request);
         String s1 = "";
@@ -438,7 +438,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         String s5 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_parent");
         try {
             if (COM.dragonflow.Page.treeControl.useTree()) {
-                jgl.Array array = new Array();
+                Array array = new Array();
                 if (s5.length() > 0) {
                     array.add(s5);
                 }
@@ -657,17 +657,17 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         return stringbuffer.toString();
     }
 
-    public static jgl.HashMap findDynamicFrame(String s) {
-        jgl.HashMap hashmap = new HashMap();
-        jgl.Array array = null;
+    public static HashMap findDynamicFrame(String s) {
+        HashMap hashmap = new HashMap();
+        Array array = null;
         try {
             array = COM.dragonflow.Properties.FrameFile
                     .readFromFile(COM.dragonflow.SiteView.Platform.getRoot()
                             + java.io.File.separator + "groups"
                             + java.io.File.separator + "dynamic.config");
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap1 = (jgl.HashMap) enumeration.nextElement();
+                HashMap hashmap1 = (HashMap) enumeration.nextElement();
                 String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1,
                         "_id");
                 if (s1.equals(s)) {
@@ -681,7 +681,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
     }
 
     void printAddForm(String s) throws Exception {
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         String s1 = getMachineID();
         if (request.isPost()
                 && COM.dragonflow.Page.treeControl.notHandled(request)) {
@@ -745,7 +745,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         printFooter(outputStream);
     }
 
-    void saveAddProperties(jgl.HashMap hashmap, String s) {
+    void saveAddProperties(HashMap hashmap, String s) {
         String s1 = request.getValue("host");
         hashmap.put("_id", s);
         hashmap.put("_host", s1);
@@ -773,7 +773,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
     }
 
     jgl.Array getListTableHeaders() {
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add(new String("Name"));
         array.add(new String("Server"));
         if (request.actionAllowed("_preference")) {
@@ -784,8 +784,8 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         return array;
     }
 
-    jgl.Array getListTableRow(jgl.HashMap hashmap) {
-        jgl.Array array = new Array();
+    jgl.Array getListTableRow(HashMap hashmap) {
+        Array array = new Array();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
         String s1 = COM.dragonflow.Page.vMachinePage.getValue(hashmap, "_name");
         if (s1.length() == 0) {

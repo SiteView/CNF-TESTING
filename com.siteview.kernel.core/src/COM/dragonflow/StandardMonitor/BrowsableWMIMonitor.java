@@ -27,7 +27,7 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -218,7 +218,7 @@ public class BrowsableWMIMonitor extends BrowsableBase {
         return "WMI on " + getProperty(pHost);
     }
 
-    public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == pHost) {
             if (s.length() == 0) {
                 hashmap.put(stringproperty, stringproperty.getLabel() + " missing");
@@ -266,7 +266,7 @@ public class BrowsableWMIMonitor extends BrowsableBase {
 
     public void setMaxCounters(int i) {
         nMaxCounters = i;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         hashmap.put("_BrowsableWMIMaxCounters", (new Integer(i)).toString());
         MasterConfig.saveMasterConfig(hashmap);
     }
@@ -322,7 +322,7 @@ public class BrowsableWMIMonitor extends BrowsableBase {
     static {
         mConnectionProps = new Array();
         nMaxCounters = 10;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         nMaxCounters = TextUtils.toInt(TextUtils.getValue(hashmap, "_BrowsableWMIMaxCounters"));
         if (nMaxCounters == 0) {
             nMaxCounters = 10;

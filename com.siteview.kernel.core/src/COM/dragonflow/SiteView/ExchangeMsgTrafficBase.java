@@ -195,7 +195,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
         }
     }
 
-    public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == pInterval || stringproperty == pMsgSize || stringproperty == pRecipients) {
             int i = 0;
             try {
@@ -360,7 +360,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
             }
         }
 
-        Iterator iterator = hashmap.values().iterator();
+        Iterator iterator = (Enumeration) hashmap.values().iterator();
         while (iterator.hasNext()) {
             Map map = (Map) iterator.next();
             String s1 = (String) map.get("SenderAddress");
@@ -433,7 +433,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
         addProperties(s, astringproperty);
         inboundEntryTypes = new HashSet();
         outboundEntryTypes = new HashSet();
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         String s1 = (String) hashmap.get("_exchangeInboundTypes");
         if (s1 == null || s1.trim().equals("")) {
             s1 = "1012";

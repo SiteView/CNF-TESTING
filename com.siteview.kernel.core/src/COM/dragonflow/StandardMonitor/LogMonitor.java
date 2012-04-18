@@ -25,7 +25,7 @@ import COM.dragonflow.SiteView.LogMonitorBase;
 import COM.dragonflow.SiteView.Rule;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import java.util.Vector;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 public class LogMonitor extends LogMonitorBase
 {

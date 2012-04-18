@@ -24,8 +24,8 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.JdbcLogger;
 import COM.dragonflow.Log.LogManager;
@@ -184,7 +184,7 @@ public class NTCounterMonitor extends ServerMonitor
                 Array array = getCounters();
                 for(int i = 0; i < array.size(); i++)
                 {
-                    PerfCounter perfcounter = (PerfCounter)array.at(i);
+                    PerfCounter perfcounter = (PerfCounter)array.get(i);
                     labelsCache.add("Counter " + (i + 1) + " Value", perfcounter.object + " : " + perfcounter.counterName + ":" + perfcounter.instance);
                     labelsCache.add("Counter " + (i + 1) + " Percent Deviation", perfcounter.object + " : " + perfcounter.counterName + ":" + perfcounter.instance + " Percent Deviation");
                 }
@@ -282,10 +282,10 @@ public class NTCounterMonitor extends ServerMonitor
         Array array = Platform.split(' ', s2);
         if(array.size() >= 1)
         {
-            Array array1 = Platform.split('=', (String)array.at(0));
+            Array array1 = Platform.split('=', (String)array.get(0));
             if(array1.size() == 2)
             {
-                s3 = (String)array1.at(1);
+                s3 = (String)array1.get(1);
             }
         }
         Array array2 = new Array();
@@ -367,7 +367,7 @@ label0:
             StringBuffer stringbuffer = new StringBuffer();
             Array array1 = NTCounterBase.getPerfData(s, array, stringbuffer, showDebug, this, array2, mIDMap);
             s3 = stringbuffer.toString();
-            enumeration = array1.elements();
+            enumeration =  (Enumeration) array1.iterator();
             if(enumeration.hasMoreElements())
             {
             	lMeasureTime = TextUtils.toLong((String)enumeration.nextElement());
@@ -437,7 +437,7 @@ label0:
         long l7 = getSettingAsLong("_NTCounterSummaryMax", 3);
         while(enumeration.hasMoreElements()) 
         {
-            PerfCounter perfcounter = (PerfCounter)array.at(j1);
+            PerfCounter perfcounter = (PerfCounter)array.get(j1);
             String s5 = (String)enumeration.nextElement();
             float fResult = (0.0F / 0.0F);
             long l8 = 0L;
@@ -679,7 +679,7 @@ label0:
                             StringBuffer stringbuffer1 = new StringBuffer();
                             for(int j2 = 0; j2 < array2.size(); j2++)
                             {
-                                stringbuffer1.append(array2.at(j2) + "\n");
+                                stringbuffer1.append(array2.get(j2) + "\n");
                             }
 
                             LogManager.log("Error", "NTCounterMonitor: " + getFullID() + " failed, output:\n" + stringbuffer1);
@@ -744,7 +744,7 @@ label0:
         int k = 0;
         for(int l = 0; l < array.size(); l++)
         {
-            float f3 = TextUtils.toFloat((String)array.at(l));
+            float f3 = TextUtils.toFloat((String)array.get(l));
             if(f3 != 0.0F)
             {
                 f1 += f3;
@@ -765,7 +765,7 @@ label0:
         s = "";
         for(int i1 = 0; i1 < array.size(); i1++)
         {
-            s = s + (String)array.at(i1);
+            s = s + (String)array.get(i1);
             s = s + "\t";
         }
 
@@ -840,7 +840,7 @@ label0:
         }
 
         array.add(pErrCnt);
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public String defaultTitle()
@@ -1035,7 +1035,7 @@ label0:
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for(int k = 0; k < array.size(); k++)
         {
-            astringproperty[k] = (StringProperty)array.at(k);
+            astringproperty[k] = (StringProperty)array.get(k);
         }
 
         addProperties("COM.dragonflow.StandardMonitor.NTCounterMonitor", astringproperty);

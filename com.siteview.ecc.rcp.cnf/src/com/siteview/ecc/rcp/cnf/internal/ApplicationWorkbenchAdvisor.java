@@ -17,6 +17,7 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor
 
     public void initialize(IWorkbenchConfigurer configurer)
     {
+    	configurer.setSaveAndRestore(true);
     }
 
     public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer)

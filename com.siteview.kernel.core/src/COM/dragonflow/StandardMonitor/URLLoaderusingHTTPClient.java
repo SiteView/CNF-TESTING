@@ -21,8 +21,8 @@ package COM.dragonflow.StandardMonitor;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.ApacheHttpClientUtils.HTTPRequestSettings;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.SiteView.AtomicMonitor;
@@ -494,7 +494,7 @@ label0:
     {
         if(contentMatches.size() > 0)
         {
-            URLLoadInfousingHTTPClient urlloadinfousinghttpclient = (URLLoadInfousingHTTPClient)contentMatches.at(0);
+            URLLoadInfousingHTTPClient urlloadinfousinghttpclient = (URLLoadInfousingHTTPClient)contentMatches.get(0);
             return urlloadinfousinghttpclient.contents;
         } else
         {
@@ -506,7 +506,7 @@ label0:
     {
         if(errorMatches.size() > 0)
         {
-            URLLoadInfousingHTTPClient urlloadinfousinghttpclient = (URLLoadInfousingHTTPClient)errorMatches.at(0);
+            URLLoadInfousingHTTPClient urlloadinfousinghttpclient = (URLLoadInfousingHTTPClient)errorMatches.get(0);
             return urlloadinfousinghttpclient.contents;
         } else
         {

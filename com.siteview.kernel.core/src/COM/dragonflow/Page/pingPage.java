@@ -132,7 +132,7 @@ public class pingPage extends COM.dragonflow.Page.CGI
                     String s14 = "";
                     String s15 = "";
                     long l = 50000L;
-                    jgl.Array array = null;
+                    Array array = null;
                     StringBuffer stringbuffer1 = new StringBuffer(s);
                     COM.dragonflow.Utils.SocketSession socketsession = COM.dragonflow.Utils.SocketSession.getSession(null);
                     long al[] = COM.dragonflow.StandardMonitor.URLMonitor.checkURL(socketsession, s, s8, s10, s12, s13, s14, array, s7, s11, s3, stringbuffer, l, s15, 0, 0x1d4c0, stringbuffer1);

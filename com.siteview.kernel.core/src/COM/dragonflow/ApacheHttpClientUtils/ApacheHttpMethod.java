@@ -20,6 +20,8 @@ package COM.dragonflow.ApacheHttpClientUtils;
 import java.util.Date;
 import java.util.Enumeration;
 
+import com.recursionsw.jgl.HashMap;
+
 import COM.dragonflow.Utils.HTMLTagParser;
 
 // Referenced classes of package COM.dragonflow.ApacheHttpClientUtils:
@@ -244,9 +246,9 @@ public class ApacheHttpMethod {
                 String s3;
                 int i;
                 int j;
-                jgl.HashMap hashmap;
+                HashMap hashmap;
                 while (enumeration.hasMoreElements()) {
-                    hashmap = (jgl.HashMap) enumeration.nextElement();
+                    hashmap = (HashMap) enumeration.nextElement();
                     if (COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                             "http-equiv").equalsIgnoreCase("refresh")) {
                         s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap,

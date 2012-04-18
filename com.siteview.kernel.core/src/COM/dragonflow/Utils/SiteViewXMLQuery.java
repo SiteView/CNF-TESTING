@@ -19,10 +19,11 @@
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.HashMapOrdered;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // ParseException, Expression, InterpreterException, TextUtils,
@@ -31,16 +32,16 @@ import COM.dragonflow.Properties.HashMapOrdered;
 public class SiteViewXMLQuery
 {
 
-    jgl.HashMap categoryFilter;
-    jgl.HashMap typeFilter;
-    jgl.HashMap groupFilter;
+    HashMap categoryFilter;
+    HashMap typeFilter;
+    HashMap groupFilter;
     String nameFilter;
     String statusFilter;
-    jgl.Array expressionFilter;
-    jgl.Array expressionStringFilter;
-    jgl.HashMap propertyFilter;
-    jgl.HashMap propertySetFilter;
-    jgl.HashMap serverFilter;
+    Array expressionFilter;
+    Array expressionStringFilter;
+    HashMap propertyFilter;
+    HashMap propertySetFilter;
+    HashMap serverFilter;
     int level;
     boolean localRequest;
     boolean includeRemoteServers;
@@ -53,16 +54,16 @@ public class SiteViewXMLQuery
     boolean includeEmptyServers;
     public static String TRUE_STRING = "true";
     public static String XML_HEADER = "<?xml version=\"1.0\"?>";
-    jgl.Array servers;
+    Array servers;
     java.io.PrintWriter outputStream;
     StringBuffer buffer;
     COM.dragonflow.HTTP.HTTPRequest request;
-    jgl.HashMap config;
+    HashMap config;
     static final int INDENT_STRING_COUNT = 25;
     static String INDENT_STRING;
     static String indentStrings[];
 
-    public SiteViewXMLQuery(jgl.HashMap hashmap, COM.dragonflow.HTTP.HTTPRequest httprequest)
+    public SiteViewXMLQuery(HashMap hashmap, COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
         categoryFilter = null;
         typeFilter = null;
@@ -118,7 +119,7 @@ public class SiteViewXMLQuery
         {
             expressionFilter = new Array();
             expressionStringFilter = new Array();
-            for(Enumeration enumeration = hashmap.values("exp"); enumeration.hasMoreElements();)
+            for(Enumeration enumeration = (Enumeration) hashmap.values("exp"); enumeration.hasMoreElements();)
             {
                 String s1 = (String)enumeration.nextElement();
                 Object obj = null;
@@ -192,22 +193,22 @@ public class SiteViewXMLQuery
         servers = getServers(hashmap);
     }
 
-    public SiteViewXMLQuery(jgl.HashMap hashmap, java.io.PrintWriter printwriter, COM.dragonflow.HTTP.HTTPRequest httprequest)
+    public SiteViewXMLQuery(HashMap hashmap, java.io.PrintWriter printwriter, COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
         this(hashmap, httprequest);
         outputStream = printwriter;
     }
 
-    public SiteViewXMLQuery(jgl.HashMap hashmap, StringBuffer stringbuffer, COM.dragonflow.HTTP.HTTPRequest httprequest)
+    public SiteViewXMLQuery(HashMap hashmap, StringBuffer stringbuffer, COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
         this(hashmap, httprequest);
         buffer = stringbuffer;
     }
 
-    public jgl.Array getServers(jgl.HashMap hashmap)
+    public Array getServers(HashMap hashmap)
     {
-        jgl.Array array = new Array();
-        jgl.Array array1 = new Array();
+        Array array = new Array();
+        Array array1 = new Array();
         if(includeRemoteServers)
         {
             String s = COM.dragonflow.SiteView.Platform.getRoot() + "/groups/" + "multi.config";
@@ -222,13 +223,13 @@ public class SiteViewXMLQuery
         }
         if(array1.size() == 0)
         {
-            jgl.HashMap hashmap1 = new HashMap();
+            HashMap hashmap1 = new HashMap();
             hashmap1.put("server", "_local");
             array1.add(hashmap1);
         }
-        Enumeration enumeration = array1.elements();
+        Enumeration enumeration =  (Enumeration) array1.iterator();
         while (enumeration.hasMoreElements()) {
-            jgl.HashMap hashmap2 = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap2 = (HashMap)enumeration.nextElement();
             String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "server");
             if(s1.equals("_local") && COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "title").length() == 0)
             {
@@ -277,11 +278,11 @@ public class SiteViewXMLQuery
         }
     }
 
-    public jgl.HashMap setupQueryMap(jgl.HashMap hashmap, String s)
+    public HashMap setupQueryMap(HashMap hashmap, String s)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = null;
         String s1;
-        for(Enumeration enumeration = hashmap.values(s); enumeration.hasMoreElements(); hashmapordered.put(s1, TRUE_STRING))
+        for(Enumeration enumeration = (Enumeration) hashmap.values(s); enumeration.hasMoreElements(); hashmapordered.put(s1, TRUE_STRING))
         {
             s1 = (String)enumeration.nextElement();
             if(hashmapordered == null)
@@ -301,9 +302,9 @@ public class SiteViewXMLQuery
             println("<enterprise>");
         }
         level++;
-        for(Enumeration enumeration = servers.elements(); enumeration.hasMoreElements();)
+        for(Enumeration enumeration = (Enumeration) servers.iterator(); enumeration.hasMoreElements();)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             if(!COM.dragonflow.Utils.TextUtils.getValue(hashmap, "server").equals("_local"))
             {
                 printRemoteServer(hashmap);
@@ -321,11 +322,11 @@ public class SiteViewXMLQuery
                 {
                     println("<serverLink>" + siteviewgroup.mainURL() + "?account=" + request.getAccount() + "</serverLink>");
                 }
-                jgl.Array array = siteviewgroup.getGroupIDs();
+                Array array = siteviewgroup.getGroupIDs();
                 array = sortGroupsForTree(array);
                 for(int i = 0; i < array.size(); i++)
                 {
-                    String s = (String)array.at(i);
+                    String s = (String)array.get(i);
                     COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s);
                     if(monitorgroup != null)
                     {
@@ -335,9 +336,9 @@ public class SiteViewXMLQuery
 
                 if(addAlerts)
                 {
-                    jgl.Array array1 = siteviewgroup.getElementsOfClass("COM.dragonflow.SiteView.Rule", false, false);
+                    Array array1 = siteviewgroup.getElementsOfClass("COM.dragonflow.SiteView.Rule", false, false);
                     COM.dragonflow.SiteView.Rule rule;
-                    for(Enumeration enumeration1 = array1.elements(); enumeration1.hasMoreElements(); printAlert(rule))
+                    for(Enumeration enumeration1 =  (Enumeration) array1.iterator(); enumeration1.hasMoreElements(); printAlert(rule))
                     {
                         rule = (COM.dragonflow.SiteView.Rule)enumeration1.nextElement();
                     }
@@ -399,9 +400,9 @@ public class SiteViewXMLQuery
             }
             if(addAlerts)
             {
-                jgl.Array array = monitorgroup.getElementsOfClass("COM.dragonflow.SiteView.Rule", false, false);
+                Array array = monitorgroup.getElementsOfClass("COM.dragonflow.SiteView.Rule", false, false);
                 COM.dragonflow.SiteView.Rule rule;
-                for(Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements(); printAlert(rule))
+                for(Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1.hasMoreElements(); printAlert(rule))
                 {
                     rule = (COM.dragonflow.SiteView.Rule)enumeration1.nextElement();
                     if(!flag)
@@ -463,7 +464,7 @@ public class SiteViewXMLQuery
             boolean flag = false;
             for(int i = 0; i < expressionFilter.size(); i++)
             {
-                COM.dragonflow.Utils.Expression expression = (COM.dragonflow.Utils.Expression)expressionFilter.at(i);
+                COM.dragonflow.Utils.Expression expression = (COM.dragonflow.Utils.Expression)expressionFilter.get(i);
                 try
                 {
                     java.lang.Boolean boolean1 = (java.lang.Boolean)expression.interpretExpression(monitor, null);
@@ -506,9 +507,9 @@ public class SiteViewXMLQuery
         }
         if(addAlerts)
         {
-            jgl.Array array = monitor.getElementsOfClass("COM.dragonflow.SiteView.Rule", false, false);
+            Array array = monitor.getElementsOfClass("COM.dragonflow.SiteView.Rule", false, false);
             COM.dragonflow.SiteView.Rule rule;
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); printAlert(rule))
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); printAlert(rule))
             {
                 rule = (COM.dragonflow.SiteView.Rule)enumeration.nextElement();
             }
@@ -518,7 +519,7 @@ public class SiteViewXMLQuery
         println("</monitor>");
     }
 
-    void printRemoteServer(jgl.HashMap hashmap)
+    void printRemoteServer(HashMap hashmap)
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "server");
         String s1 = "http://";
@@ -555,7 +556,7 @@ public class SiteViewXMLQuery
             l = 0x7a120L;
         }
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add("page=xml");
         array.add("account=" + s3);
         array.add("license=" + COM.dragonflow.Utils.LUtils.getLicenseKey(config));
@@ -582,7 +583,7 @@ public class SiteViewXMLQuery
         }
         if(expressionFilter != null)
         {
-            for(Enumeration enumeration = expressionStringFilter.elements(); enumeration.hasMoreElements(); array.add(enumeration.nextElement())) { }
+            for(Enumeration enumeration = (Enumeration) expressionStringFilter.iterator(); enumeration.hasMoreElements(); array.add(enumeration.nextElement())) { }
         }
         array.add("remote=true");
         array.add("serverTitle=" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "title"));
@@ -606,12 +607,12 @@ public class SiteViewXMLQuery
         }
     }
 
-    void addMapToPostData(jgl.HashMap hashmap, String s, jgl.Array array)
+    void addMapToPostData(HashMap hashmap, String s, Array array)
     {
         if(hashmap != null)
         {
             String s1;
-            for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); array.add(s + "=" + s1))
+            for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements(); array.add(s + "=" + s1))
             {
                 s1 = (String)enumeration.nextElement();
             }
@@ -673,8 +674,8 @@ public class SiteViewXMLQuery
 
     void printXML(COM.dragonflow.SiteView.SiteViewObject siteviewobject)
     {
-        jgl.Array array = siteviewobject.getProperties();
-        Enumeration enumeration = array.elements();
+        Array array = siteviewobject.getProperties();
+        Enumeration enumeration = (Enumeration) array.iterator();
         while (enumeration.hasMoreElements()) {
             COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
             if(allowProperty(stringproperty))
@@ -717,7 +718,7 @@ public class SiteViewXMLQuery
         {
             as = new String[0];
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         for(int j = 0; j < as.length; j++)
         {
@@ -748,14 +749,14 @@ public class SiteViewXMLQuery
         println("</alert>");
     }
 
-    jgl.Array sortGroupsForTree(jgl.Array array)
+    Array sortGroupsForTree(Array array)
     {
-        jgl.Array array1 = new Array();
+        Array array1 = new Array();
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
         int i = 0;
         for(int j = 0; j < array.size(); j++)
         {
-            String s = (String)array.at(j);
+            String s = (String)array.get(j);
             COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s);
             if(monitorgroup != null && monitorgroup.getProperty(COM.dragonflow.SiteView.MonitorGroup.pParent).length() == 0)
             {
@@ -768,7 +769,7 @@ public class SiteViewXMLQuery
         return array1;
     }
 
-    void findSubgroups(COM.dragonflow.SiteView.MonitorGroup monitorgroup, jgl.Array array, int i)
+    void findSubgroups(COM.dragonflow.SiteView.MonitorGroup monitorgroup, Array array, int i)
     {
         if(groupAllowed(monitorgroup.getProperty(COM.dragonflow.SiteView.Monitor.pID)))
         {

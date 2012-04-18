@@ -179,7 +179,7 @@ public class WMIUtils {
 //            if (j == 0) {
 //                j = 60;
 //            }
-//            jgl.Array array = null;
+//            Array array = null;
 //            COM.dragonflow.Utils.CommandLine commandline = new CommandLine();
 //            String s1 = COM.dragonflow.SiteView.Platform.perfexCommand("") + " -timeout " + j + " -wmi " + s;
 //            if (usePerfexProcessPool) {
@@ -192,9 +192,9 @@ public class WMIUtils {
 //            }
 //            StringBuffer stringbuffer1 = new StringBuffer();
 //            for (int k = 0; k < array.size(); k ++) {
-//                String s3 = (String) array.at(k);
+//                String s3 = (String) array.get(k);
 //                if (s3.indexOf("perfex") == -1) {
-//                    stringbuffer1.append((String) array.at(k));
+//                    stringbuffer1.append((String) array.get(k));
 //                }
 //            }
 //

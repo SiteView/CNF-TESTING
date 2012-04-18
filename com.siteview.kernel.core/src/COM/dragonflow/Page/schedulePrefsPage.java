@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.StandardAction.Page;
@@ -42,7 +42,7 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
 
     public String saveAdditionalSchedulePrefs()
     {
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         StringBuffer stringbuffer = new StringBuffer();
         String s = COM.dragonflow.Properties.ScheduleProperty.requestToScheduleString(request, stringbuffer);
         if(s.length() > 0)
@@ -135,8 +135,8 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
     void printDeleteForm(String s)
     {
         String s1 = request.getValue("schedule_data");
-        jgl.HashMap hashmap = getSettings();
-        jgl.HashMap hashmap1 = null;
+        HashMap hashmap = getSettings();
+        HashMap hashmap1 = null;
         Enumeration enumeration = COM.dragonflow.Page.schedulePrefsPage.getValues(hashmap, "_additionalSchedule");
         do
         {
@@ -144,7 +144,7 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
             {
                 break;
             }
-            jgl.HashMap hashmap2 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
+            HashMap hashmap2 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
             if(COM.dragonflow.Page.schedulePrefsPage.getValue(hashmap2, "_id").equals(s1))
             {
                 hashmap1 = hashmap2;
@@ -177,11 +177,11 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
     void printDebugForm()
     {
         outputStream.print("<P><CENTER><H2>Debug Output for Schedule List</H2></CENTER><P>");
-        jgl.HashMap hashmap = getSettings();
-        jgl.HashMap hashmap2;
+        HashMap hashmap = getSettings();
+        HashMap hashmap2;
         for(Enumeration enumeration = COM.dragonflow.Page.schedulePrefsPage.getValues(hashmap, "_additionalSchedule"); enumeration.hasMoreElements(); outputStream.print("<br>" + hashmap2))
         {
-            jgl.HashMap hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
+            HashMap hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
             outputStream.print("<P>schedule id: " + COM.dragonflow.Page.schedulePrefsPage.getValue(hashmap1, "_id"));
             outputStream.print("<br>schedule name: " + COM.dragonflow.Page.schedulePrefsPage.getValue(hashmap1, "_name"));
             outputStream.print("<br>schedule: " + COM.dragonflow.Page.schedulePrefsPage.getValue(hashmap1, "_schedule"));
@@ -198,7 +198,7 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
         String s = request.getValue("schedule_data");
         if(s.length() > 0)
         {
-            Enumeration enumeration = COM.dragonflow.Page.schedulePrefsPage.getValues(((jgl.HashMap) (obj)), "_additionalSchedule");
+            Enumeration enumeration = COM.dragonflow.Page.schedulePrefsPage.getValues(((HashMap) (obj)), "_additionalSchedule");
             obj = null;
             if(!s.startsWith("new"))
             {
@@ -209,7 +209,7 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
                     {
                         break;
                     }
-                    jgl.HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
+                    HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
                     if(!COM.dragonflow.Page.schedulePrefsPage.getValue(hashmap, "_id").equals(s2))
                     {
                         continue;
@@ -217,7 +217,7 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
                     obj = hashmap;
                     break;
                 } while(true);
-                if(COM.dragonflow.Page.schedulePrefsPage.getValue(((jgl.HashMap) (obj)), "_schedule").startsWith(COM.dragonflow.Properties.ScheduleProperty.absolute_prefix))
+                if(COM.dragonflow.Page.schedulePrefsPage.getValue(((HashMap) (obj)), "_schedule").startsWith(COM.dragonflow.Properties.ScheduleProperty.absolute_prefix))
                 {
                     byte0 = 2;
                 } else
@@ -250,12 +250,12 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
         if(byte0 != 0)
         {
             outputStream.print("<P>Schedule name: <INPUT VALUE=\"");
-            outputStream.print(COM.dragonflow.Page.schedulePrefsPage.getValue(((jgl.HashMap) (obj)), "_name"));
+            outputStream.print(COM.dragonflow.Page.schedulePrefsPage.getValue(((HashMap) (obj)), "_name"));
             outputStream.print("\" NAME=name> &nbsp;&nbsp;&nbsp;Enter a display name for this schedule.<BR><BR>");
             outputStream.print("<INPUT TYPE=HIDDEN NAME=schedule_data VALUE=\"" + s + "\">");
             if(byte0 == 1)
             {
-                COM.dragonflow.Properties.ScheduleProperty.printScheduleTable(outputStream, COM.dragonflow.Page.schedulePrefsPage.getValue(((jgl.HashMap) (obj)), "_schedule"), "");
+                COM.dragonflow.Properties.ScheduleProperty.printScheduleTable(outputStream, COM.dragonflow.Page.schedulePrefsPage.getValue(((HashMap) (obj)), "_schedule"), "");
                 outputStream.print("<P>Schedule time range for monitors to be enabled or disabled - for example, to enable on Sunday from 10:00 to 22:00<BR>To enter 2 ranges in the same day, separate values by a comma. For example, a schedule to enable monitors from  midnight to 1 a.m. and then again from 5 a.m. to 10 p.m. would be entered as <tt>00:00,05:00</tt> in the &quot;from&quot; textbox, and <tt>01:00,22:00</tt> in the &quot;to&quot; textbox. ");
                 if(COM.dragonflow.SiteView.Platform.isSiteSeerAccount(request.getAccount()))
                 {
@@ -264,7 +264,7 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
             }
             if(byte0 == 2)
             {
-                COM.dragonflow.Properties.ScheduleProperty.printAbsoluteScheduleTable(outputStream, COM.dragonflow.Page.schedulePrefsPage.getValue(((jgl.HashMap) (obj)), "_schedule"), "");
+                COM.dragonflow.Properties.ScheduleProperty.printAbsoluteScheduleTable(outputStream, COM.dragonflow.Page.schedulePrefsPage.getValue(((HashMap) (obj)), "_schedule"), "");
                 outputStream.print("<P>Absolute schedule of events for monitors. Separate times ranges in the same day must be separated by a &quot;,&quot; (comma).  For example, entering <tt>2:30,4,15:44</tt> will trigger events at 2:30am, 4:00am, and 3:44pm for a given day.");
                 if(COM.dragonflow.SiteView.Platform.isSiteSeerAccount(request.getAccount()))
                 {
@@ -275,14 +275,14 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
         }
         if(byte0 == 0)
         {
-            Enumeration enumeration1 = COM.dragonflow.Page.schedulePrefsPage.getValues(((jgl.HashMap) (obj)), "_additionalSchedule");
+            Enumeration enumeration1 = COM.dragonflow.Page.schedulePrefsPage.getValues(((HashMap) (obj)), "_additionalSchedule");
             outputStream.print("<P><HR><A NAME=additionalSchedule>Schedules allow you to create named schedules, which you can then specify to trigger monitors.</A><P><CENTER><TABLE WIDTH=\"100%\" BORDER=2 cellspacing=0><CAPTION align=left><font SIZE=4><b>Schedules</b></font></CAPTION>\n<TR CLASS=\"tabhead\"><TH WIDTH=\"60%\">Name</TH><TH WIDTH=\"10%\">Type</TH><TH WIDTH=\"2%\">Edit</TH><TH WIDTH=\"1%\">Del</TH></TR>");
             if(!enumeration1.hasMoreElements())
             {
                 outputStream.print("<TR><TD ALIGN=CENTER>no additional schedules</TD></TR>");
             } else
             {
-                jgl.HashMap hashmap1;
+                HashMap hashmap1;
                 for(; enumeration1.hasMoreElements(); outputStream.print("<TD ALIGN=CENTER><A HREF=" + getPageLink("schedulePrefs", "Delete") + "&schedule_data=" + COM.dragonflow.Page.schedulePrefsPage.getValue(hashmap1, "_id") + ">X</A></TD></TR>"))
                 {
                     hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration1.nextElement());
@@ -314,13 +314,13 @@ public class schedulePrefsPage extends COM.dragonflow.Page.settingsPrefsPage
         printFooter(outputStream);
     }
 
-    COM.dragonflow.StandardAction.Page getPageObject(jgl.HashMap hashmap)
+    COM.dragonflow.StandardAction.Page getPageObject(HashMap hashmap)
     {
         COM.dragonflow.SiteView.SiteViewObject siteviewobject = getSettingsGroup();
         COM.dragonflow.StandardAction.Page page = new Page();
         if(hashmap != null)
         {
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             do
             {
                 if(!enumeration.hasMoreElements())

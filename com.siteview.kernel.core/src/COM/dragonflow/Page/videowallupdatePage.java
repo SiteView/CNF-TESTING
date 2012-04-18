@@ -12,8 +12,8 @@ package COM.dragonflow.Page;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -97,7 +97,7 @@ public class videowallupdatePage extends COM.dragonflow.Page.CGI
                 COM.dragonflow.Utils.TextUtils.debugPrint("config=" + request.getValue("config"));
             }
             printButtonBar("videowallupdate.htm", "");
-            jgl.HashMap hashmap = new HashMap();
+            HashMap hashmap = new HashMap();
             String s1 = "" + request.getValue("vwallname") + "_" + request.getAccount() + ".vid";
             hashmap = loadConfig(hashmap, s1);
             String s2 = (String)hashmap.get("lastupdate");
@@ -161,7 +161,7 @@ public class videowallupdatePage extends COM.dragonflow.Page.CGI
                 configHash.put("starttime" + i, "" + COM.dragonflow.SiteView.Platform.timeMillis());
             }
             saveConfig(configHash, s);
-            jgl.HashMap hashmap1 = new HashMap();
+            HashMap hashmap1 = new HashMap();
             String s3 = "videowallupdate_administrator.vid";
             hashmap1 = loadConfig(hashmap1, s3);
             printButtonBar("videowallupdate.htm", "");
@@ -203,7 +203,7 @@ public class videowallupdatePage extends COM.dragonflow.Page.CGI
         }
     }
 
-    public void printAddForm(jgl.HashMap hashmap)
+    public void printAddForm(HashMap hashmap)
     {
         outputStream.println("<form method=post action=\"/SiteView/cgi/go.exe/SiteView\" name=datasheet >");
         outputStream.println("<input type=hidden name=action value=add><br><br>");
@@ -242,11 +242,11 @@ public class videowallupdatePage extends COM.dragonflow.Page.CGI
         outputStream.println("</td></tr></table><input type=submit value=Add></form>");
     }
 
-    public void saveConfig(jgl.HashMap hashmap, String s)
+    public void saveConfig(HashMap hashmap, String s)
     {
         COM.dragonflow.Utils.TextUtils.debugPrint("saving config from videowallupdate class");
         hashmap.put("lastupdate", java.lang.Long.toString(COM.dragonflow.SiteView.Platform.timeMillis()));
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add(hashmap);
         try
         {
@@ -258,7 +258,7 @@ public class videowallupdatePage extends COM.dragonflow.Page.CGI
         }
     }
 
-    public jgl.HashMap updateHashMap(Enumeration enumeration, jgl.HashMap hashmap)
+    public HashMap updateHashMap(Enumeration enumeration, HashMap hashmap)
     {
         while(enumeration.hasMoreElements()) 
         {
@@ -327,14 +327,14 @@ public class videowallupdatePage extends COM.dragonflow.Page.CGI
         return hashmap;
     }
 
-    public jgl.HashMap loadConfig(jgl.HashMap hashmap, String s)
+    public HashMap loadConfig(HashMap hashmap, String s)
     {
         try
         {
-            jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/templates.view/" + s + "");
+            Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/templates.view/" + s + "");
             if(array != null && array.size() > 0)
             {
-                hashmap = (jgl.HashMap)array.at(0);
+                hashmap = (HashMap)array.get(0);
             }
         }
         catch(java.io.IOException ioexception)

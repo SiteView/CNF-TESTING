@@ -19,12 +19,12 @@ package COM.dragonflow.Properties;
  */
 import java.io.PrintWriter;
 import java.util.Enumeration;
+import java.util.Iterator;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
-public class HashMapOrdered extends HashMap
-{
+public class HashMapOrdered extends HashMap implements java.io.Serializable {
 
  public HashMapOrdered(boolean flag)
  {
@@ -44,7 +44,7 @@ public class HashMapOrdered extends HashMap
      return super.count(obj);
  }
 
- public Object add(Object obj, Object obj1)
+ public boolean add(Object obj, Object obj1)
  {
      if(allowsDuplicates())
      {
@@ -61,20 +61,20 @@ public class HashMapOrdered extends HashMap
                  array.add(obj1);
                  put(obj, array);
              }
-             return null;
+             return false;
          }
      }
      return super.add(obj, obj1);
  }
 
- public synchronized Enumeration values(Object obj)
+ public synchronized Iterator values(Object obj)
  {
      if(allowsDuplicates())
      {
          Object obj1 = get(obj);
          if(obj1 != null && (obj1 instanceof Array))
          {
-             return ((Array)obj1).elements();
+             return ((Array)obj1).iterator();
          }
      }
      return super.values(obj);
@@ -83,7 +83,7 @@ public class HashMapOrdered extends HashMap
  public void print(PrintWriter printwriter)
  {
      Object obj;
-     for(Enumeration enumeration = keys(); enumeration.hasMoreElements(); printwriter.println(obj + "=" + get(obj)))
+     for(Enumeration enumeration = (Enumeration) keys(); enumeration.hasMoreElements(); printwriter.println(obj + "=" + get(obj)))
      {
          obj = enumeration.nextElement();
      }

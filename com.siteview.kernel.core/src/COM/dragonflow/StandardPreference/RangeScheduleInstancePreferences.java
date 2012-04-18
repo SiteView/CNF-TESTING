@@ -90,14 +90,14 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
             String s4 = "COM.dragonflow.StandardPreference." + s;
             java.lang.Class class1 = java.lang.Class.forName(s4);
             COM.dragonflow.SiteView.Preferences preferences = (COM.dragonflow.SiteView.Preferences) class1.newInstance();
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             if (hashmap == null) {
                 throw new SiteViewOperationalException(COM.dragonflow.Resource.SiteViewErrorCodes.ERR_OP_SS_PREFERENCE_RETRIEVE_MASTER_SETTINGS);
             }
             Object obj1 = null;
             Object obj2 = null;
             if (s1 != null && s1.length() > 0) {
-                Enumeration enumeration = hashmap.values(s1);
+                Enumeration enumeration = (Enumeration) hashmap.values(s1);
                 while (enumeration.hasMoreElements()) {
                     java.util.HashMap hashmap1 = new HashMap();
                     String s5 = "";
@@ -151,13 +151,13 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
                 }
             } else {
                 java.util.HashMap hashmap2 = new HashMap();
-                jgl.Array array = preferences.getProperties();
+                Array array = preferences.getProperties();
                 for (int k = 0; k < array.size(); k ++) {
-                    String s6 = (String) hashmap.get(((COM.dragonflow.Properties.StringProperty) array.at(k)).getName());
+                    String s6 = (String) hashmap.get(((COM.dragonflow.Properties.StringProperty) array.get(k)).getName());
                     if (s6 == null) {
                         s6 = "";
                     }
-                    hashmap2.put(((COM.dragonflow.Properties.StringProperty) array.at(k)).getName(), s6);
+                    hashmap2.put(((COM.dragonflow.Properties.StringProperty) array.get(k)).getName(), s6);
                 }
 
                 if (i == COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ALL) {
@@ -265,7 +265,7 @@ public class RangeScheduleInstancePreferences extends COM.dragonflow.StandardPre
         return hashmap;
     }
 
-    public java.util.HashMap validateProperties(java.util.HashMap hashmap, jgl.Array array, java.util.HashMap hashmap1) throws java.lang.Exception {
+    public java.util.HashMap validateProperties(java.util.HashMap hashmap, Array array, java.util.HashMap hashmap1) throws java.lang.Exception {
         String s = "";
         String s2 = "";
         String s4 = "D";

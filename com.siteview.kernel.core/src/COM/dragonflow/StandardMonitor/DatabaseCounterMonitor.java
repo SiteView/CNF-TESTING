@@ -48,7 +48,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
@@ -602,7 +602,7 @@ while(resultset.next())
      element1.setAttribute("desc", s2);
  }
 
- public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, jgl.HashMap hashmap)
+ public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, HashMap hashmap)
  {
      if(stringproperty == pQuery)
      {
@@ -674,7 +674,7 @@ while(resultset.next())
  public void setMaxCounters(int i)
  {
      nMaxCounters = i;
-     jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+     HashMap hashmap = MasterConfig.getMasterConfig();
      hashmap.put("_browsableContentMaxCounters", (new Integer(i)).toString());
      MasterConfig.saveMasterConfig(hashmap);
  }
@@ -754,7 +754,7 @@ while(resultset.next())
  {
      nMaxCounters = 30;
      Array array = new Array();
-     jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+     HashMap hashmap = MasterConfig.getMasterConfig();
      nMaxCounters = TextUtils.toInt(TextUtils.getValue(hashmap, "_browsableContentMaxCounters"));
      if(nMaxCounters == 0)
      {
@@ -817,7 +817,7 @@ while(resultset.next())
      StringProperty astringproperty1[] = new StringProperty[array.size()];
      for(int i = 0; i < array.size(); i++)
      {
-         astringproperty1[i] = (StringProperty)array.at(i);
+         astringproperty1[i] = (StringProperty)array.get(i);
      }
 
      String s = (COM.dragonflow.StandardMonitor.DatabaseCounterMonitor.class).getName();

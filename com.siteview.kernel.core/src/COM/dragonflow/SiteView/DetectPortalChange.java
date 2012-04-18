@@ -20,8 +20,8 @@ package COM.dragonflow.SiteView;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.Utils.HTTPUtils;
@@ -94,7 +94,7 @@ public class DetectPortalChange extends Action {
             }
             Array array3 = portalsiteview.getGroups();
             for (int k = 0; k < array3.size(); k++) {
-                MonitorGroup monitorgroup = (MonitorGroup) array3.at(k);
+                MonitorGroup monitorgroup = (MonitorGroup) array3.get(k);
                 String s6 = monitorgroup.getProperty(Monitor.pID);
                 if (hashmap.get(s6) == null) {
                     array1.add(s6);
@@ -102,23 +102,23 @@ public class DetectPortalChange extends Action {
             }
 
             for (int l = 0; l < array1.size(); l++) {
-                String s2 = (String) array1.at(l);
+                String s2 = (String) array1.get(l);
                 portalsiteview.removeGroup(s2);
             }
 
             for (int i1 = 0; i1 < array2.size(); i1++) {
-                String s3 = (String) array2.at(i1);
+                String s3 = (String) array2.get(i1);
                 portalsiteview.removeGroup(s3);
             }
 
             for (int j1 = 0; j1 < array2.size(); j1++) {
-                String s4 = (String) array2.at(j1);
+                String s4 = (String) array2.get(j1);
                 portalsiteview.loadGroup(s4);
             }
 
             int k1 = 0;
             while (k1 < array.size()) {
-                String s5 = (String) array.at(k1);
+                String s5 = (String) array.get(k1);
                 portalsiteview.loadGroup(s5);
                 k1++;
             }
@@ -143,7 +143,7 @@ public class DetectPortalChange extends Action {
             }
             HashMap hashmap = new HashMap();
             for (int i = 1; i < array.size(); i++) {
-                HashMap hashmap1 = (HashMap) array.at(i);
+                HashMap hashmap1 = (HashMap) array.get(i);
                 String s1 = TextUtils.getValue(hashmap1, "_id");
                 String s2 = TextUtils.getValue(hashmap1, "_lastUpdate");
                 hashmap.put(s1, "true");
@@ -175,7 +175,7 @@ public class DetectPortalChange extends Action {
             
             for (int j = 0; j < array1.size(); j++) {
                 PortalSiteView portalsiteview1 = (PortalSiteView) array1
-                        .at(j);
+                        .get(j);
                 Portal.getPortal().removeElement(portalsiteview1);
             }
 

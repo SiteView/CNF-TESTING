@@ -20,7 +20,9 @@ package COM.dragonflow.Utils;
 import java.io.File;
 import java.util.Date;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // GreaterFileModified, TextUtils, FileUtils
@@ -94,7 +96,7 @@ public class TempFileManager implements java.lang.Runnable {
             }
 
         }
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         int j = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_tempDirMaxSize"));
         int k = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_defaultTempFileAge"));
         if (k <= 0) {
@@ -150,11 +152,11 @@ public class TempFileManager implements java.lang.Runnable {
 
     public static void controlDirSize(java.io.File file, int i, java.io.FilenameFilter filenamefilter) {
         if (file.exists()) {
-            jgl.Array array = new Array(file.listFiles(filenamefilter));
-            jgl.Sorting.sort(array, new GreaterFileModified(false));
+            Array array = new Array(file.listFiles(filenamefilter));
+            Sorting.sort(array, new GreaterFileModified(false));
             long l = 0L;
             for (int j = 0; j < array.size(); j ++) {
-                java.io.File file1 = (java.io.File) array.at(j);
+                java.io.File file1 = (java.io.File) array.get(j);
                 if (l < (long) i) {
                     l += file1.length();
                 } else {

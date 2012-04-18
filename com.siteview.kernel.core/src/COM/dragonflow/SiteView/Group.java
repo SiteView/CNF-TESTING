@@ -20,8 +20,8 @@ package COM.dragonflow.SiteView;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.Properties.FrequencyProperty;
@@ -70,7 +70,7 @@ public class Group extends SiteViewObject {
             vector.addElement("None");
             SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
             Array array = SiteViewGroup.currentSiteView().getGroupIDs();
-            for (Enumeration enumeration1 = array.elements(); enumeration1
+            for (Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1
                     .hasMoreElements();) {
                 String s1 = (String) enumeration1.nextElement();
                 MonitorGroup monitorgroup = (MonitorGroup) siteviewgroup

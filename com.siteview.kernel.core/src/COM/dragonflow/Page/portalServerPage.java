@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.io.File;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.SiteView.PortalSync;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -45,7 +45,7 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         return "ScopePrefs.htm";
     }
 
-    void verify(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void verify(HashMap hashmap, HashMap hashmap1)
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_server");
         String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_logCollectorRefresh");
@@ -90,7 +90,7 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         outputStream.println("<P><A HREF=" + getPageLink(getPageName(), "AddSiteSeer") + ">Add</A> SiteSeer Account\n");
     }
 
-    void printBasicProperties(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printBasicProperties(HashMap hashmap, HashMap hashmap1)
         throws java.io.IOException
     {
         if(request.getValue("operation").indexOf("SiteSeer") == -1)
@@ -102,7 +102,7 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         }
     }
 
-    void printBasicSiteViewProperties(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printBasicSiteViewProperties(HashMap hashmap, HashMap hashmap1)
         throws java.io.IOException
     {
         outputStream.println("Adding a SiteView server will allow the " + COM.dragonflow.SiteView.Platform.productName + " to connect to a\n" + "SiteView to retrieve it's current configurations\n" + "and to continuously retrieve the status of the monitoring data." + "<P>\n");
@@ -112,13 +112,13 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         outputStream.println("</TABLE>");
     }
 
-    void printBasicSiteSeerProperties(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printBasicSiteSeerProperties(HashMap hashmap, HashMap hashmap1)
         throws java.io.IOException
     {
         outputStream.println("Adding a SiteSeer account will allow the " + COM.dragonflow.SiteView.Platform.productName + " to connect to a\n" + "SiteSeer account to retrieve it's current configurations\n" + "and to continuously retrieve the status of the monitoring data." + "<P>\n");
         outputStream.println("<TABLE>");
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_server").toLowerCase();
-        jgl.Array array = new Array();
+        Array array = new Array();
         for(int i = 1; i <= 9; i++)
         {
             String s1 = "siteseer" + i + ".Dragonflow.com";
@@ -146,10 +146,10 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         return true;
     }
 
-    void printAdvancedProperties(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printAdvancedProperties(HashMap hashmap, HashMap hashmap1)
     {
         String s = request.getValue("operation");
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add("NT");
         array.add("Windows NT/2000");
         array.add("Sun");
@@ -187,7 +187,7 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         outputStream.println("</TABLE>");
     }
 
-    jgl.HashMap fillInResultFrame(jgl.HashMap hashmap)
+    jgl.HashMap fillInResultFrame(HashMap hashmap)
     {
         hashmap.put("_id", request.getValue("id"));
         hashmap.put("_server", request.getValue("server"));
@@ -225,7 +225,7 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         outputStream.println("<TH>Name</TH><TH>Monitors<TH>Status<TH>License<TH WIDTH=10%>Update</TH><TH WIDTH=10%>Edit</TH><TH WIDTH=10%>Sync</TH><TH WIDTH=3%>Del</TH>");
     }
 
-    void printListItem(jgl.HashMap hashmap)
+    void printListItem(HashMap hashmap)
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
         String s1 = COM.dragonflow.Page.portalServerPage.getValue(hashmap, "_title");
@@ -290,17 +290,17 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         return s1;
     }
 
-    void setUniqueID(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void setUniqueID(HashMap hashmap, HashMap hashmap1)
     {
         hashmap1.put("_id", COM.dragonflow.Page.portalServerPage.createUniqueID(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_server")));
     }
 
-    void preProcessAdd(jgl.HashMap hashmap)
+    void preProcessAdd(HashMap hashmap)
     {
         hashmap.put("_readOnly", "true");
     }
 
-    void postProcessAdd(jgl.HashMap hashmap)
+    void postProcessAdd(HashMap hashmap)
     {
         COM.dragonflow.Page.portalServerPage.syncRemoteSiteView(hashmap, outputStream);
     }
@@ -315,8 +315,8 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
             {
                 try
                 {
-                    jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(getConfigFilePath());
-                    jgl.HashMap hashmap = COM.dragonflow.Page.portalServerPage.findFrameByID(array, s1);
+                    Array array = COM.dragonflow.Properties.FrameFile.readFromFile(getConfigFilePath());
+                    HashMap hashmap = COM.dragonflow.Page.portalServerPage.findFrameByID(array, s1);
                     COM.dragonflow.Page.portalServerPage.syncRemoteSiteView(hashmap, outputStream);
                     outputStream.println("<P><A HREF=/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Back to " + getTitle() + "s</A>");
                 }
@@ -372,7 +372,7 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         }
     }
 
-    public static void syncRemoteSiteView(jgl.HashMap hashmap, java.io.PrintWriter printwriter)
+    public static void syncRemoteSiteView(HashMap hashmap, java.io.PrintWriter printwriter)
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
         java.io.File file = new File(COM.dragonflow.SiteView.Portal.getPortalSiteViewRootPath(s));
@@ -385,7 +385,7 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         printwriter.println("<P><B>Transfer failed: Not supported in this version</b>");
     }
 
-    void postProcessDelete(jgl.HashMap hashmap)
+    void postProcessDelete(HashMap hashmap)
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
         java.io.File file = new File(COM.dragonflow.SiteView.Portal.getPortalSiteViewRootPath(s));

@@ -35,9 +35,8 @@ import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import jgl.Array;
-import jgl.HashMap;
-import jgl.Pair;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // Braf, I18N, TextUtils
@@ -50,7 +49,7 @@ public class FileUtils
     public static final int INI_LINE_SEPARATOR_LEN = "\r\n".length();
     public static final String INI_EQUAL = "=";
     public static final String INI_SECTION_PREFIX = "[";
-    static jgl.HashMap fileLockMap = new HashMap();
+    static HashMap fileLockMap = new HashMap();
     public static boolean singleMatchOnly = false;
     public static final int SEARCHING = 0;
     public static final int RECORDING = 1;
@@ -1080,10 +1079,10 @@ public class FileUtils
         }
     }
 
-    public static jgl.Array getIniSection(String s, String s1)
+    public static Array getIniSection(String s, String s1)
         throws java.io.IOException
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s2 = COM.dragonflow.Utils.FileUtils.readFile(s).toString();
         int i = s2.indexOf("\r\n" + s1);
         int j = s2.indexOf("\r\n[", i + INI_LINE_SEPARATOR_LEN + s1.length());

@@ -23,8 +23,8 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -101,7 +101,7 @@ public class NTDialupMonitor extends AtomicMonitor
             Array array = commandline.exec(s1, dialupLock);
             if(flag)
             {
-                for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", "HANGUP: " + enumeration.nextElement())) { }
+                for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", "HANGUP: " + enumeration.nextElement())) { }
             }
             progressString += "Dialing " + getProperty(pPhone) + "\n";
             setProperty(pStateString, "dialing...");
@@ -113,7 +113,7 @@ public class NTDialupMonitor extends AtomicMonitor
             long l2 = 0L;
             String s6 = "authorization: ";
             long l3 = 0L;
-            Enumeration enumeration1 = array.elements();
+            Enumeration enumeration1 = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration1.hasMoreElements())
@@ -158,7 +158,7 @@ public class NTDialupMonitor extends AtomicMonitor
                         hashmap.put("_webserverAddress", inetaddress.getHostAddress());
                     } else
                     {
-                        hashmap.put("_webserverAddress", Platform.getLocalIPAddress().at(0));
+                        hashmap.put("_webserverAddress", Platform.getLocalIPAddress().get(0));
                     }
                     MasterConfig.saveMasterConfig(hashmap);
                     SiteViewGroup.updateStaticPages();
@@ -172,7 +172,7 @@ public class NTDialupMonitor extends AtomicMonitor
                 Array array2 = getMonitorsToRun();
                 long l6 = getSettingAsLong("_NTDialupMonitorStartupTime", 500);
                 long l7 = getSettingAsLong("_NTDialupMonitorDelay", 500);
-                Enumeration enumeration2 = array2.elements();
+                Enumeration enumeration2 =  (Enumeration) array2.iterator();
                 try
                 {
                     do
@@ -237,7 +237,7 @@ public class NTDialupMonitor extends AtomicMonitor
                     Array array1 = commandline1.exec(s1, dialupLock);
                     if(flag)
                     {
-                        for(Enumeration enumeration3 = array1.elements(); enumeration3.hasMoreElements(); LogManager.log("RunMonitor", "HANGUP: " + enumeration3.nextElement())) { }
+                        for(Enumeration enumeration3 =  (Enumeration) array1.iterator(); enumeration3.hasMoreElements(); LogManager.log("RunMonitor", "HANGUP: " + enumeration3.nextElement())) { }
                     }
                     l4 = Platform.timeMillis() - l8;
                 }
@@ -349,7 +349,7 @@ public class NTDialupMonitor extends AtomicMonitor
         {
             SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
             Array array = CGI.getAllowedGroupIDsForAccount(httprequest);
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             Vector vector = new Vector();
             Vector vector1 = new Vector();
             do

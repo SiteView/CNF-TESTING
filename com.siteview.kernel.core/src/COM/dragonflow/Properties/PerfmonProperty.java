@@ -29,7 +29,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 //Referenced classes of package COM.dragonflow.Properties:
 //         StringProperty
@@ -48,7 +48,7 @@ public class PerfmonProperty extends StringProperty
      super(s);
  }
 
- public void printProperty(CGI cgi, PrintWriter printwriter, SiteViewObject siteviewobject, HTTPRequest httprequest, jgl.HashMap hashmap, boolean flag)
+ public void printProperty(CGI cgi, PrintWriter printwriter, SiteViewObject siteviewobject, HTTPRequest httprequest, HashMap hashmap, boolean flag)
  {
      PerfmonMonitorBase perfmonmonitorbase = (PerfmonMonitorBase)siteviewobject;
      perfmonmonitorbase.setReturnUrl(httprequest);
@@ -66,7 +66,7 @@ public class PerfmonProperty extends StringProperty
 
      for(int j = 0; j < array.size(); j++)
      {
-         as[j + hashmap1.size()] = ((StringProperty)array.at(j)).getName();
+         as[j + hashmap1.size()] = ((StringProperty)array.get(j)).getName();
      }
 
      String s = "getFieldsAsUrlParams";

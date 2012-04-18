@@ -12,8 +12,8 @@ package COM.dragonflow.Page;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Utils.WSDLParser;
 
@@ -84,7 +84,7 @@ public class serviceWizardPage extends COM.dragonflow.Page.monitorPage
         throws java.lang.Exception
     {
         COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = null;
-        jgl.Array array2 = null;
+        Array array2 = null;
         if(request.getValue("group").length() > 0)
         {
             array2 = ReadGroupFrames(request.getValue("group"));
@@ -96,10 +96,10 @@ public class serviceWizardPage extends COM.dragonflow.Page.monitorPage
         if(!request.getValue("operation").equals("Add") && request.getValue("group").length() > 0)
         {
             atomicmonitor = COM.dragonflow.SiteView.AtomicMonitor.MonitorCreate(array2, request.getValue("id"), request.getPortalServer());
-            jgl.Array array = atomicmonitor.getProperties();
+            Array array = atomicmonitor.getProperties();
             COM.dragonflow.Properties.StringProperty stringproperty;
             String s2;
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); request.setValue(stringproperty.getName(), s2))
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); request.setValue(stringproperty.getName(), s2))
             {
                 stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
                 s2 = "";
@@ -288,10 +288,10 @@ public class serviceWizardPage extends COM.dragonflow.Page.monitorPage
             displayArgNames(list1);
             outputStream.print("<input type=hidden name=_wsdlurl value=\"" + request.getValue("_wsdlurl") + "\">\n" + "<input type=hidden name=_methodname value=\"" + request.getValue("_methodname") + "\">\n" + "<input type=hidden name=_serverurl value=\"" + request.getValue("_serverurl") + "\">\n" + "<input type=hidden name=_methodns value=\"" + s12 + "\">\n" + "<input type=hidden name=_actionuri value=\"" + s14 + "\">\n");
             setHiddenInfo();
-            jgl.HashMap hashmap = new HashMap();
+            HashMap hashmap = new HashMap();
             boolean flag1 = false;
-            jgl.Array array1 = COM.dragonflow.Properties.StringProperty.sortByOrder(atomicmonitor.getProperties());
-            Enumeration enumeration1 = array1.elements();
+            Array array1 = COM.dragonflow.Properties.StringProperty.sortByOrder(atomicmonitor.getProperties());
+            Enumeration enumeration1 =  (Enumeration) array1.iterator();
             do
             {
                 if(!enumeration1.hasMoreElements())
@@ -315,7 +315,7 @@ public class serviceWizardPage extends COM.dragonflow.Page.monitorPage
             outputStream.println("</TABLE>");
             outputStream.println("<P><HR><CENTER><B>Advanced Settings</B></CENTER><P>");
             outputStream.println("<TABLE>");
-            enumeration1 = array1.elements();
+            enumeration1 =  (Enumeration) array1.iterator();
             do
             {
                 if(!enumeration1.hasMoreElements())
@@ -478,7 +478,7 @@ public class serviceWizardPage extends COM.dragonflow.Page.monitorPage
         outputStream.print("<TR><TD ALIGN=RIGHT>URL : </TD><TD><input type=text name=_url value=\"");
         String s = "Example: http://demo.siteview.com";
         outputStream.print(urlPrefix + "\" size=80></TD></TR>" + "<TR><TD></TD><TD><small>" + s + "</small></TD></TR>");
-        jgl.Array array = new Array();
+        Array array = new Array();
         java.io.File file = new File(COM.dragonflow.SiteView.Platform.getUsedDirectoryPath("templates.wsdl", request.getAccount()));
         if(!file.exists())
         {
@@ -494,7 +494,7 @@ public class serviceWizardPage extends COM.dragonflow.Page.monitorPage
             }
         }
 
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         outputStream.print("<TR><TD></TD></TR>");
         outputStream.print("<TR><TD ALIGN=RIGHT>File :</TD><TD><select name=_file>");
         if(enumeration.hasMoreElements())

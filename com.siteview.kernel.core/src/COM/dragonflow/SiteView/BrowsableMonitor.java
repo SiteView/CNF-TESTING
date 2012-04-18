@@ -17,7 +17,7 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public interface BrowsableMonitor {
 

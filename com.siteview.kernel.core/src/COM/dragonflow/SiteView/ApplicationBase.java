@@ -19,8 +19,8 @@ package COM.dragonflow.SiteView;
  */
 import java.io.File;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.PropertiedObject;
 import COM.dragonflow.Properties.StringProperty;
@@ -94,7 +94,7 @@ public abstract class ApplicationBase extends AtomicMonitor implements
             do {
                 if (k >= array.size())
                     continue label0;
-                if (s3.equals(array.at(k))) {
+                if (s3.equals(array.get(k))) {
                     i++;
                     if (flag) {
                         s2 = s2 + k;

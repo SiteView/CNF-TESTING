@@ -22,8 +22,10 @@ import java.io.FileWriter;
 import java.net.Socket;
 import java.util.Enumeration;
 
-import jgl.HashMap;
 import COM.dragonflow.SiteView.Machine;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // RemoteCommandLine, TelnetConnection, CounterLock, TextUtils,
@@ -38,7 +40,7 @@ public class TelnetCommandLine extends COM.dragonflow.Utils.RemoteCommandLine
     static final char DONT = 254;
     static final char IAC = 255;
     static final char ECHO = 1;
-    static jgl.HashMap openConnections = new HashMap();
+    static HashMap openConnections = new HashMap();
     static String endOfCommand = "siteview-command-end";
     static String echoCommand = "echo ";
     String host;
@@ -84,7 +86,7 @@ public class TelnetCommandLine extends COM.dragonflow.Utils.RemoteCommandLine
         return "Telnet";
     }
 
-    public jgl.Array exec(String s, COM.dragonflow.SiteView.Machine machine, boolean flag)
+    public Array exec(String s, COM.dragonflow.SiteView.Machine machine, boolean flag)
     {
         super.exec(s, machine, flag);
         int i = COM.dragonflow.Properties.StringProperty.toInteger(machine.getProperty(COM.dragonflow.SiteView.Machine.pTimeout));
@@ -114,7 +116,7 @@ public class TelnetCommandLine extends COM.dragonflow.Utils.RemoteCommandLine
         }
         COM.dragonflow.Utils.CounterLock counterlock = COM.dragonflow.SiteView.Platform.getLock(machine.getProperty(COM.dragonflow.SiteView.Machine.pID));
         int j = COM.dragonflow.SiteView.Monitor.kURLUnknownError;
-        jgl.Array array = null;
+        Array array = null;
         try
         {
             traceMessage("Requesting lock for: " + s, machine, TO_REMOTE);
@@ -270,7 +272,7 @@ public class TelnetCommandLine extends COM.dragonflow.Utils.RemoteCommandLine
     public static void closeAll()
     {
         COM.dragonflow.Utils.TelnetConnection telnetconnection;
-        for(Enumeration enumeration = openConnections.keys(); enumeration.hasMoreElements(); COM.dragonflow.Utils.TelnetCommandLine.closeConnection(telnetconnection))
+        for(Enumeration enumeration = (Enumeration) openConnections.keys(); enumeration.hasMoreElements(); COM.dragonflow.Utils.TelnetCommandLine.closeConnection(telnetconnection))
         {
             java.lang.Object obj = enumeration.nextElement();
             telnetconnection = (COM.dragonflow.Utils.TelnetConnection)openConnections.get(obj);
@@ -622,17 +624,17 @@ public class TelnetCommandLine extends COM.dragonflow.Utils.RemoteCommandLine
         }
         machine.setProperty("_trace", "true");
         COM.dragonflow.Utils.TelnetCommandLine telnetcommandline = new TelnetCommandLine();
-        jgl.Array array = telnetcommandline.exec("ls", machine, false);
+        Array array = telnetcommandline.exec("ls", machine, false);
         for(int i = 0; i < array.size(); i++)
         {
-            java.lang.System.out.println(array.at(i));
+            java.lang.System.out.println(array.get(i));
         }
 
         telnetcommandline = new TelnetCommandLine();
         array = telnetcommandline.exec("ps -ef", machine, false);
         for(int j = 0; j < array.size(); j++)
         {
-            java.lang.System.out.println(array.at(j));
+            java.lang.System.out.println(array.get(j));
         }
 
     }

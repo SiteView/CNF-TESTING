@@ -3,7 +3,7 @@ package COM.dragonflow.StandardMonitor;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.servicePage;
 import COM.dragonflow.Properties.NumericProperty;
@@ -109,7 +109,7 @@ public class CPUMonitor extends ServerMonitor
                      StringBuffer stringbuffer = new StringBuffer();
                      for(int k = 0; k < array.size(); k++)
                      {
-                         stringbuffer.append(array.at(k) + "\n");
+                         stringbuffer.append(array.get(k) + "\n");
                      }
 
                      LogManager.log("Error", "CPUMonitor: " + getFullID() + " failed, output:\n" + stringbuffer);
@@ -203,7 +203,7 @@ public class CPUMonitor extends ServerMonitor
          }
 
      }
-     return array.elements();
+     return (Enumeration) array.iterator();
  }
 
  public static void main(String args[])
@@ -213,7 +213,7 @@ public class CPUMonitor extends ServerMonitor
      StringProperty astringproperty[] = new StringProperty[array.size()];
      for(int i = 0; i < array.size(); i++)
      {
-         astringproperty[i] = (StringProperty)array.at(i);
+         astringproperty[i] = (StringProperty)array.get(i);
      }
 
      int j = 1000;
@@ -282,7 +282,7 @@ public class CPUMonitor extends ServerMonitor
      $assertionsDisabled = !(CPUMonitor.class).desiredAssertionStatus();
      maxCPUs = 8;
      cpuEnableErrorAt100 = true;
-     jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+     HashMap hashmap = MasterConfig.getMasterConfig();
      String s = TextUtils.getValue(hashmap, "_cpuMaxProcessors");
      maxCPUs = TextUtils.toInt(s);
      if(maxCPUs == 0)
@@ -321,7 +321,7 @@ public class CPUMonitor extends ServerMonitor
      StringProperty astringproperty[] = new StringProperty[array.size()];
      for(int k = 0; k < array.size(); k++)
      {
-         astringproperty[k] = (StringProperty)array.at(k);
+         astringproperty[k] = (StringProperty)array.get(k);
      }
 
      addProperties("CPUMonitor", astringproperty);

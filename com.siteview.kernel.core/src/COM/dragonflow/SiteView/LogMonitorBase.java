@@ -24,8 +24,8 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -192,7 +192,7 @@ public abstract class LogMonitorBase extends ServerMonitor {
             }
             Array array = getProperties();
             
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                 StringProperty stringproperty = (StringProperty) enumeration.nextElement();
                 if (stringproperty.isThreshold() && stringproperty.getName().indexOf("value") == -1) {
@@ -416,7 +416,7 @@ public abstract class LogMonitorBase extends ServerMonitor {
         if (braf != null) {
             s = braf.readLine(flag);
         } else if (i < array.size()) {
-            s = (String) array.at(i);
+            s = (String) array.get(i);
         }
         return s;
     }
@@ -643,7 +643,7 @@ public abstract class LogMonitorBase extends ServerMonitor {
         addValuesPropertiesToArray(array);
         array.add(getLastAlertsPerMinuteProperty());
         array.add(getLastLinesPerMinuteProperty());
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     boolean checkExpression(String s, String s1, int i) {
@@ -695,33 +695,33 @@ public abstract class LogMonitorBase extends ServerMonitor {
                 }
                 StringBuffer stringbuffer3 = new StringBuffer();
                 if (array.size() == 1) {
-                    s2 = (String) array.at(0);
+                    s2 = (String) array.get(0);
                     if (flag) {
-                        stringbuffer3.append("match1: " + array.at(0));
+                        stringbuffer3.append("match1: " + array.get(0));
                     }
                 } else {
                     if (array.size() >= 1) {
-                        s2 = (String) array.at(0);
+                        s2 = (String) array.get(0);
                         if (flag) {
-                            stringbuffer3.append("match1: " + array.at(0));
+                            stringbuffer3.append("match1: " + array.get(0));
                         }
                     }
                     if (array.size() >= 2) {
-                        s3 = (String) array.at(1);
+                        s3 = (String) array.get(1);
                         if (flag) {
-                            stringbuffer3.append(" match2: " + array.at(1));
+                            stringbuffer3.append(" match2: " + array.get(1));
                         }
                     }
                     if (array.size() >= 3) {
-                        s4 = (String) array.at(2);
+                        s4 = (String) array.get(2);
                         if (flag) {
-                            stringbuffer3.append(" match3: " + array.at(2));
+                            stringbuffer3.append(" match3: " + array.get(2));
                         }
                     }
                     if (array.size() >= 4) {
-                        s5 = (String) array.at(3);
+                        s5 = (String) array.get(3);
                         if (flag) {
-                            stringbuffer3.append(" match4: " + array.at(3));
+                            stringbuffer3.append(" match4: " + array.get(3));
                         }
                     }
                 }
@@ -763,14 +763,14 @@ public abstract class LogMonitorBase extends ServerMonitor {
                     array1 = new Array();
                     StringBuffer stringbuffer2 = new StringBuffer();
                     array2 = (Array) enumeration.nextElement();
-                    String s7 = (String) array2.at(0);
-                    String s9 = (String) array2.at(1);
-                    s10 = (String) array2.at(2);
-                    s11 = (String) array2.at(3);
+                    String s7 = (String) array2.get(0);
+                    String s9 = (String) array2.get(1);
+                    s10 = (String) array2.get(2);
+                    s11 = (String) array2.get(3);
                     flag1 = false;
                     if (s1.length() > 0) {
                         if (s7.equals("RULE") && array2.size() > 4) {
-                            String s12 = (String) array2.at(4);
+                            String s12 = (String) array2.get(4);
                             String s14 = s9;
                             if (s14.equals(s1)) {
                                 flag1 = checkExpression(getProperty(s9), s12, j);
@@ -800,19 +800,19 @@ public abstract class LogMonitorBase extends ServerMonitor {
                     int i1 = array1.size() >= 4 ? 4 : array1.size();
                     switch (i1) {
                     case 4: // '\004'
-                        s5 = (String) array1.at(3);
+                        s5 = (String) array1.get(3);
                     // fall through
 
                     case 3: // '\003'
-                        s4 = (String) array1.at(2);
+                        s4 = (String) array1.get(2);
                     // fall through
 
                     case 2: // '\002'
-                        s3 = (String) array1.at(1);
+                        s3 = (String) array1.get(1);
                     // fall through
 
                     case 1: // '\001'
-                        s2 = (String) array1.at(0);
+                        s2 = (String) array1.get(0);
                     // fall through
 
                     default:
@@ -822,7 +822,7 @@ public abstract class LogMonitorBase extends ServerMonitor {
                     setProperty(getValue2Property(), s3);
                     setProperty(getValue3Property(), s4);
                     setProperty(getValue4Property(), s5);
-                    runAction(s11 + (array2.size() <= 4 ? "" : " " + array2.at(4)), j);
+                    runAction(s11 + (array2.size() <= 4 ? "" : " " + array2.get(4)), j);
                     if (s11.startsWith("SetCategory")) {
                         int k1 = s11.indexOf(' ');
                         int i2 = s11.indexOf(' ', k1 + 1);
@@ -867,7 +867,7 @@ public abstract class LogMonitorBase extends ServerMonitor {
             int i = TextUtils.readInteger(s, s1.length());
             Array array = Platform.split(',', getProperty(getMessageProperty()));
             if (i >= 0 && i < array.size()) {
-                s2 = (String) array.at(i);
+                s2 = (String) array.get(i);
             }
             return s2;
         } else {

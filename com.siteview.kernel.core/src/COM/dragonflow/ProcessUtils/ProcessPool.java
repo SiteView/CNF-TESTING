@@ -21,6 +21,8 @@ import java.util.Vector;
 
 import COM.dragonflow.Utils.CounterLock;
 
+import com.recursionsw.jgl.Array;
+
 // Referenced classes of package COM.dragonflow.ProcessUtils:
 // SingleProcess, ProcessMgr
 
@@ -45,7 +47,7 @@ public class ProcessPool {
         counterLock = new CounterLock(COM.dragonflow.ProcessUtils.ProcessMgr.maxProcessesPerPool);
     }
 
-    public boolean exec(String s, jgl.Array array, int ai[], COM.dragonflow.SiteView.AtomicMonitor atomicmonitor) throws java.io.IOException {
+    public boolean exec(String s, Array array, int ai[], COM.dragonflow.SiteView.AtomicMonitor atomicmonitor) throws java.io.IOException {
         long l = 0L;
         long l1 = 0L;
         if (stopProcessPool) {

@@ -20,8 +20,8 @@ package COM.dragonflow.SiteView;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -183,7 +183,7 @@ public abstract class PerfmonMonitorBase extends AtomicMonitor {
                 Array array = getPropertiesToPassBetweenPages(httprequest);
                 for (int i = 0; array != null && i < array.size(); i++) {
                     StringProperty stringproperty = (StringProperty) array
-                            .at(i);
+                            .get(i);
                     String s1 = (String) hashmap1.get(stringproperty.getName());
                     if (s1 != null) {
                         setProperty(stringproperty, (String) hashmap1
@@ -204,7 +204,7 @@ public abstract class PerfmonMonitorBase extends AtomicMonitor {
         hashmap1.put(KEY_RETURN_URL, returnUrl);
         Array array = getPropertiesToPassBetweenPages(httprequest);
         for (int i = 0; array != null && i < array.size(); i++) {
-            StringProperty stringproperty = (StringProperty) array.at(i);
+            StringProperty stringproperty = (StringProperty) array.get(i);
             hashmap1.put(stringproperty.getName(), getProperty(stringproperty));
         }
 

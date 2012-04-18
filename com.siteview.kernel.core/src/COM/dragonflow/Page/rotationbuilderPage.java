@@ -13,8 +13,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -149,7 +149,7 @@ public class rotationbuilderPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    public void printAddForm(jgl.HashMap hashmap)
+    public void printAddForm(HashMap hashmap)
     {
         outputStream.println("<form method=post action=\"/SiteView/cgi/go.exe/SiteView\" name=datasheet ><input type=radio name=action value=add checked=on ><b>Add Item</b><input type=radio name=action value=save ><b>Save rotation</b><input type=submit value=\"Update\">");
         outputStream.println("<table border=1 cellspacing=0><tr><th colspan=4>Current Configuration:" + (String)hashmap.get("rotationname") + "/<a href=/SiteView/htdocs/rotationbuilderhelp.htm> HELP PAGE</A></th></tr>" + "<tr><th>#</th><th>URL</th><th>Refresh Time(default=60)</th><th>Title(optional)</th><th>DEL</TH>" + "</tr>");
@@ -168,7 +168,7 @@ public class rotationbuilderPage extends COM.dragonflow.Page.CGI
         outputStream.println("<input type=submit value=\"Update\"></td></tr></table>");
     }
 
-    public void writerotation(java.io.PrintWriter printwriter, jgl.HashMap hashmap, int i)
+    public void writerotation(java.io.PrintWriter printwriter, HashMap hashmap, int i)
     {
         int j;
         if(i == COM.dragonflow.Utils.TextUtils.toInt((String)hashmap.get("last")) - 1)
@@ -194,9 +194,9 @@ public class rotationbuilderPage extends COM.dragonflow.Page.CGI
         printwriter.println("<html>\r<head>\r<title>" + s4 + "</title>\r" + "<meta http-equiv=\"Expires\" content=\"0\">\r" + "<meta http-equiv=\"Pragma\" content=\"no-cache\">\r" + "<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"" + s3 + "; URL=" + s2 + "\">\r" + "</head>\r" + "<frameset cols=\"*\">\r" + "<frame src=\"" + (String)hashmap.get("URL" + i) + "\" scrolling=no>\r" + "</frameset>\r" + "</html>\r");
     }
 
-    public void saveConfig(jgl.HashMap hashmap, String s)
+    public void saveConfig(HashMap hashmap, String s)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add(hashmap);
         try
         {
@@ -208,7 +208,7 @@ public class rotationbuilderPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    public jgl.HashMap updateHashMap(Enumeration enumeration, jgl.HashMap hashmap)
+    public HashMap updateHashMap(Enumeration enumeration, HashMap hashmap)
     {
         String s;
         for(; enumeration.hasMoreElements(); hashmap.put(s, request.getValue(s)))
@@ -258,14 +258,14 @@ public class rotationbuilderPage extends COM.dragonflow.Page.CGI
         return hashmap;
     }
 
-    public jgl.HashMap loadConfig(jgl.HashMap hashmap, String s)
+    public HashMap loadConfig(HashMap hashmap, String s)
     {
         try
         {
-            jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/templates.view/" + s + "");
+            Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/templates.view/" + s + "");
             if(array != null && array.size() > 0)
             {
-                hashmap = (jgl.HashMap)array.at(0);
+                hashmap = (HashMap)array.get(0);
             }
         }
         catch(java.io.IOException ioexception)

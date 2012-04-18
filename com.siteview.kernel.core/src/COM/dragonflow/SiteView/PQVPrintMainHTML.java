@@ -19,7 +19,7 @@ package COM.dragonflow.SiteView;
  */
 import java.io.IOException;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.Utils.TextUtils;
 

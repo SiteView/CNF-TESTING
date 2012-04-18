@@ -29,7 +29,7 @@ import COM.dragonflow.ems.Shared.EmsConfigFileProperty;
 //import COM.dragonflow.topaz.ems.monitorComps.EmsReportTraits;
 import java.io.File;
 import java.util.Vector;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 public class NetCoolMonitor extends EMSSNMPTrapBase
 {

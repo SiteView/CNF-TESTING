@@ -21,7 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // PerfCounter, PerfChartLine, FileUtils, TextUtils
@@ -64,8 +64,8 @@ public class PerfChartFile {
         }
     }
 
-    public static jgl.Array GetWin2kSettings(String s) throws java.io.IOException {
-        jgl.Array array = new Array();
+    public static Array GetWin2kSettings(String s) throws java.io.IOException {
+        Array array = new Array();
         try {
             java.io.File file = new File(s);
             if (!file.exists()) {
@@ -133,8 +133,8 @@ public class PerfChartFile {
      * @return
      * @throws java.io.IOException
      */
-    public static jgl.Array GetSettings(String s) throws java.io.IOException {
-        jgl.Array array;
+    public static Array GetSettings(String s) throws java.io.IOException {
+        Array array;
         java.io.RandomAccessFile randomaccessfile;
         java.lang.Exception exception1;
         if (s.toLowerCase().indexOf(".htm") != -1) {

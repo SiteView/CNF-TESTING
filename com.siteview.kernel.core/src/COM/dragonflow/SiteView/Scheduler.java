@@ -20,7 +20,7 @@ package COM.dragonflow.SiteView;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import jgl.PriorityQueue;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Utils.FileUtils;

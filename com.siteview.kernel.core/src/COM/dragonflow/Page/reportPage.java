@@ -14,8 +14,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.CompareSlot;
 import COM.dragonflow.SiteView.PortalFilter;
@@ -265,14 +265,14 @@ label1:
                 if(flag && request.isPost() && COM.dragonflow.Page.treeControl.notHandled(request))
                 {
                     obj = new HashMapOrdered(true);
-                    boolean flag1 = COM.dragonflow.Page.reportPage.setReportOptions(request, ((jgl.HashMap) (obj)));
+                    boolean flag1 = COM.dragonflow.Page.reportPage.setReportOptions(request, ((HashMap) (obj)));
                     Enumeration enumeration = request.getValues("monitors");
                     if(!enumeration.hasMoreElements() && !flag1 && request.getValue("query").length() == 0)
                     {
                         errors += "\tNo monitors were selected for this report";
                     }
                     String s2;
-                    for(; enumeration.hasMoreElements(); ((jgl.HashMap) (obj)).add("monitors", s2))
+                    for(; enumeration.hasMoreElements(); ((HashMap) (obj)).add("monitors", s2))
                     {
                         s2 = (String)enumeration.nextElement();
                         if(COM.dragonflow.Page.treeControl.useTree())
@@ -283,12 +283,12 @@ label1:
 
                     if(queryID.length() > 0)
                     {
-                        ((jgl.HashMap) (obj)).put("id", queryID);
+                        ((HashMap) (obj)).put("id", queryID);
                     }
-                    ((jgl.HashMap) (obj)).put("window", request.getValue("window"));
-                    ((jgl.HashMap) (obj)).put("precision", request.getValue("precision"));
-                    ((jgl.HashMap) (obj)).put("format", request.getValue("format"));
-                    ((jgl.HashMap) (obj)).put("vmax", request.getValue("vmax"));
+                    ((HashMap) (obj)).put("window", request.getValue("window"));
+                    ((HashMap) (obj)).put("precision", request.getValue("precision"));
+                    ((HashMap) (obj)).put("format", request.getValue("format"));
+                    ((HashMap) (obj)).put("vmax", request.getValue("vmax"));
                     String s3 = request.getValue("startHour");
                     if(!s3.equals("now"))
                     {
@@ -296,47 +296,47 @@ label1:
                     }
                     if(COM.dragonflow.SiteView.Platform.isPortal())
                     {
-                        ((jgl.HashMap) (obj)).put("query", COM.dragonflow.Page.portalChooserPage.getQueryChooseListSelectedItem(request));
+                        ((HashMap) (obj)).put("query", COM.dragonflow.Page.portalChooserPage.getQueryChooseListSelectedItem(request));
                     }
-                    ((jgl.HashMap) (obj)).put("startHour", s3);
-                    ((jgl.HashMap) (obj)).put("startDay", request.getValue("startDay"));
-                    ((jgl.HashMap) (obj)).put("relative", request.getValue("relative"));
-                    ((jgl.HashMap) (obj)).put("email", COM.dragonflow.Utils.TextUtils.toEmailList(request.getValue("email")));
-                    ((jgl.HashMap) (obj)).put("emailData", COM.dragonflow.Utils.TextUtils.toEmailList(request.getValue("emailData")));
-                    ((jgl.HashMap) (obj)).put("xmlEmailData", COM.dragonflow.Utils.TextUtils.toEmailList(request.getValue("xmlEmailData")));
-                    ((jgl.HashMap) (obj)).put("mailTemplate", request.getValue("mailTemplate"));
-                    ((jgl.HashMap) (obj)).put("title", request.getValue("title"));
-                    ((jgl.HashMap) (obj)).put("description", request.getValue("description"));
-                    ((jgl.HashMap) (obj)).put("statusFilter", request.getValue("statusFilter"));
-                    ((jgl.HashMap) (obj)).put("schedFilter", request.getValue("schedFilter"));
-                    if(COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "mailTemplate").equals("HistoryMail"))
+                    ((HashMap) (obj)).put("startHour", s3);
+                    ((HashMap) (obj)).put("startDay", request.getValue("startDay"));
+                    ((HashMap) (obj)).put("relative", request.getValue("relative"));
+                    ((HashMap) (obj)).put("email", COM.dragonflow.Utils.TextUtils.toEmailList(request.getValue("email")));
+                    ((HashMap) (obj)).put("emailData", COM.dragonflow.Utils.TextUtils.toEmailList(request.getValue("emailData")));
+                    ((HashMap) (obj)).put("xmlEmailData", COM.dragonflow.Utils.TextUtils.toEmailList(request.getValue("xmlEmailData")));
+                    ((HashMap) (obj)).put("mailTemplate", request.getValue("mailTemplate"));
+                    ((HashMap) (obj)).put("title", request.getValue("title"));
+                    ((HashMap) (obj)).put("description", request.getValue("description"));
+                    ((HashMap) (obj)).put("statusFilter", request.getValue("statusFilter"));
+                    ((HashMap) (obj)).put("schedFilter", request.getValue("schedFilter"));
+                    if(COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "mailTemplate").equals("HistoryMail"))
                     {
-                        ((jgl.HashMap) (obj)).remove("mailTemplate");
+                        ((HashMap) (obj)).remove("mailTemplate");
                     }
-                    ((jgl.HashMap) (obj)).put("noSlotFilter", "true");
+                    ((HashMap) (obj)).put("noSlotFilter", "true");
                     if(request.getValue("tabfile").length() > 0)
                     {
-                        ((jgl.HashMap) (obj)).put("tabfile", "yes");
+                        ((HashMap) (obj)).put("tabfile", "yes");
                     }
                     if(request.getValue("xmlfile").length() > 0)
                     {
-                        ((jgl.HashMap) (obj)).put("xmlfile", "yes");
+                        ((HashMap) (obj)).put("xmlfile", "yes");
                     }
                     if(request.getValue("disabled").length() > 0)
                     {
-                        ((jgl.HashMap) (obj)).put("disabled", "checked");
+                        ((HashMap) (obj)).put("disabled", "checked");
                     }
                     if(request.getValue("detailed").length() == 0)
                     {
-                        ((jgl.HashMap) (obj)).put("basic", "checked");
+                        ((HashMap) (obj)).put("basic", "checked");
                     }
                     if(request.getValue("attachReport").length() > 0)
                     {
-                        ((jgl.HashMap) (obj)).put("attachReport", "checked");
+                        ((HashMap) (obj)).put("attachReport", "checked");
                     }
                     if(request.getValue("bestCaseCalc").length() > 0)
                     {
-                        ((jgl.HashMap) (obj)).put("bestCaseCalc", "checked");
+                        ((HashMap) (obj)).put("bestCaseCalc", "checked");
                     }
                     int k = 0x15180;
                     int l = 1;
@@ -365,20 +365,20 @@ label1:
                     {
                         s9 = "weekday\tM,T,W,R,F,S,U\t" + j1;
                     }
-                    ((jgl.HashMap) (obj)).put("schedule", s9);
+                    ((HashMap) (obj)).put("schedule", s9);
                     if(COM.dragonflow.SiteView.Platform.isPortal())
                     {
-                        ((jgl.HashMap) (obj)).put("account", request.getAccount());
+                        ((HashMap) (obj)).put("account", request.getAccount());
                     }
                     if(errors.length() == 0)
                     {
                         flag = false;
                         if(operation.equals("add"))
                         {
-                            addHistoryReport(((jgl.HashMap) (obj)));
+                            addHistoryReport(((HashMap) (obj)));
                         } else
                         {
-                            changeHistoryReport(((jgl.HashMap) (obj)));
+                            changeHistoryReport(((HashMap) (obj)));
                         }
                         printRefreshHeader();
                     }
@@ -392,9 +392,9 @@ label1:
                 {
                     break label1;
                 }
-                jgl.Array array = COM.dragonflow.Page.reportPage.getReportFrames(request.getAccount());
-                Enumeration enumeration1 = array.elements();
-                jgl.HashMap hashmap;
+                Array array = COM.dragonflow.Page.reportPage.getReportFrames(request.getAccount());
+                Enumeration enumeration1 = (Enumeration) array.iterator();
+                HashMap hashmap;
                 String s5;
                 do
                 {
@@ -402,7 +402,7 @@ label1:
                     {
                         break label1;
                     }
-                    hashmap = (jgl.HashMap)enumeration1.nextElement();
+                    hashmap = (HashMap)enumeration1.nextElement();
                     s5 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "id");
                 } while(!s5.equals(queryID));
                 obj = hashmap;
@@ -412,7 +412,7 @@ label1:
             {
                 if(!operation.equals("adhoc"))
                 {
-                    jgl.Array array1 = COM.dragonflow.Page.reportPage.getReportFrames(request.getAccount());
+                    Array array1 = COM.dragonflow.Page.reportPage.getReportFrames(request.getAccount());
                     int j = request.getPermissionAsInteger("_maximumReportsCount");
                     if(j > 0 && array1.size() >= j)
                     {
@@ -421,65 +421,65 @@ label1:
                     }
                 }
                 obj = new HashMap();
-                ((jgl.HashMap) (obj)).add("precision", "default");
-                ((jgl.HashMap) (obj)).add("format", "");
-                ((jgl.HashMap) (obj)).add("vmax", "");
-                ((jgl.HashMap) (obj)).add("startDay", "today");
-                ((jgl.HashMap) (obj)).add("startHour", "now");
-                ((jgl.HashMap) (obj)).add("basic", "checked");
+                ((HashMap) (obj)).add("precision", "default");
+                ((HashMap) (obj)).add("format", "");
+                ((HashMap) (obj)).add("vmax", "");
+                ((HashMap) (obj)).add("startDay", "today");
+                ((HashMap) (obj)).add("startHour", "now");
+                ((HashMap) (obj)).add("basic", "checked");
                 if(operation.equals("adhoc"))
                 {
-                    ((jgl.HashMap) (obj)).add("window", String.valueOf(3600));
+                    ((HashMap) (obj)).add("window", String.valueOf(3600));
                 } else
                 {
-                    ((jgl.HashMap) (obj)).add("schedule", "weekday\tM,T,W,R,F,S,U\t3600");
-                    ((jgl.HashMap) (obj)).add("window", String.valueOf(0x15180));
+                    ((HashMap) (obj)).add("schedule", "weekday\tM,T,W,R,F,S,U\t3600");
+                    ((HashMap) (obj)).add("window", String.valueOf(0x15180));
                 }
-                ((jgl.HashMap) (obj)).add("relative", "-1");
+                ((HashMap) (obj)).add("relative", "-1");
             }
-            String s = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "tabfile");
+            String s = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "tabfile");
             if(s != null && s.length() > 0)
             {
                 tabfileChecked = "CHECKED";
             }
-            String s1 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "xmlfile");
+            String s1 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "xmlfile");
             if(s1 != null && s1.length() > 0)
             {
                 xmlfileChecked = "CHECKED";
             }
-            String s4 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "disabled");
+            String s4 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "disabled");
             if(s4.length() > 0)
             {
                 disabledChecked = "CHECKED";
             }
-            String s6 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "basic");
+            String s6 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "basic");
             if(s6.length() == 0)
             {
                 detailedChecked = "CHECKED";
             }
-            String s7 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "attachReport");
+            String s7 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "attachReport");
             if(s7.length() > 0)
             {
                 attachReportChecked = "CHECKED";
             }
-            String s8 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "bestCaseCalc");
+            String s8 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "bestCaseCalc");
             if(s8.length() > 0)
             {
                 bestCaseCalcChecked = "CHECKED";
             }
-            email = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "email");
-            emailData = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "emailData");
-            xmlEmailData = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "xmlEmailData");
-            reportTitle = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "title");
-            description = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "description");
-            statusFilter = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "statusFilter");
-            schedFilter = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "schedFilter");
+            email = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "email");
+            emailData = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "emailData");
+            xmlEmailData = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "xmlEmailData");
+            reportTitle = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "title");
+            description = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "description");
+            statusFilter = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "statusFilter");
+            schedFilter = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "schedFilter");
             if(reportTitle.length() > 0)
             {
                 title = operationString + " : " + reportTitle;
             }
-            mailTemplate = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "mailTemplate");
-            String s10 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "schedule");
+            mailTemplate = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "mailTemplate");
+            String s10 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "schedule");
             scheduleHour = 1;
             scheduleMinute = 0;
             if(s10 != null && s10.length() > 0)
@@ -490,22 +490,22 @@ label1:
                 scheduleHour = k1 / 3600;
                 scheduleMinute = (k1 % 3600) / 60;
             }
-            computeMonitorOptions(((jgl.HashMap) (obj)));
+            computeMonitorOptions(((HashMap) (obj)));
             hoursOptions = getHoursHTML(scheduleHour);
             minutesOptions = getMinutesHTML(scheduleMinute);
-            String s11 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "window");
+            String s11 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "window");
             windowsOptions = getTimePeriodHTML(s11);
-            String s12 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "precision");
+            String s12 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "precision");
             precisionOptions = getTimeScaleHTML(s12);
-            String s13 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "format");
+            String s13 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "format");
             formatOptions = getFormatHTML(s13);
-            String s14 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "vmax");
+            String s14 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "vmax");
             vmaxOptions = getVertScaleHTML(s14);
-            String s15 = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "startHour");
+            String s15 = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "startHour");
             startHourOptions = getStartHourHTML(s15, i);
             startTimeHTML = COM.dragonflow.Page.reportPage.getStartTimeHTML(i);
             endTimeHTML = COM.dragonflow.Page.reportPage.getEndTimeHTML(i);
-            reportTypeHTML = getReportTypeHTML(((jgl.HashMap) (obj)));
+            reportTypeHTML = getReportTypeHTML(((HashMap) (obj)));
             if(COM.dragonflow.SiteView.Platform.isPortal())
             {
                 helpFile = "CentraReports.htm";
@@ -531,7 +531,7 @@ label1:
                 portalQuery = null;
             } else
             {
-                portalQuery = COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "query");
+                portalQuery = COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "query");
             }
             printHeader();
             printForm();
@@ -544,29 +544,29 @@ label1:
         adjustHistoryConfig(null, s);
     }
 
-    void addHistoryReport(jgl.HashMap hashmap)
+    void addHistoryReport(HashMap hashmap)
     {
         adjustHistoryConfig(hashmap, null);
     }
 
-    void changeHistoryReport(jgl.HashMap hashmap)
+    void changeHistoryReport(HashMap hashmap)
     {
         adjustHistoryConfig(hashmap, COM.dragonflow.Utils.TextUtils.getValue(hashmap, "id"));
     }
 
-    void adjustHistoryConfig(jgl.HashMap hashmap, String s)
+    void adjustHistoryConfig(HashMap hashmap, String s)
     {
-        jgl.Array array = null;
+        Array array = null;
         array = getReportFrameList();
-        jgl.Array array1;
+        Array array1;
         if(hashmap != null && s == null)
         {
             try
             {
-                jgl.HashMap hashmap1 = getMasterConfig();
+                HashMap hashmap1 = getMasterConfig();
                 if(!request.isStandardAccount())
                 {
-                    hashmap1 = (jgl.HashMap)array.at(0);
+                    hashmap1 = (HashMap)array.get(0);
                 } else
                 {
                     hashmap1 = getMasterConfig();
@@ -593,14 +593,14 @@ label1:
         } else
         {
             array1 = new Array();
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())
                 {
                     break;
                 }
-                jgl.HashMap hashmap2 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap2 = (HashMap)enumeration.nextElement();
                 String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "id");
                 if(s1 != null && s1.equals(s) && COM.dragonflow.SiteView.Monitor.isReportFrame(hashmap2))
                 {
@@ -617,7 +617,7 @@ label1:
         saveReportFrameList(array1, request.getAccount());
     }
 
-    public static boolean setReportOptions(COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap)
+    public static boolean setReportOptions(COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap)
     {
         String s = httprequest.getValue("reportType");
         hashmap.put("reportType", s);
@@ -787,7 +787,7 @@ label1:
         outputStream.println("</FORM>\n");
     }
 
-    String getReportTypeHTML(jgl.HashMap hashmap)
+    String getReportTypeHTML(HashMap hashmap)
     {
         String s = COM.dragonflow.Page.reportPage.getValue(hashmap, "reportType");
         boolean flag = COM.dragonflow.Page.reportPage.getValue(hashmap, "_showReportThresholdSummary").length() == 0;
@@ -936,12 +936,12 @@ label1:
         outputStream.print("<TR><TD ALIGN=RIGHT VALIGN=TOP>Report Text</TD><td></td></tr>\n<TR><td></td><TD ALIGN=LEFT VALIGN=TOP><DL>\n<DT>\n\tTitle:&nbsp;&nbsp;&nbsp;&nbsp;<input size=60 name=title value=\"" + reportTitle + "\">\n" + "<DD>(optional) Title for the report - shown at the top of the report and in the list of reports. If this\n" + "is blank, then a name describing the monitors and groups in the report will be used.\n" + "<DT>\n" + "\tDescription:<input size=60 name=description value=\"" + COM.dragonflow.Utils.TextUtils.escapeHTML(description) + "\">\n" + "<DD>(optional) Description for the report - shown at the top of the report\n" + "</DL></TD></TR>\n");
     }
 
-    void computeMonitorOptions(jgl.HashMap hashmap)
+    void computeMonitorOptions(HashMap hashmap)
         throws java.lang.Exception
     {
-        jgl.Array array = new Array();
-        for(Enumeration enumeration = hashmap.values("groups"); enumeration.hasMoreElements(); array.add(enumeration.nextElement())) { }
-        for(Enumeration enumeration1 = hashmap.values("monitors"); enumeration1.hasMoreElements(); array.add(enumeration1.nextElement())) { }
+        Array array = new Array();
+        for(Enumeration enumeration = (Enumeration) hashmap.values("groups"); enumeration.hasMoreElements(); array.add(enumeration.nextElement())) { }
+        for(Enumeration enumeration1 = (Enumeration) hashmap.values("monitors"); enumeration1.hasMoreElements(); array.add(enumeration1.nextElement())) { }
         if(COM.dragonflow.Page.treeControl.useTree())
         {
             StringBuffer stringbuffer = new StringBuffer();
@@ -997,7 +997,7 @@ label1:
             {
                 break;
             }
-            jgl.HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
+            HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
             String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
             String s4 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_title").replace('_', ' ');
             boolean flag2 = !flag && s2.equals(s);
@@ -1035,7 +1035,7 @@ label1:
         java.util.Vector vector = new Vector();
         vector.addElement("");
         vector.addElement("every day, all day");
-        jgl.HashMap hashmap;
+        HashMap hashmap;
         for(Enumeration enumeration = COM.dragonflow.Page.CGI.getValues(getSettings(), "_additionalSchedule"); enumeration.hasMoreElements(); vector.addElement(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_name")))
         {
             String s1 = (String)enumeration.nextElement();
@@ -1249,12 +1249,12 @@ label1:
         outputStream.print("</HTML>\n");
     }
 
-    static boolean portalIsReportAllowed(jgl.HashMap hashmap, String s)
+    static boolean portalIsReportAllowed(HashMap hashmap, String s)
     {
         return COM.dragonflow.Utils.TextUtils.getValue(hashmap, "account").equals(s);
     }
 
-    static boolean isReportAllowed(jgl.HashMap hashmap, jgl.Array array)
+    static boolean isReportAllowed(HashMap hashmap, Array array)
     {
 label0:
         {
@@ -1262,7 +1262,7 @@ label0:
             {
                 break label0;
             }
-            for(Enumeration enumeration = hashmap.values("groups"); enumeration.hasMoreElements();)
+            for(Enumeration enumeration = (Enumeration) hashmap.values("groups"); enumeration.hasMoreElements();)
             {
                 String s = (String)enumeration.nextElement();
                 if(!COM.dragonflow.Page.CGI.allowedByGroupFilter(s, array))
@@ -1271,7 +1271,7 @@ label0:
                 }
             }
 
-            Enumeration enumeration1 = hashmap.values("monitors");
+            Enumeration enumeration1 = (Enumeration) hashmap.values("monitors");
             String as[];
 label1:
             do
@@ -1298,7 +1298,7 @@ label1:
 
     public static void printReportTable(java.io.PrintWriter printwriter, COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
-        jgl.Array array = COM.dragonflow.Page.reportPage.getReportFrames(httprequest.getAccount());
+        Array array = COM.dragonflow.Page.reportPage.getReportFrames(httprequest.getAccount());
         String s = httprequest.getAccount();
         printwriter.println("<TABLE BORDER=1 cellspacing=0 WIDTH=100%>\n<TR CLASS=\"tabhead\"><TH WIDTH=50%>Reports</TH><TH>Time Period</TH>\n");
         boolean flag = httprequest.actionAllowed("_reportEdit");
@@ -1307,7 +1307,7 @@ label1:
             printwriter.print("<TH>Edit</TH><TH WIDTH=3%>Del</TH>");
         }
         printwriter.print("</TR>");
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         if(!enumeration.hasMoreElements())
         {
             byte byte0 = 4;
@@ -1324,7 +1324,7 @@ label1:
                 {
                     break;
                 }
-                jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap = (HashMap)enumeration.nextElement();
                 if(hashmap.get("isQuick") == null || ((String)hashmap.get("isQuick")).length() <= 0)
                 {
                     String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "title");
@@ -1335,16 +1335,16 @@ label1:
                     }
                 }
             } while(true);
-            jgl.Sorting.sort(array, new CompareSlot("title", COM.dragonflow.SiteView.CompareSlot.DIRECTION_LESS));
-            enumeration = array.elements();
-            jgl.Array array1 = COM.dragonflow.Page.CGI.getGroupFilterForAccount(httprequest);
+            Sorting.sort(array, new CompareSlot("title", COM.dragonflow.SiteView.CompareSlot.DIRECTION_LESS));
+            enumeration = (Enumeration) array.iterator();
+            Array array1 = COM.dragonflow.Page.CGI.getGroupFilterForAccount(httprequest);
             do
             {
                 if(!enumeration.hasMoreElements())
                 {
                     break;
                 }
-                jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap1 = (HashMap)enumeration.nextElement();
                 if((hashmap1.get("isQuick") == null || ((String)hashmap1.get("isQuick")).length() <= 0) && (COM.dragonflow.SiteView.Platform.isPortal() ? COM.dragonflow.Page.reportPage.portalIsReportAllowed(hashmap1, s) : COM.dragonflow.Page.reportPage.isReportAllowed(hashmap1, array1)))
                 {
                     String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "title");
@@ -1442,14 +1442,14 @@ label1:
     public static void createReportsIndexFiles(COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
         Enumeration enumeration = COM.dragonflow.Page.reportPage.getReportFrames(null).elements();
-        jgl.Array array = COM.dragonflow.Page.CGI.getGroupFilterForAccount(httprequest);
+        Array array = COM.dragonflow.Page.CGI.getGroupFilterForAccount(httprequest);
         do
         {
             if(!enumeration.hasMoreElements())
             {
                 break;
             }
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             if((hashmap.get("isQuick") == null || ((String)hashmap.get("isQuick")).length() <= 0) && (COM.dragonflow.SiteView.Platform.isPortal() ? COM.dragonflow.Page.reportPage.portalIsReportAllowed(hashmap, httprequest.getAccount()) : COM.dragonflow.Page.reportPage.isReportAllowed(hashmap, array)))
             {
                 String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "id");
@@ -1458,14 +1458,14 @@ label1:
         } while(true);
     }
 
-    public static String getDefaultReportTitle(jgl.HashMap hashmap)
+    public static String getDefaultReportTitle(HashMap hashmap)
     {
         StringBuffer stringbuffer = new StringBuffer();
         StringBuffer stringbuffer1 = new StringBuffer();
         int i = 0;
         int j = 0;
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        Enumeration enumeration = hashmap.values("groups");
+        Enumeration enumeration = (Enumeration) hashmap.values("groups");
         do
         {
             if(!enumeration.hasMoreElements())
@@ -1484,7 +1484,7 @@ label1:
                 i++;
             }
         } while(true);
-        enumeration = hashmap.values("monitors");
+        enumeration = (Enumeration) hashmap.values("monitors");
         do
         {
             if(!enumeration.hasMoreElements())
@@ -1567,24 +1567,24 @@ label1:
         return stringbuffer2.toString();
     }
 
-    public static jgl.Array getReportFrames(String s)
+    public static Array getReportFrames(String s)
     {
-        jgl.Array array = null;
+        Array array = null;
         try
         {
             if(s != null && !COM.dragonflow.SiteView.Platform.isStandardAccount(s))
             {
-                jgl.Array array1 = COM.dragonflow.Page.reportPage.ReadGroupFrames(s, null);
+                Array array1 = COM.dragonflow.Page.reportPage.ReadGroupFrames(s, null);
                 array = new Array();
-                Enumeration enumeration = array1.elements();
-                jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+                Enumeration enumeration =  (Enumeration) array1.iterator();
+                HashMap hashmap = (HashMap)enumeration.nextElement();
                 do
                 {
                     if(!enumeration.hasMoreElements())
                     {
                         break;
                     }
-                    jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+                    HashMap hashmap1 = (HashMap)enumeration.nextElement();
                     if(COM.dragonflow.SiteView.Monitor.isReportFrame(hashmap1))
                     {
                         array.add(hashmap1);
@@ -1610,9 +1610,9 @@ label1:
         return array;
     }
 
-    public jgl.Array getReportFrameList()
+    public Array getReportFrameList()
     {
-        jgl.Array array = null;
+        Array array = null;
         try
         {
             if(!request.isStandardAccount())
@@ -1638,7 +1638,7 @@ label1:
         return array;
     }
 
-    public void saveReportFrameList(jgl.Array array, String s)
+    public void saveReportFrameList(Array array, String s)
     {
         try
         {

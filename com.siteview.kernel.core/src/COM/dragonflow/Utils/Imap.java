@@ -22,6 +22,8 @@ import java.util.Hashtable;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import com.recursionsw.jgl.HashMap;
+
 // Referenced classes of package COM.dragonflow.Utils:
 // popStatus, TextUtils
 
@@ -316,7 +318,7 @@ public class Imap {
         java.util.Vector vector = new Vector();
         java.lang.Integer integer = new Integer(i);
         String s = integer.toString();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_imapFetchQuery");
         if (s1.length() == 0) {
             s1 = "BODY[TEXT]";

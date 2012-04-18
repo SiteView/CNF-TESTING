@@ -17,8 +17,8 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.ServerProperty;
 import COM.dragonflow.Properties.StringProperty;
@@ -62,7 +62,7 @@ public abstract class ServerAction extends Action {
 
     public void initializeMachine(Array array, HashMap hashmap) {
         if (array.size() > 0) {
-            String s = (String) array.at(0);
+            String s = (String) array.get(0);
             if (s.startsWith(Machine.REMOTE_PREFIX)) {
                 if (pMachineName.isEditable) {
                     setProperty(pMachineName, s);

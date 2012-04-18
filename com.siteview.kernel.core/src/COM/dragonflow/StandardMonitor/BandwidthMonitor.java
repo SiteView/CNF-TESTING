@@ -20,8 +20,8 @@ package COM.dragonflow.StandardMonitor;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -194,7 +194,7 @@ label0:
      long l1 = getSettingAsLong("_CompositeStartupTime", 500);
      long l2 = getSettingAsLong("_CompositeCheckDelay", 500);
      int i = 0;
-     AtomicMonitor atomicmonitor = (AtomicMonitor)array.at(i);
+     AtomicMonitor atomicmonitor = (AtomicMonitor)array.get(i);
      do
      {
          if(atomicmonitor == null)
@@ -245,7 +245,7 @@ label0:
          }
          if(i < array.size())
          {
-             atomicmonitor = (AtomicMonitor)array.at(i);
+             atomicmonitor = (AtomicMonitor)array.get(i);
          } else
          {
              atomicmonitor = null;
@@ -486,7 +486,7 @@ label0:
      {
          SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
          Array array = CGI.getAllowedGroupIDsForAccount(httprequest);
-         Enumeration enumeration = array.elements();
+         Enumeration enumeration = (Enumeration) array.iterator();
          Vector vector1 = new Vector();
          Vector vector2 = new Vector();
          String s = getFullID();

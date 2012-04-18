@@ -27,8 +27,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.ScheduleProperty;
@@ -140,7 +140,7 @@ public class SiteViewLogReader extends LogReader {
             String s, HashMap hashmap, boolean flag) {
         HashMap hashmap1 = new HashMap();
         for (int j = 0; j < array.size(); j++) {
-            SampleCollector samplecollector = (SampleCollector) array.at(j);
+            SampleCollector samplecollector = (SampleCollector) array.get(j);
             if (hashmap1.get(samplecollector.getIDString()) != null) {
                 continue;
             }
@@ -160,7 +160,7 @@ public class SiteViewLogReader extends LogReader {
             hashmap1.put(samplecollector.getIDString(), samplecollector);
             for (int k = j + 1; k < array.size(); k++) {
                 SampleCollector samplecollector1 = (SampleCollector) array
-                        .at(k);
+                        .get(k);
                 if (s2.equals(Portal
                         .getServerID(samplecollector1.getIDString()))
                         && (!flag1 || s3.equals(Portal
@@ -232,7 +232,7 @@ public class SiteViewLogReader extends LogReader {
         HashMap hashmap1 = new HashMap(true);
         SampleCollector samplecollector;
         String s;
-        for (Enumeration enumeration = array.elements(); enumeration
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                 .hasMoreElements(); hashmap1.add(s, samplecollector)) {
             samplecollector = (SampleCollector) enumeration.nextElement();
             samplecollector.createBuckets(date.getTime() / 1000L, date1
@@ -513,7 +513,7 @@ public class SiteViewLogReader extends LogReader {
                         if (array != null) {
                             printwriter.println("<sample>");
                             int k = 1;
-                            for (Enumeration enumeration = array.elements(); enumeration
+                            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                                     .hasMoreElements();) {
                                 StringProperty stringproperty = (StringProperty) enumeration
                                         .nextElement();
@@ -623,7 +623,7 @@ public class SiteViewLogReader extends LogReader {
      */
     static {
         HashMap hashmap = MasterConfig.getMasterConfig();
-        Enumeration enumeration = hashmap.values("_maxStatusLength");
+        Enumeration enumeration = (Enumeration) hashmap.values("_maxStatusLength");
         String s = "";
         while (enumeration.hasMoreElements()) {
             String s1 = (String) enumeration.nextElement();

@@ -42,8 +42,8 @@ import javax.security.cert.CertificateExpiredException;
 import javax.security.cert.CertificateNotYetValidException;
 import javax.security.cert.X509Certificate;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 import org.apache.commons.httpclient.Header;
 
@@ -446,7 +446,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
         if (array.size() <= 1) {
             al = update1(s, s1, s2, s3, s4);
         } else {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                 String s5 = (String) enumeration.nextElement();
                 s5 = s5.trim();
@@ -559,7 +559,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
                 s22 = s22 + CRLF;
             }
             if (array != null) {
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 do {
                     if (!enumeration.hasMoreElements()) {
                         break;
@@ -774,7 +774,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
         float f = 0.0F;
         int j = 0;
         for (int k = 0; k < array.size(); k ++) {
-            float f2 = TextUtils.toFloat((String) array.at(k));
+            float f2 = TextUtils.toFloat((String) array.get(k));
             if (f2 != 0.0F) {
                 f += f2;
                 j ++;
@@ -791,7 +791,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
         array.add(TextUtils.floatToString((float) l / 1000F, millisecondPrecision));
         s1 = "";
         for (int i1 = 0; i1 < array.size(); i1 ++) {
-            s1 = s1 + (String) array.at(i1);
+            s1 = s1 + (String) array.get(i1);
             s1 = s1 + "\t";
         }
 
@@ -860,7 +860,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
             TextUtils.matchExpression(s4, I18N.UnicodeToString(s1, s5), array, stringbuffer, s3);
         }
         if (array.size() > 0) {
-            setProperty(getLocationProperty(pMatchValue, s), array.at(0));
+            setProperty(getLocationProperty(pMatchValue, s), array.get(0));
         }
         String s6 = stringbuffer.toString();
         if (flag) {
@@ -916,7 +916,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
                 array.add(stringproperty);
             }
         }
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Array getLogProperties() {
@@ -1106,7 +1106,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
         String s1 = "";
         s = s.toLowerCase();
         if (array != null) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             byte byte0 = -1;
             while (enumeration.hasMoreElements()) {
                 String s2 = (String) enumeration.nextElement();
@@ -1146,7 +1146,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     static String getRequestCommand(Array array) {
         String s = "GET";
         if (array != null) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             int i = -1;
             while (enumeration.hasMoreElements()) {
                 String s1 = (String) enumeration.nextElement();
@@ -1171,7 +1171,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     static String getContentType(Array array) {
         String s = CONTENT_TYPE_DEFAULT;
         if (array != null) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String s1;
             while (enumeration.hasMoreElements()) {
                 s1 = (String) enumeration.nextElement();
@@ -1193,7 +1193,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     static String getUserAgent(Array array) {
         String s = "";
         if (array != null) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String s1;
             while (enumeration.hasMoreElements()) {
                 s1 = (String) enumeration.nextElement();
@@ -1216,7 +1216,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
         String s;
         s = "";
         if (array != null) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String s1;
             while (enumeration.hasMoreElements()) {
                 s1 = (String) enumeration.nextElement();
@@ -1237,7 +1237,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
 
         s2 = "";
         if (array != null) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String s3;
             while (enumeration.hasMoreElements()) {
                 s3 = (String) enumeration.nextElement();
@@ -1270,7 +1270,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
     static String getRequestProtocol(Array array) {
         String s = REQUEST_PROTOCOL_DEFAULT;
         if (array != null) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String s1;
             while (enumeration.hasMoreElements()) {
                 s1 = (String) enumeration.nextElement();
@@ -1359,7 +1359,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
         }
         as = new String[array.size()];
         for (int i = 0; i < as.length; i ++) {
-            as[i] = (String) array.at(i);
+            as[i] = (String) array.get(i);
         }
 
         if ((debugURL & kDebugRequest) != 0) {
@@ -1377,7 +1377,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
             if (socketsession.context.getSetting("_sslKeepAlive").length() > 0) {
                 try {
                     if (socketsession.isSSLKeepAliveConnection(as, s)) {
-                        Enumeration enumeration = array.elements();
+                        Enumeration enumeration = (Enumeration) array.iterator();
                         enumeration.nextElement();
                         String s3;
                         while (enumeration.hasMoreElements()) {
@@ -1864,7 +1864,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
                                 array1.add("\"" + CONTENT_TYPE_HEADER + s26 + "\"");
                             }
                             if (array != null) {
-                                Enumeration enumeration1 = array.elements();
+                                Enumeration enumeration1 = (Enumeration) array.iterator();
                                 while (enumeration1.hasMoreElements()) {
                                     String s44 = (String) enumeration1.nextElement();
                                     if (TextUtils.startsWithIgnoreCase(s44, CUSTOM_HEADER)) {
@@ -1898,7 +1898,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
                                 System.out.println("Status4 sendSSLRequest: " + l2);
                             }
                             SSLCounter --;
-                            Enumeration enumeration2 = array4.elements();
+                            Enumeration enumeration2 = (Enumeration) array4.iterator();
                             int k2 = 0;
                             boolean flag7 = false;
                             l12 = -1L;
@@ -2010,7 +2010,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
                         s15 = s15 + CRLF;
                     }
                     if (array != null) {
-                        Enumeration enumeration3 = array.elements();
+                        Enumeration enumeration3 = (Enumeration) array.iterator();
                         while (enumeration3.hasMoreElements()) {
                             String s63 = (String) enumeration3.nextElement();
                             if (TextUtils.startsWithIgnoreCase(s63, CUSTOM_HEADER)) {

@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -182,7 +182,7 @@ public class User extends SiteViewObject {
     }
 
     public static HashMap findUser(Array array, String s) {
-        for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();) {
             HashMap hashmap = (HashMap) enumeration.nextElement();
             if (s.equals(TextUtils.getValue(hashmap, "_id"))) {
                 return hashmap;
@@ -232,7 +232,7 @@ public class User extends SiteViewObject {
     public static void loadUsers() {
         LogManager.log("RunMonitor", "Loading users.config");
         Array array = readUsers();
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         if (enumeration.hasMoreElements()) {
             enumeration.nextElement();
         }
@@ -250,7 +250,7 @@ public class User extends SiteViewObject {
     public static void unloadUsers() {
         LogManager.log("Debug", "unloading users.config");
         Array array = readUsers();
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         if (enumeration.hasMoreElements()) {
             enumeration.nextElement();
         }
@@ -412,8 +412,8 @@ public class User extends SiteViewObject {
             if (array == null || array.size() <= 0) {
                 return null;
             }
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(0);
-            registerUsers(null, s, hashmap.values("_user"), hashmap);
+            HashMap hashmap = (HashMap) array.get(0);
+            registerUsers(null, s, (Enumeration) hashmap.values("_user"), hashmap);
             user = getFirstUserForAccount(s);
         } catch (Exception exception) {
             System.out.println("Could not read group file for " + s + " : " + exception);

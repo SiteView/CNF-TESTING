@@ -31,7 +31,7 @@ import COM.dragonflow.Utils.ArgsPackagerUtil;
 import COM.dragonflow.Utils.TextUtils;
 
 import java.io.IOException;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public class PDHMonitor extends PerfmonMonitorBase
     implements IServerPropMonitor

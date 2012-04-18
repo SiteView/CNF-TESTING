@@ -185,7 +185,7 @@ public class ScheduleManager {
         if (i != -1) {
             String s1 = s.substring(i + 4);
             s = monitor.getScheduleSettings(s1);
-            jgl.HashMap hashmap = TextUtils.stringToHashMap(s);
+            HashMap hashmap = TextUtils.stringToHashMap(s);
             s = TextUtils.getValue(hashmap, "_schedule");
         }
         return s;

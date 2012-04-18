@@ -23,8 +23,8 @@ import COM.dragonflow.Properties.*;
 import COM.dragonflow.SiteView.*;
 import COM.dragonflow.Utils.EmsDummyMonitor;
 import COM.dragonflow.Utils.LUtils;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class PatrolMonitor extends DispatcherMonitor
     implements BrowsableMonitor
@@ -126,7 +126,7 @@ public class PatrolMonitor extends DispatcherMonitor
         StringProperty myProperties[] = new StringProperty[propertyArray.size()];
         for(int i = 0; i < propertyArray.size(); i++)
         {
-            myProperties[i] = (StringProperty)propertyArray.at(i);
+            myProperties[i] = (StringProperty)propertyarray.get(i);
         }
 
         PropertiedObject.addProperties("COM.dragonflow.StandardMonitor.PatrolMonitor", myProperties);

@@ -5,7 +5,7 @@ _additionalSchedule=_id=3 _name=weekdays,_all_day _schedule=Uundefined00:00-24:0
 _additionalSchedule=_id=4 _name=weekdays,_09:00-18:00 _schedule=UD00:00-24:00,ME9:00-18:00,TE9:00-18:00,WE9:00-18:00,RE9:00-18:00,FE9:00-18:00,SD00:00-24:00
 _additionalSchedule=_id=14 _name=32 _schedule=*U3:00,T5:00
 _additionalSchedule=_id=18 _name=666 _schedule=UD3:00-5:00,MD3:00-8:00,TD4:00-5:00
-_adminURL=http://32.1.0.0:9999/SiteView
+_adminURL=http://32.2.123.116:9999/SiteView
 _alertIconLink=CHECKED
 _alertReportDefaultPeriod=86400
 _apacheContentMatch=/CPULoad: (\d*[.]*\d+).*?ReqPerSec: (\d*[.]*\d+).*?BytesPerSec: (\d*[.]*\d+).*?BusyServers: (\d+).*?IdleServers: (\d+)/s
@@ -261,9 +261,9 @@ _URLRemoteLocationsMax=6
 _urlRemoteRequestMax=4
 _URLSequenceMonitorSteps=20
 _URLUserAgent=Mozilla/4.0 (compatible; MSIE 4.01; Windows NT)
-_userURL=http://32.1.0.0:9999/SiteView/userhtml/SiteView.html
+_userURL=http://32.2.123.116:9999/SiteView/userhtml/SiteView.html
 _useThreadPool=yes
 _verifySleepDuration=5000
 _version=750
 _vugenPath=\Siteview\tools\dispatcher\bin\
-_webserverAddress=32.1.0.0
+_webserverAddress=32.2.123.116

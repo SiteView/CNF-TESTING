@@ -21,8 +21,6 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.HashSet;
 
-import jgl.Array;
-import jgl.HashMap;
 import COM.dragonflow.Api.APISiteView;
 import COM.dragonflow.Resource.SiteViewErrorCodes;
 import COM.dragonflow.SiteView.DetectConfigurationChange;
@@ -30,6 +28,9 @@ import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.SiteView.SiteViewGroup;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.XmlApi:
 // XmlApiObject, XmlApiResponse
@@ -45,12 +46,12 @@ public class XmlApiRequest
     static java.lang.Object mutex = new Object();
     protected boolean debug;
     XmlApiObject request;
-    private static jgl.HashMap apiLookup = new HashMap();
+    private static HashMap apiLookup = new HashMap();
     private static java.util.HashSet detachAllowedOperations = null;
     private static java.lang.Object detachAllowedOperationsSync = new Object();
-    private static jgl.Array packages = null;
-    private static jgl.Array standardObjects = null;
-    private static jgl.Array siteViewObjects = null;
+    private static Array packages = null;
+    private static Array standardObjects = null;
+    private static Array siteViewObjects = null;
 
     public XmlApiRequest()
     {
@@ -65,7 +66,7 @@ public class XmlApiRequest
     {
         String s = request.getName();
         XmlApiObject xmlapiobject;
-        for(Enumeration enumeration = request.elements(); enumeration.hasMoreElements(); processRequest(s, xmlapiobject))
+        for(Enumeration enumeration = (Enumeration) request.iterator(); enumeration.hasMoreElements(); processRequest(s, xmlapiobject))
         {
             xmlapiobject = (XmlApiObject)enumeration.nextElement();
         }
@@ -271,7 +272,7 @@ public class XmlApiRequest
 
     public static java.lang.reflect.Method[] listAvailableMethods(String s, java.lang.Object aobj[])
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         try
         {
             java.lang.Class class1 = java.lang.Class.forName(s);
@@ -290,13 +291,13 @@ public class XmlApiRequest
         java.lang.reflect.Method amethod[] = new java.lang.reflect.Method[array.size()];
         for(int i = 0; i < array.size(); i++)
         {
-            amethod[i] = (java.lang.reflect.Method)array.at(i);
+            amethod[i] = (java.lang.reflect.Method)array.get(i);
         }
 
         return amethod;
     }
 
-    public static jgl.Array getPackages()
+    public static Array getPackages()
     {
         if(packages == null)
         {
@@ -316,7 +317,7 @@ public class XmlApiRequest
         return packages;
     }
 
-    public static jgl.Array getStandardObjects()
+    public static Array getStandardObjects()
     {
         if(standardObjects == null)
         {
@@ -343,14 +344,14 @@ public class XmlApiRequest
         return standardObjects;
     }
 
-    public static jgl.Array getSiteViewObjects()
+    public static Array getSiteViewObjects()
     {
         return XmlApiRequest.getStandardObjects();
     }
 
-    public static jgl.Array getObjects(String s)
+    public static Array getObjects(String s)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         try
         {
             java.lang.Class class1 = java.lang.Class.forName("" + s);

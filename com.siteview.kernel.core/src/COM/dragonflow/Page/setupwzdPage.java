@@ -9,7 +9,7 @@
  */
 package COM.dragonflow.Page;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.MirrorConfiguration;
 
@@ -46,7 +46,7 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
         outputStream.flush();
     }
 
-    void printCopyForm(jgl.HashMap hashmap)
+    void printCopyForm(HashMap hashmap)
     {
         String s = (String)hashmap.get("_productName");
         if(s.length() > 0)
@@ -67,7 +67,7 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
         outputStream.println("\n" + s1 + "\n");
     }
 
-    void printMultiSetupForm(jgl.HashMap hashmap)
+    void printMultiSetupForm(HashMap hashmap)
     {
         String s = (String)hashmap.get("_productName");
         if(s.length() > 0)
@@ -93,12 +93,12 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
 
     public void printBody()
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         try
         {
-            jgl.Array array1 = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "classes" + java.io.File.separator + "setup.config");
-            jgl.HashMap hashmap = (jgl.HashMap)array1.front();
+            Array array1 = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "classes" + java.io.File.separator + "setup.config");
+            HashMap hashmap = (HashMap)array1.front();
             if(request.isPost())
             {
                 if(request.getValue("operation").indexOf("Copy") != -1)
@@ -135,7 +135,7 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    boolean writeGroupFile(jgl.Array array, String s)
+    boolean writeGroupFile(Array array, String s)
     {
         try
         {
@@ -165,7 +165,7 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
 
     jgl.HashMap createDailyFrame(int i, String s)
     {
-        jgl.HashMap hashmap = createHistoryFrame(i, s);
+        HashMap hashmap = createHistoryFrame(i, s);
         hashmap.add("window", String.valueOf(0x15180));
         hashmap.add("schedule", "weekday\tM,T,W,R,F,S,U\t01:00");
         return hashmap;
@@ -173,7 +173,7 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
 
     jgl.HashMap createWeeklyFrame(int i, String s)
     {
-        jgl.HashMap hashmap = createHistoryFrame(i, s);
+        HashMap hashmap = createHistoryFrame(i, s);
         hashmap.add("window", String.valueOf(0x93a80));
         hashmap.add("schedule", "weekday\tU\t02:00");
         return hashmap;
@@ -199,7 +199,7 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
         {
             outputStream.println("<P><B>Copy succeeded</B>");
             SiteViewMain.SiteViewSupport.CopyDefaultConfig();
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             String s2 = request.getValue("isI18N");
             hashmap.put("_isI18N", s2);
             COM.dragonflow.Utils.I18N.isI18N = s2.length() > 0;

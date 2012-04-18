@@ -20,8 +20,9 @@ package COM.dragonflow.Log;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.HashMapIterator;
 
 // Referenced classes of package COM.dragonflow.Log:
 // LogThread, ConsoleLogger, DailyFileLogger, FileLogger,
@@ -33,7 +34,7 @@ public class LogManager {
 
     static boolean shutdown = false;
 
-    static jgl.HashMap loggers = new HashMap(true);
+    static HashMap loggers = new HashMap(true);
 
     static long lastLogTime = 0L;
 
@@ -43,7 +44,7 @@ public class LogManager {
 
     static COM.dragonflow.Log.SSEELogger sseeLogger = null;
 
-    static jgl.HashMap rtConfig;
+    static HashMap rtConfig;
 
     static String strLoggers[];
 
@@ -55,7 +56,7 @@ public class LogManager {
     public static void initialize(String s, int i, int j, int k, boolean flag, boolean flag1, int l, long l1) {
         logThread = new LogThread();
         logThread.start();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         if (flag) {
             COM.dragonflow.Log.ConsoleLogger consolelogger = new ConsoleLogger();
             COM.dragonflow.Log.LogManager.registerLogger("RunMonitor", consolelogger);
@@ -131,10 +132,10 @@ public class LogManager {
         }
         java.lang.Object obj1 = null;
         try {
-            jgl.Array array = COM.dragonflow.Log.LogManager.getCustomLoggerClasses();
+            Array array = COM.dragonflow.Log.LogManager.getCustomLoggerClasses();
             obj1 = array;
             for (int i1 = 0; i1 < array.size(); i1 ++) {
-                java.lang.Class class1 = (java.lang.Class) array.at(i1);
+                java.lang.Class class1 = (java.lang.Class) array.get(i1);
                 obj1 = class1;
                 COM.dragonflow.Log.Logger logger = (COM.dragonflow.Log.Logger) class1.newInstance();
                 String s2 = "SiteViewLog";
@@ -154,7 +155,7 @@ public class LogManager {
     }
 
     public static void unregisterLogger(String s, COM.dragonflow.Log.Logger logger) {
-        Enumeration enumeration = loggers.values(s.toLowerCase());
+        Enumeration enumeration = (Enumeration) loggers.values(s.toLowerCase());
         while (enumeration.hasMoreElements()) {
             COM.dragonflow.Log.Logger logger1 = (COM.dragonflow.Log.Logger) enumeration.nextElement();
             if (logger.equals(logger1)) {
@@ -208,7 +209,7 @@ public class LogManager {
 
     public static void shutdown() {
         shutdown = true;
-        for (jgl.HashMapIterator hashmapiterator = loggers.begin(); !hashmapiterator.atEnd(); hashmapiterator.advance()) {
+        for (HashMapIterator hashmapiterator = loggers.begin(); !hashmapiterator.atEnd(); hashmapiterator.advance()) {
             ((COM.dragonflow.Log.Logger) hashmapiterator.value()).close();
         }
 
@@ -235,7 +236,7 @@ public class LogManager {
         s = s.toLowerCase();
         try {
             boolean flag = false;
-            Enumeration enumeration = loggers.values(s);
+            Enumeration enumeration = (Enumeration) loggers.values(s);
             while (enumeration.hasMoreElements()) {
                 COM.dragonflow.Log.Logger logger = (COM.dragonflow.Log.Logger) enumeration.nextElement();
                 logger.log(s, date, s1);
@@ -277,7 +278,7 @@ public class LogManager {
         }
         s = s.toLowerCase();
         boolean flag = false;
-        Enumeration enumeration = loggers.values(s);
+        Enumeration enumeration = (Enumeration) loggers.values(s);
         while (enumeration.hasMoreElements()) {
             COM.dragonflow.Log.Logger logger = (COM.dragonflow.Log.Logger) enumeration.nextElement();
             String s2 = logger.getClass().getName();
@@ -297,8 +298,8 @@ public class LogManager {
         }
     }
 
-    public static jgl.Array getCustomLoggerClasses() {
-        jgl.Array array = new Array();
+    public static Array getCustomLoggerClasses() {
+        Array array = new Array();
         java.io.File file = new File(COM.dragonflow.SiteView.Platform.getRoot() + "/classes/CustomLogger/");
         if (!file.exists()) {
             return array;

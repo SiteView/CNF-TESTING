@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.ScheduleProperty;
 import COM.dragonflow.Utils.Braf;
@@ -192,7 +192,7 @@ public class AlertLogReader extends LogReader {
                     addAlertEntry(hashmap2, array1, hashmap);
                 }
                 for (int j = 0; j < array.size(); j++)
-                    array1.add(array.at(j));
+                    array1.add(array.get(j));
 
                 array = array1;
                 if (l7 == 0L)
@@ -224,7 +224,7 @@ public class AlertLogReader extends LogReader {
         System.out
                 .println("***************************************************");
         for (int i = 0; i < array.size(); i++) {
-            HashMap hashmap1 = (HashMap) array.at(i);
+            HashMap hashmap1 = (HashMap) array.get(i);
             System.out.println(TextUtils.dateToString((Date) hashmap1
                     .get("date"))
                     + "   " + hashmap1.get("alert-message"));

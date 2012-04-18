@@ -12,8 +12,8 @@ package COM.dragonflow.Page;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -60,7 +60,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
                 {
                     outputStream.println("<TR>");
                 }
-                jgl.HashMap hashmap = ahashmap[i][j];
+                HashMap hashmap = ahashmap[i][j];
                 if(hashmap != null)
                 {
                     int k = 1 + (COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "yEnd")) - COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "yStart")));
@@ -90,15 +90,15 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         outputStream.println("</TABLE>");
     }
 
-    void printCell(jgl.HashMap hashmap, int i, int j, String s)
+    void printCell(HashMap hashmap, int i, int j, String s)
         throws java.io.IOException
     {
         String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "view");
         String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "query");
         String s3 = "/\\.(html|htm|xsl|gif|jpg)$/";
-        jgl.Array array = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray(s3, true);
-        jgl.Array array1 = COM.dragonflow.SiteView.Portal.getEditableQueryArray();
-        jgl.Array array2 = new Array();
+        Array array = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray(s3, true);
+        Array array1 = COM.dragonflow.SiteView.Portal.getEditableQueryArray();
+        Array array2 = new Array();
         array2.add("");
         array2.add("all");
         array2.add("serverDepth=true");
@@ -134,22 +134,22 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         return true;
     }
 
-    private String getSelectHTML(jgl.HashMap hashmap)
+    private String getSelectHTML(HashMap hashmap)
     {
-        jgl.Array array = COM.dragonflow.SiteView.Portal.getEditableViewArray();
-        jgl.Array array1 = new Array(array);
+        Array array = COM.dragonflow.SiteView.Portal.getEditableViewArray();
+        Array array1 = new Array(array);
         array1.pushFront("Top-Level");
         array1.pushFront("");
         return "<select size=\"1\" name=\"parentViewID\"\n>" + COM.dragonflow.Page.portalViewPage.getOptionsHTML(array1, COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_parentID")) + "</SELECT>";
     }
 
-    void printBasicProperties(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printBasicProperties(HashMap hashmap, HashMap hashmap1)
         throws java.io.IOException
     {
         if(request.getValue("operation").equalsIgnoreCase("AddFrame"))
         {
             outputStream.println("<TABLE>");
-            jgl.Array array = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray("/^Frame.*htm[l]*$/", true);
+            Array array = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray("/^Frame.*htm[l]*$/", true);
             outputStream.println("<table><tr><td>View Name</td><td>");
             outputStream.println("<TD ALIGN=LEFT><input type=text name=title size=50 value=\"" + COM.dragonflow.Page.portalViewPage.getValue(hashmap, "_title") + "\">");
             outputStream.println("<table><tr><td>Enter a name to use for this view definition</td></tr></table></td><td>");
@@ -163,27 +163,27 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
             outputStream.println("<table><tr><td>Enter a name to use for this view definition</td></tr></table></td><td>");
             outputStream.println(getSelectHTML(hashmap));
             outputStream.println("<table><tr><td>Select a parent view</td></tr></table></td></tr></table>");
-            jgl.Array array1 = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray("Frame", true);
+            Array array1 = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray("Frame", true);
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_framesHTML").length() > 0)
             {
                 outputStream.println("<TABLE><TR><TD ALIGN=RIGHT>Frame Set</TD><TD><TABLE><TR><TD ALIGN=LEFT><select name=framesHTML size=1>" + COM.dragonflow.Page.portalViewPage.getOptionsHTML(array1, COM.dragonflow.Page.portalViewPage.getValue(hashmap, "_framesHTML")) + "</select></TD></TR>" + "<TR><TD><FONT SIZE=-1>select an HTML frame template to use for this view</FONT></TD></TR>" + "</TABLE></TD><TD><I></I></TD></TR></TABLE>");
             } else
             {
-                jgl.Array array2 = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/layouts.config");
-                jgl.Array array3 = new Array();
+                Array array2 = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/layouts.config");
+                Array array3 = new Array();
                 if(hashmap.size() > 0)
                 {
                     array3.add(hashmap);
                 }
                 for(int i = 1; i < array2.size(); i++)
                 {
-                    array3.add(array2.at(i));
+                    array3.add(array2.get(i));
                 }
 
                 jgl.HashMap ahashmap[][] = (jgl.HashMap[][])null;
                 for(int j = 0; j < array3.size(); j++)
                 {
-                    jgl.HashMap hashmap2 = (jgl.HashMap)array3.at(j);
+                    HashMap hashmap2 = (HashMap)array3.get(j);
                     String s = j != 0 ? "" : "CHECKED";
                     COM.dragonflow.Page.portalPage.convertViewCells(hashmap2);
                     int ai[] = COM.dragonflow.Page.portalPage.getTableDimensions(hashmap2.values("_cell"));
@@ -214,22 +214,22 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         return true;
     }
 
-    void printAdvancedProperties(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printAdvancedProperties(HashMap hashmap, HashMap hashmap1)
         throws java.io.IOException
     {
         outputStream.println("<TABLE>");
-        jgl.Array array = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray("Header", true);
+        Array array = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray("Header", true);
         outputStream.println("<TR><TD ALIGN=RIGHT>Header</TD><TD><TABLE><TR><TD ALIGN=LEFT><select name=header size=1>" + COM.dragonflow.Page.portalViewPage.getOptionsHTML(array, COM.dragonflow.Page.portalViewPage.getValue(hashmap, "_header")) + "</select></TD></TR>" + "<TR><TD><FONT SIZE=-1>select an optional HTML header template to use for this view</FONT></TD></TR>" + "</TABLE></TD><TD><I></I></TD></TR>");
         outputStream.println("</TABLE>");
     }
 
-    jgl.HashMap fillInResultFrame(jgl.HashMap hashmap)
+    jgl.HashMap fillInResultFrame(HashMap hashmap)
     {
         String s = request.getValue("layout");
-        jgl.HashMap hashmap1 = new HashMap();
-        jgl.HashMap hashmap2;
+        HashMap hashmap1 = new HashMap();
+        HashMap hashmap2;
         String s2;
-        for(Enumeration enumeration = hashmap.values("_cell"); enumeration.hasMoreElements(); hashmap1.put(s2, hashmap2))
+        for(Enumeration enumeration = (Enumeration) hashmap.values("_cell"); enumeration.hasMoreElements(); hashmap1.put(s2, hashmap2))
         {
             String s1 = (String)enumeration.nextElement();
             hashmap2 = COM.dragonflow.Utils.TextUtils.stringToHashMap(s1);
@@ -252,7 +252,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
                     String s6 = request.getValue(s3 + "yStart");
                     String s7 = request.getValue(s3 + "yEnd");
                     String s8 = s4 + "," + s6 + "," + s5 + "," + s7;
-                    jgl.HashMap hashmap3 = (jgl.HashMap)hashmap1.get(s8);
+                    HashMap hashmap3 = (HashMap)hashmap1.get(s8);
                     if(hashmap3 == null)
                     {
                         hashmap3 = new HashMap();
@@ -285,7 +285,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
 
     private void toggleView()
     {
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         String s = COM.dragonflow.Page.portalViewPage.getValue(hashmap, "_showPortalSubViews");
         if(s.length() > 0)
         {
@@ -347,9 +347,9 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         outputStream.println("<TH>Name</TH><TH WIDTH=10%>Edit</TH><TH WIDTH=3%>Del</TH>");
     }
 
-    void printListItem(jgl.HashMap hashmap)
+    void printListItem(HashMap hashmap)
     {
-        jgl.HashMap hashmap1 = getMasterConfig();
+        HashMap hashmap1 = getMasterConfig();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
         String s1 = COM.dragonflow.Page.portalViewPage.getValue(hashmap, "_title");
         String s2 = COM.dragonflow.Page.portalViewPage.getValue(hashmap, "_parentID");
@@ -391,7 +391,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         printButtonBar(getHelpPage(), "");
         outputStream.println("<p><H2>" + s3 + " List</H2><TABLE WIDTH=100% BORDER=2>");
         printListHeader();
-        jgl.Array array = readListFrames();
+        Array array = readListFrames();
         if(array.size() < 2)
         {
             outputStream.println("<TR><TD>no " + s3 + "s</TD></TR>");
@@ -399,7 +399,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         {
             for(int i = 1; i < array.size(); i++)
             {
-                jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+                HashMap hashmap = (HashMap)array.get(i);
                 printListItem(hashmap);
             }
 
@@ -414,7 +414,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
 
     jgl.Array readListFrames()
     {
-        jgl.Array array = super.readListFrames();
+        Array array = super.readListFrames();
         try
         {
             COM.dragonflow.SiteView.Portal.readExtraItems("views.config", array);
@@ -431,7 +431,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         try
         {
             String s = null;
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_showPortalSubViews");
             String s1 = "/SiteView/cgi/go.exe/SiteView?page=portalView&account=administrator&toggleview=true";
             outputStream.println("<SCRIPT LANGUAGE=\"javascript\">");
@@ -454,7 +454,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         String s1 = "";
         if(s != null && !s.equalsIgnoreCase(""))
         {
-            jgl.Array array = null;
+            Array array = null;
             try
             {
                 array = COM.dragonflow.Properties.FrameFile.readFromFile(getConfigFilePath());
@@ -468,7 +468,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
             {
                 for(int i = 1; i < array.size(); i++)
                 {
-                    jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+                    HashMap hashmap = (HashMap)array.get(i);
                     if(COM.dragonflow.Page.portalViewPage.getValue(hashmap, "_id").equalsIgnoreCase(s))
                     {
                         s1 = " (parent: " + COM.dragonflow.Page.portalViewPage.getValue(hashmap, "_title") + ")";
@@ -490,7 +490,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
             outputStream.println("<hr>Access Permission Error.<hr>");
             return;
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add(new HashMapOrdered(true));
         try
         {
@@ -510,12 +510,12 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         }
         if(request.isPost())
         {
-            jgl.HashMap hashmap = null;
+            HashMap hashmap = null;
             if(s.equals("Add") || s.equals("AddFrame"))
             {
                 hashmap = getResultFrame();
                 array.add(hashmap);
-                jgl.HashMap hashmap1 = (jgl.HashMap)array.at(0);
+                HashMap hashmap1 = (HashMap)array.get(0);
                 setUniqueID(hashmap1, hashmap);
                 postProcessAdd(hashmap);
             } else
@@ -530,7 +530,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
                     throw new Exception(getTitle() + " id (" + s4 + ") could not be found");
                 }
             }
-            jgl.HashMap hashmap2 = new HashMap();
+            HashMap hashmap2 = new HashMap();
             verify(hashmap, hashmap2);
             if(hashmap2.size() == 0)
             {

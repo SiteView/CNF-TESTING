@@ -17,7 +17,8 @@ package COM.dragonflow.Utils;
  * 
  */
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // RemoteCommandLine, TextUtils, SocketSession
@@ -35,7 +36,7 @@ public class CGICommandLine extends COM.dragonflow.Utils.RemoteCommandLine {
         return "HTTP";
     }
 
-    public jgl.Array exec(String s, COM.dragonflow.SiteView.Machine machine, boolean flag) {
+    public Array exec(String s, COM.dragonflow.SiteView.Machine machine, boolean flag) {
         int i = COM.dragonflow.Properties.StringProperty.toInteger(machine.getProperty(COM.dragonflow.SiteView.Machine.pTimeout));
         if (i == 0) {
             i = 60000;
@@ -50,7 +51,7 @@ public class CGICommandLine extends COM.dragonflow.Utils.RemoteCommandLine {
         StringBuffer stringbuffer = new StringBuffer();
         StringBuffer stringbuffer1 = new StringBuffer();
         stringbuffer1.append(machine.getProperty(COM.dragonflow.SiteView.Machine.pHost));
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         long l = COM.dragonflow.Utils.TextUtils.toLong(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_urlContentMatchMax"));
         if (l <= 0L) {
             l = 50000L;
@@ -59,7 +60,7 @@ public class CGICommandLine extends COM.dragonflow.Utils.RemoteCommandLine {
         long al[] = COM.dragonflow.StandardMonitor.URLMonitor.checkURL(COM.dragonflow.Utils.SocketSession.getSession(null), s1, "", "", machine.getProperty("_proxy"), machine.getProperty("_proxyUsername"), machine.getProperty("_proxyPassword"), null,
                 machine.getProperty("_login"), machine.getProperty("_password"), "", stringbuffer, l, "", 5, i, stringbuffer1);
         int j = (int) al[0];
-        jgl.Array array = null;
+        Array array = null;
         if (machine.getPropertyAsBoolean(COM.dragonflow.SiteView.Machine.pTrace)) {
             traceMessage(stringbuffer.toString(), machine, FROM_REMOTE);
         }

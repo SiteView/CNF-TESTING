@@ -25,8 +25,8 @@ import COM.dragonflow.Utils.*;
 
 import java.io.PrintStream;
 import java.net.URLEncoder;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardMonitor:
 //            URLMonitor, URLContentMonitor
@@ -185,9 +185,9 @@ public class Oracle9iMonitor extends URLContentBase
             }
             if(getProperty("value" + i).length() > 0)
             {
-                setProperty(getLocationProperty(getPropertyObject("value" + i), s), array.at(i));
+                setProperty(getLocationProperty(getPropertyObject("value" + i), s), array.get(i));
             }
-            s2 = s2 + as[i] + " = " + array.at(i);
+            s2 = s2 + as[i] + " = " + array.get(i);
         }
 
         if(flag)

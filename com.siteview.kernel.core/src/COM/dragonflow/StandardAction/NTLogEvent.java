@@ -57,39 +57,39 @@ public class NTLogEvent extends COM.dragonflow.SiteView.Action {
 
     static COM.dragonflow.Utils.CounterLock eventLogLock = new CounterLock(1);
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap) {
+    public void initializeFromArguments(Array array, HashMap hashmap) {
         if (array.size() > 0) {
-            setProperty(pTemplate, array.at(0));
+            setProperty(pTemplate, array.get(0));
         } else {
             setProperty(pTemplate, "Default");
         }
         if (array.size() > 1) {
-            setProperty(pEventSource, array.at(1));
+            setProperty(pEventSource, array.get(1));
         } else {
             setProperty(pEventSource, "SiteView");
         }
         if (array.size() > 2) {
-            setProperty(pEventID, array.at(2));
+            setProperty(pEventID, array.get(2));
         } else {
             setProperty(pEventID, "1000");
         }
         if (array.size() > 3) {
-            setProperty(pEventType, array.at(3));
+            setProperty(pEventType, array.get(3));
         } else {
             setProperty(pEventType, "default");
         }
         if (array.size() > 4) {
-            setProperty(pEventCategory, array.at(4));
+            setProperty(pEventCategory, array.get(4));
         } else {
             setProperty(pEventCategory, "0");
         }
         if (array.size() > 5) {
-            setProperty(pEventMachine, array.at(5));
+            setProperty(pEventMachine, array.get(5));
         } else {
             setProperty(pEventMachine, "localhost");
         }
         if (array.size() > 6) {
-            setProperty(pMessage, ((String) array.at(6)).replace('_', ' '));
+            setProperty(pMessage, ((String) array.get(6)).replace('_', ' '));
         } else {
             setProperty(pMessage, "_");
         }
@@ -123,11 +123,11 @@ public class NTLogEvent extends COM.dragonflow.SiteView.Action {
         return stringbuffer.toString();
     }
 
-    public boolean defaultsAreSet(jgl.HashMap hashmap) {
+    public boolean defaultsAreSet(HashMap hashmap) {
         return true;
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == pEventSource) {
             if (s.indexOf(' ') >= 0) {
                 hashmap.put(stringproperty, stringproperty.getLabel() + " no spaces allowed");
@@ -240,13 +240,13 @@ public class NTLogEvent extends COM.dragonflow.SiteView.Action {
                 }
                 s = s + "\"" + s7 + "\" \"" + s3 + "\" " + s5 + " " + s4 + " \"" + s2 + "\" " + s6;
                 COM.dragonflow.Utils.CommandLine commandline = new CommandLine();
-                jgl.Array array = commandline.exec(s);
+                Array array = commandline.exec(s);
                 l = commandline.getExitValue();
                 s9 = s + " (" + l + ")";
                 if (l == 0L) {
                     flag = true;
                 }
-                for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements();) {
+                for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();) {
                     s10 = s10 + (String) enumeration.nextElement() + COM.dragonflow.SiteView.Platform.FILE_NEWLINE;
                 }
 

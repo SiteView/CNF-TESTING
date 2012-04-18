@@ -19,13 +19,13 @@ package COM.dragonflow.Properties;
  */
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Properties:
 // StringProperty
 
-public class PropertyTable extends HashMap {
+public class PropertyTable extends HashMap implements java.io.Serializable {
 
     private PropertyTable parent;
 

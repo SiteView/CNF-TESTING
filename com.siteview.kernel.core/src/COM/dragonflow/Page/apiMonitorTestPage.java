@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.datachannel.xml.om.Document;
 import COM.dragonflow.Api.APIMonitor;
 import COM.dragonflow.Api.APISiteView;
@@ -896,7 +896,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
 
     jgl.Array getNodeNames(org.w3c.dom.Node node)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s = ((org.w3c.dom.Element)node).getAttribute("name");
         if(s == null)
         {
@@ -923,7 +923,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
 
     jgl.Array getNodeIdNames(org.w3c.dom.Node node)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s = "id";
         String s1 = ((org.w3c.dom.Element)node).getAttribute(s);
         if(s1 == null || s1.length() == 0)
@@ -956,7 +956,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
 
     private String[] splitString(String s, String s1)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         int i = s1.length();
         int j = 0;
         for(int k = s.indexOf(s1); k != -1; k = s.indexOf(s1, j))
@@ -968,7 +968,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
         String as[] = new String[array.size()];
         for(int l = 0; l < as.length; l++)
         {
-            as[l] = (String)array.at(l);
+            as[l] = (String)array.get(l);
         }
 
         return as;

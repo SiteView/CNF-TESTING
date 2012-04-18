@@ -95,7 +95,7 @@ public class J2EEAttachObserver extends Thread //implements AttachObserver
         mStatus = 0L;
         owner = j2eerealtimemonitor;
 //        try {
-//            jgl.HashMap hashmap = TopazConfigurator.getTopazConfig();
+//            HashMap hashmap = TopazConfigurator.getTopazConfig();
 //            mTopazUrl = TextUtils.getValue(hashmap, "_topazAdminServerAddress");
 //            if (mTopazUrl == null || mTopazUrl.length() < 1) {
 //                URL url = new URL(TopazManager.getInstance().getTopazServerSettings().getAdminServerUrl());
@@ -248,7 +248,7 @@ public class J2EEAttachObserver extends Thread //implements AttachObserver
 
     static {
         logFile = Platform.getRoot() + File.separator + "logs" + File.separator + "j2ee_mdrv.log";
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         chunkSize = TextUtils.toInt(TextUtils.getValue(hashmap, "_J2EERealtimeMonitorChunkSize"));
         if (chunkSize <= 0) {
             chunkSize = 500;

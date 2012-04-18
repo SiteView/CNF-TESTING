@@ -17,7 +17,7 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // Scheduler, Action, ScheduleEvent, Rule

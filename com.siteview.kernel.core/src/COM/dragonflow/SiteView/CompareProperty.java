@@ -17,7 +17,7 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.BinaryPredicate;
+import com.recursionsw.jgl.BinaryPredicate;
 import COM.dragonflow.Properties.StringProperty;
 
 // Referenced classes of package COM.dragonflow.SiteView:

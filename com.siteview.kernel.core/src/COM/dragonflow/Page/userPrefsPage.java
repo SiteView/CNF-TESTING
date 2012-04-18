@@ -11,8 +11,8 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 
@@ -33,7 +33,7 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         return "UserPref.htm";
     }
 
-    void printOption(boolean flag, jgl.HashMap hashmap, String s, String s1, String s2)
+    void printOption(boolean flag, HashMap hashmap, String s, String s1, String s2)
     {
         String s3 = "";
         if(flag || COM.dragonflow.Page.userPrefsPage.getValue(hashmap, s1).length() > 0)
@@ -49,11 +49,11 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         }
     }
 
-    String getGroupsHTML(jgl.HashMap hashmap)
+    String getGroupsHTML(HashMap hashmap)
         throws java.lang.Exception
     {
-        jgl.Array array = new Array();
-        for(Enumeration enumeration = hashmap.values("_group"); enumeration.hasMoreElements(); array.add(enumeration.nextElement())) { }
+        Array array = new Array();
+        for(Enumeration enumeration = (Enumeration) hashmap.values("_group"); enumeration.hasMoreElements(); array.add(enumeration.nextElement())) { }
         String s = "<option value=\"\">all groups";
         if(array.size() == 0)
         {
@@ -62,11 +62,11 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         return "<select multiple name=_group size=4> " + s + getMonitorOptionsHTML(array, null, null, 2) + "</select>";
     }
 
-    String getGroupsHTML(String s, String s1, String s2, jgl.HashMap hashmap)
+    String getGroupsHTML(String s, String s1, String s2, HashMap hashmap)
         throws java.lang.Exception
     {
-        jgl.Array array = new Array();
-        Enumeration enumeration = hashmap.values("_group");
+        Array array = new Array();
+        Enumeration enumeration = (Enumeration) hashmap.values("_group");
         if(!enumeration.hasMoreElements() && !request.isPost())
         {
             array.add("_master");
@@ -93,13 +93,13 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         return stringbuffer.toString();
     }
 
-    void printForm(String s, jgl.Array array, jgl.HashMap hashmap)
+    void printForm(String s, Array array, HashMap hashmap)
         throws java.lang.Exception
     {
         String s1 = request.getValue("user");
         String s2 = s;
         boolean flag = false;
-        jgl.HashMap hashmap1;
+        HashMap hashmap1;
         if(s.equals("Edit"))
         {
             s2 = "Update";
@@ -155,7 +155,7 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         printFooter(outputStream);
     }
 
-    void printAccessFields(String s, jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printAccessFields(String s, HashMap hashmap, HashMap hashmap1)
         throws java.lang.Exception
     {
         if(s.equals("administrator") || s.equals("user"))
@@ -171,7 +171,7 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         }
     }
 
-    void printPermissions(String s, boolean flag, String s1, jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printPermissions(String s, boolean flag, String s1, HashMap hashmap, HashMap hashmap1)
     {
         if(s.equals("administrator"))
         {
@@ -189,7 +189,7 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         }
     }
 
-    void printPermissionsCheckBoxes(boolean flag, jgl.HashMap hashmap)
+    void printPermissionsCheckBoxes(boolean flag, HashMap hashmap)
     {
         printOption(flag, hashmap, "<hr><p><b>Group Actions</b></p>", "", "");
         printOption(flag, hashmap, "Edit Groups", "_groupEdit", "add, rename, copy, or delete groups");
@@ -240,15 +240,15 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
             outputStream.println("<hr>Administrator access only<hr>");
             return;
         }
-        jgl.Array array = getUserFrames();
+        Array array = getUserFrames();
         if(request.isPost() && COM.dragonflow.Page.treeControl.notHandled(request))
         {
             String s1 = request.getValue("user");
-            jgl.HashMap hashmap = new HashMap();
+            HashMap hashmap = new HashMap();
             String s2 = request.getValue("_login");
             for(int i = 1; i < array.size(); i++)
             {
-                jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+                HashMap hashmap1 = (HashMap)array.get(i);
                 String s5 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_id");
                 if(s5.equals(s1))
                 {
@@ -283,71 +283,71 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
             java.lang.Object obj = null;
             if(s.equals("Add"))
             {
-                jgl.HashMap hashmap2 = (jgl.HashMap)array.at(0);
+                HashMap hashmap2 = (HashMap)array.get(0);
                 s1 = (String)hashmap2.get("_nextID");
                 if(s1 == null)
                 {
                     s1 = "1";
                 }
                 obj = new HashMapOrdered(true);
-                ((jgl.HashMap) (obj)).put("_id", "login" + s1);
+                ((HashMap) (obj)).put("_id", "login" + s1);
                 array.add(obj);
                 hashmap2.put("_nextID", COM.dragonflow.Utils.TextUtils.increment(s1));
             } else
             {
                 obj = COM.dragonflow.SiteView.User.findUser(array, s1);
             }
-            ((jgl.HashMap) (obj)).put("_login", request.getValue("_login"));
-            ((jgl.HashMap) (obj)).put("_password", s3);
-            ((jgl.HashMap) (obj)).put("_ldapserver", request.getValue("_ldapserver"));
-            ((jgl.HashMap) (obj)).put("_securityprincipal", request.getValue("_securityprincipal"));
-            ((jgl.HashMap) (obj)).put("_realName", request.getValue("_realName"));
-            ((jgl.HashMap) (obj)).put("_disabled", request.getValue("_disabled"));
+            ((HashMap) (obj)).put("_login", request.getValue("_login"));
+            ((HashMap) (obj)).put("_password", s3);
+            ((HashMap) (obj)).put("_ldapserver", request.getValue("_ldapserver"));
+            ((HashMap) (obj)).put("_securityprincipal", request.getValue("_securityprincipal"));
+            ((HashMap) (obj)).put("_realName", request.getValue("_realName"));
+            ((HashMap) (obj)).put("_disabled", request.getValue("_disabled"));
             if(COM.dragonflow.SiteView.Platform.isPortal())
             {
-                ((jgl.HashMap) (obj)).put("_homeView", request.getValue("_homeView"));
-                ((jgl.HashMap) (obj)).put("_buttonBar", request.getValue("_buttonBar"));
-                ((jgl.HashMap) (obj)).put("_query", COM.dragonflow.Page.portalChooserPage.getQueryChooseListSelectedItem(request));
+                ((HashMap) (obj)).put("_homeView", request.getValue("_homeView"));
+                ((HashMap) (obj)).put("_buttonBar", request.getValue("_buttonBar"));
+                ((HashMap) (obj)).put("_query", COM.dragonflow.Page.portalChooserPage.getQueryChooseListSelectedItem(request));
             }
-            ((jgl.HashMap) (obj)).put("_progress", request.getValue("_progress"));
-            ((jgl.HashMap) (obj)).put("_topazConfigChangesReport", request.getValue("_topazConfigChangesReport"));
-            ((jgl.HashMap) (obj)).put("_alertList", request.getValue("_alertList"));
-            ((jgl.HashMap) (obj)).put("_browse", request.getValue("_browse"));
-            ((jgl.HashMap) (obj)).put("_tools", request.getValue("_tools"));
-            ((jgl.HashMap) (obj)).put("_support", request.getValue("_support"));
-            ((jgl.HashMap) (obj)).put("_preference", request.getValue("_preference"));
-            ((jgl.HashMap) (obj)).put("_preferenceTest", request.getValue("_preferenceTest"));
-            ((jgl.HashMap) (obj)).put("_logs", request.getValue("_logs"));
-            ((jgl.HashMap) (obj)).put("_multiEdit", request.getValue("_multiEdit"));
-            ((jgl.HashMap) (obj)).put("_groupEdit", request.getValue("_groupEdit"));
-            ((jgl.HashMap) (obj)).put("_groupDisable", request.getValue("_groupDisable"));
-            ((jgl.HashMap) (obj)).put("_groupRefresh", request.getValue("_groupRefresh"));
-            ((jgl.HashMap) (obj)).put("_monitorEdit", request.getValue("_monitorEdit"));
-            ((jgl.HashMap) (obj)).put("_monitorDisable", request.getValue("_monitorDisable"));
-            ((jgl.HashMap) (obj)).put("_monitorRefresh", request.getValue("_monitorRefresh"));
-            ((jgl.HashMap) (obj)).put("_monitorAcknowledge", request.getValue("_monitorAcknowledge"));
-            ((jgl.HashMap) (obj)).put("_monitorRecent", request.getValue("_monitorRecent"));
-            ((jgl.HashMap) (obj)).put("_monitorTools", request.getValue("_monitorTools"));
-            ((jgl.HashMap) (obj)).put("_alertEdit", request.getValue("_alertEdit"));
-            ((jgl.HashMap) (obj)).put("_alertDisable", request.getValue("_alertDisable"));
-            ((jgl.HashMap) (obj)).put("_alertTempDisable", request.getValue("_alertTempDisable"));
-            ((jgl.HashMap) (obj)).put("_alertRecentReport", request.getValue("_alertRecentReport"));
-            ((jgl.HashMap) (obj)).put("_alertAdhocReport", request.getValue("_alertAdhocReport"));
-            ((jgl.HashMap) (obj)).put("_alertTest", request.getValue("_alertTest"));
-            ((jgl.HashMap) (obj)).put("_reportEdit", request.getValue("_reportEdit"));
-            ((jgl.HashMap) (obj)).put("_reportDisable", request.getValue("_reportDisable"));
-            ((jgl.HashMap) (obj)).put("_reportAdhoc", request.getValue("_reportAdhoc"));
-            ((jgl.HashMap) (obj)).put("_reportToolbar", request.getValue("_reportToolbar"));
-            ((jgl.HashMap) (obj)).put("_reportGenerate", request.getValue("_reportGenerate"));
-            ((jgl.HashMap) (obj)).put("_healthView", request.getValue("_healthView"));
-            ((jgl.HashMap) (obj)).put("_healthEdit", request.getValue("_healthEdit"));
-            ((jgl.HashMap) (obj)).put("_healthDisable", request.getValue("_healthDisable"));
-            ((jgl.HashMap) (obj)).remove("_group");
+            ((HashMap) (obj)).put("_progress", request.getValue("_progress"));
+            ((HashMap) (obj)).put("_topazConfigChangesReport", request.getValue("_topazConfigChangesReport"));
+            ((HashMap) (obj)).put("_alertList", request.getValue("_alertList"));
+            ((HashMap) (obj)).put("_browse", request.getValue("_browse"));
+            ((HashMap) (obj)).put("_tools", request.getValue("_tools"));
+            ((HashMap) (obj)).put("_support", request.getValue("_support"));
+            ((HashMap) (obj)).put("_preference", request.getValue("_preference"));
+            ((HashMap) (obj)).put("_preferenceTest", request.getValue("_preferenceTest"));
+            ((HashMap) (obj)).put("_logs", request.getValue("_logs"));
+            ((HashMap) (obj)).put("_multiEdit", request.getValue("_multiEdit"));
+            ((HashMap) (obj)).put("_groupEdit", request.getValue("_groupEdit"));
+            ((HashMap) (obj)).put("_groupDisable", request.getValue("_groupDisable"));
+            ((HashMap) (obj)).put("_groupRefresh", request.getValue("_groupRefresh"));
+            ((HashMap) (obj)).put("_monitorEdit", request.getValue("_monitorEdit"));
+            ((HashMap) (obj)).put("_monitorDisable", request.getValue("_monitorDisable"));
+            ((HashMap) (obj)).put("_monitorRefresh", request.getValue("_monitorRefresh"));
+            ((HashMap) (obj)).put("_monitorAcknowledge", request.getValue("_monitorAcknowledge"));
+            ((HashMap) (obj)).put("_monitorRecent", request.getValue("_monitorRecent"));
+            ((HashMap) (obj)).put("_monitorTools", request.getValue("_monitorTools"));
+            ((HashMap) (obj)).put("_alertEdit", request.getValue("_alertEdit"));
+            ((HashMap) (obj)).put("_alertDisable", request.getValue("_alertDisable"));
+            ((HashMap) (obj)).put("_alertTempDisable", request.getValue("_alertTempDisable"));
+            ((HashMap) (obj)).put("_alertRecentReport", request.getValue("_alertRecentReport"));
+            ((HashMap) (obj)).put("_alertAdhocReport", request.getValue("_alertAdhocReport"));
+            ((HashMap) (obj)).put("_alertTest", request.getValue("_alertTest"));
+            ((HashMap) (obj)).put("_reportEdit", request.getValue("_reportEdit"));
+            ((HashMap) (obj)).put("_reportDisable", request.getValue("_reportDisable"));
+            ((HashMap) (obj)).put("_reportAdhoc", request.getValue("_reportAdhoc"));
+            ((HashMap) (obj)).put("_reportToolbar", request.getValue("_reportToolbar"));
+            ((HashMap) (obj)).put("_reportGenerate", request.getValue("_reportGenerate"));
+            ((HashMap) (obj)).put("_healthView", request.getValue("_healthView"));
+            ((HashMap) (obj)).put("_healthEdit", request.getValue("_healthEdit"));
+            ((HashMap) (obj)).put("_healthDisable", request.getValue("_healthDisable"));
+            ((HashMap) (obj)).remove("_group");
             Enumeration enumeration = request.getValues("_group");
             boolean flag = false;
             if(!COM.dragonflow.Page.treeControl.useTree())
             {
-                for(; enumeration.hasMoreElements(); ((jgl.HashMap) (obj)).add("_group", (String)enumeration.nextElement())) { }
+                for(; enumeration.hasMoreElements(); ((HashMap) (obj)).add("_group", (String)enumeration.nextElement())) { }
             } else
             {
                 do
@@ -366,15 +366,15 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
                 } while(true);
                 if(!flag)
                 {
-                    for(Enumeration enumeration1 = request.getValues("_group"); enumeration1.hasMoreElements(); ((jgl.HashMap) (obj)).add("_group", COM.dragonflow.HTTP.HTTPRequest.decodeString((String)enumeration1.nextElement()))) { }
+                    for(Enumeration enumeration1 = request.getValues("_group"); enumeration1.hasMoreElements(); ((HashMap) (obj)).add("_group", COM.dragonflow.HTTP.HTTPRequest.decodeString((String)enumeration1.nextElement()))) { }
                 }
             }
-            ((jgl.HashMap) (obj)).put("_demo", request.getValue("_demo"));
-            ((jgl.HashMap) (obj)).put("_license", request.getValue("_license"));
+            ((HashMap) (obj)).put("_demo", request.getValue("_demo"));
+            ((HashMap) (obj)).put("_license", request.getValue("_license"));
             saveUserFrames(array);
             if(request.usesCookieLogin())
             {
-                request.addOtherHeader("Set-Cookie: value=" + COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "_id") + "|" + COM.dragonflow.Utils.TextUtils.getValue(((jgl.HashMap) (obj)), "_login") + "|" + COM.dragonflow.Utils.TextUtils.obscure(s3) + "; path=/");
+                request.addOtherHeader("Set-Cookie: value=" + COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "_id") + "|" + COM.dragonflow.Utils.TextUtils.getValue(((HashMap) (obj)), "_login") + "|" + COM.dragonflow.Utils.TextUtils.obscure(s3) + "; path=/");
             }
             super.printCGIHeader();
             printRefreshPage(getPageLink(request.getValue("page"), ""), 0);
@@ -384,7 +384,7 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         }
     }
 
-    String getUserTitle(jgl.HashMap hashmap)
+    String getUserTitle(HashMap hashmap)
     {
         String s = COM.dragonflow.Page.userPrefsPage.getValue(hashmap, "_realName");
         if(s.length() == 0)
@@ -407,15 +407,15 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
             outputStream.println("<TH WIDTH=10%>Edit</TH><TH WIDTH=3%>Del</TH>");
         }
         outputStream.println("</TR>");
-        jgl.Array array = getUserFrames();
-        Enumeration enumeration = array.elements();
+        Array array = getUserFrames();
+        Enumeration enumeration = (Enumeration) array.iterator();
         if(enumeration.hasMoreElements())
         {
             enumeration.nextElement();
         }
         while(enumeration.hasMoreElements()) 
         {
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
             String s3 = getUserTitle(hashmap);
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_disabled").length() > 0)
@@ -462,8 +462,8 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
             return;
         }
         String s1 = request.getValue("user");
-        jgl.Array array = getUserFrames();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.User.findUser(array, s1);
+        Array array = getUserFrames();
+        HashMap hashmap = COM.dragonflow.SiteView.User.findUser(array, s1);
         if(request.isPost())
         {
             try
@@ -560,7 +560,7 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
     jgl.Array getUserFrames()
         throws java.io.IOException
     {
-        jgl.Array array = null;
+        Array array = null;
         if(isPortalServerRequest())
         {
             try
@@ -571,7 +571,7 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
             {
                 array = new Array();
             }
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             COM.dragonflow.SiteView.User.initializeUsersList(array, hashmap);
         } else
         {
@@ -580,7 +580,7 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         return array;
     }
 
-    void saveUserFrames(jgl.Array array)
+    void saveUserFrames(Array array)
         throws java.io.IOException
     {
         if(isPortalServerRequest())

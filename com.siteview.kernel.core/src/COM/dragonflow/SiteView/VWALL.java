@@ -20,8 +20,8 @@ package COM.dragonflow.SiteView;
 import java.io.IOException;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.Utils.CommandLine;
 import COM.dragonflow.Utils.TextUtils;
@@ -110,7 +110,7 @@ public class VWALL {
         hashmap.put("starttime" + i, "");
         messages.clear();
         String s;
-        for (Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); messages.put(s, (String) hashmap.get(s))) {
+        for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements(); messages.put(s, (String) hashmap.get(s))) {
             s = (String) enumeration.nextElement();
         }
 
@@ -132,7 +132,7 @@ public class VWALL {
         try {
             Array array = FrameFile.readFromFile(Platform.getRoot() + "/templates.view/" + s + "");
             if (array != null && array.size() > 0) {
-                messages = (HashMap) array.at(0);
+                messages = (HashMap) array.get(0);
             }
         } catch (IOException ioexception) {
             ioexception.printStackTrace();

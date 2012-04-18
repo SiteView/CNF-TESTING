@@ -19,8 +19,8 @@ package COM.dragonflow.SiteView;
  */
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Utils.I18N;
 
 // Referenced classes of package COM.dragonflow.SiteView:
@@ -45,7 +45,7 @@ public class DetectStateChange extends Action {
             Array array = siteviewgroup.getElementsOfClass(
                     "COM.dragonflow.SiteView.MonitorGroup", false);
             HashMap hashmap = new HashMap();
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                  MonitorGroup monitorgroup = (MonitorGroup) enumeration
                         .nextElement();
@@ -56,7 +56,7 @@ public class DetectStateChange extends Action {
             } 
             
             MonitorGroup monitorgroup1;
-            for (Enumeration enumeration1 = hashmap.keys(); enumeration1
+            for (Enumeration enumeration1 = (Enumeration) hashmap.keys(); enumeration1
                     .hasMoreElements(); monitorgroup1.writeAllHTML()) {
                 String s = (String) enumeration1.nextElement();
                 monitorgroup1 = (MonitorGroup) hashmap.get(s);

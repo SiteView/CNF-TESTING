@@ -34,7 +34,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public class ComPlusMonitor extends BrowsableURLContentBase
 {
@@ -227,7 +227,7 @@ public class ComPlusMonitor extends BrowsableURLContentBase
          {
              s = s + "\\";
          }
-         s = s + (String)array.at(i);
+         s = s + (String)array.get(i);
      }
 
      return s;
@@ -428,10 +428,10 @@ public class ComPlusMonitor extends BrowsableURLContentBase
  private ComPlusConnector getMyComPlusConnection()
  {
      Array array = getConnectionProperties();
-     String s = getProperty((StringProperty)array.at(0));
-     String s1 = getProperty((StringProperty)array.at(1));
-     String s2 = getProperty((StringProperty)array.at(2));
-     String s3 = getProperty((StringProperty)array.at(3));
+     String s = getProperty((StringProperty)array.get(0));
+     String s1 = getProperty((StringProperty)array.get(1));
+     String s2 = getProperty((StringProperty)array.get(2));
+     String s3 = getProperty((StringProperty)array.get(3));
      int i = getPropertyAsInteger(pTimeout);
      if(i <= 0)
      {
@@ -440,7 +440,7 @@ public class ComPlusMonitor extends BrowsableURLContentBase
      return ComPlusConnector.getComPlusConnection(s, s1, s2, s3, getProperty(pProxy), getProperty(pProxyUserName), getProperty(pProxyPassword), this, i);
  }
 
- public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, jgl.HashMap hashmap)
+ public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, HashMap hashmap)
  {
      if(stringproperty == pTimeout)
      {

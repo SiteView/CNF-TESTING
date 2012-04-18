@@ -20,7 +20,7 @@ package COM.dragonflow.SiteView;
 import java.io.IOException;
 import java.util.Vector;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;

@@ -31,7 +31,7 @@ public class siteseerPrefsPage extends COM.dragonflow.Page.prefsPage
         String s = "";
         try
         {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             hashmap.put("_siteseerUsername", request.getValue("siteseerUsername"));
             hashmap.put("_siteseerPassword", COM.dragonflow.Properties.StringProperty.getPrivate(request, "siteseerPassword", "seerSuff", null, null));
             hashmap.put("_siteseerReadOnlyUsername", request.getValue("siteseerReadOnlyUsername"));
@@ -86,7 +86,7 @@ public class siteseerPrefsPage extends COM.dragonflow.Page.prefsPage
 
     void printForm()
     {
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_siteseerUsername");
         StringBuffer stringbuffer = new StringBuffer();
         StringBuffer stringbuffer1 = new StringBuffer();

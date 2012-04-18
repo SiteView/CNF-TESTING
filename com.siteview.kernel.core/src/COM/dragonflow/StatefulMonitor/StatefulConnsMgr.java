@@ -17,15 +17,15 @@ package COM.dragonflow.StatefulMonitor;
  * 
  */
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StatefulMonitor:
 // StatefulConnection, StatefulConnectionUser
 
 public class StatefulConnsMgr {
 
-    static jgl.HashMap managers = new HashMap();
+    static HashMap managers = new HashMap();
 
     private java.lang.Class connClass;
 
@@ -55,7 +55,7 @@ public class StatefulConnsMgr {
             if (i >= conns.size()) {
                 break;
             }
-            COM.dragonflow.StatefulMonitor.StatefulConnection statefulconnection1 = (COM.dragonflow.StatefulMonitor.StatefulConnection) conns.at(i);
+            COM.dragonflow.StatefulMonitor.StatefulConnection statefulconnection1 = (COM.dragonflow.StatefulMonitor.StatefulConnection) conns.get(i);
             if (statefulconnection1.isUsedBy(statefulconnectionuser)) {
                 if (!statefulconnection1.canBeUsedBy(statefulconnectionuser, false)) {
                     removeUserFromConn(i, statefulconnection1, statefulconnectionuser);
@@ -72,7 +72,7 @@ public class StatefulConnsMgr {
                 if (j >= conns.size()) {
                     break;
                 }
-                COM.dragonflow.StatefulMonitor.StatefulConnection statefulconnection2 = (COM.dragonflow.StatefulMonitor.StatefulConnection) conns.at(j);
+                COM.dragonflow.StatefulMonitor.StatefulConnection statefulconnection2 = (COM.dragonflow.StatefulMonitor.StatefulConnection) conns.get(j);
                 if (statefulconnection2.canBeUsedBy(statefulconnectionuser, true)) {
                     statefulconnection = statefulconnection2;
                     break;
@@ -102,7 +102,7 @@ public class StatefulConnsMgr {
     public synchronized void removeUserFromConn(COM.dragonflow.StatefulMonitor.StatefulConnectionUser statefulconnectionuser) {
         int i = conns.size();
         for (int j = 0; j < i; j ++) {
-            COM.dragonflow.StatefulMonitor.StatefulConnection statefulconnection = (COM.dragonflow.StatefulMonitor.StatefulConnection) conns.at(j);
+            COM.dragonflow.StatefulMonitor.StatefulConnection statefulconnection = (COM.dragonflow.StatefulMonitor.StatefulConnection) conns.get(j);
             if (statefulconnection.isUsedBy(statefulconnectionuser)) {
                 removeUserFromConn(j, statefulconnection, statefulconnectionuser);
                 return;

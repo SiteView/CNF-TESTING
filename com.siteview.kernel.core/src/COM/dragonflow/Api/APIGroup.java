@@ -23,10 +23,20 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
+import COM.dragonflow.Properties.BooleanProperty;
+import COM.dragonflow.Properties.BrowsableProperty;
+import COM.dragonflow.Properties.FileProperty;
+import COM.dragonflow.Properties.FrameFile;
+import COM.dragonflow.Properties.FrequencyProperty;
 import COM.dragonflow.Properties.HashMapOrdered;
+import COM.dragonflow.Properties.JdbcConfig;
+import COM.dragonflow.Properties.NumericProperty;
+import COM.dragonflow.Properties.PercentProperty;
+import COM.dragonflow.Properties.RateProperty;
+import COM.dragonflow.Properties.ScalarProperty;
+import COM.dragonflow.Properties.ScheduleProperty;
+import COM.dragonflow.Properties.ServerProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Resource.SiteViewErrorCodes;
 import COM.dragonflow.SiteView.AtomicMonitor;
@@ -45,6 +55,9 @@ import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.LUtils;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Api:
 // APISiteView, SSStringReturnValue, SSPropertyDetails, APIAlert,
@@ -87,7 +100,7 @@ public class APIGroup extends APISiteView
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_PROPERTIES_NOT_NULL);
             }
-            jgl.HashMap hashmap = new HashMap();
+            HashMap hashmap = new HashMap();
             for(int i = 0; i < assinstanceproperty.length; i++)
             {
                 hashmap.add(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -99,20 +112,20 @@ public class APIGroup extends APISiteView
             } else
             {
                 s2 = computeGroupName(s2);
-                jgl.Array array = new Array();
-                COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
+                Array array = new Array();
+                HashMapOrdered hashmapordered = new HashMapOrdered(true);
                 updateConfig("_name", "config", hashmap, hashmapordered);
                 if(s1 != null && s1.length() != 0)
                 {
                     hashmapordered.put("_parent", s1);
-                    jgl.Array array1 = ReadGroupFrames(s1);
-                    jgl.HashMap hashmap1 = (jgl.HashMap)array1.at(0);
+                    Array array1 = ReadGroupFrames(s1);
+                    HashMap hashmap1 = (HashMap)array1.get(0);
                     String s3 = TextUtils.getValue(hashmap1, "_nextID");
                     if(s3.length() == 0)
                     {
                         s3 = "1";
                     }
-                    jgl.HashMap hashmap2 = new HashMap();
+                    HashMap hashmap2 = new HashMap();
                     hashmap2.put("_id", s3);
                     hashmap2.put("_class", "SubGroup");
                     hashmap2.put("_group", s2);
@@ -165,10 +178,10 @@ public class APIGroup extends APISiteView
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_PROPERTIES_NOT_NULL);
             }
-            jgl.Array array = ReadGroupFrames(s);
-            Enumeration enumeration = array.elements();
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
-            jgl.HashMap hashmap1 = new HashMap();
+            Array array = ReadGroupFrames(s);
+            Enumeration enumeration = (Enumeration) array.iterator();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
+            HashMap hashmap1 = new HashMap();
             for(int i = 0; i < assinstanceproperty.length; i++)
             {
                 hashmap1.add(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -184,9 +197,9 @@ public class APIGroup extends APISiteView
             String s1 = TextUtils.getValue(hashmap, "_parent");
             if(s1.length() != 0)
             {
-                jgl.Array array1 = ReadGroupFrames(s1);
+                Array array1 = ReadGroupFrames(s1);
                 int j = findSubGroupIndex(array1, s);
-                jgl.HashMap hashmap2 = (jgl.HashMap)array1.at(j);
+                HashMap hashmap2 = (HashMap)array1.get(j);
                 updateConfig("_name", "config", hashmap1, hashmap2);
                 WriteGroupFrames(s1, array1);
             }
@@ -251,9 +264,9 @@ public class APIGroup extends APISiteView
             String s4 = s1;
             do
             {
-                jgl.Array array = ReadGroupFrames(s4);
-                Enumeration enumeration = array.elements();
-                COM.dragonflow.Properties.HashMapOrdered hashmapordered = (COM.dragonflow.Properties.HashMapOrdered)enumeration.nextElement();
+                Array array = ReadGroupFrames(s4);
+                Enumeration enumeration = (Enumeration) array.iterator();
+                HashMapOrdered hashmapordered = (HashMapOrdered)enumeration.nextElement();
                 s3 = (String)hashmapordered.get("_parent");
                 if(s3 != null && s3.equals(s))
                 {
@@ -299,9 +312,9 @@ public class APIGroup extends APISiteView
             {
                 do
                 {
-                    jgl.Array array = ReadGroupFrames(s4);
-                    Enumeration enumeration = array.elements();
-                    COM.dragonflow.Properties.HashMapOrdered hashmapordered = (COM.dragonflow.Properties.HashMapOrdered)enumeration.nextElement();
+                    Array array = ReadGroupFrames(s4);
+                    Enumeration enumeration = (Enumeration) array.iterator();
+                    HashMapOrdered hashmapordered = (HashMapOrdered)enumeration.nextElement();
                     s3 = (String)hashmapordered.get("_parent");
                     if(s3 != null && s3.equals(s))
                     {
@@ -336,7 +349,7 @@ public class APIGroup extends APISiteView
             String s1 = "Group";
             java.lang.Class class1 = java.lang.Class.forName(s1);
             SiteViewObject siteviewobject = (SiteViewObject)class1.newInstance();
-            COM.dragonflow.Properties.StringProperty stringproperty = siteviewobject.getPropertyObject(s);
+            StringProperty stringproperty = siteviewobject.getPropertyObject(s);
             if(stringproperty == null)
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_COPY_DESTINATION_SUBGROUP, new String[] {
@@ -368,11 +381,11 @@ public class APIGroup extends APISiteView
             String s = "Group";
             java.lang.Class class1 = java.lang.Class.forName(s);
             SiteViewObject siteviewobject = (SiteViewObject)class1.newInstance();
-            jgl.Array array = getPropertiesForClass(siteviewobject, s, "Group", i);
+            Array array = getPropertiesForClass(siteviewobject, s, "Group", i);
             asspropertydetails = new SSPropertyDetails[array.size()];
             for(int j = 0; j < array.size(); j++)
             {
-                asspropertydetails[j] = getClassProperty((COM.dragonflow.Properties.StringProperty)array.at(j), null);
+                asspropertydetails[j] = getClassProperty((StringProperty)array.get(j), null);
             }
 
         }
@@ -399,7 +412,7 @@ public class APIGroup extends APISiteView
             String s2 = "Group";
             java.lang.Class class1 = java.lang.Class.forName(s2);
             SiteViewObject siteviewobject = (SiteViewObject)class1.newInstance();
-            COM.dragonflow.Properties.StringProperty stringproperty = siteviewobject.getPropertyObject(s);
+            StringProperty stringproperty = siteviewobject.getPropertyObject(s);
             sspropertydetails = getClassProperty(stringproperty, s1);
         }
         catch(SiteViewException siteviewexception)
@@ -416,10 +429,10 @@ public class APIGroup extends APISiteView
         return sspropertydetails;
     }
 
-    public SSGroupInstance[] getInstances(String s, int i)
+    public SSGroupInstance[] getInstances(String groupid, int i)
         throws SiteViewException
     {
-        if(!isGroupAllowedForAccount(s))
+        if(!isGroupAllowedForAccount(groupid))
         {
             throw new SiteViewParameterException(SiteViewErrorCodes.ERR_OP_SS_GROUP_ACCESS_EXCEPTION);
         }
@@ -427,7 +440,7 @@ public class APIGroup extends APISiteView
         try
         {
             boolean flag = true;
-            if(s != null && s.length() > 0)
+            if(groupid != null && groupid.length() > 0)
             {
                 flag = false;
             }
@@ -438,7 +451,7 @@ public class APIGroup extends APISiteView
                 obj = SiteViewGroup.currentSiteView().getTopLevelGroups();
             } else
             {
-                obj = getSubGroups(s);
+                obj = getSubGroups(groupid);
             }
             APIAlert apialert = new APIAlert();
             java.util.Iterator iterator = ((java.util.Collection) (obj)).iterator();
@@ -448,7 +461,7 @@ public class APIGroup extends APISiteView
                 if(isGroupAllowedForAccount(s1))
                 {
                     String s2 = monitorgroup.getProperty(MonitorGroup.pParent);
-                    if(flag && (s2 == null || s2.length() == 0) || !flag && s2 != null && s2.equals(s))
+                    if(flag && (s2 == null || s2.length() == 0) || !flag && s2 != null && s2.equals(groupid))
                     {
                         SSInstanceProperty assinstanceproperty[] = getInstanceProperties(s1, i);
                         int k = 0;
@@ -511,23 +524,23 @@ public class APIGroup extends APISiteView
         return assgroupinstance;
     }
 
-    public SSInstanceProperty[] getInstanceProperties(String s, int i)
+    public SSInstanceProperty[] getInstanceProperties(String groupid, int filter)
         throws SiteViewException
     {
         SSInstanceProperty assinstanceproperty[] = null;
         try
         {
-            if(s.length() == 0 || s == null)
+            if(groupid.length() == 0 || groupid == null)
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_EMPTY);
             }
-            jgl.Array array = getPropertiesForGroupInstance("Group", i);
-            MonitorGroup monitorgroup = SiteViewGroup.getMonitorGroup(s);
+            Array array = getPropertiesForGroupInstance("Group", filter);
+            MonitorGroup monitorgroup = SiteViewGroup.getMonitorGroup(groupid);
             int j = 0;
             SSStringReturnValue ssstringreturnvalue = null;
             try
             {
-                if(i == APISiteView.FILTER_CONFIGURATION_ALL || i == APISiteView.FILTER_ALL)
+                if(filter == APISiteView.FILTER_CONFIGURATION_ALL || filter == APISiteView.FILTER_ALL)
                 {
                     j = 1;
 //                    ssstringreturnvalue = getTopazID(s);
@@ -539,9 +552,9 @@ public class APIGroup extends APISiteView
             }
             assinstanceproperty = new SSInstanceProperty[j + array.size()];
             int k = 0;
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements();)
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                StringProperty stringproperty = (StringProperty)enumeration.nextElement();
                 String s1 = monitorgroup.getProperty(stringproperty.getName());
                 if(stringproperty.isPassword)
                 {
@@ -580,11 +593,11 @@ public class APIGroup extends APISiteView
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_EMPTY);
             }
-            jgl.Array array = getPropertiesForGroupInstance("Group", i);
+            Array array = getPropertiesForGroupInstance("Group", i);
             MonitorGroup monitorgroup = SiteViewGroup.getMonitorGroup(s1);
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                StringProperty stringproperty = (StringProperty)enumeration.nextElement();
                 String s2 = monitorgroup.getProperty(stringproperty.getName());
                 if(stringproperty.isPassword)
                 {
@@ -623,14 +636,13 @@ public class APIGroup extends APISiteView
         return ssinstanceproperty;
     }
 
-    public Collection getAllGroupInstances()
+    public ArrayList<MonitorGroup>  getAllGroupInstances()
         throws SiteViewException
     {
         return getAllAllowedGroups();
     }
     
-    public ArrayList getTopLevelGroupInstances()
-            throws SiteViewException
+    public ArrayList getTopLevelAllowedGroupInstances()  throws SiteViewException
     {
             return getTopLevelAllowedGroups();
     }
@@ -692,19 +704,19 @@ public class APIGroup extends APISiteView
 //        return ssstringreturnvalue;
 //    }
 
-    private jgl.Array getPropertiesForGroupInstance(String s, int i)
+    private Array getPropertiesForGroupInstance(String s, int i)
         throws SiteViewException
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         try
         {
             Group group = new Group();
-            jgl.Array array1 = group.getProperties();
-            array1 = COM.dragonflow.Properties.StringProperty.sortByOrder(array1);
-            Enumeration enumeration = array1.elements();
+            Array array1 = group.getProperties();
+            array1 = StringProperty.sortByOrder(array1);
+            Enumeration enumeration =  (Enumeration) array1.iterator();
             while (enumeration.hasMoreElements()) {
                 boolean flag = false;
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                StringProperty stringproperty = (StringProperty)enumeration.nextElement();
                 int j = s.lastIndexOf(".");
                 flag = returnProperty(stringproperty, i, group, s.substring(j + 1));
                 if(flag)
@@ -748,53 +760,53 @@ public class APIGroup extends APISiteView
             {
                 s1 = "PASSWORD";
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.ServerProperty)
+            if(stringproperty instanceof ServerProperty)
             {
                 s1 = "SERVER";
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.ScheduleProperty)
+            if(stringproperty instanceof ScheduleProperty)
             {
                 s1 = "SCHEDULE";
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.ScalarProperty)
+            if(stringproperty instanceof ScalarProperty)
             {
                 s1 = "SCALAR";
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.RateProperty)
+            if(stringproperty instanceof RateProperty)
             {
                 s1 = "RATE";
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.PercentProperty)
+            if(stringproperty instanceof PercentProperty)
             {
                 s1 = "PERCENT";
-                s3 = ((COM.dragonflow.Properties.PercentProperty)stringproperty).getUnits();
+                s3 = ((PercentProperty)stringproperty).getUnits();
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.FrequencyProperty)
+            if(stringproperty instanceof FrequencyProperty)
             {
                 s1 = "FREQUENCY";
                 s3 = "seconds";
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.FileProperty)
+            if(stringproperty instanceof FileProperty)
             {
                 s1 = "FILE";
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.BrowsableProperty)
+            if(stringproperty instanceof BrowsableProperty)
             {
                 s1 = "BROWSABLE";
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.BooleanProperty)
+            if(stringproperty instanceof BooleanProperty)
             {
                 s1 = "BOOLEAN";
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.NumericProperty)
+            if(stringproperty instanceof NumericProperty)
             {
                 s1 = "NUMERIC";
-                s3 = ((COM.dragonflow.Properties.NumericProperty)stringproperty).getUnits();
+                s3 = ((NumericProperty)stringproperty).getUnits();
             }
             COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
-            if(stringproperty instanceof COM.dragonflow.Properties.ScalarProperty)
+            if(stringproperty instanceof ScalarProperty)
             {
-                COM.dragonflow.Properties.ScalarProperty scalarproperty = (COM.dragonflow.Properties.ScalarProperty)stringproperty;
+                ScalarProperty scalarproperty = (ScalarProperty)stringproperty;
                 java.lang.Class class1 = java.lang.Class.forName("Group");
                 if(s != null)
                 {
@@ -831,7 +843,7 @@ public class APIGroup extends APISiteView
         return new SSPropertyDetails(stringproperty.getName(), s1, stringproperty.getDescription(), stringproperty.getLabel(), stringproperty.isEditable, stringproperty.isMultivalued, stringproperty.getDefault(), as, as1, s2, false, false, stringproperty.getOrder(), s3, stringproperty.isAdvanced, stringproperty.isPassword, siteviewobject.getProperty(stringproperty.getName()));
     }
 
-    private String moveGroup(String s, String s1, jgl.HashMap hashmap, boolean flag)
+    private String moveGroup(String s, String s1, HashMap hashmap, boolean flag)
         throws SiteViewException
     {
         String s2 = null;
@@ -846,10 +858,10 @@ public class APIGroup extends APISiteView
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_NAME_SITEVIEW);
             }
-            COM.dragonflow.Properties.HashMapOrdered hashmapordered = null;
-            jgl.Array array = ReadGroupFrames(s);
-            Enumeration enumeration = array.elements();
-            hashmapordered = (COM.dragonflow.Properties.HashMapOrdered)enumeration.nextElement();
+            HashMapOrdered hashmapordered = null;
+            Array array = ReadGroupFrames(s);
+            Enumeration enumeration = (Enumeration) array.iterator();
+            hashmapordered = (HashMapOrdered)enumeration.nextElement();
             String s4 = (String)hashmapordered.get("_name");
             if(s4.equals("config"))
             {
@@ -875,8 +887,8 @@ public class APIGroup extends APISiteView
             hashmapordered.put("_name", "config");
             if(s3 != null && s3.length() != 0)
             {
-                jgl.Array array1 = ReadGroupFrames(s3);
-                Enumeration enumeration1 = array1.elements();
+                Array array1 = ReadGroupFrames(s3);
+                Enumeration enumeration1 =  (Enumeration) array1.iterator();
                 enumeration1.nextElement();
                 int i = findSubGroupIndex(array1, s4);
                 array1.remove(i);
@@ -891,9 +903,9 @@ public class APIGroup extends APISiteView
             {
                 try
                 {
-                    jgl.Array array2 = ReadGroupFrames(s1);
-                    jgl.HashMap hashmap1 = (jgl.HashMap)array2.at(0);
-                    jgl.HashMap hashmap2 = new HashMap();
+                    Array array2 = ReadGroupFrames(s1);
+                    HashMap hashmap1 = (HashMap)array2.get(0);
+                    HashMap hashmap2 = new HashMap();
                     String s5 = TextUtils.getValue(hashmap1, "_nextID");
                     if(s5.length() == 0)
                     {
@@ -958,18 +970,18 @@ public class APIGroup extends APISiteView
         return s2;
     }
 
-    private void removeAlertContextProperties(jgl.Array array)
+    private void removeAlertContextProperties(Array array)
     {
         boolean flag = false;
         for(int i = 0; i < array.size(); i++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
-            jgl.Array array1 = TextUtils.getMultipleValues(hashmap, "_alertCondition");
+            HashMap hashmap = (HashMap)array.get(i);
+            Array array1 = TextUtils.getMultipleValues(hashmap, "_alertCondition");
             java.util.HashMap hashmap1 = new java.util.HashMap();
             for(int j = 0; j < array1.size(); j++)
             {
                 hashmap1.clear();
-                Alert.getInstance().parseCondition((String)array1.at(j), hashmap1);
+                Alert.getInstance().parseCondition((String)array1.get(j), hashmap1);
                 if(hashmap1.get("_UIContext") != null)
                 {
                     hashmap1.put("_UIContext", "");
@@ -991,20 +1003,20 @@ public class APIGroup extends APISiteView
     {
         try
         {
-            jgl.Array array = new Array();
-            jgl.Array array1 = ReadGroupFrames(s);
-            Enumeration enumeration = array1.elements();
+            Array array = new Array();
+            Array array1 = ReadGroupFrames(s);
+            Enumeration enumeration =  (Enumeration) array1.iterator();
             boolean flag = false;
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap = (HashMap)enumeration.nextElement();
                 if(Monitor.isMonitorFrame(hashmap) && hashmap.get("_class").equals("SubGroup"))
                 {
                     String s1 = I18N.toDefaultEncoding(TextUtils.getValue(hashmap, "_group"));
-                    jgl.Array array2 = ReadGroupFrames(s1);
+                    Array array2 = ReadGroupFrames(s1);
                     s1 = computeGroupName(s1);
                     if(array2.size() > 0)
                     {
-                        jgl.HashMap hashmap1 = (jgl.HashMap)array2.at(0);
+                        HashMap hashmap1 = (HashMap)array2.get(0);
                         String s3 = TextUtils.getValue(hashmap1, "_name");
                         if(s3 != null && s3.length() > 0 && s3.equalsIgnoreCase("config"))
                         {
@@ -1024,7 +1036,7 @@ public class APIGroup extends APISiteView
                 WriteGroupFrames(s, array1);
             }
             String s2;
-            for(Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements(); copySubGroups(s2))
+            for(Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1.hasMoreElements(); copySubGroups(s2))
             {
                 s2 = (String)enumeration1.nextElement();
             }
@@ -1043,7 +1055,7 @@ public class APIGroup extends APISiteView
         }
     }
 
-    private void updateConfig(String s, String s1, jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    private void updateConfig(String s, String s1, HashMap hashmap, HashMap hashmap1)
     {
         String s2 = "";
         String s3 = TextUtils.getValue(hashmap, s);
@@ -1070,23 +1082,23 @@ public class APIGroup extends APISiteView
         }
     }
 
-    private void updateDescription(jgl.HashMap hashmap, String s)
+    private void updateDescription(HashMap hashmap, String s)
     {
         hashmap.remove("_description");
-        jgl.Array array = Platform.split('\n', s);
-        for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); hashmap.add("_description", enumeration.nextElement())) { }
+        Array array = Platform.split('\n', s);
+        for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); hashmap.add("_description", enumeration.nextElement())) { }
     }
 
-    private boolean exceedsLicenseLimit(jgl.Array array, String s)
+    private boolean exceedsLicenseLimit(Array array, String s)
     {
         boolean flag = LUtils.wouldExceedLimit(array, s);
         return flag;
     }
 
-    private jgl.Array getReportFrameList()
+    private Array getReportFrameList()
         throws SiteViewException
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         try
         {
             if(!Platform.isStandardAccount(account))
@@ -1094,7 +1106,7 @@ public class APIGroup extends APISiteView
                 array = ReadGroupFrames(account);
             } else
             {
-                array = COM.dragonflow.Properties.FrameFile.readFromFile(Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config");
+                array = FrameFile.readFromFile(Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config");
             }
         }
         catch(SiteViewException siteviewexception)
@@ -1110,17 +1122,17 @@ public class APIGroup extends APISiteView
         return array;
     }
 
-    private int findSubGroupIndex(jgl.Array array, String s)
+    private int findSubGroupIndex(Array array, String s)
         throws SiteViewException
     {
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         int i = 0;
         enumeration.nextElement();
         i++;
         int j = -1;
         for(; enumeration.hasMoreElements(); i++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             if(!Monitor.isMonitorFrame(hashmap))
             {
                 continue;
@@ -1145,7 +1157,7 @@ public class APIGroup extends APISiteView
         }
     }
 
-    private void saveReportFrameList(jgl.Array array, String s)
+    private void saveReportFrameList(Array array, String s)
         throws SiteViewException
     {
         try
@@ -1155,7 +1167,7 @@ public class APIGroup extends APISiteView
                 WriteGroupFrames(s, array);
             } else
             {
-                COM.dragonflow.Properties.FrameFile.writeToFile(Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config", array);
+                FrameFile.writeToFile(Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config", array);
             }
         }
         catch(SiteViewException siteviewexception)
@@ -1182,19 +1194,19 @@ public class APIGroup extends APISiteView
     {
         try
         {
-            jgl.Array array = new Array();
-            jgl.Array array1 = getReportFrameList();
-            Enumeration enumeration = array1.elements();
+            Array array = new Array();
+            Array array1 = getReportFrameList();
+            Enumeration enumeration =  (Enumeration) array1.iterator();
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap = (HashMap)enumeration.nextElement();
                 if(!Monitor.isReportFrame(hashmap))
                 {
                     array.add(hashmap);
                 } else
                 {
-                    jgl.HashMap hashmap1 = copyHashMap(hashmap);
+                    HashMap hashmap1 = copyHashMap(hashmap);
                     hashmap1.remove("monitors");
-                    Enumeration enumeration1 = hashmap.values("monitors");
+                    Enumeration enumeration1 = (Enumeration) hashmap.values("monitors");
                     while (enumeration1.hasMoreElements()) {
                         String s = (String)enumeration1.nextElement();
                         String as[] = TextUtils.split(s);
@@ -1203,7 +1215,7 @@ public class APIGroup extends APISiteView
                             hashmap1.add("monitors", s);
                         }
                     }
-                    enumeration1 = hashmap1.values("monitors");
+                    enumeration1 = (Enumeration) hashmap1.values("monitors");
                     if(enumeration1.hasMoreElements())
                     {
                         array.add(hashmap1);
@@ -1225,10 +1237,10 @@ public class APIGroup extends APISiteView
         }
     }
 
-    private jgl.HashMap copyHashMap(jgl.HashMap hashmap)
+    private HashMap copyHashMap(HashMap hashmap)
     {
         java.lang.Object obj;
-        if(hashmap instanceof COM.dragonflow.Properties.HashMapOrdered)
+        if(hashmap instanceof HashMapOrdered)
         {
             obj = new HashMapOrdered(true);
         } else
@@ -1236,12 +1248,12 @@ public class APIGroup extends APISiteView
             obj = new HashMap();
         }
         java.lang.Object obj1;
-        for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); ((jgl.HashMap) (obj)).put(obj1, hashmap.get(obj1)))
+        for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements(); ((HashMap) (obj)).put(obj1, hashmap.get(obj1)))
         {
             obj1 = enumeration.nextElement();
         }
 
-        return ((jgl.HashMap) (obj));
+        return ((HashMap) (obj));
     }
 
     private void deleteGroupInternal(String s)
@@ -1264,23 +1276,23 @@ public class APIGroup extends APISiteView
                     s
                 });
             }
-            jgl.Array array = getGroupFrames(s);
-            Enumeration enumeration = array.elements();
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            Array array = getGroupFrames(s);
+            Enumeration enumeration = (Enumeration) array.iterator();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             String s1 = TextUtils.getValue(hashmap, "_parent");
             if(s1.length() != 0)
             {
-                jgl.Array array1 = getGroupFrames(s1);
+                Array array1 = getGroupFrames(s1);
                 int i = findSubGroupIndex(array1, s);
                 if(i >= 1)
                 {
                     array1.remove(i);
                 }
             }
-            jgl.Array array2 = new Array();
-            jgl.Array array3 = new Array();
+            Array array2 = new Array();
+            Array array3 = new Array();
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap1 = (HashMap)enumeration.nextElement();
                 String s2 = TextUtils.getValue(hashmap1, "_class");
                 if(s2.equals("SubGroup"))
                 {
@@ -1319,12 +1331,12 @@ public class APIGroup extends APISiteView
 //            }
             for(int j = 0; j < array2.size(); j++)
             {
-                deleteGroupInternal((String)array2.at(j));
+                deleteGroupInternal((String)array2.get(j));
             }
 
-            if(COM.dragonflow.Properties.JdbcConfig.configInDB())
+            if(JdbcConfig.configInDB())
             {
-                COM.dragonflow.Properties.JdbcConfig.deleteGroupFromDB(s);
+                JdbcConfig.deleteGroupFromDB(s);
             }
 //            if(TopazConfigurator.configInTopazAndRegistered())
 //            {
@@ -1369,10 +1381,10 @@ public class APIGroup extends APISiteView
     private String computeGroupName(String s)
     {
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
-        jgl.Array array = siteviewgroup.getGroupFileIDs();
+        Array array = siteviewgroup.getGroupFileIDs();
         String s1 = s.toUpperCase() + ".";
         int i = -1;
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         while (enumeration.hasMoreElements()) {
             String s2 = (String)enumeration.nextElement();
             s2 = s2.toUpperCase() + '.';

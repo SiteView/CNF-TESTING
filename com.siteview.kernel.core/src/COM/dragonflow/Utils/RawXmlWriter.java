@@ -8,6 +8,8 @@
  */
 package COM.dragonflow.Utils;
 
+import com.recursionsw.jgl.Array;
+
 /**
  * Comment for <code></code>
  * 
@@ -27,7 +29,7 @@ public class RawXmlWriter {
         buf = stringbuffer;
     }
 
-    public void writeSOAPHeader(jgl.Array array) {
+    public void writeSOAPHeader(Array array) {
         if (array.size() <= 0) {
             buf.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
             buf.append("<SOAP-ENV:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" ");
@@ -35,7 +37,7 @@ public class RawXmlWriter {
             buf.append("xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\">\n");
         } else {
             for (int i = 0; i < array.size(); i ++) {
-                buf.append((String) array.at(i));
+                buf.append((String) array.get(i));
             }
 
         }

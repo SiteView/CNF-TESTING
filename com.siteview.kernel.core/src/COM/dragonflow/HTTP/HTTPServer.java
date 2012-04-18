@@ -21,9 +21,10 @@ import java.net.ServerSocket;
 import java.util.Enumeration;
 import java.util.HashSet;
 
-import jgl.Array;
-import jgl.HashMap;
 import COM.dragonflow.SiteView.SiteViewGroup;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.HTTP:
 // HTTPRequestThread, VirtualDirectory
@@ -34,8 +35,8 @@ public class HTTPServer
 
     private java.net.ServerSocket serverSocket;
     private boolean running;
-    private jgl.Array virtualDirectories;
-    private jgl.HashMap typeMap;
+    private Array virtualDirectories;
+    private HashMap typeMap;
     private boolean sslEnabled;
     public boolean keepAliveEnabled;
     public int port;
@@ -43,7 +44,7 @@ public class HTTPServer
     private int maxConnections;
     protected java.lang.Thread serverThread;
     static boolean debug = false;
-    static jgl.HashMap config;
+    static HashMap config;
     static String strPages[];
     static java.util.HashSet filter;
     long lastTime;
@@ -266,7 +267,7 @@ public class HTTPServer
 
     COM.dragonflow.HTTP.VirtualDirectory getVirtualDirectory(String s)
     {
-        for(Enumeration enumeration = virtualDirectories.elements(); enumeration.hasMoreElements();)
+        for(Enumeration enumeration = (Enumeration) virtualDirectories.iterator(); enumeration.hasMoreElements();)
         {
             COM.dragonflow.HTTP.VirtualDirectory virtualdirectory = (COM.dragonflow.HTTP.VirtualDirectory)enumeration.nextElement();
             String s1 = virtualdirectory.getFullDocumentPath(s);

@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Vector;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Health.logEventHealth;
 import COM.dragonflow.Log.LogManager;

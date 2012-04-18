@@ -32,7 +32,7 @@ public class xmlApiPage extends COM.dragonflow.Page.CGI {
         String login = request.getValue("_login");
         String password = request.getValue("_password");
         String account = request.getValue("account");
-        jgl.HashMap hashmap = MasterConfig
+        HashMap hashmap = MasterConfig
                 .getMasterConfig();
         String s3 = "";
         String requestXml = null;

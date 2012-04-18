@@ -20,13 +20,15 @@ package COM.dragonflow.HTTP;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
 import COM.dragonflow.Page.loginPage;
 import COM.dragonflow.SiteView.MasterConfig;
 import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.SiteView.SiteViewGroup;
 import COM.dragonflow.SiteView.User;
 import COM.dragonflow.Utils.ThreadPool;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.HTTP:
 // HTTPRequest, HTTPRequestException, HTTPRequestHandler, CGIRequestHandler,
@@ -148,7 +150,7 @@ public class HTTPRequestThread implements java.lang.Runnable {
         if (s.equals("-ignoreUnknownCA")) {
             s = nextURLArg();
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         for (; s.equals("-c"); s = nextURLArg()) {
             String s1 = nextURLArg();
             array.add(s1);
@@ -182,17 +184,17 @@ public class HTTPRequestThread implements java.lang.Runnable {
         StringBuffer stringbuffer2 = new StringBuffer(s2);
         COM.dragonflow.Utils.SocketSession socketsession = COM.dragonflow.Utils.SocketSession.getSession(null);
         long l = 50000L;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         long l1 = COM.dragonflow.Utils.TextUtils.toLong(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_urlContentMatchMax"));
         if (l1 > 1L) {
             l = l1;
         }
-        jgl.Array array1 = Platform.split('&', s5);
+        Array array1 = Platform.split('&', s5);
         int j = -1;
         int k = -1;
         StringBuffer stringbuffer3 = new StringBuffer();
         for (int i1 = 0; i1 < array1.size(); i1 ++) {
-            String s9 = (String) array1.at(i1);
+            String s9 = (String) array1.get(i1);
             if (s9.indexOf(COM.dragonflow.StandardMonitor.URLSequenceMonitor.refererStartToken) != -1) {
                 j = i1;
             }
@@ -211,7 +213,7 @@ public class HTTPRequestThread implements java.lang.Runnable {
             array1.remove(j, k);
             array1.insert(j, stringbuffer3.toString());
         }
-        for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); array1.add("Set-" + enumeration.nextElement())) {
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); array1.add("Set-" + enumeration.nextElement())) {
         }
         String s10 = "";
         String s11 = "";

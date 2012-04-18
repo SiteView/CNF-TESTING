@@ -17,7 +17,7 @@ package COM.dragonflow.Properties;
  *
  *
  */
-import jgl.BinaryPredicate;
+import com.recursionsw.jgl.BinaryPredicate;
 
 //Referenced classes of package COM.dragonflow.Properties:
 //         StringProperty

@@ -20,7 +20,7 @@ package COM.dragonflow.SiteView;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Utils.TextUtils;
 
 // Referenced classes of package COM.dragonflow.SiteView:

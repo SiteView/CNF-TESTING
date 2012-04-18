@@ -23,9 +23,11 @@ import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import jgl.Array;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.Utils.Base64Decoder;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.HTTP:
 // HTTPRequestException
@@ -38,7 +40,7 @@ public class HTTPRequest
     static boolean dumpHeaders = false;
     public String requestMethod;
     public String queryString;
-    public jgl.HashMap variables;
+    public HashMap variables;
     public String rawURL;
     public String remoteAddress;
     public COM.dragonflow.SiteView.User user;
@@ -64,7 +66,7 @@ public class HTTPRequest
     public static int frenchID = 1;
     public static int germanID = 2;
     public int languageID;
-    public jgl.Array otherHeaders;
+    public Array otherHeaders;
     public static boolean logPOSTs = false;
     public static boolean allowCookieLogin = true;
     public static boolean portalAccessOnly = false;
@@ -1025,10 +1027,10 @@ public class HTTPRequest
     {
         if(variables != null)
         {
-            return variables.values(s);
+            return (Enumeration) variables.values(s);
         } else
         {
-            return (new Array(0)).elements();
+            return (Enumeration) (new Array(0)).iterator();
         }
     }
 
@@ -1083,10 +1085,10 @@ public class HTTPRequest
     {
         if(variables != null)
         {
-            return variables.keys();
+            return (Enumeration) variables.keys();
         } else
         {
-            return (new Array(0)).elements();
+            return (Enumeration) (new Array(0)).iterator();
         }
     }
 
@@ -1166,7 +1168,7 @@ public class HTTPRequest
     }
 
     private static String generateHeader(int i, String s, String s1, long l, java.util.Date date, long l1, 
-            long l2, jgl.Array array)
+            long l2, Array array)
     {
         java.util.Date date1 = COM.dragonflow.SiteView.Platform.makeDate();
         String s2 = "";
@@ -1200,7 +1202,7 @@ public class HTTPRequest
         {
             for(int j = 0; j < array.size(); j++)
             {
-                s7 = s7 + array.at(j) + COM.dragonflow.StandardMonitor.URLMonitor.CRLF;
+                s7 = s7 + array.get(j) + COM.dragonflow.StandardMonitor.URLMonitor.CRLF;
             }
 
         }
@@ -1213,7 +1215,7 @@ public class HTTPRequest
         return s9;
     }
 
-    public static void printHeader(java.io.PrintWriter printwriter, int i, String s, String s1, long l, java.util.Date date, long l1, long l2, jgl.Array array)
+    public static void printHeader(java.io.PrintWriter printwriter, int i, String s, String s1, long l, java.util.Date date, long l1, long l2, Array array)
     {
         printwriter.print(COM.dragonflow.HTTP.HTTPRequest.generateHeader(i, s, s1, l, date, l1, l2, array));
     }

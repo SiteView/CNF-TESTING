@@ -47,6 +47,7 @@ public class CNFContentProvider implements ITreeContentProvider
     	if (parentElement instanceof Root)
         {
             try {
+
             	ArrayList<HashMap<String, String>> groups1 = rmiServer.getTopLevelAllowedGroupInstances();
             	ArrayList<HashMap<String, String>> groups = new ArrayList();
             	groups.addAll(groups1);
@@ -70,6 +71,7 @@ public class CNFContentProvider implements ITreeContentProvider
             	
             	groups.addAll(monitors);
 //            	Parent[] parents = new Parent[groups.size()];
+
             	ArrayList<HashMap<String, String>> groups = rmiServer.getTopLevelAllowedGroupInstances();
 				return groups.toArray();
 			} catch (SiteViewException e) {
@@ -107,8 +109,10 @@ public class CNFContentProvider implements ITreeContentProvider
 
     public boolean hasChildren(Object element)
     {
+
         return true;
 //    	return (element instanceof Root || element instanceof Parent);
+
     }
 
     public Object[] getElements(Object inputElement)

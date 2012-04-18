@@ -21,7 +21,7 @@ package COM.dragonflow.StandardMonitor;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.HTMLTagParser;

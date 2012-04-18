@@ -12,8 +12,8 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 import java.util.Properties;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, testAction
@@ -28,10 +28,10 @@ public class testPage extends COM.dragonflow.Page.CGI {
         try {
             StringBuffer stringbuffer = COM.dragonflow.Utils.FileUtils
                     .readFile("f:/www/htdocs/siteseer_legal_agreement.htm");
-            jgl.Array array = COM.dragonflow.SiteView.Platform.split('\n',
+            Array array = COM.dragonflow.SiteView.Platform.split('\n',
                     stringbuffer.toString());
             String s1;
-            for (Enumeration enumeration1 = array.elements(); enumeration1
+            for (Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1
                     .hasMoreElements(); outputStream.println("+\"" + s1.trim()
                     + "\"")) {
                 s1 = (String) enumeration1.nextElement();
@@ -62,9 +62,9 @@ public class testPage extends COM.dragonflow.Page.CGI {
             COM.dragonflow.Page.testAction testaction = new testAction();
             siteviewgroup.monitorScheduler.scheduleRepeatedPeriodicAction(
                     testaction, 1L, 1L);
-            jgl.Array array1 = new Array();
-            jgl.Array array2 = new Array();
-            jgl.Array array3 = new Array();
+            Array array1 = new Array();
+            Array array2 = new Array();
+            Array array3 = new Array();
             while (true) {
                 siteviewgroup.adjustGroups(array1, array2, array3,
                         new HashMap());

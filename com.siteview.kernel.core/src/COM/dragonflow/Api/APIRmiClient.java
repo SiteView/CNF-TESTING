@@ -7,6 +7,7 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteViewException.SiteViewException;
 
 public class APIRmiClient{
@@ -21,11 +22,16 @@ public class APIRmiClient{
 	  try{
 		  registry=LocateRegistry.getRegistry(serverAddress,(new Integer(serverPort)).intValue());
 		  
-		  rmiServer=(APIInterfaces)(registry.lookup("rmiServer"));
+		  rmiServer=(APIInterfaces)(registry.lookup("kernelApiRmiServer"));
 		  // call the remote method
-		  ArrayList<HashMap<String, String>> groups = rmiServer.getTopLevelGroupInstances();
+		  ArrayList<HashMap<String, String>> groups = rmiServer.getTopLevelAllowedGroupInstances();
 		  for(HashMap<String, String> group : groups) {
 			  System.out.println("name:"+group.get("Name")+",id:"+group.get("GroupID"));
+		  }
+		  
+		  ArrayList<MonitorGroup> mgs = rmiServer.getAllGroupInstances();
+		  for (MonitorGroup mg:mgs) {
+			  System.out.println("groupid:"+mg.getFullID());
 		  }
 	  }
 	  catch(RemoteException e){

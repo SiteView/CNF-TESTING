@@ -15,7 +15,7 @@ import COM.dragonflow.SiteView.Platform;
 //import COM.dragonflow.topaz.ems.monitorComps.EmsReportTraits;
 import java.io.File;
 import java.io.FileNotFoundException;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 public class EmsConfigFileProperty extends StringProperty
 {

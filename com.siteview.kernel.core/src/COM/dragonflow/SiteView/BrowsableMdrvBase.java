@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.TextUtils;
@@ -65,7 +65,7 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
         HashMap hashmap = new HashMap();
         Array array1 = getConnectionProperties();
         for (int j = 0; j < array1.size(); j++) {
-            StringProperty stringproperty = (StringProperty) array1.at(j);
+            StringProperty stringproperty = (StringProperty) array1.get(j);
             String s1 = stringproperty.getName().substring(1);
             hashmap.put(s1, getProperty(stringproperty));
         }
@@ -86,7 +86,7 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
                 } else if (k != 0) {
                     StringBuffer stringbuffer = new StringBuffer();
                     for (int j1 = 0; j1 < array2.size(); j1++) {
-                        stringbuffer.append((String) array2.at(j1) + " ");
+                        stringbuffer.append((String) array2.get(j1) + " ");
                     }
 
                     setProperty(pNoData, "n/a");
@@ -114,7 +114,7 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
             HashMap hashmap = new HashMap();
             Array array1 = getConnectionProperties();
             for (int j = 0; j < array1.size(); j++) {
-                StringProperty stringproperty = (StringProperty) array1.at(j);
+                StringProperty stringproperty = (StringProperty) array1.get(j);
                 String s2 = stringproperty.getName().substring(1);
                 hashmap.put(s2, getProperty(stringproperty));
             }
@@ -177,9 +177,9 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
 
     String saveResultProps(Array array) {
         String s = "";
-        jgl.HashMap hashmap = new jgl.HashMap();
+        HashMap hashmap = new jgl.HashMap();
         for (int i = 0; i < array.size(); i++) {
-            String s1 = (String) array.at(i);
+            String s1 = (String) array.get(i);
             int k = s1.indexOf('=');
             String s4 = s1.substring(0, k);
             String s5 = s1.substring(k + 1);
@@ -216,14 +216,14 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
             stringbuffer.append("Failed to get browse data. Error code: " + i
                     + ". Description: ");
             for (int j = 0; j < array.size(); j++) {
-                stringbuffer.append((String) array.at(j));
+                stringbuffer.append((String) array.get(j));
             }
 
             return "";
         }
         int k = 0;
         for (int l = 0; l < array.size(); l++) {
-            k += ((String) array.at(l)).length();
+            k += ((String) array.get(l)).length();
         }
 
         if (k <= 0) {
@@ -232,7 +232,7 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
         }
         StringBuffer stringbuffer1 = new StringBuffer(k);
         for (int i1 = 0; i1 < array.size(); i1++) {
-            stringbuffer1.append((String) array.at(i1));
+            stringbuffer1.append((String) array.get(i1));
         }
 
         return stringbuffer1.toString().trim();
@@ -243,7 +243,7 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
         int i = array.size();
         Array array1 = new Array();
         for (int j = 0; j < i; j++) {
-            StringProperty stringproperty = (StringProperty) array.at(j);
+            StringProperty stringproperty = (StringProperty) array.get(j);
             String s = stringproperty.getName().substring(1);
             array1.add(s + "=" + getProperty(stringproperty));
         }
@@ -252,7 +252,7 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
     }
 
     public String verify(StringProperty stringproperty, String s,
-            HTTPRequest httprequest, jgl.HashMap hashmap) {
+            HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == getPropertyObject(PROPERTY_NAME_BROWSABLE)) {
             String s1 = getProperty(PROPERTY_NAME_COUNTER_ID + 1);
             if (s1.length() <= 0) {
@@ -285,14 +285,14 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
 
     public void setMaxCounters(int i) {
         nMaxCounters = i;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         hashmap.put("_DispatcherMaxCounters", (new Integer(i)).toString());
         MasterConfig.saveMasterConfig(hashmap);
     }
 
     static {
         nMaxCounters = 30;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         nMaxCounters = TextUtils.toInt(TextUtils.getValue(hashmap,
                 "_DispatcherMaxCounters"));
         if (nMaxCounters <= 0) {

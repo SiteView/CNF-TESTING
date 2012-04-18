@@ -27,7 +27,7 @@ import COM.dragonflow.Utils.LUtils;
 import COM.dragonflow.ems.Shared.EmsConfigFileProperty;
 import java.io.File;
 import java.util.Calendar;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 public class WhatsUpMonitor extends EMSLogMonitorBase
 {

@@ -20,7 +20,7 @@ package COM.dragonflow.StandardAction;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.ScalarProperty;
 
 public class Mailto extends COM.dragonflow.SiteView.Action {
@@ -31,15 +31,15 @@ public class Mailto extends COM.dragonflow.SiteView.Action {
 
     static String ID_STRING = "_id:";
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap) {
+    public void initializeFromArguments(Array array, HashMap hashmap) {
         hashmap.remove(pTo);
         for (int i = 0; i < array.size() - 1; i ++) {
-            addProperty(pTo, (String) array.at(i));
+            addProperty(pTo, (String) array.get(i));
         }
 
         String s = "Default";
         if (array.size() > 0) {
-            s = (String) array.at(array.size() - 1);
+            s = (String) array.get(array.size() - 1);
         }
         setProperty(pTemplate, s);
     }
@@ -102,12 +102,12 @@ public class Mailto extends COM.dragonflow.SiteView.Action {
         return "";
     }
 
-    public boolean defaultsAreSet(jgl.HashMap hashmap) {
+    public boolean defaultsAreSet(HashMap hashmap) {
         String s = (String) hashmap.get("_mailServer");
         return s != null && s.length() != 0 && !s.equals("mail.dragonflow.com") && !s.equals("gateway.dragonflow.com") && !s.equals("gateway.Dragonflow.com") || hashmap.get("_account") != null;
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == pTo) {
             if (s.length() == 0) {
                 hashmap.put(stringproperty, stringproperty.getLabel() + " missing");
@@ -135,15 +135,15 @@ public class Mailto extends COM.dragonflow.SiteView.Action {
         if (scalarproperty == pTo) {
             Enumeration enumeration = null;
             if (httprequest.isStandardAccount()) {
-                jgl.HashMap hashmap = cgi.getMasterConfig();
-                enumeration = hashmap.values("_additionalMail");
+                HashMap hashmap = cgi.getMasterConfig();
+                enumeration = (Enumeration) hashmap.values("_additionalMail");
             } else {
                 COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
                 COM.dragonflow.SiteView.SiteViewObject siteviewobject = siteviewgroup.getElement(httprequest.getAccount());
                 enumeration = siteviewobject.getMultipleValues("_additionalMail");
             }
             java.util.Vector vector2 = new Vector();
-            jgl.HashMap hashmap1;
+            HashMap hashmap1;
             for (; enumeration.hasMoreElements(); vector2.addElement(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_name"))) {
                 hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String) enumeration.nextElement());
                 vector2.addElement(ID_STRING + COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_id"));
@@ -174,7 +174,7 @@ public class Mailto extends COM.dragonflow.SiteView.Action {
             String s5 = as[i];
             if (s5.startsWith(ID_STRING)) {
                 String s6 = as[i].substring(ID_STRING.length());
-                jgl.HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap(getOwner().getMailSettings(s6));
+                HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap(getOwner().getMailSettings(s6));
                 if (COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_disabled").length() > 0) {
                     continue;
                 }
@@ -213,7 +213,7 @@ public class Mailto extends COM.dragonflow.SiteView.Action {
 
     private String[] getMailtoArgs() {
         boolean flag = false;
-        jgl.Array array = new Array();
+        Array array = new Array();
         for (int i = 0; i < args.length - 1; i ++) {
             String s = args[i];
             String as[] = COM.dragonflow.Utils.TextUtils.split(s, ",");
@@ -232,17 +232,17 @@ public class Mailto extends COM.dragonflow.SiteView.Action {
             return args;
         }
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         int j = hashmap.count("_additionalMail");
         String as1[] = new String[j + array.size() + 1];
-        Enumeration enumeration = hashmap.values("_additionalMail");
+        Enumeration enumeration = (Enumeration) hashmap.values("_additionalMail");
         int l = 0;
         while (enumeration.hasMoreElements()) {
-            jgl.HashMap hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String) enumeration.nextElement());
+            HashMap hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String) enumeration.nextElement());
             as1[l ++] = ID_STRING + hashmap1.get("_id");
         }
         for (int i1 = 0; i1 < array.size(); i1 ++) {
-            as1[l ++] = (String) array.at(i1);
+            as1[l ++] = (String) array.get(i1);
         }
 
         as1[l] = args[args.length - 1];
@@ -289,7 +289,7 @@ public class Mailto extends COM.dragonflow.SiteView.Action {
                 }
             }
             String s9 = getSetting("_mailAlertCC");
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             String s10 = getSetting("_mailSubjectMax");
             if (s10.length() > 0) {
                 hashmap.put("_mailSubjectMax", s10);

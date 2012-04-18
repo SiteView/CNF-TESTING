@@ -20,8 +20,8 @@ package COM.dragonflow.StandardPreference;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.ScalarProperty;
@@ -76,20 +76,20 @@ public class RemoteNTInstancePreferences extends COM.dragonflow.SiteView.Prefere
         boolean flag = false;
         boolean flag1 = (new Boolean(getProperty(pTrace))).booleanValue();
         String s1 = getProperty(pHost);
-        jgl.Array array = new Array();
+        Array array = new Array();
         i = COM.dragonflow.SiteView.Platform.CheckPermissions(s1, COM.dragonflow.SiteView.MasterConfig.getMasterConfig(), array);
         String s2 = "Connection successful";
         if (s1 != null) {
             String s3;
-            for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); vector.add(s3)) {
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); vector.add(s3)) {
                 s3 = (String) enumeration.nextElement();
             }
 
             if (i == 0 && flag1) {
-                jgl.Array array1 = new Array();
+                Array array1 = new Array();
                 i = COM.dragonflow.SiteView.Platform.readProcessList(array1, s1, new CounterLock(1), false);
                 String s4;
-                for (Enumeration enumeration1 = array1.elements(); enumeration1.hasMoreElements(); vector.add(s4)) {
+                for (Enumeration enumeration1 =  (Enumeration) array1.iterator(); enumeration1.hasMoreElements(); vector.add(s4)) {
                     s4 = (String) enumeration1.nextElement();
                 }
 
@@ -113,8 +113,8 @@ public class RemoteNTInstancePreferences extends COM.dragonflow.SiteView.Prefere
             s2 = "Could not get machine information for " + s1;
             flag = true;
         }
-        jgl.Array array2 = getFrames();
-        jgl.HashMap hashmap = findMachine(array2, getProperty(pID));
+        Array array2 = getFrames();
+        HashMap hashmap = findMachine(array2, getProperty(pID));
         hashmap.put("_status", s2);
         try {
             saveMachines(array2, "_remoteNTMachine");
@@ -174,34 +174,34 @@ public class RemoteNTInstancePreferences extends COM.dragonflow.SiteView.Prefere
     public java.util.Vector getScalarValues(COM.dragonflow.Properties.ScalarProperty scalarproperty, COM.dragonflow.HTTP.HTTPRequest httprequest, COM.dragonflow.Page.CGI cgi) throws COM.dragonflow.SiteViewException.SiteViewException {
         java.util.Vector vector = new Vector();
         if (scalarproperty == pOs) {
-            jgl.Array array = COM.dragonflow.SiteView.Machine.getAllowedOSs();
+            Array array = COM.dragonflow.SiteView.Machine.getAllowedOSs();
             for (int i = 0; i < array.size(); i ++) {
-                if (((String) array.at(i)).length() > 0) {
-                    vector.addElement(array.at(i));
+                if (((String) array.get(i)).length() > 0) {
+                    vector.addElement(array.get(i));
                 }
             }
 
         } else if (scalarproperty == pMethod) {
-            jgl.Array array1 = COM.dragonflow.SiteView.Machine.getNTAllowedMethods();
+            Array array1 = COM.dragonflow.SiteView.Machine.getNTAllowedMethods();
             for (int j = 0; j < array1.size(); j ++) {
-                if (((String) array1.at(j)).length() > 0) {
-                    vector.addElement(array1.at(j));
+                if (((String) array1.get(j)).length() > 0) {
+                    vector.addElement(array1.get(j));
                 }
             }
 
         } else if (scalarproperty == pSshAuthMethod) {
-            jgl.Array array2 = COM.dragonflow.SiteView.Machine.getAllowedSshAuthMethods();
+            Array array2 = COM.dragonflow.SiteView.Machine.getAllowedSshAuthMethods();
             for (int k = 0; k < array2.size(); k ++) {
-                if (((String) array2.at(k)).length() > 0) {
-                    vector.addElement(array2.at(k));
+                if (((String) array2.get(k)).length() > 0) {
+                    vector.addElement(array2.get(k));
                 }
             }
 
         } else if (scalarproperty == pSshClient) {
-            jgl.Array array3 = COM.dragonflow.SiteView.Machine.getAllowedSshConnectionMethods();
+            Array array3 = COM.dragonflow.SiteView.Machine.getAllowedSshConnectionMethods();
             for (int l = 0; l < array3.size(); l ++) {
-                if (((String) array3.at(l)).length() > 0) {
-                    vector.addElement(array3.at(l));
+                if (((String) array3.get(l)).length() > 0) {
+                    vector.addElement(array3.get(l));
                 }
             }
 
@@ -209,11 +209,11 @@ public class RemoteNTInstancePreferences extends COM.dragonflow.SiteView.Prefere
         return vector;
     }
 
-    private void saveMachines(jgl.Array array, String s) {
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+    private void saveMachines(Array array, String s) {
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         hashmap.remove(s);
         for (int i = 0; i < array.size(); i ++) {
-            jgl.HashMap hashmap1 = (jgl.HashMap) array.at(i);
+            HashMap hashmap1 = (HashMap) array.get(i);
             hashmap.add(s, COM.dragonflow.Utils.TextUtils.hashMapToString(hashmap1));
         }
 
@@ -225,11 +225,11 @@ public class RemoteNTInstancePreferences extends COM.dragonflow.SiteView.Prefere
         return super.updatePreferences(hashmap, s, s1);
     }
 
-    private jgl.HashMap findMachine(jgl.Array array, String s) {
-        Enumeration enumeration = array.elements();
-        jgl.HashMap hashmap = new HashMap();
+    private HashMap findMachine(Array array, String s) {
+        Enumeration enumeration = (Enumeration) array.iterator();
+        HashMap hashmap = new HashMap();
         while (enumeration.hasMoreElements()) {
-            hashmap = (jgl.HashMap) enumeration.nextElement();
+            hashmap = (HashMap) enumeration.nextElement();
             if (s.equals(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id"))) {
                 return hashmap;
             }
@@ -237,8 +237,8 @@ public class RemoteNTInstancePreferences extends COM.dragonflow.SiteView.Prefere
         return hashmap;
     }
 
-    private jgl.Array getFrames() {
-        jgl.Array array = new Array();
+    private Array getFrames() {
+        Array array = new Array();
         try {
             array = readMachines(getRemoteName());
         } catch (java.lang.Exception exception) {
@@ -246,11 +246,11 @@ public class RemoteNTInstancePreferences extends COM.dragonflow.SiteView.Prefere
         return array;
     }
 
-    private jgl.Array readMachines(String s) {
-        jgl.Array array = new Array();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+    private Array readMachines(String s) {
+        Array array = new Array();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s1;
-        for (Enumeration enumeration = hashmap.values(s); enumeration.hasMoreElements(); array.add(COM.dragonflow.Utils.TextUtils.stringToHashMap(s1))) {
+        for (Enumeration enumeration = (Enumeration) hashmap.values(s); enumeration.hasMoreElements(); array.add(COM.dragonflow.Utils.TextUtils.stringToHashMap(s1))) {
             s1 = (String) enumeration.nextElement();
             if (s1.indexOf("_id") >= 0) {
                 continue;

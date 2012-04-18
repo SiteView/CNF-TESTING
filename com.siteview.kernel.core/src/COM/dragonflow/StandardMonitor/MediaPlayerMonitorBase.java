@@ -25,8 +25,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.StringProperty;
@@ -106,9 +106,9 @@ public abstract class MediaPlayerMonitorBase extends MultiContentBase
             }
             if((getMediaTrace() & 4) != 0)
             {
-                mediaDebug("SetPropertiedItem(): >" + array.at(i) + "<,>" + s + "<");
+                mediaDebug("SetPropertiedItem(): >" + array.get(i) + "<,>" + s + "<");
             }
-            if(array.at(i).equals(s))
+            if(array.get(i).equals(s))
             {
                 if((getMediaTrace() & 4) != 0)
                 {
@@ -195,7 +195,7 @@ public abstract class MediaPlayerMonitorBase extends MultiContentBase
             {
                 mediaDebug("mediaCommand: " + s + ",getExitValue(): " + j);
             }
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); mediaDebug("Results: " + enumeration.nextElement())) { }
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); mediaDebug("Results: " + enumeration.nextElement())) { }
             boolean flag = false;
             if(j == 0)
             {
@@ -224,7 +224,7 @@ public abstract class MediaPlayerMonitorBase extends MultiContentBase
                             {
                                 s3 = s3 + "&nbsp";
                             }
-                            String s4 = prepLabel((String)array1.at(l));
+                            String s4 = prepLabel((String)array1.get(l));
                             s3 = s3 + s4 + "&nbsp;" + getProperty(getStateValues()[l]);
                             if(l < array1.size() - 1)
                             {

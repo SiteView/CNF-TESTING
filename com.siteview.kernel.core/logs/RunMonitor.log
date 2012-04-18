@@ -3206,3 +3206,573 @@
 08:36:07 04/12/2012	  (will auto restart in 24 hours)
 08:36:08 04/12/2012	Date format: United States (English)
 08:37:09 04/12/2012	Date format: United States (English)
+13:23:50 04/17/2012	Updating master.config file from "750" to "750"
+13:23:51 04/17/2012	SiteView process started, 
+13:23:51 04/17/2012	 Windows 7 6.1
+13:23:51 04/17/2012	 Java HotSpot(TM) 64-Bit Server VM, 21.1-b02
+13:23:51 04/17/2012	 Time zone offset is -8.0 hours
+13:23:51 04/17/2012	 Maximum monitor threads: 100
+13:23:51 04/17/2012	Using java SSL libraries
+13:23:51 04/17/2012	
+13:23:51 04/17/2012	Starting HTTP Server listener on localhost:9999
+13:23:51 04/17/2012	Number of maximum connections accepted is : 20 on localhost:9999
+13:23:51 04/17/2012	  
+13:23:51 04/17/2012	Open your web browser to:
+13:23:51 04/17/2012	  http://32.2.123.116:9999/SiteView
+13:23:56 04/17/2012	Process name tss_dispatcher was not running
+13:23:58 04/17/2012	Process name tss_monitor was not running
+13:23:58 04/17/2012	Loading master.config
+13:23:58 04/17/2012	Loading users.config
+13:23:58 04/17/2012	Loading multi.config
+13:23:58 04/17/2012	Loading group: __Health__
+13:23:58 04/17/2012	Loading dynamic.config
+13:23:58 04/17/2012	Loading history.config
+13:23:58 04/17/2012	  
+13:23:58 04/17/2012	SiteView is active...
+13:23:58 04/17/2012	SiteView Startup Completed
+13:23:58 04/17/2012	  (will auto restart in 24 hours)
+13:24:53 04/17/2012	Date format: 美国 (英文)
+13:24:58 04/17/2012	Loading group: dsdsd
+13:24:58 04/17/2012	Date format: 美国 (英文)
+13:25:01 04/17/2012	Date format: 美国 (英文)
+13:25:02 04/17/2012	Date format: 美国 (英文)
+13:25:18 04/17/2012	Loading group: dsdsd
+13:25:18 04/17/2012	Loading group: sdsddd
+13:25:18 04/17/2012	Date format: 美国 (英文)
+13:25:20 04/17/2012	Date format: 美国 (英文)
+13:25:29 04/17/2012	Date format: 美国 (英文)
+13:25:33 04/17/2012	Loading group: dddd
+13:25:33 04/17/2012	Date format: 美国 (英文)
+13:25:41 04/17/2012	Loading group: dddd
+13:25:41 04/17/2012	Loading group: dsd
+13:25:41 04/17/2012	Date format: 美国 (英文)
+13:26:41 04/17/2012	Date format: 美国 (英文)
+13:27:41 04/17/2012	Date format: 美国 (英文)
+13:28:41 04/17/2012	Date format: 美国 (英文)
+13:29:42 04/17/2012	Date format: 美国 (英文)
+13:30:42 04/17/2012	Date format: 美国 (英文)
+13:31:42 04/17/2012	Date format: 美国 (英文)
+13:32:42 04/17/2012	Date format: 美国 (英文)
+13:33:42 04/17/2012	Date format: 美国 (英文)
+13:34:42 04/17/2012	Date format: 美国 (英文)
+13:35:42 04/17/2012	Date format: 美国 (英文)
+13:36:42 04/17/2012	Date format: 美国 (英文)
+13:37:42 04/17/2012	Date format: 美国 (英文)
+13:38:43 04/17/2012	Date format: 美国 (英文)
+13:39:43 04/17/2012	Date format: 美国 (英文)
+13:40:43 04/17/2012	Date format: 美国 (英文)
+13:41:43 04/17/2012	Date format: 美国 (英文)
+13:42:43 04/17/2012	Date format: 美国 (英文)
+13:43:43 04/17/2012	Date format: 美国 (英文)
+13:44:43 04/17/2012	Date format: 美国 (英文)
+13:45:43 04/17/2012	Date format: 美国 (英文)
+13:46:43 04/17/2012	Date format: 美国 (英文)
+13:47:43 04/17/2012	Date format: 美国 (英文)
+13:48:44 04/17/2012	Date format: 美国 (英文)
+13:49:44 04/17/2012	Date format: 美国 (英文)
+13:50:44 04/17/2012	Date format: 美国 (英文)
+13:51:44 04/17/2012	Date format: 美国 (英文)
+13:52:44 04/17/2012	Date format: 美国 (英文)
+13:53:44 04/17/2012	Date format: 美国 (英文)
+13:54:44 04/17/2012	Date format: 美国 (英文)
+13:55:44 04/17/2012	Date format: 美国 (英文)
+13:56:44 04/17/2012	Date format: 美国 (英文)
+13:57:44 04/17/2012	Date format: 美国 (英文)
+13:58:45 04/17/2012	Date format: 美国 (英文)
+13:59:45 04/17/2012	Date format: 美国 (英文)
+14:00:45 04/17/2012	Date format: 美国 (英文)
+14:01:45 04/17/2012	Date format: 美国 (英文)
+14:02:45 04/17/2012	Date format: 美国 (英文)
+14:03:45 04/17/2012	Date format: 美国 (英文)
+14:04:45 04/17/2012	Date format: 美国 (英文)
+14:05:45 04/17/2012	Date format: 美国 (英文)
+14:06:45 04/17/2012	Date format: 美国 (英文)
+14:07:46 04/17/2012	Date format: 美国 (英文)
+14:08:46 04/17/2012	Date format: 美国 (英文)
+14:09:46 04/17/2012	Date format: 美国 (英文)
+14:10:46 04/17/2012	Date format: 美国 (英文)
+14:11:46 04/17/2012	Date format: 美国 (英文)
+14:12:46 04/17/2012	Date format: 美国 (英文)
+14:13:46 04/17/2012	Date format: 美国 (英文)
+14:14:46 04/17/2012	Date format: 美国 (英文)
+14:15:47 04/17/2012	Date format: 美国 (英文)
+14:16:47 04/17/2012	Date format: 美国 (英文)
+14:17:47 04/17/2012	Date format: 美国 (英文)
+14:18:47 04/17/2012	Date format: 美国 (英文)
+14:19:47 04/17/2012	Date format: 美国 (英文)
+14:20:47 04/17/2012	Date format: 美国 (英文)
+14:21:47 04/17/2012	Date format: 美国 (英文)
+14:22:47 04/17/2012	Date format: 美国 (英文)
+14:23:47 04/17/2012	Date format: 美国 (英文)
+14:24:47 04/17/2012	Date format: 美国 (英文)
+14:25:47 04/17/2012	Date format: 美国 (英文)
+14:26:48 04/17/2012	Date format: 美国 (英文)
+14:27:48 04/17/2012	Date format: 美国 (英文)
+14:28:48 04/17/2012	Date format: 美国 (英文)
+14:29:48 04/17/2012	Date format: 美国 (英文)
+14:30:48 04/17/2012	Date format: 美国 (英文)
+14:31:48 04/17/2012	Date format: 美国 (英文)
+14:32:48 04/17/2012	Date format: 美国 (英文)
+14:33:48 04/17/2012	Date format: 美国 (英文)
+14:34:48 04/17/2012	Date format: 美国 (英文)
+14:35:49 04/17/2012	Date format: 美国 (英文)
+14:36:49 04/17/2012	Date format: 美国 (英文)
+14:37:49 04/17/2012	Date format: 美国 (英文)
+14:38:49 04/17/2012	Date format: 美国 (英文)
+14:39:49 04/17/2012	Date format: 美国 (英文)
+14:40:30 04/17/2012	Date format: 美国 (英文)
+14:40:55 04/17/2012	Date format: 美国 (英文)
+14:40:59 04/17/2012	Date format: 美国 (英文)
+14:41:04 04/17/2012	Date format: 美国 (英文)
+14:41:19 04/17/2012	Date format: 美国 (英文)
+14:41:20 04/17/2012	Date format: 美国 (英文)
+14:41:29 04/17/2012	Date format: 美国 (英文)
+14:42:30 04/17/2012	Date format: 美国 (英文)
+14:43:30 04/17/2012	Date format: 美国 (英文)
+14:44:30 04/17/2012	Date format: 美国 (英文)
+14:45:30 04/17/2012	Date format: 美国 (英文)
+14:46:30 04/17/2012	Date format: 美国 (英文)
+14:47:30 04/17/2012	Date format: 美国 (英文)
+14:48:30 04/17/2012	Date format: 美国 (英文)
+14:49:30 04/17/2012	Date format: 美国 (英文)
+14:50:30 04/17/2012	Date format: 美国 (英文)
+14:51:30 04/17/2012	Date format: 美国 (英文)
+14:52:31 04/17/2012	Date format: 美国 (英文)
+14:53:31 04/17/2012	Date format: 美国 (英文)
+14:54:31 04/17/2012	Date format: 美国 (英文)
+14:55:31 04/17/2012	Date format: 美国 (英文)
+14:56:31 04/17/2012	Date format: 美国 (英文)
+14:57:31 04/17/2012	Date format: 美国 (英文)
+14:58:31 04/17/2012	Date format: 美国 (英文)
+14:59:31 04/17/2012	Date format: 美国 (英文)
+15:00:31 04/17/2012	Date format: 美国 (英文)
+15:01:32 04/17/2012	Date format: 美国 (英文)
+15:02:32 04/17/2012	Date format: 美国 (英文)
+15:03:32 04/17/2012	Date format: 美国 (英文)
+15:04:06 04/17/2012	Date format: 美国 (英文)
+15:04:07 04/17/2012	Date format: 美国 (英文)
+15:04:09 04/17/2012	Date format: 美国 (英文)
+15:04:11 04/17/2012	Date format: 美国 (英文)
+15:04:12 04/17/2012	Date format: 美国 (英文)
+15:04:13 04/17/2012	Date format: 美国 (英文)
+15:04:16 04/17/2012	Date format: 美国 (英文)
+15:04:19 04/17/2012	Date format: 美国 (英文)
+15:04:20 04/17/2012	Date format: 美国 (英文)
+15:04:22 04/17/2012	Date format: 美国 (英文)
+15:05:22 04/17/2012	Date format: 美国 (英文)
+15:06:22 04/17/2012	Date format: 美国 (英文)
+15:07:22 04/17/2012	Date format: 美国 (英文)
+15:08:20 04/17/2012	Date format: 美国 (英文)
+15:08:22 04/17/2012	Date format: 美国 (英文)
+15:09:22 04/17/2012	Date format: 美国 (英文)
+15:10:22 04/17/2012	Date format: 美国 (英文)
+15:11:22 04/17/2012	Date format: 美国 (英文)
+15:12:22 04/17/2012	Date format: 美国 (英文)
+15:13:23 04/17/2012	Date format: 美国 (英文)
+15:14:23 04/17/2012	Date format: 美国 (英文)
+15:15:23 04/17/2012	Date format: 美国 (英文)
+15:16:23 04/17/2012	Date format: 美国 (英文)
+15:17:23 04/17/2012	Date format: 美国 (英文)
+15:18:23 04/17/2012	Date format: 美国 (英文)
+15:19:23 04/17/2012	Date format: 美国 (英文)
+15:20:23 04/17/2012	Date format: 美国 (英文)
+15:21:23 04/17/2012	Date format: 美国 (英文)
+15:22:23 04/17/2012	Date format: 美国 (英文)
+15:23:24 04/17/2012	Date format: 美国 (英文)
+15:24:24 04/17/2012	Date format: 美国 (英文)
+15:25:24 04/17/2012	Date format: 美国 (英文)
+15:26:24 04/17/2012	Date format: 美国 (英文)
+15:27:24 04/17/2012	Date format: 美国 (英文)
+15:28:24 04/17/2012	Date format: 美国 (英文)
+15:29:24 04/17/2012	Date format: 美国 (英文)
+15:30:24 04/17/2012	Date format: 美国 (英文)
+15:31:24 04/17/2012	Date format: 美国 (英文)
+15:32:25 04/17/2012	Date format: 美国 (英文)
+15:33:25 04/17/2012	Date format: 美国 (英文)
+15:34:25 04/17/2012	Date format: 美国 (英文)
+15:35:25 04/17/2012	Date format: 美国 (英文)
+15:36:25 04/17/2012	Date format: 美国 (英文)
+15:37:01 04/17/2012	Date format: 美国 (英文)
+15:37:25 04/17/2012	Date format: 美国 (英文)
+15:38:25 04/17/2012	Date format: 美国 (英文)
+15:39:25 04/17/2012	Date format: 美国 (英文)
+15:40:25 04/17/2012	Date format: 美国 (英文)
+15:41:26 04/17/2012	Date format: 美国 (英文)
+15:42:26 04/17/2012	Date format: 美国 (英文)
+15:43:26 04/17/2012	Date format: 美国 (英文)
+15:44:26 04/17/2012	Date format: 美国 (英文)
+15:45:26 04/17/2012	Date format: 美国 (英文)
+15:46:26 04/17/2012	Date format: 美国 (英文)
+15:47:26 04/17/2012	Date format: 美国 (英文)
+15:48:26 04/17/2012	Date format: 美国 (英文)
+15:49:26 04/17/2012	Date format: 美国 (英文)
+15:50:26 04/17/2012	Date format: 美国 (英文)
+15:51:26 04/17/2012	Date format: 美国 (英文)
+15:52:27 04/17/2012	Date format: 美国 (英文)
+15:53:27 04/17/2012	Date format: 美国 (英文)
+15:54:27 04/17/2012	Date format: 美国 (英文)
+15:55:27 04/17/2012	Date format: 美国 (英文)
+15:56:27 04/17/2012	Date format: 美国 (英文)
+15:57:27 04/17/2012	Date format: 美国 (英文)
+15:58:27 04/17/2012	Date format: 美国 (英文)
+15:59:27 04/17/2012	Date format: 美国 (英文)
+16:00:27 04/17/2012	Date format: 美国 (英文)
+16:01:27 04/17/2012	Date format: 美国 (英文)
+16:02:28 04/17/2012	Date format: 美国 (英文)
+16:03:28 04/17/2012	Date format: 美国 (英文)
+16:04:28 04/17/2012	Date format: 美国 (英文)
+16:05:28 04/17/2012	Date format: 美国 (英文)
+16:06:28 04/17/2012	Date format: 美国 (英文)
+16:07:28 04/17/2012	Date format: 美国 (英文)
+16:08:28 04/17/2012	Date format: 美国 (英文)
+16:09:28 04/17/2012	Date format: 美国 (英文)
+16:10:28 04/17/2012	Date format: 美国 (英文)
+16:11:28 04/17/2012	Date format: 美国 (英文)
+16:12:29 04/17/2012	Date format: 美国 (英文)
+16:13:29 04/17/2012	Date format: 美国 (英文)
+16:14:29 04/17/2012	Date format: 美国 (英文)
+16:15:29 04/17/2012	Date format: 美国 (英文)
+16:16:29 04/17/2012	Date format: 美国 (英文)
+16:17:29 04/17/2012	Date format: 美国 (英文)
+16:18:29 04/17/2012	Date format: 美国 (英文)
+16:19:29 04/17/2012	Date format: 美国 (英文)
+16:20:29 04/17/2012	Date format: 美国 (英文)
+16:21:30 04/17/2012	Date format: 美国 (英文)
+16:22:30 04/17/2012	Date format: 美国 (英文)
+16:23:30 04/17/2012	Date format: 美国 (英文)
+16:24:30 04/17/2012	Date format: 美国 (英文)
+16:25:30 04/17/2012	Date format: 美国 (英文)
+16:26:30 04/17/2012	Date format: 美国 (英文)
+16:27:30 04/17/2012	Date format: 美国 (英文)
+16:28:30 04/17/2012	Date format: 美国 (英文)
+16:29:30 04/17/2012	Date format: 美国 (英文)
+16:30:30 04/17/2012	Date format: 美国 (英文)
+16:31:30 04/17/2012	Date format: 美国 (英文)
+16:32:31 04/17/2012	Date format: 美国 (英文)
+16:33:31 04/17/2012	Date format: 美国 (英文)
+16:34:31 04/17/2012	Date format: 美国 (英文)
+16:35:31 04/17/2012	Date format: 美国 (英文)
+16:36:31 04/17/2012	Date format: 美国 (英文)
+16:37:31 04/17/2012	Date format: 美国 (英文)
+16:38:31 04/17/2012	Date format: 美国 (英文)
+16:39:31 04/17/2012	Date format: 美国 (英文)
+16:40:31 04/17/2012	Date format: 美国 (英文)
+16:41:31 04/17/2012	Date format: 美国 (英文)
+16:42:32 04/17/2012	Date format: 美国 (英文)
+16:43:32 04/17/2012	Date format: 美国 (英文)
+16:44:32 04/17/2012	Date format: 美国 (英文)
+16:45:32 04/17/2012	Date format: 美国 (英文)
+16:46:32 04/17/2012	Date format: 美国 (英文)
+16:47:32 04/17/2012	Date format: 美国 (英文)
+16:48:33 04/17/2012	Date format: 美国 (英文)
+16:49:33 04/17/2012	Date format: 美国 (英文)
+16:50:33 04/17/2012	Date format: 美国 (英文)
+16:51:33 04/17/2012	Date format: 美国 (英文)
+16:52:33 04/17/2012	Date format: 美国 (英文)
+16:53:33 04/17/2012	Date format: 美国 (英文)
+16:54:33 04/17/2012	Date format: 美国 (英文)
+16:55:33 04/17/2012	Date format: 美国 (英文)
+16:56:33 04/17/2012	Date format: 美国 (英文)
+16:57:33 04/17/2012	Date format: 美国 (英文)
+16:58:33 04/17/2012	Date format: 美国 (英文)
+16:59:34 04/17/2012	Date format: 美国 (英文)
+17:00:34 04/17/2012	Date format: 美国 (英文)
+17:01:34 04/17/2012	Date format: 美国 (英文)
+17:02:34 04/17/2012	Date format: 美国 (英文)
+17:03:34 04/17/2012	Date format: 美国 (英文)
+17:04:34 04/17/2012	Date format: 美国 (英文)
+17:05:34 04/17/2012	Date format: 美国 (英文)
+17:06:34 04/17/2012	Date format: 美国 (英文)
+17:07:34 04/17/2012	Date format: 美国 (英文)
+17:08:35 04/17/2012	Date format: 美国 (英文)
+17:09:35 04/17/2012	Date format: 美国 (英文)
+17:10:35 04/17/2012	Date format: 美国 (英文)
+17:11:35 04/17/2012	Date format: 美国 (英文)
+17:12:35 04/17/2012	Date format: 美国 (英文)
+17:13:35 04/17/2012	Date format: 美国 (英文)
+17:14:35 04/17/2012	Date format: 美国 (英文)
+17:15:35 04/17/2012	Date format: 美国 (英文)
+17:16:35 04/17/2012	Date format: 美国 (英文)
+17:17:36 04/17/2012	Date format: 美国 (英文)
+17:18:36 04/17/2012	Date format: 美国 (英文)
+17:19:36 04/17/2012	Date format: 美国 (英文)
+17:20:36 04/17/2012	Date format: 美国 (英文)
+17:21:36 04/17/2012	Date format: 美国 (英文)
+17:22:36 04/17/2012	Date format: 美国 (英文)
+17:23:36 04/17/2012	Date format: 美国 (英文)
+17:24:36 04/17/2012	Date format: 美国 (英文)
+17:25:36 04/17/2012	Date format: 美国 (英文)
+17:26:36 04/17/2012	Date format: 美国 (英文)
+17:27:36 04/17/2012	Date format: 美国 (英文)
+17:28:37 04/17/2012	Date format: 美国 (英文)
+17:29:37 04/17/2012	Date format: 美国 (英文)
+17:30:37 04/17/2012	Date format: 美国 (英文)
+17:31:37 04/17/2012	Date format: 美国 (英文)
+17:32:37 04/17/2012	Date format: 美国 (英文)
+17:33:37 04/17/2012	Date format: 美国 (英文)
+17:34:37 04/17/2012	Date format: 美国 (英文)
+17:35:37 04/17/2012	Date format: 美国 (英文)
+17:36:37 04/17/2012	Date format: 美国 (英文)
+17:37:38 04/17/2012	Date format: 美国 (英文)
+17:38:38 04/17/2012	Date format: 美国 (英文)
+17:39:38 04/17/2012	Date format: 美国 (英文)
+17:40:38 04/17/2012	Date format: 美国 (英文)
+17:41:38 04/17/2012	Date format: 美国 (英文)
+17:42:38 04/17/2012	Date format: 美国 (英文)
+17:43:38 04/17/2012	Date format: 美国 (英文)
+17:44:38 04/17/2012	Date format: 美国 (英文)
+17:45:38 04/17/2012	Date format: 美国 (英文)
+17:46:39 04/17/2012	Date format: 美国 (英文)
+17:47:39 04/17/2012	Date format: 美国 (英文)
+17:48:39 04/17/2012	Date format: 美国 (英文)
+17:49:39 04/17/2012	Date format: 美国 (英文)
+17:50:39 04/17/2012	Date format: 美国 (英文)
+17:51:39 04/17/2012	Date format: 美国 (英文)
+17:52:39 04/17/2012	Date format: 美国 (英文)
+17:53:39 04/17/2012	Date format: 美国 (英文)
+17:54:39 04/17/2012	Date format: 美国 (英文)
+17:57:00 04/17/2012	Updating master.config file from "750" to "750"
+17:57:01 04/17/2012	SiteView process started, 
+17:57:01 04/17/2012	 Windows 7 6.1
+17:57:01 04/17/2012	 Java HotSpot(TM) 64-Bit Server VM, 21.1-b02
+17:57:01 04/17/2012	 Time zone offset is -8.0 hours
+17:57:01 04/17/2012	 Maximum monitor threads: 100
+17:57:01 04/17/2012	Using java SSL libraries
+17:57:01 04/17/2012	
+17:57:01 04/17/2012	Starting HTTP Server listener on localhost:9999
+17:57:01 04/17/2012	Number of maximum connections accepted is : 20 on localhost:9999
+17:57:01 04/17/2012	  
+17:57:01 04/17/2012	Open your web browser to:
+17:57:01 04/17/2012	  http://32.2.123.116:9999/SiteView
+17:57:06 04/17/2012	Process name tss_dispatcher was not running
+17:57:08 04/17/2012	Process name tss_monitor was not running
+17:57:08 04/17/2012	Loading master.config
+17:57:08 04/17/2012	Loading users.config
+17:57:08 04/17/2012	Loading multi.config
+17:57:08 04/17/2012	Loading group: dddd
+17:57:08 04/17/2012	Loading group: dsd
+17:57:08 04/17/2012	Loading group: dsdsd
+17:57:08 04/17/2012	Loading group: sdsddd
+17:57:08 04/17/2012	Loading group: __Health__
+17:57:08 04/17/2012	Loading dynamic.config
+17:57:08 04/17/2012	Loading history.config
+17:57:08 04/17/2012	  
+17:57:08 04/17/2012	SiteView is active...
+17:57:08 04/17/2012	SiteView Startup Completed
+17:57:08 04/17/2012	  (will auto restart in 24 hours)
+09:44:04 04/18/2012	Updating master.config file from "750" to "750"
+09:44:04 04/18/2012	SiteView process started, 
+09:44:04 04/18/2012	 Windows 7 6.1
+09:44:04 04/18/2012	 Java HotSpot(TM) 64-Bit Server VM, 21.1-b02
+09:44:04 04/18/2012	 Time zone offset is -8.0 hours
+09:44:05 04/18/2012	 Maximum monitor threads: 100
+09:44:05 04/18/2012	Using java SSL libraries
+09:44:05 04/18/2012	
+09:44:05 04/18/2012	Starting HTTP Server listener on localhost:9999
+09:44:05 04/18/2012	Number of maximum connections accepted is : 20 on localhost:9999
+09:44:05 04/18/2012	  
+09:44:05 04/18/2012	Open your web browser to:
+09:44:05 04/18/2012	  http://32.2.123.116:9999/SiteView
+09:44:09 04/18/2012	Process name tss_dispatcher was not running
+09:44:11 04/18/2012	Process name tss_monitor was not running
+09:44:11 04/18/2012	Loading master.config
+09:44:11 04/18/2012	Loading users.config
+09:44:11 04/18/2012	Loading multi.config
+09:44:11 04/18/2012	Loading group: dddd
+09:44:12 04/18/2012	Loading group: dsd
+09:44:12 04/18/2012	Loading group: dsdsd
+09:44:12 04/18/2012	Loading group: sdsddd
+09:44:12 04/18/2012	Loading group: __Health__
+09:44:12 04/18/2012	Loading dynamic.config
+09:44:12 04/18/2012	Loading history.config
+09:44:12 04/18/2012	  
+09:44:12 04/18/2012	SiteView is active...
+09:44:12 04/18/2012	SiteView Startup Completed
+09:44:12 04/18/2012	  (will auto restart in 24 hours)
+09:46:20 04/18/2012	Date format: 美国 (英文)
+09:46:21 04/18/2012	Date format: 美国 (英文)
+09:46:24 04/18/2012	Date format: 美国 (英文)
+09:46:26 04/18/2012	Date format: 美国 (英文)
+09:46:27 04/18/2012	Date format: 美国 (英文)
+09:46:28 04/18/2012	Date format: 美国 (英文)
+09:46:29 04/18/2012	Date format: 美国 (英文)
+09:47:29 04/18/2012	Date format: 美国 (英文)
+09:48:29 04/18/2012	Date format: 美国 (英文)
+09:49:29 04/18/2012	Date format: 美国 (英文)
+09:50:29 04/18/2012	Date format: 美国 (英文)
+09:51:29 04/18/2012	Date format: 美国 (英文)
+09:52:29 04/18/2012	Date format: 美国 (英文)
+09:53:29 04/18/2012	Date format: 美国 (英文)
+09:54:29 04/18/2012	Date format: 美国 (英文)
+09:55:30 04/18/2012	Date format: 美国 (英文)
+09:56:30 04/18/2012	Date format: 美国 (英文)
+09:57:30 04/18/2012	Date format: 美国 (英文)
+09:58:30 04/18/2012	Date format: 美国 (英文)
+09:59:30 04/18/2012	Date format: 美国 (英文)
+10:00:30 04/18/2012	Date format: 美国 (英文)
+10:01:30 04/18/2012	Date format: 美国 (英文)
+10:02:30 04/18/2012	Date format: 美国 (英文)
+10:03:30 04/18/2012	Date format: 美国 (英文)
+10:04:30 04/18/2012	Date format: 美国 (英文)
+10:05:30 04/18/2012	Date format: 美国 (英文)
+10:06:30 04/18/2012	Date format: 美国 (英文)
+10:07:30 04/18/2012	Date format: 美国 (英文)
+10:08:31 04/18/2012	Date format: 美国 (英文)
+10:09:31 04/18/2012	Date format: 美国 (英文)
+10:10:31 04/18/2012	Date format: 美国 (英文)
+10:11:31 04/18/2012	Date format: 美国 (英文)
+10:12:31 04/18/2012	Date format: 美国 (英文)
+10:13:31 04/18/2012	Date format: 美国 (英文)
+10:14:31 04/18/2012	Date format: 美国 (英文)
+10:15:31 04/18/2012	Date format: 美国 (英文)
+10:16:31 04/18/2012	Date format: 美国 (英文)
+10:17:31 04/18/2012	Date format: 美国 (英文)
+10:18:31 04/18/2012	Date format: 美国 (英文)
+10:19:31 04/18/2012	Date format: 美国 (英文)
+10:20:32 04/18/2012	Date format: 美国 (英文)
+10:21:32 04/18/2012	Date format: 美国 (英文)
+10:22:32 04/18/2012	Date format: 美国 (英文)
+10:23:32 04/18/2012	Date format: 美国 (英文)
+10:24:32 04/18/2012	Date format: 美国 (英文)
+10:25:32 04/18/2012	Date format: 美国 (英文)
+10:26:32 04/18/2012	Date format: 美国 (英文)
+10:27:32 04/18/2012	Date format: 美国 (英文)
+10:28:32 04/18/2012	Date format: 美国 (英文)
+10:29:32 04/18/2012	Date format: 美国 (英文)
+10:30:32 04/18/2012	Date format: 美国 (英文)
+10:31:32 04/18/2012	Date format: 美国 (英文)
+10:32:33 04/18/2012	Date format: 美国 (英文)
+10:33:13 04/18/2012	Date format: 美国 (英文)
+10:33:15 04/18/2012	Date format: 美国 (英文)
+10:33:33 04/18/2012	Loading group: dsd
+10:33:34 04/18/2012	  waiting 598 seconds: will update monitor dsd:1  127.0.0.1
+10:33:36 04/18/2012	Date format: 美国 (英文)
+10:33:40 04/18/2012	Date format: 美国 (英文)
+10:33:58 04/18/2012	Loading group: dddd
+10:33:58 04/18/2012	Loading group: dsd
+10:34:00 04/18/2012	  waiting 574 seconds: will update monitor dsd:1  127.0.0.1
+10:34:04 04/18/2012	Date format: 美国 (英文)
+10:34:12 04/18/2012	Date format: 美国 (英文)
+10:34:12 04/18/2012	Loading group: dddd
+10:34:13 04/18/2012	Date format: 美国 (英文)
+10:34:14 04/18/2012	Date format: 美国 (英文)
+10:34:53 04/18/2012	Loading group: sdsddd
+10:34:54 04/18/2012	  waiting 520 seconds: will update monitor dsd:1  127.0.0.1
+10:35:00 04/18/2012	Date format: 美国 (英文)
+10:36:00 04/18/2012	Date format: 美国 (英文)
+10:36:12 04/18/2012	Loading group: sdsddd
+10:37:15 04/18/2012	Updating master.config file from "750" to "750"
+10:37:15 04/18/2012	SiteView process started, 
+10:37:15 04/18/2012	 Windows 7 6.1
+10:37:15 04/18/2012	 Java HotSpot(TM) 64-Bit Server VM, 21.1-b02
+10:37:15 04/18/2012	 Time zone offset is -8.0 hours
+10:37:15 04/18/2012	 Maximum monitor threads: 100
+10:37:15 04/18/2012	Using java SSL libraries
+10:37:15 04/18/2012	
+10:37:15 04/18/2012	Starting HTTP Server listener on localhost:9999
+10:37:15 04/18/2012	Number of maximum connections accepted is : 20 on localhost:9999
+10:37:15 04/18/2012	  
+10:37:15 04/18/2012	Open your web browser to:
+10:37:15 04/18/2012	  http://32.2.123.116:9999/SiteView
+10:37:20 04/18/2012	Process name tss_dispatcher was not running
+10:37:22 04/18/2012	Process name tss_monitor was not running
+10:37:22 04/18/2012	Loading master.config
+10:37:22 04/18/2012	Loading users.config
+10:37:22 04/18/2012	Loading multi.config
+10:37:22 04/18/2012	Loading group: dddd
+10:37:22 04/18/2012	Loading group: dsd
+10:37:22 04/18/2012	Loading group: dsdsd
+10:37:22 04/18/2012	Loading group: sdsddd
+10:37:22 04/18/2012	Loading group: __Health__
+10:37:22 04/18/2012	Loading dynamic.config
+10:37:22 04/18/2012	Loading history.config
+10:37:22 04/18/2012	  
+10:37:22 04/18/2012	SiteView is active...
+10:37:22 04/18/2012	SiteView Startup Completed
+10:37:22 04/18/2012	  (will auto restart in 24 hours)
+10:38:04 04/18/2012	Date format: 美国 (英文)
+10:39:04 04/18/2012	Date format: 美国 (英文)
+10:40:30 04/18/2012	Updating master.config file from "750" to "750"
+10:40:30 04/18/2012	SiteView process started, 
+10:40:30 04/18/2012	 Windows 7 6.1
+10:40:30 04/18/2012	 Java HotSpot(TM) 64-Bit Server VM, 21.1-b02
+10:40:30 04/18/2012	 Time zone offset is -8.0 hours
+10:40:30 04/18/2012	 Maximum monitor threads: 100
+10:40:30 04/18/2012	Using java SSL libraries
+10:40:30 04/18/2012	
+10:40:30 04/18/2012	Starting HTTP Server listener on localhost:9999
+10:40:30 04/18/2012	Number of maximum connections accepted is : 20 on localhost:9999
+10:40:30 04/18/2012	  
+10:40:30 04/18/2012	Open your web browser to:
+10:40:30 04/18/2012	  http://32.2.123.116:9999/SiteView
+10:40:35 04/18/2012	Process name tss_dispatcher was not running
+10:40:37 04/18/2012	Process name tss_monitor was not running
+10:40:37 04/18/2012	Loading master.config
+10:40:37 04/18/2012	Loading users.config
+10:40:37 04/18/2012	Loading multi.config
+10:40:37 04/18/2012	Loading group: dddd
+10:40:37 04/18/2012	Loading group: dsd
+10:40:37 04/18/2012	Loading group: dsdsd
+10:40:37 04/18/2012	Loading group: sdsddd
+10:40:37 04/18/2012	Loading group: __Health__
+10:40:37 04/18/2012	Loading dynamic.config
+10:40:37 04/18/2012	Loading history.config
+10:40:37 04/18/2012	  
+10:40:37 04/18/2012	SiteView is active...
+10:40:37 04/18/2012	SiteView Startup Completed
+10:40:37 04/18/2012	  (will auto restart in 24 hours)
+10:40:50 04/18/2012	Date format: 美国 (英文)
+10:41:50 04/18/2012	Date format: 美国 (英文)
+10:42:50 04/18/2012	Date format: 美国 (英文)
+10:43:35 04/18/2012	  waiting 24 seconds: will update monitor dddd:2  Ping: www.sina.com.cn
+10:43:50 04/18/2012	Date format: 美国 (英文)
+10:44:01 04/18/2012	  waiting 53 seconds: will update monitor sdsddd:1  Ping: www.baidu.com.cn
+10:44:50 04/18/2012	Date format: 美国 (英文)
+10:44:55 04/18/2012	  waiting 519 seconds: will update monitor dsd:1  127.0.0.1
+10:45:51 04/18/2012	Date format: 美国 (英文)
+10:46:51 04/18/2012	Date format: 美国 (英文)
+10:47:51 04/18/2012	Date format: 美国 (英文)
+10:48:51 04/18/2012	Date format: 美国 (英文)
+10:49:51 04/18/2012	Date format: 美国 (英文)
+10:50:51 04/18/2012	Date format: 美国 (英文)
+10:51:51 04/18/2012	Date format: 美国 (英文)
+10:52:51 04/18/2012	Date format: 美国 (英文)
+10:53:35 04/18/2012	  waiting 24 seconds: will update monitor dddd:2  Ping: www.sina.com.cn
+10:53:51 04/18/2012	Date format: 美国 (英文)
+10:54:01 04/18/2012	  waiting 53 seconds: will update monitor sdsddd:1  Ping: www.baidu.com.cn
+10:54:51 04/18/2012	Date format: 美国 (英文)
+10:54:56 04/18/2012	  waiting 518 seconds: will update monitor dsd:1  127.0.0.1
+10:55:51 04/18/2012	Date format: 美国 (英文)
+10:56:51 04/18/2012	Date format: 美国 (英文)
+10:57:52 04/18/2012	Date format: 美国 (英文)
+10:58:52 04/18/2012	Date format: 美国 (英文)
+10:59:52 04/18/2012	Date format: 美国 (英文)
+11:00:52 04/18/2012	Date format: 美国 (英文)
+11:01:52 04/18/2012	Date format: 美国 (英文)
+11:02:52 04/18/2012	Date format: 美国 (英文)
+11:03:35 04/18/2012	  waiting 24 seconds: will update monitor dddd:2  Ping: www.sina.com.cn
+11:03:52 04/18/2012	Date format: 美国 (英文)
+11:04:01 04/18/2012	  waiting 53 seconds: will update monitor sdsddd:1  Ping: www.baidu.com.cn
+11:04:52 04/18/2012	Date format: 美国 (英文)
+11:04:55 04/18/2012	  waiting 519 seconds: will update monitor dsd:1  127.0.0.1
+11:05:52 04/18/2012	Date format: 美国 (英文)
+11:06:52 04/18/2012	Date format: 美国 (英文)
+11:07:52 04/18/2012	Date format: 美国 (英文)
+11:08:52 04/18/2012	Date format: 美国 (英文)
+11:09:52 04/18/2012	Date format: 美国 (英文)
+11:10:53 04/18/2012	Date format: 美国 (英文)
+11:11:53 04/18/2012	Date format: 美国 (英文)
+11:12:53 04/18/2012	Date format: 美国 (英文)
+11:13:35 04/18/2012	  waiting 24 seconds: will update monitor dddd:2  Ping: www.sina.com.cn
+11:13:53 04/18/2012	Date format: 美国 (英文)
+11:14:01 04/18/2012	  waiting 53 seconds: will update monitor sdsddd:1  Ping: www.baidu.com.cn
+11:14:53 04/18/2012	Date format: 美国 (英文)
+11:14:55 04/18/2012	  waiting 519 seconds: will update monitor dsd:1  127.0.0.1
+11:15:53 04/18/2012	Date format: 美国 (英文)
+11:16:53 04/18/2012	Date format: 美国 (英文)
+11:17:53 04/18/2012	Date format: 美国 (英文)
+11:18:53 04/18/2012	Date format: 美国 (英文)
+11:19:53 04/18/2012	Date format: 美国 (英文)
+11:20:53 04/18/2012	Date format: 美国 (英文)
+11:21:53 04/18/2012	Date format: 美国 (英文)
+11:22:53 04/18/2012	Date format: 美国 (英文)

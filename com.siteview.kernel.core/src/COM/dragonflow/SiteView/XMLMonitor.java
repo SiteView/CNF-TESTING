@@ -23,7 +23,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -260,11 +260,11 @@ public class XMLMonitor extends BrowsableBase {
                     boolean flag = k == array.size() - 1;
                     String s3 = flag ? "counter" : "object";
                     element2 = getChildElement(element2, s3, (String) array
-                            .at(k), true);
+                            .get(k), true);
                     if (array1 != null) {
                         int l = array.size() - array1.size();
                         if (k - l >= 0) {
-                            element2.setAttribute("id", (String) array1.at(k
+                            element2.setAttribute("id", (String) array1.get(k
                                     - l));
                         }
                     }
@@ -419,7 +419,7 @@ public class XMLMonitor extends BrowsableBase {
                     }
                 }
 
-                for (Iterator iterator = countersHashMap.values().iterator(); iterator
+                for (Iterator iterator = counters(Enumeration) hashmap.values().iterator(); iterator
                         .hasNext();) {
                     StringProperty stringproperty1 = (StringProperty) iterator
                             .next();
@@ -487,7 +487,7 @@ public class XMLMonitor extends BrowsableBase {
             if (i < array.size()) {
                 s = s + '/';
             }
-            s = s + escapeString((String) array.at(i - 1));
+            s = s + escapeString((String) array.get(i - 1));
         }
 
         return s;
@@ -539,7 +539,7 @@ public class XMLMonitor extends BrowsableBase {
             if (i < array.size()) {
                 s = s + '/';
             }
-            s = s + escapeString((String) array.at(i - 1));
+            s = s + escapeString((String) array.get(i - 1));
         }
 
         return s;
@@ -550,7 +550,7 @@ public class XMLMonitor extends BrowsableBase {
     }
 
     public String verify(StringProperty stringproperty, String s,
-            HTTPRequest httprequest, jgl.HashMap hashmap) {
+            HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == getPropertyObject(PROPERTY_NAME_BROWSABLE)) {
             String s1 = getProperty(PROPERTY_NAME_COUNTER_ID + 1);
             if (s1.length() <= 0) {
@@ -579,7 +579,7 @@ public class XMLMonitor extends BrowsableBase {
         Array array = getConnectionStandardProperties();
         Array array1 = getConnectionAdvancedProperties();
         for (int i = 0; i < array1.size(); i++) {
-            array.add(array1.at(i));
+            array.add(array1.get(i));
         }
 
         return array;
@@ -649,14 +649,14 @@ public class XMLMonitor extends BrowsableBase {
 
     public void setMaxCounters(int i) {
         nMaxCounters = i;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         hashmap.put("_XMLMonitorMaxCounters", (new Integer(i)).toString());
         MasterConfig.saveMasterConfig(hashmap);
     }
 
     static {
         nMaxCounters = 30;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         nMaxCounters = TextUtils.toInt(TextUtils.getValue(hashmap,
                 "_XMLMonitorMaxCounters"));
         if (nMaxCounters <= 0) {
@@ -716,7 +716,7 @@ public class XMLMonitor extends BrowsableBase {
         array.add(pStatus);
         StringProperty astringproperty1[] = new StringProperty[array.size()];
         for (int i = 0; i < array.size(); i++) {
-            astringproperty1[i] = (StringProperty) array.at(i);
+            astringproperty1[i] = (StringProperty) array.get(i);
         }
 
         String s = (COM.dragonflow.SiteView.XMLMonitor.class).getName();

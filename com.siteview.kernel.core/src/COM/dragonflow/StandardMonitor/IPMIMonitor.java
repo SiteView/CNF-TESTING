@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.StringProperty;
@@ -454,7 +454,7 @@ public class IPMIMonitor extends BrowsableBase {
         return true;
     }
 
-    public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, HashMap hashmap) {
         return super.verify(stringproperty, s, httprequest, hashmap);
     }
 
@@ -477,7 +477,7 @@ public class IPMIMonitor extends BrowsableBase {
 
     public void setMaxCounters(int i) {
         nMaxCounters = i;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         hashmap.put("_browsableContentMaxCounters", (new Integer(i)).toString());
         MasterConfig.saveMasterConfig(hashmap);
     }
@@ -534,7 +534,7 @@ public class IPMIMonitor extends BrowsableBase {
             return s;
         }
         for (int i = array.size() - 1; i >= 0; i --) {
-            String s1 = (String) array.at(i);
+            String s1 = (String) array.get(i);
             s = s + s1;
         }
 
@@ -586,7 +586,7 @@ public class IPMIMonitor extends BrowsableBase {
 //        HashMap hashmap1 = new HashMap();
 ////        SensorInfoRecord sensorinforecord;
 //        Vector vector;
-//        for (Iterator iterator = hashmap.values().iterator(); iterator.hasNext(); vector.add(sensorinforecord)) {
+//        for (Iterator iterator = (Enumeration) hashmap.values().iterator(); iterator.hasNext(); vector.add(sensorinforecord)) {
 ////            sensorinforecord = (SensorInfoRecord) iterator.next();
 ////            byte byte0 = sensorinforecord.getSensorType();
 ////            String s = TranslatorFactory.getTranslator(Locale.ENGLISH).getSensorType(byte0);

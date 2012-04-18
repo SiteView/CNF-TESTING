@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.SiteView.Platform;
@@ -353,7 +353,7 @@ public class ScheduleProperty extends ScalarProperty {
         ai[l] = j;
         ai1[l] = TextUtils.DAY_SECONDS;
         l++;
-        for (Enumeration enumeration = hashmap.values(s); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration = (Enumeration) hashmap.values(s); enumeration.hasMoreElements();) {
             String s1 = (String) enumeration.nextElement();
             int k1 = s1.indexOf("-");
             ai[l] = TextUtils.toInt(s1.substring(0, k1));
@@ -421,7 +421,7 @@ public class ScheduleProperty extends ScalarProperty {
      */
     public static boolean isEnabled(HashMap hashmap, int i, int j) {
         String s = TextUtils.dayLetters[i];
-        Enumeration enumeration = hashmap.values(s);
+        Enumeration enumeration = (Enumeration) hashmap.values(s);
         boolean flag = true;
         while (enumeration.hasMoreElements()) {
             String s1 = (String) enumeration.nextElement();

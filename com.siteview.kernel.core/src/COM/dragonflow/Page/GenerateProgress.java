@@ -272,9 +272,9 @@ public class GenerateProgress extends COM.dragonflow.SiteView.Action {
         if (httprequest.getValue("hideState").length() == 0) {
             printwriter.print("<!--CURRENTSTATE\n");
             if (!httprequest.isStandardAccount()) {
-                jgl.Array array = COM.dragonflow.Page.CGI
+                Array array = COM.dragonflow.Page.CGI
                         .getAllowedGroupIDsForAccount(httprequest);
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 while (enumeration.hasMoreElements()) {
                     String s2 = (String) enumeration
                             .nextElement();
@@ -289,10 +289,10 @@ public class GenerateProgress extends COM.dragonflow.SiteView.Action {
                     }
                 }
             } else {
-                jgl.Array array1 = siteviewgroup
+                Array array1 = siteviewgroup
                         .getTopLevelMonitors(httprequest);
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup;
-                for (Enumeration enumeration1 = array1.elements(); enumeration1
+                for (Enumeration enumeration1 =  (Enumeration) array1.iterator(); enumeration1
                         .hasMoreElements(); printGroupEntry(printwriter,
                         monitorgroup, 0)) {
                     monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) enumeration1
@@ -473,10 +473,10 @@ public class GenerateProgress extends COM.dragonflow.SiteView.Action {
                                 + j
                                 + " threads</CAPTION>\n"
                                 + "<TR><TH>Last Update<TH>Server<TH>Last Status</TR>");
-                jgl.Array array2 = COM.dragonflow.SiteView.LogPuller
+                Array array2 = COM.dragonflow.SiteView.LogPuller
                         .getPortals();
                 COM.dragonflow.SiteView.PortalSiteView portalsiteview;
-                Enumeration enumeration2 = array2.elements();
+                Enumeration enumeration2 =  (Enumeration) array2.iterator();
                 while (enumeration2.hasMoreElements()) {
                     portalsiteview = (COM.dragonflow.SiteView.PortalSiteView) enumeration2
                             .nextElement();

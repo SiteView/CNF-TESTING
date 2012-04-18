@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.SiteView.AtomicMonitor;

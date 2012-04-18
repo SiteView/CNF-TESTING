@@ -11,8 +11,8 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -68,14 +68,14 @@ public class treeControl extends COM.dragonflow.Page.CGI {
 
     private static final int SELECTGREY = 2;
 
-    private jgl.HashMap state;
+    private HashMap state;
 
-    private jgl.HashMap selected;
+    private HashMap selected;
 
-    private jgl.Array selectList;
+    private Array selectList;
 
     public treeControl(COM.dragonflow.HTTP.HTTPRequest httprequest,
-            String s, boolean flag, jgl.Array array, boolean flag1) {
+            String s, boolean flag, Array array, boolean flag1) {
         parentSelected = false;
         treeCommand = false;
         ctrlName = null;
@@ -95,7 +95,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
         selectList = new Array();
         forgetState = flag1;
         for (int i = 0; array != null && i < array.size(); i++) {
-            String s1 = (String) array.at(i);
+            String s1 = (String) array.get(i);
             String as[] = COM.dragonflow.Utils.TextUtils
                     .split(s1, " ");
             selectList.add(as[0]);
@@ -198,29 +198,29 @@ public class treeControl extends COM.dragonflow.Page.CGI {
     }
 
     public boolean process(String s, String s1,
-            String s2, jgl.Array array, jgl.Array array1,
-            jgl.Array array2, int i, COM.dragonflow.Page.CGI cgi1,
+            String s2, Array array, Array array1,
+            Array array2, int i, COM.dragonflow.Page.CGI cgi1,
             StringBuffer stringbuffer) throws java.lang.Exception {
         StringBuffer stringbuffer1 = new StringBuffer();
         cgi = cgi1;
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         for (int j = 0; array != null && j < array.size(); j++) {
-            hashmap.put(array.at(j), "true");
+            hashmap.put(array.get(j), "true");
         }
 
-        jgl.HashMap hashmap1 = array1 != null ? new HashMap() : null;
+        HashMap hashmap1 = array1 != null ? new HashMap() : null;
         for (int k = 0; array1 != null && k < array1.size(); k++) {
-            hashmap1.put(array1.at(k), "true");
+            hashmap1.put(array1.get(k), "true");
         }
 
-        jgl.HashMap hashmap2 = array2 != null ? new HashMap() : null;
+        HashMap hashmap2 = array2 != null ? new HashMap() : null;
         for (int l = 0; array2 != null && l < array2.size(); l++) {
-            hashmap2.put(array2.at(l), "true");
+            hashmap2.put(array2.get(l), "true");
         }
 
         hiddenSelection = true;
         if (single) {
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             if (enumeration.hasMoreElements()) {
                 String s3 = (String) enumeration
                         .nextElement();
@@ -295,7 +295,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
         if (selectList == null) {
             selectList = new Array();
         }
-        for (Enumeration enumeration1 = hashmap.keys(); enumeration1
+        for (Enumeration enumeration1 = (Enumeration) hashmap.keys(); enumeration1
                 .hasMoreElements();) {
             String s4 = (String) enumeration1.nextElement();
             String as1[] = COM.dragonflow.Utils.TextUtils.split(s4,
@@ -313,7 +313,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
 
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(
                 true);
-        jgl.Array array3 = cgi.getGroupNameList(hashmapordered, hashmap1,
+        Array array3 = cgi.getGroupNameList(hashmapordered, hashmap1,
                 hashmap2, true);
         for (Enumeration enumeration2 = array3.elements(); enumeration2
                 .hasMoreElements();) {
@@ -349,7 +349,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
         }
 
         if (hashmap.get("_master") == null) {
-            Enumeration enumeration3 = hashmap.keys();
+            Enumeration enumeration3 = (Enumeration) hashmap.keys();
             while (enumeration3.hasMoreElements()) {
                 String s7 = (String) enumeration3
                         .nextElement();
@@ -372,8 +372,8 @@ public class treeControl extends COM.dragonflow.Page.CGI {
     }
 
     private void doNextGroup(COM.dragonflow.SiteView.MonitorGroup monitorgroup,
-            int i, String s, jgl.HashMap hashmap,
-            jgl.HashMap hashmap1, StringBuffer stringbuffer,
+            int i, String s, HashMap hashmap,
+            HashMap hashmap1, StringBuffer stringbuffer,
             String s1, int j) {
         Enumeration enumeration = monitorgroup.getMonitors();
         int k = j;
@@ -431,7 +431,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
         } 
     }
 
-    private boolean noneSelected(jgl.HashMap hashmap, int i) {
+    private boolean noneSelected(HashMap hashmap, int i) {
         boolean flag = false;
         if (selected.get("_none") != null) {
             noneSelected = true;
@@ -454,7 +454,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
         return noneSelected;
     }
 
-    private boolean masterSelected(jgl.HashMap hashmap, int i) {
+    private boolean masterSelected(HashMap hashmap, int i) {
         boolean flag = false;
         if (selected.get("_master") != null) {
             masterSelected = true;
@@ -481,7 +481,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
     }
 
     private int selectType(String s, boolean flag,
-            String s1, String s2, jgl.HashMap hashmap, int i) {
+            String s1, String s2, HashMap hashmap, int i) {
         boolean flag1 = false;
         boolean flag4 = false;
         isOpen = false;
@@ -518,7 +518,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
             selected.put(s, "selected");
             flag4 = true;
             if (s2.length() > 0 && isOpen) {
-                Enumeration enumeration = hashmap.keys();
+                Enumeration enumeration = (Enumeration) hashmap.keys();
                 while (enumeration.hasMoreElements()) {
                     String s3 = (String) enumeration
                             .nextElement();
@@ -539,7 +539,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
         if (!isOpen && j == 0 && !noneSelected && !flag4) {
             for (int k = 0; selectList != null && k < selectList.size(); k++) {
                 if (COM.dragonflow.Page.treeControl.isRelated(
-                        (String) selectList.at(k), s2)) {
+                        (String) selectList.get(k), s2)) {
                     return 2;
                 }
             }
@@ -551,7 +551,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
     }
 
     private int changeSelection(String s, String s1,
-            jgl.HashMap hashmap, int i) {
+            HashMap hashmap, int i) {
         int j = 1;
         Enumeration enumeration = request.variables.keys();
         while (enumeration.hasMoreElements()) {
@@ -577,16 +577,16 @@ public class treeControl extends COM.dragonflow.Page.CGI {
     }
 
     private void selectNodes(String s, String s1,
-            jgl.HashMap hashmap, int i) {
+            HashMap hashmap, int i) {
         COM.dragonflow.SiteView.Monitor monitor = (COM.dragonflow.SiteView.Monitor) siteview
                 .getElement(s1);
         boolean flag = true;
         if (s.equals("_master")) {
             COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(
                     true);
-            jgl.Array array = cgi.getGroupNameList(hashmapordered, null, null,
+            Array array = cgi.getGroupNameList(hashmapordered, null, null,
                     true);
-            for (Enumeration enumeration = array.elements(); enumeration
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                     .hasMoreElements();) {
                 String s2 = (String) enumeration
                         .nextElement();
@@ -613,7 +613,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
 
     private boolean doNextSelect(String s,
             COM.dragonflow.SiteView.Monitor monitor,
-            COM.dragonflow.SiteView.Monitor monitor1, jgl.HashMap hashmap,
+            COM.dragonflow.SiteView.Monitor monitor1, HashMap hashmap,
             int i, boolean flag) {
         Enumeration enumeration = monitor.getMonitors();
         String s1 = "";
@@ -743,11 +743,11 @@ public class treeControl extends COM.dragonflow.Page.CGI {
         String s = request.getAccount();
         String s1 = request.getValue("page");
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.Array array = getFrames(stringbuffer);
+        Array array = getFrames(stringbuffer);
         boolean flag = false;
         boolean flag1 = false;
         for (int i = 0; i < array.size() && (!flag || !flag1); i++) {
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(i);
+            HashMap hashmap = (HashMap) array.get(i);
             if (!COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_user")
                     .equals(s)
                     || !COM.dragonflow.Utils.TextUtils
@@ -801,7 +801,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
                 + j + " border=0>";
     }
 
-    private jgl.Array getFrames(StringBuffer stringbuffer) {
+    private Array getFrames(StringBuffer stringbuffer) {
         String s1 = request.getAccount();
         String s;
         if (COM.dragonflow.SiteView.Platform.isStandardAccount(s1)) {
@@ -812,7 +812,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
                     + java.io.File.separator + s1;
         }
         String s2 = s + java.io.File.separator + "treeCtrl.dyn";
-        jgl.Array array = null;
+        Array array = null;
         try {
             array = COM.dragonflow.Properties.FrameFile.readFromFile(s2);
         } catch (java.lang.Exception exception) {
@@ -831,9 +831,9 @@ public class treeControl extends COM.dragonflow.Page.CGI {
         }
         state.clear();
         selected.clear();
-        jgl.Array array = getFrames(new StringBuffer());
+        Array array = getFrames(new StringBuffer());
         for (int i = 0; i < array.size(); i++) {
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(i);
+            HashMap hashmap = (HashMap) array.get(i);
             if (!COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_user")
                     .equals(s)
                     || !COM.dragonflow.Utils.TextUtils
@@ -844,7 +844,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
                     .equals("state")
                     && !forgetState) {
                 String s2;
-                for (Enumeration enumeration = hashmap.keys(); enumeration
+                for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration
                         .hasMoreElements(); state.add(s2, hashmap.get(s2))) {
                     s2 = (String) enumeration.nextElement();
                 }
@@ -859,7 +859,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
                 continue;
             }
             String s3;
-            for (Enumeration enumeration1 = hashmap.keys(); enumeration1
+            for (Enumeration enumeration1 = (Enumeration) hashmap.keys(); enumeration1
                     .hasMoreElements(); selected.add(s3, hashmap.get(s3))) {
                 s3 = (String) enumeration1.nextElement();
             }

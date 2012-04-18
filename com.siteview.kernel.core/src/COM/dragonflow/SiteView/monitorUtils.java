@@ -21,8 +21,8 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.CounterXMLProperty;
 import COM.dragonflow.Properties.FrameFile;
@@ -79,7 +79,7 @@ public class monitorUtils {
         if (s.equals("_config")) {
             return 0;
         }
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         int i = 0;
         enumeration.nextElement();
         i ++;
@@ -102,7 +102,7 @@ public class monitorUtils {
 
     public static HashMap findMonitor(Array array, String s) throws Exception {
         int i = findMonitorIndex(array, s);
-        return (HashMap) array.at(i);
+        return (HashMap) array.get(i);
     }
 
     /**
@@ -135,7 +135,7 @@ public class monitorUtils {
         if (hashmap == null) {
             return "";
         }
-        for (Enumeration enumeration = hashmap.values(s); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration = (Enumeration) hashmap.values(s); enumeration.hasMoreElements();) {
             String s2 = (String) enumeration.nextElement();
             String as[] = TextUtils.split(s2, ",");
             if (as.length == 2 && as[0].equals(s1)) {
@@ -154,7 +154,7 @@ public class monitorUtils {
                 array = FrameFile.readFromFile(s1);
             }
             for (int i = 0; i < array.size(); i ++) {
-                hashmap1 = (HashMap) array.at(i);
+                hashmap1 = (HashMap) array.get(i);
                 String s2 = (String) hashmap1.get("_class");
                 if (s2 != null) {
                     if (s2.equals("SubGroup")) {

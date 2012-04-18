@@ -22,7 +22,7 @@ import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteView.*;
 import java.net.URLEncoder;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 public class WindowsMediaMonitor extends NTCounterBase
 {

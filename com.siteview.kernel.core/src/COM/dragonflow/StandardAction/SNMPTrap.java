@@ -20,7 +20,7 @@ package COM.dragonflow.StandardAction;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
 
@@ -90,22 +90,22 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
     };
     private static java.net.InetAddress localInetAddress = null;
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap)
+    public void initializeFromArguments(Array array, HashMap hashmap)
     {
         if(array.size() > 0)
         {
-            setProperty(pMessage, ((String)array.at(0)).replace('^', ' '));
+            setProperty(pMessage, ((String)array.get(0)).replace('^', ' '));
         }
         if(array.size() > 1)
         {
-            setProperty(pTemplate, array.at(1));
+            setProperty(pTemplate, array.get(1));
         } else
         {
             setProperty(pTemplate, "Default");
         }
         unsetProperty(pSNMPSetting);
-        for(Enumeration enumeration = hashmap.values("_id"); enumeration.hasMoreElements(); addProperty(pSNMPSetting, (String)enumeration.nextElement())) { }
-        Enumeration enumeration1 = hashmap.keys();
+        for(Enumeration enumeration = (Enumeration) hashmap.values("_id"); enumeration.hasMoreElements(); addProperty(pSNMPSetting, (String)enumeration.nextElement())) { }
+        Enumeration enumeration1 = (Enumeration) hashmap.keys();
         while (enumeration1.hasMoreElements()) {
             String s = (String)enumeration1.nextElement();
             if(s.startsWith("_snmp"))
@@ -218,7 +218,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
         return stringbuffer.toString();
     }
 
-    public boolean defaultsAreSet(jgl.HashMap hashmap)
+    public boolean defaultsAreSet(HashMap hashmap)
     {
         boolean flag = true;
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_snmpHost");
@@ -234,7 +234,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
         return getProperty(pHost).length() > 0;
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap)
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap)
     {
         return super.verify(stringproperty, s, httprequest, hashmap);
     }
@@ -259,8 +259,8 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
             Enumeration enumeration = null;
             if(httprequest.isStandardAccount())
             {
-                jgl.HashMap hashmap = cgi.getMasterConfig();
-                enumeration = hashmap.values("_additionalSNMP");
+                HashMap hashmap = cgi.getMasterConfig();
+                enumeration = (Enumeration) hashmap.values("_additionalSNMP");
             } else
             {
                 COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
@@ -270,7 +270,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
             java.util.Vector vector5 = new Vector();
             vector5.addElement("default");
             vector5.addElement("Default");
-            jgl.HashMap hashmap1;
+            HashMap hashmap1;
             for(; enumeration.hasMoreElements(); vector5.addElement(hashmap1.get("_name")))
             {
                 hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
@@ -328,7 +328,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
         boolean flag = false;
         if(hasValue("_id"))
         {
-            jgl.Array array = new Array();
+            Array array = new Array();
             Enumeration enumeration = getMultipleValues("_id");
             while (enumeration.hasMoreElements()) {
                 String s = (String)enumeration.nextElement();
@@ -337,10 +337,10 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
                 String s1 = "default";
                 if(s.equals("default"))
                 {
-                    jgl.Array array1 = getCurrentPropertyNames();
+                    Array array1 = getCurrentPropertyNames();
                     for(int i = 0; i < array1.size(); i++)
                     {
-                        String s4 = (String)array1.at(i);
+                        String s4 = (String)array1.get(i);
                         if(s4.startsWith("_snmp"))
                         {
                             unsetProperty(s4);
@@ -352,9 +352,9 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
                     String s2 = getOwner().getSNMPSettings(s);
                     if(s2.length() > 0)
                     {
-                        jgl.HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap(s2);
+                        HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap(s2);
                         s1 = (String)hashmap.get("_name");
-                        Enumeration enumeration1 = hashmap.keys();
+                        Enumeration enumeration1 = (Enumeration) hashmap.keys();
                         while (enumeration1.hasMoreElements()) {
                             String s5 = (String)enumeration1.nextElement();
                             if(s5.startsWith("_snmp"))
@@ -507,7 +507,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
                     s1 = s14;
                 }
             }
-            jgl.Array array = new Array();
+            Array array = new Array();
             if(s.trim().length() > 0)
             {
                 String s15 = getSetting("_snmpVariable");
@@ -516,9 +516,9 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
                 {
                     s16 = "STRING";
                 }
-                jgl.Array array1 = new Array();
+                Array array1 = new Array();
                 array1 = COM.dragonflow.SiteView.Platform.split('\n', s);
-                Enumeration enumeration = array1.elements();
+                Enumeration enumeration =  (Enumeration) array1.iterator();
                 while (enumeration.hasMoreElements()) {
                     String s17 = (String)enumeration.nextElement();
                     String as1[] = parseOutKeyIfExists("[Command:", s17, s13);
@@ -622,7 +622,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
      * @param s11
      * @return
      */
-    private static String SendSNMPTrap(String s, String s1, String s2, String s3, String s4, String s5, String s6, jgl.Array array, 
+    private static String SendSNMPTrap(String s, String s1, String s2, String s3, String s4, String s5, String s6, Array array, 
             String s7, String s8, String s9, String s10, String s11)
     {
         String s12;
@@ -665,7 +665,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
         try {
         com.netaphor.snmp.IpAddress ipaddress = new IpAddress(inetaddress);
         com.netaphor.snmp.GenericAddress genericaddress = new GenericAddress(ipaddress);
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         com.netaphor.snmp.GenericAddress genericaddress1 = new GenericAddress(s + ":" + s1);
         if(s3.startsWith("."))
         {
@@ -743,7 +743,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
         }
         ((com.netaphor.snmp.Target) (obj1)).setRetries(2);
         ((com.netaphor.snmp.Target) (obj1)).setTimeout(500L);
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         avariablebinding = new com.netaphor.snmp.VariableBinding[array.size()];
         int i = 0;
         while(enumeration.hasMoreElements()) 
@@ -895,7 +895,7 @@ public class SNMPTrap extends COM.dragonflow.SiteView.Action
         {
             s6 = args[i + 6];
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         com.netaphor.snmp.VariableBinding variablebinding = new VariableBinding();
         com.netaphor.snmp.OID oid = new OID(s2);
         variablebinding.setOid(oid);

@@ -42,7 +42,7 @@ public class generalPrefsPage extends COM.dragonflow.Page.prefsPage
         String s = "";
         try
         {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             String s1 = request.getValue("license");
             String s2 = request.getValue("licenseForX");
             if(s1.indexOf("PE") >= 0 && s2.length() > 0)
@@ -237,7 +237,7 @@ public class generalPrefsPage extends COM.dragonflow.Page.prefsPage
         printFooter(outputStream);
     }
 
-    void printForm(jgl.HashMap hashmap)
+    void printForm(HashMap hashmap)
     {
         printBodyHeader("General Preferences");
         printButtonBar("GenPref.htm", "", getSecondNavItems(request));
@@ -313,7 +313,7 @@ public class generalPrefsPage extends COM.dragonflow.Page.prefsPage
         }
         try
         {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             String s = request.getValue("operation");
 //            if(COM.dragonflow.TopazIntegration.MAManager.isAttached())
 //            {

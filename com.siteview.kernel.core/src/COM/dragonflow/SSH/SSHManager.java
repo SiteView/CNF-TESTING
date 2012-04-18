@@ -17,7 +17,10 @@ package COM.dragonflow.SSH;
  * 
  */
 
-import java.util.HashMap;
+
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SSH:
 // SSHRemote, SSHCloser, SSHPlinkClient, SSHJavaClient
@@ -26,7 +29,7 @@ public class SSHManager {
 
     private static COM.dragonflow.SSH.SSHManager manager;
 
-    private java.util.HashMap remotesMap;
+    private HashMap remotesMap;
 
     static boolean debug = false;
 
@@ -47,7 +50,7 @@ public class SSHManager {
         return manager;
     }
 
-    public int execute(COM.dragonflow.Utils.RemoteCommandLine remotecommandline, COM.dragonflow.SiteView.Machine machine, String s, int i, boolean flag, java.io.PrintWriter printwriter, jgl.Array array) {
+    public int execute(COM.dragonflow.Utils.RemoteCommandLine remotecommandline, COM.dragonflow.SiteView.Machine machine, String s, int i, boolean flag, java.io.PrintWriter printwriter, Array array) {
         COM.dragonflow.SSH.SSHRemote sshremote = null;
         String s1 = !machine.getProperty(COM.dragonflow.SiteView.Machine.pOS).equals("NT") && !machine.getProperty(COM.dragonflow.SiteView.Machine.pOS).equals("NT") ? "" : "NT";
         String s2 = machine.getProperty(COM.dragonflow.SiteView.Machine.pID) + s1;
@@ -66,7 +69,7 @@ public class SSHManager {
 
     SSHManager() {
         remotesMap = new HashMap();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         clientOverride = (String) hashmap.get("_sshGlobalClient");
         numClientConnections = (String) hashmap.get("_sshGlobalNumConnections");
         globalCacheSetting = (String) hashmap.get("_sshGlobalCache");

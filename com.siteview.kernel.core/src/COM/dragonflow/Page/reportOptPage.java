@@ -53,7 +53,7 @@ public class reportOptPage extends COM.dragonflow.Page.prefsPage
         }
     }
 
-    private jgl.HashMap updateSetting(jgl.HashMap hashmap, String s)
+    private HashMap updateSetting(HashMap hashmap, String s)
     {
         String s1 = null;
         s1 = request.getValue(s + "CB");
@@ -78,7 +78,7 @@ public class reportOptPage extends COM.dragonflow.Page.prefsPage
 
     public void savePreferences()
     {
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         hashmap = updateSetting(hashmap, "_reportGraphBackgroundColor");
         hashmap = updateSetting(hashmap, "_reportGraphDisabledColor");
         hashmap = updateSetting(hashmap, "_reportGraphErrorColor");

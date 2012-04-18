@@ -26,8 +26,8 @@ import java.sql.SQLWarning;
 import java.sql.Statement;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.StringProperty;
@@ -333,7 +333,7 @@ public abstract class DBMonitorBase extends AtomicMonitor {
                     s7 = "content match error, " + s7;
                 }
                 if (array.size() > 0) {
-                    String s18 = I18N.UnicodeToString((String) array.at(0), "");
+                    String s18 = I18N.UnicodeToString((String) array.get(0), "");
                     s18 = I18N.StringToUnicode(s18, I18N.nullEncoding());
                     setProperty(getMatchValueProperty(), s18);
                     s7 = "matched: " + TextUtils.escapeHTML(s18) + ", " + s7;
@@ -552,7 +552,7 @@ public abstract class DBMonitorBase extends AtomicMonitor {
         }
         array.add(getRowsProperty());
         array.add(getMatchValueProperty());
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public String GetPropertyLabel(StringProperty stringproperty, boolean flag) {

@@ -45,7 +45,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -115,7 +115,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
 
     private Map mIDMap;
 
-    static jgl.HashMap noData = new jgl.HashMap();
+    static HashMap noData = new jgl.HashMap();
 
     public BrowsableNTCounterMonitor() {
         showDebug = false;
@@ -216,7 +216,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
             StringBuffer stringbuffer1 = new StringBuffer();
             Array array1 = NTCounterBase.getPerfData(s, array, stringbuffer1, showDebug, this, array2, mIDMap);
             stringbuffer.append(stringbuffer1.toString());
-            enumeration = array1.elements();
+            enumeration =  (Enumeration) array1.iterator();
             if (enumeration.hasMoreElements()) {
                 l2 = TextUtils.toLong((String) enumeration.nextElement());
             }
@@ -265,7 +265,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
         int j1 = 0;
         byte byte0 = 2;
         for (; enumeration.hasMoreElements(); j1 ++) {
-            PerfCounter perfcounter1 = (PerfCounter) array.at(j1);
+            PerfCounter perfcounter1 = (PerfCounter) array.get(j1);
             String s8 = (String) enumeration.nextElement();
             float f1 = (0.0F / 0.0F);
             long l7 = 0L;
@@ -425,7 +425,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
                     if (monitorDebugLevel == 3 && array2 != null) {
                         StringBuffer stringbuffer2 = new StringBuffer();
                         for (int j2 = 0; j2 < array2.size(); j2 ++) {
-                            stringbuffer2.append(array2.at(j2) + "\n");
+                            stringbuffer2.append(array2.get(j2) + "\n");
                         }
 
                         LogManager.log("Error", "NTCounterMonitor: " + getFullID() + " failed, output:\n" + stringbuffer2);
@@ -495,9 +495,9 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
         String s3 = "-1";
         Array array = Platform.split(' ', s2);
         if (array.size() >= 1) {
-            Array array1 = Platform.split('=', (String) array.at(0));
+            Array array1 = Platform.split('=', (String) array.get(0));
             if (array1.size() == 2) {
-                s3 = (String) array1.at(1);
+                s3 = (String) array1.get(1);
             }
         }
         Array array2 = new Array();
@@ -664,7 +664,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
         Array array1 = NTCounterBase.getPerfCounters(s, array, stringbuffer, "");
         HashMap hashmap = new HashMap();
         for (int k = 0; k < array1.size(); k ++) {
-            PerfCounter perfcounter = (PerfCounter) array1.at(k);
+            PerfCounter perfcounter = (PerfCounter) array1.get(k);
             Object obj = (Map) hashmap.get(perfcounter.object);
             if (obj == null) {
                 obj = new HashMap();
@@ -697,7 +697,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
 
     public void setMaxCounters(int i) {
         nMaxCounters = i;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         hashmap.put("_BrowsableNTMaxCounters", (new Integer(i)).toString());
         MasterConfig.saveMasterConfig(hashmap);
     }
@@ -820,7 +820,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
         xmlFileDirName = "templates.perfmon" + File.separator + "browsable";
         nMaxCounters = 40;
         try {
-            jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+            HashMap hashmap = MasterConfig.getMasterConfig();
             nMaxCounters = TextUtils.toInt(TextUtils.getValue(hashmap, "_BrowsableNTMaxCounters"));
             if (nMaxCounters == 0) {
                 nMaxCounters = 40;
@@ -860,7 +860,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
             array.add(pLastMeasurementWasNA);
             StringProperty astringproperty1[] = new StringProperty[array.size()];
             for (int j = 0; j < array.size(); j ++) {
-                astringproperty1[j] = (StringProperty) array.at(j);
+                astringproperty1[j] = (StringProperty) array.get(j);
             }
 
             String s = (COM.dragonflow.StandardMonitor.BrowsableNTCounterMonitor.class).getName();

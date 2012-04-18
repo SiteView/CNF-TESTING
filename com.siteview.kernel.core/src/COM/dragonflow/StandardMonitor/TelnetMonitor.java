@@ -28,8 +28,8 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.StringProperty;
@@ -207,7 +207,7 @@ public class TelnetMonitor extends AtomicMonitor
             socket = new Socket(s, j);
             printwriter1 = FileUtils.MakeOutputWriter(socket.getOutputStream(), "");
             bufferedreader = FileUtils.MakeInputReader(socket.getInputStream(), "");
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())

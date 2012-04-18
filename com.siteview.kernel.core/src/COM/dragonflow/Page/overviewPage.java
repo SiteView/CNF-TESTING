@@ -13,8 +13,8 @@ import java.io.File;
 import java.io.StringBufferInputStream;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.LessEqualPropertyName;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -34,7 +34,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
     static final int STATUS = 4;
     static final int LEVEL = 5;
     public static boolean debug = true;
-    static jgl.HashMap EXCLUDE_MAP;
+    static HashMap EXCLUDE_MAP;
     public static String OPEN_VARIABLE = "open";
     public static String CLOSE_VARIABLE = "close";
 
@@ -70,12 +70,12 @@ public class overviewPage extends COM.dragonflow.Page.CGI
         return menus1;
     }
 
-    void printForm(String s, jgl.Array array, jgl.HashMap hashmap)
+    void printForm(String s, Array array, HashMap hashmap)
         throws java.lang.Exception
     {
         String s1 = request.getValue("server");
         String s2 = s;
-        jgl.HashMap hashmap1;
+        HashMap hashmap1;
         if(s.equals("Edit"))
         {
             s2 = "Update";
@@ -120,12 +120,12 @@ public class overviewPage extends COM.dragonflow.Page.CGI
         printFooter(outputStream);
     }
 
-    void printGroupForm(String s, jgl.Array array, jgl.HashMap hashmap)
+    void printGroupForm(String s, Array array, HashMap hashmap)
         throws java.lang.Exception
     {
         String s1 = request.getValue("server");
         String s3 = s;
-        jgl.HashMap hashmap1;
+        HashMap hashmap1;
         String s2;
         if(s.equals("AddGroup"))
         {
@@ -164,10 +164,10 @@ public class overviewPage extends COM.dragonflow.Page.CGI
             return;
         }
         String s1 = request.getValue("server");
-        jgl.Array array = COM.dragonflow.SiteView.Server.readServers();
+        Array array = COM.dragonflow.SiteView.Server.readServers();
         if(request.isPost())
         {
-            jgl.HashMap hashmap = new HashMap();
+            HashMap hashmap = new HashMap();
             hashmap.put("server", s1);
             hashmap.put("username", request.getValue("username"));
             hashmap.put("password", COM.dragonflow.Properties.StringProperty.getPrivate(request, "password", "overSuff", null, null));
@@ -184,7 +184,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
                 array.add(hashmap);
             } else
             {
-                jgl.HashMap hashmap1 = COM.dragonflow.SiteView.Server.findServer(array, request.getValue("originalServer"));
+                HashMap hashmap1 = COM.dragonflow.SiteView.Server.findServer(array, request.getValue("originalServer"));
                 array.remove(hashmap1);
                 array.add(hashmap);
             }
@@ -206,10 +206,10 @@ public class overviewPage extends COM.dragonflow.Page.CGI
             return;
         }
         String s1 = request.getValue("server");
-        jgl.Array array = COM.dragonflow.SiteView.Server.readServers();
+        Array array = COM.dragonflow.SiteView.Server.readServers();
         if(request.isPost())
         {
-            jgl.HashMap hashmap = new HashMap();
+            HashMap hashmap = new HashMap();
             hashmap.put("server", s1);
             hashmap.put("title", request.getValue("title"));
             hashmap.put("parent", request.getValue("parent"));
@@ -221,7 +221,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
                 array.add(hashmap);
             } else
             {
-                jgl.HashMap hashmap1 = COM.dragonflow.SiteView.Server.findServer(array, request.getValue("originalServer"));
+                HashMap hashmap1 = COM.dragonflow.SiteView.Server.findServer(array, request.getValue("originalServer"));
                 array.remove(hashmap1);
                 array.add(hashmap);
             }
@@ -239,8 +239,8 @@ public class overviewPage extends COM.dragonflow.Page.CGI
     {
         String s1 = request.getValue("server");
         String s2 = request.getValue("group");
-        jgl.Array array = COM.dragonflow.SiteView.Server.readServers();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.Server.findServer(array, s1);
+        Array array = COM.dragonflow.SiteView.Server.readServers();
+        HashMap hashmap = COM.dragonflow.SiteView.Server.findServer(array, s1);
         hashmap.remove(s2);
         hashmap.add(s2, s);
         String s3 = "/SiteView/cgi/go.exe/SiteView?page=overview&account=" + request.getAccount();
@@ -266,7 +266,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
         String s3 = request.getValue("parent");
         if(s3.length() > 0)
         {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.Server.findServer(COM.dragonflow.SiteView.Server.readServers(), s3);
+            HashMap hashmap = COM.dragonflow.SiteView.Server.findServer(COM.dragonflow.SiteView.Server.readServers(), s3);
             String s4 = "";
             String s5 = "Servers";
             String s6 = s3;
@@ -274,7 +274,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
             {
                 s6 = COM.dragonflow.Page.overviewPage.getValue(hashmap, "title");
                 s4 = COM.dragonflow.Page.overviewPage.getValue(hashmap, "parent");
-                jgl.HashMap hashmap3 = COM.dragonflow.SiteView.Server.findServer(COM.dragonflow.SiteView.Server.readServers(), s4);
+                HashMap hashmap3 = COM.dragonflow.SiteView.Server.findServer(COM.dragonflow.SiteView.Server.readServers(), s4);
                 if(hashmap3 != null)
                 {
                     s5 = COM.dragonflow.Page.overviewPage.getValue(hashmap3, "title");
@@ -291,16 +291,16 @@ public class overviewPage extends COM.dragonflow.Page.CGI
             outputStream.println("<TH WIDTH=10%>Edit</TH><TH WIDTH=3%>Del</TH>");
         }
         outputStream.println("</TR>");
-        jgl.Array array = COM.dragonflow.SiteView.Server.getServers(s3, true);
-        jgl.HashMap hashmap1 = getMasterConfig();
-        Enumeration enumeration = array.elements();
+        Array array = COM.dragonflow.SiteView.Server.getServers(s3, true);
+        HashMap hashmap1 = getMasterConfig();
+        Enumeration enumeration = (Enumeration) array.iterator();
         do
         {
             if(!enumeration.hasMoreElements())
             {
                 break;
             }
-            jgl.HashMap hashmap2 = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap2 = (HashMap)enumeration.nextElement();
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "hidden").length() == 0)
             {
                 String s8 = "";
@@ -359,7 +359,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
             outputStream.println("<hr>Administrator access only<hr>");
             return;
         }
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         if(request.getValue("columns").length() > 0 && COM.dragonflow.Utils.TextUtils.isInteger(request.getValue("refresh")))
         {
             hashmap.put("_overviewColumns", request.getValue("columns"));
@@ -405,8 +405,8 @@ public class overviewPage extends COM.dragonflow.Page.CGI
             return;
         }
         String s1 = request.getValue("server");
-        jgl.Array array = COM.dragonflow.SiteView.Server.readServers();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.Server.findServer(array, s1);
+        Array array = COM.dragonflow.SiteView.Server.readServers();
+        HashMap hashmap = COM.dragonflow.SiteView.Server.findServer(array, s1);
         String s2 = COM.dragonflow.Page.overviewPage.getValue(hashmap, "title");
         if(request.isPost())
         {
@@ -428,7 +428,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    boolean isRelated(jgl.HashMap hashmap, String s, jgl.Array array)
+    boolean isRelated(HashMap hashmap, String s, Array array)
     {
         if(COM.dragonflow.Page.overviewPage.getValue(hashmap, "server").equals(s))
         {
@@ -439,7 +439,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
         {
             return false;
         }
-        jgl.HashMap hashmap1 = COM.dragonflow.SiteView.Server.findServer(array, s);
+        HashMap hashmap1 = COM.dragonflow.SiteView.Server.findServer(array, s);
         if(hashmap1 == null)
         {
             return false;
@@ -458,8 +458,8 @@ public class overviewPage extends COM.dragonflow.Page.CGI
             return;
         }
         String s1 = request.getValue("server");
-        jgl.Array array = COM.dragonflow.SiteView.Server.readServers();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.Server.findServer(array, s1);
+        Array array = COM.dragonflow.SiteView.Server.readServers();
+        HashMap hashmap = COM.dragonflow.SiteView.Server.findServer(array, s1);
         String s2 = s1;
         if(hashmap != null)
         {
@@ -469,15 +469,15 @@ public class overviewPage extends COM.dragonflow.Page.CGI
         {
             try
             {
-                jgl.Array array1 = new Array();
-                Enumeration enumeration = array.elements();
+                Array array1 = new Array();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 do
                 {
                     if(!enumeration.hasMoreElements())
                     {
                         break;
                     }
-                    jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+                    HashMap hashmap1 = (HashMap)enumeration.nextElement();
                     if(!isRelated(hashmap1, s1, array))
                     {
                         array1.add(hashmap1);
@@ -573,7 +573,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
     public void printServers()
     {
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         int i = siteviewgroup.getSettingAsLong("_overviewRefreshRate", 60);
         String s = fontSize(siteviewgroup.getSettingAsLong("_overviewServerFont", 0));
         String s1 = fontSize(siteviewgroup.getSettingAsLong("_overviewGroupFont", -1));
@@ -597,16 +597,16 @@ public class overviewPage extends COM.dragonflow.Page.CGI
         outputStream.println("<BODY " + s2 + " link=\"#6699cc\" alink=\"#6699cc\" vlink=\"#6699cc\">\n<FONT COLOR=\"#6699cc\">");
         COM.dragonflow.SiteView.Server.startUpdating();
         String s3 = COM.dragonflow.SiteView.Monitor.NODATA_CATEGORY;
-        jgl.Array array = new Array();
-        jgl.Array array1 = COM.dragonflow.SiteView.Server.getServers("", true);
-        Enumeration enumeration = array1.elements();
+        Array array = new Array();
+        Array array1 = COM.dragonflow.SiteView.Server.getServers("", true);
+        Enumeration enumeration =  (Enumeration) array1.iterator();
         do
         {
             if(!enumeration.hasMoreElements())
             {
                 break;
             }
-            jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap1 = (HashMap)enumeration.nextElement();
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "hidden").length() == 0)
             {
                 String s4;
@@ -621,11 +621,11 @@ public class overviewPage extends COM.dragonflow.Page.CGI
                 {
                     if(COM.dragonflow.Page.overviewPage.getValue(hashmap1, "class").length() > 0)
                     {
-                        jgl.Array array2 = (jgl.Array)hashmap1.get("_items");
-                        Enumeration enumeration1 = array2.elements();
+                        Array array2 = (Array)hashmap1.get("_items");
+                        Enumeration enumeration1 =  (Enumeration) array2.iterator();
                         while(enumeration1.hasMoreElements()) 
                         {
-                            jgl.HashMap hashmap2 = (jgl.HashMap)enumeration1.nextElement();
+                            HashMap hashmap2 = (HashMap)enumeration1.nextElement();
                             s3 = printSiteView(array, flag, flag1, hashmap, hashmap2, request, s, s1, flag2, s4, s3);
                         }
                     } else
@@ -678,7 +678,7 @@ public class overviewPage extends COM.dragonflow.Page.CGI
         }
 
         outputStream.println("</tr>\n");
-        Enumeration enumeration2 = array.elements();
+        Enumeration enumeration2 = (Enumeration) array.iterator();
 label0:
         do
         {
@@ -692,7 +692,7 @@ label0:
                 outputStream.println("<TR>" + obj + "</TR>");
                 continue;
             }
-            jgl.Array array3 = (jgl.Array)obj;
+            Array array3 = (Array)obj;
             int l = array3.size();
             int i1 = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Page.overviewPage.getValue(hashmap, "_overviewColumns"));
             if(i1 < 0)
@@ -717,7 +717,7 @@ label0:
                         String s13 = "";
                         if(k2 < l)
                         {
-                            s13 = (String)array3.at(k2);
+                            s13 = (String)array3.get(k2);
                         }
                         outputStream.print(s13);
                     } while(++j2 < i1);
@@ -738,7 +738,7 @@ label0:
                 {
                     outputStream.print("\n<TR>");
                 }
-                String s12 = (String)array3.at(i2);
+                String s12 = (String)array3.get(i2);
                 outputStream.print(s12);
                 if(++k1 >= i1)
                 {
@@ -771,9 +771,9 @@ label0:
         outputStream.println("</BODY>");
     }
 
-    static long fetchSiteSeerState(jgl.HashMap hashmap, StringBuffer stringbuffer)
+    static long fetchSiteSeerState(HashMap hashmap, StringBuffer stringbuffer)
     {
-        jgl.HashMap hashmap1 = new HashMap();
+        HashMap hashmap1 = new HashMap();
         hashmap1.put("account", COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_siteseerAccount"));
         hashmap1.put("username", COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_siteseerUsername"));
         hashmap1.put("password", COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_siteseerPassword"));
@@ -785,7 +785,7 @@ label0:
         return COM.dragonflow.SiteView.Server.fetchServerState(hashmap, hashmap1, stringbuffer);
     }
 
-    public static String fetchSiteSeerCategory(jgl.HashMap hashmap)
+    public static String fetchSiteSeerCategory(HashMap hashmap)
     {
         StringBuffer stringbuffer = new StringBuffer();
         String s = "nodata";
@@ -802,17 +802,17 @@ label0:
                 String as[] = COM.dragonflow.Utils.TextUtils.split(s2, "\n");
                 for(int k = 0; k < as.length; k++)
                 {
-                    jgl.Array array = COM.dragonflow.SiteView.Platform.split('\t', as[k]);
+                    Array array = COM.dragonflow.SiteView.Platform.split('\t', as[k]);
                     if(array.size() <= 3)
                     {
                         continue;
                     }
-                    String s3 = (String)array.at(1);
+                    String s3 = (String)array.get(1);
                     if(!s3.equals(s1))
                     {
                         continue;
                     }
-                    s = (String)array.at(3);
+                    s = (String)array.get(3);
                     break;
                 }
 
@@ -821,7 +821,7 @@ label0:
         return s;
     }
 
-    String printSiteView(jgl.Array array, boolean flag, boolean flag1, jgl.HashMap hashmap, jgl.HashMap hashmap1, COM.dragonflow.HTTP.HTTPRequest httprequest, String s, 
+    String printSiteView(Array array, boolean flag, boolean flag1, HashMap hashmap, HashMap hashmap1, COM.dragonflow.HTTP.HTTPRequest httprequest, String s, 
             String s1, boolean flag2, String s2, String s3)
     {
         String s4 = COM.dragonflow.Page.overviewPage.getValue(hashmap1, "server");
@@ -930,34 +930,34 @@ label0:
         return s3;
     }
 
-    String altText(jgl.Array array)
+    String altText(Array array)
     {
-        return COM.dragonflow.Utils.TextUtils.escapeHTML(array.at(2) + ", " + array.at(3) + ", " + array.at(4));
+        return COM.dragonflow.Utils.TextUtils.escapeHTML(array.get(2) + ", " + array.get(3) + ", " + array.get(4));
     }
 
-    int groupLevel(jgl.Array array)
+    int groupLevel(Array array)
     {
         int i = 0;
         if(array != null && array.size() > 0)
         {
-            jgl.Array array1 = (jgl.Array)array.at(0);
+            Array array1 = (Array)array.get(0);
             if(array1.size() >= 6)
             {
-                i = COM.dragonflow.Utils.TextUtils.toInt((String)array1.at(5));
+                i = COM.dragonflow.Utils.TextUtils.toInt((String)array1.get(5));
             }
         }
         return i;
     }
 
-    String processCurrentState(jgl.Array array, String s, String s1, boolean flag, String s2, String s3, COM.dragonflow.HTTP.HTTPRequest httprequest, 
+    String processCurrentState(Array array, String s, String s1, boolean flag, String s2, String s3, COM.dragonflow.HTTP.HTTPRequest httprequest, 
             String s4, String s5, boolean flag1, String s6, String s7)
     {
         String as[] = COM.dragonflow.Utils.TextUtils.split(s4, "\n");
-        jgl.Array array1 = new Array();
-        jgl.Array array2 = new Array();
-        jgl.HashMap hashmap = new HashMap();
-        jgl.Array array3 = COM.dragonflow.SiteView.Server.readServers();
-        jgl.HashMap hashmap1 = COM.dragonflow.SiteView.Server.findServer(array3, s2);
+        Array array1 = new Array();
+        Array array2 = new Array();
+        HashMap hashmap = new HashMap();
+        Array array3 = COM.dragonflow.SiteView.Server.readServers();
+        HashMap hashmap1 = COM.dragonflow.SiteView.Server.findServer(array3, s2);
         String s8 = httprequest.getValue("default");
         if(s8.length() == 0)
         {
@@ -967,7 +967,7 @@ label0:
         String s10 = "";
         for(int i = 0; i < as.length; i++)
         {
-            jgl.Array array4 = COM.dragonflow.SiteView.Platform.split('\t', as[i]);
+            Array array4 = COM.dragonflow.SiteView.Platform.split('\t', as[i]);
             if(array4.size() < 3)
             {
                 continue;
@@ -976,7 +976,7 @@ label0:
             {
                 array2 = new Array();
                 array1.add(array2);
-                s10 = (String)array4.at(1);
+                s10 = (String)array4.get(1);
                 if(hashmap1.get(s10) != null)
                 {
                     hashmap.add(s10, hashmap1.get(s10));
@@ -997,15 +997,15 @@ label0:
         int l = -1;
         int i1 = 0;
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.Array array5 = new Array();
+        Array array5 = new Array();
 label0:
         for(int j1 = 0; j1 < array1.size(); j1++)
         {
-            jgl.Array array6 = (jgl.Array)array1.at(j1);
-            jgl.Array array7 = null;
+            Array array6 = (Array)array1.get(j1);
+            Array array7 = null;
             if(j1 + 1 < array1.size())
             {
-                array7 = (jgl.Array)array1.at(j1 + 1);
+                array7 = (Array)array1.get(j1 + 1);
             }
             Enumeration enumeration = array6.elements();
             do
@@ -1014,12 +1014,12 @@ label0:
                 {
                     continue label0;
                 }
-                jgl.Array array8 = (jgl.Array)enumeration.nextElement();
+                Array array8 = (Array)enumeration.nextElement();
                 if(array8.size() == 5)
                 {
                     if(l == -1 || l > i1)
                     {
-                        stringbuffer.append("<IMG SRC=" + COM.dragonflow.SiteView.MonitorGroup.getTinyCategoryArt((String)array8.at(3)) + " ALT=\"" + altText(array8) + "\">");
+                        stringbuffer.append("<IMG SRC=" + COM.dragonflow.SiteView.MonitorGroup.getTinyCategoryArt((String)array8.get(3)) + " ALT=\"" + altText(array8) + "\">");
                         if(++j % 10 == 0)
                         {
                             stringbuffer.append("<BR>");
@@ -1035,7 +1035,7 @@ label0:
                     int k1 = 0;
                     if(array8.size() >= 6)
                     {
-                        k1 = COM.dragonflow.Utils.TextUtils.toInt((String)array8.at(5));
+                        k1 = COM.dragonflow.Utils.TextUtils.toInt((String)array8.get(5));
                     }
                     i1 = k1;
                     if(k == -1 || k >= k1)
@@ -1043,9 +1043,9 @@ label0:
                         boolean flag2 = groupLevel(array7) > k1;
                         k = -1;
                         l = -1;
-                        String s11 = (String)array8.at(1);
+                        String s11 = (String)array8.get(1);
                         String s12 = (String)hashmap.get(s11);
-                        String s13 = (String)array8.at(3);
+                        String s13 = (String)array8.get(3);
                         if(s9.length() > 0 && s9.indexOf(s13) == -1)
                         {
                             s12 = "hidden";
@@ -1065,7 +1065,7 @@ label0:
                             }
                             j = 0;
                             String s14 = s3 + "/Detail" + COM.dragonflow.HTTP.HTTPRequest.encodeString(s11) + ".html";
-                            String s15 = "" + array8.at(2);
+                            String s15 = "" + array8.get(2);
                             if(k1 == 0 && s.length() > 0)
                             {
                                 s14 = s3 + "/SiteView.html?account=" + s;
@@ -1098,7 +1098,7 @@ label0:
                             }
                             s17 = "<FONT SIZE=" + s5 + ">" + s17 + "</FONT>";
                             s7 = COM.dragonflow.SiteView.Monitor.getWorstCategory(s7, s13);
-                            stringbuffer.append("<TD WIDTH=14>&nbsp;<IMG SRC=" + COM.dragonflow.SiteView.MonitorGroup.getSmallCategoryArt((String)array8.at(3)) + ">" + "</TD><TD>&nbsp;" + s16 + s17 + "</TD>" + "<TD><IMG WIDTH=3 HEIGHT=5 " + "SRC=/SiteView/htdocs/artwork/empty35.gif>" + "</TD><TD>");
+                            stringbuffer.append("<TD WIDTH=14>&nbsp;<IMG SRC=" + COM.dragonflow.SiteView.MonitorGroup.getSmallCategoryArt((String)array8.get(3)) + ">" + "</TD><TD>&nbsp;" + s16 + s17 + "</TD>" + "<TD><IMG WIDTH=3 HEIGHT=5 " + "SRC=/SiteView/htdocs/artwork/empty35.gif>" + "</TD><TD>");
                         }
                     }
                 }
@@ -1116,14 +1116,14 @@ label0:
     String getPreferenceOptionsHTML()
     {
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
-        Enumeration enumeration = hashmap.keys();
-        jgl.Array array = new Array();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
+        Array array = new Array();
         for(; enumeration.hasMoreElements(); array.add(enumeration.nextElement())) { }
-        jgl.Sorting.sort(array, new LessEqualPropertyName());
+        Sorting.sort(array, new LessEqualPropertyName());
         String s;
         String s1;
-        for(Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements(); stringbuffer.append("<option value=\"" + s + "\">" + s + "=" + s1 + ""))
+        for(Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1.hasMoreElements(); stringbuffer.append("<option value=\"" + s + "\">" + s + "=" + s1 + ""))
         {
             s = (String)enumeration1.nextElement();
             s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, s);
@@ -1189,7 +1189,7 @@ label0:
             printProgressMessage("<P><FONT SIZE=+1><B>Saving Changes</B></FONT><P>");
             try
             {
-                jgl.Array array = new Array();
+                Array array = new Array();
                 String s4;
                 for(Enumeration enumeration = request.getValues("item"); enumeration.hasMoreElements(); COM.dragonflow.SiteView.Server.addServers(s4, array))
                 {
@@ -1198,7 +1198,7 @@ label0:
 
                 if(s.equals("Replace Preference"))
                 {
-                    Enumeration enumeration1 = array.elements();
+                    Enumeration enumeration1 = (Enumeration) array.iterator();
                     String s5 = request.getValue("preferenceName");
                     String s7 = request.getValue("preferenceValue");
                     String s9 = "Replacing preferences, " + s5 + "=" + s7;
@@ -1209,7 +1209,7 @@ label0:
                     while(enumeration1.hasMoreElements()) 
                     {
                         i++;
-                        jgl.HashMap hashmap1 = (jgl.HashMap)enumeration1.nextElement();
+                        HashMap hashmap1 = (HashMap)enumeration1.nextElement();
                         s9 = "Replacing preference on " + COM.dragonflow.Page.overviewPage.getValue(hashmap1, "title");
                         COM.dragonflow.Log.LogManager.log("RunMonitor", s9);
                         printProgressMessage(s9 + "<BR>");
@@ -1225,7 +1225,7 @@ label0:
                         {
                             java.io.StringBufferInputStream stringbufferinputstream = new StringBufferInputStream(stringbuffer2.toString());
                             java.io.BufferedReader bufferedreader = COM.dragonflow.Utils.FileUtils.MakeInputReader(stringbufferinputstream);
-                            jgl.Array array3 = COM.dragonflow.Properties.FrameFile.readFrames(bufferedreader);
+                            Array array3 = COM.dragonflow.Properties.FrameFile.readFrames(bufferedreader);
                             bufferedreader.close();
                             stringbufferinputstream.close();
                             if(array3.size() != 1)
@@ -1235,7 +1235,7 @@ label0:
                                 COM.dragonflow.Log.LogManager.log("Error", s9);
                             } else
                             {
-                                jgl.HashMap hashmap6 = (jgl.HashMap)array3.at(0);
+                                HashMap hashmap6 = (HashMap)array3.get(0);
                                 if(hashmap6.size() < 130)
                                 {
                                     s9 = "Error reading preferences, " + COM.dragonflow.Page.overviewPage.getValue(hashmap1, "title") + ", missing data, " + hashmap6.size() + " settings";
@@ -1289,7 +1289,7 @@ label0:
                 } else
                 if(s.equals("Replace Configuration File"))
                 {
-                    Enumeration enumeration2 = array.elements();
+                    Enumeration enumeration2 = (Enumeration) array.iterator();
                     String s6 = request.getValue("filename");
                     String s8 = request.getValue("filename");
                     String s10 = "Replacing configuration file, " + s6;
@@ -1317,7 +1317,7 @@ label0:
                         while(enumeration2.hasMoreElements()) 
                         {
                             k++;
-                            jgl.HashMap hashmap4 = (jgl.HashMap)enumeration2.nextElement();
+                            HashMap hashmap4 = (HashMap)enumeration2.nextElement();
                             String s11 = "Replacing configuration file on " + COM.dragonflow.Page.overviewPage.getValue(hashmap4, "title");
                             COM.dragonflow.Log.LogManager.log("RunMonitor", s11);
                             printProgressMessage(s11 + "<BR>");
@@ -1384,7 +1384,7 @@ label0:
             {
                 throw new Exception("unknown operation: " + s);
             }
-            jgl.Array array1 = null;
+            Array array1 = null;
             try
             {
                 array1 = COM.dragonflow.Properties.FrameFile.readFromFile(s3);
@@ -1393,12 +1393,12 @@ label0:
             {
                 array1 = new Array();
             }
-            jgl.HashMap hashmap = null;
+            HashMap hashmap = null;
             String s15 = request.getAccount();
             boolean flag = false;
             for(int l = 0; l < array1.size(); l++)
             {
-                jgl.HashMap hashmap2 = (jgl.HashMap)array1.at(l);
+                HashMap hashmap2 = (HashMap)array1.get(l);
                 if(COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_user").equals(s15))
                 {
                     hashmap = hashmap2;
@@ -1438,14 +1438,14 @@ label0:
                     }
                 }
             } while(true);
-            jgl.HashMap hashmap3 = new HashMap();
+            HashMap hashmap3 = new HashMap();
             for(Enumeration enumeration4 = request.getValues("item"); enumeration4.hasMoreElements(); hashmap3.put(enumeration4.nextElement(), "checked")) { }
             outputStream.println("<p>Select one or more servers:<blockquote>(Click the <img src=/SiteView/htdocs/artwork/Plus.gif alt=\"open\"> to expand an item, and the <img src=/SiteView/htdocs/artwork/Minus.gif alt=\"close\"> to collapse an item).<P><TABLE BORDER=0>");
-            jgl.Array array2 = COM.dragonflow.SiteView.Server.getServers("", false);
-            jgl.HashMap hashmap5;
-            for(Enumeration enumeration5 = array2.elements(); enumeration5.hasMoreElements(); printItem(hashmap5, hashmap, hashmap3, 0))
+            Array array2 = COM.dragonflow.SiteView.Server.getServers("", false);
+            HashMap hashmap5;
+            for(Enumeration enumeration5 =  (Enumeration) array2.iterator(); enumeration5.hasMoreElements(); printItem(hashmap5, hashmap, hashmap3, 0))
             {
-                hashmap5 = (jgl.HashMap)enumeration5.nextElement();
+                hashmap5 = (HashMap)enumeration5.nextElement();
             }
 
             outputStream.println("</TABLE></blockquote>");
@@ -1505,11 +1505,11 @@ label0:
         return "<img src=/SiteView/htdocs/artwork/empty1111.gif height=11 width=" + j + " border=0>";
     }
 
-    private void printItem(jgl.HashMap hashmap, jgl.HashMap hashmap1, jgl.HashMap hashmap2, int i)
+    private void printItem(HashMap hashmap, HashMap hashmap1, HashMap hashmap2, int i)
     {
         String s = COM.dragonflow.SiteView.Server.getPath(hashmap);
         String s1 = COM.dragonflow.SiteView.Server.getTitle(hashmap);
-        jgl.Array array = COM.dragonflow.SiteView.Server.loadItems(hashmap);
+        Array array = COM.dragonflow.SiteView.Server.loadItems(hashmap);
         boolean flag = hashmap1.get(s) != null;
         String s2 = getIndentHTML(i);
         outputStream.print("<TR><TD>");
@@ -1532,10 +1532,10 @@ label0:
         s2 = getIndentHTML(i + 3);
         if(flag)
         {
-            jgl.HashMap hashmap3;
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); printItem(hashmap3, hashmap1, hashmap2, i + 2))
+            HashMap hashmap3;
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); printItem(hashmap3, hashmap1, hashmap2, i + 2))
             {
-                hashmap3 = (jgl.HashMap)enumeration.nextElement();
+                hashmap3 = (HashMap)enumeration.nextElement();
             }
 
         }

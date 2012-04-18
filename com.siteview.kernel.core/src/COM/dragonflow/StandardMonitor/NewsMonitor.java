@@ -27,8 +27,8 @@ import COM.dragonflow.Utils.TextUtils;
 
 import java.io.*;
 import java.net.*;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardMonitor:
 //            NewsGroupStatus, NewsAuthorizationException, URLMonitor

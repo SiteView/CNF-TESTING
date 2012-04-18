@@ -9,7 +9,7 @@ import COM.dragonflow.Utils.*;
 
 import java.io.*;
 import java.util.Vector;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 public class UpdateConfig
 {

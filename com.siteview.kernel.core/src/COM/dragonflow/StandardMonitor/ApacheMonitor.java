@@ -27,7 +27,7 @@ import COM.dragonflow.Utils.TextUtils;
 
 import java.io.PrintStream;
 import java.util.Vector;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 //Referenced classes of package COM.dragonflow.StandardMonitor:
 //         URLMonitor, URLContentMonitor

@@ -19,23 +19,24 @@ package COM.dragonflow.XmlApi;
 
 import java.util.Enumeration;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
-public class XmlApiObject extends jgl.Array
+public class XmlApiObject extends Array
 {
 
     private String name;
-    private jgl.HashMap properties;
-    private jgl.HashMap resultProperties;
+    private HashMap properties;
+    private HashMap resultProperties;
     private boolean inRequest;
     private COM.dragonflow.XmlApi.XmlApiObject parent;
 
-    public XmlApiObject(String s, jgl.HashMap hashmap)
+    public XmlApiObject(String s, HashMap hashmap)
     {
         this(s, hashmap, null, null, true);
     }
 
-    private XmlApiObject(String s, jgl.HashMap hashmap, jgl.HashMap hashmap1, COM.dragonflow.XmlApi.XmlApiObject xmlapiobject, boolean flag)
+    private XmlApiObject(String s, HashMap hashmap, HashMap hashmap1, COM.dragonflow.XmlApi.XmlApiObject xmlapiobject, boolean flag)
     {
         name = "";
         properties = null;
@@ -72,12 +73,12 @@ public class XmlApiObject extends jgl.Array
         return add("", null);
     }
 
-    public COM.dragonflow.XmlApi.XmlApiObject add(String s, jgl.HashMap hashmap)
+    public COM.dragonflow.XmlApi.XmlApiObject add(String s, HashMap hashmap)
     {
         return add(s, hashmap, true);
     }
 
-    public COM.dragonflow.XmlApi.XmlApiObject add(String s, jgl.HashMap hashmap, boolean flag)
+    public COM.dragonflow.XmlApi.XmlApiObject add(String s, HashMap hashmap, boolean flag)
     {
         COM.dragonflow.XmlApi.XmlApiObject xmlapiobject = new XmlApiObject(s, null, hashmap, this, flag);
         add(xmlapiobject);
@@ -159,12 +160,12 @@ public class XmlApiObject extends jgl.Array
         }
     }
 
-    public jgl.HashMap getProperties()
+    public HashMap getProperties()
     {
         return getProperties(true);
     }
 
-    public jgl.HashMap getProperties(boolean flag)
+    public HashMap getProperties(boolean flag)
     {
         if(flag)
         {
@@ -175,14 +176,14 @@ public class XmlApiObject extends jgl.Array
         }
     }
 
-    public void setProperties(jgl.HashMap hashmap)
+    public void setProperties(HashMap hashmap)
     {
         setProperties(hashmap, true);
     }
 
-    public void setProperties(jgl.HashMap hashmap, boolean flag)
+    public void setProperties(HashMap hashmap, boolean flag)
     {
-        jgl.HashMap hashmap1 = new HashMap();
+        HashMap hashmap1 = new HashMap();
         hashmap1.copy(hashmap);
         if(flag)
         {
@@ -219,19 +220,19 @@ public class XmlApiObject extends jgl.Array
         return s1;
     }
 
-    public jgl.HashMap getTreeProperties()
+    public HashMap getTreeProperties()
     {
         return getTreeProperties(true);
     }
 
-    public jgl.HashMap getTreeProperties(boolean flag)
+    public HashMap getTreeProperties(boolean flag)
     {
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         mergeTreeProperties(hashmap, this, flag);
         return hashmap;
     }
 
-    private void mergeTreeProperties(jgl.HashMap hashmap, COM.dragonflow.XmlApi.XmlApiObject xmlapiobject, boolean flag)
+    private void mergeTreeProperties(HashMap hashmap, COM.dragonflow.XmlApi.XmlApiObject xmlapiobject, boolean flag)
     {
         if(xmlapiobject != null)
         {
@@ -239,10 +240,10 @@ public class XmlApiObject extends jgl.Array
             {
                 mergeTreeProperties(hashmap, xmlapiobject.parent, flag);
             }
-            jgl.HashMap hashmap1 = xmlapiobject.getProperties(flag);
+            HashMap hashmap1 = xmlapiobject.getProperties(flag);
             String s;
             String s1;
-            for(Enumeration enumeration = hashmap1.keys(); enumeration.hasMoreElements(); hashmap.put(s, s1))
+            for(Enumeration enumeration = (Enumeration) hashmap1.keys(); enumeration.hasMoreElements(); hashmap.put(s, s1))
             {
                 s = (String)enumeration.nextElement();
                 s1 = (String)hashmap1.get(s);
@@ -305,7 +306,7 @@ public class XmlApiObject extends jgl.Array
             stringbuffer.append(" Request(");
             if(properties != null)
             {
-                Enumeration enumeration = properties.keys();
+                Enumeration enumeration = (Enumeration) properties.keys();
                 boolean flag = true;
                 String s;
                 for(; enumeration.hasMoreElements(); stringbuffer.append(s + "=" + properties.get(s)))
@@ -324,7 +325,7 @@ public class XmlApiObject extends jgl.Array
         stringbuffer.append((inRequest ? " Response" : " ResponseOnly") + "(");
         if(resultProperties != null)
         {
-            Enumeration enumeration1 = resultProperties.keys();
+            Enumeration enumeration1 = (Enumeration) resultProperties.keys();
             boolean flag1 = true;
             String s1;
             for(; enumeration1.hasMoreElements(); stringbuffer.append(s1 + "=" + resultProperties.get(s1)))
@@ -341,7 +342,7 @@ public class XmlApiObject extends jgl.Array
         stringbuffer.append(")\n");
         i++;
         COM.dragonflow.XmlApi.XmlApiObject xmlapiobject;
-        for(Enumeration enumeration2 = elements(); enumeration2.hasMoreElements(); xmlapiobject.printObject(stringbuffer, i))
+        for(Enumeration enumeration2 = (Enumeration) iterator(); enumeration2.hasMoreElements(); xmlapiobject.printObject(stringbuffer, i))
         {
             xmlapiobject = (COM.dragonflow.XmlApi.XmlApiObject)enumeration2.nextElement();
         }

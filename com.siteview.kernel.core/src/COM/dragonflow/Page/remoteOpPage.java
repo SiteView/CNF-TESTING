@@ -42,14 +42,14 @@ public class remoteOpPage extends COM.dragonflow.Page.CGI
             {
                 String s1 = request.getValue("command");
                 String s4 = request.getValue("machineID");
-                jgl.HashMap hashmap = null;
+                HashMap hashmap = null;
                 String s6 = COM.dragonflow.SiteView.Machine.getCommandString(s1, s4, hashmap);
                 COM.dragonflow.Utils.CommandLine commandline = new CommandLine();
-                jgl.Array array2 = commandline.exec(s6, s4, COM.dragonflow.SiteView.Platform.getLock(s4));
+                Array array2 = commandline.exec(s6, s4, COM.dragonflow.SiteView.Platform.getLock(s4));
                 outputStream.println("<PRE>");
                 for(int k1 = 0; k1 < array2.size(); k1++)
                 {
-                    outputStream.println(array2.at(k1));
+                    outputStream.println(array2.get(k1));
                 }
 
                 outputStream.println("</PRE>");
@@ -91,10 +91,10 @@ public class remoteOpPage extends COM.dragonflow.Page.CGI
             if(s.equals("monitorClasses"))
             {
                 outputStream.println("<PRE>");
-                jgl.Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses();
+                Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses();
                 for(int j = 0; j < array.size(); j++)
                 {
-                    String s5 = ((java.lang.Class)array.at(j)).getName();
+                    String s5 = ((java.lang.Class)array.get(j)).getName();
                     int i1 = s5.lastIndexOf(".");
                     if(i1 >= 0)
                     {
@@ -109,10 +109,10 @@ public class remoteOpPage extends COM.dragonflow.Page.CGI
             {
                 COM.dragonflow.Page.alertPage alertpage = new alertPage();
                 outputStream.println("<PRE>");
-                jgl.Array array1 = alertpage.getActionClasses();
+                Array array1 = alertpage.getActionClasses();
                 for(int l = 0; l < array1.size(); l++)
                 {
-                    String s7 = ((java.lang.Class)array1.at(l)).getName();
+                    String s7 = ((java.lang.Class)array1.get(l)).getName();
                     int j1 = s7.lastIndexOf(".");
                     if(j1 >= 0)
                     {
@@ -169,10 +169,10 @@ public class remoteOpPage extends COM.dragonflow.Page.CGI
         {
             COM.dragonflow.Utils.RemoteFile remotefile = new RemoteFile(s, "scripts");
             int i = COM.dragonflow.SiteView.Machine.getOS(s);
-            jgl.Array array = remotefile.listFiles();
+            Array array = remotefile.listFiles();
             for(int k = 0; k < array.size(); k++)
             {
-                String s2 = (String)array.at(k);
+                String s2 = (String)array.get(k);
                 if(!s2.endsWith(".txt") && (!COM.dragonflow.SiteView.Platform.isUnix(i) || !s2.startsWith(".")))
                 {
                     vector.addElement(s2);

@@ -25,8 +25,8 @@ import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -283,7 +283,7 @@ public class WebServerMonitor extends ServerMonitor {
         }
         CommandLine commandline = new CommandLine();
         Array array = commandline.exec(s11, Platform.getLock(s));
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         long l = -1L;
         long l1 = -1L;
         long l2 = -1L;

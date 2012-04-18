@@ -19,7 +19,7 @@ package COM.dragonflow.StandardAction;
 
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
@@ -38,18 +38,18 @@ public class Post extends COM.dragonflow.SiteView.Action
     public static COM.dragonflow.Properties.StringProperty pProxyPassword;
     private static COM.dragonflow.Properties.StringProperty myProperties[];
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap)
+    public void initializeFromArguments(Array array, HashMap hashmap)
     {
         setProperty(pTemplate, "Default");
-        String s = COM.dragonflow.HTTP.HTTPRequest.decodeString((String)array.at(0));
+        String s = COM.dragonflow.HTTP.HTTPRequest.decodeString((String)array.get(0));
         setProperty(myProperties[0], s);
         if(array.size() > 1)
         {
-            setProperty(pTemplate, (String)array.at(1));
+            setProperty(pTemplate, (String)array.get(1));
         }
         if(array.size() > 2)
         {
-            String s1 = (String)array.at(2);
+            String s1 = (String)array.get(2);
             if(s1.startsWith(COM.dragonflow.StandardMonitor.URLMonitor.NT_CHALLENGE_RESPONSE_TAG))
             {
                 setProperty(pChallengeResponse, "true");
@@ -59,7 +59,7 @@ public class Post extends COM.dragonflow.SiteView.Action
         }
         if(array.size() > 3)
         {
-            setProperty(pPassword, (String)array.at(3));
+            setProperty(pPassword, (String)array.get(3));
         }
         String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_proxy");
         if(s2.length() > 0)
@@ -141,12 +141,12 @@ public class Post extends COM.dragonflow.SiteView.Action
         return stringbuffer.toString();
     }
 
-    public boolean defaultsAreSet(jgl.HashMap hashmap)
+    public boolean defaultsAreSet(HashMap hashmap)
     {
         return true;
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap)
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap)
     {
         if(stringproperty == pAction)
         {
@@ -217,7 +217,7 @@ public class Post extends COM.dragonflow.SiteView.Action
         int k = 0;
         String s2 = "";
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.Array array = new Array();
+        Array array = new Array();
         maxRuns = getSettingAsLong("_postAttempts", 4);
         attemptDelay = getSettingAsLong("_postAttemptDelay", 120) * 1000;
         long l = getSettingAsLong("_urlContentMatchMax", 50000);
@@ -252,10 +252,10 @@ public class Post extends COM.dragonflow.SiteView.Action
                 String s9;
                 s9 = s9 = COM.dragonflow.SiteView.Platform.getUsedDirectoryPath("templates.post", monitor.getProperty(COM.dragonflow.SiteView.Monitor.pGroupID)) + java.io.File.separator + s4;
                 String s11 = COM.dragonflow.Utils.FileUtils.readFile(s9).toString();
-                jgl.Array array1 = COM.dragonflow.SiteView.Platform.split('\n', s11);
+                Array array1 = COM.dragonflow.SiteView.Platform.split('\n', s11);
                 for(int j1 = 0; j1 < array1.size(); j1++)
                 {
-                    String s17 = (String)array1.at(j1);
+                    String s17 = (String)array1.get(j1);
                     int l1 = s17.indexOf("=");
                     if(l1 >= 0)
                     {
@@ -312,7 +312,7 @@ public class Post extends COM.dragonflow.SiteView.Action
         StringBuffer stringbuffer1 = new StringBuffer();
         for(int i1 = 0; i1 < array.size(); i1++)
         {
-            stringbuffer1.append(array.at(i1));
+            stringbuffer1.append(array.get(i1));
             stringbuffer1.append("\n");
         }
 

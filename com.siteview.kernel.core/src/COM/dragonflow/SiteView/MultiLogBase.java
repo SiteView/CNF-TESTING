@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.StringProperty;
@@ -178,7 +178,7 @@ public abstract class MultiLogBase extends ServerMonitor {
             }
         } else if (l <= getUnixRemoteLogFileSize(s1)) {
             Array array = readUnixRemoteFile(s1, l);
-            for (Enumeration enumeration = array.elements(); enumeration
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                     .hasMoreElements();) {
                 String s3 = (String) enumeration.nextElement();
                 l += s3.length() + 1;
@@ -199,7 +199,7 @@ public abstract class MultiLogBase extends ServerMonitor {
     public Enumeration getStatePropertyObjects(boolean flag) {
         Array array = new Array();
         array.add(pMatchCount);
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     protected boolean fileExists(String s) {
@@ -228,7 +228,7 @@ public abstract class MultiLogBase extends ServerMonitor {
         CommandLine commandline = new CommandLine();
         Array array = commandline.exec(s1, s, Platform.getLock(s));
         if (array != null && commandline.exitValue != 1) {
-            return (new Long(((String) array.at(0)).trim())).intValue();
+            return (new Long(((String) array.get(0)).trim())).intValue();
         } else {
             LogManager
                     .log("Error",
@@ -243,7 +243,7 @@ public abstract class MultiLogBase extends ServerMonitor {
         String s2 = "/usr/bin/test -r " + s + "; echo $?";
         Array array = commandline.exec(s2, s1, Platform.getLock(s1));
         return array != null && array.size() > 0
-                && ((String) array.at(0)).equals("0");
+                && ((String) array.get(0)).equals("0");
     }
 
     protected String[] getNTLogFiles(String s, String s1) {
@@ -297,7 +297,7 @@ public abstract class MultiLogBase extends ServerMonitor {
         if (commandline.exitValue != 1) {
             as = new String[array.size()];
             for (int i = 0; i < as.length; i++) {
-                as[i] = getFileNameFromPath((String) array.at(i), s);
+                as[i] = getFileNameFromPath((String) array.get(i), s);
             }
 
         } else {
@@ -323,7 +323,7 @@ public abstract class MultiLogBase extends ServerMonitor {
         CommandLine commandline = new CommandLine();
         Array array = commandline.exec(s2, s1, Platform.getLock(s1));
         if (array != null && commandline.exitValue != 1) {
-            return (new Long(((String) array.at(0)).trim())).longValue();
+            return (new Long(((String) array.get(0)).trim())).longValue();
         } else {
             LogManager.log("Error",
                     "MultiLogBase:: Failure getting file size from Unix remote: "
@@ -351,7 +351,7 @@ public abstract class MultiLogBase extends ServerMonitor {
 
     protected Array readUnixRemoteFile(String s, long l) {
         String s1 = getProperty(pMachineName);
-        jgl.HashMap hashmap = new jgl.HashMap();
+        HashMap hashmap = new jgl.HashMap();
         hashmap.put("file", s);
         hashmap.put("bytes", "" + l);
         String s2 = Machine.getCommandString("tail", s1, hashmap);

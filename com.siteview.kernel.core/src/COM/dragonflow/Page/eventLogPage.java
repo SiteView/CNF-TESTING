@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Utils.CommandLine;
 
@@ -72,10 +72,10 @@ public class eventLogPage extends COM.dragonflow.Page.CGI
             }
             String s9 = COM.dragonflow.SiteView.Platform.perfexCommand(s) + " -elast " + "\"" + s2 + "\"";
             COM.dragonflow.Utils.CommandLine commandline = new CommandLine();
-            jgl.Array array = commandline.exec(s9);
+            Array array = commandline.exec(s9);
             int i = commandline.getExitValue();
             int j = -1;
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())
@@ -101,7 +101,7 @@ public class eventLogPage extends COM.dragonflow.Page.CGI
             s9 = COM.dragonflow.SiteView.Platform.perfexCommand(s) + " -elog " + s2 + " " + l;
             array = commandline.exec(s9);
             boolean flag = true;
-            enumeration = array.elements();
+            enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())
@@ -137,12 +137,12 @@ public class eventLogPage extends COM.dragonflow.Page.CGI
         printFooter(outputStream);
     }
 
-    void printEvents(jgl.Array array, java.io.PrintWriter printwriter)
+    void printEvents(Array array, java.io.PrintWriter printwriter)
     {
         printwriter.println("<FONT SIZE=-1><TABLE><TH><TH>Date<TH>Time<TH>Source<TH>Event<TH>Cat<TH>Message");
         jgl.Reversing.reverse(array);
-        Enumeration enumeration = array.elements();
-        jgl.HashMap hashmap = new HashMap();
+        Enumeration enumeration = (Enumeration) array.iterator();
+        HashMap hashmap = new HashMap();
         do
         {
             if(!enumeration.hasMoreElements())

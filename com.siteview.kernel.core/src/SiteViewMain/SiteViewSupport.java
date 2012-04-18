@@ -4,20 +4,43 @@
 
 package SiteViewMain;
 
-import COM.dragonflow.Log.JdbcLogger;
-import COM.dragonflow.Log.LogManager;
-import COM.dragonflow.Properties.*;
-import COM.dragonflow.SiteView.*;
-import COM.dragonflow.StandardAction.Run;
-import COM.dragonflow.StandardPreference.ScheduleInstancePreferences;
-import COM.dragonflow.Utils.*;
-
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashSet;
 
-import jgl.*;
-import jgl.HashMap;
+import COM.dragonflow.Log.LogManager;
+import COM.dragonflow.Properties.FrameFile;
+import COM.dragonflow.Properties.JdbcConfig;
+import COM.dragonflow.Properties.NumericProperty;
+import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.Machine;
+import COM.dragonflow.SiteView.MasterConfig;
+import COM.dragonflow.SiteView.MirrorConfiguration;
+import COM.dragonflow.SiteView.MonitorQueue;
+import COM.dragonflow.SiteView.Platform;
+import COM.dragonflow.SiteView.PlatformNew;
+import COM.dragonflow.SiteView.SiteViewGroup;
+import COM.dragonflow.StandardAction.Run;
+import COM.dragonflow.StandardPreference.ScheduleInstancePreferences;
+import COM.dragonflow.Utils.CommandLine;
+import COM.dragonflow.Utils.CounterLock;
+import COM.dragonflow.Utils.DebugWatcher;
+import COM.dragonflow.Utils.FileUtils;
+import COM.dragonflow.Utils.HTTPUtils;
+import COM.dragonflow.Utils.I18N;
+import COM.dragonflow.Utils.LocaleUtils;
+import COM.dragonflow.Utils.RemoteCommandLine;
+import COM.dragonflow.Utils.SocketStream;
+import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.HashMapIterator;
 
 public class SiteViewSupport
 {
@@ -322,7 +345,7 @@ public class SiteViewSupport
         else
             LogManager.log("RunMonitor", " Java Runtime " + System.getProperty("java.version"));
         LogManager.log("RunMonitor", " Time zone offset is " + (double)Platform.timeZoneOffset / 3600D + " hours");
-        for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", " (" + enumeration.nextElement() + ")"));
+        for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", " (" + enumeration.nextElement() + ")"));
         int i3 = TextUtils.toInt(TextUtils.getValue(hashmap, "_maxMonitorsRunning"));
         if(i3 > 0)
             MonitorQueue.monitorThrottle = new CounterLock(i3);
@@ -354,7 +377,7 @@ public class SiteViewSupport
         }
         try
         {
-            Enumeration enumeration1 = hashmap.values("_urlLocation");
+            Enumeration enumeration1 = (Enumeration) hashmap.values("_urlLocation");
             HTTPUtils.locations = new Array();
             if(enumeration1.hasMoreElements())
             {
@@ -496,7 +519,7 @@ label0:
 
     public static void mergeDefault(Array array, String s)
     {
-        for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements();)
+        for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();)
             if(s.equals(enumeration.nextElement()))
                 return;
 
@@ -508,7 +531,7 @@ label0:
         if(obj != null)
             if(obj instanceof Array)
             {
-                for(Enumeration enumeration = ((Array)obj).elements(); enumeration.hasMoreElements(); mergeDefault(array, (String)enumeration.nextElement()));
+                for(Enumeration enumeration = (Enumeration) ((Array)obj).iterator(); enumeration.hasMoreElements(); mergeDefault(array, (String)enumeration.nextElement()));
             } else
             {
                 mergeDefault(array, (String)obj);
@@ -545,7 +568,7 @@ label0:
 			Array array = FrameFile.readFromFile(s);
 	        if(array != null && array.size() > 0)
 	        {
-	            hashmap1 = (HashMap)array.at(0);
+	            hashmap1 = (HashMap)array.get(0);
 	//            break MISSING_BLOCK_LABEL_127;
 	        }
 	        return hashmap;
@@ -633,7 +656,7 @@ label0:
                     System.out.println("Exception: trouble setting up defualt portal.config" + exception);
                     return;
                 }
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 do
                 {
                     if(!enumeration.hasMoreElements())

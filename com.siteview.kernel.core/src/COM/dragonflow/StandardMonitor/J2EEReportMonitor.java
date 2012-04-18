@@ -24,8 +24,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.FrequencyProperty;
 import COM.dragonflow.Properties.NumericProperty;
@@ -127,7 +127,7 @@ public class J2EEReportMonitor extends J2EEMonitor {
     public Enumeration getStatePropertyObjects(boolean flag) {
         Array array = new Array();
         addProperties(array);
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Array getLogProperties() {
@@ -395,7 +395,7 @@ public class J2EEReportMonitor extends J2EEMonitor {
         Array array = new Array();
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for (int i = 0; i < array.size(); i ++) {
-            astringproperty[i] = (StringProperty) array.at(i);
+            astringproperty[i] = (StringProperty) array.get(i);
         }
 
         addProperties("COM.dragonflow.StandardMonitor.J2EEReportMonitor", astringproperty);

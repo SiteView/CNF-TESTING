@@ -20,7 +20,7 @@ package COM.dragonflow.StandardAction;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.CommandLine;
 
@@ -49,13 +49,13 @@ public class SMS extends COM.dragonflow.SiteView.Action {
         return stringbuffer.toString();
     }
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap) {
+    public void initializeFromArguments(Array array, HashMap hashmap) {
         if (array.size() > 0) {
-            setProperty(pPhoneNumber, array.at(0));
+            setProperty(pPhoneNumber, array.get(0));
         }
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == pPhoneNumber && s.length() <= 0) {
             hashmap.put(stringproperty, "Need a phone number");
         }
@@ -100,7 +100,7 @@ public class SMS extends COM.dragonflow.SiteView.Action {
                     s9 = "\"" + s9 + "\"";
                     boolean flag2 = true;
                     boolean flag3 = true;
-                    jgl.Array array1 = new Array();
+                    Array array1 = new Array();
                     String s2 = COM.dragonflow.SiteView.Platform.getRoot() + "/tools/" + SMS_BAT_FILE;
                     if (flag3) {
                         s2 = s2 + " " + s3;
@@ -111,7 +111,7 @@ public class SMS extends COM.dragonflow.SiteView.Action {
                         s2 = s2 + " " + s8;
                         s2 = s2 + " " + s9;
                     }
-                    jgl.Array array = commandline.exec(s2);
+                    Array array = commandline.exec(s2);
                     l = commandline.getExitValue();
                     s = s2 + " (" + l + ")";
                     if (l == 0L) {
@@ -120,7 +120,7 @@ public class SMS extends COM.dragonflow.SiteView.Action {
                         monitor.signalMonitor();
                         s = s + ", re-running monitor";
                     }
-                    for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements();) {
+                    for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();) {
                         s1 = s1 + (String) enumeration.nextElement() + COM.dragonflow.SiteView.Platform.FILE_NEWLINE;
                     }
 

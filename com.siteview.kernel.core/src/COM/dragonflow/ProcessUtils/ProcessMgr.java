@@ -20,7 +20,8 @@ package COM.dragonflow.ProcessUtils;
 import java.util.Enumeration;
 import java.util.StringTokenizer;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.ProcessUtils:
 // ProcessPool
@@ -37,7 +38,7 @@ public class ProcessMgr {
 
     public static final int LOG_LEVEL_ALL_DATA = 4;
 
-    public static jgl.HashMap ProcessPoolMap;
+    public static HashMap ProcessPoolMap;
 
     public static int processTimeout = -1;
 
@@ -50,7 +51,7 @@ public class ProcessMgr {
     public ProcessMgr() {
     }
 
-    public static boolean exec(String s, jgl.Array array, int ai[], COM.dragonflow.SiteView.AtomicMonitor atomicmonitor) throws java.io.IOException {
+    public static boolean exec(String s, Array array, int ai[], COM.dragonflow.SiteView.AtomicMonitor atomicmonitor) throws java.io.IOException {
         if (s == null || s.trim().equals("")) {
             return false;
         }
@@ -86,7 +87,7 @@ public class ProcessMgr {
 
     static {
         ProcessPoolMap = new HashMap();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_processPoolTimeout");
         if (s.length() > 0) {
             processTimeout = COM.dragonflow.Utils.TextUtils.toInt(s);

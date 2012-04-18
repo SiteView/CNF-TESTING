@@ -24,7 +24,7 @@ public class haLicensePage extends COM.dragonflow.Page.CGI
     {
         if(request.isPost())
         {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             String s1 = request.getValue("halicense");
             COM.dragonflow.Utils.LUtils.setLicenseKey(s1, hashmap);
             try

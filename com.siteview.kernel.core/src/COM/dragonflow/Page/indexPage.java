@@ -100,7 +100,7 @@ public class indexPage extends COM.dragonflow.Page.CGI
         boolean flag1 = false;
         try
         {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             if(hashmap.get("_installed") != null)
             {
                 flag = true;

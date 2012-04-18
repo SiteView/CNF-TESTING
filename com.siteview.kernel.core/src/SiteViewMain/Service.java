@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import jgl.Array;
 import COM.dragonflow.SiteView.MasterConfig;
 import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.SiteView.SiteViewGroup;
@@ -17,6 +16,9 @@ import COM.dragonflow.Utils.CommandLine;
 import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.MailUtils;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package SiteViewMain:
 //            ServicePrinter
@@ -89,7 +91,7 @@ public class Service
     static void statusMail(String s, String s1)
     {
         System.out.println(s1);
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         String s2 = TextUtils.getValue(hashmap, "_autoEmail");
         String s3 = TextUtils.getValue(hashmap, "_autoStartup");
         if(s3.length() != 0 && s2.length() != 0)
@@ -104,7 +106,7 @@ public class Service
             if(s4.length() != 0)
                 s = s + "(" + s4 + ")";
             s1 = s1 + "\n\nSiteView Log\n\n";
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements();)
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();)
             {
                 String s5 = (String)enumeration.nextElement();
                 s1 = s1 + s5 + "\n";

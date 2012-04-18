@@ -23,8 +23,8 @@ import COM.dragonflow.SiteView.*;
 import COM.dragonflow.Utils.PerfCounter;
 
 import java.net.URLEncoder;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class SQLServerMonitor extends NTCounterBase
 {
@@ -94,7 +94,7 @@ public class SQLServerMonitor extends NTCounterBase
         int i = 0;
         for(int j = 0; j < array.size(); j++)
         {
-            if(!((PerfCounter)array.at(j)).instance.equals(s1))
+            if(!((PerfCounter)array.get(j)).instance.equals(s1))
             {
                 continue;
             }
@@ -109,11 +109,11 @@ public class SQLServerMonitor extends NTCounterBase
             {
                 flag = false;
             }
-            s = s + ((PerfCounter)array.at(j)).object + " -- ";
-            s = s + ((PerfCounter)array.at(j)).counterName;
-            if(((PerfCounter)array.at(j)).instance.length() > 0)
+            s = s + ((PerfCounter)array.get(j)).object + " -- ";
+            s = s + ((PerfCounter)array.get(j)).counterName;
+            if(((PerfCounter)array.get(j)).instance.length() > 0)
             {
-                s = s + " -- " + ((PerfCounter)array.at(j)).instance;
+                s = s + " -- " + ((PerfCounter)array.get(j)).instance;
             }
             i++;
         }

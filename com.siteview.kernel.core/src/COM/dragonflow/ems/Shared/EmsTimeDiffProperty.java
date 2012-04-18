@@ -10,7 +10,7 @@ import COM.dragonflow.Properties.FrequencyProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.Utils.TextUtils;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 public class EmsTimeDiffProperty extends FrequencyProperty
 {

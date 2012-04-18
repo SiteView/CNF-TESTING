@@ -29,8 +29,8 @@ import java.io.InterruptedIOException;
 import java.io.PrintStream;
 import java.net.*;
 import java.util.Random;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardMonitor:
 //            URLMonitor
@@ -132,7 +132,7 @@ public class RadiusMonitor extends AtomicMonitor
             }
             if(array.size() > 0)
             {
-                setProperty(pMatchValue, array.at(0));
+                setProperty(pMatchValue, array.get(0));
             }
         }
         if(stillActive())

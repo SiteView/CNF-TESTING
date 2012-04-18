@@ -32,8 +32,8 @@ import javax.naming.NamingException;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
@@ -296,7 +296,7 @@ public class ADReplicationMonitor extends AtomicMonitor {
             }
 
         }
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public String getTopazCounterDescription(StringProperty stringproperty) {

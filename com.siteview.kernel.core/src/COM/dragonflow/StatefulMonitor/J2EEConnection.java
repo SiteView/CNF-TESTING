@@ -27,7 +27,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Timer;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 import org.xml.sax.InputSource;
 
@@ -382,7 +382,7 @@ public class J2EEConnection extends COM.dragonflow.StatefulMonitor.StatefulConne
         COM.dragonflow.Utils.SocketSession socketsession = COM.dragonflow.Utils.SocketSession.getSession(null);
         StringBuffer stringbuffer = new StringBuffer(10000);
         String s2 = "http://" + getConnID() + s;
-        jgl.Array array = null;
+        Array array = null;
         if(s1 != null)
         {
             array = new Array();
@@ -644,7 +644,7 @@ public class J2EEConnection extends COM.dragonflow.StatefulMonitor.StatefulConne
             org.w3c.dom.Element element1 = (org.w3c.dom.Element)element.getParentNode();
             java.util.Map map = getValuesFromObject(element1);
             java.util.HashMap hashmap1 = new HashMap();
-            jgl.Array array = new Array();
+            Array array = new Array();
             for(org.w3c.dom.Element element2 = element1; element2.getTagName().equals((String)xmlKeys.get("object")); element2 = (org.w3c.dom.Element)element2.getParentNode())
             {
                 String s4 = element2.getAttribute((String)xmlKeys.get("class"));
@@ -841,12 +841,12 @@ public class J2EEConnection extends COM.dragonflow.StatefulMonitor.StatefulConne
         }
     }
 
-    public static String getNameFromArray(jgl.Array array)
+    public static String getNameFromArray(Array array)
     {
         String s = "";
         int i = array.size();
         int j;
-        if(array.at(0).equals("All SQL"))
+        if(array.get(0).equals("All SQL"))
         {
             j = 1;
         } else
@@ -859,7 +859,7 @@ public class J2EEConnection extends COM.dragonflow.StatefulMonitor.StatefulConne
             {
                 s = s + '/';
             }
-            s = s + J2EEConnection.escapeString((String)array.at(k - 1));
+            s = s + J2EEConnection.escapeString((String)array.get(k - 1));
         }
 
         return s;

@@ -8,6 +8,8 @@
  */
 package COM.dragonflow.XmlApi;
 
+import com.recursionsw.jgl.HashMap;
+
 /**
  * Comment for <code></code>
  * 
@@ -18,7 +20,7 @@ package COM.dragonflow.XmlApi;
  */
 
 
-public class XmlApiResponse extends jgl.HashMap
+public class XmlApiResponse extends HashMap
 {
 
     public static final int OPERATIONAL_ERROR = 0;

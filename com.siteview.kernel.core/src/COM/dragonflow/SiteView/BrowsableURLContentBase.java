@@ -17,8 +17,8 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.StringProperty;
@@ -137,10 +137,10 @@ public abstract class BrowsableURLContentBase extends BrowsableBase {
 
     private void loadConnectionProperties() {
         Array array = getConnectionProperties();
-        url = getProperty((StringProperty) array.at(0));
-        postData = getPostData((StringProperty) array.at(1));
-        username = getProperty((StringProperty) array.at(3));
-        password = getProperty((StringProperty) array.at(4));
+        url = getProperty((StringProperty) array.get(0));
+        postData = getPostData((StringProperty) array.get(1));
+        username = getProperty((StringProperty) array.get(3));
+        password = getProperty((StringProperty) array.get(4));
         proxy = getProperty(pProxy);
         proxyUser = getProperty(pProxyUserName);
         proxyPassword = getProperty(pProxyPassword);
@@ -278,7 +278,7 @@ public abstract class BrowsableURLContentBase extends BrowsableBase {
         array.add(pTimeout);
         StringProperty astringproperty1[] = new StringProperty[array.size()];
         for (int i = 0; i < array.size(); i++) {
-            astringproperty1[i] = (StringProperty) array.at(i);
+            astringproperty1[i] = (StringProperty) array.get(i);
         }
 
         String s = (COM.dragonflow.SiteView.BrowsableURLContentBase.class)

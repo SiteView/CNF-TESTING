@@ -12,8 +12,8 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 
@@ -36,7 +36,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
 
     public void saveAdditionalMailPrefs()
     {
-        jgl.HashMap hashmap = null;
+        HashMap hashmap = null;
         String s = request.getValue("additionalMail");
         if(!s.equals("new"))
         {
@@ -69,8 +69,8 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
     void printDeleteForm(String s)
     {
         String s1 = request.getValue("additionalMail");
-        jgl.HashMap hashmap = getSettings();
-        jgl.HashMap hashmap1 = null;
+        HashMap hashmap = getSettings();
+        HashMap hashmap1 = null;
         Enumeration enumeration = COM.dragonflow.Page.mailPrefsPage.getValues(hashmap, "_additionalMail");
         do
         {
@@ -78,7 +78,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
             {
                 break;
             }
-            jgl.HashMap hashmap2 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
+            HashMap hashmap2 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
             if(COM.dragonflow.Page.mailPrefsPage.getValue(hashmap2, "_id").equals(s1))
             {
                 hashmap1 = hashmap2;
@@ -104,7 +104,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
     {
         try
         {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             hashmap.put("_mailServer", request.getValue("mailServer"));
             hashmap.put("_mailServerBackup", request.getValue("mailServerBackup"));
             hashmap.put("_fromAddress", COM.dragonflow.Utils.TextUtils.toEmailList(request.getValue("fromAddress")));
@@ -122,7 +122,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
 
     void printForm()
     {
-        jgl.HashMap hashmap = getSettings();
+        HashMap hashmap = getSettings();
         printBodyHeader("E-mail Preferences");
         printButtonBar("MailPref.htm", "", getSecondNavItems(request));
         printPrefsBar("E-mail");
@@ -146,7 +146,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
             outputStream.println("<TR><TD COLSPAN=5 ALIGN=CENTER>no additional e-mail settings</TD></TR>\n");
         } else
         {
-            jgl.HashMap hashmap1;
+            HashMap hashmap1;
             for(; enumeration.hasMoreElements(); outputStream.println("<TD align=center><A HREF=" + getPageLink("mailPrefs", "Delete") + "&additionalMail=" + COM.dragonflow.Page.mailPrefsPage.getValue(hashmap1, "_id") + ">X</TD></TR>"))
             {
                 hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
@@ -176,7 +176,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
     {
         java.lang.Object obj = getSettings();
         String s = request.getValue("additionalMail");
-        Enumeration enumeration = COM.dragonflow.Page.mailPrefsPage.getValues(((jgl.HashMap) (obj)), "_additionalMail");
+        Enumeration enumeration = COM.dragonflow.Page.mailPrefsPage.getValues(((HashMap) (obj)), "_additionalMail");
         obj = null;
         java.lang.Object obj1;
         if(!s.equals("new"))
@@ -188,7 +188,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
                     break;
                 }
                 obj1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)enumeration.nextElement());
-                if(!COM.dragonflow.Page.mailPrefsPage.getValue(((jgl.HashMap) (obj1)), "_id").equals(s))
+                if(!COM.dragonflow.Page.mailPrefsPage.getValue(((HashMap) (obj1)), "_id").equals(s))
                 {
                     continue;
                 }
@@ -212,7 +212,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
         printButtonBar(s1, "", getSecondNavItems(request));
         printPrefsBar("Mail");
         outputStream.println("<p><CENTER><H2>" + obj1 + "</H2></CENTER><p>\n" + getPagePOST("mailPrefs", "saveAdditional") + "<input type=hidden name=additionalMail value=" + request.getValue("additionalMail") + ">\n");
-        outputStream.println("The name of these e-mail settings is used to specify e-mail targets when adding alerts<BLOCKQUOTE>\nSetting Name <input type=text size=30 name=additionalMailName value=\"" + COM.dragonflow.Page.mailPrefsPage.getValue(((jgl.HashMap) (obj)), "_name") + "\">\n" + "</BLOCKQUOTE>\n" + "The e-mail addresses that alerts will be sent to when using the e-mail setting. Separate multiple addresses with commas (example: " + COM.dragonflow.SiteView.Platform.supportEmail + ", " + COM.dragonflow.SiteView.Platform.salesEmail + ")" + "<BLOCKQUOTE>\n" + "E-mail To: <input type=text size=60 name=email value=\"" + COM.dragonflow.Page.mailPrefsPage.getValue(((jgl.HashMap) (obj)), "_email") + "\">\n" + "</BLOCKQUOTE>\n" + "Disabling the e-mail settings prevents alert e-mail messages from being sent via that e-mail setting" + "<BLOCKQUOTE>\n" + "<input type=checkbox " + COM.dragonflow.Page.mailPrefsPage.getValue(((jgl.HashMap) (obj)), "_disabled") + " name=additionalMailDisabled value=CHECKED>Disabled\n" + "</BLOCKQUOTE>\n");
+        outputStream.println("The name of these e-mail settings is used to specify e-mail targets when adding alerts<BLOCKQUOTE>\nSetting Name <input type=text size=30 name=additionalMailName value=\"" + COM.dragonflow.Page.mailPrefsPage.getValue(((HashMap) (obj)), "_name") + "\">\n" + "</BLOCKQUOTE>\n" + "The e-mail addresses that alerts will be sent to when using the e-mail setting. Separate multiple addresses with commas (example: " + COM.dragonflow.SiteView.Platform.supportEmail + ", " + COM.dragonflow.SiteView.Platform.salesEmail + ")" + "<BLOCKQUOTE>\n" + "E-mail To: <input type=text size=60 name=email value=\"" + COM.dragonflow.Page.mailPrefsPage.getValue(((HashMap) (obj)), "_email") + "\">\n" + "</BLOCKQUOTE>\n" + "Disabling the e-mail settings prevents alert e-mail messages from being sent via that e-mail setting" + "<BLOCKQUOTE>\n" + "<input type=checkbox " + COM.dragonflow.Page.mailPrefsPage.getValue(((HashMap) (obj)), "_disabled") + " name=additionalMailDisabled value=CHECKED>Disabled\n" + "</BLOCKQUOTE>\n");
         java.util.Vector vector = COM.dragonflow.SiteView.SiteViewGroup.getTemplateList("templates.mail", request);
         java.util.Vector vector1 = new Vector();
         vector1.addElement("");
@@ -223,11 +223,11 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
             vector1.addElement(vector.elementAt(i));
         }
 
-        outputStream.println("<input type=submit value=\"Save Additional Setting\">\n<p><HR><CENTER><H3>Advanced Options</H3></CENTER><TABLE><TR><TD>Template</TD><TD><select size=1 name=additionalMailTemplate>" + COM.dragonflow.Page.mailPrefsPage.getOptionsHTML(vector1, COM.dragonflow.Page.mailPrefsPage.getValue(((jgl.HashMap) (obj)), "_template")) + "</SELECT></TD></TR>\n" + "<TR><TD COLSPAN=2>optional template to use with this e-mail settings - if a template is selected, this template will be used " + "for sending the alert to this e-mail setting.</TD></TR>");
+        outputStream.println("<input type=submit value=\"Save Additional Setting\">\n<p><HR><CENTER><H3>Advanced Options</H3></CENTER><TABLE><TR><TD>Template</TD><TD><select size=1 name=additionalMailTemplate>" + COM.dragonflow.Page.mailPrefsPage.getOptionsHTML(vector1, COM.dragonflow.Page.mailPrefsPage.getValue(((HashMap) (obj)), "_template")) + "</SELECT></TD></TR>\n" + "<TR><TD COLSPAN=2>optional template to use with this e-mail settings - if a template is selected, this template will be used " + "for sending the alert to this e-mail setting.</TD></TR>");
         if(!request.getPermission("_mailSchedule").equals("hidden"))
         {
             outputStream.println("<TR><TD>Schedule</TD><TD>\n");
-            COM.dragonflow.Properties.ScheduleProperty.printScheduleTable(outputStream, COM.dragonflow.Page.mailPrefsPage.getValue(((jgl.HashMap) (obj)), "_schedule"), "");
+            COM.dragonflow.Properties.ScheduleProperty.printScheduleTable(outputStream, COM.dragonflow.Page.mailPrefsPage.getValue(((HashMap) (obj)), "_schedule"), "");
             outputStream.println("</TD></TR><TR><TD COLSPAN=2>optional schedule for these settings to be enabled - for example, enable Sunday from 10:00 to 22:00</TD></TR><TR></TR>");
         }
         outputStream.println("</TABLE><P>\n</FORM>\n");
@@ -247,7 +247,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
 	{
 		
 	    printBodyHeader("Mail Test");
-	    jgl.HashMap hashmap = getMasterConfig();
+	    HashMap hashmap = getMasterConfig();
 	    printButtonBar("AlertMailto.htm", "");
 	    outputStream.print("<CENTER><H2>Mail Test</H2></CENTER><P>\n" + getPagePOST("mailPrefs", "test", request.getValue("view")) + "Send a test message using e-mail.\n" + "<p>\n" + "Enter the e-mail address where the message will be sent.  For example, " + COM.dragonflow.SiteView.Platform.supportEmail + ".  Separate multiple addresses using commas.\n" + "<p> E-mail Address: <input type=text name=email size=50>\n" + "<p> Mail Server: " + COM.dragonflow.Page.mailPrefsPage.getValue(hashmap, "_mailServer") + "\n" + "<p> Backup Mail Server: " + COM.dragonflow.Page.mailPrefsPage.getValue(hashmap, "_mailServerBackup") + "\n");
 	    if(COM.dragonflow.Page.mailPrefsPage.getValue(hashmap, "_mailAlertCC").length() > 0)
@@ -266,9 +266,9 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
             printContentStartComment();
             String s = COM.dragonflow.SiteView.Platform.productName + " test message";
             String s1 = "This is a test.  This is only a test.\n\n - " + COM.dragonflow.SiteView.Platform.productName;
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             String s3 = COM.dragonflow.Page.mailPrefsPage.getValue(hashmap, "_mailAlertCC");
-            jgl.Array array = new Array();
+            Array array = new Array();
             String s4 = COM.dragonflow.Utils.MailUtils.mail(hashmap, request.getValue("email"), s, s1, s3, array);
             if(s4.length() == 0)
             {
@@ -284,7 +284,7 @@ public class mailPrefsPage extends COM.dragonflow.Page.settingsPrefsPage
             }
             outputStream.println("<p><PRE>\n");
             String s5;
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); outputStream.println(COM.dragonflow.Utils.TextUtils.escapeHTML(s5)))
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); outputStream.println(COM.dragonflow.Utils.TextUtils.escapeHTML(s5)))
             {
                 s5 = (String)enumeration.nextElement();
             }

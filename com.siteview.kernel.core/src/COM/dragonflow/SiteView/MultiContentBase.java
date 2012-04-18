@@ -20,8 +20,8 @@ package COM.dragonflow.SiteView;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
@@ -124,7 +124,7 @@ public abstract class MultiContentBase extends ApplicationBase {
             Array array = getMultiContentBaseCounters(
                     getProperty(getCountersProperty()), false);
             for (int i = 0; i < array.size(); i++) {
-                String s = (String) array.at(i);
+                String s = (String) array.get(i);
                 String s1 = s;
                 int j = s.indexOf(":");
                 if (j >= 0) {
@@ -163,7 +163,7 @@ public abstract class MultiContentBase extends ApplicationBase {
                 array.add(getStateValue(i));
             }
 
-            return array.elements();
+            return (Enumeration) array.iterator();
         } else {
             return null;
         }
@@ -206,7 +206,7 @@ public abstract class MultiContentBase extends ApplicationBase {
         array.add(pStateString);
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for (int i = 0; i < array.size(); i++) {
-            astringproperty[i] = (StringProperty) array.at(i);
+            astringproperty[i] = (StringProperty) array.get(i);
         }
 
         addProperties("COM.dragonflow.SiteView.MultiContentBase",

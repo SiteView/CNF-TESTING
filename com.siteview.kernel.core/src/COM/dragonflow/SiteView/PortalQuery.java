@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.Utils.TextUtils;
@@ -155,7 +155,7 @@ public class PortalQuery {
         int i = 0;
         Array array1 = portalsiteview.getGroups();
         for (int j = 0; j < array1.size(); j++) {
-            MonitorGroup monitorgroup = (MonitorGroup) array1.at(j);
+            MonitorGroup monitorgroup = (MonitorGroup) array1.get(j);
             if (monitorgroup.getProperty(MonitorGroup.pParent).length() == 0) {
                 array.add(monitorgroup.getProperty(Monitor.pID));
                 monitorgroup.setProperty("groupLevel", "0");
@@ -175,7 +175,7 @@ public class PortalQuery {
         if (flag) {
             Array array = getServers();
             PortalSiteView portalsiteview;
-            for (Enumeration enumeration = array.elements(); enumeration
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                     .hasMoreElements(); processSiteView(portalsiteview)) {
                 portalsiteview = (PortalSiteView) enumeration.nextElement();
                 if (debug) {
@@ -200,7 +200,7 @@ public class PortalQuery {
             }
             Array array = getSortedGroupIDs(portalsiteview);
             for (int i = 0; i < array.size(); i++) {
-                String s = (String) array.at(i);
+                String s = (String) array.get(i);
                 MonitorGroup monitorgroup = (MonitorGroup) portalsiteview
                         .getElement(s);
                 if (monitorgroup == null
@@ -219,7 +219,7 @@ public class PortalQuery {
                 Array array1 = portalsiteview.getElementsOfClass(
                         "COM.dragonflow.SiteView.Rule", false, false);
                 Rule rule;
-                for (Enumeration enumeration = array1.elements(); enumeration
+                for (Enumeration enumeration =  (Enumeration) array1.iterator(); enumeration
                         .hasMoreElements(); processAlert(rule, null, null,
                         portalsiteview)) {
                     rule = (Rule) enumeration.nextElement();
@@ -243,7 +243,7 @@ public class PortalQuery {
                 Array array = monitorgroup.getElementsOfClass(
                         "COM.dragonflow.SiteView.Rule", false, false);
                 Rule rule;
-                for (Enumeration enumeration1 = array.elements(); enumeration1
+                for (Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1
                         .hasMoreElements(); processAlert(rule, null,
                         monitorgroup, portalsiteview)) {
                     rule = (Rule) enumeration1.nextElement();
@@ -275,7 +275,7 @@ public class PortalQuery {
             Array array = monitor.getElementsOfClass(
                     "COM.dragonflow.SiteView.Rule", false, false);
             Rule rule;
-            for (Enumeration enumeration = array.elements(); enumeration
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                     .hasMoreElements(); processAlert(rule, monitor,
                     monitorgroup, portalsiteview)) {
                 rule = (Rule) enumeration.nextElement();

@@ -9,7 +9,7 @@
  */
 package COM.dragonflow.Page;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.oroinc.text.perl.Perl5Util;
 import SiteViewMain.MD5;
@@ -64,12 +64,12 @@ public class regularExpressionPage extends COM.dragonflow.Page.CGI
             {
                 outputStream.println("");
                 java.util.Vector vector = COM.dragonflow.Utils.TextUtils.parseParentheses(s1);
-                jgl.Array array = new Array();
+                Array array = new Array();
                 COM.oroinc.text.perl.Perl5Util perl5util = new Perl5Util();
                 int i = COM.dragonflow.Utils.TextUtils.matchExpression(s, s1, array, perl5util);
                 if(array.size() > 0)
                 {
-                    s2 = (String)array.at(0);
+                    s2 = (String)array.get(0);
                 }
                 if(i > 0)
                 {
@@ -89,7 +89,7 @@ public class regularExpressionPage extends COM.dragonflow.Page.CGI
                     outputStream.println("<tr><td><b>Parentheses counted from left</b></td><td><b>matching text</b></td></tr>");
                     for(int l = 1; l < array.size(); l++)
                     {
-                        String s4 = (String)array.at(l);
+                        String s4 = (String)array.get(l);
                         outputStream.println("<tr><td><pre><code>" + (iterator.hasNext() ? COM.dragonflow.Utils.TextUtils.escapeHTML(iterator.next().toString()) : "") + "</code></pre></td><td><code>" + (s4 == null ? "" : COM.dragonflow.Utils.TextUtils.escapeHTML(s4)) + "</code></td></tr>");
                     }
 

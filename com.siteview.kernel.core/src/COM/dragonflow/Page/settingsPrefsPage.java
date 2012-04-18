@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 // Referenced classes of package COM.dragonflow.Page:
 // prefsPage
@@ -22,11 +22,11 @@ public class settingsPrefsPage extends COM.dragonflow.Page.prefsPage {
     }
 
     public String saveAdditionalPrefs(String s,
-            String s1, jgl.HashMap hashmap) {
+            String s1, HashMap hashmap) {
         String s2 = "_nextAdditional" + s + "ID";
         String s3 = "_additional" + s;
         try {
-            jgl.HashMap hashmap1 = getSettings();
+            HashMap hashmap1 = getSettings();
             if (s1.startsWith("new")) {
                 s1 = (String) hashmap1.get(s2);
                 if (s1 == null) {
@@ -35,11 +35,11 @@ public class settingsPrefsPage extends COM.dragonflow.Page.prefsPage {
                 hashmap1.put(s2, COM.dragonflow.Utils.TextUtils.increment(s1));
             }
             hashmap.put("_id", s1);
-            jgl.Array array = new Array();
+            Array array = new Array();
             boolean flag = false;
             for (Enumeration enumeration = COM.dragonflow.Page.settingsPrefsPage
                     .getValues(hashmap1, s3); enumeration.hasMoreElements();) {
-                jgl.HashMap hashmap2 = COM.dragonflow.Utils.TextUtils
+                HashMap hashmap2 = COM.dragonflow.Utils.TextUtils
                         .stringToHashMap((String) enumeration
                                 .nextElement());
                 if (COM.dragonflow.Page.settingsPrefsPage.getValue(hashmap2,
@@ -57,7 +57,7 @@ public class settingsPrefsPage extends COM.dragonflow.Page.prefsPage {
             hashmap1.remove(s3);
             for (int i = 0; i < array.size(); i++) {
                 hashmap1.add(s3, COM.dragonflow.Utils.TextUtils
-                        .hashMapToOrderedString((jgl.HashMap) array.at(i)));
+                        .hashMapToOrderedString((HashMap) array.get(i)));
             }
 
             saveSettings(hashmap1);
@@ -75,16 +75,16 @@ public class settingsPrefsPage extends COM.dragonflow.Page.prefsPage {
      * @param hashmap
      * @return
      */
-    public jgl.HashMap findAdditionalSetting(String s, jgl.HashMap hashmap) {
+    public HashMap findAdditionalSetting(String s, HashMap hashmap) {
 
-        jgl.HashMap hashmap1 = getSettings();
+        HashMap hashmap1 = getSettings();
         String s1 = "_additional" + s;
         Enumeration enumeration = COM.dragonflow.Page.settingsPrefsPage.getValues(hashmap1, s1);
-        jgl.HashMap hashmap2;
+        HashMap hashmap2;
         boolean flag;
         while (enumeration.hasMoreElements()) {
             hashmap2 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String) enumeration.nextElement());
-            Enumeration enumeration1 = hashmap.keys();
+            Enumeration enumeration1 = (Enumeration) hashmap.keys();
             flag = true;
             String s2;
             while (enumeration1.hasMoreElements()) {
@@ -103,12 +103,12 @@ public class settingsPrefsPage extends COM.dragonflow.Page.prefsPage {
 
     public void deleteAdditionalSetting(String s, String s1) {
         String s2 = "_additional" + s;
-        jgl.HashMap hashmap = getSettings();
-        jgl.Array array = new Array();
+        HashMap hashmap = getSettings();
+        Array array = new Array();
         Enumeration enumeration = COM.dragonflow.Page.settingsPrefsPage
                 .getValues(hashmap, s2);
         while (enumeration.hasMoreElements()) {
-            jgl.HashMap hashmap1 = COM.dragonflow.Utils.TextUtils
+            HashMap hashmap1 = COM.dragonflow.Utils.TextUtils
                     .stringToHashMap((String) enumeration
                             .nextElement());
             if (!COM.dragonflow.Page.settingsPrefsPage.getValue(hashmap1, "_id")
@@ -120,7 +120,7 @@ public class settingsPrefsPage extends COM.dragonflow.Page.prefsPage {
         hashmap.remove(s2);
         for (int i = 0; i < array.size(); i++) {
             hashmap.add(s2, COM.dragonflow.Utils.TextUtils
-                    .hashMapToOrderedString((jgl.HashMap) array.at(i)));
+                    .hashMapToOrderedString((HashMap) array.get(i)));
         }
 
         try {
@@ -132,7 +132,7 @@ public class settingsPrefsPage extends COM.dragonflow.Page.prefsPage {
     }
 
     jgl.HashMap getAdditionalSettings(String s, String s1) {
-        jgl.HashMap hashmap = null;
+        HashMap hashmap = null;
         if (s1.length() > 0) {
             String s2 = getSettingsGroup().getAdditionalSettings(s,
                     s1);

@@ -47,7 +47,11 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 
 
 	public ArrayList<MonitorGroup> getAllGroupInstances() throws SiteViewException {
+
 		ArrayList<MonitorGroup> mg = (ArrayList<MonitorGroup>) apigroup.getAllGroupInstances();
+
+		//ArrayList<MonitorGroup> mg = apigroup.getAllGroupInstances();
+
 		return mg;
 	}
 
@@ -59,7 +63,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		try
 		{
 			APIGroup apimg = new APIGroup();
-			ArrayList<MonitorGroup> mg = apigroup.getTopLevelGroupInstances();
+			ArrayList<MonitorGroup> mg = apigroup.getTopLevelAllowedGroupInstances();
 
 			for(MonitorGroup group:mg)
 			{

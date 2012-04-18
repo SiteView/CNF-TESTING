@@ -17,7 +17,7 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.BinaryPredicate;
+import com.recursionsw.jgl.BinaryPredicate;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // ScheduleEvent

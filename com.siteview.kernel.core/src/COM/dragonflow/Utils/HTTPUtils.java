@@ -19,8 +19,8 @@ package COM.dragonflow.Utils;
 
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Utils:
@@ -28,9 +28,9 @@ import COM.dragonflow.Properties.HashMapOrdered;
 
 public class HTTPUtils {
 
-    public static jgl.Array locations;
+    public static Array locations;
 
-    public static jgl.HashMap locationMap = new HashMap();
+    public static HashMap locationMap = new HashMap();
 
     public static final String DEFAULT_LOCATION_SPEC = "this_server,this server,";
 
@@ -62,7 +62,7 @@ public class HTTPUtils {
     }
 
     public static int getDisplayOrder(String s) {
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         int i = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_URLLocationComponent"));
         if (i <= 0) {
             i = 6;
@@ -77,7 +77,7 @@ public class HTTPUtils {
 
     public static String getLocationNameByID(String s) {
         String s1 = "";
-        Enumeration enumeration = locations.elements();
+        Enumeration enumeration = (Enumeration) locations.iterator();
         while (enumeration.hasMoreElements()) {
             String s2 = (String) enumeration.nextElement();
             if (s.equals(COM.dragonflow.Utils.HTTPUtils.getLocationID(s2))) {
@@ -92,7 +92,7 @@ public class HTTPUtils {
         StringBuffer stringbuffer = new StringBuffer();
         if (locations.size() > 1) {
             stringbuffer.append("Location: <SELECT name=location size=6>\n");
-            Enumeration enumeration = locations.elements();
+            Enumeration enumeration = (Enumeration) locations.iterator();
             COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
             int i;
             int j;
@@ -116,7 +116,7 @@ public class HTTPUtils {
                 java.lang.Integer integer = new Integer(k);
                 String s2;
                 String s6;
-                for (Enumeration enumeration1 = hashmapordered.values(integer); enumeration1.hasMoreElements(); stringbuffer.append("<option " + s6 + " value=" + COM.dragonflow.Utils.HTTPUtils.getLocationID(s2) + ">"
+                for (Enumeration enumeration1 = (Enumeration) hashmapordered.values(integer); enumeration1.hasMoreElements(); stringbuffer.append("<option " + s6 + " value=" + COM.dragonflow.Utils.HTTPUtils.getLocationID(s2) + ">"
                         + COM.dragonflow.Utils.HTTPUtils.getLocationName(s2) + "</option>\n")) {
                     s6 = "";
                     s2 = (String) enumeration1.nextElement();
@@ -138,7 +138,7 @@ public class HTTPUtils {
 
     public static String getTraceURLByID(String s) {
         String s1 = "";
-        Enumeration enumeration = locations.elements();
+        Enumeration enumeration = (Enumeration) locations.iterator();
         while (enumeration.hasMoreElements()) {
             String s2 = (String) enumeration.nextElement();
             if (s.equals(COM.dragonflow.Utils.HTTPUtils.getLocationID(s2))) {
@@ -151,7 +151,7 @@ public class HTTPUtils {
 
     public static String getPingURLByID(String s) {
         String s1 = "";
-        Enumeration enumeration = locations.elements();
+        Enumeration enumeration = (Enumeration) locations.iterator();
         while (enumeration.hasMoreElements()) {
             String s2 = (String) enumeration.nextElement();
             if (s.equals(COM.dragonflow.Utils.HTTPUtils.getLocationID(s2))) {
@@ -164,7 +164,7 @@ public class HTTPUtils {
 
     public static String getLocationIDByURL(String s) {
         String s1 = "";
-        Enumeration enumeration = locations.elements();
+        Enumeration enumeration = (Enumeration) locations.iterator();
         while (enumeration.hasMoreElements()) {
             String s2 = (String) enumeration.nextElement();
             if (s.equals(COM.dragonflow.Utils.HTTPUtils.getLocationURL(s2))) {
@@ -177,7 +177,7 @@ public class HTTPUtils {
 
     public static String getLocationURLByID(String s) {
         String s1 = "";
-        Enumeration enumeration = locations.elements();
+        Enumeration enumeration = (Enumeration) locations.iterator();
         while (enumeration.hasMoreElements()) {
             String s2 = (String) enumeration.nextElement();
             if (s.equals(COM.dragonflow.Utils.HTTPUtils.getLocationID(s2))) {
@@ -189,7 +189,7 @@ public class HTTPUtils {
     }
 
     public static String getLocationPart(String s, int i) {
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         int j = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_URLLocationComponent"));
         if (j <= 0) {
             j = 6;

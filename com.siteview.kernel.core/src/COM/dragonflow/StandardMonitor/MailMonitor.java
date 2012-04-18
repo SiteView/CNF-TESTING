@@ -25,8 +25,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.Page.supportPage;
@@ -173,7 +173,7 @@ public class MailMonitor extends AtomicMonitor {
                     Array array = new Array();
                     int l = TextUtils.matchExpression(s13, s5, array, new StringBuffer());
                     if (l == Monitor.kURLok && array.size() > 0) {
-                        s9 = (String) array.at(0);
+                        s9 = (String) array.get(0);
                     }
                     setProperty(pStatus, "ok");
                     setProperty(pRoundTripTime, i);
@@ -290,7 +290,7 @@ public class MailMonitor extends AtomicMonitor {
             long l4 = Platform.timeMillis();
             l1 = l4 - l;
             if (flag) {
-                for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); updateProgress(mailmonitor, printwriter, (String) enumeration.nextElement())) {
+                for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); updateProgress(mailmonitor, printwriter, (String) enumeration.nextElement())) {
                 }
             }
         }
@@ -840,7 +840,7 @@ public class MailMonitor extends AtomicMonitor {
         if (TextUtils.isNumber(getProperty(pMatchValue)) && getProperty(pMatchValue).length() > 0) {
             array.add(pMatchValue);
         }
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Array getLogProperties() {

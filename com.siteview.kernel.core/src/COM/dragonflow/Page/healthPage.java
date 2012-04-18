@@ -21,11 +21,11 @@ public class healthPage extends COM.dragonflow.Page.CGI {
         for (int i = 0; i < 2; i ++) {
             COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
                     .currentSiteView();
-            jgl.Array array = siteviewgroup.getRawElements();
+            Array array = siteviewgroup.getRawElements();
             boolean flag = false;
             int j = 0;
             while (array != null && j < array.size()) {
-                java.lang.Object obj = array.at(j);
+                java.lang.Object obj = array.get(j);
                 if ((obj instanceof COM.dragonflow.SiteView.MonitorGroup)
                         && ((COM.dragonflow.SiteView.MonitorGroup) obj)
                                 .isTopLevelGroup()

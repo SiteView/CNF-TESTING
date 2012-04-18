@@ -8,6 +8,9 @@
   */
   package COM.dragonflow.Utils;
 
+import com.recursionsw.jgl.BinaryPredicate;
+import com.recursionsw.jgl.HashMap;
+
  /**
      * Comment for <code></code>
      * 
@@ -18,7 +21,7 @@
      */
 
 class StringHashMapBinaryPredicate
-    implements jgl.BinaryPredicate
+    implements BinaryPredicate
 {
 
     boolean _bCaseSensitive;
@@ -32,8 +35,8 @@ class StringHashMapBinaryPredicate
 
     public boolean execute(java.lang.Object obj, java.lang.Object obj1)
     {
-        jgl.HashMap hashmap = (jgl.HashMap)obj;
-        jgl.HashMap hashmap1 = (jgl.HashMap)obj1;
+        HashMap hashmap = (HashMap)obj;
+        HashMap hashmap1 = (HashMap)obj1;
         if(hashmap == null || hashmap1 == null)
         {
             return true;

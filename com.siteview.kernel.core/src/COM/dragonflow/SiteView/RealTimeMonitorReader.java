@@ -20,7 +20,7 @@ package COM.dragonflow.SiteView;
 import java.io.PrintWriter;
 import java.util.Date;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // RealTimeReportingMonitor, SampleCollector, RealTimeReportingData

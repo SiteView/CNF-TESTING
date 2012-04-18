@@ -19,7 +19,7 @@ package COM.dragonflow.Utils;
 
 import java.util.HashMap;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // TextUtils
@@ -60,7 +60,7 @@ public class LineReader {
 
     boolean start;
 
-    jgl.Array lines;
+    Array lines;
 
     String currentLine;
 
@@ -74,7 +74,7 @@ public class LineReader {
 
     private static java.util.Map detailMap = java.util.Collections.synchronizedMap(new HashMap());
 
-    public LineReader(jgl.Array array) {
+    public LineReader(Array array) {
         lineNumber = 0;
         startLine = 0;
         endLine = 0x7fffffff;
@@ -98,7 +98,7 @@ public class LineReader {
         lines = array;
     }
 
-    public LineReader(jgl.Array array, COM.dragonflow.SiteView.OSAdapter osadapter, String s) {
+    public LineReader(Array array, COM.dragonflow.SiteView.OSAdapter osadapter, String s) {
         this(array);
         startLine = osadapter.getCommandSettingAsInteger(s, "startLine", startLine);
         endLine = osadapter.getCommandSettingAsInteger(s, "endLine", endLine);
@@ -110,22 +110,22 @@ public class LineReader {
         reverseColumns = osadapter.getCommandSetting(s, "reverseColumns");
         if (osadapter.getCommandSetting(s, "reverseLines").length() > 0) {
             printDebugDetail("Reversing lines");
-            jgl.Array array1 = new Array();
+            Array array1 = new Array();
             for (int i = array.size() - 1; i >= 0; i --) {
-                array1.add(array.at(i));
+                array1.add(array.get(i));
             }
 
             lines = array1;
         }
         start = startMatch.length() == 0;
-        jgl.Array array2 = osadapter.getMatchedCommandSettings(s, "ColumnName");
+        Array array2 = osadapter.getMatchedCommandSettings(s, "ColumnName");
         if (array2.size() > 0) {
             columnNames = new String[array2.size()];
             columnLabels = new String[array2.size()];
             columnStartIndex = new int[array2.size()];
             columnEndIndex = new int[array2.size()];
             for (int j = 0; j < array2.size(); j ++) {
-                String s1 = (String) array2.at(j);
+                String s1 = (String) array2.get(j);
                 columnLabels[j] = osadapter.getCommandSetting(s, s1);
                 s1 = s1.substring(0, s1.length() - "ColumnName".length());
                 columnNames[j] = s1;
@@ -142,7 +142,7 @@ public class LineReader {
         }
         if (reading) {
             shouldSkipLine = false;
-            currentLine = (String) lines.at(lineNumber);
+            currentLine = (String) lines.get(lineNumber);
             lineNumber ++;
             if (columnNames != null && lineNumber == headerLine) {
                 parseHeader();

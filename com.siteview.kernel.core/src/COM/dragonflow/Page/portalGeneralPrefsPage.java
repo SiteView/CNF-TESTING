@@ -33,7 +33,7 @@ public class portalGeneralPrefsPage extends COM.dragonflow.Page.prefsPage
         String s = "";
         try
         {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             String s1 = COM.dragonflow.Page.portalGeneralPrefsPage.getValue(hashmap, "_httpPort");
             String s2 = request.getValue("httpPort").trim();
             if(!s1.equals(s2) && s2.length() > 0)
@@ -126,7 +126,7 @@ public class portalGeneralPrefsPage extends COM.dragonflow.Page.prefsPage
 
     void printForm()
     {
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         printBodyHeader("General Preferences");
         printButtonBar("GenCentraPrefs.htm", "");
         String s = "";

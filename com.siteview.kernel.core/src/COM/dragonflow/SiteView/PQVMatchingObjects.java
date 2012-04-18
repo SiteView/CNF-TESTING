@@ -19,7 +19,7 @@ package COM.dragonflow.SiteView;
  */
 import java.io.IOException;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // PortalQueryVisitor, AtomicMonitor, MonitorGroup, PortalSiteView,

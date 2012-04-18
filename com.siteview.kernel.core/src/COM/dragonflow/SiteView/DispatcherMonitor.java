@@ -19,8 +19,8 @@ package COM.dragonflow.SiteView;
  */
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
@@ -152,7 +152,7 @@ public class DispatcherMonitor extends AtomicMonitor {
         Object obj = null;
         String s = "";
         if (hashmap != null) {
-            for (Enumeration enumeration = hashmap.keys(); enumeration
+            for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration
                     .hasMoreElements();) {
                 String s1 = (String) enumeration.nextElement();
                 String s2 = (String) hashmap.get(s1);
@@ -202,9 +202,9 @@ public class DispatcherMonitor extends AtomicMonitor {
         HashMap hashmap1 = new HashMap();
         Array array = getConnectionProperties();
         for (int i = 0; i < array.size(); i++) {
-            String s2 = ((StringProperty) array.at(i)).getName();
+            String s2 = ((StringProperty) array.get(i)).getName();
             String s3 = getProperty(s2);
-            if (((StringProperty) array.at(i)).isPassword && isBase64Encoded()) {
+            if (((StringProperty) array.get(i)).isPassword && isBase64Encoded()) {
                 s3 = (new Base64Encoder(s3)).processString();
             }
             hashmap1.add(s2.substring(1), s3);
@@ -422,7 +422,7 @@ public class DispatcherMonitor extends AtomicMonitor {
             array.add(getPropertyObject("value" + (i + 1)));
         }
 
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Array getConnectionProperties() {
@@ -484,7 +484,7 @@ public class DispatcherMonitor extends AtomicMonitor {
             if (s.length() > 0) {
                 s = s + "/";
             }
-            s = s + (String) array.at(i);
+            s = s + (String) array.get(i);
         }
 
         return s;
@@ -496,7 +496,7 @@ public class DispatcherMonitor extends AtomicMonitor {
             return s;
         }
         for (int i = array.size() - 1; i >= 0; i--) {
-            String s1 = (String) array.at(i);
+            String s1 = (String) array.get(i);
             s = s + s1.length() + " " + s1;
         }
 
@@ -564,7 +564,7 @@ public class DispatcherMonitor extends AtomicMonitor {
         array.add(pCountersInError);
         StringProperty astringproperty3[] = new StringProperty[array.size()];
         for (int j = 0; j < array.size(); j++) {
-            astringproperty3[j] = (StringProperty) array.at(j);
+            astringproperty3[j] = (StringProperty) array.get(j);
         }
 
         addProperties("COM.dragonflow.SiteView.DispatcherMonitor",

@@ -29,8 +29,8 @@ import COM.dragonflow.Utils.*;
 
 import java.io.File;
 import java.util.*;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardMonitor:
 //            NTCounterMonitor
@@ -153,7 +153,7 @@ public class UnixCounterMonitor extends ServerMonitor
                 Array array = getCounters();
                 for(int i = 0; i < array.size(); i++)
                 {
-                    PerfCounter perfcounter = (PerfCounter)array.at(i);
+                    PerfCounter perfcounter = (PerfCounter)array.get(i);
                     labelsCache.add("Counter " + (i + 1) + " Value", perfcounter.counterName);
                 }
 
@@ -249,10 +249,10 @@ public class UnixCounterMonitor extends ServerMonitor
         Array array = Platform.split(' ', s2);
         if(array.size() >= 1)
         {
-            Array array1 = Platform.split('=', (String)array.at(0));
+            Array array1 = Platform.split('=', (String)array.get(0));
             if(array1.size() == 2)
             {
-                s3 = (String)array1.at(1);
+                s3 = (String)array1.get(1);
             }
         }
         if(showDebug)
@@ -312,7 +312,7 @@ public class UnixCounterMonitor extends ServerMonitor
             StringBuffer stringbuffer = new StringBuffer();
             Array array1 = getUnixData(s, array, stringbuffer);
             s3 = stringbuffer.toString();
-            enumeration = array1.elements();
+            enumeration =  (Enumeration) array1.iterator();
             if(enumeration.hasMoreElements())
             {
                 l2 = TextUtils.toLong((String)enumeration.nextElement());
@@ -378,7 +378,7 @@ public class UnixCounterMonitor extends ServerMonitor
         long l7 = getSettingAsLong("_NTCounterSummaryMax", 3);
         while(enumeration.hasMoreElements()) 
         {
-            PerfCounter perfcounter = (PerfCounter)array.at(k);
+            PerfCounter perfcounter = (PerfCounter)array.get(k);
             String s5 = (String)enumeration.nextElement();
             float f2 = (0.0F / 0.0F);
             long l8 = 0L;
@@ -719,7 +719,7 @@ public class UnixCounterMonitor extends ServerMonitor
             LogManager.log("RunMonitor", "asset command=" + s1);
             LogManager.log("RunMonitor", " result=" + i);
             LogManager.log("RunMonitor", " machine=" + s);
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", " output=" + enumeration.nextElement())) { }
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", " output=" + enumeration.nextElement())) { }
         }
     }
 
@@ -746,7 +746,7 @@ public class UnixCounterMonitor extends ServerMonitor
         {
             return commandline.getExitValue();
         }
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         int i = osadapter.getCommandSettingAsInteger("disks", "total");
         int j = osadapter.getCommandSettingAsInteger("disks", "free");
         int k = osadapter.getCommandSettingAsInteger("disks", "mount");
@@ -1023,7 +1023,7 @@ public class UnixCounterMonitor extends ServerMonitor
         {
             for(int i1 = 0; i1 < i; i1++)
             {
-                PerfCounter perfcounter = (PerfCounter)array.at(i1);
+                PerfCounter perfcounter = (PerfCounter)array.get(i1);
                 String s4 = (String)hashmap.get(getKey(perfcounter.counterName, perfcounter.instance));
                 if(s4 == null)
                 {
@@ -1088,7 +1088,7 @@ public class UnixCounterMonitor extends ServerMonitor
             array.add(pValues[j]);
         }
 
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public String defaultTitle()
@@ -1262,7 +1262,7 @@ public class UnixCounterMonitor extends ServerMonitor
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for(int j = 0; j < array.size(); j++)
         {
-            astringproperty[j] = (StringProperty)array.at(j);
+            astringproperty[j] = (StringProperty)array.get(j);
         }
 
         addProperties("COM.dragonflow.StandardMonitor.UnixCounterMonitor", astringproperty);

@@ -19,7 +19,7 @@ package COM.dragonflow.Utils;
 
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // SSHCommandLine, RemoteCommandLine
@@ -66,22 +66,22 @@ public class RemoteFile {
             }
             if (fullPath.length() == 0) {
                 String s2 = COM.dragonflow.SiteView.Platform.currentDirectoryCommand(s);
-                jgl.Array array = remotecommandline.exec(s2, machine);
+                Array array = remotecommandline.exec(s2, machine);
                 if (remotecommandline.exitValue == 0 && array.size() > 0) {
-                    pwd = (String) array.at(0);
+                    pwd = (String) array.get(0);
                     pwd = pwd.trim();
                     findStartOfUnixPwdResultDirectoryPath(machine);
                     COM.dragonflow.SiteView.Machine _tmp1 = machine;
                     if (machine.getPropertyAsBoolean(COM.dragonflow.SiteView.Machine.pTrace)) {
-                        COM.dragonflow.Log.LogManager.log("RunMonitor", "RemoteFile() after UNIX call to pwd on remote. pwd: " + pwd + " from remote line 1: " + (String) array.at(0));
+                        COM.dragonflow.Log.LogManager.log("RunMonitor", "RemoteFile() after UNIX call to pwd on remote. pwd: " + pwd + " from remote line 1: " + (String) array.get(0));
                     }
                     if (pwd.length() == 0) {
-                        pwd = (String) array.at(1);
+                        pwd = (String) array.get(1);
                         pwd = pwd.trim();
                         findStartOfUnixPwdResultDirectoryPath(machine);
                         COM.dragonflow.SiteView.Machine _tmp2 = machine;
                         if (machine.getPropertyAsBoolean(COM.dragonflow.SiteView.Machine.pTrace)) {
-                            COM.dragonflow.Log.LogManager.log("RunMonitor", "RemoteFile() after UNIX call to pwd on remote. pwd: " + pwd + " from remote line 2: " + (String) array.at(1));
+                            COM.dragonflow.Log.LogManager.log("RunMonitor", "RemoteFile() after UNIX call to pwd on remote. pwd: " + pwd + " from remote line 2: " + (String) array.get(1));
                         }
                     }
                 }
@@ -127,7 +127,7 @@ public class RemoteFile {
         return COM.dragonflow.SiteView.Platform.pathSeparator(os);
     }
 
-    public jgl.Array listFiles() {
+    public Array listFiles() {
         String s = COM.dragonflow.SiteView.Platform.dirCommand(machineID, COM.dragonflow.SiteView.Platform.DIR_FILES);
         s = s + " " + fullPath;
         String s1 = machineID;
@@ -135,13 +135,13 @@ public class RemoteFile {
             s1 = s1.substring(2);
         }
         Object obj = null;
-        jgl.Array array = new Array();
+        Array array = new Array();
         if (COM.dragonflow.SiteView.Machine.isNTSSH(s1)) {
             s = "directory.bat";
             COM.dragonflow.SiteView.Machine machine = COM.dragonflow.SiteView.Machine.getNTMachine(s1);
             COM.dragonflow.Utils.SSHCommandLine sshcommandline = new SSHCommandLine();
-            jgl.Array array1 = sshcommandline.exec(s, machine, false);
-            Enumeration enumeration = array1.elements();
+            Array array1 = sshcommandline.exec(s, machine, false);
+            Enumeration enumeration =  (Enumeration) array1.iterator();
             while (enumeration.hasMoreElements()) {
                 String s2 = (String) enumeration.nextElement();
                 s2 = s2.trim();
@@ -156,8 +156,8 @@ public class RemoteFile {
                 if (COM.dragonflow.SiteView.Platform.isUnix(COM.dragonflow.SiteView.Machine.getOS(machineID))) {
                     s = s + " | cat";
                 }
-                jgl.Array array2 = remotecommandline.exec(s, machine1);
-                Enumeration enumeration1 = array2.elements();
+                Array array2 = remotecommandline.exec(s, machine1);
+                Enumeration enumeration1 =  (Enumeration) array2.iterator();
                 while (enumeration1.hasMoreElements()) {
                     String s3 = (String) enumeration1.nextElement();
                     s3 = s3.trim();

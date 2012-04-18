@@ -8,6 +8,8 @@
  */
 package COM.dragonflow.Utils;
 
+import com.recursionsw.jgl.BinaryPredicate;
+
 /**
  * Comment for <code></code>
  * 
@@ -17,7 +19,7 @@ package COM.dragonflow.Utils;
  * 
  */
 
-public final class GreaterFileModified implements jgl.BinaryPredicate {
+public final class GreaterFileModified implements BinaryPredicate {
 
     private boolean fromOldToNew;
 

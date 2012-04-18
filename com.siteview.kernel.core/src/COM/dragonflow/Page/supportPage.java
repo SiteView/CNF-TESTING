@@ -13,8 +13,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Utils.Braf;
 
@@ -198,11 +198,11 @@ public class supportPage extends COM.dragonflow.Page.CGI
         } else
         {
             outputStream.println("<p>Sending support request to " + s3 + " from " + s1 + "...</P>");
-            jgl.HashMap hashmap = new HashMap(getMasterConfig());
+            HashMap hashmap = new HashMap(getMasterConfig());
             hashmap.put("_fromAddress", s1);
             hashmap.put("_hideServerInSubject", "true");
             String s19 = stringbuffer.toString();
-            jgl.Array array = new Array();
+            Array array = new Array();
             String s21 = COM.dragonflow.Utils.MailUtils.mail(hashmap, s3, s6, s19, s2, array, false);
             if(s21.length() == 0)
             {
@@ -210,7 +210,7 @@ public class supportPage extends COM.dragonflow.Page.CGI
             } else
             {
                 outputStream.println("<B>Support Request Not Sent</B>\n<HR>\n<br>The support request was NOT sent.  Please contact us by sending email to " + s3 + "\n" + "<p>\n" + "The error was: " + s21 + ".<P>\n" + "The detail of the mail attempt was:\n" + "<HR><PRE>\n");
-                for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); outputStream.println(enumeration.nextElement())) { }
+                for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); outputStream.println(enumeration.nextElement())) { }
                 outputStream.println("\n</PRE><HR><P>\n");
             }
             if(request.getValue("returnName").length() > 0)

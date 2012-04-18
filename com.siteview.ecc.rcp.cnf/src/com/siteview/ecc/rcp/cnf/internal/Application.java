@@ -10,21 +10,15 @@ import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.SiteView.Platform;
 import SiteViewMain.SiteViewSupport;
 
-/**
- * This class controls all aspects of the application's execution
- */
 public class Application implements IApplication
 {
 
     public Object start(IApplicationContext context)
-    {
-     
+    {     
     	Display display = PlatformUI.createDisplay();
         try
-        {
-            int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
-            
-
+        {  
+        	int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART)
             {
                 return IApplication.EXIT_RESTART;

@@ -11,8 +11,8 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // monitorSetPage
@@ -44,15 +44,15 @@ public class monitorSetTemplate {
 
     String m_templateFile;
 
-    private jgl.Array m_frames;
+    private Array m_frames;
 
-    private jgl.HashMap m_varTbl;
+    private HashMap m_varTbl;
 
-    private jgl.HashMap m_foreachVarTbl;
+    private HashMap m_foreachVarTbl;
 
-    private jgl.HashMap m_whereVarUsed;
+    private HashMap m_whereVarUsed;
 
-    private jgl.HashMap m_replacementList;
+    private HashMap m_replacementList;
 
     private String truncatePropertyName;
 
@@ -74,7 +74,7 @@ public class monitorSetTemplate {
     }
 
     private void getTruncateVariables(String s) {
-        jgl.HashMap hashmap = (jgl.HashMap) m_frames.at(0);
+        HashMap hashmap = (HashMap) m_frames.get(0);
         String s1 = (String) hashmap
                 .get("_truncateWhenLongerThan");
         String s2 = (String) hashmap
@@ -104,19 +104,19 @@ public class monitorSetTemplate {
         truncatePropertyName = "";
     }
 
-    monitorSetTemplate(jgl.Array array) {
+    monitorSetTemplate(Array array) {
         m_frames = array;
     }
 
     private void parseTemplate() {
         m_varTbl = new HashMap();
-        jgl.HashMap hashmap = (jgl.HashMap) m_frames.at(0);
-        Enumeration enumeration = hashmap.keys();
+        HashMap hashmap = (HashMap) m_frames.get(0);
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         while (enumeration.hasMoreElements()) {
             String s = (String) enumeration.nextElement();
             String s1 = (String) hashmap.get(s);
             if (s.startsWith(templateVar) && s.endsWith(templateVar)) {
-                jgl.HashMap hashmap2 = COM.dragonflow.Utils.TextUtils
+                HashMap hashmap2 = COM.dragonflow.Utils.TextUtils
                         .stringToHashMap(s1);
                 m_varTbl.add(s, hashmap2);
             }
@@ -124,7 +124,7 @@ public class monitorSetTemplate {
         
         m_whereVarUsed = new HashMap();
         for (int i = 1; i < m_frames.size(); i ++) {
-            jgl.HashMap hashmap1 = (jgl.HashMap) m_frames.at(i);
+            HashMap hashmap1 = (HashMap) m_frames.get(i);
             Enumeration enumeration1 = hashmap1.keys();
             String s2 = (String) hashmap1.get("_class");
             while (enumeration1.hasMoreElements()) {
@@ -141,7 +141,7 @@ public class monitorSetTemplate {
                             if (m_whereVarUsed.get(s5) == null) {
                                 m_whereVarUsed.add(s5, new HashMap());
                             }
-                            jgl.HashMap hashmap3 = (jgl.HashMap) m_whereVarUsed
+                            HashMap hashmap3 = (HashMap) m_whereVarUsed
                                     .get(s5);
                             hashmap3.add(s2, "");
                         }
@@ -155,12 +155,12 @@ public class monitorSetTemplate {
         return m_frames.size() - 1;
     }
 
-    public jgl.HashMap getNthMonitor(int i) {
-        return (jgl.HashMap) m_frames.at(i + 1);
+    public HashMap getNthMonitor(int i) {
+        return (HashMap) m_frames.get(i + 1);
     }
 
     String verifyNthMonitor(int i) {
-        jgl.HashMap hashmap = (jgl.HashMap) m_frames.at(i + 1);
+        HashMap hashmap = (HashMap) m_frames.get(i + 1);
         if (COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class").length() == 0) {
             return "_class missing from #" + (i + 1)
                     + " monitor in this template";
@@ -170,19 +170,19 @@ public class monitorSetTemplate {
     }
 
     public String getName() {
-        jgl.HashMap hashmap = (jgl.HashMap) m_frames.at(0);
+        HashMap hashmap = (HashMap) m_frames.get(0);
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 "_monitorTemplateName");
         return s;
     }
 
     public String getSetting(String s) {
-        jgl.HashMap hashmap = (jgl.HashMap) m_frames.at(0);
+        HashMap hashmap = (HashMap) m_frames.get(0);
         return COM.dragonflow.Utils.TextUtils.getValue(hashmap, s);
     }
 
     public String getSetDescriptor() {
-        jgl.HashMap hashmap = (jgl.HashMap) m_frames.at(0);
+        HashMap hashmap = (HashMap) m_frames.get(0);
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 "_monitorTemplateDescription");
         return s;
@@ -205,7 +205,7 @@ public class monitorSetTemplate {
         if (m_varTbl == null) {
             parseTemplate();
         }
-        jgl.HashMap hashmap = (jgl.HashMap) m_varTbl.get(s);
+        HashMap hashmap = (HashMap) m_varTbl.get(s);
         return hashmap;
     }
 
@@ -214,10 +214,10 @@ public class monitorSetTemplate {
             parseTemplate();
         }
         String as[] = null;
-        jgl.HashMap hashmap = (jgl.HashMap) m_whereVarUsed.get(s);
+        HashMap hashmap = (HashMap) m_whereVarUsed.get(s);
         if (hashmap != null) {
             as = new String[hashmap.size()];
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             for (int i = 0; enumeration.hasMoreElements(); i++) {
                 as[i] = (String) enumeration.nextElement();
             }
@@ -228,8 +228,8 @@ public class monitorSetTemplate {
 
     public void replaceVariable(String s, String s1) {
         label0: for (int i = 0; i < m_frames.size(); i++) {
-            jgl.HashMap hashmap = (jgl.HashMap) m_frames.at(i);
-            Enumeration enumeration = hashmap.keys();
+            HashMap hashmap = (HashMap) m_frames.get(i);
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             do {
                 if (!enumeration.hasMoreElements()) {
                     continue label0;
@@ -258,11 +258,11 @@ public class monitorSetTemplate {
                         s4 = reCalculateCounterIdLengthPrefixIfNecessary(s2, s4);
                     }
                     hashmap.put(s2, s4);
-                } else if (obj instanceof jgl.Array) {
-                    int j = ((jgl.Array) obj).size();
+                } else if (obj instanceof Array) {
+                    int j = ((Array) obj).size();
                     for (int k = 0; k < j; k++) {
-                        String s6 = (String) ((jgl.Array) obj)
-                                .at(k);
+                        String s6 = (String) ((Array) obj)
+                                .get(k);
                         String s7 = COM.dragonflow.Utils.TextUtils
                                 .replaceString(s6, s, s1);
                         if (s.equals("$server$") || s.equals("$host$")) {
@@ -276,7 +276,7 @@ public class monitorSetTemplate {
                                         .replaceString(s7, "$serverName$", s1);
                             }
                         }
-                        ((jgl.Array) obj).put(k, s7);
+                        ((Array) obj).put(k, s7);
                         if (!s7.equals(s6)) {
                             flag = true;
                         }
@@ -318,7 +318,7 @@ public class monitorSetTemplate {
         if (m_replacementList.get(s1) == null) {
             m_replacementList.add(s1, new HashMap());
         }
-        jgl.HashMap hashmap = (jgl.HashMap) m_replacementList.get(s1);
+        HashMap hashmap = (HashMap) m_replacementList.get(s1);
         if (hashmap.get(s) == null) {
             hashmap.add(s, "");
         }
@@ -328,7 +328,7 @@ public class monitorSetTemplate {
         i++;
         if (m_replacementList != null) {
             String s1 = String.valueOf(i);
-            jgl.HashMap hashmap = (jgl.HashMap) m_replacementList.get(s1);
+            HashMap hashmap = (HashMap) m_replacementList.get(s1);
             if (hashmap != null && hashmap.get(s) != null) {
                 return true;
             }
@@ -337,19 +337,19 @@ public class monitorSetTemplate {
     }
 
     public void doForeachSubstitution() {
-        jgl.Array array = new Array();
+        Array array = new Array();
         int i = 1;
-        array.add(m_frames.at(0));
+        array.add(m_frames.get(0));
         for (int j = 1; j < m_frames.size(); j++) {
-            jgl.HashMap hashmap = (jgl.HashMap) m_frames.at(j);
+            HashMap hashmap = (HashMap) m_frames.get(j);
             if (hashmap.get("FOREACH") != null) {
                 String s = (String) hashmap.get("FOREACH");
-                jgl.HashMap hashmap1;
+                HashMap hashmap1;
                 for (Enumeration enumeration = m_foreachVarTbl
                         .values(s); enumeration.hasMoreElements(); array
                         .add(replaceAllForeachVariablesInFrame(s, hashmap1,
                                 hashmap, i++))) {
-                    hashmap1 = (jgl.HashMap) enumeration.nextElement();
+                    hashmap1 = (HashMap) enumeration.nextElement();
                 }
 
             } else {
@@ -360,9 +360,9 @@ public class monitorSetTemplate {
         m_frames = array;
     }
 
-    private jgl.HashMap replaceAllForeachVariablesInFrame(String s,
-            jgl.HashMap hashmap, jgl.HashMap hashmap1, int i) {
-        jgl.HashMap hashmap2 = new HashMap();
+    private HashMap replaceAllForeachVariablesInFrame(String s,
+            HashMap hashmap, HashMap hashmap1, int i) {
+        HashMap hashmap2 = new HashMap();
         Enumeration enumeration = hashmap1.keys();
         label0: do {
             if (enumeration.hasMoreElements()) {
@@ -370,7 +370,7 @@ public class monitorSetTemplate {
                         .nextElement();
                 String s2 = new String((String) hashmap1
                         .get(s1));
-                Enumeration enumeration1 = hashmap.keys();
+                Enumeration enumeration1 = (Enumeration) hashmap.keys();
                 do {
                     if (!enumeration1.hasMoreElements()) {
                         continue label0;
@@ -433,18 +433,18 @@ public class monitorSetTemplate {
         return s1;
     }
 
-    public void replaceAllVariables(jgl.HashMap hashmap, jgl.HashMap hashmap1) {
+    public void replaceAllVariables(HashMap hashmap, HashMap hashmap1) {
         if (hashmap1 != null) {
             m_foreachVarTbl = hashmap1;
             doForeachSubstitution();
         }
         String s;
         String s1;
-        for (Enumeration enumeration = hashmap.keys(); enumeration
+        for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration
                 .hasMoreElements(); replaceVariable(s, s1)) {
             s = (String) enumeration.nextElement();
             s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, s);
-            jgl.HashMap hashmap2 = getVariableInfo(s);
+            HashMap hashmap2 = getVariableInfo(s);
             if (hashmap2.get("_boolean") == null) {
                 continue;
             }

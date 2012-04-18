@@ -81,11 +81,11 @@ public class licenseExpiredPage extends COM.dragonflow.Page.CGI {
     }
 
     private String getProductName() throws java.io.IOException {
-        jgl.Array array = COM.dragonflow.Properties.FrameFile
+        Array array = COM.dragonflow.Properties.FrameFile
                 .readFromFile(COM.dragonflow.SiteView.Platform.getRoot()
                         + java.io.File.separator + "classes"
                         + java.io.File.separator + "setup.config");
-        jgl.HashMap hashmap = (jgl.HashMap) array.front();
+        HashMap hashmap = (HashMap) array.front();
         String s = (String) hashmap.get("_productName");
         if (s.length() > 0) {
             s = (String) hashmap.get("_productName");

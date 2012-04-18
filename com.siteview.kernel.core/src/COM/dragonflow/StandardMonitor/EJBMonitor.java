@@ -20,7 +20,7 @@ package COM.dragonflow.StandardMonitor;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteView.*;
 import COM.dragonflow.Utils.TextUtils;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public class EJBMonitor extends XMLMonitor
 {
@@ -97,7 +97,7 @@ public class EJBMonitor extends XMLMonitor
      setClassProperty("COM.dragonflow.StandardMonitor.EJBMonitor", "topazName", "EJB");
      setClassProperty("COM.dragonflow.StandardMonitor.EJBMonitor", "classType", "application");
      setClassProperty("COM.dragonflow.StandardMonitor.EJBMonitor", "topazType", "Web Application Server");
-//     jgl.HashMap hashmap = TopazConfigurator.getTopazConfig();
+//     HashMap hashmap = TopazConfigurator.getTopazConfig();
 //     if(TopazAPI.isSiteViewConfiguredWithTopaz() && TextUtils.getValue(hashmap, "_enableOldEJBMonnitor").length() > 0)
 //     {
 //         setClassProperty("COM.dragonflow.StandardMonitor.EJBMonitor", "loadable", "true");

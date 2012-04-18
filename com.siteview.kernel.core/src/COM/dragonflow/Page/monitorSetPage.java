@@ -13,8 +13,8 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.Properties.FrequencyProperty;
 import COM.dragonflow.Properties.ScalarProperty;
@@ -256,7 +256,7 @@ public class monitorSetPage extends CGI
         return ssrtn;
     }
 
-    public boolean createMonitorSet(String s, String s1, jgl.HashMap hashmap)
+    public boolean createMonitorSet(String s, String s1, HashMap hashmap)
     {
         SSrtn ssrtn = new SSrtn();
         String s2 = I18N.toDefaultEncoding(s);
@@ -278,7 +278,7 @@ public class monitorSetPage extends CGI
         int j = monitorsettemplate.getMonitorCount();
         for(int k = 0; k < j; k++)
         {
-            jgl.HashMap hashmap1 = monitorsettemplate.getNthMonitor(k);
+            HashMap hashmap1 = monitorsettemplate.getNthMonitor(k);
             try
             {
                 ssrtn = createMonitor(s2, hashmap1);
@@ -428,9 +428,9 @@ public class monitorSetPage extends CGI
 
     private String getRemotesHTML()
     {
-        jgl.HashMap hashmap = Machine.getMachineTable();
+        HashMap hashmap = Machine.getMachineTable();
         String s = "";
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         java.util.Vector vector = new Vector();
         for(; enumeration.hasMoreElements(); vector.addElement(enumeration.nextElement())) { }
         vector.addElement("other");
@@ -465,7 +465,7 @@ public class monitorSetPage extends CGI
         for(int i = 0; i < as.length; i++)
         {
             String s1 = as[i];
-            jgl.HashMap hashmap = monitorsettemplate.getVariableInfo(s1);
+            HashMap hashmap = monitorsettemplate.getVariableInfo(s1);
             String s2 = TextUtils.getValue(hashmap, "_description");
             String s3 = TextUtils.getValue(hashmap, "_value");
             boolean flag1 = TextUtils.getValue(hashmap, "_scalar").length() > 0;
@@ -695,8 +695,8 @@ public class monitorSetPage extends CGI
 
         }
         HTMLPage.append("<p><h3>Property and Syntax Check for " + (flag ? "Solution:" : "Template: ") + s3 + "</h3>\n");
-        jgl.HashMap hashmap = populateRegularVariables(monitorsettemplate, true);
-        jgl.HashMap hashmap1 = populateForeachVariables();
+        HashMap hashmap = populateRegularVariables(monitorsettemplate, true);
+        HashMap hashmap1 = populateForeachVariables();
         monitorsettemplate.replaceAllVariables(hashmap, hashmap1);
         int j = monitorsettemplate.getMonitorCount();
         boolean flag3 = false;
@@ -704,7 +704,7 @@ public class monitorSetPage extends CGI
         {
             for(int k = 0; k < j; k++)
             {
-                jgl.HashMap hashmap2 = monitorsettemplate.getNthMonitor(k);
+                HashMap hashmap2 = monitorsettemplate.getNthMonitor(k);
                 ssrtn = checkMonitorParams(s1, hashmap2);
                 if(ssrtn.isErrorList())
                 {
@@ -723,7 +723,7 @@ public class monitorSetPage extends CGI
         }
         for(int l = 0; l < j; l++)
         {
-            jgl.HashMap hashmap3 = monitorsettemplate.getNthMonitor(l);
+            HashMap hashmap3 = monitorsettemplate.getNthMonitor(l);
             String s8 = TextUtils.getValue(hashmap3, "_class");
             String s10 = TextUtils.getValue(hashmap3, "_name");
             String s11 = TextUtils.getValue(hashmap3, "_monitorDescription");
@@ -767,7 +767,7 @@ public class monitorSetPage extends CGI
                         continue;
                     }
                 }
-                jgl.Array array = TextUtils.getMultipleValues(hashmap3, s12);
+                Array array = TextUtils.getMultipleValues(hashmap3, s12);
                 StringBuffer stringbuffer = new StringBuffer();
                 for(int j1 = 0; j1 < array.size(); j1++)
                 {
@@ -775,7 +775,7 @@ public class monitorSetPage extends CGI
                     {
                         stringbuffer.append("<br>");
                     }
-                    stringbuffer.append((String)array.at(j1));
+                    stringbuffer.append((String)array.get(j1));
                 }
 
                 String s14 = "BGCOLOR=\"#DDDDDD\"";
@@ -816,7 +816,7 @@ public class monitorSetPage extends CGI
             ssrtn = checkMonitorParams(s1, hashmap3);
             if(ssrtn.isErrorList())
             {
-                jgl.HashMap hashmap5 = ssrtn.getErrorList();
+                HashMap hashmap5 = ssrtn.getErrorList();
                 for(Enumeration enumeration3 = hashmap5.keys(); enumeration3.hasMoreElements();)
                 {
                     java.lang.Object obj = enumeration3.nextElement();
@@ -856,16 +856,16 @@ public class monitorSetPage extends CGI
         HTMLPage.append("<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>\n<input type=hidden name=page value=\"" + getNextPage(request.getValue("operation")) + "\">\n" + "<input type=hidden name=operation value=" + "monitorSetCreate" + " >\n" + "<input type=hidden name=account value= \"" + request.getAccount() + "\">\n" + "<input type=hidden name=group value= \"" + s1 + "\">\n" + "<input type=hidden name=" + "solution" + " value= \"" + request.getValue("solution") + "\">\n" + "<input type=hidden name=templatefile value= \"" + s + "\">\n");
         String s7;
         String s9;
-        for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); HTMLPage.append("<input type=hidden name=\"" + s7 + "\" value=\"" + s9 + "\">\n"))
+        for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements(); HTMLPage.append("<input type=hidden name=\"" + s7 + "\" value=\"" + s9 + "\">\n"))
         {
             s7 = (String)enumeration.nextElement();
             s9 = TextUtils.getValue(hashmap, s7);
         }
 
-        jgl.HashMap hashmap4;
+        HashMap hashmap4;
         for(Enumeration enumeration1 = hashmap1.elements(); enumeration1.hasMoreElements(); HTMLPage.append("<input type=hidden name=\"" + (String)hashmap4.get("name") + "\" value=\"" + (String)hashmap4.get("value") + "\">\n"))
         {
-            hashmap4 = (jgl.HashMap)enumeration1.nextElement();
+            hashmap4 = (HashMap)enumeration1.nextElement();
         }
 
         HTMLPage.append("<BR><input type=submit value=Create>" + (flag ? " Solution" : " Monitor Set") + "\n<P>\n");
@@ -880,7 +880,7 @@ public class monitorSetPage extends CGI
 
     protected jgl.HashMap populateForeachVariables()
     {
-        jgl.HashMap hashmap = new HashMap(true);
+        HashMap hashmap = new HashMap(true);
         Enumeration enumeration = request.variables.keys();
         do
         {
@@ -892,7 +892,7 @@ public class monitorSetPage extends CGI
             java.util.regex.Matcher matcher = FOREACH_VARNAME_PATTERN.matcher(s);
             if(matcher.matches())
             {
-                jgl.HashMap hashmap1 = new HashMap();
+                HashMap hashmap1 = new HashMap();
                 String s1 = matcher.group(1).replaceAll(" ", "");
                 String s2 = request.getValue(s);
                 hashmap1.put("name", s);
@@ -903,7 +903,7 @@ public class monitorSetPage extends CGI
         return hashmap;
     }
 
-    protected boolean doNotDeployMonitor(jgl.HashMap hashmap)
+    protected boolean doNotDeployMonitor(HashMap hashmap)
     {
         if(hashmap.get("_deployControlVar") != null)
         {
@@ -930,8 +930,8 @@ public class monitorSetPage extends CGI
         setHelpLink(monitorsettemplate);
         String s4 = monitorsettemplate.getName();
         HTMLPage.append("<p><h3>Create " + (flag1 ? "Solution Set for " : "Monitor Set for template: ") + s4 + (flag1 ? "..." : "") + "</h3>");
-        jgl.HashMap hashmap = populateRegularVariables(monitorsettemplate, false);
-        jgl.HashMap hashmap1 = populateForeachVariables();
+        HashMap hashmap = populateRegularVariables(monitorsettemplate, false);
+        HashMap hashmap1 = populateForeachVariables();
         monitorsettemplate.replaceAllVariables(hashmap, hashmap1);
         if(!flag1)
         {
@@ -940,7 +940,7 @@ public class monitorSetPage extends CGI
         int i = monitorsettemplate.getMonitorCount();
         for(int j = 0; j < i; j++)
         {
-            jgl.HashMap hashmap2 = monitorsettemplate.getNthMonitor(j);
+            HashMap hashmap2 = monitorsettemplate.getNthMonitor(j);
             if(doNotDeployMonitor(hashmap2))
             {
                 continue;
@@ -961,7 +961,7 @@ public class monitorSetPage extends CGI
                     String s8 = (String)enumeration.nextElement();
                     if(!s8.equals("_class") && !s8.equals("_id") && !s8.equals("_group"))
                     {
-                        jgl.Array array = TextUtils.getMultipleValues(hashmap2, s8);
+                        Array array = TextUtils.getMultipleValues(hashmap2, s8);
                         StringBuffer stringbuffer = new StringBuffer();
                         for(int k = 0; k < array.size(); k++)
                         {
@@ -969,7 +969,7 @@ public class monitorSetPage extends CGI
                             {
                                 stringbuffer.append("<br>");
                             }
-                            stringbuffer.append((String)array.at(k));
+                            stringbuffer.append((String)array.get(k));
                         }
 
                         HTMLPage.append(s8 + ": " + stringbuffer + "<br>\n");
@@ -1009,7 +1009,7 @@ public class monitorSetPage extends CGI
     protected String replaceBoolean(String s, monitorSetTemplate monitorsettemplate)
     {
         String s1 = request.getValue(s);
-        jgl.HashMap hashmap = monitorsettemplate.getVariableInfo(s);
+        HashMap hashmap = monitorsettemplate.getVariableInfo(s);
         if(hashmap.get("_boolean") != null)
         {
             String s2 = "";
@@ -1118,7 +1118,7 @@ public class monitorSetPage extends CGI
         }, s1);
     }
 
-    boolean checkPermissions(String s, jgl.HashMap hashmap, AtomicMonitor atomicmonitor, SSrtn ssrtn)
+    boolean checkPermissions(String s, HashMap hashmap, AtomicMonitor atomicmonitor, SSrtn ssrtn)
         throws java.lang.Exception
     {
         String s1 = TextUtils.getValue(hashmap, "_class");
@@ -1173,12 +1173,12 @@ public class monitorSetPage extends CGI
         return true;
     }
 
-    SSrtn createMonitor(String s, jgl.HashMap hashmap)
+    SSrtn createMonitor(String s, HashMap hashmap)
         throws java.lang.Exception
     {
         SSrtn ssrtn = new SSrtn();
         String s1 = TextUtils.getValue(hashmap, "_class");
-        jgl.HashMap hashmap1 = new HashMap();
+        HashMap hashmap1 = new HashMap();
         if(s1.indexOf("SubGroup") == -1)
         {
             AtomicMonitor atomicmonitor = AtomicMonitor.MonitorCreate(s1);
@@ -1203,25 +1203,25 @@ public class monitorSetPage extends CGI
             }
             atomicmonitor.setProperty(AtomicMonitor.pFrequency, l);
             String s6 = atomicmonitor.defaultTitle();
-            jgl.HashMap hashmap4 = new HashMap();
+            HashMap hashmap4 = new HashMap();
             if(request.hasValue(ServerMonitor.pMachineName.getName()))
             {
                 atomicmonitor.setProperty(ServerMonitor.pMachineName, request.getValue(ServerMonitor.pMachineName.getName()));
             }
-            jgl.Array array2 = atomicmonitor.getProperties();
+            Array array2 = atomicmonitor.getProperties();
             array2 = StringProperty.sortByOrder(array2);
-            for(Enumeration enumeration = array2.elements(); enumeration.hasMoreElements();)
+            for(Enumeration enumeration =  (Enumeration) array2.iterator(); enumeration.hasMoreElements();)
             {
                 StringProperty stringproperty = (StringProperty)enumeration.nextElement();
                 String s7 = stringproperty.getName();
                 if(stringproperty.isMultiLine)
                 {
-                    jgl.Array array3 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
+                    Array array3 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
                     atomicmonitor.unsetProperty(stringproperty);
                     int k = 0;
                     while(k < array3.size()) 
                     {
-                        String s11 = (String)array3.at(k);
+                        String s11 = (String)array3.get(k);
                         s11 = atomicmonitor.verify(stringproperty, s11, request, hashmap4);
                         atomicmonitor.addProperty(stringproperty, s11);
                         k++;
@@ -1239,12 +1239,12 @@ public class monitorSetPage extends CGI
                     }
                     if((stringproperty instanceof ScalarProperty) && ((ScalarProperty)stringproperty).multiple)
                     {
-                        jgl.Array array4 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
+                        Array array4 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
                         atomicmonitor.unsetProperty(stringproperty);
                         int j1 = 0;
                         while(j1 < array4.size()) 
                         {
-                            String s13 = (String)array4.at(j1);
+                            String s13 = (String)array4.get(j1);
                             s13 = atomicmonitor.verify(stringproperty, s13, request, hashmap4);
                             atomicmonitor.addProperty(stringproperty, s13);
                             j1++;
@@ -1266,7 +1266,7 @@ public class monitorSetPage extends CGI
                 }
             }
 
-            jgl.HashMap hashmap5 = getMasterConfig();
+            HashMap hashmap5 = getMasterConfig();
             Enumeration enumeration1 = hashmap5.values("_monitorEditCustom");
             do
             {
@@ -1312,8 +1312,8 @@ public class monitorSetPage extends CGI
             hashmap1.put("_group", s3);
             hashmap1.put("_name", s2);
             hashmap1.put("_id", "");
-            jgl.Array array1 = new Array();
-            jgl.HashMap hashmap2 = new HashMap();
+            Array array1 = new Array();
+            HashMap hashmap2 = new HashMap();
             hashmap2.put("_name", s2);
             hashmap2.put("_parent", s);
             hashmap2.put("_dependsCondition", "good");
@@ -1328,10 +1328,10 @@ public class monitorSetPage extends CGI
                 java.lang.System.out.println(exception + "An error occurred when trying to write the file: " + TextUtils.getValue(hashmap1, "_group"));
             }
         }
-        jgl.Array array = ReadGroupFrames(s);
+        Array array = ReadGroupFrames(s);
         String s4 = "";
         int j = array.size();
-        jgl.HashMap hashmap3 = (jgl.HashMap)array.at(0);
+        HashMap hashmap3 = (HashMap)array.get(0);
         s4 = TextUtils.getValue(hashmap3, "_nextID");
         if(s4.length() == 0)
         {
@@ -1347,7 +1347,7 @@ public class monitorSetPage extends CGI
         return ssrtn;
     }
 
-    SSrtn checkMonitorParams(String s, jgl.HashMap hashmap)
+    SSrtn checkMonitorParams(String s, HashMap hashmap)
         throws java.lang.Exception
     {
         SSrtn ssrtn = new SSrtn();
@@ -1376,15 +1376,15 @@ public class monitorSetPage extends CGI
                 l = i;
             }
             atomicmonitor.setProperty(AtomicMonitor.pFrequency, l);
-            jgl.HashMap hashmap1 = new HashMap();
+            HashMap hashmap1 = new HashMap();
             ssrtn.setErrorList(hashmap1);
             if(request.hasValue(ServerMonitor.pMachineName.getName()))
             {
                 atomicmonitor.setProperty(ServerMonitor.pMachineName, request.getValue(ServerMonitor.pMachineName.getName()));
             }
-            jgl.Array array = atomicmonitor.getProperties();
+            Array array = atomicmonitor.getProperties();
             array = StringProperty.sortByOrder(array);
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())
@@ -1394,11 +1394,11 @@ public class monitorSetPage extends CGI
                 StringProperty stringproperty = (StringProperty)enumeration.nextElement();
                 if(stringproperty.isMultiLine)
                 {
-                    jgl.Array array1 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
+                    Array array1 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
                     int j = 0;
                     while(j < array1.size()) 
                     {
-                        String s5 = (String)array1.at(j);
+                        String s5 = (String)array1.get(j);
                         s5 = atomicmonitor.verify(stringproperty, s5, request, hashmap1);
                         atomicmonitor.addProperty(stringproperty, s5);
                         j++;
@@ -1409,10 +1409,10 @@ public class monitorSetPage extends CGI
                     String s4 = TextUtils.getValue(hashmap, s3);
                     if((stringproperty instanceof ScalarProperty) && ((ScalarProperty)stringproperty).multiple)
                     {
-                        jgl.Array array2 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
+                        Array array2 = TextUtils.getMultipleValues(hashmap, stringproperty.getName());
                         for(int i1 = 0; i1 < array2.size(); i1++)
                         {
-                            String s6 = (String)array2.at(i1);
+                            String s6 = (String)array2.get(i1);
                             s6 = atomicmonitor.verify(stringproperty, s6, request, hashmap1);
                             atomicmonitor.addProperty(stringproperty, s6);
                         }
@@ -1443,7 +1443,7 @@ public class monitorSetPage extends CGI
     protected jgl.HashMap populateRegularVariables(monitorSetTemplate monitorsettemplate, boolean flag)
     {
         String as[] = monitorsettemplate.getVariables();
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         for(int i = 0; i < as.length; i++)
         {
             String s = request.getValue(as[i]);

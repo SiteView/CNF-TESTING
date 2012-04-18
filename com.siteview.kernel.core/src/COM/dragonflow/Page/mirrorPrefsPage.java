@@ -98,7 +98,7 @@ public class mirrorPrefsPage extends COM.dragonflow.Page.prefsPage
             outputStream.print("<P><DT>Schedule:   <input type=text name=mirrorScheduleTime size=20 value=\"\"> Hours<P>\n<DD>Enter the time interval for mirroring from the primary SiteView. Value should be (1 to 23 hours). No decimals</DL><p><p><BR>\n<input type=submit value=\"Save\">\n</FORM>\n<br>\n");
         } else
         {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MirrorConfiguration.getMirrorConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MirrorConfiguration.getMirrorConfig();
             StringBuffer stringbuffer = new StringBuffer();
             StringBuffer stringbuffer1 = new StringBuffer();
             COM.dragonflow.Properties.StringProperty.getPrivate(COM.dragonflow.Page.mirrorPrefsPage.getValue(hashmap, "password"), "password", "mirrorSuff", stringbuffer, stringbuffer1);

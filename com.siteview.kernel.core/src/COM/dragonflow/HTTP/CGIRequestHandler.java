@@ -21,6 +21,8 @@ import java.util.Enumeration;
 
 import COM.dragonflow.Utils.CommandLine;
 
+import com.recursionsw.jgl.Array;
+
 // Referenced classes of package COM.dragonflow.HTTP:
 // HTTPRequestHandler, HTTPRequestException, HTTPRequest, HTTPServer
 
@@ -50,8 +52,8 @@ public class CGIRequestHandler extends HTTPRequestHandler {
         if (s1.equals("perfex")) {
             printDebugHeader(httprequest, s1);
             outputStream.println("<PRE>");
-            jgl.Array array = (new CommandLine()).exec(COM.dragonflow.SiteView.Platform.getRoot() + "/tools/perfex " + httprequest.getValue("option"));
-            for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); outputStream.println((String) enumeration.nextElement())) {
+            Array array = (new CommandLine()).exec(COM.dragonflow.SiteView.Platform.getRoot() + "/tools/perfex " + httprequest.getValue("option"));
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); outputStream.println((String) enumeration.nextElement())) {
             }
             outputStream.println("</PRE>");
             printDebugFooter();
@@ -72,16 +74,16 @@ public class CGIRequestHandler extends HTTPRequestHandler {
         } else if (s1.equals("SendModem")) {
             printDebugHeader(httprequest, s1);
             outputStream.println("<PRE>");
-            jgl.Array array1 = (new CommandLine()).exec(COM.dragonflow.SiteView.Platform.getRoot() + "/tools/SendModem " + httprequest.getValue("option"));
-            for (Enumeration enumeration1 = array1.elements(); enumeration1.hasMoreElements(); outputStream.println((String) enumeration1.nextElement())) {
+            Array array1 = (new CommandLine()).exec(COM.dragonflow.SiteView.Platform.getRoot() + "/tools/SendModem " + httprequest.getValue("option"));
+            for (Enumeration enumeration1 =  (Enumeration) array1.iterator(); enumeration1.hasMoreElements(); outputStream.println((String) enumeration1.nextElement())) {
             }
             outputStream.println("</PRE>");
             printDebugFooter();
         } else if (s1.equals("dialup")) {
             printDebugHeader(httprequest, s1);
             outputStream.println("<PRE>");
-            jgl.Array array2 = (new CommandLine()).exec(COM.dragonflow.SiteView.Platform.getRoot() + "/tools/dialup " + httprequest.getValue("option"));
-            for (Enumeration enumeration2 = array2.elements(); enumeration2.hasMoreElements(); outputStream.println((String) enumeration2.nextElement())) {
+            Array array2 = (new CommandLine()).exec(COM.dragonflow.SiteView.Platform.getRoot() + "/tools/dialup " + httprequest.getValue("option"));
+            for (Enumeration enumeration2 =  (Enumeration) array2.iterator(); enumeration2.hasMoreElements(); outputStream.println((String) enumeration2.nextElement())) {
             }
             outputStream.println("</PRE>");
             printDebugFooter();

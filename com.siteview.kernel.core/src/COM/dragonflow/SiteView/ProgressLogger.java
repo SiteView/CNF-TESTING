@@ -19,7 +19,7 @@ package COM.dragonflow.SiteView;
  */
 import java.util.Date;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Log.Logger;
 import COM.dragonflow.Properties.PropertiedObject;
 import COM.dragonflow.Utils.TextUtils;

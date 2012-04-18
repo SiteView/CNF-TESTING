@@ -26,7 +26,7 @@ import COM.dragonflow.SiteView.Rule;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import java.io.File;
 import java.util.Vector;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 //Referenced classes of package COM.dragonflow.StandardMonitor:
 //         BrowsableNTCounterMonitor

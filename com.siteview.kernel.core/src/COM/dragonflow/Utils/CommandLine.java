@@ -17,8 +17,10 @@
      * 
      */
 
-import jgl.Array;
 import SiteViewMain.ServicePrinter;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // CounterLock, RemoteCommandLine, ThreadPool, FileUtils,
@@ -38,7 +40,7 @@ public class CommandLine
     static java.lang.Object execLock = new Object();
     public static boolean recording = false;
     public static boolean playback = false;
-    public static jgl.Array recorded = null;
+    public static Array recorded = null;
     public static long timeout = -1L;
 
     public CommandLine()
@@ -93,12 +95,12 @@ public class CommandLine
         }
     }
 
-    public jgl.Array exec(java.util.Vector vector)
+    public Array exec(java.util.Vector vector)
     {
         return exec(vector, true);
     }
 
-    public jgl.Array exec(java.util.Vector vector, boolean flag)
+    public Array exec(java.util.Vector vector, boolean flag)
     {
         StringBuffer stringbuffer = new StringBuffer();
         java.util.Iterator iterator = vector.iterator();
@@ -123,32 +125,32 @@ public class CommandLine
         return exec(stringbuffer.toString());
     }
 
-    public jgl.Array exec(String s)
+    public Array exec(String s)
     {
         return exec(s, new CounterLock(1));
     }
 
-    public jgl.Array exec(String s, String s1)
+    public Array exec(String s, String s1)
     {
         return exec(s, s1, new CounterLock(1));
     }
 
-    public jgl.Array exec(String s, String s1, COM.dragonflow.Utils.CounterLock counterlock, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
+    public Array exec(String s, String s1, COM.dragonflow.Utils.CounterLock counterlock, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
     {
         return exec(s, s1, counterlock, -1, atomicmonitor);
     }
 
-    public jgl.Array exec(String s, String s1, COM.dragonflow.Utils.CounterLock counterlock)
+    public Array exec(String s, String s1, COM.dragonflow.Utils.CounterLock counterlock)
     {
         return exec(s, s1, counterlock, -1, null);
     }
 
-    public jgl.Array exec(String s, String s1, COM.dragonflow.Utils.CounterLock counterlock, int i)
+    public Array exec(String s, String s1, COM.dragonflow.Utils.CounterLock counterlock, int i)
     {
         return exec(s, s1, counterlock, i, null);
     }
 
-    public jgl.Array exec(String s, String s1, COM.dragonflow.Utils.CounterLock counterlock, int i, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
+    public Array exec(String s, String s1, COM.dragonflow.Utils.CounterLock counterlock, int i, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
     {
         if(showDebug)
         {
@@ -185,7 +187,7 @@ public class CommandLine
                 {
                     return COM.dragonflow.Utils.CommandLine.nextOutput();
                 }
-                jgl.Array array = remotecommandline.exec(s, machine);
+                Array array = remotecommandline.exec(s, machine);
                 exitValue = remotecommandline.exitValue;
                 if(recording)
                 {
@@ -201,12 +203,12 @@ public class CommandLine
         return new Array();
     }
 
-    public jgl.Array exec(String s, COM.dragonflow.Utils.CounterLock counterlock)
+    public Array exec(String s, COM.dragonflow.Utils.CounterLock counterlock)
     {
         return exec(s, counterlock, ((COM.dragonflow.SiteView.AtomicMonitor) (null)));
     }
 
-    public jgl.Array exec(String s, COM.dragonflow.Utils.CounterLock counterlock, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
+    public Array exec(String s, COM.dragonflow.Utils.CounterLock counterlock, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
     {
         if(timeout > 0L)
         {
@@ -224,7 +226,7 @@ public class CommandLine
         {
             return runHTTPCommand(s);
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         startTime = java.lang.System.currentTimeMillis();
         if(showDebug)
         {
@@ -338,12 +340,12 @@ public class CommandLine
         return array;
     }
 
-    public jgl.Array exec(String as[], String s)
+    public Array exec(String as[], String s)
     {
         return exec(as, s, new CounterLock(1));
     }
 
-    public jgl.Array exec(String as[], String s, COM.dragonflow.Utils.CounterLock counterlock)
+    public Array exec(String as[], String s, COM.dragonflow.Utils.CounterLock counterlock)
     {
         if(showDebug)
         {
@@ -363,7 +365,7 @@ public class CommandLine
                 {
                     return COM.dragonflow.Utils.CommandLine.nextOutput();
                 }
-                jgl.Array array = remotecommandline.exec(as, machine);
+                Array array = remotecommandline.exec(as, machine);
                 exitValue = remotecommandline.exitValue;
                 if(recording)
                 {
@@ -379,7 +381,7 @@ public class CommandLine
         return new Array();
     }
 
-    public jgl.Array exec(String as[])
+    public Array exec(String as[])
     {
         if(showDebug)
         {
@@ -395,9 +397,9 @@ public class CommandLine
      * @param counterlock
      * @return
      */
-    public jgl.Array exec(String as[], COM.dragonflow.Utils.CounterLock counterlock)
+    public Array exec(String as[], COM.dragonflow.Utils.CounterLock counterlock)
     {
-        jgl.Array array;
+        Array array;
         java.lang.Process process;
         if(timeout > 0L)
         {
@@ -496,12 +498,12 @@ public class CommandLine
         return exitValue;
     }
 
-    public jgl.Array runHTTPCommand(String s)
+    public Array runHTTPCommand(String s)
     {
         return COM.dragonflow.Utils.CommandLine.runHTTPCommand(s, "", "", "", "", "", "", this);
     }
 
-    public static jgl.Array runHTTPCommand(String s, String s1, String s2, String s3, String s4, String s5, String s6, COM.dragonflow.Utils.CommandLine commandline)
+    public static Array runHTTPCommand(String s, String s1, String s2, String s3, String s4, String s5, String s6, COM.dragonflow.Utils.CommandLine commandline)
     {
         StringBuffer stringbuffer = new StringBuffer();
         COM.dragonflow.Utils.SocketSession socketsession = COM.dragonflow.Utils.SocketSession.getSession(null);
@@ -533,7 +535,7 @@ public class CommandLine
         int j = -1;
         byte byte0 = -1;
         String s7 = COM.dragonflow.StandardMonitor.URLMonitor.getHTTPContent(stringbuffer.toString());
-        jgl.Array array = new Array();
+        Array array = new Array();
         boolean flag = false;
             int k;
             while ((k = s7.indexOf("\n", j + 1)) >= 0)
@@ -564,7 +566,7 @@ public class CommandLine
         recording = true;
     }
 
-    public static void recordOutput(jgl.Array array)
+    public static void recordOutput(Array array)
     {
         if(recording)
         {
@@ -583,12 +585,12 @@ public class CommandLine
         playback = true;
     }
 
-    public static jgl.Array nextOutput()
+    public static Array nextOutput()
     {
-        jgl.Array array;
+        Array array;
         if(recorded.size() >= 1)
         {
-            array = (jgl.Array)recorded.popFront();
+            array = (Array)recorded.popFront();
         } else
         {
             array = new Array();
@@ -603,12 +605,12 @@ public class CommandLine
         recorded = null;
     }
 
-    static String arrayToString(jgl.Array array)
+    static String arrayToString(Array array)
     {
         String s = "";
         for(int i = 0; i < array.size(); i++)
         {
-            s = s + array.at(i);
+            s = s + array.get(i);
             s = s + "\n";
         }
 
@@ -636,11 +638,11 @@ public class CommandLine
      * @param counterlock
      * @return
      */
-    jgl.Array exec1(String as[], String s, COM.dragonflow.Utils.CounterLock counterlock)
+    Array exec1(String as[], String s, COM.dragonflow.Utils.CounterLock counterlock)
     {
         byte byte0;
         StringBuffer stringbuffer;
-        jgl.Array array;
+        Array array;
         java.lang.Process process;
         byte0 = 2;
         if(playback)
@@ -900,7 +902,7 @@ public class CommandLine
 
     static 
     {
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_processPool");
         if(s.length() > 0 && s.equals("false"))
         {

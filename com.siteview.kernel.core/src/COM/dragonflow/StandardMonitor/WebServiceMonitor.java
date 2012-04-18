@@ -23,8 +23,8 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -159,7 +159,7 @@ public class WebServiceMonitor extends AtomicMonitor {
             } else {
                 s17 = "matched " + s17;
                 if (array.size() > 0) {
-                    setProperty(pMatchValue, array.at(0));
+                    setProperty(pMatchValue, array.get(0));
                 }
             }
         }

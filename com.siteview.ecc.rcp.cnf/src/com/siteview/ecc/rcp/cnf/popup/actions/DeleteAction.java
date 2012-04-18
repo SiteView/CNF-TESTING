@@ -7,14 +7,12 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
-import com.siteview.ecc.rcp.cnf.data.Child;
-
 
 
 public class DeleteAction implements IObjectActionDelegate
 {
 
-    private Child data;
+    private Object data;
 
     /**
      * Constructor for Action1.
@@ -36,10 +34,10 @@ public class DeleteAction implements IObjectActionDelegate
      */
     public void run(IAction action)
     {
-        if (data != null)
-        {
-            System.out.println("Delete on " + data.getName());
-        }
+//        if (data != null)
+//        {
+//            System.out.println("Delete on " + data.getName());
+//        }
     }
 
     /**
@@ -47,18 +45,18 @@ public class DeleteAction implements IObjectActionDelegate
      */
     public void selectionChanged(IAction action, ISelection selection)
     {
-        if (!selection.isEmpty())
-        {
-            IStructuredSelection sSelection = (IStructuredSelection) selection;
-            if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof Child)
-            {
-
-                if (sSelection.getFirstElement() instanceof Child)
-                {
-                    data = (Child) sSelection.getFirstElement();
-                }
-            }
-        }
+//        if (!selection.isEmpty())
+//        {
+//            IStructuredSelection sSelection = (IStructuredSelection) selection;
+//            if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof Child)
+//            {
+//
+//                if (sSelection.getFirstElement() instanceof Child)
+//                {
+//                    data = (Child) sSelection.getFirstElement();
+//                }
+//            }
+//        }
     }
 
 }

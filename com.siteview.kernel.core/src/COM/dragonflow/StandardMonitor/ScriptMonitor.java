@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -189,7 +189,7 @@ public class ScriptMonitor extends ServerMonitor {
 
             }
             Array array = getProperties();
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do {
                 if (!enumeration.hasMoreElements()) {
                     break;
@@ -407,7 +407,7 @@ public class ScriptMonitor extends ServerMonitor {
 
             StringBuffer stringbuffer1 = new StringBuffer();
             String s17;
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                 s17 = (String) enumeration.nextElement();
                 LogManager.log("RunMonitor", "Script monitor machine " + s1 + " output: " + s17);
@@ -470,7 +470,7 @@ public class ScriptMonitor extends ServerMonitor {
             long l2 = getSettingAsLong("_scriptMonitorLinesToSave", 25);
             String s5 = "";
             for (int k = 0; k < array.size() && (long) k < l2; k ++) {
-                s5 = s5 + array.at(k);
+                s5 = s5 + array.get(k);
                 s5 = s5 + "^";
             }
 
@@ -593,7 +593,7 @@ public class ScriptMonitor extends ServerMonitor {
                 String s4 = "/SiteView/cgi/go.exe/SiteView?page=remoteOp&operation=scripts&machineID=" + Machine.getMachineFromMachineID(s) + "&account=administrator";
                 Array array2 = portalsiteview.sendURLToRemoteSiteView(s4, null);
                 for (int i1 = 0; i1 < array2.size(); i1 ++) {
-                    vector.addElement(array2.at(i1));
+                    vector.addElement(array2.get(i1));
                 }
 
             } else {
@@ -603,7 +603,7 @@ public class ScriptMonitor extends ServerMonitor {
             RemoteFile remotefile = new RemoteFile(s, "scripts");
             Array array = remotefile.listFiles();
             for (int j = 0; j < array.size(); j ++) {
-                String s5 = I18N.toNullEncoding((String) array.at(j));
+                String s5 = I18N.toNullEncoding((String) array.get(j));
                 if (!s5.endsWith(".txt") && !s5.endsWith("directory.bat") && (s5.endsWith(".bat") || s5.endsWith(".vbs") || s5.endsWith(".exe") || s5.endsWith(".pl") || s5.endsWith(".sh"))) {
                     String as1[] = TextUtils.split(s5, " ");
                     s5 = as1[as1.length - 1].trim();
@@ -617,7 +617,7 @@ public class ScriptMonitor extends ServerMonitor {
             int i = Machine.getOS(s);
             Array array1 = remotefile1.listFiles();
             for (int l = 0; l < array1.size(); l ++) {
-                String s7 = I18N.toNullEncoding((String) array1.at(l));
+                String s7 = I18N.toNullEncoding((String) array1.get(l));
                 if (!s7.endsWith(".txt") && (!Platform.isUnix(i) || !s7.startsWith("."))) {
                     vector.addElement(s7);
                     vector.addElement(s7);
@@ -703,7 +703,7 @@ public class ScriptMonitor extends ServerMonitor {
 
     public Enumeration getStatePropertyObjects(boolean flag) {
         Array array = getStatePropertyObjectsArray();
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     private Array getStatePropertyObjectsArray() {

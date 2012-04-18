@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.StandardMonitor.URLMonitor;
@@ -72,7 +72,7 @@ class LogPullerReadThread extends Thread {
         if (array.size() > 0) {
             int i = nextServer;
             do {
-                portalsiteview = (PortalSiteView) array.at(nextServer);
+                portalsiteview = (PortalSiteView) array.get(nextServer);
                 nextServer++;
                 if (nextServer >= array.size()) {
                     nextServer = 0;
@@ -229,7 +229,7 @@ class LogPullerReadThread extends Thread {
             String s3 = stringbuffer1.toString();
             Array array = Platform.split('\n', s3);
             for (int i = 0; i < array.size(); i++) {
-                String s5 = ((String) array.at(i)).trim();
+                String s5 = ((String) array.get(i)).trim();
                 fetchLogDirectory(portalsiteview, s5, socketsession, al,
                         stringbuffer);
             }
@@ -273,7 +273,7 @@ class LogPullerReadThread extends Thread {
             }
         }
         long al1[];
-        for (Enumeration enumeration = array.elements(); enumeration
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                 .hasMoreElements(); al[0] += al1[1]) {
             String s1 = (String) enumeration.nextElement();
             al1 = checkLog(portalsiteview, s, s1, socketsession);
@@ -601,7 +601,7 @@ class LogPullerReadThread extends Thread {
         if (l1 == 200L) {
             String s13 = HTTPUtils.getHTTPPart(stringbuffer.toString(), false);
             Array array1 = Platform.split('\n', s13);
-            Enumeration enumeration = array1.elements();
+            Enumeration enumeration =  (Enumeration) array1.iterator();
             while (enumeration.hasMoreElements()) {
                 String s14 = (String) enumeration.nextElement();
                 s14 = s14.trim();
@@ -725,7 +725,7 @@ class LogPullerReadThread extends Thread {
                                 int j1 = 0;
                                 while (j1 < i1) {
                                     StringProperty stringproperty = (StringProperty) array
-                                            .at(j1);
+                                            .get(j1);
                                     if (stringproperty != Monitor.pOwnerID
                                             && stringproperty != Monitor.pName
                                             && stringproperty != Monitor.pID) {
@@ -744,7 +744,7 @@ class LogPullerReadThread extends Thread {
             }
         } 
         
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         while (enumeration.hasMoreElements()) {
             String s4 = (String) enumeration.nextElement();
             MonitorGroup monitorgroup = (MonitorGroup) portalsiteview

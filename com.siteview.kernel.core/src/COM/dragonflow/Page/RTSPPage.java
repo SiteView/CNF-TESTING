@@ -35,10 +35,10 @@ public class RTSPPage extends COM.dragonflow.Page.CGI {
             StringBuffer stringbuffer = COM.dragonflow.Utils.FileUtils
                     .readFile(COM.dragonflow.SiteView.Platform.getRoot()
                             + "/classes/jmf.log");
-            jgl.Array array = COM.dragonflow.SiteView.Platform.split('\n',
+            Array array = COM.dragonflow.SiteView.Platform.split('\n',
                     stringbuffer.toString());
             String s1;
-            for (Enumeration enumeration = array.elements(); enumeration
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                     .hasMoreElements(); outputStream.println("+\"" + s1.trim()
                     + "\"")) {
                 s1 = (String) enumeration.nextElement();

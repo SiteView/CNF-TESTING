@@ -19,8 +19,8 @@ package COM.dragonflow.SiteView;
  */
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
@@ -78,7 +78,7 @@ public abstract class SNMPBase extends ApplicationBase {
             labelsCache = new HashMap();
             Array array = getCounters(getCountersContent());
             for (int i = 0; i < array.size(); i++) {
-                String s = (String) array.at(i);
+                String s = (String) array.get(i);
                 String s1 = s.substring(0, s.indexOf(":"));
                 labelsCache.add("Counter " + (i + 1) + " Value", s1);
             }
@@ -96,7 +96,7 @@ public abstract class SNMPBase extends ApplicationBase {
             }
         }
 
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Array getLogProperties() {
@@ -139,7 +139,7 @@ public abstract class SNMPBase extends ApplicationBase {
                 if (k >= array.size()) {
                     continue label0;
                 }
-                if (s3.equals(array.at(k))) {
+                if (s3.equals(array.get(k))) {
                     i++;
                     if (flag) {
                         s2 = s2 + k;
@@ -271,7 +271,7 @@ public abstract class SNMPBase extends ApplicationBase {
         array.add(pStateString);
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for (int k = 0; k < array.size(); k++) {
-            astringproperty[k] = (StringProperty) array.at(k);
+            astringproperty[k] = (StringProperty) array.get(k);
         }
 
         addProperties("COM.dragonflow.SiteView.SNMPBase", astringproperty);

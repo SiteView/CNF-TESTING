@@ -23,8 +23,8 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.BooleanProperty;
@@ -166,7 +166,7 @@ public class WebLogic6xMonitor extends BrowsableBase {
         if (array.size() < 2) {
             return "";
         } else {
-            return (String) array.at(1) + "/" + (String) array.at(0);
+            return (String) array.get(1) + "/" + (String) array.get(0);
         }
     }
 
@@ -393,7 +393,7 @@ public class WebLogic6xMonitor extends BrowsableBase {
         array.add(pStatus);
         StringProperty astringproperty1[] = new StringProperty[array.size()];
         for (int i = 0; i < array.size(); i ++) {
-            astringproperty1[i] = (StringProperty) array.at(i);
+            astringproperty1[i] = (StringProperty) array.get(i);
         }
 
         String s = (COM.dragonflow.StandardMonitor.WebLogic6xMonitor.class).getName();

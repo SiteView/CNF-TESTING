@@ -25,8 +25,8 @@ import COM.dragonflow.SiteView.*;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import java.net.URLEncoder;
 import java.util.Vector;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class DiskSpaceMonitor extends ServerMonitor
 {
@@ -76,7 +76,7 @@ public class DiskSpaceMonitor extends ServerMonitor
                      StringBuffer stringbuffer = new StringBuffer();
                      for(int i = 0; i < array.size(); i++)
                      {
-                         stringbuffer.append(array.at(i) + "\n");
+                         stringbuffer.append(array.get(i) + "\n");
                      }
 
                      LogManager.log("Error", "DiskSpaceMonitor: " + getFullID() + " failed, output:\n" + stringbuffer);

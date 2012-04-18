@@ -22,7 +22,7 @@ import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteView.*;
 import java.util.Random;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public class SimulationMonitor extends AtomicMonitor
 {

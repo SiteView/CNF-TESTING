@@ -19,8 +19,8 @@ package COM.dragonflow.SiteView;
  */
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.HashMapOrdered;
@@ -93,7 +93,7 @@ public class PortalFilter {
         if (TextUtils.getValue(hashmap, "exp").length() > 0) {
             expressionFilter = new Array();
             expressionStringFilter = new Array();
-            for (Enumeration enumeration = hashmap.values("exp"); enumeration
+            for (Enumeration enumeration = (Enumeration) hashmap.values("exp"); enumeration
                     .hasMoreElements();) {
                 String s = (String) enumeration.nextElement();
                 Object obj = null;
@@ -112,7 +112,7 @@ public class PortalFilter {
                 || nameFilter.length() > 0 || statusFilter.length() > 0
                 || expressionFilter != null || expressionStringFilter != null;
         String as[];
-        for (Enumeration enumeration1 = hashmap.values("item"); enumeration1
+        for (Enumeration enumeration1 = (Enumeration) hashmap.values("item"); enumeration1
                 .hasMoreElements(); addItemToFilter(as[0], as[1], as[2])) {
             String s1 = (String) enumeration1.nextElement();
             as = Portal.getIDComponents(s1);
@@ -253,7 +253,7 @@ public class PortalFilter {
                     break;
                 }
                 PortalFilter portalfilter = (PortalFilter) additionalFilters
-                        .at(i);
+                        .get(i);
                 flag = portalfilter.itemAllowed(s, s1, s2);
                 if (!flag) {
                     break;
@@ -276,7 +276,7 @@ public class PortalFilter {
                     break;
                 }
                 PortalFilter portalfilter = (PortalFilter) additionalFilters
-                        .at(i);
+                        .get(i);
                 flag = portalfilter.allowMonitor(monitor);
                 if (!flag) {
                     break;
@@ -295,7 +295,7 @@ public class PortalFilter {
         if (flag && additionalFilters != null) {
             for (int i = 0; i < additionalFilters.size(); i++) {
                 PortalFilter portalfilter = (PortalFilter) additionalFilters
-                        .at(i);
+                        .get(i);
                 if (portalfilter.filteringOnData()) {
                     return true;
                 }
@@ -354,7 +354,7 @@ public class PortalFilter {
             if (oneLevel) {
                 break label0;
             }
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             String s3;
             do {
                 if (!enumeration.hasMoreElements()) {
@@ -425,7 +425,7 @@ public class PortalFilter {
         if (expressionFilter != null) {
             boolean flag = false;
             for (int i = 0; i < expressionFilter.size(); i++) {
-                Expression expression = (Expression) expressionFilter.at(i);
+                Expression expression = (Expression) expressionFilter.get(i);
                 try {
                     Boolean boolean1 = (Boolean) expression
                             .interpretExpression(monitor, null);
@@ -449,7 +449,7 @@ public class PortalFilter {
     public static HashMap setupQueryMap(HashMap hashmap, String s) {
         HashMapOrdered hashmapordered = null;
         String s1;
-        for (Enumeration enumeration = hashmap.values(s); enumeration
+        for (Enumeration enumeration = (Enumeration) hashmap.values(s); enumeration
                 .hasMoreElements(); hashmapordered.put(s1, "true")) {
             s1 = (String) enumeration.nextElement();
             if (hashmapordered == null) {
@@ -570,7 +570,7 @@ public class PortalFilter {
                 } else {
                     System.out.println(s);
                     HashMap hashmap = (HashMap) obj;
-                    Enumeration enumeration3 = hashmap.keys();
+                    Enumeration enumeration3 = (Enumeration) hashmap.keys();
                     while (enumeration3.hasMoreElements()) {
                         String s1 = (String) enumeration3.nextElement();
                         Object obj1 = hashmap.get(s1);
@@ -617,7 +617,7 @@ public class PortalFilter {
             System.out.println("additional filters:");
             for (int i = 0; i < additionalFilters.size(); i++) {
                 PortalFilter portalfilter = (PortalFilter) additionalFilters
-                        .at(i);
+                        .get(i);
                 System.out
                         .println("---------------- additional filter -------------------");
                 portalfilter.print();

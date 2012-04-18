@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.SiteView.PortalFilter;
 import COM.dragonflow.SiteView.PortalQuery;
 
@@ -25,11 +25,11 @@ public class portalPage extends COM.dragonflow.Page.CGI
     {
     }
 
-    public static void convertViewCells(jgl.HashMap hashmap)
+    public static void convertViewCells(HashMap hashmap)
     {
-        Enumeration enumeration = hashmap.values("_cell");
-        jgl.Array array = new Array();
-        jgl.HashMap hashmap1;
+        Enumeration enumeration = (Enumeration) hashmap.values("_cell");
+        Array array = new Array();
+        HashMap hashmap1;
         for(; enumeration.hasMoreElements(); array.add(hashmap1))
         {
             String s = (String)enumeration.nextElement();
@@ -39,12 +39,12 @@ public class portalPage extends COM.dragonflow.Page.CGI
         hashmap.remove("_cell");
         for(int i = 0; i < array.size(); i++)
         {
-            hashmap.add("_cell", array.at(i));
+            hashmap.add("_cell", array.get(i));
         }
 
     }
 
-    public static jgl.HashMap getView(String s)
+    public static HashMap getView(String s)
         throws java.io.IOException
     {
         String s1 = "";
@@ -65,13 +65,13 @@ public class portalPage extends COM.dragonflow.Page.CGI
         {
             s1 = COM.dragonflow.SiteView.Platform.getRoot() + "/groups/views.config";
         }
-        jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(s1);
+        Array array = COM.dragonflow.Properties.FrameFile.readFromFile(s1);
         String s2 = "_id";
         if(COM.dragonflow.Utils.TextUtils.hasLetters(s))
         {
             s2 = "_title";
         }
-        jgl.HashMap hashmap = COM.dragonflow.Page.portalPreferencePage.findFrame(array, s2, s, 1);
+        HashMap hashmap = COM.dragonflow.Page.portalPreferencePage.findFrame(array, s2, s, 1);
         if(hashmap != null)
         {
             COM.dragonflow.Page.portalPage.convertViewCells(hashmap);
@@ -83,10 +83,10 @@ public class portalPage extends COM.dragonflow.Page.CGI
     {
         int i = 0;
         int j;
-        jgl.HashMap hashmap;
+        HashMap hashmap;
         for(j = 0; enumeration.hasMoreElements(); j = java.lang.Math.max(j, COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "xEnd"))))
         {
-            hashmap = (jgl.HashMap)enumeration.nextElement();
+            hashmap = (HashMap)enumeration.nextElement();
             i = java.lang.Math.max(i, COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "yEnd")));
         }
 
@@ -96,7 +96,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
         return ai;
     }
 
-    public static jgl.HashMap[][] getLayout(Enumeration enumeration, int i, int j)
+    public static HashMap[][] getLayout(Enumeration enumeration, int i, int j)
     {
         jgl.HashMap ahashmap[][] = new jgl.HashMap[i][j];
         for(int k = 0; k < ahashmap.length; k++)
@@ -110,7 +110,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
 
         while(enumeration.hasMoreElements()) 
         {
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             int i1 = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "yStart"));
             int j1 = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "xStart"));
             ahashmap[i1 - 1][j1 - 1] = hashmap;
@@ -126,7 +126,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
             COM.dragonflow.Page.portalPage.printError(outputStream, "The XML/XSL interface is a feature that requires a " + COM.dragonflow.SiteView.Platform.productName + " subscription.", "Please contact <A HREF=mailto:siteviewsales@merc-int.com>siteviewsales@merc-int.com</A> for information about " + COM.dragonflow.SiteView.Platform.productName + ".", "/SiteView/htdocs/SiteView.html");
             return;
         }
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         String s = request.getValue("slide");
         if(s.equalsIgnoreCase("off"))
         {
@@ -152,7 +152,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
         {
             s1 = "1";
         }
-        jgl.HashMap hashmap1 = COM.dragonflow.Page.portalPage.getView(s1);
+        HashMap hashmap1 = COM.dragonflow.Page.portalPage.getView(s1);
         if(hashmap1 == null)
         {
             s1 = "1";
@@ -206,7 +206,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
                     {
                         outputStream.println("<TR>");
                     }
-                    jgl.HashMap hashmap2 = ahashmap[k][l];
+                    HashMap hashmap2 = ahashmap[k][l];
                     if(hashmap2 != null)
                     {
                         String s4 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "view");
@@ -252,7 +252,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    void printFrameBody(jgl.HashMap hashmap)
+    void printFrameBody(HashMap hashmap)
         throws java.lang.Exception
     {
         String s = COM.dragonflow.Page.portalPage.getValue(hashmap, "_contentType");
@@ -292,7 +292,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
         outputStream.flush();
     }
 
-    void printCellContents(jgl.HashMap hashmap)
+    void printCellContents(HashMap hashmap)
         throws java.io.IOException
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "view");
@@ -319,7 +319,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    void printXSLContents(jgl.HashMap hashmap)
+    void printXSLContents(HashMap hashmap)
         throws java.io.IOException
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "query");

@@ -22,9 +22,9 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
-import jgl.Sorting;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
 import COM.dragonflow.Utils.TextUtils;
 
 // Referenced classes of package COM.dragonflow.SiteView:
@@ -50,7 +50,7 @@ public class AlertReport {
             Array array1 = alertlogreader1.process(hashmap, date, date1,
                     hashmap1);
             for (int i = 0; i < array.size(); i++)
-                array1.add(array.at(i));
+                array1.add(array.get(i));
 
             return array1;
         } else {
@@ -95,8 +95,8 @@ public class AlertReport {
                     .timeZoneName(i)));
         }
         for (int j = 0; j < array.size(); j++) {
-            HashMap hashmap = (HashMap) array.at(j);
-            Enumeration enumeration = hashmap.keys();
+            HashMap hashmap = (HashMap) array.get(j);
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             printwriter.print("<alert>");
             while (enumeration.hasMoreElements()) {
                 String s = (String) enumeration.nextElement();
@@ -175,8 +175,8 @@ public class AlertReport {
                     + " ALIGN=CENTER>No alerts found</TD></TR>");
         } else {
             for (int j = 0; j < array.size(); j++) {
-                HashMap hashmap = (HashMap) array.at(j);
-                Enumeration enumeration = array1.elements();
+                HashMap hashmap = (HashMap) array.get(j);
+                Enumeration enumeration =  (Enumeration) array1.iterator();
                 printwriter.print("<TR " + s3 + ">");
                 boolean flag1 = TextUtils.getValue(hashmap, "alert-failed")
                         .length() > 0;
@@ -246,7 +246,7 @@ public class AlertReport {
             stringbuffer1.append("No alerts were triggered");
         } else {
             for (int j = 0; j < array.size(); j++) {
-                HashMap hashmap1 = (HashMap) array.at(j);
+                HashMap hashmap1 = (HashMap) array.get(j);
                 String s3 = TextUtils
                         .prettyDate((Date) hashmap1.get("date"), l);
                 TextUtils.appendStringRightJustify(stringbuffer1, TextUtils
@@ -300,7 +300,7 @@ public class AlertReport {
                     .sort(array1, new CompareSlot("count",
                             CompareSlot.DIRECTION_GREATER,
                             CompareSlot.NUMERIC_COMPARE));
-            for (Enumeration enumeration = array1.elements(); enumeration
+            for (Enumeration enumeration =  (Enumeration) array1.iterator(); enumeration
                     .hasMoreElements(); stringbuffer.append("\n")) {
                 HashMap hashmap2 = (HashMap) enumeration.nextElement();
                 String s5 = TextUtils.getValue(hashmap2, "title");

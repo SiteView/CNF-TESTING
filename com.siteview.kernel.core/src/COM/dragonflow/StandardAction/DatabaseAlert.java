@@ -37,35 +37,35 @@ public class DatabaseAlert extends COM.dragonflow.SiteView.Action {
 
     boolean driverLoaded;
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap) {
+    public void initializeFromArguments(Array array, HashMap hashmap) {
         switch (array.size()) {
         case 6: // '\006'
-            String s = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.at(5));
+            String s = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.get(5));
             setProperty(pDatabaseBackup, s);
         // fall through
 
         case 5: // '\005'
-            String s1 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.at(4));
+            String s1 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.get(4));
             setProperty(pDriver, s1);
         // fall through
 
         case 4: // '\004'
-            String s2 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.at(3));
+            String s2 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.get(3));
             setProperty(pPassword, s2);
         // fall through
 
         case 3: // '\003'
-            String s3 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.at(2));
+            String s3 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.get(2));
             setProperty(pUsername, s3);
         // fall through
 
         case 2: // '\002'
-            String s4 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.at(1));
+            String s4 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.get(1));
             setProperty(pStatement, s4);
         // fall through
 
         case 1: // '\001'
-            String s5 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.at(0));
+            String s5 = COM.dragonflow.Utils.TextUtils.storedValueToValue((String) array.get(0));
             setProperty(pDatabase, s5);
         // fall through
 
@@ -94,7 +94,7 @@ public class DatabaseAlert extends COM.dragonflow.SiteView.Action {
         return s6;
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == pDatabase) {
             if (s.length() == 0) {
                 hashmap.put(stringproperty, stringproperty.getLabel() + " missing");

@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -120,7 +120,7 @@ public class PortalSiteView extends MonitorGroup {
         removeAllElements();
         Array array = getGroupFileIDs();
         for (int i = 0; i < array.size(); i++) {
-            String s = (String) array.at(i);
+            String s = (String) array.get(i);
             loadGroup(s);
         }
 
@@ -230,7 +230,7 @@ public class PortalSiteView extends MonitorGroup {
 
     public HashMap getMachineEntry(String s) {
         HashMap hashmap = getMasterConfig();
-        for (Enumeration enumeration = hashmap.values("_remoteMachine"); enumeration
+        for (Enumeration enumeration = (Enumeration) hashmap.values("_remoteMachine"); enumeration
                 .hasMoreElements();) {
             String s1 = (String) enumeration.nextElement();
             HashMap hashmap1 = TextUtils.stringToHashMap(s1);
@@ -339,7 +339,7 @@ public class PortalSiteView extends MonitorGroup {
         Array array = sendURLToRemoteSiteView(s1, null);
         HashMap hashmap = null;
         for (int i = 0; i < array.size(); i++) {
-            String s2 = ((String) array.at(i)).trim();
+            String s2 = ((String) array.get(i)).trim();
             if (s2.indexOf("error:") >= 0) {
                 hashmap = null;
                 break;
@@ -389,7 +389,7 @@ public class PortalSiteView extends MonitorGroup {
             LogManager.log("RunMonitor", "Remote SiteView Result: \n");
             for (int i = 0; i < array.size(); i++) {
                 LogManager
-                        .log("RunMonitor", "Remote SiteView: " + array.at(i));
+                        .log("RunMonitor", "Remote SiteView: " + array.get(i));
             }
 
         }
@@ -478,7 +478,7 @@ public class PortalSiteView extends MonitorGroup {
             }
             if (j == URLMonitor.kURLok) {
                 if (array1.size() > 0) {
-                    s2 = (String) array1.at(0);
+                    s2 = (String) array1.get(0);
                 } else {
                     s2 = s3;
                 }

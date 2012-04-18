@@ -17,6 +17,8 @@ package COM.dragonflow.ExternalUtils;
  * 
  */
 
+import com.recursionsw.jgl.HashMap;
+
 import COM.dragonflow.ApacheHttpClientUtils.HTTPRequestSettings;
 
 public class SiteViewExternalHttpRequest
@@ -40,14 +42,14 @@ public class SiteViewExternalHttpRequest
         if(args[0].equals("-page"))
         {
             String s4 = "http";
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             String s5 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_httpActivePort");
             String s6 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_httpSecurePort");
             if(s6.length() > 0)
             {
                 s4 = "https";
             }
-            jgl.HashMap hashmap1 = COM.dragonflow.SiteView.User.findUser(COM.dragonflow.SiteView.User.readUsers(), "administrator");
+            HashMap hashmap1 = COM.dragonflow.SiteView.User.findUser(COM.dragonflow.SiteView.User.readUsers(), "administrator");
             if(hashmap1 != null)
             {
                 s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_login");

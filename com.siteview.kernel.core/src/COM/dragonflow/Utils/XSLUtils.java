@@ -25,7 +25,7 @@ import java.util.Enumeration;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.datachannel.xml.om.Document;
 
 // Referenced classes of package COM.dragonflow.Utils:
@@ -41,15 +41,15 @@ public class XSLUtils
     {
     }
 
-    public static int matchXML(String s, String s1, jgl.Array array, StringBuffer stringbuffer)
+    public static int matchXML(String s, String s1, Array array, StringBuffer stringbuffer)
     {
         int i = COM.dragonflow.SiteView.Monitor.kURLContentMatchError;
         try
         {
-            jgl.Array array1 = COM.dragonflow.SiteView.Platform.split(',', s1);
+            Array array1 = COM.dragonflow.SiteView.Platform.split(',', s1);
             COM.datachannel.xml.om.Document document = new Document();
             int j = 0;
-            String s2 = (String)array1.at(j);
+            String s2 = (String)array1.get(j);
             String s4 = "<?xml";
             String s5 = null;
             String s6 = "xml.endtag=";
@@ -89,7 +89,7 @@ public class XSLUtils
                         {
                             break;
                         }
-                        String s3 = (String)array1.at(j++);
+                        String s3 = (String)array1.get(j++);
                         s3 = s3.trim();
                         s3 = s3.substring(4);
                         StringBuffer stringbuffer1 = new StringBuffer();
@@ -108,7 +108,7 @@ public class XSLUtils
         return i;
     }
 
-    public static void findElements(org.w3c.dom.Node node, String s, jgl.Array array)
+    public static void findElements(org.w3c.dom.Node node, String s, Array array)
     {
         String s1 = s;
         String s2 = "";
@@ -175,11 +175,11 @@ public class XSLUtils
                 if(l1 >= 0)
                 {
                     String s10 = s8.substring(0, j1);
-                    jgl.Array array1 = new Array();
+                    Array array1 = new Array();
                     String s5 = s9.substring(0, l1);
                     String s7 = s9.substring(l1 + 2);
                     COM.dragonflow.Utils.XSLUtils.findElements(document.getDocumentElement(), s10, array1);
-                    Enumeration enumeration1 = array1.elements();
+                    Enumeration enumeration1 =  (Enumeration) array1.iterator();
                     i1 = 1;
 //                    while (enumeration.hasMoreElements()) {
 //                        COM.datachannel.xml.om.Element element1 = (COM.datachannel.xml.om.Element)enumeration1.nextElement();
@@ -198,9 +198,9 @@ public class XSLUtils
                 s1 = s8 + s11;
             }
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         COM.dragonflow.Utils.XSLUtils.findElements(document.getDocumentElement(), s1, array);
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         int k1 = 0;
         int i2 = 1;
         while (enumeration.hasMoreElements()) {
@@ -369,14 +369,14 @@ public class XSLUtils
 
     public static String getAttrValue(org.w3c.dom.Node node, String s, String s1, StringBuffer stringbuffer)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s2 = null;
         try
         {
             if(s.length() > 0)
             {
                 COM.dragonflow.Utils.XSLUtils.findElements(node, s, array);
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 org.w3c.dom.Node node1 = (org.w3c.dom.Node)enumeration.nextElement();
                 s2 = ((COM.datachannel.xml.om.Element)node1).getAttribute(s1);
             } else
