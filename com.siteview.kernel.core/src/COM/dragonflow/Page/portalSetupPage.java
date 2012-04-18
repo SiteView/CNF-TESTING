@@ -9,10 +9,10 @@
  */
 package COM.dragonflow.Page;
 
-import COM.dragonflow.Properties.HashMapOrdered;
-
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+
+import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, portalServerPage

@@ -14,6 +14,8 @@ import java.util.Enumeration;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+//import com.recursionsw.jgl.SequenceIterator;
+
 import COM.dragonflow.HTTP.HTTPRequestException;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -79,7 +81,7 @@ public class commandPage extends COM.dragonflow.Page.CGI
                     for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); outputStream.println("</user>"))
                     {
                         HashMap hashmap3 = (HashMap)enumeration.nextElement();
-                        Enumeration enumeration4 = (Enumeration) hashmap3.keys();
+                        Enumeration enumeration4 = (Enumeration) hashmap3.iterator();
                         String s10 = "";
                         outputStream.println("<user>");
                         while(enumeration4.hasMoreElements()) 
@@ -235,7 +237,7 @@ public class commandPage extends COM.dragonflow.Page.CGI
                     {
                         throw new Exception("missing class parameter, method=" + s2 + ", object=monitor");
                     }
-                    array3.insert(i, hashmap6);
+                    array3.insert(i, i, hashmap6);
                     String s21 = COM.dragonflow.Utils.TextUtils.increment(s18);
                     hashmap5.put("_nextID", s21);
                 } else
@@ -248,7 +250,7 @@ public class commandPage extends COM.dragonflow.Page.CGI
                     int j = COM.dragonflow.Page.commandPage.findMonitorIndex(array3, s19);
                     hashmap6 = (HashMap)array3.get(j);
                     array3.remove(j);
-                    array3.insert(i, hashmap6);
+                    array3.insert(i,i, hashmap6);
                 }
                 outputStream.println("<" + s2 + ">");
                 outputStream.println("<group>" + s5 + "</group>");

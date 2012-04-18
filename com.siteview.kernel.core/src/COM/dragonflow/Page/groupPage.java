@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
 
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
@@ -22,9 +24,6 @@ import COM.dragonflow.SiteView.SiteViewGroup;
 import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.TextUtils;
-
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, treeControl
@@ -270,7 +269,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
                                         .getGroupIDRelative(s1)));
                         hashmap1.put("_name", s3);
                         hashmap1.put("_encoding", I18N.nullEncoding());
-                        array2.insert(array2.size(), hashmap1);
+                        array2.insert(array2.size(), array2.size(), hashmap1);
                         String s10 = TextUtils.increment(s8);
                         hashmap.put("_nextID", s10);
                         WriteGroupFrames(s5, array2);
@@ -386,7 +385,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
         HashMap hashmap = getMasterConfig();
         java.util.Vector vector = new Vector();
         String s2;
-        for (Enumeration enumeration = hashmap
+        for (Enumeration enumeration = (Enumeration) hashmap
                 .values("_httpCharSetOption"); enumeration.hasMoreElements(); vector
                 .addElement(s2)) {
             String s1 = (String) enumeration.nextElement();

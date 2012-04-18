@@ -12,10 +12,9 @@ package COM.dragonflow.Page;
 import java.io.File;
 import java.util.Enumeration;
 
-import COM.dragonflow.Properties.HashMapOrdered;
-
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
 // portalPreferencePage, portalServerPage, portalPage
@@ -187,10 +186,10 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
                     HashMap hashmap2 = (HashMap)array3.get(j);
                     String s = j != 0 ? "" : "CHECKED";
                     COM.dragonflow.Page.portalPage.convertViewCells(hashmap2);
-                    int ai[] = COM.dragonflow.Page.portalPage.getTableDimensions(hashmap2.values("_cell"));
+                    int ai[] = COM.dragonflow.Page.portalPage.getTableDimensions((Enumeration) hashmap2.values("_cell"));
                     int k = ai[0];
                     int l = ai[1];
-                    HashMap ahashmap1[][] = COM.dragonflow.Page.portalPage.getLayout(hashmap2.values("_cell"), k, l);
+                    HashMap ahashmap1[][] = COM.dragonflow.Page.portalPage.getLayout((Enumeration) hashmap2.values("_cell"), k, l);
                     if(j == 0)
                     {
                         ahashmap = ahashmap1;

@@ -16,9 +16,9 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.StringTokenizer;
 
-import COM.dragonflow.Utils.MgParser;
-
 import com.recursionsw.jgl.HashMap;
+
+import COM.dragonflow.Utils.MgParser;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI

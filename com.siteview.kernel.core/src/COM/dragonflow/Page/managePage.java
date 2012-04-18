@@ -15,13 +15,12 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.SampleCollector;
 import COM.dragonflow.SiteView.SiteViewLogReader;
-
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, treeControl, monitorPage, portalPreferencePage,
@@ -1735,7 +1734,7 @@ _L1:
     public void saveGroups()
         throws java.lang.Exception
     {
-        Enumeration enumeration = groups.keys();
+        Enumeration enumeration = (Enumeration) groups.keys();
         do
         {
             if(!enumeration.hasMoreElements())
@@ -1980,7 +1979,7 @@ _L1:
             {
                 HashMap hashmap3 = new HashMap();
                 COM.dragonflow.SiteView.monitorUtils.getGroupMonitors(hashmap3, null, array4, s1);
-                Enumeration enumeration = hashmap3.keys();
+                Enumeration enumeration = (Enumeration) hashmap3.keys();
                 int i1 = 0;
                 Array array8 = new Array();
                 HashMap hashmap5;
@@ -3401,7 +3400,7 @@ label2:
                         hashmap2 = getExistingGroupSchedule(s9, siteviewgroup);
                     }
                     catch(java.lang.Exception exception1) { }
-                    Enumeration enumeration3 = hashmap2.keys();
+                    Enumeration enumeration3 = (Enumeration) hashmap2.keys();
                     while(enumeration3.hasMoreElements()) 
                     {
                         String s10 = enumeration3.nextElement().toString();
@@ -3480,7 +3479,7 @@ label0:
                     continue;
                 }
                 HashMap hashmap2 = getExistingGroupSchedule(s2, siteviewgroup);
-                Enumeration enumeration = hashmap2.keys();
+                Enumeration enumeration = (Enumeration) hashmap2.keys();
                 do
                 {
                     String s5;

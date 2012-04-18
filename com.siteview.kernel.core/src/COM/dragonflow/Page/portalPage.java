@@ -11,16 +11,16 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import COM.dragonflow.SiteView.PortalFilter;
-import COM.dragonflow.SiteView.PortalQuery;
-
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+
+import COM.dragonflow.SiteView.PortalFilter;
+import COM.dragonflow.SiteView.PortalQuery;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, portalPreferencePage
 
-public class portalPage extends CGI
+public class portalPage extends COM.dragonflow.Page.CGI
 {
 
     public portalPage()
@@ -73,10 +73,10 @@ public class portalPage extends CGI
         {
             s2 = "_title";
         }
-        HashMap hashmap = portalPreferencePage.findFrame(array, s2, s, 1);
+        HashMap hashmap = COM.dragonflow.Page.portalPreferencePage.findFrame(array, s2, s, 1);
         if(hashmap != null)
         {
-            portalPage.convertViewCells(hashmap);
+            COM.dragonflow.Page.portalPage.convertViewCells(hashmap);
         }
         return hashmap;
     }
@@ -125,7 +125,7 @@ public class portalPage extends CGI
     {
         if(!COM.dragonflow.Utils.LUtils.isCentraScopeLicense())
         {
-            portalPage.printError(outputStream, "The XML/XSL interface is a feature that requires a " + COM.dragonflow.SiteView.Platform.productName + " subscription.", "Please contact <A HREF=mailto:siteviewsales@merc-int.com>siteviewsales@merc-int.com</A> for information about " + COM.dragonflow.SiteView.Platform.productName + ".", "/SiteView/htdocs/SiteView.html");
+            COM.dragonflow.Page.portalPage.printError(outputStream, "The XML/XSL interface is a feature that requires a " + COM.dragonflow.SiteView.Platform.productName + " subscription.", "Please contact <A HREF=mailto:siteviewsales@merc-int.com>siteviewsales@merc-int.com</A> for information about " + COM.dragonflow.SiteView.Platform.productName + ".", "/SiteView/htdocs/SiteView.html");
             return;
         }
         HashMap hashmap = getMasterConfig();
@@ -154,25 +154,25 @@ public class portalPage extends CGI
         {
             s1 = "1";
         }
-        HashMap hashmap1 = portalPage.getView(s1);
+        HashMap hashmap1 = COM.dragonflow.Page.portalPage.getView(s1);
         if(hashmap1 == null)
         {
             s1 = "1";
-            hashmap1 = portalPage.getView(s1);
+            hashmap1 = COM.dragonflow.Page.portalPage.getView(s1);
             COM.dragonflow.Log.LogManager.log("Error", "view id " + s1 + " missing, for user " + user.getProperty(COM.dragonflow.SiteView.User.pLogin) + " - using default view");
         }
         request.setValue("view", s1);
-        if(hashmap1.values("_framesHTML").hasMoreElements())
+        if(((Enumeration) hashmap1.values("_framesHTML")).hasMoreElements())
         {
             java.lang.System.out.println("Building frame view");
             printFrameBody(hashmap1);
         } else
         {
-            int ai[] = portalPage.getTableDimensions(hashmap1.values("_cell"));
+            int ai[] = COM.dragonflow.Page.portalPage.getTableDimensions((Enumeration) hashmap1.values("_cell"));
             int i = ai[0];
             int j = ai[1];
-            HashMap ahashmap[][] = portalPage.getLayout(hashmap1.values("_cell"), i, j);
-            String s2 = portalPage.getValue(hashmap1, "_contentType");
+            HashMap ahashmap[][] = COM.dragonflow.Page.portalPage.getLayout((Enumeration) hashmap1.values("_cell"), i, j);
+            String s2 = COM.dragonflow.Page.portalPage.getValue(hashmap1, "_contentType");
             if(s2.length() == 0)
             {
                 s2 = "text/html";
@@ -181,7 +181,7 @@ public class portalPage extends CGI
             if(flag)
             {
                 super.printCGIHeader();
-                String s3 = portalPage.getValue(hashmap1, "_header");
+                String s3 = COM.dragonflow.Page.portalPage.getValue(hashmap1, "_header");
                 if(s3.length() > 0)
                 {
                     s3 = COM.dragonflow.SiteView.Portal.getViewContent(s3, request);
@@ -257,7 +257,7 @@ public class portalPage extends CGI
     void printFrameBody(HashMap hashmap)
         throws java.lang.Exception
     {
-        String s = portalPage.getValue(hashmap, "_contentType");
+        String s = COM.dragonflow.Page.portalPage.getValue(hashmap, "_contentType");
         if(s.length() == 0)
         {
             s = "text/html";
@@ -266,12 +266,12 @@ public class portalPage extends CGI
         if(flag)
         {
             super.printCGIHeader();
-            String s1 = portalPage.getValue(hashmap, "_header");
+            String s1 = COM.dragonflow.Page.portalPage.getValue(hashmap, "_header");
             if(s1.length() > 0)
             {
                 s1 = COM.dragonflow.SiteView.Portal.getViewContent(s1, request);
             }
-            String s2 = portalPage.getValue(hashmap, "_framesHTML");
+            String s2 = COM.dragonflow.Page.portalPage.getValue(hashmap, "_framesHTML");
             if(s2.length() > 0)
             {
                 s1 = s1 + COM.dragonflow.SiteView.Portal.getViewContent(s2, request);
@@ -395,17 +395,17 @@ public class portalPage extends CGI
 
     public void printFooter(java.io.PrintWriter printwriter)
     {
-        portalPage.printFooter(printwriter, request);
+        COM.dragonflow.Page.portalPage.printFooter(printwriter, request);
     }
 
     public static void printFooter(java.io.PrintWriter printwriter, String s)
     {
-        portalPage.printFooter(printwriter, s, false);
+        COM.dragonflow.Page.portalPage.printFooter(printwriter, s, false);
     }
 
     public static void printFooter(java.io.PrintWriter printwriter, String s, boolean flag)
     {
-        portalPage.printFooter(printwriter, s, flag, true);
+        COM.dragonflow.Page.portalPage.printFooter(printwriter, s, flag, true);
     }
 
     public static void printFooter(java.io.PrintWriter printwriter, String s, boolean flag, boolean flag1)
@@ -442,7 +442,7 @@ public class portalPage extends CGI
 
     public static void printFooter(java.io.PrintWriter printwriter, COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
-        portalPage.printFooter(printwriter, httprequest, false);
+        COM.dragonflow.Page.portalPage.printFooter(printwriter, httprequest, false);
     }
 
     public static void printFooter(java.io.PrintWriter printwriter, COM.dragonflow.HTTP.HTTPRequest httprequest, boolean flag)
@@ -477,7 +477,7 @@ public class portalPage extends CGI
     public static void main(String args[])
         throws java.io.IOException
     {
-        portalPage portalpage = new portalPage();
+        COM.dragonflow.Page.portalPage portalpage = new portalPage();
         if(args.length > 0)
         {
             portalpage.args = args;

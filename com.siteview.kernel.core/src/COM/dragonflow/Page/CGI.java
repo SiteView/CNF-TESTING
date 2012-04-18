@@ -31,7 +31,9 @@ import COM.dragonflow.SiteView.User;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.IHashMap;
 import com.recursionsw.jgl.algorithms.Sorting;
+import com.recursionsw.jgl.functions.Hash;
 import com.recursionsw.jgl.predicates.LessString;
 
 import freemarker.template.Configuration;
@@ -75,6 +77,21 @@ public abstract class CGI {
             add(new menuItems("Manage Monitors/Groups", "manage", "", "page",
                     "Manage Monitors and Groups"));
         }
+
+		public void add(menuItems menuItems) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public int size() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public menuItems get(int j) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     String args[];
@@ -263,7 +280,7 @@ public abstract class CGI {
         Array array = new Array();
         SiteViewGroup siteviewgroup = SiteViewGroup
                 .currentSiteView();
-        Enumeration enumeration = siteviewgroup.getGroupIDs()
+        Enumeration enumeration = ((IHashMap) siteviewgroup.getGroupIDs())
                 .elements();
         HashMap hashmap = new HashMap();
         while (enumeration.hasMoreElements()) {
@@ -408,7 +425,7 @@ public abstract class CGI {
     private static void printSecondNavBar(java.io.PrintWriter printwriter,
             COM.dragonflow.HTTP.HTTPRequest httprequest, menus menus1, int i,
             boolean flag) {
-        if (menus1.size() < 3) {
+        if (((IHashMap) menus1).size() < 3) {
             if (httprequest.actionAllowed("_browse")) {
                 menus1.add(new menuItems("Browse", "browse", "", "page",
                         "Browse Monitors"));
@@ -1512,7 +1529,7 @@ public abstract class CGI {
 
     public static String getValue(HashMap hashmap,
             String s) {
-        String s1 = (String) hashmap.get(s);
+        String s1 = (String) ((IHashMap) hashmap).get(s);
         if (s1 == null) {
             return "";
         } else {
@@ -1587,7 +1604,7 @@ public abstract class CGI {
         } else {
             try {
                 settingsArray = ReadGroupFrames(request.getAccount());
-                obj = (HashMap) settingsarray.get(0);
+                obj = (HashMap) settingsArray.get(0);
             } catch (java.lang.Exception exception) {
             }
         }
@@ -1668,7 +1685,7 @@ public abstract class CGI {
         for (Enumeration enumeration = (Enumeration) array3.iterator(); enumeration
                 .hasMoreElements();) {
             String s1 = (String) enumeration.nextElement();
-            Enumeration enumeration1 = hashmapordered.values(s1);
+            Enumeration enumeration1 = (Enumeration) hashmapordered.values(s1);
             while (enumeration1.hasMoreElements()) {
                 MonitorGroup monitorgroup = (MonitorGroup) enumeration1
                         .nextElement();
@@ -1809,7 +1826,7 @@ public abstract class CGI {
         
         Sorting.sort(array1, new LessString());
         if (s1 != null) {
-            array1.insert(0, s1);
+            array1.insert(0, 0, s1);
         }
         return array1;
     }

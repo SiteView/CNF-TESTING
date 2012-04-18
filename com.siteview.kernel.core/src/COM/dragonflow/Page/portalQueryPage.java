@@ -12,10 +12,9 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import COM.dragonflow.Properties.HashMapOrdered;
-
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
 // portalPreferencePage, portalChooserPage, monitorPage

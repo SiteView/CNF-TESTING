@@ -9,9 +9,9 @@
  */
 package COM.dragonflow.Page;
 
-import COM.dragonflow.SiteView.PortalQuery;
-
 import com.recursionsw.jgl.HashMap;
+
+import COM.dragonflow.SiteView.PortalQuery;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, xmlPage

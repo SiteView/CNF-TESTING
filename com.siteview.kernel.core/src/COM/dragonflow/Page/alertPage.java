@@ -16,6 +16,8 @@ import java.util.StringTokenizer;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.functions.Hash;
+//import com.recursionsw.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 
@@ -1255,7 +1257,8 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 			}
 			for (int j = 0; j < array1.size(); j++) {
 				HashMap hashmap2 = (HashMap) array1.get(j);
-				Enumeration enumeration1 = (Enumeration) hashmap2.values("_alertCondition");
+				Enumeration enumeration1 = (Enumeration) hashmap2
+						.values("_alertCondition");
 				if (!enumeration1.hasMoreElements()) {
 					continue;
 				}
@@ -1672,7 +1675,8 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 			}
 			Array array1 = new Array();
 			boolean flag = false;
-			Enumeration enumeration = (Enumeration) hashmap.values("_alertCondition");
+			Enumeration enumeration = (Enumeration) hashmap
+					.values("_alertCondition");
 			if (COM.dragonflow.SiteView.AtomicMonitor.alertDebug) {
 				java.lang.System.out
 						.println("alertPage: Attempting to replace id: " + s2);
@@ -2233,7 +2237,8 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 		if (COM.dragonflow.SiteView.AtomicMonitor.alertDebug) {
 			java.lang.System.out.println("=" + hashmap + "=");
 		}
-		for (Enumeration enumeration = (Enumeration) hashmap.values("_alertCondition"); enumeration.hasMoreElements();) {
+		for (Enumeration enumeration = (Enumeration) hashmap
+				.values("_alertCondition"); enumeration.hasMoreElements();) {
 			String s2 = (String) enumeration.nextElement();
 			if (COM.dragonflow.SiteView.AtomicMonitor.alertDebug) {
 				java.lang.System.out.println("<br>raw(" + s2 + ")");
@@ -2541,7 +2546,8 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 	}
 
 	void updateAlertStats(HashMap hashmap, HashMap hashmap1) {
-		for (Enumeration enumeration = (Enumeration) hashmap.values("_alertCondition"); enumeration.hasMoreElements(); COM.dragonflow.Utils.TextUtils
+		for (Enumeration enumeration = (Enumeration) hashmap
+				.values("_alertCondition"); enumeration.hasMoreElements(); COM.dragonflow.Utils.TextUtils
 				.incrementEntry(hashmap1, "TotalAlerts")) {
 			String s = (String) enumeration.nextElement();
 			Array array = COM.dragonflow.SiteView.Platform.split('\t', s);

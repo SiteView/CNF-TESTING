@@ -10,6 +10,8 @@
 package COM.dragonflow.Page;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+
 import COM.dragonflow.SiteView.User;
 
 // Referenced classes of package COM.dragonflow.Page:

@@ -13,10 +13,9 @@ import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.Enumeration;
 
-import COM.dragonflow.SiteView.FindRunningMonitors;
-import COM.dragonflow.SiteView.ProgressLogger;
-
 import com.recursionsw.jgl.Array;
+
+import COM.dragonflow.SiteView.FindRunningMonitors;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
@@ -448,7 +447,8 @@ public class GenerateProgress extends COM.dragonflow.SiteView.Action {
                     }
                 }
                 printwriter.print("<TR><TD></TD></TR><TR><TD></TD></TR>");
-                for (Enumeration enumeration4 = (Enumeration) ProgressLogger.cProgressLogger.history.iterator(); enumeration4.hasMoreElements(); printwriter
+                for (Enumeration enumeration4 = (Enumeration) COM.dragonflow.SiteView.ProgressLogger.cProgressLogger.history
+                        .iterator(); enumeration4.hasMoreElements(); printwriter
                         .print("</TR>\n")) {
                     String s9 = (String) enumeration4
                             .nextElement();

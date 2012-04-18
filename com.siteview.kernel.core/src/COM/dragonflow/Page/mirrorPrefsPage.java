@@ -9,11 +9,11 @@
  */
 package COM.dragonflow.Page;
 
+import com.recursionsw.jgl.HashMap;
+
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Log.FileLogger;
 import COM.dragonflow.SiteView.MirrorConfiguration;
-
-import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // prefsPage, CGI
