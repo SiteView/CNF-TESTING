@@ -18,7 +18,7 @@ package COM.dragonflow.Properties;
  *
  */
 import COM.dragonflow.Utils.TextUtils;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 //Referenced classes of package COM.dragonflow.Properties:
 //         StringProperty, IllegalConversionException, PropertiedObject

@@ -19,7 +19,7 @@
 
 import java.io.BufferedInputStream;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.SiteView.Machine;
 
 // Referenced classes of package COM.dragonflow.Utils:
@@ -44,7 +44,7 @@ public class RloginCommandLine extends COM.dragonflow.Utils.RemoteCommandLine
         return "rlogin";
     }
 
-    public jgl.Array exec(String s, COM.dragonflow.SiteView.Machine machine, boolean flag)
+    public Array exec(String s, COM.dragonflow.SiteView.Machine machine, boolean flag)
     {
         super.exec(s, machine, flag);
         long l = COM.dragonflow.Properties.StringProperty.toLong(machine.getProperty(COM.dragonflow.SiteView.Machine.pTimeout));
@@ -242,7 +242,7 @@ public class RloginCommandLine extends COM.dragonflow.Utils.RemoteCommandLine
                 java.lang.System.err.println("Could not close FTP streams");
             }
         }
-        jgl.Array array = null;
+        Array array = null;
         if(k == COM.dragonflow.StandardMonitor.URLMonitor.kURLok)
         {
             array = COM.dragonflow.SiteView.Platform.split('\n', toEncoding(stringbuffer.toString()));
@@ -255,7 +255,7 @@ public class RloginCommandLine extends COM.dragonflow.Utils.RemoteCommandLine
                 int i2 = COM.dragonflow.SiteView.Machine.stringToOS(machine.getProperty(COM.dragonflow.SiteView.Machine.pOS));
                 if((COM.dragonflow.SiteView.Platform.isSGI(i2) || COM.dragonflow.SiteView.Platform.isSolaris(i2)) && array.size() > 0)
                 {
-                    String s9 = (String)array.at(0);
+                    String s9 = (String)array.get(0);
                     if(s9.trim().length() == 0)
                     {
                         array.popFront();

@@ -58,7 +58,7 @@ public class recorderPrefsPage extends COM.dragonflow.Page.prefsPage {
 
     void savePreferences() {
         try {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             hashmap.put("_impersonatingUserName", request.getValue("userName"));
             if (request.getValue("savePassword").equals("1")) {
                 hashmap.put("_impersonatingPassword", request
@@ -76,7 +76,7 @@ public class recorderPrefsPage extends COM.dragonflow.Page.prefsPage {
     }
 
     void printForm(String s) {
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
 //        boolean flag = isQTPLicensed();
 		boolean flag = false;
         boolean flag1 = s.equals("Test credentials for ALT");
@@ -217,7 +217,7 @@ public class recorderPrefsPage extends COM.dragonflow.Page.prefsPage {
         if (httprequest.getValue("savePassword").equals("1")) {
             s1 = httprequest.getValue("password");
         } else {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             s1 = COM.dragonflow.Page.recorderPrefsPage.getValue(hashmap,
                     "_impersonatingPassword");
         }
@@ -230,8 +230,8 @@ public class recorderPrefsPage extends COM.dragonflow.Page.prefsPage {
                     + s
                     + (s1.length() <= 0 ? "" : " -p " + s1)
                     + (s2.length() <= 0 ? "" : " -do " + s2);
-            jgl.Array array = commandline.exec(s3);
-            for (Enumeration enumeration = array.elements(); enumeration
+            Array array = commandline.exec(s3);
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                     .hasMoreElements();) {
                 String s6 = (String) enumeration
                         .nextElement();

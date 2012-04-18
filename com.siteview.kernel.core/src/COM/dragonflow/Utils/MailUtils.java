@@ -8,6 +8,9 @@
  */
 package COM.dragonflow.Utils;
 
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+
 /**
  * Comment for <code></code>
  * 
@@ -26,34 +29,34 @@ public class MailUtils {
 
     public static void sendEmailWarning(String s, String s1) {
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_autoEmail");
         if (s2.length() != 0 && s.length() > 0 && s1.length() > 0) {
             COM.dragonflow.Utils.MailUtils.mail(hashmap, s2, s, s1, "", null, false);
         }
     }
 
-    public static String mail(jgl.HashMap hashmap, String s, String s1, String s2) {
+    public static String mail(HashMap hashmap, String s, String s1, String s2) {
         return COM.dragonflow.Utils.MailUtils.mail(hashmap, s, s1, s2, "");
     }
 
-    public static String mail(jgl.HashMap hashmap, String s, String s1, String s2, String s3) {
+    public static String mail(HashMap hashmap, String s, String s1, String s2, String s3) {
         return COM.dragonflow.Utils.MailUtils.mail(hashmap, s, s1, s2, s3, null, true);
     }
 
-    public static String mail(jgl.HashMap hashmap, String s, String s1, String s2, String s3, jgl.Array array) {
+    public static String mail(HashMap hashmap, String s, String s1, String s2, String s3, Array array) {
         return COM.dragonflow.Utils.MailUtils.mail(hashmap, s, s1, s2, s3, array, true);
     }
 
-    public static String mail(jgl.HashMap hashmap, String s, String s1, String s2, String s3, jgl.Array array, boolean flag) {
+    public static String mail(HashMap hashmap, String s, String s1, String s2, String s3, Array array, boolean flag) {
         return COM.dragonflow.Utils.MailUtils.mail(hashmap, s, s1, s2, s3, array, flag, "");
     }
 
-    public static String mail(jgl.HashMap hashmap, String s, String s1, String s2, String s3, jgl.Array array, boolean flag, String s4) {
+    public static String mail(HashMap hashmap, String s, String s1, String s2, String s3, Array array, boolean flag, String s4) {
         return COM.dragonflow.Utils.MailUtils.mail(hashmap, s, s1, s2, s3, array, flag, s4, null);
     }
 
-    public static String mail(jgl.HashMap hashmap, String s, String s1, String s2, String s3, jgl.Array array, boolean flag, String s4, String s5) {
+    public static String mail(HashMap hashmap, String s, String s1, String s2, String s3, Array array, boolean flag, String s4, String s5) {
         String s6 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_mailServer");
         if (s6.length() == 0) {
             return "missing mail server";
@@ -69,7 +72,7 @@ public class MailUtils {
         return s8;
     }
 
-    static String mail1(jgl.HashMap hashmap, String s, String s1, String s2, String s3, String s4, jgl.Array array, boolean flag, String s5, String s6) {
+    static String mail1(HashMap hashmap, String s, String s1, String s2, String s3, String s4, Array array, boolean flag, String s5, String s6) {
         String s7 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_fromAddress");
         String s8 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_smtpUser");
         String s9 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_smtpPassword");

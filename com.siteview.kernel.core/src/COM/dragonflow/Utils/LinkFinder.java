@@ -22,7 +22,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // URLInfo, HTMLTagParser, TextUtils, SocketSession,
@@ -50,7 +51,7 @@ public class LinkFinder
     String password;
     String proxyUserName;
     String proxyPassword;
-    jgl.Array postData;
+    Array postData;
     int timeout;
     int pause;
     COM.dragonflow.Utils.SocketSession session;
@@ -104,7 +105,7 @@ public class LinkFinder
         } 
     }
 
-    public LinkFinder(String s, String s1, String s2, String s3, jgl.Array array, String s4, String s5, 
+    public LinkFinder(String s, String s1, String s2, String s3, Array array, String s4, String s5, 
             int i, int j, int k, int l, String s6, COM.dragonflow.StandardMonitor.LinkMonitor linkmonitor)
     {
         ht = new Hashtable();
@@ -295,7 +296,7 @@ public class LinkFinder
         return s1;
     }
 
-    long[] checkOne(COM.dragonflow.Utils.SocketSession socketsession, String s, String s1, String s2, String s3, jgl.Array array, String s4, 
+    long[] checkOne(COM.dragonflow.Utils.SocketSession socketsession, String s, String s1, String s2, String s3, Array array, String s4, 
             String s5, StringBuffer stringbuffer, long l, int i, StringBuffer stringbuffer1)
     {
         String s6 = "";
@@ -346,7 +347,7 @@ public class LinkFinder
             StringBuffer stringbuffer1 = new StringBuffer();
             if(flag1)
             {
-                jgl.Array array;
+                Array array;
                 if(postData == null)
                 {
                     array = new Array();
@@ -454,7 +455,7 @@ public class LinkFinder
             Enumeration enumeration = htmltagparser.findTags("base");
             if(enumeration.hasMoreElements())
             {
-                jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap = (HashMap)enumeration.nextElement();
                 s6 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "href");
             }
             if(debugLinkFinder > 0)
@@ -464,7 +465,7 @@ public class LinkFinder
             enumeration = htmltagparser.findTags("body");
             if(enumeration.hasMoreElements())
             {
-                jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap1 = (HashMap)enumeration.nextElement();
                 String s7 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "background");
                 if(s7.length() > 0)
                 {
@@ -478,7 +479,7 @@ public class LinkFinder
             enumeration = htmltagparser.findTags("meta");
             while (enumeration.hasMoreElements())
                 {
-                jgl.HashMap hashmap2 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap2 = (HashMap)enumeration.nextElement();
                 String s8 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "http-equiv").toLowerCase();
                 if(s8.equals("refresh"))
                 {
@@ -501,7 +502,7 @@ public class LinkFinder
             enumeration = htmltagparser.findTags("img");
             while(enumeration.hasMoreElements())
                 {
-                jgl.HashMap hashmap3 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap3 = (HashMap)enumeration.nextElement();
                 String s9 = COM.dragonflow.Utils.TextUtils.getValue(hashmap3, "src");
                 if(s9.length() > 0)
                 {
@@ -515,7 +516,7 @@ public class LinkFinder
             enumeration = htmltagparser.findTags("input");
             while (enumeration.hasMoreElements())
                 {
-                jgl.HashMap hashmap4 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap4 = (HashMap)enumeration.nextElement();
                 if(COM.dragonflow.Utils.TextUtils.getValue(hashmap4, "type").equals("image"))
                 {
                     String s10 = COM.dragonflow.Utils.TextUtils.getValue(hashmap4, "src");
@@ -532,7 +533,7 @@ public class LinkFinder
             enumeration = htmltagparser.findTags("a");
             while (enumeration.hasMoreElements())
                 {
-                jgl.HashMap hashmap5 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap5 = (HashMap)enumeration.nextElement();
                 String s11 = COM.dragonflow.Utils.TextUtils.getValue(hashmap5, "href");
                 if(s11.length() > 0)
                 {
@@ -546,7 +547,7 @@ public class LinkFinder
             enumeration = htmltagparser.findTags("frame");
             while (enumeration.hasMoreElements())
                 {
-                jgl.HashMap hashmap6 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap6 = (HashMap)enumeration.nextElement();
                 String s12 = COM.dragonflow.Utils.TextUtils.getValue(hashmap6, "src");
                 if(s12.length() > 0)
                 {
@@ -560,7 +561,7 @@ public class LinkFinder
             enumeration = htmltagparser.findTags("iframe");
             while (enumeration.hasMoreElements())
                 {
-                jgl.HashMap hashmap7 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap7 = (HashMap)enumeration.nextElement();
                 String s13 = COM.dragonflow.Utils.TextUtils.getValue(hashmap7, "src");
                 if(s13.length() > 0)
                 {
@@ -574,7 +575,7 @@ public class LinkFinder
             enumeration = htmltagparser.findTags("area");
             while (enumeration.hasMoreElements())
                 {
-                jgl.HashMap hashmap8 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap8 = (HashMap)enumeration.nextElement();
                 String s14 = COM.dragonflow.Utils.TextUtils.getValue(hashmap8, "href");
                 if(s14.length() > 0)
                 {

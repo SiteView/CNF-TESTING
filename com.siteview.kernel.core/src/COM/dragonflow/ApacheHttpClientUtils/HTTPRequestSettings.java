@@ -21,6 +21,8 @@ import java.util.Vector;
 
 import org.apache.commons.httpclient.URI;
 
+import com.recursionsw.jgl.HashMap;
+
 public class HTTPRequestSettings {
 
     public static final String CONTENT_TYPE = "Content-Type";
@@ -324,7 +326,7 @@ public class HTTPRequestSettings {
 
     public String getCertFilename() {
         if (certFilename == null) {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_urlClientCert").trim();
             if (s.length() > 0) {
                 certFilename = COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "templates.certificates" + java.io.File.separator + s;
@@ -345,7 +347,7 @@ public class HTTPRequestSettings {
 
     public String getCertPassword() {
         if (certPassword == null) {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             certPassword = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_urlClientCertPassword").trim();
         }
         if (!$assertionsDisabled && certPassword == null) {
@@ -383,7 +385,7 @@ public class HTTPRequestSettings {
 
     public java.lang.Boolean getAcceptAllUntrustedCerts() {
         if (acceptAllUntrustedCerts == null) {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             acceptAllUntrustedCerts = new Boolean(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_sslAcceptAllUntrustedCerts").trim().equalsIgnoreCase("true"));
         }
         if (!$assertionsDisabled && acceptAllUntrustedCerts == null) {
@@ -399,7 +401,7 @@ public class HTTPRequestSettings {
 
     public java.lang.Boolean getAcceptInvalidCerts() {
         if (acceptInvalidCerts == null) {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             acceptInvalidCerts = new Boolean(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_sslAcceptInvalidCerts").trim().equalsIgnoreCase("true"));
         }
         if (!$assertionsDisabled && acceptInvalidCerts == null) {
@@ -425,7 +427,7 @@ public class HTTPRequestSettings {
         $assertionsDisabled = !(COM.dragonflow.ApacheHttpClientUtils.HTTPRequestSettings.class).desiredAssertionStatus();
         mTimeOutToConnectMS = 0x1d4c0;
         mTimeOutNoTrafficMS = 0x1d4c0;
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         if (hashmap != null) {
             String s = (String) hashmap.get("_httpTimeOutToConnectMS");
             try {

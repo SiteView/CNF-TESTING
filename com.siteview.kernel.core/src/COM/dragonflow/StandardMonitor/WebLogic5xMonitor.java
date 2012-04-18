@@ -21,8 +21,8 @@ package COM.dragonflow.StandardMonitor;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.StringProperty;
@@ -84,7 +84,7 @@ public class WebLogic5xMonitor extends SNMPBase {
         int j = getPropertyAsInteger(pRetryDelay);
         String s1 = getProperty(pCommunity);
         String s2 = getProperty(pIndex);
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         String[] as = new String[array.size()];
         String[] as1 = new String[array.size()];
 

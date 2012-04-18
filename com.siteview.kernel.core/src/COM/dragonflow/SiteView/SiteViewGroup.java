@@ -35,11 +35,11 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
-import jgl.HashMapIterator;
-import jgl.Reversing;
-import jgl.Sorting;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.HashMapIterator;
+import com.recursionsw.jgl.algorithms.Reversing;
+import com.recursionsw.jgl.algorithms.Sorting;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.HTTP.HTTPServer;
@@ -345,7 +345,7 @@ public class SiteViewGroup extends MonitorGroup {
                 CommandLine commandline = new CommandLine();
                 Array array = commandline.exec(s);
                 long l = commandline.getExitValue();
-                for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", "   " + enumeration.nextElement())) 
+                for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", "   " + enumeration.nextElement())) 
 				{
                 }
                 if (l == 0L) {
@@ -632,7 +632,7 @@ public class SiteViewGroup extends MonitorGroup {
                 if (s9.length() == 0 && (!TextUtils.hasLetters(s8) || s8.equals("localhost"))) {
                     boolean flag1 = false;
                     Array array = Platform.getIPAddresses("");
-                    Enumeration enumeration = array.elements();
+                    Enumeration enumeration = (Enumeration) array.iterator();
                     while (enumeration.hasMoreElements()) {
                         String s12 = (String) enumeration.nextElement();
                         if (s8.equals(s12)) {
@@ -780,7 +780,7 @@ public class SiteViewGroup extends MonitorGroup {
                 if (s11.length() == 0 && (!TextUtils.hasLetters(s10) || s10.equals("localhost"))) {
                     boolean flag1 = false;
                     Array array = Platform.getIPAddresses("");
-                    Enumeration enumeration = array.elements();
+                    Enumeration enumeration = (Enumeration) array.iterator();
                     while (enumeration.hasMoreElements()) {
                         String s14 = (String) enumeration.nextElement();
                         if (s10.equals(s14)) {
@@ -1201,7 +1201,7 @@ public class SiteViewGroup extends MonitorGroup {
         if (!allGroupsLoaded) {
             array = getGroupFileIDs();
             for (int i = 0; i < array.size(); i ++) {
-                array.put(i, I18N.toNullEncoding((String) array.at(i)));
+                array.put(i, I18N.toNullEncoding((String) array.get(i)));
             }
 
         } else {
@@ -1256,7 +1256,7 @@ public class SiteViewGroup extends MonitorGroup {
         removeAllElements();
         Array array = getGroupFileIDs();
         String s;
-        for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); loadGroup(s)) {
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); loadGroup(s)) {
             s = I18N.toNullEncoding((String) enumeration.nextElement());
         }
 
@@ -1278,7 +1278,7 @@ public class SiteViewGroup extends MonitorGroup {
      * @param array
      */
     protected void removeGroups(Array array) {
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         while (enumeration.hasMoreElements()) {
             File file = (File) enumeration.nextElement();
             String s = file.getName();
@@ -1315,7 +1315,7 @@ public class SiteViewGroup extends MonitorGroup {
 
     private Enumeration addGroups(Array array) {
         Array array1 = new Array();
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         while (enumeration.hasMoreElements()) {
             File file = (File) enumeration.nextElement();
             String s = file.getName();
@@ -1352,7 +1352,7 @@ public class SiteViewGroup extends MonitorGroup {
                 }
             }
         }
-        return array1.elements();
+        return  (Enumeration) array1.iterator();
     }
 
     public synchronized void adjustGroups(Array array, Array array1, Array array2, HashMap hashmap) {
@@ -1423,7 +1423,7 @@ public class SiteViewGroup extends MonitorGroup {
         if (file.exists()) {
             try {
                 Array array = FrameFile.readFromFile(s);
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 while (enumeration.hasMoreElements()) {
                     HashMap hashmap = (HashMap) enumeration.nextElement();
                     VirtualMachine virtualmachine = VirtualMachine.createVirtualMachineObject(hashmap);
@@ -1461,7 +1461,7 @@ public class SiteViewGroup extends MonitorGroup {
         if (file.exists()) {
             try {
                 Array array = FrameFile.readFromFile(s);
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 while (enumeration.hasMoreElements()) {
                     HashMap hashmap = (HashMap) enumeration.nextElement();
                     HistoryReport historyreport = HistoryReport.createHistoryReportObject(hashmap);
@@ -1635,7 +1635,7 @@ public class SiteViewGroup extends MonitorGroup {
     }
 
     boolean isParentInFilter(Array array, String s) {
-        for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();) {
             String s1 = (String) enumeration.nextElement();
             if (CGI.isRelated(s, s1)) {
                 return true;
@@ -1758,7 +1758,7 @@ public class SiteViewGroup extends MonitorGroup {
         String s = httprequest.getAccount();
         if (array.size() == 0 && s.startsWith("login")) {
             Array array1 = CGI.getGroupFilterForAccount(httprequest);
-            String s1 = (String) array1.at(0);
+            String s1 = (String) array1.get(0);
             MonitorGroup monitorgroup = (MonitorGroup) getElementByID(s1);
             if (monitorgroup == null) {
                 throw new HTTPRequestException(404);
@@ -1796,9 +1796,9 @@ public class SiteViewGroup extends MonitorGroup {
         int l = 0;
         String s3 = Monitor.NODATA_CATEGORY;
         if (array.size() > 0) {
-            MonitorGroup monitorgroup1 = (MonitorGroup) array.at(0);
+            MonitorGroup monitorgroup1 = (MonitorGroup) array.get(0);
             String s4 = monitorgroup1.getProperty(pName).trim();
-            for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements();) {
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();) {
                 if (l % j == 0) {
                     stringbuffer.append(createNewTableRow(35));
                 }
@@ -2267,7 +2267,7 @@ public class SiteViewGroup extends MonitorGroup {
         SiteViewGroup siteviewgroup = currentSiteView();
         Array array = getGroupIDs();
         label0: for (int j1 = 0; j1 < array.size(); j1 ++) {
-            String s1 = I18N.toDefaultEncoding((String) array.at(j1));
+            String s1 = I18N.toDefaultEncoding((String) array.get(j1));
             MonitorGroup monitorgroup = (MonitorGroup) siteviewgroup.getElement(s1);
             if (monitorgroup == null) {
                 continue;
@@ -2344,7 +2344,7 @@ public class SiteViewGroup extends MonitorGroup {
                     Array array2 = sortClassList(array1);
                     s6 = s4 + ": ";
                     for (int l2 = 0; l2 < array1.size(); l2 ++) {
-                        String s9 = (String) array2.at(l2);
+                        String s9 = (String) array2.get(l2);
                         Integer integer = (Integer) hashtable.get(s9);
                         Integer integer1 = (Integer) hashtable1.get(s9);
                         String s11 = TextUtils.numberToString(0);
@@ -2405,7 +2405,7 @@ public class SiteViewGroup extends MonitorGroup {
     private Array sortClassList(Array array) {
         Array array1 = new Array();
         boolean flag = false;
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         while (enumeration.hasMoreElements()) {
             Class class1 = (Class) enumeration.nextElement();
             try {
@@ -2414,7 +2414,7 @@ public class SiteViewGroup extends MonitorGroup {
                 if (s != null && s.length() > 0) {
                     int i = 0;
                     while (i < array1.size()) {
-                        String s1 = (String) array1.at(i);
+                        String s1 = (String) array1.get(i);
                         if (s.toLowerCase().compareTo(s1.toLowerCase()) <= 0) {
                             array1.insert(i, s);
                             break;
@@ -2444,7 +2444,7 @@ public class SiteViewGroup extends MonitorGroup {
             } catch (Exception exception) {
             }
             if (array != null && array.size() > 0) {
-                hashmap1 = (HashMap) array.at(0);
+                hashmap1 = (HashMap) array.get(0);
             }
             for (HashMapIterator hashmapiterator = hashmap1.begin(); !hashmapiterator.atEnd(); hashmapiterator.advance()) {
                 hashmap.put(hashmapiterator.key(), hashmapiterator.value());

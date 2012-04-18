@@ -20,8 +20,8 @@ package COM.dragonflow.StandardAction;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.CommandLine;
@@ -48,21 +48,21 @@ public class Page extends COM.dragonflow.SiteView.Action {
 
     public static COM.dragonflow.Properties.StringProperty pCustom;
 
-    static jgl.HashMap portLocks = new HashMap();
+    static HashMap portLocks = new HashMap();
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap) {
+    public void initializeFromArguments(Array array, HashMap hashmap) {
         if (array.size() > 0) {
-            setProperty(pMessage, ((String) array.at(0)).replace('_', ' '));
+            setProperty(pMessage, ((String) array.get(0)).replace('_', ' '));
         }
         if (array.size() > 1) {
-            setProperty(pTemplate, array.at(1));
+            setProperty(pTemplate, array.get(1));
         } else {
             setProperty(pTemplate, "Default");
         }
         unsetProperty(pPager);
-        for (Enumeration enumeration = hashmap.values("_id"); enumeration.hasMoreElements(); addProperty(pPager, (String) enumeration.nextElement())) {
+        for (Enumeration enumeration = (Enumeration) hashmap.values("_id"); enumeration.hasMoreElements(); addProperty(pPager, (String) enumeration.nextElement())) {
         }
-        Enumeration enumeration1 = hashmap.keys();
+        Enumeration enumeration1 = (Enumeration) hashmap.keys();
         while (enumeration1.hasMoreElements()) {
             String s = (String) enumeration1.nextElement();
             if (s.startsWith("_pager")) {
@@ -175,7 +175,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
         return stringbuffer.toString();
     }
 
-    public boolean defaultsAreSet(jgl.HashMap hashmap) {
+    public boolean defaultsAreSet(HashMap hashmap) {
         return hashmap.get("_pagerType") != null;
     }
 
@@ -183,7 +183,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
         return getProperty(pPagerType).length() > 0;
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap) {
         return super.verify(stringproperty, s, httprequest, hashmap);
     }
 
@@ -201,8 +201,8 @@ public class Page extends COM.dragonflow.SiteView.Action {
         if (scalarproperty == pPager) {
             Enumeration enumeration = null;
             if (httprequest.isStandardAccount()) {
-                jgl.HashMap hashmap = cgi.getMasterConfig();
-                enumeration = hashmap.values("_additionalPager");
+                HashMap hashmap = cgi.getMasterConfig();
+                enumeration = (Enumeration) hashmap.values("_additionalPager");
             } else {
                 COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
                 COM.dragonflow.SiteView.SiteViewObject siteviewobject = siteviewgroup.getElement(httprequest.getAccount());
@@ -211,7 +211,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
             java.util.Vector vector3 = new Vector();
             vector3.addElement("default");
             vector3.addElement("Default");
-            jgl.HashMap hashmap1;
+            HashMap hashmap1;
             for (; enumeration.hasMoreElements(); vector3.addElement(hashmap1.get("_name"))) {
                 hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String) enumeration.nextElement());
                 vector3.addElement(hashmap1.get("_id"));
@@ -250,7 +250,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
     public boolean execute() {
         boolean flag = false;
         if (hasValue("_id")) {
-            jgl.Array array = new Array();
+            Array array = new Array();
             Enumeration enumeration = getMultipleValues("_id");
             int i = 0;
             while (enumeration.hasMoreElements()) {
@@ -259,9 +259,9 @@ public class Page extends COM.dragonflow.SiteView.Action {
                 boolean flag2 = false;
                 String s1 = "default";
                 if (s.equals("default")) {
-                    jgl.Array array1 = getCurrentPropertyNames();
+                    Array array1 = getCurrentPropertyNames();
                     for (int j = 0; j < array1.size(); j ++) {
-                        String s4 = (String) array1.at(j);
+                        String s4 = (String) array1.get(j);
                         if (s4.startsWith("_pager") && !s4.equals("_pagerPort")) {
                             unsetProperty(s4);
                         }
@@ -270,9 +270,9 @@ public class Page extends COM.dragonflow.SiteView.Action {
                 } else {
                     String s2 = getOwner().getPagerSettings(s);
                     if (s2.length() > 0) {
-                        jgl.HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap(s2);
+                        HashMap hashmap = COM.dragonflow.Utils.TextUtils.stringToHashMap(s2);
                         s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_name");
-                        Enumeration enumeration2 = hashmap.keys();
+                        Enumeration enumeration2 = (Enumeration) hashmap.keys();
                         while (enumeration2.hasMoreElements()) {
                             String s5 = (String) enumeration2.nextElement();
                             if (s5.startsWith("_pager")) {
@@ -310,7 +310,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
             } 
             messageBuffer.setLength(0);
             unsetProperty("_id");
-            for (Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements(); addProperty("_id", (String) enumeration1.nextElement())) {
+            for (Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1.hasMoreElements(); addProperty("_id", (String) enumeration1.nextElement())) {
             }
             flag = array.size() == 0;
         } else {
@@ -357,7 +357,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
                 s2 = "1234";
             }
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         if (s1.length() == 0) {
             array = pagerSend(s2);
             flag = array == null;
@@ -365,7 +365,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
         }
         String s5 = "";
         if (!flag) {
-            for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements();) {
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();) {
                 s5 = s5 + (String) enumeration.nextElement() + COM.dragonflow.SiteView.Platform.FILE_NEWLINE;
             }
 
@@ -396,8 +396,8 @@ public class Page extends COM.dragonflow.SiteView.Action {
         return flag;
     }
 
-    public jgl.Array pagerExec(String s, String s1, int i, String s2, String s3, String s4) {
-        jgl.Array array = null;
+    public Array pagerExec(String s, String s1, int i, String s2, String s3, String s4) {
+        Array array = null;
         COM.dragonflow.Log.LogManager.log("RunMonitor", "pager begin, " + s + ", " + s2 + ", " + s3 + ", " + s4);
         synchronized (COM.dragonflow.StandardAction.Page.getPagerPortLock(s)) {
             COM.dragonflow.Log.LogManager.log("RunMonitor", "pager send, " + s + ", " + s2 + ", " + s3 + ", " + s4);
@@ -467,14 +467,14 @@ public class Page extends COM.dragonflow.SiteView.Action {
             }
             COM.dragonflow.Log.LogManager.log("RunMonitor", "pager end, " + s + ", " + s2 + ", " + s3 + ", " + s4);
             if (array.size() > 0) {
-                COM.dragonflow.Log.LogManager.log("RunMonitor", "pager result, " + array.at(0));
+                COM.dragonflow.Log.LogManager.log("RunMonitor", "pager result, " + array.get(0));
             }
         }
         return array;
     }
 
-    public jgl.Array pagerSend(String s) {
-        jgl.Array array = null;
+    public Array pagerSend(String s) {
+        Array array = null;
         s = s.replace(' ', '_');
         s = s.replace('\n', '*');
         String s1 = getSetting("_pagerPort");
@@ -499,7 +499,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
             array.pushFront("Modem Not Responding" + COM.dragonflow.SiteView.Platform.FILE_NEWLINE);
             String s2 = getSetting("_pagerPortBackup");
             if (s2.length() > 0) {
-                jgl.Array array1 = array;
+                Array array1 = array;
                 array = pagerExec(s2, s3, i, s4, s5, s6);
                 s7 = (String) array.popFront();
                 if (s7.startsWith("ERROR: connecting")) {
@@ -514,7 +514,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
                     if (s6 != null) {
                         s12 = s12 + "hangup: " + s6 + COM.dragonflow.SiteView.Platform.FILE_NEWLINE;
                     }
-                    for (Enumeration enumeration = array1.elements(); enumeration.hasMoreElements();) {
+                    for (Enumeration enumeration =  (Enumeration) array1.iterator(); enumeration.hasMoreElements();) {
                         s12 = s12 + (String) enumeration.nextElement() + COM.dragonflow.SiteView.Platform.FILE_NEWLINE;
                     }
 
@@ -532,7 +532,7 @@ public class Page extends COM.dragonflow.SiteView.Action {
                     if (s6 != null) {
                         s13 = s13 + "hangup: " + s6 + COM.dragonflow.SiteView.Platform.FILE_NEWLINE;
                     }
-                    for (Enumeration enumeration1 = array1.elements(); enumeration1.hasMoreElements();) {
+                    for (Enumeration enumeration1 =  (Enumeration) array1.iterator(); enumeration1.hasMoreElements();) {
                         s13 = s13 + (String) enumeration1.nextElement() + COM.dragonflow.SiteView.Platform.FILE_NEWLINE;
                     }
 

@@ -22,8 +22,8 @@ import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -184,7 +184,7 @@ public class ServiceMonitor extends ServerMonitor
                         StringBuffer stringbuffer = new StringBuffer();
                         for(int i = 0; i < array.size(); i++)
                         {
-                            stringbuffer.append(array.at(i) + "\n");
+                            stringbuffer.append(array.get(i) + "\n");
                         }
 
                         LogManager.log("Error", "ServiceMonitor: " + getFullID() + ", returned: " + s3 + ", output:\n" + stringbuffer);
@@ -242,7 +242,7 @@ public class ServiceMonitor extends ServerMonitor
                 array.add(stringproperty);
             }
         } while(true);
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Array getLogProperties()
@@ -261,7 +261,7 @@ public class ServiceMonitor extends ServerMonitor
         if(scalarproperty == pServiceName || scalarproperty == pUnixServiceName)
         {
             Array array = Platform.getProcesses(Machine.getFullMachineID(getProperty(pMachineName), httprequest), true);
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             Vector vector = new Vector();
             String s;
             for(; enumeration.hasMoreElements(); vector.addElement(s))

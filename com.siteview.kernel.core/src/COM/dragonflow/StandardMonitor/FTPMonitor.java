@@ -30,8 +30,8 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -297,7 +297,7 @@ public class FTPMonitor extends AtomicMonitor {
                 ls[0] = (long) (TextUtils.matchExpression(stringbuffer_4_.toString(), I18N.UnicodeToString(string, string_10_), array, new StringBuffer()));
             }
             if (array.size() > 0)
-                setProperty(pMatchValue, array.at(0));
+                setProperty(pMatchValue, array.get(0));
         }
         long l_11_ = ls[0];
         long l_12_ = ls[2];

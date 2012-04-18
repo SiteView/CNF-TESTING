@@ -7,8 +7,8 @@ package SiteViewMain;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Utils.CommandLine;
 import COM.dragonflow.Utils.MailUtils;
 import COM.dragonflow.Utils.TextUtils;
@@ -51,7 +51,7 @@ public class ReportSSChanges
         Array array = commandline.exec(s3);
         int i = commandline.getExitValue();
         System.out.println("ExitValue = " + i);
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         String s4 = null;
         for(; enumeration.hasMoreElements(); System.out.print("\n"))
         {

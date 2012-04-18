@@ -29,7 +29,7 @@ public class viewPage extends COM.dragonflow.Page.CGI
             COM.dragonflow.Page.viewPage.printError(outputStream, "The XML/XSL interface is a feature that requires a CentraScope subscription.", "Please contact <A HREF=mailto:siteviewsales@merc-int.com>siteviewsales@merc-int.com</A> for information about CentraScope.", "/SiteView/htdocs/SiteView.html");
             return;
         }
-        jgl.HashMap hashmap = COM.dragonflow.Page.xmlPage.buildQueryMap(request);
+        HashMap hashmap = COM.dragonflow.Page.xmlPage.buildQueryMap(request);
         StringBuffer stringbuffer = new StringBuffer();
         COM.dragonflow.SiteView.PortalQuery portalquery = new PortalQuery(hashmap, stringbuffer, request);
         portalquery.printXML();

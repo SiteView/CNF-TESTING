@@ -20,8 +20,8 @@
 import java.util.Enumeration;
 import java.util.StringTokenizer;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // Base64Decoder
@@ -34,8 +34,8 @@ public class MimeMessage
     String msg;
     String Head[];
     String Body[];
-    jgl.HashMap Headers;
-    jgl.Array Bodies;
+    HashMap Headers;
+    Array Bodies;
 
     public MimeMessage(String as[])
     {
@@ -46,9 +46,9 @@ public class MimeMessage
         Body = null;
         Headers = null;
         Bodies = null;
-        jgl.Array array = splitHeaderBody(as);
-        Head = (String[])array.at(0);
-        Body = (String[])array.at(1);
+        Array array = splitHeaderBody(as);
+        Head = (String[])array.get(0);
+        Body = (String[])array.get(1);
         Headers = parseHeader(Head);
         parseSubject();
         String s = (String)Headers.get("Content-Type");
@@ -74,14 +74,14 @@ public class MimeMessage
             Bodies.add(Body);
         } else
         {
-            jgl.Array array1 = splitMultiParts(Body, s1);
+            Array array1 = splitMultiParts(Body, s1);
             for(int k = 0; k < array1.size(); k++)
             {
-                String as1[] = (String[])array1.at(k);
-                jgl.Array array2 = splitHeaderBody(as1);
-                String as2[] = (String[])array2.at(0);
-                String as3[] = (String[])array2.at(1);
-                jgl.HashMap hashmap = parseHeader(as2);
+                String as1[] = (String[])array1.get(k);
+                Array array2 = splitHeaderBody(as1);
+                String as2[] = (String[])array2.get(0);
+                String as3[] = (String[])array2.get(1);
+                HashMap hashmap = parseHeader(as2);
                 String s3 = (String)hashmap.get("Content-Type");
                 if(debug)
                 {
@@ -119,16 +119,16 @@ public class MimeMessage
         return Bodies.size();
     }
 
-    public jgl.Array getBodies()
+    public Array getBodies()
     {
         return Bodies;
     }
 
-    jgl.Array splitHeaderBody(String as[])
+    Array splitHeaderBody(String as[])
     {
         String as1[] = getheader(as);
         String as2[] = getbody(as);
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add(as1);
         array.add(as2);
         return array;
@@ -181,10 +181,10 @@ public class MimeMessage
         return i;
     }
 
-    jgl.Array splitMultiParts(String as[], String s)
+    Array splitMultiParts(String as[], String s)
     {
-        jgl.Array array = new Array();
-        jgl.Array array1 = new Array();
+        Array array = new Array();
+        Array array1 = new Array();
         boolean flag = false;
         for(int i = 0; i < as.length; i++)
         {
@@ -199,7 +199,7 @@ public class MimeMessage
                 String as2[] = new String[array1.size()];
                 for(int k = 0; k < array1.size(); k++)
                 {
-                    as2[k] = (String)array1.at(k);
+                    as2[k] = (String)array1.get(k);
                 }
 
                 array.add(as2);
@@ -217,7 +217,7 @@ public class MimeMessage
             String as1[] = new String[array1.size()];
             for(int j = 0; j < array1.size(); j++)
             {
-                as1[j] = (String)array1.at(j);
+                as1[j] = (String)array1.get(j);
             }
 
             array.add(as1);
@@ -225,10 +225,10 @@ public class MimeMessage
         return array;
     }
 
-    jgl.HashMap parseHeader(String as[])
+    HashMap parseHeader(String as[])
     {
         String s = null;
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         for(int i = 0; i < as.length; i++)
         {
             String s1 = as[i];
@@ -413,7 +413,7 @@ public class MimeMessage
 
         String s;
         String s1;
-        for(Enumeration enumeration = Headers.keys(); enumeration.hasMoreElements(); java.lang.System.out.println("MimeMessage: Headers " + s + " = " + s1))
+        for(Enumeration enumeration = (Enumeration) Headers.keys(); enumeration.hasMoreElements(); java.lang.System.out.println("MimeMessage: Headers " + s + " = " + s1))
         {
             s = (String)enumeration.nextElement();
             s1 = (String)Headers.get(s);
@@ -423,7 +423,7 @@ public class MimeMessage
         for(int k = 0; k < Bodies.size(); k++)
         {
             java.lang.System.out.println("MimeMessage: Body " + k + "----------------------------");
-            String as[] = (String[])Bodies.at(k);
+            String as[] = (String[])Bodies.get(k);
             for(int l = 0; l < as.length; l++)
             {
                 java.lang.System.out.println("MimeMessage: body[" + l + "] = " + as[l]);

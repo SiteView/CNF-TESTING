@@ -24,8 +24,8 @@ import COM.dragonflow.SiteView.*;
 import COM.dragonflow.Utils.Pair;
 
 import java.util.*;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class CitrixMonitor extends BrowsablePdhBase
  implements IServerPropMonitor

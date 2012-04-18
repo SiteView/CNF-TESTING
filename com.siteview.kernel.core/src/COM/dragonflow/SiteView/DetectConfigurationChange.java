@@ -22,9 +22,9 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import jgl.Array;
-import jgl.HashMap;
-import jgl.HashMapIterator;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.HashMapIterator;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Utils.FileUtils;
 

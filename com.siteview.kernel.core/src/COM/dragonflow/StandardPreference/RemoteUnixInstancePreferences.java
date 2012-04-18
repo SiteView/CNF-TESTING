@@ -20,8 +20,8 @@ package COM.dragonflow.StandardPreference;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.ScalarProperty;
@@ -97,8 +97,8 @@ public class RemoteUnixInstancePreferences extends COM.dragonflow.SiteView.Prefe
         String s2 = getProperty(pHost);
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
         if (!siteviewgroup.internalServerActive()) {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
-            COM.dragonflow.SiteView.Machine.registerMachines(hashmap.values("_remoteMachine"));
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            COM.dragonflow.SiteView.Machine.registerMachines((Enumeration) hashmap.values("_remoteMachine"));
         }
         boolean flag3 = false;
         String s3 = getProperty(pID);
@@ -107,12 +107,12 @@ public class RemoteUnixInstancePreferences extends COM.dragonflow.SiteView.Prefe
             COM.dragonflow.Utils.RemoteCommandLine remotecommandline = COM.dragonflow.SiteView.Machine.getRemoteCommandLine(machine);
             String s4 = "echo testing connection";
             vector.add("Testing connection to : " + s2);
-            jgl.Array array1 = remotecommandline.test(s4, machine, flag2);
+            Array array1 = remotecommandline.test(s4, machine, flag2);
             if (remotecommandline.exitValue != 0) {
                 s1 = "remote command error " + COM.dragonflow.SiteView.Monitor.lookupStatus(remotecommandline.exitValue) + " (" + remotecommandline.exitValue + ")";
             }
             for (int i = 0; i < array1.size(); i ++) {
-                String s7 = (String) array1.at(i);
+                String s7 = (String) array1.get(i);
                 if (s7.indexOf("testing connection") >= 0) {
                     flag3 = true;
                     s1 = "connection successful";
@@ -159,8 +159,8 @@ public class RemoteUnixInstancePreferences extends COM.dragonflow.SiteView.Prefe
                 flag = true;
             }
         }
-        jgl.Array array = getFrames();
-        jgl.HashMap hashmap1 = findMachine(array, s3);
+        Array array = getFrames();
+        HashMap hashmap1 = findMachine(array, s3);
         hashmap1.put("_status", s1);
         try {
             saveMachines(array, "_remoteMachine");
@@ -201,34 +201,34 @@ public class RemoteUnixInstancePreferences extends COM.dragonflow.SiteView.Prefe
     public java.util.Vector getScalarValues(COM.dragonflow.Properties.ScalarProperty scalarproperty, COM.dragonflow.HTTP.HTTPRequest httprequest, COM.dragonflow.Page.CGI cgi) throws COM.dragonflow.SiteViewException.SiteViewException {
         java.util.Vector vector = new Vector();
         if (scalarproperty == pOs) {
-            jgl.Array array = COM.dragonflow.SiteView.Machine.getAllowedOSs();
+            Array array = COM.dragonflow.SiteView.Machine.getAllowedOSs();
             for (int i = 0; i < array.size(); i ++) {
-                if (((String) array.at(i)).length() > 0) {
-                    vector.addElement(array.at(i));
+                if (((String) array.get(i)).length() > 0) {
+                    vector.addElement(array.get(i));
                 }
             }
 
         } else if (scalarproperty == pMethod) {
-            jgl.Array array1 = COM.dragonflow.SiteView.Machine.getAllowedMethods();
+            Array array1 = COM.dragonflow.SiteView.Machine.getAllowedMethods();
             for (int j = 0; j < array1.size(); j ++) {
-                if (((String) array1.at(j)).length() > 0) {
-                    vector.addElement(array1.at(j));
+                if (((String) array1.get(j)).length() > 0) {
+                    vector.addElement(array1.get(j));
                 }
             }
 
         } else if (scalarproperty == pSshAuthMethod) {
-            jgl.Array array2 = COM.dragonflow.SiteView.Machine.getAllowedSshAuthMethods();
+            Array array2 = COM.dragonflow.SiteView.Machine.getAllowedSshAuthMethods();
             for (int k = 0; k < array2.size(); k ++) {
-                if (((String) array2.at(k)).length() > 0) {
-                    vector.addElement(array2.at(k));
+                if (((String) array2.get(k)).length() > 0) {
+                    vector.addElement(array2.get(k));
                 }
             }
 
         } else if (scalarproperty == pSshClient) {
-            jgl.Array array3 = COM.dragonflow.SiteView.Machine.getAllowedSshConnectionMethods();
+            Array array3 = COM.dragonflow.SiteView.Machine.getAllowedSshConnectionMethods();
             for (int l = 0; l < array3.size(); l ++) {
-                if (((String) array3.at(l)).length() > 0) {
-                    vector.addElement(array3.at(l));
+                if (((String) array3.get(l)).length() > 0) {
+                    vector.addElement(array3.get(l));
                 }
             }
 
@@ -236,22 +236,22 @@ public class RemoteUnixInstancePreferences extends COM.dragonflow.SiteView.Prefe
         return vector;
     }
 
-    private void saveMachines(jgl.Array array, String s) {
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+    private void saveMachines(Array array, String s) {
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         hashmap.remove(s);
         for (int i = 0; i < array.size(); i ++) {
-            jgl.HashMap hashmap1 = (jgl.HashMap) array.at(i);
+            HashMap hashmap1 = (HashMap) array.get(i);
             hashmap.add(s, COM.dragonflow.Utils.TextUtils.hashMapToString(hashmap1));
         }
 
         COM.dragonflow.SiteView.MasterConfig.saveMasterConfig(hashmap);
     }
 
-    private jgl.HashMap findMachine(jgl.Array array, String s) {
-        Enumeration enumeration = array.elements();
-        jgl.HashMap hashmap = new HashMap();
+    private HashMap findMachine(Array array, String s) {
+        Enumeration enumeration = (Enumeration) array.iterator();
+        HashMap hashmap = new HashMap();
         while (enumeration.hasMoreElements()) {
-            hashmap = (jgl.HashMap) enumeration.nextElement();
+            hashmap = (HashMap) enumeration.nextElement();
             if (s.equals(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id"))) {
                 return hashmap;
             }
@@ -264,8 +264,8 @@ public class RemoteUnixInstancePreferences extends COM.dragonflow.SiteView.Prefe
         return super.updatePreferences(hashmap, s, s1);
     }
 
-    private jgl.Array getFrames() {
-        jgl.Array array = new Array();
+    private Array getFrames() {
+        Array array = new Array();
         try {
             array = readMachines(getRemoteName());
         } catch (java.lang.Exception exception) {
@@ -273,11 +273,11 @@ public class RemoteUnixInstancePreferences extends COM.dragonflow.SiteView.Prefe
         return array;
     }
 
-    private jgl.Array readMachines(String s) {
-        jgl.Array array = new Array();
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+    private Array readMachines(String s) {
+        Array array = new Array();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s1;
-        for (Enumeration enumeration = hashmap.values(s); enumeration.hasMoreElements(); array.add(COM.dragonflow.Utils.TextUtils.stringToHashMap(s1))) {
+        for (Enumeration enumeration = (Enumeration) hashmap.values(s); enumeration.hasMoreElements(); array.add(COM.dragonflow.Utils.TextUtils.stringToHashMap(s1))) {
             s1 = (String) enumeration.nextElement();
             if (s1.indexOf("_id") >= 0) {
                 continue;

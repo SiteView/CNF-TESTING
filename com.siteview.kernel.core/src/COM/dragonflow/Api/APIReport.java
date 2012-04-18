@@ -23,13 +23,14 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.HistoryReport;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 import COM.dragonflow.SiteViewException.SiteViewParameterException;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Api:
 // APISiteView
@@ -60,23 +61,23 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
 
     static final String encoding = COM.dragonflow.Utils.I18N.nullEncoding();
 
-    static jgl.Array conditions = null;
+    static Array conditions = null;
 
     static final boolean $assertionsDisabled; /* synthetic field */
 
     public APIReport() {
     }
 
-    public String create(String s, String s1, jgl.HashMap hashmap) throws COM.dragonflow.SiteViewException.SiteViewException {
+    public String create(String s, String s1, HashMap hashmap) throws COM.dragonflow.SiteViewException.SiteViewException {
         return create(s, s1, hashmap, null, null);
     }
 
-    public String create(String s, String s1, jgl.HashMap hashmap, COM.dragonflow.HTTP.HTTPRequest httprequest, java.io.PrintWriter printwriter) throws COM.dragonflow.SiteViewException.SiteViewException {
+    public String create(String s, String s1, HashMap hashmap, COM.dragonflow.HTTP.HTTPRequest httprequest, java.io.PrintWriter printwriter) throws COM.dragonflow.SiteViewException.SiteViewException {
         if (httprequest == null) {
             httprequest = new HTTPRequest();
             httprequest.setUser(account);
             String s2;
-            for (Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); httprequest.setValue(s2, COM.dragonflow.Utils.TextUtils.getValue(hashmap, s2))) {
+            for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements(); httprequest.setValue(s2, COM.dragonflow.Utils.TextUtils.getValue(hashmap, s2))) {
                 s2 = (String) enumeration.nextElement();
             }
 
@@ -84,12 +85,12 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
             if (s3.length() != 0) {
                 String as[] = COM.dragonflow.Utils.TextUtils.split(s3, ",");
                 if (as.length > 1) {
-                    jgl.Array array = new Array();
+                    Array array = new Array();
                     for (int i = 0; i < as.length; i ++) {
                         array.add(as[i]);
                     }
 
-                    httprequest.setValues("monitors", array.elements());
+                    httprequest.setValues("monitors", (Enumeration) array.iterator());
                 }
                 hashmap.put("monitors", as);
             }
@@ -125,12 +126,12 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
                 if (s1.length() > 0) {
                     String as1[] = COM.dragonflow.Utils.TextUtils.split(s1, ",");
                     if (as1.length > 1) {
-                        jgl.Array array2 = new Array();
+                        Array array2 = new Array();
                         for (int k = 0; k < as1.length; k ++) {
                             array2.add(invert(as1[k]));
                         }
 
-                        httprequest.setValues("monitors", array2.elements());
+                        httprequest.setValues("monitors",  (Enumeration) array2.iterator());
                     } else {
                         httprequest.setValue("monitors", invert(as1[0]));
                     }
@@ -212,19 +213,19 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
             s9 = s9.replaceAll("\\\\", "/");
             s9 = "/SiteView/htdocs/Reports-0" + s9.substring(s9.lastIndexOf("/"));
             String s12 = (String) hashmap.get("oldID");
-            jgl.HashMap hashmap1 = new HashMap();
+            HashMap hashmap1 = new HashMap();
             hashmap1.put("isQuick", "true");
             hashmap1.put("path", s9);
             s7 = (String) hashmap.get("qID");
             if (s12 != null && s12.length() > 0) {
                 if (s12.indexOf(s9) < 0) {
-                    jgl.Array array1 = COM.dragonflow.Api.APIReport.getReportFrames();
+                    Array array1 = COM.dragonflow.Api.APIReport.getReportFrames();
                     int j = 0;
                     do {
                         if (j >= array1.size()) {
                             break;
                         }
-                        jgl.HashMap hashmap2 = (jgl.HashMap) array1.at(j);
+                        HashMap hashmap2 = (HashMap) array1.get(j);
                         if (hashmap2.get("isQuick") != null && ((String) hashmap2.get("isQuick")).length() > 0) {
                             String s18 = (String) hashmap2.get("id");
                             if (s18.equals(s7)) {
@@ -260,15 +261,15 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
     public void updateManagementConfig(COM.dragonflow.HTTP.HTTPRequest httprequest) throws COM.dragonflow.SiteViewException.SiteViewException {
         String s = new String();
         httprequest.setValue("startDay", "today");
-        jgl.HashMap hashmap = getHistoryMap(httprequest, httprequest.getValue("queryID"), s);
+        HashMap hashmap = getHistoryMap(httprequest, httprequest.getValue("queryID"), s);
         adjustHistoryConfig(httprequest, hashmap, httprequest.getValue("queryID"));
     }
 
-    public String update(String s, String s1, jgl.HashMap hashmap) throws COM.dragonflow.SiteViewException.SiteViewException {
+    public String update(String s, String s1, HashMap hashmap) throws COM.dragonflow.SiteViewException.SiteViewException {
         return update(s, s1, hashmap, null, null);
     }
 
-    public String update(String s, String s1, jgl.HashMap hashmap, COM.dragonflow.HTTP.HTTPRequest httprequest, java.io.PrintWriter printwriter) throws COM.dragonflow.SiteViewException.SiteViewException {
+    public String update(String s, String s1, HashMap hashmap, COM.dragonflow.HTTP.HTTPRequest httprequest, java.io.PrintWriter printwriter) throws COM.dragonflow.SiteViewException.SiteViewException {
         String s2 = s;
         String s3 = null;
         int i = -1;
@@ -310,23 +311,23 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
     public java.util.Vector getInstances(String s, String s1, int i) throws COM.dragonflow.SiteViewException.SiteViewException {
         java.util.Vector vector = new Vector();
         updateContext();
-        jgl.Array array = COM.dragonflow.Api.APIReport.getReportFrames();
+        Array array = COM.dragonflow.Api.APIReport.getReportFrames();
         for (int j = 0; j < array.size(); j ++) {
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(j);
+            HashMap hashmap = (HashMap) array.get(j);
             if (COM.dragonflow.Utils.TextUtils.getValue(hashmap, "isQuick").length() > 0) {
                 continue;
             }
-            jgl.Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "monitors");
+            Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "monitors");
             if (array1.size() > 1) {
                 hashmap.remove("monitors");
                 String as[] = new String[array1.size()];
                 for (int k = 0; k < array1.size(); k ++) {
-                    as[k] = invert((String) array1.at(k));
+                    as[k] = invert((String) array1.get(k));
                 }
 
                 hashmap.put("monitors", as);
             } else if (array1.size() == 1) {
-                hashmap.put("monitors", invert((String) array1.at(0)));
+                hashmap.put("monitors", invert((String) array1.get(0)));
             }
             String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "context");
             if (s2.length() > 0) {
@@ -391,7 +392,7 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
         return vector;
     }
 
-    private static void mapCheckProps(jgl.HashMap hashmap, String s, String s1, boolean flag, String s2) {
+    private static void mapCheckProps(HashMap hashmap, String s, String s1, boolean flag, String s2) {
         String s3 = (String) hashmap.get(s);
         String s4 = "";
         if (flag) {
@@ -432,9 +433,9 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
     }
 
     public static void deleteQuickReports() {
-        jgl.Array array = COM.dragonflow.Api.APIReport.getReportFrames();
+        Array array = COM.dragonflow.Api.APIReport.getReportFrames();
         for (int i = 0; array != null && i < array.size(); i ++) {
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(i);
+            HashMap hashmap = (HashMap) array.get(i);
             if (COM.dragonflow.Utils.TextUtils.getValue(hashmap, "isQuick").length() > 0) {
                 array.remove(i --);
             }
@@ -453,12 +454,12 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
     }
 
     private void updateContext() {
-        jgl.Array array = COM.dragonflow.Api.APIReport.getReportFrames();
+        Array array = COM.dragonflow.Api.APIReport.getReportFrames();
         for (int i = 0; i < array.size(); i ++) {
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(i);
+            HashMap hashmap = (HashMap) array.get(i);
             String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "context");
             if (COM.dragonflow.Utils.TextUtils.getValue(hashmap, "isQuick").length() <= 0) {
-                jgl.Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "monitors");
+                Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "monitors");
                 String s1 = COM.dragonflow.Api.APIReport.getContext(array1, s);
                 hashmap.put("context", s1.length() != 0 ? ((java.lang.Object) (s1)) : "_SiteViewRoot_");
             }
@@ -476,7 +477,7 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
         return s1;
     }
 
-    private jgl.HashMap getHistoryMap(COM.dragonflow.HTTP.HTTPRequest httprequest, String s, String s1) throws COM.dragonflow.SiteViewException.SiteViewException {
+    private HashMap getHistoryMap(COM.dragonflow.HTTP.HTTPRequest httprequest, String s, String s1) throws COM.dragonflow.SiteViewException.SiteViewException {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         int i = COM.dragonflow.Utils.TextUtils.toInt(httprequest.getUserSetting("_timeOffset"));
         boolean flag = COM.dragonflow.Page.reportPage.setReportOptions(httprequest, hashmapordered);
@@ -490,14 +491,14 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
             String as[] = COM.dragonflow.Utils.TextUtils.split(s2, ",");
             int k = 0;
             while (as != null && k < as.length) {
-                jgl.Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmapordered, "monitors");
+                Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmapordered, "monitors");
                 boolean flag1 = false;
                 int j1 = 0;
                 do {
                     if (j1 >= array.size()) {
                         break;
                     }
-                    if (as[k].equals(array.at(j1))) {
+                    if (as[k].equals(array.get(j1))) {
                         flag1 = true;
                         break;
                     }
@@ -591,11 +592,11 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
         return hashmapordered;
     }
 
-    private String adjustHistoryConfig(COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap, String s) throws COM.dragonflow.SiteViewException.SiteViewException {
-        jgl.Array array = COM.dragonflow.Api.APIReport.getReportFrames();
+    private String adjustHistoryConfig(COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap, String s) throws COM.dragonflow.SiteViewException.SiteViewException {
+        Array array = COM.dragonflow.Api.APIReport.getReportFrames();
         if (s != null && s.length() > 0) {
             for (int i = 0; i < array.size(); i ++) {
-                jgl.HashMap hashmap1 = (jgl.HashMap) array.at(i);
+                HashMap hashmap1 = (HashMap) array.get(i);
                 String s2 = (String) hashmap1.get("id");
                 if (s2 == null || !s2.equals(s)) {
                     continue;
@@ -624,7 +625,7 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
             } else {
                 httprequest.setValue("id", s);
                 String s1 = new String();
-                jgl.HashMap hashmap2 = getHistoryMap(httprequest, s, s1);
+                HashMap hashmap2 = getHistoryMap(httprequest, s, s1);
                 hashmap2.add("relative", "-1");
                 array.add(hashmap2);
                 COM.dragonflow.Api.APIReport.saveReportFrames(array);
@@ -633,8 +634,8 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
         return s;
     }
 
-    private static jgl.Array getReportFrames() {
-        jgl.Array array = null;
+    private static Array getReportFrames() {
+        Array array = null;
         try {
             String s = COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config";
             java.io.File file = new File(s);
@@ -649,7 +650,7 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
         return array;
     }
 
-    private static void saveReportFrames(jgl.Array array) {
+    private static void saveReportFrames(Array array) {
         try {
             COM.dragonflow.Properties.FrameFile.writeToFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + "history.config", array);
             COM.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = COM.dragonflow.SiteView.DetectConfigurationChange.getInstance();
@@ -660,7 +661,7 @@ public class APIReport extends COM.dragonflow.Api.APISiteView {
         }
     }
 
-    private String generateName(jgl.HashMap hashmap) {
+    private String generateName(HashMap hashmap) {
         java.lang.Object obj = hashmap.get("monitors");
         if (obj instanceof String) {
             return nameFromString(obj);

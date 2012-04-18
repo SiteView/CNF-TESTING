@@ -100,7 +100,7 @@ class SSrtn {
         }
     }
 
-    public void setErrorList(jgl.HashMap hashmap) {
+    public void setErrorList(HashMap hashmap) {
         m_errorlist = hashmap;
     }
 
@@ -108,7 +108,7 @@ class SSrtn {
         return m_errorlist != null && m_errorlist.size() > 0;
     }
 
-    public jgl.HashMap getErrorList() {
+    public HashMap getErrorList() {
         return m_errorlist;
     }
 

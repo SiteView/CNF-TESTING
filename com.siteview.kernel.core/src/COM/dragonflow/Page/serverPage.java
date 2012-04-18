@@ -11,8 +11,8 @@ package COM.dragonflow.Page;
 
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // machineChooserPage, CGI
@@ -21,8 +21,8 @@ public class serverPage extends COM.dragonflow.Page.machineChooserPage
 {
 
     public static long clientID = 0L;
-    static jgl.HashMap storeReturnURL = null;
-    static jgl.HashMap thisURL = null;
+    static HashMap storeReturnURL = null;
+    static HashMap thisURL = null;
 
     public serverPage()
     {
@@ -55,7 +55,7 @@ public class serverPage extends COM.dragonflow.Page.machineChooserPage
         return menus1;
     }
 
-    public static String getReturnURL(jgl.HashMap hashmap, String s)
+    public static String getReturnURL(HashMap hashmap, String s)
     {
         if(hashmap != null && hashmap.count(s) > 0)
         {
@@ -66,7 +66,7 @@ public class serverPage extends COM.dragonflow.Page.machineChooserPage
         }
     }
 
-    public static void setReturnURL(jgl.HashMap hashmap, String s)
+    public static void setReturnURL(HashMap hashmap, String s)
     {
         if(hashmap == null)
         {
@@ -75,7 +75,7 @@ public class serverPage extends COM.dragonflow.Page.machineChooserPage
         hashmap.put(String.valueOf(clientID), s);
     }
 
-    public static void removeReturnURL(jgl.HashMap hashmap, String s)
+    public static void removeReturnURL(HashMap hashmap, String s)
     {
         if(hashmap != null && hashmap.count(s) > 0)
         {
@@ -131,7 +131,7 @@ public class serverPage extends COM.dragonflow.Page.machineChooserPage
                 s4 = "\\\\" + s4;
             }
             int i = 0;
-            jgl.Array array = new Array();
+            Array array = new Array();
             if(COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().internalServerActive())
             {
                 i = COM.dragonflow.SiteView.Platform.CheckPermissions(s4, getMasterConfig(), array);
@@ -215,7 +215,7 @@ public class serverPage extends COM.dragonflow.Page.machineChooserPage
                     vector = addNTSSHServers(vector, "_remoteNTMachine");
                 } else
                 {
-                    jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+                    HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
                     if(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_NTSSHHideLocalServers").length() > 0)
                     {
                         vector = new Vector();
@@ -279,7 +279,7 @@ public class serverPage extends COM.dragonflow.Page.machineChooserPage
             outputStream.print("</TABLE>");
             outputStream.println("</tr></table><br><input type=submit value=Choose> Server</input>\n</FORM><p>\n");
             outputStream.print("<a href=" + s1 + ">Return Back</a>");
-            jgl.HashMap hashmap1 = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap1 = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             if(request.getValue("noNTRemote").length() == 0 && COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_allowUnixToNT").length() > 0)
             {
                 outputStream.println("<p>" + getPagePOST("ntmachine", "") + "<input type=hidden name=backURL value=" + s2 + ">\n" + "<input type=hidden name=storeURL value=" + s1 + ">\n" + "<input type=submit value=\"Setup NT Remote\"> " + "Set up remote NT with a different user/password then the one used in SiteView Services</input>\n" + "</form>\n");

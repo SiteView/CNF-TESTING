@@ -24,8 +24,8 @@ import java.io.Writer;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.Properties.HashMapOrdered;
@@ -58,7 +58,7 @@ public class OSAdapter {
         Array array1 = getOSIDs();
         array1 = TextUtils.sortStrings(array1, true);
         for (int i = 0; i < array1.size(); i ++) {
-            OSAdapter osadapter = getOSAdapter((String) array1.at(i));
+            OSAdapter osadapter = getOSAdapter((String) array1.get(i));
             array.add(osadapter.getOSID());
             array.add(osadapter.getOSName());
         }
@@ -76,7 +76,7 @@ public class OSAdapter {
         try {
             Array array = FrameFile.readFromFile(s);
             for (int i = 0; i < array.size(); i ++) {
-                HashMap hashmap = (HashMap) array.at(i);
+                HashMap hashmap = (HashMap) array.get(i);
                 if (i == 0) {
                     osProperties = hashmap;
                     continue;
@@ -172,7 +172,7 @@ public class OSAdapter {
         Array array = new Array();
         HashMap hashmap = getCommand(s);
         if (hashmap != null) {
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             while (enumeration.hasMoreElements()) {
                 String s2 = (String) enumeration.nextElement();
                 if (TextUtils.match(s2, s1)) {
@@ -212,7 +212,7 @@ public class OSAdapter {
      */
     public static void main(String args[]) throws IOException {
         HashMap hashmap = MasterConfig.getMasterConfig();
-        Machine.registerMachines(hashmap.values("_remoteMachine"));
+        Machine.registerMachines((Enumeration) hashmap.values("_remoteMachine"));
         if (args.length < 1) {
             System.out.println("Usage: OSAdapter machine [detail] [CPUMonitor] [DiskSpaceMonitor] [MemoryMonitor] [ProcessMonitor]");
             System.exit(0);
@@ -374,7 +374,7 @@ public class OSAdapter {
                 if (i >= array.size()) {
                     break;
                 }
-                String s2 = (String) array.at(i);
+                String s2 = (String) array.get(i);
                 if (s2.indexOf("syslog") >= 0) {
                     s1 = s2;
                     break;
@@ -382,7 +382,7 @@ public class OSAdapter {
                 i ++;
             } while (true);
             if (s1.length() == 0) {
-                s1 = (String) array.at(0);
+                s1 = (String) array.get(0);
             }
             printwriter.println("Will check Process " + s1);
             hashmapordered.put("_service", s1);
@@ -425,7 +425,7 @@ public class OSAdapter {
                 Array array = atomicmonitor.getLogProperties();
                 int i = 0;
                 for (/**/; i < array.size(); i ++) {
-                    StringProperty stringproperty = (StringProperty) array.at(i);
+                    StringProperty stringproperty = (StringProperty) array.get(i);
                     if (i < 5) {
                         StringProperty stringproperty_30_ = stringproperty;
                         if (atomicmonitor != null) {

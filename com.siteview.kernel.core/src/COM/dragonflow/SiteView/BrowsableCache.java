@@ -21,8 +21,8 @@ import java.io.File;
 import java.net.URLDecoder;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.datachannel.xml.om.Document;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
@@ -54,7 +54,7 @@ public class BrowsableCache {
             boolean flag1) {
         HashMap hashmap = null;
         for (int i = 0; i < browseCache.size(); i++) {
-            HashMap hashmap1 = (HashMap) browseCache.at(i);
+            HashMap hashmap1 = (HashMap) browseCache.get(i);
             String s1 = (String) hashmap1.get("id");
             if (!s1.equals(s)) {
                 try {
@@ -177,7 +177,7 @@ public class BrowsableCache {
                 Object obj = httprequest.variables.get("SELECTED" + s3 + "ID");
                 s7 = "";
                 if (obj instanceof Array)
-                    s7 = (String) ((Array) obj).at(0);
+                    s7 = (String) ((Array) obj).get(0);
                 else
                     s7 = (String) obj;
                 if (s7 == null)
@@ -229,7 +229,7 @@ public class BrowsableCache {
     private static String findNameFromID(HashMap hashmap, String s,
             BrowsableMonitor browsablemonitor) {
         s = URLDecoder.decode(s);
-        for (Enumeration enumeration = hashmap.keys(); enumeration
+        for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration
                 .hasMoreElements();) {
             String s1 = (String) enumeration.nextElement();
             String s2 = URLDecoder.decode((String) hashmap.get(s1));
@@ -292,13 +292,13 @@ public class BrowsableCache {
             hashmap = new HashMap();
             hashmap.add("id", s);
             hashmap.add("xml", new Document());
-            hashmap.add("tree", array.at(0));
-            hashmap.add("selectNames", array.at(1));
-            hashmap.add("selectIDs", array.at(2));
-            hashmap.add("permanentSelectNames", array.at(1));
-            hashmap.add("permanentSelectIDs", array.at(2));
-            hashmap.add("cParms", array.at(3));
-            hashmap.add("mProp", array.at(4));
+            hashmap.add("tree", array.get(0));
+            hashmap.add("selectNames", array.get(1));
+            hashmap.add("selectIDs", array.get(2));
+            hashmap.add("permanentSelectNames", array.get(1));
+            hashmap.add("permanentSelectIDs", array.get(2));
+            hashmap.add("cParms", array.get(3));
+            hashmap.add("mProp", array.get(4));
         } catch (Exception exception) {
         }
         return hashmap;
@@ -306,7 +306,7 @@ public class BrowsableCache {
 
     public static void saveCache(String s) {
         for (int i = 0; i < browseCache.size(); i++) {
-            HashMap hashmap = (HashMap) browseCache.at(i);
+            HashMap hashmap = (HashMap) browseCache.get(i);
             String s1 = (String) hashmap.get("id");
             if (!s1.equals(s))
                 continue;
@@ -421,8 +421,8 @@ public class BrowsableCache {
                 .getConnectionProperties();
         for (int i = 0; i < array.size(); i++) {
             String s1 = atomicmonitor
-                    .getProperty(((StringProperty) array.at(i)).getName());
-            if (!((StringProperty) array.at(i)).isPassword
+                    .getProperty(((StringProperty) array.get(i)).getName());
+            if (!((StringProperty) array.get(i)).isPassword
                     && TextUtils
                             .keepChars(s1,
                                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._$")

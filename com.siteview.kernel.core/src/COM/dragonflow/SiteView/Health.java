@@ -25,8 +25,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Api.APIGroup;
 import COM.dragonflow.Api.APISiteView;
 import COM.dragonflow.ConfigurationManager.CfgChangesSink;
@@ -148,10 +148,10 @@ public class Health implements CfgChangesSink {
                         as1);
             }
             if (array != null && array1 != null) {
-                HashMap hashmap1 = (HashMap) array.at(0);
+                HashMap hashmap1 = (HashMap) array.get(0);
                 String s5 = (String) hashmap1.get("_nextID");
                 for (int j = 1; j < array1.size(); j++) {
-                    HashMap hashmap2 = (HashMap) array1.at(j);
+                    HashMap hashmap2 = (HashMap) array1.get(j);
                     HashMap hashmap3 = new HashMap();
                     hashmap3.put("_id", s5);
                     String s6;
@@ -321,7 +321,7 @@ public class Health implements CfgChangesSink {
         try {
             Array array = FrameFile.readFromFile(s1 + s + ".mg");
             for (int i = 1; i < array.size(); i++) {
-                HashMap hashmap = (HashMap) array.at(i);
+                HashMap hashmap = (HashMap) array.get(i);
                 String s2 = (String) hashmap.get("_class");
                 if (s2 != null && s2.equals("SubGroup")) {
                     createHealthGroupList((String) hashmap.get("_group"));
@@ -392,7 +392,7 @@ public class Health implements CfgChangesSink {
     private void updateMaster(HashMap hashmap) {
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         String s;
-        for (Enumeration enumeration = hashmap.keys(); enumeration
+        for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration
                 .hasMoreElements(); siteviewgroup.setProperty(s,
                 (String) hashmap.get(s))) {
             s = (String) enumeration.nextElement();

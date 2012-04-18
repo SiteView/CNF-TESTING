@@ -14,7 +14,7 @@ import java.io.FileReader;
 import java.util.Date;
 import java.util.Random;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -112,11 +112,11 @@ public class FileCommandPage extends COM.dragonflow.Page.CGI {
                     String s3 = COM.dragonflow.SiteView.Machine.REMOTE_PREFIX
                             + machine
                                     .getProperty(COM.dragonflow.SiteView.Machine.pID);
-                    jgl.HashMap hashmap = new HashMap();
+                    HashMap hashmap = new HashMap();
                     hashmap.put("file", s1);
                     String s4 = COM.dragonflow.SiteView.Machine
                             .getCommandString("catFile", s3, hashmap);
-                    jgl.Array array = null;
+                    Array array = null;
                     COM.dragonflow.Utils.RemoteCommandLine remotecommandline = null;
                     remotecommandline = COM.dragonflow.SiteView.Machine
                             .getRemoteCommandLine(machine);
@@ -135,7 +135,7 @@ public class FileCommandPage extends COM.dragonflow.Page.CGI {
                     if (array != null && remotecommandline.exitValue == 0
                             && array.size() > 0) {
                         COM.dragonflow.Utils.RemoteCommandLine _tmp = remotecommandline;
-                        if (array.at(0).equals(" sIiTeSsCoPeReDiReCTtOkEN* ")) {
+                        if (array.get(0).equals(" sIiTeSsCoPeReDiReCTtOkEN* ")) {
                             getFileLocal(s6, "cat: cannot open");
                             break label2;
                         }

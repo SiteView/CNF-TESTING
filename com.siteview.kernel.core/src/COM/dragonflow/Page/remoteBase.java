@@ -11,8 +11,8 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -45,7 +45,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
 
     abstract jgl.Array getListTableHeaders(String s);
 
-    abstract jgl.Array getListTableRow(jgl.HashMap hashmap, String s);
+    abstract jgl.Array getListTableRow(HashMap hashmap, String s);
 
     abstract void doTest(COM.dragonflow.SiteView.Machine machine);
 
@@ -77,9 +77,9 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
 
     abstract String getPrintFormSubmit();
 
-    abstract boolean displayFormTable(jgl.HashMap hashmap, String s);
+    abstract boolean displayFormTable(HashMap hashmap, String s);
 
-    void saveAddProperties(String s, jgl.HashMap hashmap,
+    void saveAddProperties(String s, HashMap hashmap,
             String s1) {
         hashmap.put(COM.dragonflow.SiteView.Machine.pSshAuthMethod.getName(),
                 request.getValue("sshAuthMethod"));
@@ -116,7 +116,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
     }
 
     jgl.Array getFrames() {
-        jgl.Array array = new Array();
+        Array array = new Array();
         try {
             array = readMachines(getRemoteName());
         } catch (java.lang.Exception exception) {
@@ -124,7 +124,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
         return array;
     }
 
-    String getNextMachineID(jgl.HashMap hashmap) {
+    String getNextMachineID(HashMap hashmap) {
         String s = null;
         if (hashmap != null) {
             s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
@@ -169,7 +169,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                 + s2 + "</input>\n</form>");
     }
 
-    void formLogin(jgl.HashMap hashmap) {
+    void formLogin(HashMap hashmap) {
         String s = getPage();
         String s1 = "";
         if (s.indexOf("ntmachine") != -1) {
@@ -286,7 +286,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
         if (s4.length() == 0) {
             printPrefsBar(getPrefTitle());
         }
-        jgl.Array array = getListTableHeaders(s4);
+        Array array = getListTableHeaders(s4);
         outputStream
                 .println("<H2>"
                         + s5
@@ -296,22 +296,22 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                         + "</p>"
                         + "<TABLE WIDTH=100% BORDER=2 cellspacing=0><TR CLASS=\"tabhead\">");
         for (int i = 0; i < array.size(); i++) {
-            outputStream.println("<TH align=left>" + array.at(i) + "</TH>");
+            outputStream.println("<TH align=left>" + array.get(i) + "</TH>");
         }
 
         outputStream.println("</TR>");
-        jgl.Array array1 = readMachines(getRemoteName());
+        Array array1 = readMachines(getRemoteName());
         if (array1.size() == 0) {
             outputStream
                     .println("<TR><TD> </TD><TD align=center>no remote servers defined</TD><TD> </TD></TR>\n");
         } else {
-            for (Enumeration enumeration = array1.elements(); enumeration
+            for (Enumeration enumeration =  (Enumeration) array1.iterator(); enumeration
                     .hasMoreElements(); outputStream.println("</TR>")) {
-                jgl.HashMap hashmap = (jgl.HashMap) enumeration.nextElement();
-                jgl.Array array2 = getListTableRow(hashmap, s4);
+                HashMap hashmap = (HashMap) enumeration.nextElement();
+                Array array2 = getListTableRow(hashmap, s4);
                 outputStream.println("<TR>");
                 for (int j = 0; j < array2.size(); j++) {
-                    outputStream.println("<TD align=left>" + array2.at(j)
+                    outputStream.println("<TD align=left>" + array2.get(j)
                             + "</TD>");
                 }
 
@@ -333,13 +333,13 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
         printFooter(outputStream);
     }
 
-    void printForm(String s, jgl.Array array, jgl.HashMap hashmap)
+    void printForm(String s, Array array, HashMap hashmap)
             throws java.lang.Exception {
         String s1 = "";
         String s2 = getMachineID();
         String s3 = COM.dragonflow.Page.remoteBase.getSubmitName(s);
         String s4 = request.getValue("storeID");
-        jgl.HashMap hashmap1;
+        HashMap hashmap1;
         if (s.equals("Edit")) {
             hashmap1 = findMachine(array, s2);
             s1 = s3 + " Remote Server : " + hashmap1.get("_name");
@@ -376,8 +376,8 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
         printFooter(outputStream);
     }
 
-    private jgl.Array parseHosts(String s) {
-        jgl.Array array = new Array();
+    private Array parseHosts(String s) {
+        Array array = new Array();
         if (s.indexOf(",") != -1) {
             array = COM.dragonflow.Utils.TextUtils.splitArray(s, ",");
         } else {
@@ -386,12 +386,12 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
         return array;
     }
 
-    private int getIndex(jgl.Array array, jgl.HashMap hashmap) {
+    private int getIndex(Array array, HashMap hashmap) {
         if (COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id").length() == 0) {
             return -1;
         }
         for (int i = 0; i < array.size(); i++) {
-            jgl.HashMap hashmap1 = (jgl.HashMap) array.at(i);
+            HashMap hashmap1 = (HashMap) array.get(i);
             if (COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id").equals(
                     COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_id"))) {
                 return i;
@@ -402,19 +402,19 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
     }
 
     void printAddForm(String s) throws java.lang.Exception {
-        jgl.Array array = getFrames();
+        Array array = getFrames();
         if (request.isPost()) {
             if (dependentCheck()) {
                 return;
             }
             String s1 = null;
             Object obj = null;
-            jgl.HashMap hashmap1 = null;
+            HashMap hashmap1 = null;
             int i = -1;
-            jgl.Array array1 = parseHosts(request.getValue("host"));
+            Array array1 = parseHosts(request.getValue("host"));
             boolean flag = array1.size() > 1;
             for (int j = 0; j < array1.size(); j++) {
-                jgl.HashMap hashmap;
+                HashMap hashmap;
                 if (s.equals("Add")) {
                     if (hashmap1 == null) {
                         hashmap1 = getMasterConfig();
@@ -432,7 +432,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                     i = getIndex(array, hashmap);
                     array.remove(hashmap);
                 }
-                hashmap.put("_host", array1.at(j).toString().trim());
+                hashmap.put("_host", array1.get(j).toString().trim());
                 if (request.getValue("title").length() == 0) {
                     hashmap.put("_name", hashmap.get("_host"));
                 } else if (flag) {
@@ -493,8 +493,8 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
     void printDeleteForm(String s) throws java.lang.Exception {
         String s1 = getMachineID();
         String s2 = "ID " + s1;
-        jgl.Array array = readMachines(getRemoteName());
-        jgl.HashMap hashmap = findMachine(array, s1);
+        Array array = readMachines(getRemoteName());
+        HashMap hashmap = findMachine(array, s1);
         if (hashmap != null) {
             s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_name");
             if (s2.length() == 0) {
@@ -580,7 +580,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
         return s;
     }
 
-    protected String getSshAuthMethodHtml(jgl.HashMap hashmap) {
+    protected String getSshAuthMethodHtml(HashMap hashmap) {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 COM.dragonflow.SiteView.Machine.pSshAuthMethod.getName());
         if (s.length() == 0) {
@@ -594,7 +594,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                 "Select the method to use to authenticate to the remote server.");
     }
 
-    protected String getSshClientHtml(jgl.HashMap hashmap) {
+    protected String getSshClientHtml(HashMap hashmap) {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 COM.dragonflow.SiteView.Machine.pSSHClient.getName());
         if (request.getValue("operation").equals("Add")) {
@@ -602,11 +602,11 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
         } else if (s.length() == 0) {
             s = "plink";
         }
-        jgl.Array array = COM.dragonflow.SiteView.Machine
+        Array array = COM.dragonflow.SiteView.Machine
                 .getAllowedSshConnectionMethods();
         boolean flag = false;
         for (int i = 0; i < array.size(); i ++) {
-            if (array.at(i).equals(s)) {
+            if (array.get(i).equals(s)) {
                 flag = true;
                 break;
             }
@@ -620,7 +620,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                 "Select the client to use to connect to the remote server.");
     }
 
-    protected String getSSHKeyFileHtml(jgl.HashMap hashmap) {
+    protected String getSSHKeyFileHtml(HashMap hashmap) {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 COM.dragonflow.SiteView.Machine.pSshKeyFile.getName());
         if (s.length() == 0) {
@@ -632,7 +632,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                 "Enter the path to the file containing the private key for this SSH connection. <b> Only valid if authentication method is \"Key File\".");
     }
 
-    protected String getSSHCommandLine(jgl.HashMap hashmap) {
+    protected String getSSHCommandLine(HashMap hashmap) {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 COM.dragonflow.SiteView.Machine.pSSHCommandLine.getName());
         if (s.length() == 0) {
@@ -645,7 +645,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                 "Enter the command for execution of external ssh client.  For substituion with above options use $host$, $user$ and $password$ respectivly. <b> This setting is for only for connections using an external process.</b>");
     }
 
-    protected String getNumConnectionseHtml(jgl.HashMap hashmap) {
+    protected String getNumConnectionseHtml(HashMap hashmap) {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 COM.dragonflow.SiteView.Machine.pSSHConnectionsLimit.getName());
         if (s.length() == 0) {
@@ -658,7 +658,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                 "Enter the maximum number of open connections allowed for this remote.");
     }
 
-    protected String getPortNumberHtml(jgl.HashMap hashmap) {
+    protected String getPortNumberHtml(HashMap hashmap) {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 COM.dragonflow.SiteView.Machine.pSSHPort.getName());
         if (s.length() == 0) {
@@ -670,7 +670,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                 "Enter the port number that the ssh server is running on. <b> Default is 22. </b>");
     }
 
-    protected String getSSHForceVersion2Html(jgl.HashMap hashmap) {
+    protected String getSSHForceVersion2Html(HashMap hashmap) {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 COM.dragonflow.SiteView.Machine.pSSHForceVersion2.getName());
         if (s.length() > 0) {
@@ -682,7 +682,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
                 "Check this box to force SSH to only use SSH protocol version 2. <b> ( This SSH option is only supported using the internal java libraries connection method) </b>");
     }
 
-    protected String getDisableCacheHtml(jgl.HashMap hashmap) {
+    protected String getDisableCacheHtml(HashMap hashmap) {
         String s = COM.dragonflow.Utils.TextUtils
                 .getValue(hashmap,
                         COM.dragonflow.SiteView.Machine.pSSHConnectionCaching
@@ -699,7 +699,7 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
         return request.getValue("ntMachineID");
     }
 
-    protected StringBuffer getAdnvacedSSHOptions(jgl.HashMap hashmap) {
+    protected StringBuffer getAdnvacedSSHOptions(HashMap hashmap) {
         StringBuffer stringbuffer = new StringBuffer();
         stringbuffer
                 .append("<TR><TD ALIGN=\"CENTER\" VALIGN=\"CENTER\" colspan=3><HR><H3>SSH Advanced Options</H3></TD></TR>");

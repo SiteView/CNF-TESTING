@@ -19,8 +19,8 @@ package COM.dragonflow.StandardPreference;
 
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import jgl.LessString;
 import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.NumericProperty;
@@ -105,11 +105,11 @@ public class DynamicUpdateInstancePreferences extends COM.dragonflow.SiteView.Pr
             vector.addElement("");
             vector.addElement("-- SiteView Panel --");
             COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-            jgl.Array array = siteviewgroup.getGroupIDs();
-            jgl.Array array1 = new Array();
-            jgl.HashMap hashmap = new HashMap();
+            Array array = siteviewgroup.getGroupIDs();
+            Array array1 = new Array();
+            HashMap hashmap = new HashMap();
             for (int j = 0; j < array.size(); j ++) {
-                String s = (String) array.at(j);
+                String s = (String) array.get(j);
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) siteviewgroup.getElement(s);
                 if (monitorgroup != null) {
                     String s3 = COM.dragonflow.Page.CGI.getGroupPath(monitorgroup, COM.dragonflow.Page.CGI.getGroupIDFull(s, siteviewgroup), false);
@@ -118,9 +118,9 @@ public class DynamicUpdateInstancePreferences extends COM.dragonflow.SiteView.Pr
                 }
             }
 
-            jgl.Sorting.sort(array1, new LessString());
+            Sorting.sort(array1, new LessString());
             for (int k = 0; k < array1.size(); k ++) {
-                String s1 = (String) array1.at(k);
+                String s1 = (String) array1.get(k);
                 String s2 = (String) hashmap.get(s1);
                 vector.addElement(s2);
                 vector.addElement(s1);

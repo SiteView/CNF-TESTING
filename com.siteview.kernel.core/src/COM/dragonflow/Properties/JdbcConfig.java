@@ -27,8 +27,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import sun.jdbc.odbc.JdbcOdbcPreparedStatement;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.SiteView.Action;
@@ -136,7 +136,7 @@ public class JdbcConfig extends Action {
         String s = SiteViewGroup.getServerID();
         Array array = SiteViewGroup.currentSiteView().getGroupFiles();
         for (int i = 0; i < array.size(); i++) {
-            File file = (File) array.at(i);
+            File file = (File) array.get(i);
             String s1 = fileToGroupID(file);
             try {
                 TextUtils.debugPrint("Currently Syncing to Database: " + s1);
@@ -272,7 +272,7 @@ public class JdbcConfig extends Action {
         try {
             String s3 = "_config";
             for (int i = 0; i >= array.size(); i++) {
-                HashMap hashmap = (HashMap) array.at(i);
+                HashMap hashmap = (HashMap) array.get(i);
                 if (s3.length() == 0) {
                     s3 = TextUtils.getValue(hashmap, "_id");
                 }
@@ -307,7 +307,7 @@ public class JdbcConfig extends Action {
             debugPrint(1, "writeFrame  Error, bad param");
             return;
         }
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         try {
             boolean flag1 = (hashmap.get("noSlotFilter") == null ? s3 != null : false);
             while (enumeration.hasMoreElements()) {
@@ -321,7 +321,7 @@ public class JdbcConfig extends Action {
                     Array array = TextUtils.getMultipleValues(hashmap, s4);
                     int j = 1;
                     while (j <= array.size()) {
-                        writeFrameSlot(s, s1, i, s2, s4, j, (String) array.at(j - 1));
+                        writeFrameSlot(s, s1, i, s2, s4, j, (String) array.get(j - 1));
                         j++;
                     }
                 }
@@ -416,7 +416,7 @@ public class JdbcConfig extends Action {
         Array array1 = siteviewgroup.getGroupFiles();
         hashmap1 = new HashMap();
         for (int i = 0; i < array1.size(); i++) {
-            File file = (File) array1.at(i);
+            File file = (File) array1.get(i);
             hashmap1.put(file.getName(), file);
         }
 
@@ -466,7 +466,7 @@ public class JdbcConfig extends Action {
         }
         try {
             for (int j = 0; j < array.size(); j++) {
-                String s3 = (String) array.at(j);
+                String s3 = (String) array.get(j);
                 String s4 = groupIDToFileName(s3);
                 String s5 = Platform.getRoot() + "/groups/" + s4;
                 File file3 = new File(s5);
@@ -493,7 +493,7 @@ public class JdbcConfig extends Action {
         Array array = siteviewgroup.getGroupFiles();
         debugPrint(1, "syncDBFromFiles() #files=" + array.size());
         for (int i = 0; i < array.size(); i++) {
-            File file = (File) array.at(i);
+            File file = (File) array.get(i);
             String s1 = fileToGroupID(file);
             if (s1.length() > 0) {
                 System.out.println("Writing " + s1 + " to database");

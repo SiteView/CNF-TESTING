@@ -7,8 +7,8 @@ import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.Page.servicePage;
@@ -194,7 +194,7 @@ public abstract class SiteViewObject extends PropertiedObject {
 
     Enumeration getElements() {
         if (elements == null)
-            return cEmptyArray.elements();
+            return cEmpty(Enumeration) array.iterator();
         else
             return elements.elements();
     }
@@ -206,7 +206,7 @@ public abstract class SiteViewObject extends PropertiedObject {
     private void copyElementsOfClass(Array array, Array array1, String s) {
         try {
             Class class1 = Class.forName(s);
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                 Object object = enumeration.nextElement();
                 for (Class class2 = object.getClass(); class2 != null; class2 = class2
@@ -394,7 +394,7 @@ public abstract class SiteViewObject extends PropertiedObject {
                     s = TextUtils.substitute(s, this);
             }
 
-            enumeration = array.elements();
+            enumeration = (Enumeration) array.iterator();
         }
         return enumeration;
     }
@@ -746,7 +746,7 @@ public abstract class SiteViewObject extends PropertiedObject {
             }
             if (s2.equalsIgnoreCase("all")) {
                 Array array = getProperties();
-                Enumeration enumeration4 = array.elements();
+                Enumeration enumeration4 = (Enumeration) array.iterator();
                 while (enumeration4.hasMoreElements()) {
                     StringProperty stringproperty5 = (StringProperty) enumeration4
                             .nextElement();
@@ -946,7 +946,7 @@ public abstract class SiteViewObject extends PropertiedObject {
             if (!Float.isNaN(f1) && !Float.isNaN(f)) {
                 float f2;
                 if (array.size() >= 1)
-                    f2 = TextUtils.toFloat((String) array.at(0));
+                    f2 = TextUtils.toFloat((String) array.get(0));
                 else
                     f2 = TextUtils.toFloat(s1);
                 if (f2 < f1 || f2 > f)

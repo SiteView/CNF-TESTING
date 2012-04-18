@@ -10,6 +10,8 @@ package COM.dragonflow.Utils;
 
 import java.util.Enumeration;
 
+import com.recursionsw.jgl.Array;
+
 /**
  * Comment for <code></code>
  * 
@@ -63,8 +65,8 @@ public class Registry {
             String s4;
 
             try {
-                jgl.Array array = commandline.exec(s3);
-                Enumeration enumeration = array.elements();
+                Array array = commandline.exec(s3);
+                Enumeration enumeration = (Enumeration) array.iterator();
                 while (enumeration.hasMoreElements()) {
                     s4 = (String) enumeration.nextElement();
                     if (s4.startsWith("Registry value=")) {

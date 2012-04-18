@@ -20,8 +20,8 @@ package COM.dragonflow.StandardMonitor;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.Monitor;
@@ -483,7 +483,7 @@ label0:
     {
         if(contentMatches.size() > 0)
         {
-            URLLoadInfo urlloadinfo = (URLLoadInfo)contentMatches.at(0);
+            URLLoadInfo urlloadinfo = (URLLoadInfo)contentMatches.get(0);
             return urlloadinfo.contents;
         } else
         {
@@ -495,7 +495,7 @@ label0:
     {
         if(errorMatches.size() > 0)
         {
-            URLLoadInfo urlloadinfo = (URLLoadInfo)errorMatches.at(0);
+            URLLoadInfo urlloadinfo = (URLLoadInfo)errorMatches.get(0);
             return urlloadinfo.contents;
         } else
         {

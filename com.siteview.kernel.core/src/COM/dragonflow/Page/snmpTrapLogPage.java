@@ -12,8 +12,8 @@ package COM.dragonflow.Page;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Utils.Braf;
 
@@ -57,7 +57,7 @@ public class snmpTrapLogPage extends COM.dragonflow.Page.CGI
             {
                 i = 10;
             }
-            jgl.Array array = new Array();
+            Array array = new Array();
             int j = 0;
             String s4 = COM.dragonflow.StandardMonitor.SNMPTrapMonitor.getLogPath();
             java.io.File file = new File(s4);
@@ -120,11 +120,11 @@ public class snmpTrapLogPage extends COM.dragonflow.Page.CGI
         printFooter(outputStream);
     }
 
-    void printTraps(jgl.Array array, int i, java.io.PrintWriter printwriter)
+    void printTraps(Array array, int i, java.io.PrintWriter printwriter)
     {
         printwriter.println("<table border=1 cellspacing=0><tr><th>Date<th>From<th>Message<th>Trap<th>Specific<th>OID<th>Agent<th>Community<th>Trap Time");
         jgl.Reversing.reverse(array);
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         int j = 0;
         do
         {
@@ -133,9 +133,9 @@ public class snmpTrapLogPage extends COM.dragonflow.Page.CGI
                 break;
             }
             String s = (String)enumeration.nextElement();
-            jgl.Array array1 = COM.dragonflow.SiteView.Platform.split('\t', s);
-            Enumeration enumeration1 = array1.elements();
-            jgl.HashMap hashmap = new HashMap();
+            Array array1 = COM.dragonflow.SiteView.Platform.split('\t', s);
+            Enumeration enumeration1 =  (Enumeration) array1.iterator();
+            HashMap hashmap = new HashMap();
             int k = 0;
             do
             {

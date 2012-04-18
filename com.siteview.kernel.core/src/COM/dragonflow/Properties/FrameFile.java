@@ -26,9 +26,9 @@ import java.io.RandomAccessFile;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
-import jgl.Sorting;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.SiteView.DetectConfigurationChange;
 import COM.dragonflow.SiteView.Monitor;
@@ -146,7 +146,7 @@ public class FrameFile {
                     array1.add(s3 + ".bak.1");
                 }
                 for (int j1 = 1; j1 < i1 + 1; j1++) {
-                    array1.add(array.at(j1 - 1));
+                    array1.add(array.get(j1 - 1));
                 }
 
                 if (i1 < i) {
@@ -155,18 +155,18 @@ public class FrameFile {
                 array = array1;
             }
             for (int k1 = 1; k1 < array.size(); k1++) {
-                int i2 = getFileNum((String) array.at(k1));
-                String s4 = new String((String) array.at(k1));
+                int i2 = getFileNum((String) array.get(k1));
+                String s4 = new String((String) array.get(k1));
                 int k2;
-                for (k2 = k1 - 1; k2 >= 0 && i2 > getFileNum((String) array.at(k2)); k2--) {
-                    array.put(k2 + 1, array.at(k2));
+                for (k2 = k1 - 1; k2 >= 0 && i2 > getFileNum((String) array.get(k2)); k2--) {
+                    array.put(k2 + 1, array.get(k2));
                 }
 
                 array.put(k2 + 1, s4);
             }
 
             for (int l1 = 0; l1 < array.size(); l1++) {
-                File file4 = new File(s2 + (String) array.at(l1));
+                File file4 = new File(s2 + (String) array.get(l1));
                 int j2 = array.size() - l1;
                 if (j2 >= i && file4.exists()) {
                     file4.delete();
@@ -220,22 +220,22 @@ public class FrameFile {
                 return flag;
             }
             for (int i1 = 1; i1 < array.size(); i1++) {
-                int k1 = getFileNum((String) array.at(i1));
-                String s3 = new String((String) array.at(i1));
+                int k1 = getFileNum((String) array.get(i1));
+                String s3 = new String((String) array.get(i1));
                 int l1;
-                for (l1 = i1 - 1; l1 >= 0 && k1 < getFileNum((String) array.at(l1)); l1--) {
-                    array.put(l1 + 1, array.at(l1));
+                for (l1 = i1 - 1; l1 >= 0 && k1 < getFileNum((String) array.get(l1)); l1--) {
+                    array.put(l1 + 1, array.get(l1));
                 }
 
                 array.put(l1 + 1, s3);
             }
 
             for (int j1 = 0; j1 < array.size() - 1; j1++) {
-                File file4 = new File(s1 + (String) array.at(j1));
+                File file4 = new File(s1 + (String) array.get(j1));
                 if (file4.exists()) {
                     file4.delete();
                 }
-                File file5 = new File(s1 + (String) array.at(j1 + 1));
+                File file5 = new File(s1 + (String) array.get(j1 + 1));
                 file5.renameTo(file4);
             }
 
@@ -336,7 +336,7 @@ public class FrameFile {
     }
 
     static void printFrames(StringBuffer stringbuffer, Array array, String s, boolean flag, boolean flag1) {
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         for (boolean flag2 = true; enumeration.hasMoreElements(); flag2 = false) {
             HashMap hashmap = (HashMap) enumeration.nextElement();
             if (!flag2) {
@@ -354,13 +354,13 @@ public class FrameFile {
         if (hashmap.get("noSlotFilter") != null) {
             flag2 = false;
         }
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         if (flag1) {
             Array array = new Array();
             for (; enumeration.hasMoreElements(); array.add(enumeration.nextElement())) {
             }
             Sorting.sort(array, new LessEqualPropertyName());
-            enumeration = array.elements();
+            enumeration = (Enumeration) array.iterator();
         }
         while (enumeration.hasMoreElements()) {
             Object obj = enumeration.nextElement();
@@ -370,7 +370,7 @@ public class FrameFile {
             } else {
                 s1 = (String) obj;
             }
-            Enumeration enumeration1 = hashmap.values(obj);
+            Enumeration enumeration1 = (Enumeration) hashmap.values(obj);
             while (enumeration1.hasMoreElements()) {
                 Object obj1 = enumeration1.nextElement();
                 boolean flag3 = true;
@@ -434,7 +434,7 @@ public class FrameFile {
             if (array.size() != 1) {
                 throwError("master.config", "truncated");
             }
-            HashMap hashmap = (HashMap) array.at(0);
+            HashMap hashmap = (HashMap) array.get(0);
             if (hashmap.get("_initialMonitorDelay") == null) {
                 throwError("master.config", "corrupt");
             }
@@ -447,7 +447,7 @@ public class FrameFile {
             if (array.size() < 3) {
                 throwError("users.config", "truncated");
             }
-            HashMap hashmap1 = (HashMap) array.at(1);
+            HashMap hashmap1 = (HashMap) array.get(1);
             if (hashmap1.get("_realName") == null) {
                 throwError("users.config", "corrupt");
             }
@@ -520,7 +520,7 @@ public class FrameFile {
         throw new IOException(s + ", " + s1);
     }
 
-    public static Array readFromFile(String s) throws IOException {
+    public static com.recursionsw.jgl.Array readFromFile(String s) throws IOException {
         boolean flag = forceMangleOnReading();
         return readFromFile(s, flag);
     }
@@ -580,7 +580,7 @@ public class FrameFile {
             if (s.indexOf("master.config") >= 0) {
                 readMasterConfig = true;
                 for (int i = 0; i < array.size(); i++) {
-                    String s1 = (String) array.at(i);
+                    String s1 = (String) array.get(i);
                     if (s1.trim().startsWith("#")) {
                         array.remove(i);
                         i--;
@@ -588,7 +588,7 @@ public class FrameFile {
                 }
 
             }
-            return readFrames(array.elements());
+            return readFrames((Enumeration) array.iterator());
         }
     }
 
@@ -787,7 +787,7 @@ public class FrameFile {
                 }
                 Array array2 = readFromFile(s4 + "/" + args1[i1]);
                 Array array3 = new Array();
-                Enumeration enumeration = array2.elements();
+                Enumeration enumeration =  (Enumeration) array2.iterator();
                 while (enumeration.hasMoreElements()) {
                     HashMap hashmap = (HashMap) enumeration.nextElement();
                     String s9 = TextUtils.getValue(hashmap, "_class");
@@ -831,7 +831,7 @@ public class FrameFile {
                 }
                 Array array4 = readFromFile(s7 + "/" + args2[l1]);
                 Array array5 = new Array();
-                Enumeration enumeration1 = array4.elements();
+                Enumeration enumeration1 = (Enumeration) array4.iterator();
                 HashMap hashmap1 = new HashMap();
                 if (enumeration1.hasMoreElements()) {
                     hashmap1 = (HashMap) enumeration1.nextElement();

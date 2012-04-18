@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.Enumeration;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
@@ -21,7 +21,7 @@ import jgl.HashMap;
 public class demoAppPage extends COM.dragonflow.Page.CGI
 {
 
-    public static jgl.HashMap shoppingBasket = new HashMap();
+    public static HashMap shoppingBasket = new HashMap();
 
     public demoAppPage()
     {
@@ -32,7 +32,7 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
         COM.dragonflow.Utils.TextUtils.debugPrint("TEMPLATENAME=" + s);
         COM.dragonflow.Utils.TextUtils.debugPrint("PARAMS=" + s1);
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_appServer");
         String s3 = request.getValue("session");
         if(s3.length() == 0)
@@ -57,12 +57,12 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
     public void printCatalogContents()
         throws java.lang.Exception
     {
-        jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
+        Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
         String s = "/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=item&session=" + request.getValue("session") + "&item=";
         outputStream.println("<TABLE BORDER=1 cellspacing=0>");
         for(int i = 0; i < array.size(); i++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+            HashMap hashmap = (HashMap)array.get(i);
             outputStream.println("<TR><TD><A HREF=" + s + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "id") + "><B>" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "name") + "</B></A></TD>" + "<TD>" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "description") + "</TD>" + "<TD>" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "price") + "</TD></TR>");
         }
 
@@ -78,10 +78,10 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
         throws java.lang.Exception
     {
         String s = request.getValue("item");
-        jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
+        Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
         String s1 = request.getValue("session");
         String s2 = "/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=shoppingBasket&session=" + s1 + "&add=";
-        jgl.HashMap hashmap = null;
+        HashMap hashmap = null;
         int i = 0;
         do
         {
@@ -89,7 +89,7 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
             {
                 break;
             }
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+            HashMap hashmap1 = (HashMap)array.get(i);
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "id").equals(s))
             {
                 hashmap = hashmap1;
@@ -123,10 +123,10 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
     public void printShoppingBasketContents()
         throws java.lang.Exception
     {
-        jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
+        Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
         String s = request.getValue("session");
         String s1 = "/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=item&session=" + s + "&item=";
-        jgl.HashMap hashmap = (jgl.HashMap)shoppingBasket.get(s);
+        HashMap hashmap = (HashMap)shoppingBasket.get(s);
         if(hashmap == null)
         {
             hashmap = new HashMap();
@@ -135,13 +135,13 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
         String s2 = request.getValue("add");
         if(s2.length() > 0)
         {
-            jgl.HashMap hashmap1 = findFrame(array, "id", s2);
+            HashMap hashmap1 = findFrame(array, "id", s2);
             if(hashmap1 != null)
             {
                 hashmap.add(s2, hashmap1);
             }
         }
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         if(!enumeration.hasMoreElements())
         {
             outputStream.println("<H3>No items in in-basket</H3>,");
@@ -155,7 +155,7 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
                     break;
                 }
                 String s3 = (String)enumeration.nextElement();
-                jgl.HashMap hashmap2 = findFrame(array, "id", s3);
+                HashMap hashmap2 = findFrame(array, "id", s3);
                 if(hashmap2 != null)
                 {
                     outputStream.println("<TR><TD><A HREF=" + s1 + COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "id") + ">" + COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "name") + "</A>" + "</TD><TD>" + COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "description") + "</TD></TR>");
@@ -175,16 +175,16 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
     public void printCheckoutContents()
         throws java.lang.Exception
     {
-        jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
+        Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
         String s = request.getValue("session");
         String s1 = "/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=item&session=" + s + "&item=";
-        jgl.HashMap hashmap = (jgl.HashMap)shoppingBasket.get(s);
+        HashMap hashmap = (HashMap)shoppingBasket.get(s);
         if(hashmap == null)
         {
             hashmap = new HashMap();
             shoppingBasket.add(s, hashmap);
         }
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         if(!enumeration.hasMoreElements())
         {
             outputStream.println("<H3>No items in in-basket</H3>,");
@@ -198,7 +198,7 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
                     break;
                 }
                 String s2 = (String)enumeration.nextElement();
-                jgl.HashMap hashmap1 = findFrame(array, "id", s2);
+                HashMap hashmap1 = findFrame(array, "id", s2);
                 if(hashmap1 != null)
                 {
                     outputStream.println("<TR><TD><A HREF=" + s1 + COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "id") + ">" + COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "name") + "</A>" + "</TD><TD>" + COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "description") + "</TD></TR>");
@@ -247,13 +247,13 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
         throws java.lang.Exception
     {
         String s = request.getValue("session");
-        jgl.HashMap hashmap = (jgl.HashMap)shoppingBasket.get(s);
+        HashMap hashmap = (HashMap)shoppingBasket.get(s);
         if(hashmap == null)
         {
             hashmap = new HashMap();
             shoppingBasket.add(s, hashmap);
         }
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         if(!enumeration.hasMoreElements())
         {
             outputStream.println("<H3>No items in in-basket</H3>,");
@@ -270,11 +270,11 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    jgl.HashMap findFrame(jgl.Array array, String s, String s1)
+    jgl.HashMap findFrame(Array array, String s, String s1)
     {
         for(int i = 0; i < array.size(); i++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+            HashMap hashmap = (HashMap)array.get(i);
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap, s).equals(s1))
             {
                 return hashmap;

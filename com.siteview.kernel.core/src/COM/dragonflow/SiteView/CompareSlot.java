@@ -17,8 +17,8 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.BinaryPredicate;
-import jgl.HashMap;
+import com.recursionsw.jgl.BinaryPredicate;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Utils.TextUtils;
 
 public class CompareSlot implements BinaryPredicate {

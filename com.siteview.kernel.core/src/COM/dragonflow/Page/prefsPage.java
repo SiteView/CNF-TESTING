@@ -70,7 +70,7 @@ public class prefsPage extends COM.dragonflow.Page.CGI {
                     + " title=\"License, Port, Gauges, etc.\">General</a>");
         }
         outputStream.print(" | ");
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig
                 .getMasterConfig();
         if (COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                 "_configJdbcShowDDCLink").length() > 0) {

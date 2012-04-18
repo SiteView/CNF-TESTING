@@ -21,8 +21,8 @@ package COM.dragonflow.StandardMonitor;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.StringProperty;
@@ -59,7 +59,7 @@ public class HealthUnixServerMonitor extends MultiContentBase {
 
     protected String getVal(String s, Array array) {
         for (int i = 0; i < array.size(); i ++) {
-            String s1 = (String) array.at(i);
+            String s1 = (String) array.get(i);
             if (s1 == null || s1.length() == 0) {
                 continue;
             }
@@ -112,7 +112,7 @@ public class HealthUnixServerMonitor extends MultiContentBase {
         HashMap hashmap = new HashMap();
         Array array = getAvailableCounters();
         for (int i = 0; i < array.size(); i ++) {
-            String s = (String) array.at(i);
+            String s = (String) array.get(i);
             String s1 = s;
             int j = s.indexOf(":");
             if (j >= 0) {
@@ -152,9 +152,9 @@ public class HealthUnixServerMonitor extends MultiContentBase {
         }
         StringBuffer stringbuffer = new StringBuffer();
         for (int i = 0; i < array.size(); i ++) {
-            String s = (String) array.at(i);
+            String s = (String) array.get(i);
             if (s != null && s.length() != 0) {
-                String as[] = TextUtils.split((String) array.at(i), "=");
+                String as[] = TextUtils.split((String) array.get(i), "=");
                 stringbuffer.append((stringbuffer.length() <= 0 ? "" : ",") + as[0]);
             }
         }

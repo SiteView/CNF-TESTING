@@ -88,11 +88,11 @@ public class PagerInstancePreferences extends COM.dragonflow.SiteView.Preference
         }
         String s1 = page.getPagerCommand(s);
         vector.add(s1);
-        jgl.Array array = page.pagerSend(s);
+        Array array = page.pagerSend(s);
         String s2 = "";
         String s3 = "";
         if (array != null) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                 String s6 = (String) enumeration.nextElement();
                 if (s6.indexOf("message rejected") >= 0) {
@@ -101,7 +101,7 @@ public class PagerInstancePreferences extends COM.dragonflow.SiteView.Preference
                 }
             } 
             
-            for (Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements();) {
+            for (Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1.hasMoreElements();) {
                 String s7 = (String) enumeration1.nextElement() + "\n";
                 vector.add(s7);
                 s2 = s7 + "\n";

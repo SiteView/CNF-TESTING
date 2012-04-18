@@ -11,8 +11,8 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.Utils.SiteViewXMLQuery;
 
@@ -22,18 +22,18 @@ import COM.dragonflow.Utils.SiteViewXMLQuery;
 public class xmlPage extends COM.dragonflow.Page.CGI
 {
 
-    static jgl.HashMap excludeVariableMap;
+    static HashMap excludeVariableMap;
 
     public xmlPage()
     {
     }
 
-    public static jgl.HashMap buildQueryMap(COM.dragonflow.HTTP.HTTPRequest httprequest)
+    public static HashMap buildQueryMap(COM.dragonflow.HTTP.HTTPRequest httprequest)
         throws java.io.IOException
     {
         java.lang.Object obj = null;
         String s = httprequest.getValue("query");
-        jgl.Array array = null;
+        Array array = null;
         if(s.length() == 0)
         {
             obj = new HashMapOrdered(true);
@@ -41,14 +41,14 @@ public class xmlPage extends COM.dragonflow.Page.CGI
         } else
         {
             String s1 = COM.dragonflow.SiteView.Platform.getUsedDirectoryPath("templates.view", httprequest.getAccount()) + java.io.File.separator + s;
-            jgl.Array array1 = COM.dragonflow.Properties.FrameFile.readFromFile(s1);
+            Array array1 = COM.dragonflow.Properties.FrameFile.readFromFile(s1);
             if(array1.size() > 0)
             {
-                obj = (jgl.HashMap)array1.at(0);
+                obj = (HashMap)array1.get(0);
             }
             array = new Array();
-            jgl.Array array2 = COM.dragonflow.Page.xmlPage.getGroupFilterForAccount(httprequest);
-            Enumeration enumeration2 = ((jgl.HashMap) (obj)).values("group");
+            Array array2 = COM.dragonflow.Page.xmlPage.getGroupFilterForAccount(httprequest);
+            Enumeration enumeration2 = ((HashMap) (obj)).values("group");
             do
             {
                 if(!enumeration2.hasMoreElements())
@@ -64,7 +64,7 @@ public class xmlPage extends COM.dragonflow.Page.CGI
         }
         for(int i = 0; i < array.size(); i++)
         {
-            ((jgl.HashMap) (obj)).add("group", array.at(i));
+            ((HashMap) (obj)).add("group", array.get(i));
         }
 
         Enumeration enumeration = httprequest.getVariables();
@@ -77,18 +77,18 @@ public class xmlPage extends COM.dragonflow.Page.CGI
             String s2 = (String)enumeration.nextElement();
             if(excludeVariableMap.get(s2) == null)
             {
-                if(((jgl.HashMap) (obj)).get(s2) != null)
+                if(((HashMap) (obj)).get(s2) != null)
                 {
-                    ((jgl.HashMap) (obj)).remove(s2);
+                    ((HashMap) (obj)).remove(s2);
                 }
                 Enumeration enumeration1 = httprequest.getValues(s2);
                 while(enumeration1.hasMoreElements()) 
                 {
-                    ((jgl.HashMap) (obj)).add(s2, enumeration1.nextElement());
+                    ((HashMap) (obj)).add(s2, enumeration1.nextElement());
                 }
             }
         } while(true);
-        return ((jgl.HashMap) (obj));
+        return ((HashMap) (obj));
     }
 
     public void printBody()
@@ -105,7 +105,7 @@ public class xmlPage extends COM.dragonflow.Page.CGI
             return;
         } else
         {
-            jgl.HashMap hashmap = COM.dragonflow.Page.xmlPage.buildQueryMap(request);
+            HashMap hashmap = COM.dragonflow.Page.xmlPage.buildQueryMap(request);
             COM.dragonflow.Utils.SiteViewXMLQuery siteviewxmlquery = new SiteViewXMLQuery(hashmap, outputStream, request);
             siteviewxmlquery.printXML();
             return;

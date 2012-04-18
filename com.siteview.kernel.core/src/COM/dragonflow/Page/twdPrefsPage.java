@@ -21,7 +21,7 @@ import COM.dragonflow.Utils.URLInfo;
 public class twdPrefsPage extends COM.dragonflow.Page.prefsPage
 {
 
-    static jgl.Array profileList = null;
+    static Array profileList = null;
     static String PREFIX = "http://";
     static String PREFIXSSL = "https://";
     static String SUFFIX = "/topaz/";
@@ -89,7 +89,7 @@ public class twdPrefsPage extends COM.dragonflow.Page.prefsPage
 
     private void printTopazMachinesView()
     {
-//        jgl.HashMap hashmap = null;
+//        HashMap hashmap = null;
 //        try
 //        {
 //            hashmap = COM.dragonflow.TopazWatchdog.TopazHostsConfigurator.getAllTopazHostsToMonitor();
@@ -102,7 +102,7 @@ public class twdPrefsPage extends COM.dragonflow.Page.prefsPage
 //        {
 //            return;
 //        }
-//        Enumeration enumeration = hashmap.keys();
+//        Enumeration enumeration = (Enumeration) hashmap.keys();
 //        int i = hashmap.size();
 //        outputStream.print("<INPUT TYPE='HIDDEN' ID='numberOfHosts' value='" + i + "'>\n" + "<TABLE width=\"80%\" border=2>\n" + "<TR align=\"middle\"><th colspan=\"3\" bgcolor=\"darkblue\"> <font color=\"white\"> " + COM.dragonflow.TopazWatchdog.WatchdogConfig.getWatchdogDisplayedName() + " Machine View</font></th></TR>\n" + "<TR><TH align=left>Name</TH><TH align=left>Location</TH><TH align=left>" + COM.dragonflow.SiteView.TopazInfo.getTopazName() + " Services</TH></TR>\n");
 //        StringBuffer stringbuffer = new StringBuffer();
@@ -111,7 +111,7 @@ public class twdPrefsPage extends COM.dragonflow.Page.prefsPage
 //        {
 //            j++;
 //            String s1 = (String)enumeration.nextElement();
-//            jgl.HashMap hashmap1 = (jgl.HashMap)hashmap.get(s1);
+//            HashMap hashmap1 = (HashMap)hashmap.get(s1);
 //            String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "hostname");
 //            String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "hostlocation");
 //            int k = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "HostType"));

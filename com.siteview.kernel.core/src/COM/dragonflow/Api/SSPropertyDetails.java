@@ -8,6 +8,8 @@
  */
 package COM.dragonflow.Api;
 
+import com.recursionsw.jgl.HashMap;
+
 /**
  * Comment for <code></code>
  * 
@@ -177,7 +179,7 @@ public class SSPropertyDetails extends COM.dragonflow.Api.SSBaseReturnValues
         return password;
     }
 
-    public static void extractDetailsIntoHashMap(COM.dragonflow.Api.SSPropertyDetails sspropertydetails, jgl.HashMap hashmap)
+    public static void extractDetailsIntoHashMap(COM.dragonflow.Api.SSPropertyDetails sspropertydetails, HashMap hashmap)
     {
         if(sspropertydetails.getClass() != null)
         {

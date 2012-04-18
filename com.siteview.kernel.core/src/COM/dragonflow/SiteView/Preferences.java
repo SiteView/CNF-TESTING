@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Api.APISiteView;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
@@ -118,12 +118,12 @@ public class Preferences extends SiteViewObject {
      */
     public Vector getSettings(String s) {
         Vector vector = new Vector();
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         if (hashmap != null) {
             Object obj = null;
             Object obj1 = null;
             if (s != null && s.length() > 0) {
-                Enumeration enumeration = hashmap.values(s);
+                Enumeration enumeration = (Enumeration) hashmap.values(s);
                 while (enumeration.hasMoreElements()) {
                     HashMap hashmap1 = new HashMap();
                     String s1 = "";
@@ -152,7 +152,7 @@ public class Preferences extends SiteViewObject {
     }
 
     public String[] addPreferences(HashMap hashmap) throws SiteViewException {
-        jgl.HashMap hashmap1 = MasterConfig.getMasterConfig();
+        HashMap hashmap1 = MasterConfig.getMasterConfig();
         String s = "";
         String s2 = "";
         String s5 = "";
@@ -190,14 +190,14 @@ public class Preferences extends SiteViewObject {
 
     public String[] updatePreferences(HashMap hashmap, String s, String s1)
             throws SiteViewException {
-        jgl.HashMap hashmap1 = MasterConfig.getMasterConfig();
+        HashMap hashmap1 = MasterConfig.getMasterConfig();
         String as[] = new String[2];
         if (hasMultipleValues()) {
             Enumeration enumeration = hashmap1.values(getSettingName());
             boolean flag = false;
             Array array = new Array();
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap2 = TextUtils
+                HashMap hashmap2 = TextUtils
                         .stringToHashMap((String) enumeration.nextElement());
                 String s4 = (String) hashmap2.get("_id");
                 if (s4 == null) {
@@ -228,7 +228,7 @@ public class Preferences extends SiteViewObject {
             hashmap1.remove(getSettingName());
             for (int i = 0; i < array.size(); i++) {
                 hashmap1.add(getSettingName(), TextUtils
-                        .hashMapToOrderedString((jgl.HashMap) array.at(i)));
+                        .hashMapToOrderedString((HashMap) array.get(i)));
             }
 
         } else {
@@ -258,13 +258,13 @@ public class Preferences extends SiteViewObject {
      */
     public void deletePreferences(String s, String s1)
             throws SiteViewException {
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         Array array = new Array();
         boolean flag = false;
         if (hasMultipleValues()) {
-            Enumeration enumeration = hashmap.values(getSettingName());
+            Enumeration enumeration = (Enumeration) hashmap.values(getSettingName());
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap1 = TextUtils
+                HashMap hashmap1 = TextUtils
                         .stringToHashMap((String) enumeration.nextElement());
                 String s2 = (String) hashmap1.get("_id");
                 if (s2 == null) {
@@ -281,7 +281,7 @@ public class Preferences extends SiteViewObject {
             hashmap.remove(getSettingName());
             for (int i = 0; i < array.size(); i++) {
                 hashmap.add(getSettingName(), TextUtils
-                        .hashMapToOrderedString((jgl.HashMap) array.at(i)));
+                        .hashMapToOrderedString((HashMap) array.get(i)));
             }
 
             MasterConfig.saveMasterConfig(hashmap);
@@ -309,14 +309,14 @@ public class Preferences extends SiteViewObject {
                 Class var_class = Class.forName(string_26_);
                 Preferences preferences_27_ = (Preferences) var_class
                         .newInstance();
-                jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+                HashMap hashmap = MasterConfig.getMasterConfig();
                 if (hashmap == null)
                     throw new SiteViewOperationalException(
                             SiteViewErrorCodes.ERR_OP_SS_PREFERENCE_RETRIEVE_MASTER_SETTINGS);
                 Object object = null;
                 Object object_28_ = null;
                 if (s1 != null && s1.length() > 0) {
-                    Enumeration enumeration = hashmap.values(s1);
+                    Enumeration enumeration = (Enumeration) hashmap.values(s1);
                     while (enumeration.hasMoreElements()) {
                         HashMap hashmap_29_ = new HashMap();
                         String string_30_ = "";
@@ -353,7 +353,7 @@ public class Preferences extends SiteViewObject {
                     Array array = preferences_27_.getProperties();
                     for (int i_37_ = 0; i_37_ < array.size(); i_37_++) {
                         StringProperty stringproperty = (StringProperty) array
-                                .at(i_37_);
+                                .get(i_37_);
                         String string_38_ = (String) hashmap.get(stringproperty
                                 .getName());
                         if (string_38_ == null)
@@ -361,7 +361,7 @@ public class Preferences extends SiteViewObject {
                         string_38_ = TextUtils.storedValueToValue(string_38_);
                         if (stringproperty.isPassword)
                             string_38_ = TextUtils.obscure(string_38_);
-                        hashmap_36_.put(((StringProperty) array.at(i_37_))
+                        hashmap_36_.put(((StringProperty) array.get(i_37_))
                                 .getName(), string_38_);
                     }
                     if (i == APISiteView.FILTER_CONFIGURATION_ALL)
@@ -417,7 +417,7 @@ public class Preferences extends SiteViewObject {
         HashMap hashmap3 = (HashMap) hashmap.clone();
         if (array != null) {
             for (int i = 0; i < array.size(); i++) {
-                StringProperty stringproperty = (StringProperty) array.at(i);
+                StringProperty stringproperty = (StringProperty) array.get(i);
                 String s1 = stringproperty.getName();
                 String s2 = (String) hashmap.get(s1);
                 if (hashmap.get(s1) == null) {

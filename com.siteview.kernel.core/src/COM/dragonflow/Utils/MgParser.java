@@ -23,9 +23,9 @@ import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import jgl.ArrayIterator;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Utils:
@@ -83,8 +83,8 @@ public class MgParser
         java.lang.System.out.println("points used: " + aobj[0]);
         java.lang.System.out.println("monitors used: " + aobj[1]);
         java.lang.System.out.println("monitor types used: ");
-        jgl.HashMap hashmap = (jgl.HashMap)aobj[2];
-        for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); java.lang.System.out.println())
+        HashMap hashmap = (HashMap)aobj[2];
+        for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements(); java.lang.System.out.println())
         {
             String s = (String)enumeration.nextElement();
             java.lang.System.out.print("   " + s + ": " + COM.dragonflow.Utils.TextUtils.getValue(hashmap, s) + " monitor");
@@ -129,7 +129,7 @@ public class MgParser
         int j = 0;
         int k = 0;
         int l = 0;
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         aobj[2] = new Integer(-1);
         java.util.Vector vector;
         if((vector = _getMgFiles()) == null)
@@ -139,7 +139,7 @@ public class MgParser
 
         for(int i1 = 0; i1 < vector.size(); i1++)
         {
-            jgl.Array array;
+            Array array;
             try
             {
                 array = COM.dragonflow.Utils.MgParser.readFromFile(groupsPath + java.io.File.separatorChar + vector.elementAt(i1));
@@ -150,10 +150,10 @@ public class MgParser
                 return null;
             }
             jgl.ArrayIterator arrayiterator = new ArrayIterator(array, 0);
-            jgl.HashMap hashmap1 = new HashMap();
+            HashMap hashmap1 = new HashMap();
             while (arrayiterator.hasMoreElements())
                 {
-                jgl.HashMap hashmap2 = (jgl.HashMap)arrayiterator.nextElement();
+                HashMap hashmap2 = (HashMap)arrayiterator.nextElement();
                 String s = "";
                 s = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_class");
                 if(!s.equals("") && s.indexOf("Monitor") != -1)
@@ -198,10 +198,10 @@ public class MgParser
         return aobj;
     }
 
-    private int _countPointsInUse(jgl.HashMap hashmap)
+    private int _countPointsInUse(HashMap hashmap)
     {
         int i = 0;
-        jgl.HashMap hashmap1 = _defineAppPointUsage();
+        HashMap hashmap1 = _defineAppPointUsage();
         java.util.Vector vector = _findSpecialMonitors();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class");
         if(vector.contains(s))
@@ -249,7 +249,7 @@ public class MgParser
         return vector;
     }
 
-    private int _countSpecialMonitor(jgl.HashMap hashmap, jgl.HashMap hashmap1, String s)
+    private int _countSpecialMonitor(HashMap hashmap, HashMap hashmap1, String s)
     {
         if(s.equals("URLListMonitor"))
         {
@@ -272,7 +272,7 @@ public class MgParser
         }
     }
 
-    private int _countURLListMonitor(jgl.HashMap hashmap)
+    private int _countURLListMonitor(HashMap hashmap)
     {
         int i = 0;
         try
@@ -291,9 +291,9 @@ public class MgParser
         return i;
     }
 
-    private int _countURLSequenceMonitor(jgl.HashMap hashmap)
+    private int _countURLSequenceMonitor(HashMap hashmap)
     {
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         String s = "";
         int i = 0;
         while (enumeration.hasMoreElements()) {
@@ -306,15 +306,15 @@ public class MgParser
         return i;
     }
 
-    private int _countAppMonitor(String s, jgl.HashMap hashmap)
+    private int _countAppMonitor(String s, HashMap hashmap)
     {
         java.lang.Integer integer = new Integer(COM.dragonflow.Utils.TextUtils.getValue(hashmap, s).toString());
         return integer.intValue();
     }
 
-    private jgl.HashMap _defineAppPointUsage()
+    private HashMap _defineAppPointUsage()
     {
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         hashmap.add("ApacheMonitor", "5");
         hashmap.add("AribaMonitor", "10");
         hashmap.add("ASPMonitor", "10");
@@ -333,23 +333,23 @@ public class MgParser
         return true;
     }
 
-    public static jgl.Array readFromFile(String s)
+    public static Array readFromFile(String s)
         throws java.io.IOException
     {
         StringBuffer stringbuffer = COM.dragonflow.Utils.MgParser.readFile(s);
         String s1 = stringbuffer.toString();
         s1 = COM.dragonflow.Utils.MgParser.replaceChar(s1, '\r', "");
-        jgl.Array array = COM.dragonflow.Utils.MgParser.split('\n', s1);
-        return COM.dragonflow.Utils.MgParser.readFrames(array.elements());
+        Array array = COM.dragonflow.Utils.MgParser.split('\n', s1);
+        return COM.dragonflow.Utils.MgParser.readFrames((Enumeration) array.iterator());
     }
 
-    private static jgl.Array readFrames(Enumeration enumeration)
+    private static Array readFrames(Enumeration enumeration)
         throws java.io.IOException
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         do
         {
-            jgl.HashMap hashmap = COM.dragonflow.Utils.MgParser.readFrame(enumeration, "#");
+            HashMap hashmap = COM.dragonflow.Utils.MgParser.readFrame(enumeration, "#");
             if(hashmap != null)
             {
                 array.add(hashmap);
@@ -360,7 +360,7 @@ public class MgParser
         } while(true);
     }
 
-    private static jgl.HashMap readFrame(Enumeration enumeration, String s)
+    private static HashMap readFrame(Enumeration enumeration, String s)
         throws java.io.IOException
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = null;
@@ -425,9 +425,9 @@ public class MgParser
         return stringbuffer;
     }
 
-    private static jgl.Array split(char c, String s)
+    private static Array split(char c, String s)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         int i = 0;
         for(int j = 0; j < s.length(); j++)
         {

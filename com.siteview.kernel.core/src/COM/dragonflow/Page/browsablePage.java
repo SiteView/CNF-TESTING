@@ -11,8 +11,8 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.datachannel.xml.om.Document;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -40,7 +40,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
         fooSet = false;
     }
 
-    private void buildNodeList(jgl.Array array, org.w3c.dom.Node node)
+    private void buildNodeList(Array array, org.w3c.dom.Node node)
     {
         if(node == null || !node.hasChildNodes())
         {
@@ -57,9 +57,9 @@ public class browsablePage extends COM.dragonflow.Page.CGI
 
     }
 
-    private int getCounterSize(jgl.HashMap hashmap, jgl.HashMap hashmap1, String s, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
+    private int getCounterSize(HashMap hashmap, HashMap hashmap1, String s, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor)
     {
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         int i = hashmap1.size();
         if(enumeration.hasMoreElements())
         {
@@ -76,7 +76,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                     COM.datachannel.xml.om.Document document = COM.dragonflow.SiteView.BrowsableCache.getXml(s);
                     if(document.getDocumentElement() != null)
                     {
-                        jgl.Array array = new Array();
+                        Array array = new Array();
                         org.w3c.dom.NodeList nodelist = document.getDocumentElement().getChildNodes();
                         int j = nodelist.getLength();
                         org.w3c.dom.Node node = null;
@@ -88,7 +88,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
 
                         for(int i1 = 0; i1 < array.size(); i1++)
                         {
-                            org.w3c.dom.Node node1 = (org.w3c.dom.Node)array.at(i1);
+                            org.w3c.dom.Node node1 = (org.w3c.dom.Node)array.get(i1);
                             if(node1 == null || !node1.getNodeName().equals("object"))
                             {
                                 continue;
@@ -116,7 +116,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                             int k1 = 0;
                             while(k1 < array.size()) 
                             {
-                                org.w3c.dom.Node node2 = (org.w3c.dom.Node)array.at(k1);
+                                org.w3c.dom.Node node2 = (org.w3c.dom.Node)array.get(k1);
                                 if(node2.getNodeName().equals("counter"))
                                 {
                                     String s4 = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor).setBrowseName(COM.dragonflow.Page.browsablePage.getNodeDisplayNames(node2));
@@ -160,7 +160,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
         if(s1.length() == 0)
         {
             String s3 = getURLparm(s, "id");
-            jgl.Array array = ReadGroupFrames(s2);
+            Array array = ReadGroupFrames(s2);
             atomicmonitor = COM.dragonflow.SiteView.AtomicMonitor.MonitorCreate(array, s3, request.getPortalServer(), request);
             s1 = (String)atomicmonitor.getClassProperty("class");
         } else
@@ -173,8 +173,8 @@ public class browsablePage extends COM.dragonflow.Page.CGI
             if((atomicmonitor instanceof COM.dragonflow.SiteView.IServerPropMonitor) && request.hasValue("server"))
             {
                 String s4 = request.getValue("server");
-                jgl.HashMap hashmap3 = COM.dragonflow.SiteView.BrowsableCache.getCache(request.getValue("uniqueID"), false, false);
-                jgl.HashMap hashmap5 = (jgl.HashMap)hashmap3.get("cParms");
+                HashMap hashmap3 = COM.dragonflow.SiteView.BrowsableCache.getCache(request.getValue("uniqueID"), false, false);
+                HashMap hashmap5 = (HashMap)hashmap3.get("cParms");
                 String s5 = ((COM.dragonflow.SiteView.IServerPropMonitor)atomicmonitor).getServerProperty().getName();
                 hashmap5.put(s5, s4);
             }
@@ -204,12 +204,12 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                 if(operation.equals("Choose"))
                 {
                     int i = atomicmonitor1.getMaxCounters();
-                    jgl.Array array1 = COM.dragonflow.SiteView.BrowsableCache.getSelections(request.getValue("uniqueID"), true, true);
-                    jgl.HashMap hashmap6 = (jgl.HashMap)array1.at(0);
+                    Array array1 = COM.dragonflow.SiteView.BrowsableCache.getSelections(request.getValue("uniqueID"), true, true);
+                    HashMap hashmap6 = (HashMap)array1.get(0);
                     COM.dragonflow.SiteView.BrowsableCache.mergeSelections((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor1, request.getValue("uniqueID"), false, "visible", request, false);
-                    jgl.Array array2 = COM.dragonflow.SiteView.BrowsableCache.getSelections(request.getValue("uniqueID"), true, false);
-                    jgl.HashMap hashmap9 = (jgl.HashMap)array2.at(0);
-                    int k = getCounterSize((jgl.HashMap)hashmap9.clone(), (jgl.HashMap)hashmap6.clone(), request.getValue("uniqueID"), atomicmonitor);
+                    Array array2 = COM.dragonflow.SiteView.BrowsableCache.getSelections(request.getValue("uniqueID"), true, false);
+                    HashMap hashmap9 = (HashMap)array2.get(0);
+                    int k = getCounterSize((HashMap)hashmap9.clone(), (HashMap)hashmap6.clone(), request.getValue("uniqueID"), atomicmonitor);
                     if(k > i)
                     {
                         outputStream.println("<H3>Error: Too many counters selected.</H3>\n<P>Your " + k + " selections " + "exceeds the allowed limit of " + i + " counters. Hint:<i>\"Clear Selections\" will remove all " + "selections so that you can start over.</i><p>");
@@ -224,18 +224,18 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                         return;
                     }
                 }
-                jgl.HashMap hashmap = new HashMap();
+                HashMap hashmap = new HashMap();
                 
 				if(operation.equals("Browse"))
                 {
 					try
 					{					
-	                    jgl.HashMap hashmap4 = COM.dragonflow.SiteView.BrowsableCache.getCache(request.getValue("uniqueID"), false, false);
-	                    jgl.HashMap hashmap7 = (jgl.HashMap)hashmap4.get("cParms");
-	                    jgl.Array array3 = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor1).getConnectionProperties();
+	                    HashMap hashmap4 = COM.dragonflow.SiteView.BrowsableCache.getCache(request.getValue("uniqueID"), false, false);
+	                    HashMap hashmap7 = (HashMap)hashmap4.get("cParms");
+	                    Array array3 = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor1).getConnectionProperties();
 	                    for(int j = 0; j < array3.size(); j++)
 	                    {
-	                        COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array3.at(j);
+	                        COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array3.get(j);
 	                        String s8 = request.getValue(stringproperty.getName());
 	                        if(!stringproperty.isPassword || !s8.equals("*********"))
 	                        {
@@ -272,8 +272,8 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                     COM.datachannel.xml.om.Document document = new Document();
                     if(operation.equals("Browse") || operation.equals("Reload Counters") || COM.dragonflow.SiteView.BrowsableCache.getXml(request.getValue("uniqueID")).getReadyState() == 0)
                     {
-                        jgl.HashMap hashmap8 = COM.dragonflow.SiteView.BrowsableCache.getCache(request.getValue("uniqueID"), false, false);
-                        jgl.HashMap hashmap10 = (jgl.HashMap)hashmap8.get("cParms");
+                        HashMap hashmap8 = COM.dragonflow.SiteView.BrowsableCache.getCache(request.getValue("uniqueID"), false, false);
+                        HashMap hashmap10 = (HashMap)hashmap8.get("cParms");
                         Enumeration enumeration = hashmap10.keys();
                         if(enumeration.hasMoreElements())
                         {
@@ -305,10 +305,10 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                         }
                         if(s10.length() == 0)
                         {
-                            jgl.Array array5 = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor1).getConnectionProperties();
+                            Array array5 = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor1).getConnectionProperties();
                             if(array5.size() > 0)
                             {
-                                String s13 = ((COM.dragonflow.Properties.StringProperty)array5.at(0)).getName();
+                                String s13 = ((COM.dragonflow.Properties.StringProperty)array5.get(0)).getName();
                                 String s14 = (String)hashmap10.get(s13);
                                 outputStream.println("Please wait while counters are retrieved from \"" + s14 + "\" . . . ");
                                 outputStream.flush();
@@ -359,10 +359,10 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                         if((atomicmonitor1 instanceof COM.dragonflow.SiteView.BrowsableMonitor) && !((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor1).isServerBased())
                         {
                             COM.dragonflow.Page.monitorPage monitorpage = new monitorPage();
-                            jgl.Array array4 = atomicmonitor1.getPropertiesToPassBetweenPages(request);
+                            Array array4 = atomicmonitor1.getPropertiesToPassBetweenPages(request);
                             for(int l = 0; l < array4.size(); l++)
                             {
-                                COM.dragonflow.Properties.StringProperty stringproperty1 = (COM.dragonflow.Properties.StringProperty)array4.at(l);
+                                COM.dragonflow.Properties.StringProperty stringproperty1 = (COM.dragonflow.Properties.StringProperty)array4.get(l);
                                 request.rawURL = COM.dragonflow.HTTP.HTTPRequest.removeParameter(request.rawURL, stringproperty1.getName());
                             }
 
@@ -378,7 +378,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                             monitorpage.printAddForm("Add", s2, s6);
                         } else
                         {
-                            jgl.HashMap hashmap1 = new HashMap();
+                            HashMap hashmap1 = new HashMap();
                             printConnectionProperties(atomicmonitor1, hashmap1, stringbuffer);
                         }
                     } else
@@ -401,7 +401,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                 }
             } else
             {
-                jgl.HashMap hashmap2 = new HashMap();
+                HashMap hashmap2 = new HashMap();
                 printConnectionProperties(atomicmonitor1, hashmap2, null);
             }
         } else
@@ -446,7 +446,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
         return s2;
     }
 
-    void printConnectionProperties(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, jgl.HashMap hashmap, StringBuffer stringbuffer)
+    void printConnectionProperties(COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, HashMap hashmap, StringBuffer stringbuffer)
     {
         if(stringbuffer != null && stringbuffer.length() > 0)
         {
@@ -456,12 +456,12 @@ public class browsablePage extends COM.dragonflow.Page.CGI
             outputStream.println("<P><BR>Enter the following information and press the \"Browse\" button to see the list of available counters.<BR><BR>");
         }
         outputStream.println(getPagePOST("browsable", "") + "<TABLE>" + "<input type=hidden name=returnURL value=" + request.getValue("returnURL") + "><BR>");
-        jgl.HashMap hashmap1 = COM.dragonflow.SiteView.BrowsableCache.getCache(request.getValue("uniqueID"), false, false);
-        jgl.HashMap hashmap2 = (jgl.HashMap)hashmap1.get("cParms");
-        jgl.Array array = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor).getConnectionProperties();
+        HashMap hashmap1 = COM.dragonflow.SiteView.BrowsableCache.getCache(request.getValue("uniqueID"), false, false);
+        HashMap hashmap2 = (HashMap)hashmap1.get("cParms");
+        Array array = ((COM.dragonflow.SiteView.BrowsableMonitor)atomicmonitor).getConnectionProperties();
         for(int i = 0; i < array.size(); i++)
         {
-            COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.at(i);
+            COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.get(i);
             atomicmonitor.setProperty(stringproperty.getName(), (String)hashmap2.get(stringproperty.getName()));
             stringproperty.printProperty(this, outputStream, atomicmonitor, request, hashmap, true);
         }
@@ -479,7 +479,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
             {
                 String s = "";
                 boolean flag = false;
-                jgl.HashMap hashmap = COM.dragonflow.SiteView.BrowsableCache.getCurrentState(request.getValue("uniqueID"));
+                HashMap hashmap = COM.dragonflow.SiteView.BrowsableCache.getCurrentState(request.getValue("uniqueID"));
                 Enumeration enumeration = request.getVariables();
                 do
                 {
@@ -510,7 +510,7 @@ public class browsablePage extends COM.dragonflow.Page.CGI
                         }
                     }
                 } while(true);
-                jgl.Array array = COM.dragonflow.SiteView.BrowsableCache.getSelections(request.getValue("uniqueID"), true, false);
+                Array array = COM.dragonflow.SiteView.BrowsableCache.getSelections(request.getValue("uniqueID"), true, false);
                 org.w3c.dom.NodeList nodelist = document.getDocumentElement().getChildNodes();
                 int i = nodelist.getLength();
                 long l = 0L;
@@ -544,12 +544,12 @@ public class browsablePage extends COM.dragonflow.Page.CGI
         }
     }
 
-    public void printNode(java.io.PrintWriter printwriter, org.w3c.dom.Node node, int i, jgl.HashMap hashmap, jgl.Array array, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s)
+    public void printNode(java.io.PrintWriter printwriter, org.w3c.dom.Node node, int i, HashMap hashmap, Array array, COM.dragonflow.SiteView.AtomicMonitor atomicmonitor, String s)
     {
         if(node.getNodeType() == 1)
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(0);
-            jgl.HashMap hashmap2 = (jgl.HashMap)array.at(1);
+            HashMap hashmap1 = (HashMap)array.get(0);
+            HashMap hashmap2 = (HashMap)array.get(1);
             boolean flag = false;
             org.w3c.dom.NodeList nodelist = node.getChildNodes();
             int j = nodelist.getLength();
@@ -654,9 +654,9 @@ public class browsablePage extends COM.dragonflow.Page.CGI
         }
     }
 
-    private boolean isIDSelected(COM.dragonflow.SiteView.BrowsableMonitor browsablemonitor, String s, jgl.HashMap hashmap)
+    private boolean isIDSelected(COM.dragonflow.SiteView.BrowsableMonitor browsablemonitor, String s, HashMap hashmap)
     {
-        for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements();)
+        for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements();)
         {
             String s1 = (String)enumeration.nextElement();
             String s2 = java.net.URLDecoder.decode((String)hashmap.get(s1));
@@ -679,9 +679,9 @@ public class browsablePage extends COM.dragonflow.Page.CGI
         return "<img src=/SiteView/htdocs/artwork/empty1111.gif height=11 width=" + j + " border=0>";
     }
 
-    public static jgl.Array getNodeDisplayNames(org.w3c.dom.Node node)
+    public static Array getNodeDisplayNames(org.w3c.dom.Node node)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s = ((org.w3c.dom.Element)node).getAttribute("name");
         if(s == null)
         {
@@ -706,9 +706,9 @@ public class browsablePage extends COM.dragonflow.Page.CGI
         return array;
     }
 
-    public static jgl.Array getNodeIdNames(org.w3c.dom.Node node)
+    public static Array getNodeIdNames(org.w3c.dom.Node node)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s = "id";
         String s1 = ((org.w3c.dom.Element)node).getAttribute(s);
         if(s1 == null || s1.length() == 0)

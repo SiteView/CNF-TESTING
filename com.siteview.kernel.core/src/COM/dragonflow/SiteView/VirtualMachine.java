@@ -26,8 +26,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -135,7 +135,7 @@ public class VirtualMachine extends SiteViewObject {
 	 * @param queryTimeout
 	 * @return
 	 */
-	public jgl.Array getDBResults(StringBuffer stringBuffer,
+	public Array getDBResults(StringBuffer stringBuffer,
 			String queryString, String driverClassName, String url,
 			String user, String password, int loginTimeout, int queryTimeout) {
 		Connection connection = null;
@@ -266,7 +266,7 @@ public class VirtualMachine extends SiteViewObject {
 		Array array1 = new Array();
 		HashMap hashmap = new HashMap();
 		
-		Enumeration enumeration = array.elements();
+		Enumeration enumeration = (Enumeration) array.iterator();
 		while (enumeration.hasMoreElements()) {
 			hashmap = (HashMap) enumeration.nextElement();
 			if (hashmap.get("_id").equals(pID)) {
@@ -333,7 +333,7 @@ public class VirtualMachine extends SiteViewObject {
 			if (l >= 0) {
 				pExcludeIPArray[i] = pExcludeIPArray[i].substring(0, l);
 				for (int i1 = 0; i1 < array1.size(); i++) {
-					String s16 = (String) array1.at(i1);
+					String s16 = (String) array1.get(i1);
 					if (s16.startsWith(pExcludeIPArray[i])) {
 						array1.remove(s16);
 						if (pPoolIncluded.length() > 0) {
@@ -351,7 +351,7 @@ public class VirtualMachine extends SiteViewObject {
 		
 		array1.remove(pHost);
 		for (int j = 0; j < array1.size(); j++) {
-			String s14 = ((String) array1.at(j)).trim();
+			String s14 = ((String) array1.get(j)).trim();
 			boolean flag1 = false;
 			for (int j1 = 0; j1 < pNodesArray.length; j1++) {
 				String s20 = pNodesArray[j1].trim();
@@ -382,10 +382,10 @@ public class VirtualMachine extends SiteViewObject {
 			if (pPoolIncluded.length() > 0 && !flag) {
 				array4.add(pHost);
 			}
-			array4.add((String) array2.at(k));
+			array4.add((String) array2.get(k));
 			String s15 = "";
 			if (pPoolIncluded.length() > 0) {
-				String s17 = (String) hashmap1.get((String) array2.at(k));
+				String s17 = (String) hashmap1.get((String) array2.get(k));
 				if (s17 != null) {
 					array4.add(s17);
 					s15 = s17;
@@ -393,9 +393,9 @@ public class VirtualMachine extends SiteViewObject {
 			}
 			if (pGroupSet.indexOf("$NODE-IP$") >= 0) {
 				String s18 = flag ? TextUtils.replaceString(pGroupSet,
-						"$NODE-IP$", (String) array2.at(k)) : TextUtils
+						"$NODE-IP$", (String) array2.get(k)) : TextUtils
 						.replaceString(pGroupSet, "$NODE-IP$", (String) array4
-								.at(1));
+								.get(1));
 				s18 = TextUtils
 						.keepChars(s18,
 								"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
@@ -485,9 +485,9 @@ public class VirtualMachine extends SiteViewObject {
 				pNodes = pNodes + "\t";
 			}
 			if (!flag) {
-				pNodes = pNodes + (String) array4.at(1);
+				pNodes = pNodes + (String) array4.get(1);
 			} else {
-				pNodes = pNodes + (String) array2.at(k);
+				pNodes = pNodes + (String) array2.get(k);
 			}
 		}
 
@@ -531,7 +531,7 @@ public class VirtualMachine extends SiteViewObject {
         Array array = vMachinePage.readDynamicSets();
         Array array1 = new Array();
         HashMap hashmap = new HashMap();
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         do
         {
             if(!enumeration.hasMoreElements())
@@ -598,7 +598,7 @@ label0:
                 {
                     if(i1 >= array1.size())
                         continue label0;
-                    String s16 = (String)array1.at(i1);
+                    String s16 = (String)array1.get(i1);
                     if(s16.startsWith(as1[i]))
                     {
                         array1.remove(s16);
@@ -616,7 +616,7 @@ label0:
         array1.remove(s3);
         for(int j = 0; j < array1.size(); j++)
         {
-            String s14 = ((String)array1.at(j)).trim();
+            String s14 = ((String)array1.get(j)).trim();
             boolean flag1 = false;
             int j1 = 0;
             do
@@ -650,11 +650,11 @@ label0:
             Array array4 = new Array();
             if(s10.length() > 0 && !flag)
                 array4.add(s3);
-            array4.add((String)array2.at(k));
+            array4.add((String)array2.get(k));
             String s15 = "";
             if(s10.length() > 0)
             {
-                String s17 = (String)hashmap1.get((String)array2.at(k));
+                String s17 = (String)hashmap1.get((String)array2.get(k));
                 if(s17 != null)
                 {
                     array4.add(s17);
@@ -663,7 +663,7 @@ label0:
             }
             if(s9.indexOf("$NODE-IP$") >= 0)
             {
-                String s18 = flag ? TextUtils.replaceString(s9, "$NODE-IP$", (String)array2.at(k)) : TextUtils.replaceString(s9, "$NODE-IP$", (String)array4.at(1));
+                String s18 = flag ? TextUtils.replaceString(s9, "$NODE-IP$", (String)array2.get(k)) : TextUtils.replaceString(s9, "$NODE-IP$", (String)array4.get(1));
                 s18 = TextUtils.keepChars(s18, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
                 try
                 {                    
@@ -741,9 +741,9 @@ label0:
             if(s4.length() > 0)
                 s4 = s4 + "\t";
             if(!flag)
-                s4 = s4 + (String)array4.at(1);
+                s4 = s4 + (String)array4.get(1);
             else
-                s4 = s4 + (String)array2.at(k);
+                s4 = s4 + (String)array2.get(k);
         }
 
         if(s9.indexOf("$NODE-IP$") < 0 && s9.indexOf("$POOL-ID$") < 0)
@@ -828,7 +828,7 @@ label0:
 			as1 = as;
 		}
 		for (int j = 0; j < array.size(); j++) {
-			monitorsettemplate.replaceVariable(as1[j], (String) array.at(j));
+			monitorsettemplate.replaceVariable(as1[j], (String) array.get(j));
 		}
 
 		int k = monitorsettemplate.getMonitorCount();
@@ -836,10 +836,10 @@ label0:
 			HashMap hashmap = monitorsettemplate.getNthMonitor(l);
 			try {
 				if (flag) {
-					createMonitorSingle(s1, hashmap, (String) array.at(0),
+					createMonitorSingle(s1, hashmap, (String) array.get(0),
 							stringbuffer);
 				} else {
-					createMonitor(s1, hashmap, (String) array.at(0),
+					createMonitor(s1, hashmap, (String) array.get(0),
 							stringbuffer);
 				}
 				continue;
@@ -879,7 +879,7 @@ label0:
 		HashMap hashmap1 = new HashMap();
 		Array array = atomicmonitor.getProperties();
 		array = StringProperty.sortByOrder(array);
-		for (Enumeration enumeration = array.elements(); enumeration
+		for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
 				.hasMoreElements();) {
 			StringProperty stringproperty = (StringProperty) enumeration
 					.nextElement();
@@ -890,7 +890,7 @@ label0:
 				atomicmonitor.unsetProperty(stringproperty);
 				int i = 0;
 				while (i < array1.size()) {
-					String s9 = (String) array1.at(i);
+					String s9 = (String) array1.get(i);
 					s9 = atomicmonitor.verify(stringproperty, s9,
 							new HTTPRequest(), hashmap1);
 					atomicmonitor.addProperty(stringproperty, s9);
@@ -905,7 +905,7 @@ label0:
 					atomicmonitor.unsetProperty(stringproperty);
 					int k = 0;
 					while (k < array2.size()) {
-						String s11 = (String) array2.at(k);
+						String s11 = (String) array2.get(k);
 						s11 = atomicmonitor.verify(stringproperty, s11,
 								new HTTPRequest(), hashmap1);
 						atomicmonitor.addProperty(stringproperty, s11);
@@ -955,7 +955,7 @@ label0:
 		HashMap hashmap3 = atomicmonitor.getValuesTable();
 		String s7 = "";
 		int j = singleframes.size();
-		HashMap hashmap4 = (HashMap) singleframes.at(0);
+		HashMap hashmap4 = (HashMap) singleframes.get(0);
 		s7 = TextUtils.getValue(hashmap4, "_nextID");
 		if (s7.length() == 0) {
 			s7 = "1";
@@ -987,7 +987,7 @@ label0:
 		HashMap hashmap1 = new HashMap();
 		Array array = atomicmonitor.getProperties();
 		array = StringProperty.sortByOrder(array);
-		for (Enumeration enumeration = array.elements(); enumeration
+		for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
 				.hasMoreElements();) {
 			StringProperty stringproperty = (StringProperty) enumeration
 					.nextElement();
@@ -998,7 +998,7 @@ label0:
 				atomicmonitor.unsetProperty(stringproperty);
 				int i = 0;
 				while (i < array1.size()) {
-					String s9 = (String) array1.at(i);
+					String s9 = (String) array1.get(i);
 					s9 = atomicmonitor.verify(stringproperty, s9,
 							new HTTPRequest(), hashmap1);
 					atomicmonitor.addProperty(stringproperty, s9);
@@ -1013,7 +1013,7 @@ label0:
 					atomicmonitor.unsetProperty(stringproperty);
 					int j = 0;
 					while (j < array3.size()) {
-						String s11 = (String) array3.at(j);
+						String s11 = (String) array3.get(j);
 						s11 = atomicmonitor.verify(stringproperty, s11,
 								new HTTPRequest(), hashmap1);
 						atomicmonitor.addProperty(stringproperty, s11);
@@ -1064,7 +1064,7 @@ label0:
 		Array array2 = CGI.ReadGroupFrames(s, request);
 		String s8 = "";
 		int k = array2.size();
-		HashMap hashmap4 = (HashMap) array2.at(0);
+		HashMap hashmap4 = (HashMap) array2.get(0);
 		s8 = TextUtils.getValue(hashmap4, "_nextID");
 		if (s8.length() == 0) {
 			s8 = "1";

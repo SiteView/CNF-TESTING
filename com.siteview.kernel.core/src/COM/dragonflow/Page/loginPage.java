@@ -9,7 +9,7 @@
  */
 package COM.dragonflow.Page;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
@@ -24,8 +24,8 @@ public class loginPage extends COM.dragonflow.Page.CGI
     void printLoginForm(String s)
         throws java.io.IOException
     {
-        jgl.HashMap hashmap = getMasterConfig();
-        jgl.HashMap hashmap1 = new HashMap();
+        HashMap hashmap = getMasterConfig();
+        HashMap hashmap1 = new HashMap();
         String s1 = COM.dragonflow.SiteView.Platform.productName + " Login";
         super.printCGIHeader();
         printBodyHeader(s1);
@@ -44,7 +44,7 @@ public class loginPage extends COM.dragonflow.Page.CGI
         printFooter(outputStream);
     }
 
-    String getUserTitle(jgl.HashMap hashmap)
+    String getUserTitle(HashMap hashmap)
     {
         String s = COM.dragonflow.Page.loginPage.getValue(hashmap, "_realName");
         if(s.length() == 0)
@@ -59,8 +59,8 @@ public class loginPage extends COM.dragonflow.Page.CGI
     {
         String s1 = request.getValue("_login");
         String s2 = request.getValue("_password");
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
-        jgl.Array array = COM.dragonflow.SiteView.User.findUsersForLogin(s1, s2);
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        Array array = COM.dragonflow.SiteView.User.findUsersForLogin(s1, s2);
         String s3 = "";
         if(array.size() > 1)
         {
@@ -73,7 +73,7 @@ public class loginPage extends COM.dragonflow.Page.CGI
         } else
         if(array.size() == 1)
         {
-            COM.dragonflow.SiteView.User user = (COM.dragonflow.SiteView.User)array.at(0);
+            COM.dragonflow.SiteView.User user = (COM.dragonflow.SiteView.User)array.get(0);
             if(user.getProperty("_disabled").length() > 0)
             {
                 s3 = "This account has been disabled.<hr>";
@@ -90,8 +90,8 @@ public class loginPage extends COM.dragonflow.Page.CGI
                 {
                     if(request.getValue("_newPassword").equals(request.getValue("_newPassword2")))
                     {
-                        jgl.Array array1 = COM.dragonflow.SiteView.User.readUsers();
-                        jgl.HashMap hashmap1 = COM.dragonflow.SiteView.User.findUser(array1, user.getProperty(COM.dragonflow.SiteView.User.pID));
+                        Array array1 = COM.dragonflow.SiteView.User.readUsers();
+                        HashMap hashmap1 = COM.dragonflow.SiteView.User.findUser(array1, user.getProperty(COM.dragonflow.SiteView.User.pID));
                         if(hashmap1 != null)
                         {
                             hashmap1.put("_password", request.getValue("_newPassword"));
@@ -199,18 +199,18 @@ public class loginPage extends COM.dragonflow.Page.CGI
     {
         if(args.length == 1 && args[0].equals("-d"))
         {
-            jgl.Array array = COM.dragonflow.SiteView.User.readUsers();
-            jgl.HashMap hashmap = new HashMap();
+            Array array = COM.dragonflow.SiteView.User.readUsers();
+            HashMap hashmap = new HashMap();
             for(int i = 1; i < array.size(); i++)
             {
-                jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+                HashMap hashmap1 = (HashMap)array.get(i);
                 String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_id");
                 String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_login");
                 String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_password");
                 String s3 = s1 + "/" + s2;
                 if(hashmap.get(s3) != null)
                 {
-                    jgl.HashMap hashmap2 = (jgl.HashMap)hashmap.get(s3);
+                    HashMap hashmap2 = (HashMap)hashmap.get(s3);
                     java.lang.System.out.println("Duplicate found " + s1 + " " + s2 + "  account=" + s);
                     java.lang.System.out.println("Original        " + COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_login") + " " + COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_password") + "  account=" + COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_id"));
                 }

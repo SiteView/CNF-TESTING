@@ -21,7 +21,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public abstract class SSHClientBase {
 
@@ -232,7 +232,7 @@ public abstract class SSHClientBase {
      * @return
      * @throws java.lang.Exception
      */
-    protected int internalExec(String s, jgl.Array array, java.io.PrintWriter printwriter) throws java.lang.Exception {
+    protected int internalExec(String s, Array array, java.io.PrintWriter printwriter) throws java.lang.Exception {
         int i;
         i = COM.dragonflow.SiteView.Monitor.kURLok;
         s = initializeFileForOutput(s);
@@ -343,7 +343,7 @@ public abstract class SSHClientBase {
         writeToFile = false;
     }
 
-    private boolean processUnixLine(String s, java.io.PrintWriter printwriter, jgl.Array array) {
+    private boolean processUnixLine(String s, java.io.PrintWriter printwriter, Array array) {
         boolean flag = true;
         s = translateBackspace(machine, s);
         COM.dragonflow.Utils.RemoteCommandLine _tmp = commandLineParam;
@@ -364,7 +364,7 @@ public abstract class SSHClientBase {
         return flag;
     }
 
-    private boolean processNTSSHLine(String s, java.io.PrintWriter printwriter, String s1, jgl.Array array) {
+    private boolean processNTSSHLine(String s, java.io.PrintWriter printwriter, String s1, Array array) {
         boolean flag = true;
         COM.dragonflow.Utils.RemoteCommandLine _tmp = commandLineParam;
         commandLineParam.traceMessage(s, machine, COM.dragonflow.Utils.RemoteCommandLine.FROM_REMOTE);
@@ -393,7 +393,7 @@ public abstract class SSHClientBase {
         return flag;
     }
 
-    private void storeLine(String s, jgl.Array array) {
+    private void storeLine(String s, Array array) {
         if (writeToFile) {
             try {
                 if (fileOutput != null) {

@@ -30,7 +30,7 @@ public class jdbcConfigPrefsPage extends COM.dragonflow.Page.prefsPage
     {
         try
         {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             hashmap.put("_configJdbcPassword", COM.dragonflow.Properties.StringProperty.getPrivate(request, "configJdbcPassword", "jdbcSuff", null, null));
             hashmap.put("_configJdbcURL", request.getValue("configJdbcURL"));
             hashmap.put("_configJdbcUser", request.getValue("configJdbcUser"));
@@ -96,7 +96,7 @@ public class jdbcConfigPrefsPage extends COM.dragonflow.Page.prefsPage
 
     void printForm()
     {
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         StringBuffer stringbuffer = new StringBuffer();
         StringBuffer stringbuffer1 = new StringBuffer();
         COM.dragonflow.Properties.StringProperty.getPrivate(COM.dragonflow.Page.jdbcConfigPrefsPage.getValue(hashmap, "_configJdbcPassword"), "configJdbcPassword", "jdbcSuff", stringbuffer, stringbuffer1);
@@ -175,7 +175,7 @@ public class jdbcConfigPrefsPage extends COM.dragonflow.Page.prefsPage
 
     public static void removeDBConnection(COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
-        jgl.HashMap hashmap = COM.dragonflow.Page.CGI.loadMasterConfig(httprequest);
+        HashMap hashmap = COM.dragonflow.Page.CGI.loadMasterConfig(httprequest);
         hashmap.put("_configJdbcPassword", "");
         hashmap.put("_configJdbcURL", "");
         hashmap.put("_configJdbcUser", "");

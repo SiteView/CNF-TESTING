@@ -16,8 +16,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.TreeMap;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.BrowsableBase;
@@ -48,7 +48,7 @@ import COM.dragonflow.Utils.GreaterCounterByXml;
 public class monitorPage extends COM.dragonflow.Page.CGI
 {
     class lessMonitor
-        implements jgl.BinaryPredicate
+        implements BinaryPredicate
     {
 
         public boolean execute(java.lang.Object obj, java.lang.Object obj1)
@@ -83,8 +83,8 @@ public class monitorPage extends COM.dragonflow.Page.CGI
 
     public static final String OPERATION = "operation";
     public static final String EDIT_OPERATION = "Edit";
-    static jgl.Array monitorNames = null;
-    static jgl.HashMap classFilter;
+    static Array monitorNames = null;
+    static HashMap classFilter;
     static boolean batch;
     static String showMonitors;
     static String NAME_MARKER = "$NAME$";
@@ -99,19 +99,19 @@ public class monitorPage extends COM.dragonflow.Page.CGI
         monitorNames = null;
     }
 
-    public static jgl.Array getMonitorClasses(boolean flag)
+    public static Array getMonitorClasses(boolean flag)
     {
         return COM.dragonflow.Page.monitorPage.getMonitorClasses(null, flag);
     }
 
-    public static jgl.Array getMonitorClasses()
+    public static Array getMonitorClasses()
     {
         return COM.dragonflow.Page.monitorPage.getMonitorClasses(null, false);
     }
 
-    public static jgl.Array getMonitorClasses(COM.dragonflow.Page.CGI cgi, boolean flag)
+    public static Array getMonitorClasses(COM.dragonflow.Page.CGI cgi, boolean flag)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         if(cgi != null && cgi.isPortalServerRequest())
         {
             PortalSiteView portalsiteview = (PortalSiteView)cgi.getSiteView();
@@ -184,7 +184,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
         return array;
     }
 
-    public void printProperty(COM.dragonflow.Properties.StringProperty stringproperty, java.io.PrintWriter printwriter, SiteViewObject siteviewobject, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap, boolean flag)
+    public void printProperty(COM.dragonflow.Properties.StringProperty stringproperty, java.io.PrintWriter printwriter, SiteViewObject siteviewobject, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap, boolean flag)
     {
         if(!siteviewobject.isPropertyExcluded(stringproperty, httprequest) && !httprequest.getPermission("_monitorProperty", stringproperty.getName()).equals("hidden") && !siteviewobject.propertyInTemplate(stringproperty))
         {
@@ -228,7 +228,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
     {
         String s2 = "";
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s3 = "";
         String as[];
         if(request.hasValue("counterobjects"))
@@ -246,7 +246,7 @@ public class monitorPage extends COM.dragonflow.Page.CGI
             array.add(s6);
         }
 
-        jgl.Array array1 = NTCounterBase.getPerfCounters(s1, array, stringbuffer, "");
+        Array array1 = NTCounterBase.getPerfCounters(s1, array, stringbuffer, "");
         String as1[] = COM.dragonflow.Utils.TextUtils.split(s, ",");
         boolean flag = true;
 label0:
@@ -268,11 +268,11 @@ label0:
                     {
                         flag = false;
                     }
-                    s2 = s2 + ((COM.dragonflow.Utils.PerfCounter)array1.at(k)).object + " -- ";
-                    s2 = s2 + ((COM.dragonflow.Utils.PerfCounter)array1.at(k)).counterName;
-                    if(((COM.dragonflow.Utils.PerfCounter)array1.at(k)).instance.length() > 0)
+                    s2 = s2 + ((COM.dragonflow.Utils.PerfCounter)array1.get(k)).object + " -- ";
+                    s2 = s2 + ((COM.dragonflow.Utils.PerfCounter)array1.get(k)).counterName;
+                    if(((COM.dragonflow.Utils.PerfCounter)array1.get(k)).instance.length() > 0)
                     {
-                        s2 = s2 + " -- " + ((COM.dragonflow.Utils.PerfCounter)array1.at(k)).instance;
+                        s2 = s2 + " -- " + ((COM.dragonflow.Utils.PerfCounter)array1.get(k)).instance;
                     }
                     continue label0;
                 }
@@ -473,7 +473,7 @@ label0:
         return s1;
     }
 
-    void printForm(String s, String s1, AtomicMonitor atomicmonitor, jgl.HashMap hashmap, jgl.Array array)
+    void printForm(String s, String s1, AtomicMonitor atomicmonitor, HashMap hashmap, Array array)
         throws java.io.IOException
     {
         String s2 = "";
@@ -498,7 +498,7 @@ label0:
             } else
             if(s.equals("Add"))
             {
-                jgl.HashMap hashmap1 = getMasterConfig();
+                HashMap hashmap1 = getMasterConfig();
                 String s11 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_defaultMachine");
                 atomicmonitor.setProperty(((IServerPropMonitor)atomicmonitor).getServerProperty(), s11);
             }
@@ -523,7 +523,7 @@ label0:
                 s2 = ((NTCounterBase)atomicmonitor).getCountersContent();
                 if(s2.length() == 0)
                 {
-                    jgl.Array array1 = ((NTCounterBase)atomicmonitor).getAvailableCounters();
+                    Array array1 = ((NTCounterBase)atomicmonitor).getAvailableCounters();
                     if(array1.size() > 0)
                     {
                         s2 = ((NTCounterBase)atomicmonitor).getDefaultCounters();
@@ -705,11 +705,11 @@ label0:
         {
             flag1 = true;
         }
-        jgl.Array array2 = atomicmonitor.getProperties();
+        Array array2 = atomicmonitor.getProperties();
         array2 = COM.dragonflow.Properties.StringProperty.sortByOrder(array2);
         int i = calculateVariablePropertyCount(array2, atomicmonitor);
         String s18 = atomicmonitor.getProperty("_URLEncoding");
-        Enumeration enumeration = array2.elements();
+        Enumeration enumeration =  (Enumeration) array2.iterator();
         do
         {
             if(!enumeration.hasMoreElements())
@@ -760,7 +760,7 @@ label0:
             s19 = "Update";
         }
         outputStream.println("</TABLE><TABLE WIDTH=100%><TR><TD><input type=submit value=" + s19 + "> " + s6 + " Monitor\n" + "</TD></TR></TABLE>" + "<p><HR><CENTER><H3>Advanced Options</H3></CENTER><TABLE>");
-        enumeration = array2.elements();
+        enumeration =  (Enumeration) array2.iterator();
         do
         {
             if(!enumeration.hasMoreElements())
@@ -810,7 +810,7 @@ label0:
         return i;
     }
 
-    void printOrdering(Monitor monitor, jgl.Array array)
+    void printOrdering(Monitor monitor, Array array)
     {
         Monitor _tmp = monitor;
         String s = monitor.getProperty(Monitor.pID);
@@ -819,7 +819,7 @@ label0:
         boolean flag = false;
         for(int k = 1; k < array.size(); k++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(k);
+            HashMap hashmap = (HashMap)array.get(k);
             if(!Monitor.isMonitorFrame(hashmap))
             {
                 continue;
@@ -847,7 +847,7 @@ label0:
             {
                 continue;
             }
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(l);
+            HashMap hashmap1 = (HashMap)array.get(l);
             if(!Monitor.isMonitorFrame(hashmap1))
             {
                 continue;
@@ -899,13 +899,13 @@ label0:
         }
     }
 
-    int calculateVariablePropertyCount(jgl.Array array, Monitor monitor)
+    int calculateVariablePropertyCount(Array array, Monitor monitor)
     {
         int i = -1;
         int j = -1;
         int k = -1;
         int l = 0;
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         do
         {
             if(!enumeration.hasMoreElements())
@@ -958,7 +958,7 @@ label0:
         return monitor.getClassProperty("class").equals("URLSequenceMonitor");
     }
 
-    void printThresholds(AtomicMonitor atomicmonitor, jgl.HashMap hashmap)
+    void printThresholds(AtomicMonitor atomicmonitor, HashMap hashmap)
     {
         boolean flag = atomicmonitor.hasValue(Monitor.pBaselineDate);
         Enumeration enumeration = atomicmonitor.getProperties().elements();
@@ -1202,7 +1202,7 @@ label0:
 
     }
 
-    void saveThresholds(AtomicMonitor atomicmonitor, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap)
+    void saveThresholds(AtomicMonitor atomicmonitor, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap)
     {
         atomicmonitor.unsetProperty("_classifier");
         String as[] = {
@@ -1282,8 +1282,8 @@ label0:
 
     void printCustomProperties(Monitor monitor)
     {
-        jgl.HashMap hashmap = getMasterConfig();
-        Enumeration enumeration = hashmap.values("_monitorEditCustom");
+        HashMap hashmap = getMasterConfig();
+        Enumeration enumeration = (Enumeration) hashmap.values("_monitorEditCustom");
         do
         {
             if(!enumeration.hasMoreElements())
@@ -1339,8 +1339,8 @@ label0:
 
     void saveCustomProperties(Monitor monitor, COM.dragonflow.HTTP.HTTPRequest httprequest)
     {
-        jgl.HashMap hashmap = getMasterConfig();
-        Enumeration enumeration = hashmap.values("_monitorEditCustom");
+        HashMap hashmap = getMasterConfig();
+        Enumeration enumeration = (Enumeration) hashmap.values("_monitorEditCustom");
         do
         {
             if(!enumeration.hasMoreElements())
@@ -1391,7 +1391,7 @@ label0:
     {
 label0:
         {
-            jgl.Array array;
+            Array array;
             AtomicMonitor atomicmonitor;
 label1:
             {
@@ -1486,7 +1486,7 @@ label2:
                     }
                     String s5 = "";
                     String s6 = atomicmonitor.defaultTitle();
-                    jgl.HashMap hashmap = new HashMap();
+                    HashMap hashmap = new HashMap();
                     String s7 = ServerMonitor.pMachineName.getName();
                     if(request.hasValue(s7))
                     {
@@ -1525,14 +1525,14 @@ label2:
                     if(atomicmonitor instanceof BrowsableMonitor)
                     {
                         String s8 = request.getValue("uniqueID");
-                        jgl.HashMap hashmap1 = BrowsableCache.getCache(s8, true, false);
-                        jgl.HashMap hashmap2 = (jgl.HashMap)hashmap1.get("permanentSelectNames");
-                        jgl.HashMap hashmap3 = (jgl.HashMap)hashmap1.get("permanentSelectIDs");
-                        jgl.HashMap hashmap4 = (jgl.HashMap)hashmap1.get("cParms");
-                        jgl.Array array2 = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
+                        HashMap hashmap1 = BrowsableCache.getCache(s8, true, false);
+                        HashMap hashmap2 = (HashMap)hashmap1.get("permanentSelectNames");
+                        HashMap hashmap3 = (HashMap)hashmap1.get("permanentSelectIDs");
+                        HashMap hashmap4 = (HashMap)hashmap1.get("cParms");
+                        Array array2 = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
                         for(int i2 = 0; i2 < array2.size(); i2++)
                         {
-                            COM.dragonflow.Properties.StringProperty stringproperty2 = (COM.dragonflow.Properties.StringProperty)array2.at(i2);
+                            COM.dragonflow.Properties.StringProperty stringproperty2 = (COM.dragonflow.Properties.StringProperty)array2.get(i2);
                             String s17 = stringproperty2.getName();
                             String s23 = (String)hashmap4.get(s17);
                             if(s23 != null || !stringproperty2.isPassword || !request.getValue(s17).equals("*********"))
@@ -1571,12 +1571,12 @@ label2:
                                 StringBuffer stringbuffer = new StringBuffer();
                                 document.loadXML(((BrowsableMonitor)atomicmonitor).getBrowseData(stringbuffer));
                             }
-                            jgl.Array array6 = new Array();
+                            Array array6 = new Array();
                             for(; enumeration3.hasMoreElements(); array6.add(enumeration3.nextElement())) { }
-                            jgl.Sorting.sort(array6, new GreaterCounterByXml(document));
+                            Sorting.sort(array6, new GreaterCounterByXml(document));
                             for(int j4 = 0; j4 < array6.size(); j4++)
                             {
-                                String s31 = (String)array6.at(j4);
+                                String s31 = (String)array6.get(j4);
                                 if(setCounerProperty(s14, s31, hashmap3, atomicmonitor, j2, s18))
                                 {
                                     j2++;
@@ -1659,9 +1659,9 @@ label2:
                         }
 
                     }
-                    jgl.Array array1 = atomicmonitor.getProperties();
+                    Array array1 = atomicmonitor.getProperties();
                     array1 = COM.dragonflow.Properties.StringProperty.sortByOrder(array1);
-                    Enumeration enumeration = array1.elements();
+                    Enumeration enumeration =  (Enumeration) array1.iterator();
                     ScheduleManager schedulemanager = ScheduleManager.getInstance();
                     String s9 = schedulemanager.getScheduleIdFromMonitor(atomicmonitor);
                     do
@@ -1708,8 +1708,8 @@ label2:
                                         {
                                             MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(request.getAccount());
                                             String s36 = monitorgroup.getProperty(Monitor.pGroupID);
-                                            jgl.Array array5 = monitorgroup.getMonitorsOfClass("", s36);
-                                            Enumeration enumeration5 = array5.elements();
+                                            Array array5 = monitorgroup.getMonitorsOfClass("", s36);
+                                            Enumeration enumeration5 = (Enumeration) array5.iterator();
                                             int l4 = 0;
                                             while (enumeration5.hasMoreElements())
                                                 {
@@ -1792,7 +1792,7 @@ label2:
                                     } else
                                     if((stringproperty1 instanceof COM.dragonflow.Properties.ScalarProperty) && ((COM.dragonflow.Properties.ScalarProperty)stringproperty1).multiple)
                                     {
-                                        jgl.Array array4 = new Array();
+                                        Array array4 = new Array();
                                         if(!Platform.isStandardAccount(request.getAccount()) && stringproperty1.getName().equals("_location"))
                                         {
                                             Enumeration enumeration1 = atomicmonitor.getMultipleValues(stringproperty1);
@@ -1825,7 +1825,7 @@ label2:
                                         for(; enumeration2.hasMoreElements(); atomicmonitor.addProperty(stringproperty1, (String)enumeration2.nextElement())) { }
                                         if(array4 != null && array4.size() > 0)
                                         {
-                                            Enumeration enumeration4 = array4.elements();
+                                            Enumeration enumeration4 = (Enumeration) array4.iterator();
                                             while(enumeration4.hasMoreElements()) 
                                             {
                                                 atomicmonitor.addProperty(stringproperty1, (String)enumeration4.nextElement());
@@ -1888,12 +1888,12 @@ label2:
                         AtomicMonitor _tmp2 = atomicmonitor;
                         atomicmonitor.setProperty(AtomicMonitor.pName, atomicmonitor.defaultTitle());
                     }
-                    jgl.HashMap hashmap5 = atomicmonitor.getValuesTable();
-                    jgl.Array array3 = ReadGroupFrames(s2);
+                    HashMap hashmap5 = atomicmonitor.getValuesTable();
+                    Array array3 = ReadGroupFrames(s2);
                     String s16 = "";
                     if(s.equals("Add"))
                     {
-                        jgl.HashMap hashmap6 = (jgl.HashMap)array3.at(0);
+                        HashMap hashmap6 = (HashMap)array3.get(0);
                         s16 = COM.dragonflow.Utils.TextUtils.getValue(hashmap6, "_nextID");
                         if(s16.length() == 0)
                         {
@@ -1909,7 +1909,7 @@ label2:
                     {
                         s16 = request.getValue("id");
                         int j3 = monitorUtils.findMonitorIndex(array3, s16);
-                        java.lang.Object obj1 = array3.at(j3);
+                        java.lang.Object obj1 = array3.get(j3);
                         array3.insert(k1, hashmap5);
                         array3.remove(obj1);
                     }
@@ -1973,12 +1973,12 @@ label2:
      * @param s
      * @param s1
      */
-    void printMonitorTools(jgl.Array array, String s, String s1)
+    void printMonitorTools(Array array, String s, String s1)
     {
         Enumeration enumeration;
         boolean flag;
         java.util.TreeMap treemap;
-        enumeration = array.elements();
+        enumeration = (Enumeration) array.iterator();
         flag = false;
         treemap = new TreeMap();
 
@@ -2110,7 +2110,7 @@ label2:
             printButtonBar("Tools.htm", s2, menus1);
             outputStream.println("<H2>Tools</H2>");
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         try
         {
             array = COM.dragonflow.Page.monitorPage.getMonitorClasses(this, false);
@@ -2144,12 +2144,12 @@ label2:
      * @param s1
      * @param s2
      */
-    void printClasses(String s, jgl.Array array, String s1, String s2)
+    void printClasses(String s, Array array, String s1, String s2)
     {
         Enumeration enumeration;
         boolean flag;
         boolean flag1;
-        enumeration = array.elements();
+        enumeration = (Enumeration) array.iterator();
         flag = false;
         flag1 = false;
 
@@ -2230,7 +2230,7 @@ label2:
         return;
     }
 
-    synchronized void printClasseList(String s, jgl.Array array)
+    synchronized void printClasseList(String s, Array array)
     {
         int i = 0;
         int j = 0;
@@ -2238,7 +2238,7 @@ label2:
         if(monitorNames == null)
         {
             monitorNames = new Array();
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())
@@ -2258,13 +2258,13 @@ label2:
                 }
                 catch(java.lang.Exception exception) { }
             } while(true);
-            jgl.Sorting.sort(monitorNames, new lessMonitor());
+            Sorting.sort(monitorNames, new lessMonitor());
         }
         int ai[] = new int[monitorNames.size()];
         int k = 0;
         for(j = 0; j < monitorNames.size(); j++)
         {
-            monitorList monitorlist = (monitorList)monitorNames.at(j);
+            monitorList monitorlist = (monitorList)monitorNames.get(j);
             String s3 = request.getPermission("_monitorType", monitorlist.className);
             if(s3.length() == 0)
             {
@@ -2282,7 +2282,7 @@ label2:
         {
             int l = (i % 5) * (k / 5) + java.lang.Math.min(i % 5, k % 5);
             int i1 = i / 5;
-            monitorList monitorlist1 = (monitorList)monitorNames.at(ai[l + i1]);
+            monitorList monitorlist1 = (monitorList)monitorNames.get(ai[l + i1]);
             if(i++ % 5 == 0)
             {
                 outputStream.println("</tr><tr>");
@@ -2304,7 +2304,7 @@ label2:
         {
             printButtonBar("SeerMonitors.htm", s2);
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         try
         {
             array = COM.dragonflow.Page.monitorPage.getMonitorClasses(this, true);/*ÐÞ¸ÄÎªTrue*/
@@ -2327,7 +2327,7 @@ label2:
 
     void DeleteMonitorFromReports(String s, String s1)
     {
-        jgl.Array array = null;
+        Array array = null;
         try
         {
             if(!request.isStandardAccount())
@@ -2352,25 +2352,25 @@ label2:
         }
         outputStream.println("<P>Checking reports...");
         String s3 = s1 + " " + s;
-        jgl.Array array1 = new Array();
-        Enumeration enumeration = array.elements();
+        Array array1 = new Array();
+        Enumeration enumeration = (Enumeration) array.iterator();
         do
         {
             if(!enumeration.hasMoreElements())
             {
                 break;
             }
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             if(!Monitor.isReportFrame(hashmap))
             {
                 array1.add(hashmap);
             } else
             {
-                jgl.HashMap hashmap1 = COM.dragonflow.Page.managePage.copyHashMap(hashmap);
+                HashMap hashmap1 = COM.dragonflow.Page.managePage.copyHashMap(hashmap);
                 hashmap1.remove("monitors");
                 boolean flag = false;
                 String s4 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "title");
-                Enumeration enumeration1 = hashmap.values("monitors");
+                Enumeration enumeration1 = (Enumeration) hashmap.values("monitors");
                 do
                 {
                     if(!enumeration1.hasMoreElements())
@@ -2432,7 +2432,7 @@ label2:
             if(s.equals("Delete"))
             {
                 SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
-                jgl.Array array2 = ReadGroupFrames(s2);
+                Array array2 = ReadGroupFrames(s2);
                 AtomicMonitor atomicmonitor1 = AtomicMonitor.MonitorCreate(array2, s3, request.getPortalServer(), request);
                 AtomicMonitor atomicmonitor2 = (AtomicMonitor)siteviewgroup.getElement(s2 + SiteViewGroup.ID_SEPARATOR + atomicmonitor1.getFullID());
 //                if(!TopazConfigurator.delMonitors.contains(atomicmonitor2))
@@ -2452,7 +2452,7 @@ label2:
                 {
                     printRefreshHeader("Deleting Monitor", COM.dragonflow.Page.CGI.getGroupDetailURL(request, s2), 5);
                 }
-                jgl.Array array = ReadGroupFrames(s2);
+                Array array = ReadGroupFrames(s2);
                 int i = monitorUtils.findMonitorIndex(array, s3);
                 array.remove(i);
                 WriteGroupFrames(s2, array);
@@ -2470,7 +2470,7 @@ label2:
             }
         } else
         {
-            jgl.Array array1 = ReadGroupFrames(s2);
+            Array array1 = ReadGroupFrames(s2);
             AtomicMonitor atomicmonitor = AtomicMonitor.MonitorCreate(array1, s3, request.getPortalServer(), request);
             AtomicMonitor _tmp = atomicmonitor;
             String s4 = atomicmonitor.getProperty(AtomicMonitor.pName);
@@ -2712,7 +2712,7 @@ label2:
         {
             monitorpage.args = args;
             COM.dragonflow.Page.monitorPage _tmp = monitorpage;
-            jgl.Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses(monitorpage, false);
+            Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses(monitorpage, false);
             if(args[0].equals("-logproperties"))
             {
                 s = s + "LogColumns.htm";
@@ -2728,7 +2728,7 @@ label2:
                 printstream.println("The first six columns are always:<BR><TABLE BORDER=1 cellspacing=0>\n<TR><TH>column</TH><TH>data in column</TH></TR>\n<TR><TD>1</TD><TD>time/date of sample</TD></TR>\n<TR><TD>2</TD><TD>category (good, error, warning, nodata)</TD></TR>\n<TR><TD>3</TD><TD>group (also called ownerID) </TD></TR>\n<TR><TD>4</TD><TD>monitor title </TD></TR>\n<TR><TD>5</TD><TD>stateString (this is the status string that shows up on the Detail Page)</TD></TR>\n<TR><TD>6</TD><TD>id:sample # (unique ID for this monitor - group + id is unique key for a monitor) sample # is unique sample # for that monitor</TD></TR>\n</TABLE><P>\n");
                 for(int i = 0; i < array.size(); i++)
                 {
-                    java.lang.Class class1 = (java.lang.Class)array.at(i);
+                    java.lang.Class class1 = (java.lang.Class)array.get(i);
                     if(class1.getName().indexOf("URLRemote") != -1 || class1.getName().indexOf("PingRemote") != -1 || class1.getName().indexOf("SiteSeer") != -1)
                     {
                         continue;
@@ -2736,14 +2736,14 @@ label2:
                     try
                     {
                         Monitor monitor = (Monitor)class1.newInstance();
-                        jgl.Array array1 = monitor.getLogProperties();
+                        Array array1 = monitor.getLogProperties();
                         printstream.println("<TABLE BORDER=1 cellspacing=0><CAPTION>");
                         printstream.println("Monitor Type: " + monitor.getClassProperty("title") + "(" + monitor.getClassProperty("class") + ")");
                         printstream.println("</CAPTION><TR><TH>column</TH><TH>data in column</TH></TR>");
                         printstream.println("<TR><TD>1</TD><TD>date</TD></TR>");
                         for(int j1 = 0; j1 < array1.size(); j1++)
                         {
-                            COM.dragonflow.Properties.StringProperty stringproperty1 = (COM.dragonflow.Properties.StringProperty)array1.at(j1);
+                            COM.dragonflow.Properties.StringProperty stringproperty1 = (COM.dragonflow.Properties.StringProperty)array1.get(j1);
                             printstream.println("<TR><TD>" + (j1 + 2) + "</TD><TD>" + stringproperty1.getLabel() + "</TD></TR>");
                         }
 
@@ -2768,7 +2768,7 @@ label2:
                 printstream1.println("The first nine columns are always:<BR><TABLE BORDER=1 cellspacing=0>\n<TR><TH>column</TH><TH>data in column</TH></TR>\n<TR><TD>1</TD><TD>time/date of sample</TD></TR>\n<TR><TD>2</TD><TD>server name or IP address</TD></TR>\n<TR><TD>3</TD><TD>class</TD></TR>\n<TR><TD>4</TD><TD>sample</TD></TR>\n<TR><TD>5</TD><TD>category (good, error, warning, nodata)</TD></TR>\n<TR><TD>6</TD><TD>group </TD></TR>\n<TR><TD>7</TD><TD>monitor title </TD></TR>\n<TR><TD>8</TD><TD>stateString (this is the status string that shows up on the Detail Page)</TD></TR>\n<TR><TD>9</TD><TD>id:sample # (unique ID for this monitor - group + id is unique key for a monitor) sample # is unique sample # for that monitor</TD></TR>\n</TABLE><P>\n");
                 for(int j = 0; j < array.size(); j++)
                 {
-                    java.lang.Class class2 = (java.lang.Class)array.at(j);
+                    java.lang.Class class2 = (java.lang.Class)array.get(j);
                     if(class2.getName().indexOf("URLRemote") != -1 || class2.getName().indexOf("PingRemote") != -1 || class2.getName().indexOf("SiteSeer") != -1)
                     {
                         continue;
@@ -2776,7 +2776,7 @@ label2:
                     try
                     {
                         Monitor monitor1 = (Monitor)class2.newInstance();
-                        jgl.Array array2 = monitor1.getLogProperties();
+                        Array array2 = monitor1.getLogProperties();
                         printstream1.println("<TABLE BORDER=1 cellspacing=0><CAPTION>");
                         printstream1.println("Monitor Type: " + monitor1.getClassProperty("title") + "(" + monitor1.getClassProperty("class") + ")");
                         printstream1.println("</CAPTION><TR><TH>column</TH><TH>data in column</TH></TR>");
@@ -2786,7 +2786,7 @@ label2:
                         printstream1.println("<TR><TD>3</TD><TD>sample</TD></TR>");
                         for(int k1 = 0; k1 < array2.size(); k1++)
                         {
-                            COM.dragonflow.Properties.StringProperty stringproperty2 = (COM.dragonflow.Properties.StringProperty)array2.at(k1);
+                            COM.dragonflow.Properties.StringProperty stringproperty2 = (COM.dragonflow.Properties.StringProperty)array2.get(k1);
                             printstream1.println("<TR><TD>" + (k1 + 5) + "</TD><TD>" + stringproperty2.getLabel());
                             if(k1 + 5 > 19)
                             {
@@ -2814,7 +2814,7 @@ label2:
                 printstream2.println("<p>These are the property names that are be available for use in SiteView alert and report templates. \nYou can use these properties to customize the content of e-mail messages that are sent when a monitor \nalert is generated. These parameters are also used to <a href=ebusinesstransaction.htm#pass>pass values</a> between monitors that are part of an \n<a href=ebusinesstransaction.htm>eBusiness Transaction Monitor</a> \n<P>Properties that begin with an underscore character are monitor configuration properties. These properties are \nset within SiteView on the applicable monitor definition forms. The other properties listed are the results \nof the monitor running. Note that some of the properties, such as lastMeasurementTime, are internal properties \nand not generally interesting for alerts or reports.\n<P>The following properties are applicable to all monitor types:\n<P>\n<TABLE BORDER=1 cellspacing=0><CAPTION>General Template Properties</CAPTION>\n<TR><TH>name</TH><TH>description</TH></TR>\n<TR><TD>name</TD><TD>name of the monitor (same as _name)</TD></TR>\n<TR><TD>state</TD><TD>the status of the monitor (same as stateString)</TD></TR>\n<TR><TD>group</TD><TD>the name of the group that the monitor is in </TD></TR>\n<TR><TD>currentTime</TD><TD>the time that the alert is run</TD></TR>\n<TR><TD>time</TD><TD>the time that the monitor completed</TD></TR>\n<TR><TD>time-time</TD><TD>the time portion of the time that the monitor completed</TD></TR>\n<TR><TD>time-date</TD><TD>the date portion of the time that the monitor completed</TD></TR>\n<TR><TD>s|$year$/$month$/$day$|</TD><TD>a substitution expression - in this case year, month, day</TD></TR>\n<TR><TD>group.<I>propertyname</I></TD><TD>a given property of the group that the monitor is in</TD></TR>\n<TR><TD>group.parent.<I>propertyname</I></TD><TD>a given property of the parent group of the group that the monitor is in</TD></TR>\n<TR><TD>s|$year$/$month$/$day$|</TD><TD>a substitution expression - in this case year, month, day</TD></TR>\n<TR><TD>siteviewurl</TD><TD>the URL to the main page of SiteView for admin access</TD></TR>\n<TR><TD>siteviewuserurl</TD><TD>the URL to the main page of SiteView for user access</TD></TR>\n<TR><TD>mainParameters</TD><TD>all of the parameters that appear on the Edit form</TD></TR>\n<TR><TD>mainStateProperties</TD><TD>all of the result stats shown on the Reports</TD></TR>\n<TR><TD>secondaryParameters</TD><TD>all of the internal parameters</TD></TR>\n<TR><TD>secondaryStateProperties</TD><TD>all of the internal result stats</TD></TR>\n<TR><TD>all</TD><TD>all of the properties of the monitor</TD></TR>\n</TABLE><P>\n<P>\nThe following properties are applicable to the email templates stored in the templates.history directory:\n<P>\n<TABLE BORDER=1 cellspacing=0><CAPTION>Report Email Template Properties</CAPTION>\n<TR><TH>name</TH><TH>description</TH></TR>\n<TR><TD>reportPeriod</TD><TD>The time period for this report</TD></TR>\n<TR><TD>summary</TD><TD>Summary and measurement information</TD></TR>\n<TR><TD>basicAlertSummary</TD><TD>Basic information on what alerts have been triggered</TD></TR>\n<TR><TD>detailAlertSummary</TD><TD>More detailed information on alerts</TD></TR>\n<TR><TD>_webserverAddress</TD><TD>The IP address for the SiteView Server</TD></TR>\n<TR><TD>_httpPort</TD><TD>The port number used to access SiteView</TD></TR>\n<TR><TD>reportURL</TD><TD>The URL to the HTML version of the management report</TD></TR>\n<TR><TD>reportIndexURL</TD><TD>The URL to the index page for the management report</TD></TR>\n<TR><TD>textReportURL</TD><TD>The URL to the comma-delimited file generated by the management report</TD></TR>\n<TR><TD>xmlReportURL</TD><TD>The URL to the XML file generated by the management report</TD></TR>\n<TR><TD>userReportURL</TD><TD>The URL to the user-accessible verion of the report </TD></TR>\n<TR><TD>userReportIndexURL</TD><TD>The URL to the index page for a user-accessible report </TD></TR>\n<TR><TD>userTextReportURL</TD><TD>The URL to the comma-delimited file generated by a user-accessible report </TD></TR>\n<TR><TD>userXMLReportURL</TD><TD>The URL to the XML file generated by a user-accessible report </TD></TR>\n</TABLE><P>\n<p>Use the links below to view other template properties specific to the different monitor types:</p>\n<table width=75% border=0 cellspacing=0 cellpadding=0 align=center>\n");
                 for(int k = 0; k < array.size(); k++)
                 {
-                    java.lang.Class class3 = (java.lang.Class)array.at(k);
+                    java.lang.Class class3 = (java.lang.Class)array.get(k);
                     try
                     {
                         Monitor monitor2 = (Monitor)class3.newInstance();
@@ -2837,7 +2837,7 @@ label2:
                 printstream2.println("</TABLE><P>");
                 for(int l = 0; l < array.size(); l++)
                 {
-                    java.lang.Class class4 = (java.lang.Class)array.at(l);
+                    java.lang.Class class4 = (java.lang.Class)array.get(l);
                     try
                     {
                         Monitor monitor3 = (Monitor)class4.newInstance();
@@ -2913,7 +2913,7 @@ label2:
         return true;
     }
 
-    private boolean setCounerProperty(String s, String s1, jgl.HashMap hashmap, AtomicMonitor atomicmonitor, int i, String s2)
+    private boolean setCounerProperty(String s, String s1, HashMap hashmap, AtomicMonitor atomicmonitor, int i, String s2)
     {
         if(request.getValue(COM.dragonflow.Properties.BrowsableProperty.BROWSE + s1).length() > 0)
         {
@@ -2944,7 +2944,7 @@ label2:
         }
         if(!batch)
         {
-            jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+            HashMap hashmap = MasterConfig.getMasterConfig();
             showMonitors = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_monitorsFilter");
             if(showMonitors.length() > 0)
             {

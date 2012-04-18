@@ -21,7 +21,7 @@ package COM.dragonflow.StandardMonitor;
 import COM.dragonflow.Properties.BrowsableProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteView.*;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public class TuxedoMonitor extends DispatcherMonitor
     implements BrowsableMonitor
@@ -118,7 +118,7 @@ public class TuxedoMonitor extends DispatcherMonitor
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for(int i = 0; i < array.size(); i++)
         {
-            astringproperty[i] = (StringProperty)array.at(i);
+            astringproperty[i] = (StringProperty)array.get(i);
         }
 
         addProperties("COM.dragonflow.StandardMonitor.TuxedoMonitor", astringproperty);

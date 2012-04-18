@@ -29,13 +29,13 @@ public abstract class machineChooserPage extends COM.dragonflow.Page.CGI {
             COM.dragonflow.SiteView.PortalSiteView portalsiteview = (COM.dragonflow.SiteView.PortalSiteView) getSiteView();
             if (portalsiteview != null) {
                 String s = "/SiteView/cgi/go.exe/SiteView?page=remoteOp&operation=getServers&account=administrator";
-                jgl.Array array = portalsiteview.sendURLToRemoteSiteView(s,
+                Array array = portalsiteview.sendURLToRemoteSiteView(s,
                         null);
                 vector = new Vector();
                 vector.addElement("this server");
                 vector.addElement("this server");
                 for (int i = 1; i < array.size(); i++) {
-                    String s1 = (String) array.at(i);
+                    String s1 = (String) array.get(i);
                     s1 = s1.trim();
                     String s2 = COM.dragonflow.SiteView.Machine
                             .getFullMachineID(s1, request);
@@ -50,12 +50,12 @@ public abstract class machineChooserPage extends COM.dragonflow.Page.CGI {
 
     java.util.Vector addNTSSHServers(java.util.Vector vector, String s)
             throws java.io.IOException {
-        jgl.Array array = readMachines(s);
-        jgl.Sorting.sort(array, new CompareSlot("_name",
+        Array array = readMachines(s);
+        Sorting.sort(array, new CompareSlot("_name",
                 COM.dragonflow.SiteView.CompareSlot.DIRECTION_LESS));
         boolean flag = s.indexOf("NT") == -1;
         for (int i = 0; i < array.size(); i++) {
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(i);
+            HashMap hashmap = (HashMap) array.get(i);
             String s1 = "";
             s1 = COM.dragonflow.SiteView.Machine.getFullMachineID(
                     COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_host"),
@@ -76,12 +76,12 @@ public abstract class machineChooserPage extends COM.dragonflow.Page.CGI {
 
     public java.util.Vector addServers(java.util.Vector vector,
             String s) throws java.io.IOException {
-        jgl.Array array = readMachines(s);
-        jgl.Sorting.sort(array, new CompareSlot("_name",
+        Array array = readMachines(s);
+        Sorting.sort(array, new CompareSlot("_name",
                 COM.dragonflow.SiteView.CompareSlot.DIRECTION_LESS));
         boolean flag = s.indexOf("NT") == -1;
         for (int i = 0; i < array.size(); i++) {
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(i);
+            HashMap hashmap = (HashMap) array.get(i);
             String s1 = "";
             if (flag) {
                 s1 = COM.dragonflow.SiteView.Machine.getFullMachineID(

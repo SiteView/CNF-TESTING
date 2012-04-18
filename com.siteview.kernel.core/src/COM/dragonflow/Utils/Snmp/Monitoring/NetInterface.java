@@ -9,7 +9,7 @@
  */
 package COM.dragonflow.Utils.Snmp.Monitoring;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.PercentProperty;
 import COM.dragonflow.Properties.RateProperty;
@@ -114,8 +114,8 @@ public class NetInterface
     private static int RT_METRIC_TYPES[] = {
         2, 2, 3
     };
-    private static jgl.HashMap namesToLabels;
-    private static jgl.HashMap sameGraphPropertiesMap = new HashMap();
+    private static HashMap namesToLabels;
+    private static HashMap sameGraphPropertiesMap = new HashMap();
 
     public NetInterface(String s, String s1, int i, String s2, int j, boolean flag)
     {

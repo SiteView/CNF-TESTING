@@ -19,12 +19,13 @@ package COM.dragonflow.SiteView;
  */
 import java.io.File;
 
-import jgl.Array;
-import jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.Utils.FileUtils;
 import SiteViewMain.SiteViewSupport;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // Platform

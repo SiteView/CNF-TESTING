@@ -108,7 +108,7 @@ public class GeneralDefaultPreferences extends COM.dragonflow.SiteView.Preferenc
         String as[] = new String[2];
         try {
             String s2 = (String) hashmap.get(pLicenseForX.getName());
-            jgl.HashMap hashmap1 = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap1 = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             String s3 = (String) hashmap1.get(pLicenseForX.getName());
             as = super.updatePreferences(hashmap, s, s1);
             if ((s3 != null && s3.length() > 0 || s2 != null && s2.length() > 0) && checkLicenseChange(s3, s2) && s2.length() > 0) {

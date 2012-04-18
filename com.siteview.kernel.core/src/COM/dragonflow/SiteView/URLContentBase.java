@@ -19,8 +19,8 @@ package COM.dragonflow.SiteView;
  */
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
@@ -105,7 +105,7 @@ public abstract class URLContentBase extends ApplicationBase {
             Array array = getURLContentCounters(
                     getProperty(getCountersProperty()), false);
             for (int i = 0; i < array.size(); i++) {
-                String s = (String) array.at(i);
+                String s = (String) array.get(i);
                 labelsCache.add("Counter " + (i + 1) + " Value", s);
             }
 
@@ -138,7 +138,7 @@ public abstract class URLContentBase extends ApplicationBase {
             array.add(getPropertyObject("value" + i));
         }
 
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public void updateErrorValues(String s, String s1) {
@@ -172,9 +172,9 @@ public abstract class URLContentBase extends ApplicationBase {
             }
             if (getProperty("value" + j).length() > 0) {
                 setProperty(getLocationProperty(getPropertyObject("value" + j),
-                        s), array.at(j));
+                        s), array.get(j));
             }
-            s4 = s4 + as[j] + " = " + array.at(j);
+            s4 = s4 + as[j] + " = " + array.get(j);
         }
 
         if (flag) {
@@ -233,7 +233,7 @@ public abstract class URLContentBase extends ApplicationBase {
         array.add(pStateString);
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for (int j = 0; j < array.size(); j++) {
-            astringproperty[j] = (StringProperty) array.at(j);
+            astringproperty[j] = (StringProperty) array.get(j);
         }
 
         addProperties("COM.dragonflow.SiteView.URLContentBase", astringproperty);

@@ -21,8 +21,12 @@ import java.io.File;
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
 import COM.dragonflow.SiteView.GreaterDate;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Reversing;
+import com.recursionsw.jgl.algorithms.Sorting;
 
 // Referenced classes of package COM.dragonflow.Log:
 // BaseFileLogger, FileWithPath, LogManager
@@ -45,7 +49,7 @@ public class DailyFileLogger extends COM.dragonflow.Log.BaseFileLogger
         throws java.io.IOException
     {
         this(s, l, i, 0L, 0);
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         bufferDuration = COM.dragonflow.Log.DailyFileLogger.getLongSetting(hashmap, "_logDailyFileBufferDuration", 0L);
         initBuffer((int)COM.dragonflow.Log.DailyFileLogger.getLongSetting(hashmap, "_logDailyFileMaxBufferSize", 0L));
     }
@@ -73,7 +77,7 @@ public class DailyFileLogger extends COM.dragonflow.Log.BaseFileLogger
         basePath = directoryPath + java.io.File.separator + baseFileName;
         java.io.File file1 = new File(directoryPath);
         String as[] = file1.list();
-        jgl.Array array = new Array();
+        Array array = new Array();
         for(int i1 = 0; i1 < as.length; i1++)
         {
             if(!as[i1].startsWith(baseFileName) || !as[i1].endsWith(suffix))
@@ -91,8 +95,8 @@ public class DailyFileLogger extends COM.dragonflow.Log.BaseFileLogger
             array.add(date2);
         }
 
-        jgl.Sorting.sort(array, new GreaterDate());
-        jgl.Reversing.reverse(array);
+        Sorting.sort(array, new GreaterDate());
+        Reversing.reverse(array);
         if(i > 0)
         {
             do
@@ -153,9 +157,9 @@ public class DailyFileLogger extends COM.dragonflow.Log.BaseFileLogger
         }
     }
 
-    long totalFileSizes(jgl.Array array)
+    long totalFileSizes(Array array)
     {
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         long l;
         java.io.File file;
         for(l = 0L; enumeration.hasMoreElements(); l += file.length())

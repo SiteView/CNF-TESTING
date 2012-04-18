@@ -22,8 +22,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Timer;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.MasterConfig;
 import COM.dragonflow.SiteView.Platform;
@@ -200,8 +200,8 @@ public class LUtils
     public static final int nSolutionTypeOracle = 81;
     public static final int nSolutionTypeSiebel = 64;
     public static final int nMonTypeAll = 99;
-    static jgl.HashMap monNameToType = new HashMap();
-    static jgl.HashMap siteSeerMonNameToType = new HashMap();
+    static HashMap monNameToType = new HashMap();
+    static HashMap siteSeerMonNameToType = new HashMap();
     static long sessionTimeout = 0L;
     static boolean sessionActive = false;
     static String sessionLicense = "";
@@ -231,8 +231,8 @@ public class LUtils
                 String s1 = s.substring(0, i);
                 String s2 = s.substring(i + 1);
                 String s3 = Platform.getRoot() + "/groups/" + s1 + ".mg";
-                jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(s3);
-                jgl.HashMap hashmap = monitorUtils.findMonitor(array, s2);
+                Array array = COM.dragonflow.Properties.FrameFile.readFromFile(s3);
+                HashMap hashmap = monitorUtils.findMonitor(array, s2);
                 atomicmonitor = (AtomicMonitor)AtomicMonitor.createMonitor(hashmap, "");
             }
         }
@@ -359,16 +359,16 @@ public class LUtils
         return s.substring(19, 23);
     }
 
-    public static int getCostInLicensePoints(jgl.Array array, String s)
+    public static int getCostInLicensePoints(Array array, String s)
     {
         int i = 0;
         if(array != null)
         {
             for(int j = 0; j < array.size(); j++)
             {
-                if(array.at(j) instanceof String)
+                if(array.get(j) instanceof String)
                 {
-                    String s1 = (String)array.at(j);
+                    String s1 = (String)array.get(j);
                     AtomicMonitor atomicmonitor = createMonitor(s1);
                     if(atomicmonitor != null)
                     {
@@ -376,14 +376,14 @@ public class LUtils
                     }
                     continue;
                 }
-                if(!(array.at(j) instanceof jgl.HashMap) || s == null)
+                if(!(array.get(j) instanceof HashMap) || s == null)
                 {
                     continue;
                 }
-                jgl.Array array1 = new Array();
-                jgl.HashMap hashmap = (jgl.HashMap)array.at(j);
+                Array array1 = new Array();
+                HashMap hashmap = (HashMap)array.get(j);
                 String s2 = null;
-                Enumeration enumeration = hashmap.keys();
+                Enumeration enumeration = (Enumeration) hashmap.keys();
                 Enumeration enumeration1 = hashmap.elements();
                 while (enumeration.hasMoreElements() && enumeration1.hasMoreElements())
                     {
@@ -399,11 +399,11 @@ public class LUtils
                             String s7 = Platform.getRoot() + java.io.File.separator + "groups" + java.io.File.separator + s2 + ".mg";
                             try
                             {
-                                jgl.Array array2 = COM.dragonflow.Properties.FrameFile.readFromFile(s7);
+                                Array array2 = COM.dragonflow.Properties.FrameFile.readFromFile(s7);
                                 int k = 0;
                                 while(k < array2.size()) 
                                 {
-                                    jgl.HashMap hashmap1 = (jgl.HashMap)array2.at(k);
+                                    HashMap hashmap1 = (HashMap)array2.get(k);
                                     String s8 = (String)hashmap1.get("_id");
                                     if(s8 != null)
                                     {
@@ -588,7 +588,7 @@ public class LUtils
         return getLicenseExceededHTML(getMasterConfig());
     }
 
-    public static String getLicenseExceededHTML(jgl.HashMap hashmap)
+    public static String getLicenseExceededHTML(HashMap hashmap)
     {
         int i = getLicensedPoints();
         String s = "<p>This operation would exceed your limit of " + i + " points for this license.\r\n" + "<p>Upgrade your license to allow more points by <a href=" + Platform.homeURLPrefix + "/OrderOpts.htm>Ordering Online</a> or sending e-mail to <a href=mailto:" + Platform.salesEmail + ">" + Platform.salesEmail + "</a>.\r\n" + "<p>Temporary licenses may also be available." + "<br><br>" + getLicenseSummary(hashmap, true) + "\r\n";
@@ -621,13 +621,13 @@ public class LUtils
         return s;
     }
 
-    public static String getLicenseKey(jgl.HashMap hashmap)
+    public static String getLicenseKey(HashMap hashmap)
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_license");
         return s;
     }
 
-    public static String getLicenseForXKey(jgl.HashMap hashmap)
+    public static String getLicenseForXKey(HashMap hashmap)
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_licenseForX");
         return s;
@@ -641,7 +641,7 @@ public class LUtils
         return getLicenseSummary(s, flag, s1, false);
     }
 
-    public static String getLicenseSummary(jgl.HashMap hashmap, boolean flag)
+    public static String getLicenseSummary(HashMap hashmap, boolean flag)
     {
         String s = getLicenseKey(hashmap);
         String s1 = Platform.productName;
@@ -781,7 +781,7 @@ public class LUtils
         return getLicenseType(getMasterConfig());
     }
 
-    public static int getLicenseType(jgl.HashMap hashmap)
+    public static int getLicenseType(HashMap hashmap)
     {
         String s = getLicenseKey(hashmap);
         return getLicenseType(s);
@@ -922,7 +922,7 @@ public class LUtils
         return s;
     }
 
-    private static jgl.HashMap getMasterConfig()
+    private static HashMap getMasterConfig()
     {
         return MasterConfig.getMasterConfig();
     }
@@ -1733,10 +1733,10 @@ public class LUtils
 
     public static Enumeration getMonitorsFromType(int i)
     {
-        Enumeration enumeration = monNameToType.keys(new Integer(i));
+        Enumeration enumeration = (Enumeration) monNameToType.keys(new Integer(i));
         if(!enumeration.hasMoreElements())
         {
-            enumeration = siteSeerMonNameToType.keys(new Integer(i));
+            enumeration = (Enumeration) siteSeerMonNameToType.keys(new Integer(i));
         }
         return enumeration;
     }
@@ -1937,17 +1937,17 @@ public class LUtils
 
     public static boolean setLicenseKey(String s)
     {
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         return setLicenseKey(s, hashmap);
     }
 
-    public static boolean setLicenseKey(String s, jgl.HashMap hashmap)
+    public static boolean setLicenseKey(String s, HashMap hashmap)
     {
         String s1 = "_license";
         return setLicenseKey(s1, s, hashmap);
     }
 
-    public static boolean setLicenseKey(String s, String s1, jgl.HashMap hashmap)
+    public static boolean setLicenseKey(String s, String s1, HashMap hashmap)
     {
         boolean flag = false;
         if(isValidLicense(s1))
@@ -1958,7 +1958,7 @@ public class LUtils
         return flag;
     }
 
-    public static boolean wouldExceedLimit(jgl.Array array, String s)
+    public static boolean wouldExceedLimit(Array array, String s)
     {
         int i = getCostInLicensePoints(array, s);
         return wouldExceedLimit(i);

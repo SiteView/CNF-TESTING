@@ -23,8 +23,8 @@ import COM.dragonflow.Properties.*;
 import COM.dragonflow.SiteView.*;
 import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.TextUtils;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class PingMonitor extends AtomicMonitor
 {

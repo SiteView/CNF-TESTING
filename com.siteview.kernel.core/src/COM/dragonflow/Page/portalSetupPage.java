@@ -9,7 +9,7 @@
  */
 package COM.dragonflow.Page;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -22,7 +22,7 @@ public class portalSetupPage extends COM.dragonflow.Page.CGI
     {
     }
 
-    jgl.Array getDefaultServers(jgl.Array array)
+    jgl.Array getDefaultServers(Array array)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         hashmapordered.add("_id", "demo.Dragonflow.com");
@@ -45,7 +45,7 @@ public class portalSetupPage extends COM.dragonflow.Page.CGI
         return array;
     }
 
-    jgl.Array getSiteViewServer(jgl.Array array)
+    jgl.Array getSiteViewServer(Array array)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         hashmapordered.add("_server", request.getValue("server").trim());
@@ -60,7 +60,7 @@ public class portalSetupPage extends COM.dragonflow.Page.CGI
         return array;
     }
 
-    jgl.Array getSiteSeerAccount(jgl.Array array)
+    jgl.Array getSiteSeerAccount(Array array)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         hashmapordered.add("_server", request.getValue("siteseerserver").trim());
@@ -82,7 +82,7 @@ public class portalSetupPage extends COM.dragonflow.Page.CGI
         if(request.isPost())
         {
             printRefreshHeader("", getPageLink("portal", ""), 7);
-            jgl.Array array = new Array();
+            Array array = new Array();
             array.add(new HashMapOrdered(true));
             if(request.getValue("server").length() > 0)
             {
@@ -98,7 +98,7 @@ public class portalSetupPage extends COM.dragonflow.Page.CGI
             }
             for(int i = 1; i < array.size(); i++)
             {
-                jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+                HashMap hashmap = (HashMap)array.get(i);
                 COM.dragonflow.Page.portalServerPage.syncRemoteSiteView(hashmap, outputStream);
                 outputStream.println("<P>");
             }
@@ -126,7 +126,7 @@ public class portalSetupPage extends COM.dragonflow.Page.CGI
             outputStream.println("</TABLE><P><CENTER><input type=submit value=\"Initialize CentraScope\"> from remote SiteView</CENTER>");
             outputStream.println("<p><a name=addSiteSeer><h2>Add SiteSeer Account</h2></a>If you have an existing SiteSeer account you would like to use with CentraScope, enter the information below, and click Update, and the SiteSeer configuration will be transferred to this installation of CentraScope<P>");
             outputStream.println("<TABLE>");
-            jgl.Array array1 = new Array();
+            Array array1 = new Array();
             for(int j = 1; j <= 9; j++)
             {
                 String s1 = "siteseer" + j + ".Dragonflow.com";

@@ -15,8 +15,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.Utils.SMTP;
@@ -59,8 +59,8 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public void printBody() throws java.lang.Exception {
         if(!(new File(Platform.getRoot() + "/groups/GSRRunbook.config")).exists()) {
-            jgl.Array array = new Array();
-            jgl.HashMap hashmap = new HashMap();
+            Array array = new Array();
+            HashMap hashmap = new HashMap();
             hashmap.put("_nextid", "0");
             hashmap.put("_account", "");
             hashmap.put("_emailto", "");
@@ -103,7 +103,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                     {
                         if(s1.equals("save"))
                         {
-                            jgl.HashMap hashmap1 = new HashMap();
+                            HashMap hashmap1 = new HashMap();
                             hashmap1.add("_name", request.getValue("runbook_name"));
                             hashmap1.add("_type", "runbook");
                             hashmap1.add("_scope", request.getValue("runbook_scope"));
@@ -129,7 +129,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                     String s27 = "";
                     if(request.getValue("id_selection") != null)
                     {
-                        jgl.HashMap hashmap12 = loadGSRFramebyID(request.getValue("id_selection"));
+                        HashMap hashmap12 = loadGSRFramebyID(request.getValue("id_selection"));
                         if(hashmap12 != null)
                         {
                             if(hashmap12.get("_id") != null)
@@ -189,7 +189,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                         {
                             if(s1.equals("save"))
                             {
-                                jgl.HashMap hashmap2 = new HashMap();
+                                HashMap hashmap2 = new HashMap();
                                 hashmap2.put("_id", request.getValue("id_selection"));
                                 hashmap2.put("_name", request.getValue("runbook_name"));
                                 hashmap2.put("_scope", request.getValue("runbook_scope"));
@@ -218,7 +218,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                         } else
                             if(s1.equals("save"))
                             {
-                                jgl.HashMap hashmap3 = new HashMap();
+                                HashMap hashmap3 = new HashMap();
                                 String s10 = "";
                                 int i;
                                 for(i = 1; i < 3; i++)
@@ -238,7 +238,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                 } else
                     if(s.equals("CREATE RUNBOOK GROUP"))
                     {
-                        jgl.HashMap hashmap4 = runbookToHashMap();
+                        HashMap hashmap4 = runbookToHashMap();
                         if(request.getValue("newform").equals("SUBMIT"))
                         {
                             printRunbookGroupForm();
@@ -250,7 +250,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                             } else
                                 if(s1.equals("save"))
                                 {
-                                    jgl.HashMap hashmap7 = new HashMap();
+                                    HashMap hashmap7 = new HashMap();
                                     String s14 = "";
                                     int j;
                                     for(j = 1; j < RUNBOOKGROUP_SELECT; j++)
@@ -292,8 +292,8 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                     } else
                         if(s.equals("EDIT RUNBOOK GROUP"))
                         {
-                            jgl.HashMap hashmap5 = new HashMap();
-                            jgl.HashMap hashmap8 = runbookToHashMap();
+                            HashMap hashmap5 = new HashMap();
+                            HashMap hashmap8 = runbookToHashMap();
                             String s15 = "";
                             if(TextUtils.toInt(request.getValue("runbook_scope")) > 0)
                             {
@@ -341,7 +341,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                         } else
                             if(s.equals("EDIT ESCALATION GROUP"))
                             {
-                                jgl.HashMap hashmap6 = new HashMap();
+                                HashMap hashmap6 = new HashMap();
                                 String s11 = "";
                                 if(COM.dragonflow.Utils.TextUtils.toInt(request.getValue("escalate_type")) > 0)
                                 {
@@ -380,7 +380,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                                         }
                                         if(request.getValue("escalation_select") != null)
                                         {
-                                            jgl.HashMap hashmap13 = loadGSRFramebyID(request.getValue("escalation_select"));
+                                            HashMap hashmap13 = loadGSRFramebyID(request.getValue("escalation_select"));
                                             if(hashmap13 != null)
                                             {
                                                 if(hashmap13.get("_id") != null)
@@ -433,8 +433,8 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                                     } else
                                         if(s1.equals("save"))
                                         {
-                                            jgl.Array array1 = loadGSRRunbook();
-                                            jgl.HashMap hashmap9 = new HashMap();
+                                            Array array1 = loadGSRRunbook();
+                                            HashMap hashmap9 = new HashMap();
                                             String s18 = "";
                                             if(COM.dragonflow.Utils.TextUtils.toInt(request.getValue("escalate_type")) > 0)
                                             {
@@ -447,7 +447,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                                                 {
                                                     break;
                                                 }
-                                                jgl.HashMap hashmap10 = (jgl.HashMap)array1.at(l);
+                                                HashMap hashmap10 = (HashMap)array1.get(l);
                                                 if(((String)hashmap10.get("_id")).equals(request.getValue("id_selection")))
                                                 {
                                                     hashmap10.put("_name", request.getValue("escalate_name"));
@@ -525,8 +525,8 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                                                     {
                                                         s21 = "";
                                                     }
-                                                    jgl.Array array2 = loadGSRRunbook();
-                                                    jgl.HashMap hashmap11 = (jgl.HashMap)array2.at(0);
+                                                    Array array2 = loadGSRRunbook();
+                                                    HashMap hashmap11 = (HashMap)array2.get(0);
                                                     String s31 = "";
                                                     String s33 = "";
                                                     String s34 = "";
@@ -538,7 +538,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                                                     {
                                                         s34 = (String)hashmap11.get("_account");
                                                     }
-                                                    jgl.HashMap hashmap14 = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+                                                    HashMap hashmap14 = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
                                                     if(hashmap14.get("_mailServer") != null)
                                                     {
                                                         s33 = (String)hashmap14.get("_mailServer");
@@ -548,7 +548,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                                                         s31 = (String)hashmap14.get("_autoemail");
                                                     }
                                                     s8 = createXML();
-                                                    jgl.Array array3 = new Array();
+                                                    Array array3 = new Array();
                                                     try
                                                     {
                                                         COM.dragonflow.Utils.SMTP smtp = new SMTP(s33, 60000, array3);
@@ -631,12 +631,12 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         };
         String s = "<select name=runbook_select size=10><option value=></option>";
         String s1 = "<select name=escalation_select size=10><option value=></option>";
-        jgl.Array array = loadGSRRunbook();
+        Array array = loadGSRRunbook();
         if(array != null)
         {
             for(int i = 1; i < array.size(); i++)
             {
-                jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+                HashMap hashmap = (HashMap)array.get(i);
                 if(hashmap.get("_type") == null)
                 {
                     continue;
@@ -674,9 +674,9 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
      * 
      * @return
      */
-    public jgl.Array loadGSRRunbook()
+    public Array loadGSRRunbook()
     {
-        jgl.Array array = null;
+        Array array = null;
         try {
             array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/GSRRunbook.config");
             if(array != null && array.size() > 0)
@@ -716,7 +716,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         return "<img src=/SiteView/htdocs/artwork/empty1111.gif height=11 width=" + j + " border=0>";
     }
     
-    private String printGroup(COM.dragonflow.SiteView.MonitorGroup monitorgroup, jgl.HashMap hashmap, jgl.HashMap hashmap1, int i, boolean flag, String s)
+    private String printGroup(COM.dragonflow.SiteView.MonitorGroup monitorgroup, HashMap hashmap, HashMap hashmap1, int i, boolean flag, String s)
     {
         String s1 = monitorgroup.getProperty(COM.dragonflow.SiteView.Monitor.pID);
         String s2 = monitorgroup.getProperty(COM.dragonflow.SiteView.MonitorGroup.pParent);
@@ -811,7 +811,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         }
         String s8 = COM.dragonflow.SiteView.Platform.getDirectoryPath("groups", request.getAccount());
         String s9 = s8 + java.io.File.separator + "tree.dyn";
-        jgl.Array array = null;
+        Array array = null;
         try
         {
             array = COM.dragonflow.Properties.FrameFile.readFromFile(s9);
@@ -820,12 +820,12 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         {
             array = new Array();
         }
-        jgl.HashMap hashmap = null;
+        HashMap hashmap = null;
         String s10 = request.getAccount();
         boolean flag = false;
         for(int i = 0; i < array.size(); i++)
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+            HashMap hashmap1 = (HashMap)array.get(i);
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_user").equals(s10))
             {
                 hashmap = hashmap1;
@@ -873,16 +873,16 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                 }
             }
         } while(true);
-        jgl.HashMap hashmap2 = new HashMap();
+        HashMap hashmap2 = new HashMap();
         Enumeration enumeration1 = request.getValues("monitor");
         if(s5.equals("start") && s4 != null && s3 != null && !s3.equals(""))
         {
-            jgl.Array array1 = null;
+            Array array1 = null;
             COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
             array1 = siteviewgroup.getGroupFileIDs();
             for(int j = 0; j < array1.size(); j++)
             {
-                hashmap2 = findItemsWithID(hashmap2, (String)array1.at(j), s4, s3);
+                hashmap2 = findItemsWithID(hashmap2, (String)array1.get(j), s4, s3);
             }
             
         } else
@@ -891,10 +891,10 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
             for(Enumeration enumeration2 = request.getValues("group"); enumeration2.hasMoreElements(); hashmap2.put(enumeration2.nextElement(), "checked")) { }
         }
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
-        jgl.Array array2 = getGroupNameList(hashmapordered, null, null, true);
+        Array array2 = getGroupNameList(hashmapordered, null, null, true);
         outputStream.println("<H2>GSR Runbook and Escalation Configuration</H2><P>Select one or more groups and monitors and then choose the action you wish to perform.<p><FORM METHOD=POST ACTION=/SiteView/cgi/go.exe/SiteView><INPUT TYPE=HIDDEN NAME=operation value=choose><INPUT TYPE=HIDDEN NAME=id_selection value=" + s1 + ">" + "<INPUT TYPE=HIDDEN NAME=action value=\"" + s + "\">" + "<INPUT TYPE=HIDDEN NAME=page VALUE=GSR>" + "<INPUT TYPE=HIDDEN NAME=account VALUE=" + s10 + ">");
         outputStream.println("<HR>(Click the <img src=/SiteView/htdocs/artwork/Plus.gif alt=\"open\"> to expand a group, and the <img src=/SiteView/htdocs/artwork/Minus.gif alt=\"close\"> to collapse a group).<P><TABLE BORDER=0>");
-        for(Enumeration enumeration4 = array2.elements(); enumeration4.hasMoreElements();)
+        for(Enumeration enumeration4 =  (Enumeration) array2.iterator(); enumeration4.hasMoreElements();)
         {
             String s14 = (String)enumeration4.nextElement();
             Enumeration enumeration3 = hashmapordered.values(s14);
@@ -919,7 +919,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         }
     }
     
-    public jgl.Array loadgroup(String s)
+    public Array loadgroup(String s)
     {
         String s1 = "";
         if(s != null && !s.equals("null"))
@@ -928,7 +928,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         }
         if(!s1.equals("") && (new File(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/" + s1 + ".mg")).exists())
         {
-            jgl.Array array = null;
+            Array array = null;
             try
             {
                 array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/groups/" + s1 + ".mg");
@@ -945,7 +945,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         }
     }
     
-    public boolean savegroup(String s, jgl.Array array)
+    public boolean savegroup(String s, Array array)
     {
         try
         {
@@ -961,13 +961,13 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public void updateRunbookidValue(String s, String s1, String s2, String s3)
     {
-        jgl.Array array = null;
+        Array array = null;
         array = loadgroup(s);
         if(array != null)
         {
             for(int i = 0; i < array.size(); i++)
             {
-                jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+                HashMap hashmap = (HashMap)array.get(i);
                 String s4 = (String)hashmap.get("_class");
                 if((s4 == null || !s4.equals("SubGroup")) && hashmap.get(s1) != null && ((String)hashmap.get(s1)).equals(s3))
                 {
@@ -985,13 +985,13 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public void updategroup(String s, String s1, String s2)
     {
-        jgl.Array array = null;
+        Array array = null;
         array = loadgroup(s);
         if(array != null)
         {
             for(int i = 0; i < array.size(); i++)
             {
-                jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+                HashMap hashmap = (HashMap)array.get(i);
                 String s3 = (String)hashmap.get("_class");
                 if(s3 == null || !s3.equals("SubGroup"))
                 {
@@ -1006,13 +1006,13 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public void updategroup_recursive(String s, String s1, String s2)
     {
-        jgl.Array array = null;
+        Array array = null;
         array = loadgroup(s);
         if(array != null)
         {
             for(int i = 0; i < array.size(); i++)
             {
-                jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+                HashMap hashmap = (HashMap)array.get(i);
                 String s3 = (String)hashmap.get("_class");
                 if(s3 == null || !s3.equals("SubGroup"))
                 {
@@ -1028,16 +1028,16 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         }
     }
     
-    public jgl.HashMap findItemsWithID(jgl.HashMap hashmap, String s, String s1, String s2)
+    public HashMap findItemsWithID(HashMap hashmap, String s, String s1, String s2)
     {
-        jgl.Array array = null;
-        jgl.HashMap hashmap1 = new HashMap();
+        Array array = null;
+        HashMap hashmap1 = new HashMap();
         array = loadgroup(s);
         if(array != null)
         {
             for(int i = 0; i < array.size(); i++)
             {
-                jgl.HashMap hashmap2 = (jgl.HashMap)array.at(i);
+                HashMap hashmap2 = (HashMap)array.get(i);
                 if(hashmap2.get(s1) != null && hashmap2.get("_class") != null && ((String)hashmap2.get(s1)).equals(s2) && !((String)hashmap2.get("_class")).equals("SubGroup"))
                 {
                     String s3 = (String)hashmap2.get("_id");
@@ -1066,12 +1066,12 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     public void printselectedMonitorsGroups(java.io.PrintWriter printwriter)
     {
         String s = request.getValue("toGroupID");
-        jgl.Array array = new Array();
-        jgl.Array array1 = new Array();
+        Array array = new Array();
+        Array array1 = new Array();
         String s1 = "";
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        jgl.Array array2 = new Array();
-        jgl.Array array3 = new Array();
+        Array array2 = new Array();
+        Array array3 = new Array();
         if(s.length() > 0)
         {
             array3.add(s);
@@ -1179,7 +1179,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
             {
                 printwriter.print("Group ");
             }
-            printwriter.print(array.at(l) + "\n");
+            printwriter.print(array.get(l) + "\n");
         }
         
         for(int i1 = 0; i1 < array1.size(); i1++)
@@ -1188,13 +1188,13 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
             {
                 printwriter.print("Monitor ");
             }
-            printwriter.print(array1.at(i1) + "\n");
+            printwriter.print(array1.get(i1) + "\n");
         }
         
         printwriter.println("</TEXTAREA><br>" + s1);
     }
     
-    void excludeAllSubGroups(COM.dragonflow.SiteView.Monitor monitor, jgl.Array array)
+    void excludeAllSubGroups(COM.dragonflow.SiteView.Monitor monitor, Array array)
     {
         array.add(monitor.getProperty(COM.dragonflow.SiteView.Monitor.pID));
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
@@ -1217,11 +1217,11 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         } while(true);
     }
     
-    public jgl.Array getMonitorGroupLists()
+    public Array getMonitorGroupLists()
     {
-        jgl.Array array = new Array();
-        jgl.Array array1 = new Array();
-        jgl.Array array2 = new Array();
+        Array array = new Array();
+        Array array1 = new Array();
+        Array array2 = new Array();
         int i = 1;
         do
         {
@@ -1234,8 +1234,8 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
             array2.add(request.getValue("groupName" + i));
             i++;
         } while(true);
-        jgl.Array array3 = new Array();
-        jgl.Array array4 = new Array();
+        Array array3 = new Array();
+        Array array4 = new Array();
         i = 1;
         do
         {
@@ -1256,24 +1256,24 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         } while(true);
     }
     
-    public void saveRunbookEntry(jgl.HashMap hashmap, String s)
+    public void saveRunbookEntry(HashMap hashmap, String s)
     {
         saveRunbookEntry(hashmap, s, false);
     }
     
-    public void saveRunbookEntry(jgl.HashMap hashmap, String s, boolean flag)
+    public void saveRunbookEntry(HashMap hashmap, String s, boolean flag)
     {
-        jgl.Array array = getMonitorGroupLists();
-        jgl.Array array1 = (jgl.Array)array.at(0);
-        jgl.Array array2 = (jgl.Array)array.at(2);
-        jgl.Array array3 = null;
-        jgl.HashMap hashmap1 = new HashMap();
+        Array array = getMonitorGroupLists();
+        Array array1 = (Array)array.get(0);
+        Array array2 = (Array)array.get(2);
+        Array array3 = null;
+        HashMap hashmap1 = new HashMap();
         boolean flag1 = false;
         int j = 0;
         array3 = loadGSRRunbook();
         if(flag)
         {
-            jgl.HashMap hashmap2 = new HashMap();
+            HashMap hashmap2 = new HashMap();
             int k = 1;
             do
             {
@@ -1281,7 +1281,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                 {
                     break;
                 }
-                jgl.HashMap hashmap3 = (jgl.HashMap)array3.at(k);
+                HashMap hashmap3 = (HashMap)array3.get(k);
                 if(((String)hashmap3.get("_id")).equals((String)hashmap.get("_id")))
                 {
                     array3.put(k, hashmap);
@@ -1294,7 +1294,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         {
             if(array3 != null && array3.size() > 0)
             {
-                hashmap1 = (jgl.HashMap)array3.at(0);
+                hashmap1 = (HashMap)array3.get(0);
             } else
             {
                 hashmap1.add("_nextid", "0");
@@ -1309,12 +1309,12 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         }
         saveGSRRunbook(array3);
         String s1;
-        for(Enumeration enumeration = array1.elements(); enumeration.hasMoreElements(); updategroup_recursive(s1, s, "" + j))
+        for(Enumeration enumeration =  (Enumeration) array1.iterator(); enumeration.hasMoreElements(); updategroup_recursive(s1, s, "" + j))
         {
             s1 = (String)enumeration.nextElement();
         }
         
-        Enumeration enumeration1 = array2.elements();
+        Enumeration enumeration1 =  (Enumeration) array2.iterator();
         do
         {
             if(!enumeration1.hasMoreElements())
@@ -1325,13 +1325,13 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
             int l = s4.indexOf(" ");
             String s3 = s4.substring(0, l);
             String s2 = s4.substring(l + 1, s4.length());
-            jgl.Array array4 = loadgroup(s3);
+            Array array4 = loadgroup(s3);
             if(array4 != null)
             {
-                jgl.HashMap hashmap4 = new HashMap();
+                HashMap hashmap4 = new HashMap();
                 for(int i1 = 0; i1 < array4.size(); i1++)
                 {
-                    jgl.HashMap hashmap5 = (jgl.HashMap)array4.at(i1);
+                    HashMap hashmap5 = (HashMap)array4.get(i1);
                     String s5 = (String)hashmap5.get("_id");
                     if(s5 != null && s5.equals(s2))
                     {
@@ -1347,12 +1347,12 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public void createCustomEdit(String s, String s1, String s2, String s3)
     {
-        jgl.Array array = loadGSRRunbook();
-        jgl.HashMap hashmap = new HashMap();
+        Array array = loadGSRRunbook();
+        HashMap hashmap = new HashMap();
         String s4 = "<select name=\"$NAME$\"><option selected value=\"$VALUE$\">[$VALUE$]";
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+            HashMap hashmap1 = (HashMap)array.get(i);
             if(hashmap1.get("_type") != null && ((String)hashmap1.get("_type")).equals(s1) || s1.equals("runbook") && ((String)hashmap1.get("_type")).equals("runbookgroup"))
             {
                 s4 = s4 + "<option value=" + (String)hashmap1.get("_id") + ">[" + (String)hashmap1.get("_id") + "] " + (String)hashmap1.get("_name") + "</option>";
@@ -1363,7 +1363,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         s5 = s5 + "" + s4 + "</select>";
         try
         {
-            jgl.HashMap hashmap2 = (jgl.HashMap)COM.dragonflow.SiteView.MasterConfig.getMasterConfig().clone();
+            HashMap hashmap2 = (HashMap)COM.dragonflow.SiteView.MasterConfig.getMasterConfig().clone();
             hashmap2.allowsDuplicates();
             Enumeration enumeration = hashmap2.values("_monitorEditCustom");
             hashmap2.remove("_monitorEditCustom");
@@ -1389,13 +1389,13 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         }
     }
     
-    public jgl.HashMap loadGSRFramebyID(String s)
+    public HashMap loadGSRFramebyID(String s)
     {
-        jgl.Array array = loadGSRRunbook();
-        jgl.HashMap hashmap = new HashMap();
+        Array array = loadGSRRunbook();
+        HashMap hashmap = new HashMap();
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+            HashMap hashmap1 = (HashMap)array.get(i);
             if(hashmap1.get("_id") != null && ((String)hashmap1.get("_id")).equals(s))
             {
                 return hashmap1;
@@ -1412,32 +1412,32 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public void clearRunbookids(String s, String s1)
     {
-        jgl.Array array = null;
+        Array array = null;
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
         array = siteviewgroup.getGroupFileIDs();
         for(int i = 0; i < array.size(); i++)
         {
-            updateRunbookidValue((String)array.at(i), s1, "", s);
+            updateRunbookidValue((String)array.get(i), s1, "", s);
         }
         
     }
     
-    public void updateRunbookEntry(jgl.HashMap hashmap, String s)
+    public void updateRunbookEntry(HashMap hashmap, String s)
     {
         saveRunbookEntry(hashmap, s, true);
     }
     
-    public jgl.HashMap runbookToHashMap()
+    public HashMap runbookToHashMap()
     {
-        jgl.Array array = loadGSRRunbook();
-        jgl.HashMap hashmap = new HashMap();
-        jgl.HashMap hashmap1 = new HashMap();
+        Array array = loadGSRRunbook();
+        HashMap hashmap = new HashMap();
+        HashMap hashmap1 = new HashMap();
         String s = "";
         String s2 = "";
         String s4 = "";
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap2 = (jgl.HashMap)array.at(i);
+            HashMap hashmap2 = (HashMap)array.get(i);
             if(hashmap2.get("_id") == null)
             {
                 continue;
@@ -1471,9 +1471,9 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public String createXML()
     {
-        jgl.HashMap hashmap = runbookToHashMap();
-        jgl.Array array = loadGSRRunbook();
-        jgl.HashMap hashmap1 = (jgl.HashMap)array.at(0);
+        HashMap hashmap = runbookToHashMap();
+        Array array = loadGSRRunbook();
+        HashMap hashmap1 = (HashMap)array.get(0);
         String s = "";
         String s1 = "";
         if(hashmap1.get("_account") != null)
@@ -1485,8 +1485,8 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
             s1 = (String)hashmap1.get("_server");
         }
         String s2 = "";
-        jgl.Array array1 = getMonitorGroupLists();
-        jgl.Array array2 = (jgl.Array)array1.at(0);
+        Array array1 = getMonitorGroupLists();
+        Array array2 = (Array)array1.get(0);
         if(array2.size() == 0)
         {
             array2 = getTopLevelGroups();
@@ -1505,7 +1505,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         s2 = s2 + "<GSRRUNBOOK>\n";
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap2 = (jgl.HashMap)array.at(i);
+            HashMap hashmap2 = (HashMap)array.get(i);
             if(hashmap2.get("_id") != null && hashmap2.get("_value") != null && hashmap2.get("_type") != null && !((String)hashmap2.get("_type")).equals("escalationgroup") && !((String)hashmap2.get("_type")).equals("runbookgroup"))
             {
                 s2 = s2 + "<id value=\"" + (String)hashmap2.get("_id") + "\">";
@@ -1518,7 +1518,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         s2 = s2 + "</GSRRUNBOOK>\n";
         for(int j = 0; j < array2.size(); j++)
         {
-            s2 = s2 + recurse_groupsforXML((String)array2.at(j), "TOPLEVEL", hashmap);
+            s2 = s2 + recurse_groupsforXML((String)array2.get(j), "TOPLEVEL", hashmap);
         }
         
         s2 = s2 + "</GSR>\n";
@@ -1544,22 +1544,22 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public String createCommaDelimited()
     {
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         String s = "";
-        jgl.HashMap hashmap1 = runbookToHashMap();
-        jgl.Array array = getMonitorGroupLists();
-        jgl.Array array1 = (jgl.Array)array.at(0);
+        HashMap hashmap1 = runbookToHashMap();
+        Array array = getMonitorGroupLists();
+        Array array1 = (Array)array.get(0);
         if(array1.size() == 0)
         {
             array1 = getTopLevelGroups();
         }
-        jgl.Array array2 = loadGSRRunbook();
+        Array array2 = loadGSRRunbook();
         String s1 = "";
-        jgl.HashMap hashmap2 = new HashMap();
+        HashMap hashmap2 = new HashMap();
         for(int i = 1; i < array2.size(); i++)
         {
             boolean flag = false;
-            jgl.HashMap hashmap3 = (jgl.HashMap)array2.at(i);
+            HashMap hashmap3 = (HashMap)array2.get(i);
             String s2 = "";
             String s3 = "";
             String s4 = "";
@@ -1612,7 +1612,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         
         for(int j = 0; j < array1.size(); j++)
         {
-            s = s + recurse_groupsforCommaDelimited((String)array1.at(j), "TOPLEVEL", hashmap1, hashmap);
+            s = s + recurse_groupsforCommaDelimited((String)array1.get(j), "TOPLEVEL", hashmap1, hashmap);
         }
         
         s = s + "##########<CRLF>";
@@ -1666,10 +1666,10 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         }
     }
     
-    public String recurse_groupsforXML(String s, String s1, jgl.HashMap hashmap)
+    public String recurse_groupsforXML(String s, String s1, HashMap hashmap)
     {
         String s2 = "";
-        jgl.Array array = null;
+        Array array = null;
         String s3 = "";
         String s4 = COM.dragonflow.Page.CGI.getGroupName(s);
         array = loadgroup(s);
@@ -1679,7 +1679,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
             s2 = s2 + "<name><![CDATA[" + s4 + "]]></name>\n";
             for(int i = 1; i < array.size(); i++)
             {
-                jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+                HashMap hashmap1 = (HashMap)array.get(i);
                 String s5 = (String)hashmap1.get("_class");
                 if(s5 == null || !s5.equals("SubGroup"))
                 {
@@ -1757,20 +1757,20 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         return s2;
     }
     
-    public String recurse_groupsforCommaDelimited(String s, String s1, jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    public String recurse_groupsforCommaDelimited(String s, String s1, HashMap hashmap, HashMap hashmap1)
     {
         String s2 = "";
         String s3 = "none";
-        jgl.Array array = null;
+        Array array = null;
         array = loadgroup(s);
         if(array != null)
         {
-            jgl.Array array1 = loadGSRRunbook();
-            jgl.HashMap hashmap2 = (jgl.HashMap)array1.at(0);
+            Array array1 = loadGSRRunbook();
+            HashMap hashmap2 = (HashMap)array1.get(0);
             for(int i = 1; i < array.size(); i++)
             {
                 boolean flag = false;
-                jgl.HashMap hashmap3 = (jgl.HashMap)array.at(i);
+                HashMap hashmap3 = (HashMap)array.get(i);
                 String s4 = (String)hashmap3.get("_class");
                 if(s4 == null || !s4.equals("SubGroup"))
                 {
@@ -1841,16 +1841,16 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public void saveEscalation()
     {
-        jgl.Array array = loadGSRRunbook();
+        Array array = loadGSRRunbook();
         int i = 0;
-        jgl.HashMap hashmap = (jgl.HashMap)array.at(0);
+        HashMap hashmap = (HashMap)array.get(0);
         if(hashmap.get("_nextid") != null)
         {
             i = COM.dragonflow.Utils.TextUtils.toInt((String)hashmap.get("_nextid"));
         }
         hashmap.put("_nextid", "" + (i + 1));
         array.put(0, hashmap);
-        jgl.HashMap hashmap1 = new HashMap();
+        HashMap hashmap1 = new HashMap();
         hashmap1.add("_id", "" + i);
         hashmap1.add("_name", request.getValue("escalate_name"));
         hashmap1.add("_type", "escalation");
@@ -1862,14 +1862,14 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
     
     public void deleteRunbookID(String s)
     {
-        jgl.Array array = loadGSRRunbook();
-        jgl.HashMap hashmap = new HashMap();
+        Array array = loadGSRRunbook();
+        HashMap hashmap = new HashMap();
         String s1 = "";
         String s3 = "";
         String s5 = "";
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+            HashMap hashmap1 = (HashMap)array.get(i);
             String s2 = (String)hashmap1.get("_id");
             String s4 = (String)hashmap1.get("_value");
             String s6 = (String)hashmap1.get("_type");
@@ -1909,7 +1909,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         saveGSRRunbook(array);
     }
     
-    public void saveGSRRunbook(jgl.Array array)
+    public void saveGSRRunbook(Array array)
     {
         try
         {
@@ -2057,19 +2057,19 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         outputStream.println("<br><input type=submit value=SUBMIT><br></form>");
     }
     
-    public jgl.Array getTopLevelGroups()
+    public Array getTopLevelGroups()
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        jgl.Array array1 = siteviewgroup.getGroupFileIDs();
+        Array array1 = siteviewgroup.getGroupFileIDs();
         for(int i = 0; i < array1.size(); i++)
         {
-            COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement((String)array1.at(i));
+            COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement((String)array1.get(i));
             String s = monitorgroup.getProperty("_parent");
-            COM.dragonflow.Utils.TextUtils.debugPrint("Group: " + (String)array1.at(i) + " parent: " + s + "\n");
-            if(array1.at(i) != null && !((String)array1.at(i)).equals("") && (s == null || s.equals("") || s.equals("null")))
+            COM.dragonflow.Utils.TextUtils.debugPrint("Group: " + (String)array1.get(i) + " parent: " + s + "\n");
+            if(array1.get(i) != null && !((String)array1.get(i)).equals("") && (s == null || s.equals("") || s.equals("null")))
             {
-                array.add((String)array1.at(i));
+                array.add((String)array1.get(i));
             }
          }
         

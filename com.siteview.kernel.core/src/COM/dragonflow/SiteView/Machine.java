@@ -22,8 +22,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -131,7 +131,7 @@ public class Machine extends SiteViewObject {
             synchronized (registerMachinesLock) {
                 if (machineObjectTable == null) {
                     HashMap hashmap = MasterConfig.getMasterConfig();
-                    registerMachines(hashmap.values("_remoteMachine"));
+                    registerMachines((Enumeration) hashmap.values("_remoteMachine"));
                 }
             }
         }
@@ -197,7 +197,7 @@ public class Machine extends SiteViewObject {
             }
             HashMap hashmap2 = (HashMap) hashmap1.clone();
             String s2;
-            for (Enumeration enumeration = hashmap.values("_remoteNTMachine"); enumeration
+            for (Enumeration enumeration = (Enumeration) hashmap.values("_remoteNTMachine"); enumeration
                     .hasMoreElements(); hashmap2.remove(s2)) {
                 String s1 = (String) enumeration.nextElement();
                 HashMap hashmap3 = TextUtils.stringToHashMap(s1);
@@ -242,7 +242,7 @@ public class Machine extends SiteViewObject {
             Array array = createMachines(enumeration);
             HashMap hashmap1 = (HashMap) hashmap.clone();
             for (int i = 0; i < array.size(); i++) {
-                Machine machine = (Machine) array.at(i);
+                Machine machine = (Machine) array.get(i);
                 machine.owner = s;
                 String s1 = machine.getProperty(pID);
                 hashmap1.remove(s1);
@@ -415,7 +415,7 @@ public class Machine extends SiteViewObject {
         Array array = new Array();
         Array array1 = getRemoteCommandLineClasses();
         for (int i = 0; i < array1.size(); i++) {
-            Class class1 = (Class) array1.at(i);
+            Class class1 = (Class) array1.get(i);
             RemoteCommandLine remotecommandline = null;
             try {
                 remotecommandline = (RemoteCommandLine) class1.newInstance();
@@ -597,7 +597,7 @@ public class Machine extends SiteViewObject {
                     HashMap hashmap = new HashMap();
                     Array array = getRemoteCommandLineClasses();
                     for (int i = 0; i < array.size(); i++) {
-                        Class cls = (Class) array.at(i);
+                        Class cls = (Class) array.get(i);
                         RemoteCommandLine remoteCommandLine = null;
                         try {
                             remoteCommandLine = (RemoteCommandLine) cls

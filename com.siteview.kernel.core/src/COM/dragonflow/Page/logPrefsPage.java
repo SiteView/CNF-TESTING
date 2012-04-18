@@ -56,7 +56,7 @@ public class logPrefsPage extends COM.dragonflow.Page.prefsPage
         }
         try
         {
-            jgl.HashMap hashmap = getMasterConfig();
+            HashMap hashmap = getMasterConfig();
             hashmap.put("_dailyLogKeepDays", request.getValue("dailyLogKeepDays"));
             hashmap.put("_dailyLogTotalLimit", request.getValue("dailyLogTotalLimit"));
             hashmap.put("_logJdbcPasswordSiteViewLog", COM.dragonflow.Properties.StringProperty.getPrivate(request, "logJdbcPasswordSiteViewLog", "logSuff", null, null));
@@ -92,7 +92,7 @@ public class logPrefsPage extends COM.dragonflow.Page.prefsPage
 
     void printForm()
     {
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         StringBuffer stringbuffer = new StringBuffer();
         StringBuffer stringbuffer1 = new StringBuffer();
         COM.dragonflow.Properties.StringProperty.getPrivate(COM.dragonflow.Page.logPrefsPage.getValue(hashmap, "_logJdbcPasswordSiteViewLog"), "logJdbcPasswordSiteViewLog", "logSuff", stringbuffer, stringbuffer1);

@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.StandardMonitor.URLMonitor;
@@ -130,7 +130,7 @@ public class DispatcherSitter extends Thread {
             if (array.size() == 0) {
                 hashmap = new HashMap();
             } else {
-                hashmap = (HashMap) array.at(0);
+                hashmap = (HashMap) array.get(0);
             }
         } catch (Exception exception) {
             LogManager.log("Error", "Could not read dispatcher.config from "
@@ -163,7 +163,7 @@ public class DispatcherSitter extends Thread {
             String s1 = Platform.perfexCommand("") + " Process";
             CommandLine commandline = new CommandLine();
             Array array = commandline.exec(s1, Platform.getLock(""));
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             boolean flag = false;
             String s3 = "0";
             while (enumeration.hasMoreElements()) {

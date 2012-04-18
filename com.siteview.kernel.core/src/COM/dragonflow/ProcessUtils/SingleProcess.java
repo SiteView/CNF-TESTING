@@ -18,6 +18,8 @@ package COM.dragonflow.ProcessUtils;
  */
 import SiteViewMain.ServicePrinter;
 
+import com.recursionsw.jgl.Array;
+
 // Referenced classes of package COM.dragonflow.ProcessUtils:
 // WaitForInput, WaitForInputEvents, ProcessMgr, ProcessPool
 
@@ -87,7 +89,7 @@ public class SingleProcess implements COM.dragonflow.ProcessUtils.WaitForInputEv
         }
     }
 
-    public boolean exec(String s, jgl.Array array, int ai[]) {
+    public boolean exec(String s, Array array, int ai[]) {
         available = false;
         currCmd = s;
         if (exitTime > 0L && java.lang.System.currentTimeMillis() > exitTime) {

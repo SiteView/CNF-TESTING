@@ -55,9 +55,12 @@ import COM.dragonflow.Utils.TextUtils;
 import COM.dragonflow.Utils.ThreadPool;
 import SiteViewMain.SiteViewSupport;
 
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+
 //import com.dragonflow.infra.xdr_utils.Variant;
 
-// import jgl.Array;
+// import com.recursionsw.jgl.Array;
 
 public abstract class AtomicMonitor extends Monitor implements Runnable,
         IPropertyFilter, IErrorCodeProvider, IObjectWithUniqueId {
@@ -213,7 +216,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
     }
 
     public String verify(StringProperty stringproperty, String string,
-            HTTPRequest httprequest, jgl.HashMap hashmap) {
+            HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == pFrequency) {
             String string_1_ = httprequest.getValue(stringproperty.getName()
                     + "Units");
@@ -237,7 +240,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         return super.verify(stringproperty, string, httprequest, hashmap);
     }
 
-    public void verifyAll(jgl.HashMap hashmap) {
+    public void verifyAll(HashMap hashmap) {
         /* empty */
     }
 
@@ -480,7 +483,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
                     .getDefault());
             if (!simulateMonitorRunSet) {
                 simulateMonitorRunSet = true;
-                jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+                HashMap hashmap = MasterConfig.getMasterConfig();
                 simulateMonitorRun = TextUtils.getValue(hashmap,
                         "_simulateMonitorRun").length() > 0;
                 if (simulateMonitorRun) {
@@ -626,8 +629,8 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
             }
             // line:417
             categoryValue = this.getProperty(pCategory);
-            jgl.Array array = new jgl.Array();
-            jgl.Array array1 = new jgl.Array();
+            Array array = new Array();
+            Array array1 = new Array();
             this.getDependencies(array, array1);
             if (array.size() > 0) {
                 this.currentStatus = "checking depends-on condition...";
@@ -772,15 +775,15 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         }
     }
 
-    public void saveMonitor(jgl.HashMap hashmap) {
+    public void saveMonitor(HashMap hashmap) {
         try {
             String monitorFilePath = (Platform.getRoot() + File.separator
                     + "groups" + File.separator
                     + group.getProperty(Monitor.pID) + ".mg");
-            jgl.Array array = FrameFile.readFromFile(monitorFilePath);
-            jgl.HashMap monitors = CGI.findMonitor(array,
+            Array array = FrameFile.readFromFile(monitorFilePath);
+            HashMap monitors = CGI.findMonitor(array,
                     getProperty(Monitor.pID));
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             while (enumeration.hasMoreElements()) {
                 String key = (String) enumeration.nextElement();
                 monitors.put(key, hashmap.get(key));
@@ -795,7 +798,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
     public void acknowledgmentCheck(String string) {
         if (isAcknowledged()) {
             String acknowledgedState = getProperty(pAcknowledgedState);
-            jgl.HashMap masterConfig = MasterConfig.getMasterConfig();
+            HashMap masterConfig = MasterConfig.getMasterConfig();
             long acknowledgeTimeLimit = (TextUtils.toLong(TextUtils.getValue(
                     masterConfig, "_acknowledgeTimeLimit")));
             boolean bool = acknowledgedState.equals(string);
@@ -819,7 +822,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
                     unsetProperty(pAlertDisabled);
                     unsetProperty(pTimedDisable);
                     unsetProperty(pDisabled);
-                    jgl.HashMap newConfig = new jgl.HashMap();
+                    HashMap newConfig = new HashMap();
                     newConfig.put("_alertDisabled", "");
                     newConfig.put("_timedDisable", "");
                     newConfig.put("_disabled", "");
@@ -885,8 +888,8 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         return 0;
     }
 
-    public void getDependencies(jgl.Array dependsOns,
-            jgl.Array dependsConditions) {
+    public void getDependencies(Array dependsOns,
+            Array dependsConditions) {
         String dependsOnProperty = this.getProperty(DEPENDS_ON);
         if (dependsOnProperty != null && dependsOnProperty.length() > 0) {
             dependsOns.add(dependsOnProperty);
@@ -901,8 +904,8 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
     }
 
     public boolean getDependsOnSignal(List list, boolean bool) {
-        jgl.Array dependsOns = new jgl.Array();
-        jgl.Array dependsConditions = new jgl.Array();
+        Array dependsOns = new Array();
+        Array dependsConditions = new Array();
         getDependencies(dependsOns, dependsConditions);
         int size = dependsOns.size();
         if (size == 0)
@@ -924,8 +927,8 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         }
         list.add(getFullID());
         for (int i = 0; i < size; i++) {
-            String dependsOn = (String) dependsOns.at(i);
-            String dependsCondition = (String) dependsConditions.at(i);
+            String dependsOn = (String) dependsOns.get(i);
+            String dependsCondition = (String) dependsConditions.get(i);
             String category = GOOD_CATEGORY;
             if (dependsCondition.equals("error"))
                 category = ERROR_CATEGORY;
@@ -1094,7 +1097,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         return atomicmonitor;
     }
 
-    public static AtomicMonitor MonitorCreate(jgl.Array array,
+    public static AtomicMonitor MonitorCreate(Array array,
             String monitorID, String portalServerID, HTTPRequest httprequest)
             throws Exception {
         AtomicMonitor atomicmonitor = MonitorCreate(array, monitorID,
@@ -1103,16 +1106,16 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         return atomicmonitor;
     }
 
-    public static AtomicMonitor MonitorCreate(jgl.Array array,
+    public static AtomicMonitor MonitorCreate(Array array,
             String monitorID, String portalServerID) throws Exception {
-        jgl.HashMap hashmap = monitorUtils.findMonitor(array, monitorID);
+        HashMap hashmap = monitorUtils.findMonitor(array, monitorID);
         AtomicMonitor atomicmonitor = (AtomicMonitor) Monitor.createMonitor(
                 hashmap, portalServerID);
         return atomicmonitor;
     }
 
     public static void saveThresholds(Monitor monitor, HTTPRequest httprequest,
-            jgl.HashMap errorLogs) {
+            HashMap errorLogs) {
         monitor.unsetProperty("_classifier");
         String[] strings = { "error", "warning", "good" };
         for (int i = 0; i < strings.length; i++) {
@@ -1145,8 +1148,8 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         }
     }
 
-    public static void saveThresholds(Monitor monitor, jgl.HashMap hashmap,
-            jgl.HashMap errorLogs) {
+    public static void saveThresholds(Monitor monitor, HashMap hashmap,
+            HashMap errorLogs) {
         monitor.unsetProperty("_classifier");
         String[] strings = { "error", "warning", "good" };
         for (int i = 0; i < strings.length; i++) {
@@ -1179,12 +1182,12 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         }
     }
 
-    public static void saveClassifier(Monitor monitor, jgl.HashMap hashmap,
-            jgl.HashMap errorLogs) {
+    public static void saveClassifier(Monitor monitor, HashMap hashmap,
+            HashMap errorLogs) {
         monitor.unsetProperty("_classifier");
-        jgl.Array array = TextUtils.getMultipleValues(hashmap, "_classifier");
+        Array array = TextUtils.getMultipleValues(hashmap, "_classifier");
         for (int i = 0; i < array.size(); i++) {
-            String string = (String) array.at(i);
+            String string = (String) array.get(i);
             if (string.length() != 0) {
                 String[] strings = TextUtils.split(string);
                 if (strings.length < 4)
@@ -1205,8 +1208,8 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         }
     }
 
-    public static void checkThresholds(jgl.HashMap hashmap,
-            jgl.HashMap errorLogs) {
+    public static void checkThresholds(HashMap hashmap,
+            HashMap errorLogs) {
         String[] strings = { "error", "warning", "good" };
         for (int i = 0; i < strings.length; i++) {
             String condition = strings[i] + "-condition";
@@ -1227,9 +1230,9 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
                 }
             }
         }
-        jgl.Array array = TextUtils.getMultipleValues(hashmap, "_classifier");
+        Array array = TextUtils.getMultipleValues(hashmap, "_classifier");
         for (int i = 0; i < array.size(); i++) {
-            String classifier = (String) array.at(i);
+            String classifier = (String) array.get(i);
             if (classifier.length() != 0) {
                 String[] classifierTokens = TextUtils.split(classifier);
                 if (classifierTokens.length < 4)
@@ -1246,9 +1249,9 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         }
     }
 
-    public static void saveCustomProperties(jgl.HashMap hashmap,
+    public static void saveCustomProperties(HashMap hashmap,
             Monitor monitor, HTTPRequest httprequest) {
-        Enumeration enumeration = hashmap.values("_monitorEditCustom");
+        Enumeration enumeration = (Enumeration) hashmap.values("_monitorEditCustom");
         while (enumeration.hasMoreElements()) {
             String string = (String) enumeration.nextElement();
             String[] strings = TextUtils.split(string, "|");
@@ -1288,8 +1291,8 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         return true;
     }
 
-    public jgl.Array getPropertiesToPassBetweenPages(HTTPRequest httprequest) {
-        return new jgl.Array();
+    public Array getPropertiesToPassBetweenPages(HTTPRequest httprequest) {
+        return new Array();
     }
 
     public void notifyAdd() {
@@ -1316,9 +1319,9 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         /* empty */
     }
 
-    public void loadPropsFromRequest(HTTPRequest httprequest, jgl.Array array) {
+    public void loadPropsFromRequest(HTTPRequest httprequest, Array array) {
         for (int i = 0; i < array.size(); i++) {
-            StringProperty stringproperty = (StringProperty) array.at(i);
+            StringProperty stringproperty = (StringProperty) array.get(i);
             setProperty(stringproperty, httprequest.getValue(stringproperty
                     .getName()));
         }
@@ -1378,7 +1381,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
     }
 
     public void setMeasurementsValues(java.util.HashMap hashmap) {
-        Collection collection = hashmap.values();
+        Collection collection = (Collection) hashmap.values();
         Iterator iterator = collection.iterator();
         while (iterator.hasNext()) {
 //            TopazMeasurement topazmeasurement = (TopazMeasurement) iterator
@@ -1494,7 +1497,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         return false;
     }
 
-    private void addBasedOnExcludeAttribs(jgl.Array array,
+    private void addBasedOnExcludeAttribs(Array array,
             StringProperty stringproperty, Vector vector, boolean bool, int i) {
         boolean exclude = true;
         if (vector.contains(stringproperty.getName()))
@@ -1517,44 +1520,44 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
 
     public Enumeration getConfigurationAddProperties(Vector vector,
             boolean bool, int i) {
-        jgl.Array properties = getProperties();
-        jgl.Array configurationAddProperties = new jgl.Array();
+        Array properties = getProperties();
+        Array configurationAddProperties = new Array();
         for (int j = 0; j < properties.size(); j++) {
-            StringProperty stringproperty = (StringProperty) properties.at(j);
+            StringProperty stringproperty = (StringProperty) properties.get(j);
             if (stringproperty.isConfigurable && stringproperty.isParameter)
                 addBasedOnExcludeAttribs(configurationAddProperties,
                         stringproperty, vector, bool, i);
         }
         configurationAddProperties.add(new StringProperty("_classifier"));
-        return configurationAddProperties.elements();
+        return (Enumeration) configurationAddProperties.iterator();
     }
 
     public Enumeration getConfigurationEditProperties(Vector vector,
             boolean bool, int i) {
-        jgl.Array properties = getProperties();
-        jgl.Array configurationEditProperties = new jgl.Array();
+        Array properties = getProperties();
+        Array configurationEditProperties = new Array();
         for (int j = 0; j < properties.size(); j++) {
-            StringProperty stringproperty = (StringProperty) properties.at(j);
+            StringProperty stringproperty = (StringProperty) properties.get(j);
             if (stringproperty.isConfigurable && stringproperty.isParameter
                     && stringproperty.isEditable)
                 addBasedOnExcludeAttribs(configurationEditProperties,
                         stringproperty, vector, bool, i);
         }
         configurationEditProperties.add(new StringProperty("_classifier"));
-        return configurationEditProperties.elements();
+        return (Enumeration) configurationEditProperties.iterator();
     }
 
     public Enumeration getConfigurationAllProperties(Vector vector, boolean bool) {
-        jgl.Array properties = getProperties();
-        jgl.Array configurationAllProperties = new jgl.Array();
+        Array properties = getProperties();
+        Array configurationAllProperties = new Array();
         for (int i = 0; i < properties.size(); i++) {
-            StringProperty stringproperty = (StringProperty) properties.at(i);
+            StringProperty stringproperty = (StringProperty) properties.get(i);
             if (stringproperty.isParameter)
                 addBasedOnExcludeAttribs(configurationAllProperties,
                         stringproperty, vector, bool, 0);
         }
         configurationAllProperties.add(new StringProperty("_classifier"));
-        return configurationAllProperties.elements();
+        return (Enumeration) configurationAllProperties.iterator();
     }
 
     public Enumeration getConfigurationRequiredProperties(String string)
@@ -1562,39 +1565,39 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         Class monitorClass = Class.forName(string);
         AtomicMonitor atomicmonitor = (AtomicMonitor) monitorClass
                 .newInstance();
-        jgl.Array properties = atomicmonitor.getProperties();
-        jgl.Array configurationRequiredProperties = new jgl.Array();
+        Array properties = atomicmonitor.getProperties();
+        Array configurationRequiredProperties = new Array();
         HTTPRequest httprequest = new HTTPRequest();
         for (int i = 0; i < properties.size(); i++) {
-            jgl.HashMap hashmap = new jgl.HashMap();
-            StringProperty stringproperty = (StringProperty) properties.at(i);
+            HashMap hashmap = new HashMap();
+            StringProperty stringproperty = (StringProperty) properties.get(i);
             verify(stringproperty, getProperty(stringproperty), httprequest,
                     hashmap);
             if (hashmap.size() > 0)
                 configurationRequiredProperties.add(stringproperty);
         }
-        return configurationRequiredProperties.elements();
+        return (Enumeration) configurationRequiredProperties.iterator();
     }
 
     public Enumeration getMeasurementProperties(Vector vector, boolean bool) {
         Enumeration enumeration = getStatePropertyObjects();
-        jgl.Array array = new jgl.Array();
+        Array array = new Array();
         while (enumeration.hasMoreElements())
             addBasedOnExcludeAttribs(array, ((StringProperty) enumeration
                     .nextElement()), vector, bool, 0);
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Enumeration getRuntimeProperties(Vector vector, boolean bool) {
-        jgl.Array properties = getProperties();
-        jgl.Array runtimeProperties = new jgl.Array();
+        Array properties = getProperties();
+        Array runtimeProperties = new Array();
         for (int i = 0; i < properties.size(); i++) {
-            StringProperty stringproperty = (StringProperty) properties.at(i);
+            StringProperty stringproperty = (StringProperty) properties.get(i);
             if (!stringproperty.isParameter)
                 addBasedOnExcludeAttribs(runtimeProperties, stringproperty,
                         vector, bool, 0);
         }
-        return runtimeProperties.elements();
+        return (Enumeration) runtimeProperties.iterator();
     }
 
     public boolean errorConditionIsMet(long l) {
@@ -1770,7 +1773,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
                     stringpropertys);
         }
 
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         if (TextUtils.getValue(hashmap, "_dependsOnRecursive").length() > 0)
             dependsOnRecursive = true;
         String string = System.getProperty("Alert.debug");

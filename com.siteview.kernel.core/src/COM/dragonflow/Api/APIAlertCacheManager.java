@@ -8,6 +8,9 @@
  */
 package COM.dragonflow.Api;
 
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+
 /**
  * Comment for <code></code>
  * 
@@ -21,9 +24,9 @@ public class APIAlertCacheManager implements COM.dragonflow.ConfigurationManager
 
     private static COM.dragonflow.Api.APIAlertCacheManager instance = null;
 
-    private jgl.HashMap instanceInfoCache;
+    private HashMap instanceInfoCache;
 
-    private jgl.Array conditionsCache;
+    private Array conditionsCache;
 
     static java.lang.Object instanceLock = new Object();
 
@@ -49,19 +52,19 @@ public class APIAlertCacheManager implements COM.dragonflow.ConfigurationManager
         conditionsCache = null;
     }
 
-    jgl.HashMap getInstanceInfoCache() {
+    HashMap getInstanceInfoCache() {
         return instanceInfoCache;
     }
 
-    void setInstanceInfoCache(jgl.HashMap hashmap) {
+    void setInstanceInfoCache(HashMap hashmap) {
         instanceInfoCache = hashmap;
     }
 
-    jgl.Array getConditionsCache() {
+    Array getConditionsCache() {
         return conditionsCache;
     }
 
-    void setConditionsCache(jgl.Array array) {
+    void setConditionsCache(Array array) {
         conditionsCache = array;
     }
 

@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.Socket;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import sun.misc.BASE64Encoder;
 import COM.dragonflow.StandardMonitor.URLScannerInputStream;
 
@@ -41,7 +41,7 @@ public class SocketStream {
 
     static javax.net.ServerSocketFactory sslServerSocketFactory = null;
 
-    static jgl.HashMap sslFactories = new HashMap();
+    static HashMap sslFactories = new HashMap();
 
     public java.net.Socket socket;
 
@@ -93,7 +93,7 @@ public class SocketStream {
 
     static long kTimedOutValue = 10L;
 
-    public static void initialize(jgl.HashMap hashmap) {
+    public static void initialize(HashMap hashmap) {
         String s = COM.dragonflow.SiteView.Platform.getRoot() + "/groups/serverKeystore";
         String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_httpSecureKeystorePassword");
         String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_httpSecureKeyPassword");

@@ -19,7 +19,7 @@
 
 import java.io.InterruptedIOException;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // I18N
@@ -65,18 +65,18 @@ public class RemoteCommandLine
         return COM.dragonflow.Utils.I18N.StringToUnicode(s, encoding);
     }
 
-    public jgl.Array exec(String s, COM.dragonflow.SiteView.Machine machine)
+    public Array exec(String s, COM.dragonflow.SiteView.Machine machine)
     {
         return exec(s, machine, false);
     }
 
-    public jgl.Array test(String s, COM.dragonflow.SiteView.Machine machine, boolean flag)
+    public Array test(String s, COM.dragonflow.SiteView.Machine machine, boolean flag)
     {
         detail = flag;
         return exec(s, machine, true);
     }
 
-    public jgl.Array exec(String s, COM.dragonflow.SiteView.Machine machine, boolean flag)
+    public Array exec(String s, COM.dragonflow.SiteView.Machine machine, boolean flag)
     {
         COM.dragonflow.SiteView.Machine _tmp = machine;
         encoding = machine.getProperty(COM.dragonflow.SiteView.Machine.pEncoding);
@@ -87,7 +87,7 @@ public class RemoteCommandLine
         return new Array();
     }
 
-    public jgl.Array exec(String as[], COM.dragonflow.SiteView.Machine machine)
+    public Array exec(String as[], COM.dragonflow.SiteView.Machine machine)
     {
         StringBuffer stringbuffer = new StringBuffer();
         for(int i = 0; i < as.length; i++)
@@ -195,14 +195,14 @@ public class RemoteCommandLine
         traceMessage(stringbuffer.toString(), machine, flag);
     }
 
-    public void traceMessage(jgl.Array array, COM.dragonflow.SiteView.Machine machine, boolean flag)
+    public void traceMessage(Array array, COM.dragonflow.SiteView.Machine machine, boolean flag)
     {
         COM.dragonflow.SiteView.Machine _tmp = machine;
         if(machine.getPropertyAsBoolean(COM.dragonflow.SiteView.Machine.pTrace))
         {
             for(int i = 0; i < array.size(); i++)
             {
-                traceMessage((String)array.at(i), machine, flag);
+                traceMessage((String)array.get(i), machine, flag);
             }
 
         }

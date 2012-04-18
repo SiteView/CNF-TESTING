@@ -27,8 +27,8 @@ import COM.dragonflow.Utils.*;
 
 import java.io.*;
 import java.util.*;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 //Referenced classes of package COM.dragonflow.StandardMonitor:
 //         URLMonitor
@@ -130,7 +130,7 @@ public class FileMonitor extends AtomicMonitor
                      }
                      if(array.size() > 0)
                      {
-                         s2 = array.at(0).toString();
+                         s2 = array.get(0).toString();
                      }
                  }
              }
@@ -235,7 +235,7 @@ public class FileMonitor extends AtomicMonitor
              array.add(stringproperty);
          }
      } while(true);
-     return array.elements();
+     return (Enumeration) array.iterator();
  }
 
  public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, HashMap hashmap)

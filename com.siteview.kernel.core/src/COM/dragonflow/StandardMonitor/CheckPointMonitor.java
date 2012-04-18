@@ -20,8 +20,8 @@ package COM.dragonflow.StandardMonitor;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.NumericProperty;
@@ -90,7 +90,7 @@ public class CheckPointMonitor extends SNMPBase {
             k = Integer.valueOf(s3).intValue();
         }
         if (k >= 0) {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String[] as = new String[array.size()];
             String[] as1 = new String[array.size()];
             int i1 = 0;

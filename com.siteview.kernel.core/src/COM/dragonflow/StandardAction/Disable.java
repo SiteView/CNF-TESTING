@@ -20,7 +20,7 @@ package COM.dragonflow.StandardAction;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
 
@@ -32,13 +32,13 @@ public class Disable extends COM.dragonflow.SiteView.Action {
 
     static COM.dragonflow.Properties.StringProperty pTargetMatch;
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap) {
+    public void initializeFromArguments(Array array, HashMap hashmap) {
         if (array.size() > 0) {
-            setProperty(pAction, array.at(0));
+            setProperty(pAction, array.get(0));
         }
         if (array.size() > 1) {
             for (int i = 1; i < array.size(); i ++) {
-                addProperty(pTarget, (String) array.at(i));
+                addProperty(pTarget, (String) array.get(i));
             }
 
         }
@@ -101,7 +101,7 @@ public class Disable extends COM.dragonflow.SiteView.Action {
         return stringbuffer.toString();
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == pTargetMatch) {
             String s1 = COM.dragonflow.Utils.TextUtils.legalMatchString(s);
             if (s1.length() > 0) {
@@ -125,23 +125,23 @@ public class Disable extends COM.dragonflow.SiteView.Action {
         if (scalarproperty == pTarget) {
             java.util.Vector vector1 = new Vector();
             java.util.Vector vector2 = new Vector();
-            jgl.Array array = COM.dragonflow.Page.CGI.getAllowedGroupIDsForAccount(httprequest);
-            Enumeration enumeration = array.elements();
+            Array array = COM.dragonflow.Page.CGI.getAllowedGroupIDsForAccount(httprequest);
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                 String s = (String) enumeration.nextElement();
-                jgl.Array array1 = null;
+                Array array1 = null;
                 try {
                     array1 = COM.dragonflow.Page.CGI.ReadGroupFrames(s, null);
                 } catch (java.io.IOException ioexception) {
                     continue;
                 }
                 Enumeration enumeration2 = COM.dragonflow.Page.CGI.getMonitors(array1);
-                jgl.HashMap hashmap = (jgl.HashMap) enumeration2.nextElement();
+                HashMap hashmap = (HashMap) enumeration2.nextElement();
                 String s1 = COM.dragonflow.Page.CGI.getGroupName(hashmap, s);
                 vector1.addElement(s);
                 vector1.addElement(s1);
                 while (enumeration2.hasMoreElements()) {
-                    jgl.HashMap hashmap1 = (jgl.HashMap) enumeration2.nextElement();
+                    HashMap hashmap1 = (HashMap) enumeration2.nextElement();
                     String s2 = s + "/" + hashmap1.get("_id");
                     vector2.addElement(s2);
                     vector2.addElement(s1 + ": " + COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_name"));
@@ -174,7 +174,7 @@ public class Disable extends COM.dragonflow.SiteView.Action {
             String s2 = "Enabled ";
         }
         String s3 = getProperty("_targetMatch").replace('_', ' ');
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         StringBuffer stringbuffer = new StringBuffer();
         StringBuffer stringbuffer1 = new StringBuffer();
         for (int i = 1; i < args.length; i ++) {
@@ -193,7 +193,7 @@ public class Disable extends COM.dragonflow.SiteView.Action {
                 }
             }
             try {
-                jgl.Array array = (jgl.Array) hashmap.get(s7);
+                Array array = (Array) hashmap.get(s7);
                 if (array == null) {
                     array = COM.dragonflow.Page.CGI.ReadGroupFrames(s7, null);
                 }
@@ -202,15 +202,15 @@ public class Disable extends COM.dragonflow.SiteView.Action {
                     if (array.size() <= 0) {
                         continue;
                     }
-                    String s11 = COM.dragonflow.Page.CGI.getGroupName((jgl.HashMap) array.at(0), s7);
+                    String s11 = COM.dragonflow.Page.CGI.getGroupName((HashMap) array.get(0), s7);
                     Enumeration enumeration1 = COM.dragonflow.Page.CGI.getMonitors(array);
                     if (enumeration1.hasMoreElements()) {
                         enumeration1.nextElement();
                     }
-                        jgl.HashMap hashmap1;
+                        HashMap hashmap1;
                         String s13;
                         while (enumeration1.hasMoreElements()) {
-                            hashmap1 = (jgl.HashMap) enumeration1.nextElement();
+                            hashmap1 = (HashMap) enumeration1.nextElement();
                             s13 = "";
                         if (s8.length() != 0 && !COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_id").equals(s8)) {
                         if (s3.length() > 0) {
@@ -241,13 +241,13 @@ public class Disable extends COM.dragonflow.SiteView.Action {
             }
         }
 
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         String s5 = "";
         String s6;
         for (; enumeration.hasMoreElements(); COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages(s6)) {
             s6 = (String) enumeration.nextElement();
             try {
-                COM.dragonflow.Page.CGI.WriteGroupFrames(s6, (jgl.Array) hashmap.get(s6), null);
+                COM.dragonflow.Page.CGI.WriteGroupFrames(s6, (Array) hashmap.get(s6), null);
             } catch (java.lang.Exception exception) {
                 addToBuffer(stringbuffer1, "error writing group file " + s6 + "  " + exception.getMessage());
             }

@@ -23,7 +23,7 @@ import java.io.InputStream;
 import java.io.StringBufferInputStream;
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.TextUtils;
 
@@ -160,7 +160,7 @@ public class TemplateInputStream extends FilterInputStream {
                 }
             } else if (s.equalsIgnoreCase("all")) {
                 Array array = object.getProperties();
-                for (Enumeration enumeration3 = array.elements(); enumeration3
+                for (Enumeration enumeration3 = (Enumeration) array.iterator(); enumeration3
                         .hasMoreElements(); buffer
                         .append(Platform.FILE_NEWLINE)) {
                     StringProperty stringproperty4 = (StringProperty) enumeration3

@@ -22,7 +22,7 @@ import java.io.FileOutputStream;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
@@ -39,25 +39,25 @@ public class Run extends COM.dragonflow.SiteView.ServerAction
     static COM.dragonflow.Properties.StringProperty pTimeout;
     static final String DEFAULT_TIMEOUT = "-1";
     static COM.dragonflow.Utils.CounterLock scriptLock = null;
-    static jgl.Array scriptIDs = null;
+    static Array scriptIDs = null;
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap)
+    public void initializeFromArguments(Array array, HashMap hashmap)
     {
         initializeMachine(array, hashmap);
         if(array.size() > 0)
         {
-            setProperty(pScript, array.at(0));
+            setProperty(pScript, array.get(0));
         }
         if(array.size() > 1)
         {
-            setProperty(pTemplate, array.at(1));
+            setProperty(pTemplate, array.get(1));
         } else
         {
             setProperty(pTemplate, "Default");
         }
         if(array.size() > 2)
         {
-            String s = (String)array.at(2);
+            String s = (String)array.get(2);
             s = s.replace('_', ' ');
             s = s.replace('#', '_');
             setProperty(pParameters, s);
@@ -120,12 +120,12 @@ public class Run extends COM.dragonflow.SiteView.ServerAction
         return stringbuffer.toString();
     }
 
-    public boolean defaultsAreSet(jgl.HashMap hashmap)
+    public boolean defaultsAreSet(HashMap hashmap)
     {
         return true;
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap)
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap)
     {
         if(stringproperty == pParameters && COM.dragonflow.Utils.TextUtils.hasChars(s, "`;&|"))
         {
@@ -369,7 +369,7 @@ public class Run extends COM.dragonflow.SiteView.ServerAction
                         }
                     }
                 }
-                jgl.Array array1 = new Array();
+                Array array1 = new Array();
                 if(COM.dragonflow.SiteView.Platform.isWindows(i))
                 {
                     array1.add("cmd");
@@ -398,7 +398,7 @@ public class Run extends COM.dragonflow.SiteView.ServerAction
                 String as[] = new String[array1.size()];
                 for(int j = 0; j < array1.size(); j++)
                 {
-                    as[j] = (String)array1.at(j);
+                    as[j] = (String)array1.get(j);
                 }
 
                 int k = getPropertyAsInteger(pTimeout) * 1000;
@@ -407,7 +407,7 @@ public class Run extends COM.dragonflow.SiteView.ServerAction
                     k = getSettingAsLong("_scriptMonitorTimeout", -1) * 1000;
                 }
                 as = appendParameters(as, s9);
-                jgl.Array array;
+                Array array;
                 if(k > 0)
                 {
                     String s21 = COM.dragonflow.Utils.ParameterParser.arrayCmdToStringCmd(as);
@@ -427,7 +427,7 @@ public class Run extends COM.dragonflow.SiteView.ServerAction
                     monitor.signalMonitor();
                     s1 = s1 + ", re-running monitor";
                 }
-                for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements();)
+                for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();)
                 {
                     s2 = s2 + (String)enumeration.nextElement() + COM.dragonflow.SiteView.Platform.FILE_NEWLINE;
                 }

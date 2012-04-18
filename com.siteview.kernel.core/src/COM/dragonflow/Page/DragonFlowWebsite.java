@@ -17,7 +17,7 @@ public abstract class DragonFlowWebsite extends COM.dragonflow.Page.CGI {
     public DragonFlowWebsite() {
     }
 
-    void printHeader(jgl.HashMap hashmap) {
+    void printHeader(HashMap hashmap) {
         String s = COM.dragonflow.Page.DragonFlowWebsite.getValue(
                 hashmap, "_partnerRegistrationHeader");
         if (s.length() == 0) {

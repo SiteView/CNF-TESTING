@@ -11,8 +11,8 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.TextUtils;
@@ -133,7 +133,7 @@ public class SupportNoteUtils
 
         } else
         {
-            Enumeration enumeration = hashmapordered.values("topic");
+            Enumeration enumeration = (Enumeration) hashmapordered.values("topic");
             String s4;
             String s6;
             for(s4 = ""; enumeration.hasMoreElements(); s4 = s4 + s6)
@@ -207,7 +207,7 @@ public class SupportNoteUtils
         String s = FileUtils.readFile("C:/supportsite/notes/noteInternalTemplate.txt").toString();
         for(int i = 0; i < array.size(); i++)
         {
-            HashMap hashmap = (HashMap)array.at(i);
+            HashMap hashmap = (HashMap)array.get(i);
             writeNoteFile("C:/supportsite/", hashmap, s);
         }
 

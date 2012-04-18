@@ -25,7 +25,7 @@ import COM.dragonflow.SiteView.MultiLogBase;
 import COM.dragonflow.SiteView.Rule;
 import COM.dragonflow.Utils.TextUtils;
 import COM.oroinc.text.perl.Perl5Util;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 public class MultiLogMonitor extends MultiLogBase
 {

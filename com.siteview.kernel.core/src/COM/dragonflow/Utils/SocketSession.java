@@ -20,8 +20,8 @@
 import java.util.Date;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 import org.apache.commons.httpclient.Header;
 
@@ -35,11 +35,11 @@ public class SocketSession
 {
 
     public static boolean hasJavaSSL = false;
-    jgl.HashMap cache;
+    HashMap cache;
     long maxCachedSockets;
     public COM.dragonflow.SiteView.Monitor context;
     public boolean inRemoteRequest;
-    public jgl.Array cookies;
+    public Array cookies;
     public String originalUserName;
     public String originalPassword;
     public String refererURL;
@@ -399,7 +399,7 @@ public class SocketSession
      * @param hashmap
      * @return
      */
-    private static boolean expiredCookie(jgl.HashMap hashmap)
+    private static boolean expiredCookie(HashMap hashmap)
     {
         java.util.Date date;
         java.util.Date date1;
@@ -421,7 +421,7 @@ public class SocketSession
         return false;
     }
 
-    private static jgl.Array addCookie(jgl.Array array, jgl.HashMap hashmap)
+    private static Array addCookie(Array array, HashMap hashmap)
     {
         boolean flag = false;
         boolean flag1 = COM.dragonflow.Utils.SocketSession.expiredCookie(hashmap);
@@ -437,7 +437,7 @@ public class SocketSession
             {
                 break;
             }
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+            HashMap hashmap1 = (HashMap)array.get(i);
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "key").equalsIgnoreCase(s) && COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "domain").equalsIgnoreCase(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "domain")) && COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "path").equalsIgnoreCase(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "path")))
             {
                 if(flag1)
@@ -480,7 +480,7 @@ public class SocketSession
         return array;
     }
 
-    private static jgl.HashMap MakeCookie(String s)
+    private static HashMap MakeCookie(String s)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         if(s != null)
@@ -506,7 +506,7 @@ public class SocketSession
         return hashmapordered;
     }
 
-    private static void update1Cookie(jgl.Array array, String s, String s1)
+    private static void update1Cookie(Array array, String s, String s1)
     {
         if(COM.dragonflow.Utils.TextUtils.startsWithIgnoreCase(s, COM.dragonflow.StandardMonitor.URLMonitor.SET_COOKIE_HEADER))
         {
@@ -515,7 +515,7 @@ public class SocketSession
                 COM.dragonflow.Log.LogManager.log("RunMonitor", "parse-cookie, line=" + s + ", url=" + s1);
             }
             boolean flag = true;
-            jgl.HashMap hashmap = COM.dragonflow.Utils.SocketSession.MakeCookie(s1);
+            HashMap hashmap = COM.dragonflow.Utils.SocketSession.MakeCookie(s1);
             String as[] = COM.dragonflow.Utils.TextUtils.split(s.substring(COM.dragonflow.StandardMonitor.URLMonitor.SET_COOKIE_HEADER.length()).trim(), ";");
             for(int i = 0; i < as.length; i++)
             {
@@ -580,12 +580,12 @@ public class SocketSession
         } while(j != -1);
     }
 
-    public void addCookieParameters(jgl.Array array, String s)
+    public void addCookieParameters(Array array, String s)
     {
         if(array != null)
         {
             String s1;
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); COM.dragonflow.Utils.SocketSession.update1Cookie(cookies, s1, s))
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); COM.dragonflow.Utils.SocketSession.update1Cookie(cookies, s1, s))
             {
                 s1 = (String)enumeration.nextElement();
             }
@@ -597,12 +597,12 @@ public class SocketSession
     {
         StringBuffer stringbuffer = new StringBuffer();
         org.apache.commons.httpclient.Header header = null;
-        jgl.HashMap hashmap = getCookies(s);
+        HashMap hashmap = getCookies(s);
         if(hashmap != null)
         {
-            Enumeration enumeration = cookies.elements();
+            Enumeration enumeration = (Enumeration) cookies.iterator();
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap1 = (HashMap)enumeration.nextElement();
                 if(hashmap.get(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "key")) == hashmap1)
                 {
                     String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "key") + "=" + COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "value");
@@ -618,7 +618,7 @@ public class SocketSession
         return header;
     }
 
-    private jgl.HashMap getCookies(String s)
+    private HashMap getCookies(String s)
     {
         if((COM.dragonflow.StandardMonitor.URLMonitor.debugURL & COM.dragonflow.StandardMonitor.URLMonitor.kDebugCookie) != 0)
         {
@@ -629,15 +629,15 @@ public class SocketSession
         {
             return null;
         }
-        Enumeration enumeration = cookies.elements();
-        jgl.HashMap hashmap = new HashMap();
+        Enumeration enumeration = (Enumeration) cookies.iterator();
+        HashMap hashmap = new HashMap();
         while (enumeration.hasMoreElements()) {
-            jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap1 = (HashMap)enumeration.nextElement();
             String s1 = urlinfo.getHost();
             if(COM.dragonflow.Utils.TextUtils.startsWithIgnoreCase(COM.dragonflow.Utils.TextUtils.reverse(s1), COM.dragonflow.Utils.TextUtils.reverse(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "domain"))) && COM.dragonflow.Utils.TextUtils.startsWithIgnoreCase(urlinfo.getFile(), COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "path")) && (!urlinfo.getProtocol().equalsIgnoreCase("http") || hashmap1.get("secure") == null))
             {
                 String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "key");
-                jgl.HashMap hashmap2 = (jgl.HashMap)hashmap.get(s2);
+                HashMap hashmap2 = (HashMap)hashmap.get(s2);
                 if(hashmap2 != null)
                 {
                     if(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "path").length() > COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "path").length())
@@ -655,13 +655,13 @@ public class SocketSession
 
     public String getCookieHeader(String s, boolean flag)
     {
-        jgl.HashMap hashmap = getCookies(s);
+        HashMap hashmap = getCookies(s);
         String s1 = "";
         if(hashmap != null)
         {
-            Enumeration enumeration = cookies.elements();
+            Enumeration enumeration = (Enumeration) cookies.iterator();
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap1 = (HashMap)enumeration.nextElement();
                 if(hashmap.get(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "key")) == hashmap1)
                 {
                     if(s1.length() > 0)

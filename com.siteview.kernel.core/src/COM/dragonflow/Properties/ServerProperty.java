@@ -20,7 +20,7 @@ package COM.dragonflow.Properties;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.SiteView.IServerPropMonitor;

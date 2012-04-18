@@ -17,7 +17,7 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Utils.CounterLock;
 
 // Referenced classes of package COM.dragonflow.SiteView:

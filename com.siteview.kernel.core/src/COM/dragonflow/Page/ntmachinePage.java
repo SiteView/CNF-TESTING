@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Utils.CounterLock;
 import COM.dragonflow.Utils.SSHCommandLine;
 
@@ -33,7 +33,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
 
     String getTestMachineName()
     {
-        jgl.HashMap hashmap = getTestMachineFrame();
+        HashMap hashmap = getTestMachineFrame();
         return COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_host");
     }
 
@@ -51,7 +51,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
 
     boolean getTestMachineTrace()
     {
-        jgl.HashMap hashmap = getTestMachineFrame();
+        HashMap hashmap = getTestMachineFrame();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_trace");
         boolean flag = s.length() > 0;
         return flag;
@@ -107,7 +107,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
         return "Remote NT Server";
     }
 
-    boolean displayFormTable(jgl.HashMap hashmap, String s)
+    boolean displayFormTable(HashMap hashmap, String s)
     {
         boolean flag = true;
         outputStream.println(field("NT Server Address", "<input type=text name=host size=50 value=\"" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_host") + "\">", "Enter the UNC style name (example:  \\\\machinename) or the IP address of the remote machine.  To use the same login credentials for multiple servers, enter multiple server addresses  separated by commas. "));
@@ -129,7 +129,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
         return flag;
     }
 
-    void saveAddProperties(String s, jgl.HashMap hashmap, String s1)
+    void saveAddProperties(String s, HashMap hashmap, String s1)
     {
         super.saveAddProperties(s, hashmap, s1);
         String s2 = request.getValue("method");
@@ -162,7 +162,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
 
     jgl.Array getListTableHeaders(String s)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add(new String("Name"));
         array.add(new String("Server"));
         array.add(new String("Status"));
@@ -191,10 +191,10 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
         return sshcommandline.exitValue == 0 ? 0 : 100;
     }
 
-    jgl.Array getListTableRow(jgl.HashMap hashmap, String s)
+    jgl.Array getListTableRow(HashMap hashmap, String s)
     {
         COM.dragonflow.SiteView.Machine.getAllowedMethods();
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
         String s2 = COM.dragonflow.Page.ntmachinePage.getValue(hashmap, "_name");
         if(s2.length() == 0)
@@ -275,8 +275,8 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
             s = "connection successful";
             outputStream.println("<p><B>Connection Successful</B></P>");
         }
-        jgl.Array array = getFrames();
-        jgl.HashMap hashmap = findMachine(array, machine.getProperty(COM.dragonflow.SiteView.Machine.pID));
+        Array array = getFrames();
+        HashMap hashmap = findMachine(array, machine.getProperty(COM.dragonflow.SiteView.Machine.pID));
         hashmap.put("_status", s);
         try
         {
@@ -291,13 +291,13 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
     public int checkNTPermissions(COM.dragonflow.SiteView.Machine machine, boolean flag)
     {
         int i = 0;
-        jgl.Array array = new Array();
+        Array array = new Array();
         i = COM.dragonflow.SiteView.Platform.CheckPermissions(machine.getProperty(COM.dragonflow.SiteView.Machine.pHost), getMasterConfig(), array);
         if(flag)
         {
             outputStream.println("<HR><H3>Checking Performance Counters</H3><HR>");
             String s;
-            for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); outputStream.println(s))
+            for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); outputStream.println(s))
             {
                 s = (String)enumeration.nextElement();
             }
@@ -310,7 +310,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
             outputStream.println("<HR><H3>Checking Services</H3><HR>");
             i = COM.dragonflow.SiteView.Platform.readProcessList(array, machine.getProperty(COM.dragonflow.SiteView.Machine.pHost), new CounterLock(1), false);
             String s1;
-            for(Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements(); outputStream.println(s1))
+            for(Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1.hasMoreElements(); outputStream.println(s1))
             {
                 s1 = (String)enumeration1.nextElement();
             }

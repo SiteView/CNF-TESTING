@@ -11,8 +11,8 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.SiteView.PQVPrintChooserHTML;
 import COM.dragonflow.SiteView.PortalFilter;
 import COM.dragonflow.SiteView.PortalQuery;
@@ -147,9 +147,9 @@ public class portalChooserPage extends COM.dragonflow.Page.CGI
         printwriter.println("</FORM>");
     }
 
-    protected jgl.Array getItemList(Enumeration enumeration)
+    protected Array getItemList(Enumeration enumeration)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         if(COM.dragonflow.SiteView.Platform.isPortal())
         {
             COM.dragonflow.SiteView.Portal portal = COM.dragonflow.SiteView.Portal.getPortal();
@@ -213,11 +213,11 @@ public class portalChooserPage extends COM.dragonflow.Page.CGI
     protected void handlePost(String s, Enumeration enumeration)
         throws java.lang.Exception
     {
-        jgl.Array array = getItemList(enumeration);
-        jgl.Array array1 = new Array();
-        jgl.Array array2 = new Array();
-        jgl.Array array3 = new Array();
-        for(enumeration = array.elements(); enumeration.hasMoreElements();)
+        Array array = getItemList(enumeration);
+        Array array1 = new Array();
+        Array array2 = new Array();
+        Array array3 = new Array();
+        for(enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();)
         {
             COM.dragonflow.SiteView.SiteViewObject siteviewobject = (COM.dragonflow.SiteView.SiteViewObject)enumeration.nextElement();
             if(siteviewobject instanceof COM.dragonflow.SiteView.PortalSiteView)
@@ -236,7 +236,7 @@ public class portalChooserPage extends COM.dragonflow.Page.CGI
         handlePost(s, array3, array2, array1);
     }
 
-    protected void handlePost(String s, jgl.Array array, jgl.Array array1, jgl.Array array2)
+    protected void handlePost(String s, Array array, Array array1, Array array2)
         throws java.lang.Exception
     {
     }
@@ -267,7 +267,7 @@ public class portalChooserPage extends COM.dragonflow.Page.CGI
         String s4 = "";
         if(flag)
         {
-            jgl.Array array = COM.dragonflow.SiteView.Portal.getEditableQueryArray();
+            Array array = COM.dragonflow.SiteView.Portal.getEditableQueryArray();
             array.pushFront(NO_QUERY_STRING);
             array.pushFront(NO_QUERY_VALUE);
             if(s2.length() > 0 && !COM.dragonflow.SiteView.Portal.isQueryID(s2))
@@ -379,7 +379,7 @@ public class portalChooserPage extends COM.dragonflow.Page.CGI
         String s5 = request.getValue("returnURL");
         printBodyHeader(bodyHeader);
         printButtonBar(helpFileName, "");
-        jgl.Array array = null;
+        Array array = null;
         try
         {
             array = COM.dragonflow.Properties.FrameFile.readFromFile(s2);
@@ -388,7 +388,7 @@ public class portalChooserPage extends COM.dragonflow.Page.CGI
         {
             array = new Array();
         }
-        jgl.HashMap hashmap = null;
+        HashMap hashmap = null;
         boolean flag = false;
         boolean flag1 = defaultLoadState();
         Enumeration enumeration = request.getVariables();
@@ -413,7 +413,7 @@ public class portalChooserPage extends COM.dragonflow.Page.CGI
         } while(true);
         for(int i = 0; i < array.size(); i++)
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+            HashMap hashmap1 = (HashMap)array.get(i);
             if(!COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_user").equals(s))
             {
                 continue;
@@ -509,7 +509,7 @@ public class portalChooserPage extends COM.dragonflow.Page.CGI
             } while(enumeration2.hasMoreElements());
             enumeration2 = request.getValues("item");
         }
-        jgl.HashMap hashmap2 = new HashMap();
+        HashMap hashmap2 = new HashMap();
         for(; enumeration2.hasMoreElements(); hashmap2.put(enumeration2.nextElement(), "checked")) { }
         outputStream.println("<H2>" + bodyHeader + "</H2><P>Select one or more groups and monitors and then choose the action you wish to perform." + "<p><FORM METHOD=GET ACTION=/SiteView/cgi/go.exe/SiteView>" + "<INPUT TYPE=HIDDEN NAME=page VALUE=" + request.getValue("page") + "><INPUT TYPE=HIDDEN NAME=account VALUE=" + s + ">");
         if(s3.length() > 0)
@@ -544,7 +544,7 @@ public class portalChooserPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    protected COM.dragonflow.SiteView.PortalQueryVisitor createPQVToPrint(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    protected COM.dragonflow.SiteView.PortalQueryVisitor createPQVToPrint(HashMap hashmap, HashMap hashmap1)
     {
         return new PQVPrintChooserHTML(this, hashmap, hashmap1);
     }

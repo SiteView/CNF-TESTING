@@ -20,8 +20,8 @@ package COM.dragonflow.StandardPreference;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import jgl.LessString;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.BooleanProperty;
@@ -115,18 +115,18 @@ public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences
     public UserInstancePreferences() {
     }
 
-    public String[] addPreferences(jgl.HashMap hashmap) throws COM.dragonflow.SiteViewException.SiteViewException {
+    public String[] addPreferences(HashMap hashmap) throws COM.dragonflow.SiteViewException.SiteViewException {
         String as[] = new String[2];
         try {
-            jgl.HashMap hashmap1 = new HashMap();
+            HashMap hashmap1 = new HashMap();
             COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
             String s = "";
             String s2 = "";
-            jgl.Array array = COM.dragonflow.SiteView.User.readUsers();
-            jgl.HashMap hashmap2 = new HashMap(true);
-            jgl.HashMap hashmap3 = (jgl.HashMap) array.at(0);
+            Array array = COM.dragonflow.SiteView.User.readUsers();
+            HashMap hashmap2 = new HashMap(true);
+            HashMap hashmap3 = (HashMap) array.get(0);
             for (int i = 0; i < hashmap.size(); i ++) {
-                for (Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements();) {
+                for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements();) {
                     String s1 = (String) enumeration.nextElement();
                     String s3 = (String) hashmap.get(s1);
                     COM.dragonflow.Properties.StringProperty stringproperty = getPropertyObject(s1);
@@ -165,11 +165,11 @@ public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences
         return as;
     }
 
-    public String[] updatePreferences(jgl.HashMap hashmap, String s, String s1) throws COM.dragonflow.SiteViewException.SiteViewException {
+    public String[] updatePreferences(HashMap hashmap, String s, String s1) throws COM.dragonflow.SiteViewException.SiteViewException {
         String as[] = new String[2];
         try {
-            jgl.Array array = COM.dragonflow.SiteView.User.readUsers();
-            jgl.HashMap hashmap1 = (jgl.HashMap) array.at(0);
+            Array array = COM.dragonflow.SiteView.User.readUsers();
+            HashMap hashmap1 = (HashMap) array.get(0);
             as[0] = "";
             as[1] = "";
             int i = 1;
@@ -177,10 +177,10 @@ public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences
                 if (i >= array.size()) {
                     break;
                 }
-                jgl.HashMap hashmap2 = (jgl.HashMap) array.at(i);
+                HashMap hashmap2 = (HashMap) array.get(i);
                 String s2 = (String) hashmap2.get(s);
                 if (s2.equals(s1)) {
-                    for (Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements();) {
+                    for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements();) {
                         String s3 = (String) enumeration.nextElement();
                         String s4 = (String) hashmap.get(s3);
                         hashmap2.put(s3, s4);
@@ -202,14 +202,14 @@ public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences
 
     public void deletePreferences(String s, String s1) throws COM.dragonflow.SiteViewException.SiteViewException {
         try {
-            jgl.Array array = COM.dragonflow.SiteView.User.readUsers();
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(0);
+            Array array = COM.dragonflow.SiteView.User.readUsers();
+            HashMap hashmap = (HashMap) array.get(0);
             int i = 1;
             do {
                 if (i >= array.size()) {
                     break;
                 }
-                jgl.HashMap hashmap1 = (jgl.HashMap) array.at(i);
+                HashMap hashmap1 = (HashMap) array.get(i);
                 String s2 = (String) hashmap1.get(s);
                 if (s2.equals(s1)) {
                     array.remove(i);
@@ -226,19 +226,19 @@ public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences
     public java.util.Vector getPreferenceProperties(String s, String s1, String s2, String s3, int i) throws COM.dragonflow.SiteViewException.SiteViewException {
         java.util.Vector vector = new Vector();
         try {
-            jgl.Array array = COM.dragonflow.SiteView.User.readUsers();
+            Array array = COM.dragonflow.SiteView.User.readUsers();
             Object obj = null;
-            jgl.HashMap hashmap1 = (jgl.HashMap) array.at(0);
+            HashMap hashmap1 = (HashMap) array.get(0);
             int j = 1;
             do {
                 if (j >= array.size()) {
                     break;
                 }
-                jgl.HashMap hashmap2 = (jgl.HashMap) array.at(j);
+                HashMap hashmap2 = (HashMap) array.get(j);
                 if (s2.length() > 0) {
                     String s4 = (String) hashmap2.get(s2);
                     if (s4.equals(s3)) {
-                        jgl.HashMap hashmap = hashmap2;
+                        HashMap hashmap = hashmap2;
                         vector.add(hashmap);
                         break;
                     }
@@ -257,7 +257,7 @@ public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences
         return true;
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap, jgl.HashMap hashmap1) {
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap, HashMap hashmap1) {
         return s;
     }
 
@@ -265,11 +265,11 @@ public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences
         java.util.Vector vector = new Vector();
         if (scalarproperty == pGroup) {
             COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-            jgl.Array array = siteviewgroup.getGroupIDs();
-            jgl.Array array1 = new Array();
-            jgl.HashMap hashmap = new HashMap();
+            Array array = siteviewgroup.getGroupIDs();
+            Array array1 = new Array();
+            HashMap hashmap = new HashMap();
             for (int i = 0; i < array.size(); i ++) {
-                String s = (String) array.at(i);
+                String s = (String) array.get(i);
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) siteviewgroup.getElement(s);
                 if (monitorgroup != null) {
                     String s3 = COM.dragonflow.Page.CGI.getGroupPath(monitorgroup, COM.dragonflow.Page.CGI.getGroupIDFull(s, siteviewgroup), false);
@@ -278,9 +278,9 @@ public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences
                 }
             }
 
-            jgl.Sorting.sort(array1, new LessString());
+            Sorting.sort(array1, new LessString());
             for (int j = 0; j < array1.size(); j ++) {
-                String s1 = (String) array1.at(j);
+                String s1 = (String) array1.get(j);
                 String s2 = (String) hashmap.get(s1);
                 vector.addElement(s2);
                 vector.addElement(s1);

@@ -22,8 +22,8 @@ import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -381,7 +381,7 @@ public class SNMPMonitor extends AtomicMonitor {
                 labelsCache.add(defaultValue, defaultValue);
             }
             Array array = getProperties();
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                 StringProperty stringproperty = (StringProperty) enumeration.nextElement();
                 if (stringproperty.isThreshold() && stringproperty.getName().indexOf("default") == -1) {
@@ -467,7 +467,7 @@ public class SNMPMonitor extends AtomicMonitor {
                     s7 = getProperty(p2OID);
                     s8 = "0";
                     if (array.size() > 0) {
-                        s8 = (String) array.at(0);
+                        s8 = (String) array.get(0);
                     }
                 }
             }
@@ -576,8 +576,8 @@ public class SNMPMonitor extends AtomicMonitor {
                     s15 = "content match error, " + s11;
                 }
                 if (array1.size() > 0) {
-                    s11 = "matched " + array1.at(0);
-                    setProperty(pMatchValue, array1.at(0));
+                    s11 = "matched " + array1.get(0);
+                    setProperty(pMatchValue, array1.get(0));
                 }
             }
         }

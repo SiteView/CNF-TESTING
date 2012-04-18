@@ -29,8 +29,8 @@ import COM.dragonflow.Utils.*;
 
 import java.io.*;
 import java.util.*;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import org.apache.commons.httpclient.*;
 
 // Referenced classes of package COM.dragonflow.StandardMonitor:
@@ -268,7 +268,7 @@ public class URLMonitor extends AtomicMonitor
             l = getResults_URLAndImagesAndFrames(s, s1, s2);
         } else
         {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             long l1;
             do
             {
@@ -392,7 +392,7 @@ public class URLMonitor extends AtomicMonitor
             String s22 = "";
             if(array != null)
             {
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 do
                 {
                     if(!enumeration.hasMoreElements())
@@ -671,7 +671,7 @@ public class URLMonitor extends AtomicMonitor
         String s3 = updateMatchValues(s, s1, s2, false, array, getSettingAsLong("_urlContentMatchDisplayMax", 150));
         if(array.size() > 0)
         {
-            setProperty(pMatchValue, array.at(0));
+            setProperty(pMatchValue, array.get(0));
         }
         return s3;
     }
@@ -688,7 +688,7 @@ public class URLMonitor extends AtomicMonitor
         int j = 0;
         for(int k = 0; k < array.size(); k++)
         {
-            float f2 = TextUtils.toFloat((String)array.at(k));
+            float f2 = TextUtils.toFloat((String)array.get(k));
             if(f2 != 0.0F)
             {
                 f += f2;
@@ -709,7 +709,7 @@ public class URLMonitor extends AtomicMonitor
         s = "";
         for(int i1 = 0; i1 < array.size(); i1++)
         {
-            s = s + (String)array.at(i1);
+            s = s + (String)array.get(i1);
             s = s + "\t";
         }
 
@@ -834,7 +834,7 @@ public class URLMonitor extends AtomicMonitor
                 array.add(stringproperty);
             }
         } while(true);
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Array getLogProperties()
@@ -1091,7 +1091,7 @@ public class URLMonitor extends AtomicMonitor
         Vector vector = new Vector();
         if(array != null)
         {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             byte byte0 = -1;
             do
             {
@@ -1140,7 +1140,7 @@ label0:
             {
                 break label0;
             }
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             int i = -1;
             do
             {
@@ -1170,7 +1170,7 @@ label0:
             {
                 break label0;
             }
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String s1;
             do
             {
@@ -1195,7 +1195,7 @@ label0:
             {
                 break label0;
             }
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String s1;
             do
             {
@@ -1220,7 +1220,7 @@ label0:
             {
                 break label0;
             }
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String s3;
             do
             {
@@ -1260,7 +1260,7 @@ label0:
             {
                 break label0;
             }
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             String s1;
             do
             {
@@ -1671,7 +1671,7 @@ label0:
         vector.add(new Header("User-Agent", s4));
         if(array != null)
         {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())
@@ -2400,7 +2400,7 @@ label0:
         {
             for(int j = 0; j < array.size(); j++)
             {
-                Object obj = array.at(j);
+                Object obj = array.get(j);
                 if(obj instanceof String)
                 {
                     LogManager.log("RunMonitor", "        URLMonitor.toString() jgl.Array postData(" + j + ")=" + (String)obj);

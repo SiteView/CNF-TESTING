@@ -13,6 +13,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import com.recursionsw.jgl.HashMap;
+
 // Referenced classes of package COM.dragonflow.Utils.Snmp.Monitoring:
 // Device, Metric
 
@@ -212,7 +214,7 @@ public class NetworkBandwidthConfig {
             }
         }
 
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         int k = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_NetworkBandwidthMaxCustomCounters"));
         if (k > 0) {
             maxProperties = k;

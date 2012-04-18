@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.StandardMonitor.URLMonitor;
 import COM.dragonflow.Utils.SocketSession;
 import COM.dragonflow.Utils.TextUtils;

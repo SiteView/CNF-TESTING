@@ -20,8 +20,8 @@ package COM.dragonflow.SiteView;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.Properties.NumericProperty;
@@ -256,7 +256,7 @@ public abstract class CompositeBase extends AtomicMonitor {
             socketsession.allowClose = false;
         }
         int i = 0;
-        AtomicMonitor atomicmonitor = (AtomicMonitor) array.at(i);
+        AtomicMonitor atomicmonitor = (AtomicMonitor) array.get(i);
         do {
             if (atomicmonitor == null) {
                 break;
@@ -307,7 +307,7 @@ public abstract class CompositeBase extends AtomicMonitor {
                 }
             }
             if (i < array.size()) {
-                atomicmonitor = (AtomicMonitor) array.at(i);
+                atomicmonitor = (AtomicMonitor) array.get(i);
             } else {
                 atomicmonitor = null;
             }
@@ -331,7 +331,7 @@ public abstract class CompositeBase extends AtomicMonitor {
             if (i >= 1) {
                 Array array = getMonitorsToRun();
                 if (i <= array.size()) {
-                    siteviewobject = (SiteViewObject) array.at(i - 1);
+                    siteviewobject = (SiteViewObject) array.get(i - 1);
                 }
             }
         }
@@ -467,7 +467,7 @@ public abstract class CompositeBase extends AtomicMonitor {
         if (scalarproperty == pItems) {
             SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
             Array array = CGI.getAllowedGroupIDsForAccount(httprequest);
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             Vector vector = new Vector();
             Vector vector1 = new Vector();
             String s = getFullID();

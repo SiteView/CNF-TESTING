@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Utils.TextUtils;
 
@@ -19,7 +19,7 @@ import COM.dragonflow.Utils.TextUtils;
 // CGI, monitorPage
 
 public class browsePage extends COM.dragonflow.Page.CGI
-    implements jgl.BinaryPredicate
+    implements BinaryPredicate
 {
 
     public static final int SORT_NAME = 1;
@@ -67,10 +67,10 @@ public class browsePage extends COM.dragonflow.Page.CGI
 
     void printXML(COM.dragonflow.SiteView.Monitor monitor)
     {
-        jgl.HashMap hashmap = monitor.getValuesTable();
+        HashMap hashmap = monitor.getValuesTable();
         java.lang.Object obj;
         String s;
-        for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); outputStream.println(COM.dragonflow.Utils.TextUtils.escapeXML("" + obj, s)))
+        for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements(); outputStream.println(COM.dragonflow.Utils.TextUtils.escapeXML("" + obj, s)))
         {
             obj = enumeration.nextElement();
             s = "" + hashmap.get(obj);
@@ -95,11 +95,11 @@ public class browsePage extends COM.dragonflow.Page.CGI
         {
             outputStream.println("<?xml version=\"1.0\"?>");
             outputStream.println("<siteview>");
-            jgl.Array array = getAllowedGroupIDs();
+            Array array = getAllowedGroupIDs();
             COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
             for(int i = 0; i < array.size(); i++)
             {
-                String s2 = (String)array.at(i);
+                String s2 = (String)array.get(i);
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s2);
                 if(monitorgroup == null)
                 {
@@ -138,8 +138,8 @@ public class browsePage extends COM.dragonflow.Page.CGI
         String s5 = request.getValue("machineNameSelect");
         String s6 = request.getValue("refresh");
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup1 = null;
-        jgl.HashMap hashmap = null;
-        jgl.Array array1 = getAllowedGroupIDs();
+        HashMap hashmap = null;
+        Array array1 = getAllowedGroupIDs();
         siteviewgroup1 = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
         String s7 = siteviewgroup1.getValue("_browseRefreshDefault");
         if(s6.length() == 0)
@@ -178,12 +178,12 @@ public class browsePage extends COM.dragonflow.Page.CGI
             COM.dragonflow.Page.CGI.menus menus1 = getNavItems(request);
             printButtonBar("MonBrows.htm", "", menus1);
         }
-        jgl.Array array2 = new Array();
+        Array array2 = new Array();
         int j = 0;
 label0:
         for(int k = 0; k < array1.size(); k++)
         {
-            String s12 = (String)array1.at(k);
+            String s12 = (String)array1.get(k);
             COM.dragonflow.SiteView.MonitorGroup monitorgroup1 = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup1.getElement(s12);
             if(monitorgroup1 == null)
             {
@@ -225,7 +225,7 @@ label0:
                 if(s3.length() > 0)
                 {
                     String s19 = monitor2.getTableStatusString(request);
-                    jgl.Array array3 = new Array();
+                    Array array3 = new Array();
                     int l = COM.dragonflow.Utils.TextUtils.matchExpression(s19, s3, array3, new StringBuffer());
                     if(l != COM.dragonflow.SiteView.Monitor.kURLok)
                     {
@@ -239,7 +239,7 @@ label0:
                 if(s4.length() > 0)
                 {
                     String s20 = monitor2.getProperty(COM.dragonflow.SiteView.Monitor.pName) + monitor2.getProperty(COM.dragonflow.SiteView.Monitor.pDescription);
-                    jgl.Array array4 = new Array();
+                    Array array4 = new Array();
                     int i1 = COM.dragonflow.Utils.TextUtils.matchExpression(s20, s4, array4, new StringBuffer());
                     if(i1 != COM.dragonflow.SiteView.Monitor.kURLok)
                     {
@@ -253,7 +253,7 @@ label0:
                 if(s5.length() > 0)
                 {
                     String s21 = monitor2.getHostname();
-                    jgl.Array array5 = new Array();
+                    Array array5 = new Array();
                     int j1 = COM.dragonflow.Utils.TextUtils.matchExpression(s21, s5, array5, new StringBuffer());
                     if(j1 != COM.dragonflow.SiteView.Monitor.kURLok)
                     {
@@ -273,13 +273,13 @@ label0:
 
         if(array2.size() > 1)
         {
-            jgl.Sorting.sort(array2, this);
+            Sorting.sort(array2, this);
         }
         if(flag)
         {
             outputStream.println("<?xml version=\"1.0\"?>");
             outputStream.println("<siteview>");
-            for(Enumeration enumeration3 = array2.elements(); enumeration3.hasMoreElements(); outputStream.println("</monitor>"))
+            for(Enumeration enumeration3 =  (Enumeration) array2.iterator(); enumeration3.hasMoreElements(); outputStream.println("</monitor>"))
             {
                 COM.dragonflow.SiteView.Monitor monitor1 = (COM.dragonflow.SiteView.Monitor)enumeration3.nextElement();
                 outputStream.println("<monitor>");
@@ -367,7 +367,7 @@ label0:
             String s23 = "<h2>Browse Monitors (" + array2.size() + " out of " + j + ")</h2>" + s22;
             if(request.getValue("justTitle").length() == 0)
             {
-                String s24 = COM.dragonflow.SiteView.MonitorGroup.printMonitorTable(outputStream, request, s23, "", ai, array2.elements());
+                String s24 = COM.dragonflow.SiteView.MonitorGroup.printMonitorTable(outputStream, request, s23, "", ai,  (Enumeration) array2.iterator());
                 COM.dragonflow.SiteView.MonitorGroup.printCategoryInsertHTML(s24, siteviewgroup1, outputStream);
             }
             printFooter(outputStream);
@@ -416,10 +416,10 @@ label0:
     {
         String s1;
         Enumeration enumeration;
-        jgl.Array array1;
+        Array array1;
         s1 = "<td valign=top>For Monitor Type: </td><td valign=top><SELECT NAME=monitorTypeSelect><option value=\"\">All types</option>\n";
-        jgl.Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses(true);
-        enumeration = array.elements();
+        Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses(true);
+        enumeration = (Enumeration) array.iterator();
         array1 = _getUsedMonitorClasses();
 
         java.lang.Class class1;

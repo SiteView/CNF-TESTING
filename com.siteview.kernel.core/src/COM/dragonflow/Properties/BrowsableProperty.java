@@ -22,8 +22,8 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -169,7 +169,7 @@ public class BrowsableProperty extends StringProperty {
                     String s4 = "";
                     Array array = atomicmonitor.getPropertiesToPassBetweenPages(httprequest);
                     for (int i = 0; i < array.size(); i++) {
-                        StringProperty stringproperty = (StringProperty) array.at(i);
+                        StringProperty stringproperty = (StringProperty) array.get(i);
                         s4 = s4 + " + getPropValues('" + stringproperty.getName() + "')";
                     }
 
@@ -235,7 +235,7 @@ public class BrowsableProperty extends StringProperty {
                             }
 
                             for (int j1 = 0; j1 < array.size(); j1++) {
-                                Node node1 = (Node) array.at(j1);
+                                Node node1 = (Node) array.get(j1);
                                 if (node1 == null || !node1.getNodeName().equals("object")) {
                                     continue;
                                 }
@@ -258,7 +258,7 @@ public class BrowsableProperty extends StringProperty {
                                 }
 
                                 for (int l1 = 0; l1 < array.size(); l1++) {
-                                    Node node2 = (Node) array.at(l1);
+                                    Node node2 = (Node) array.get(l1);
                                     if (!node2.getNodeName().equals("counter")) {
                                         continue;
                                     }
@@ -330,7 +330,7 @@ public class BrowsableProperty extends StringProperty {
         String s2 = "";
         String s3 = "";
         if (array.size() > 0) {
-            s2 = ((StringProperty) array.at(0)).getName();
+            s2 = ((StringProperty) array.get(0)).getName();
             s3 = (String) hashmap1.get(s2);
         }
         if (s3 == null || s3.length() == 0) {
@@ -353,7 +353,7 @@ public class BrowsableProperty extends StringProperty {
         }
         printwriter.println("</TD></TR><TR><TD><FONT SIZE=-1>" + s4 + "</FONT></TABLE></TD></TR><TR><TD></TD></TR>");
         for (int i = 0; i < array.size(); i++) {
-            String s5 = ((StringProperty) array.at(i)).getName();
+            String s5 = ((StringProperty) array.get(i)).getName();
             String s6 = (String) hashmap1.get(s5);
             if (s6 == null) {
                 s6 = "";

@@ -12,8 +12,8 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Utils.CommandLine;
 import COM.dragonflow.Utils.SSHCommandLine;
@@ -29,16 +29,16 @@ public class servicePage extends COM.dragonflow.Page.machineChooserPage
 		
     }
 
-    public static jgl.HashMap getProcessStats(String s, String s1)
+    public static HashMap getProcessStats(String s, String s1)
     {
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         String s2 = s1;
         if(s2.startsWith("\\\\"))
         {
             s2 = s2.substring(2);
         }
         COM.dragonflow.SiteView.Machine machine = COM.dragonflow.SiteView.Machine.getNTMachine(s2);
-        jgl.Array array = null;
+        Array array = null;
         if(machine != null && COM.dragonflow.SiteView.Machine.isNTSSH(s2))
         {
             if(s.indexOf("\\\\" + s2) > 0)
@@ -53,9 +53,9 @@ public class servicePage extends COM.dragonflow.Page.machineChooserPage
             COM.dragonflow.Utils.CommandLine commandline = new CommandLine();
             array = array = commandline.exec(s);
         }
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         long l = -1L;
-        jgl.HashMap hashmap1 = null;
+        HashMap hashmap1 = null;
         do
         {
             if(!enumeration.hasMoreElements())
@@ -139,9 +139,9 @@ public class servicePage extends COM.dragonflow.Page.machineChooserPage
             {
                 break;
             }
-            jgl.HashMap hashmap2 = (jgl.HashMap)enumeration1.nextElement();
+            HashMap hashmap2 = (HashMap)enumeration1.nextElement();
             String s5 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "parent");
-            jgl.HashMap hashmap3 = (jgl.HashMap)hashmap.get(s5);
+            HashMap hashmap3 = (HashMap)hashmap.get(s5);
             if(hashmap3 != null)
             {
                 hashmap2.put("parent", hashmap3.get("name"));
@@ -174,8 +174,8 @@ public class servicePage extends COM.dragonflow.Page.machineChooserPage
                     printwriter.println("<BR><PRE>");
                 }
                 COM.dragonflow.Utils.CommandLine commandline = new CommandLine();
-                jgl.Array array = commandline.exec(s1, s);
-                Enumeration enumeration = array.elements();
+                Array array = commandline.exec(s1, s);
+                Enumeration enumeration = (Enumeration) array.iterator();
                 boolean flag2 = false;
                 do
                 {
@@ -255,9 +255,9 @@ public class servicePage extends COM.dragonflow.Page.machineChooserPage
                 COM.dragonflow.Log.LogManager.log("Error", "Failed to get CPU data for service details. Machine: " + s);
             }
             l = java.lang.Math.min(k, java.lang.Math.max(1L, l));
-            jgl.HashMap hashmap = COM.dragonflow.Page.servicePage.getProcessStats(s1, s);
+            HashMap hashmap = COM.dragonflow.Page.servicePage.getProcessStats(s1, s);
             COM.dragonflow.SiteView.Platform.sleep(i * 1000);
-            jgl.HashMap hashmap1 = COM.dragonflow.Page.servicePage.getProcessStats(s1, s);
+            HashMap hashmap1 = COM.dragonflow.Page.servicePage.getProcessStats(s1, s);
             if(printwriter != null)
             {
                 printwriter.println("<br><table><tr><th>Process<th>CPU<th>Memory<th>Threads<th>Handles<th>ID<th>Parent Process</tr>");
@@ -273,26 +273,26 @@ public class servicePage extends COM.dragonflow.Page.machineChooserPage
                 COM.dragonflow.Utils.TextUtils.appendStringLeftJustify(stringbuffer, "parent", 9);
                 stringbuffer.append("\n\n");
             }
-            jgl.Array array1 = new Array();
+            Array array1 = new Array();
             for(Enumeration enumeration1 = hashmap1.elements(); enumeration1.hasMoreElements(); array1.add(enumeration1.nextElement())) { }
-            jgl.Sorting.sort(array1, new GreaterEqualProcessInfo());
-            Enumeration enumeration2 = array1.elements();
+            Sorting.sort(array1, new GreaterEqualProcessInfo());
+            Enumeration enumeration2 =  (Enumeration) array1.iterator();
             do
             {
                 if(!enumeration2.hasMoreElements())
                 {
                     break;
                 }
-                jgl.HashMap hashmap2 = (jgl.HashMap)enumeration2.nextElement();
+                HashMap hashmap2 = (HashMap)enumeration2.nextElement();
                 String s3 = (String)hashmap2.get("id");
                 if(!s3.equals("Idle"))
                 {
-                    jgl.HashMap hashmap3 = (jgl.HashMap)hashmap.get(s3);
-                    jgl.HashMap hashmap4 = hashmap2;
+                    HashMap hashmap3 = (HashMap)hashmap.get(s3);
+                    HashMap hashmap4 = hashmap2;
                     if(s3.equals("_Total"))
                     {
-                        hashmap3 = (jgl.HashMap)hashmap.get("Idle");
-                        hashmap4 = (jgl.HashMap)hashmap1.get("Idle");
+                        hashmap3 = (HashMap)hashmap.get("Idle");
+                        hashmap4 = (HashMap)hashmap1.get("Idle");
                     }
                     String s4 = "n/a";
                     if(hashmap3 != null)

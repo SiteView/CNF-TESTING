@@ -21,7 +21,7 @@ package COM.dragonflow.StandardMonitor;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.StringProperty;

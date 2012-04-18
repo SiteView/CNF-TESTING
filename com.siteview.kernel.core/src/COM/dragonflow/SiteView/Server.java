@@ -20,8 +20,8 @@ package COM.dragonflow.SiteView;
 import java.io.IOException;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.StandardMonitor.URLMonitor;
@@ -44,7 +44,7 @@ public class Server {
     }
 
     public static HashMap findServer(Array array, String s) {
-        for (Enumeration enumeration = array.elements(); enumeration
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                 .hasMoreElements();) {
             HashMap hashmap = (HashMap) enumeration.nextElement();
             if (s.equals(TextUtils.getValue(hashmap, "server"))) {
@@ -299,7 +299,7 @@ public class Server {
             } else {
                 Array array1 = (Array) hashmap.get("_items");
                 HashMap hashmap1;
-                for (Enumeration enumeration = array1.elements(); enumeration
+                for (Enumeration enumeration =  (Enumeration) array1.iterator(); enumeration
                         .hasMoreElements(); addServers(hashmap1, array)) {
                     hashmap1 = (HashMap) enumeration.nextElement();
                 }
@@ -347,7 +347,7 @@ public class Server {
         Array array = new Array();
         Array array1 = readServers();
         if (s.length() == 0) {
-            Enumeration enumeration = array1.elements();
+            Enumeration enumeration =  (Enumeration) array1.iterator();
             while (enumeration.hasMoreElements()) {
                 HashMap hashmap1 = (HashMap) enumeration.nextElement();
                 if (TextUtils.getValue(hashmap1, "parent").length() <= 0
@@ -362,7 +362,7 @@ public class Server {
             if (hashmap != null) {
                 Array array2 = (Array) hashmap.get("_items");
                 HashMap hashmap2;
-                for (Enumeration enumeration1 = array2.elements(); enumeration1
+                for (Enumeration enumeration1 =  (Enumeration) array2.iterator(); enumeration1
                         .hasMoreElements(); array.add(hashmap2)) {
                     hashmap2 = (HashMap) enumeration1.nextElement();
                 }

@@ -280,7 +280,7 @@ public class WebSphereProcessProperties {
         } catch (java.lang.Exception exception) {
             COM.dragonflow.Log.LogManager.log("Error", "Cannot open Websphere properties file: " + propsFilename);
         }
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         if (COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_webSphereDebug").length() > 0) {
             enableDebugPrintouts = true;
         }

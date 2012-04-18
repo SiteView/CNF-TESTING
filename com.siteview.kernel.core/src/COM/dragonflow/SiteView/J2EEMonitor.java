@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.BrowsableProperty;
@@ -179,7 +179,7 @@ public abstract class J2EEMonitor extends AtomicMonitor implements
     }
 
     public String verify(StringProperty stringproperty, String s,
-            HTTPRequest httprequest, jgl.HashMap hashmap) {
+            HTTPRequest httprequest, HashMap hashmap) {
         if (stringproperty == pBrowseCounters) {
             String s1 = getProperty(pCounterIDs[0]);
             if (s1.length() <= 0) {
@@ -355,7 +355,7 @@ public abstract class J2EEMonitor extends AtomicMonitor implements
 
     public void setMaxCounters(int i) {
         nMaxCounters = i;
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         hashmap.put("_J2EEMonitorMaxCounters", (new Integer(i)).toString());
         MasterConfig.saveMasterConfig(hashmap);
     }
@@ -435,7 +435,7 @@ public abstract class J2EEMonitor extends AtomicMonitor implements
         hpsFormat.setMinimumFractionDigits(1);
         hpsFormat.setGroupingUsed(false);
         Array array = new Array();
-        jgl.HashMap hashmap = MasterConfig.getMasterConfig();
+        HashMap hashmap = MasterConfig.getMasterConfig();
         nMaxCounters = TextUtils.toInt(TextUtils.getValue(hashmap,
                 "_J2EEMonitorMaxCounters"));
         if (nMaxCounters <= 0) {
@@ -480,7 +480,7 @@ public abstract class J2EEMonitor extends AtomicMonitor implements
 
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for (int j = 0; j < array.size(); j++) {
-            astringproperty[j] = (StringProperty) array.at(j);
+            astringproperty[j] = (StringProperty) array.get(j);
         }
 
         addProperties("COM.dragonflow.SiteView.J2EEMonitor", astringproperty);

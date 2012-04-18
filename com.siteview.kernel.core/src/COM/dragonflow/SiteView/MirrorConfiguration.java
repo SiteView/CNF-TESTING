@@ -24,8 +24,8 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.ApacheHttpClientUtils.ApacheHttpMethod;
 import COM.dragonflow.ApacheHttpClientUtils.ApacheHttpUtils;
 import COM.dragonflow.ApacheHttpClientUtils.HTTPRequestSettings;
@@ -132,7 +132,7 @@ public class MirrorConfiguration extends Action {
             try {
                 Array array = FrameFile.readFromFile(s);
                 if (array.size() > 0) {
-                    mirrorConfig = (HashMap) array.at(0);
+                    mirrorConfig = (HashMap) array.get(0);
                 }
                 isHAVersion = Boolean.TRUE;
             } catch (Exception exception) {
@@ -164,7 +164,7 @@ public class MirrorConfiguration extends Action {
             return;
         }
         HashMap hashmap1 = getMirrorConfig();
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         String s;
         Object obj;
         for (Enumeration enumeration1 = hashmap.elements(); enumeration
@@ -347,7 +347,7 @@ public class MirrorConfiguration extends Action {
             try {
                 Array array = FrameFile.readFromFile(s);
                 if (array.size() > 1) {
-                    hashmap = (HashMap) array.at(1);
+                    hashmap = (HashMap) array.get(1);
                     String s1 = TextUtils.getValue(hashmap, "_password");
                     String s2 = TextUtils.getValue(hashmap, "_username");
                     String s3 = TextUtils.getValue(hashmap, "_url");
@@ -451,7 +451,7 @@ public class MirrorConfiguration extends Action {
             if (obj1 instanceof Array) {
                 Array array = (Array) obj1;
                 for (int i = 0; array != null && i < array.size(); i++) {
-                    String s5 = (String) array.at(i);
+                    String s5 = (String) array.get(i);
                     String s6 = siteviewgroup.getSetting(s5);
                     hashmapordered.put(s5, s6);
                 }
@@ -481,7 +481,7 @@ public class MirrorConfiguration extends Action {
         if (obj2 instanceof Array) {
             Array array1 = (Array) obj2;
             for (int j = 0; array1 != null && j < array1.size(); j++) {
-                String s9 = (String) array1.at(j);
+                String s9 = (String) array1.get(j);
                 hashmap.put(s9.toUpperCase(), new Boolean("false"));
             }
 
@@ -509,7 +509,7 @@ public class MirrorConfiguration extends Action {
         if (obj3 instanceof Array) {
             Array array2 = (Array) obj3;
             for (int l = 0; array2 != null && l < array2.size(); l++) {
-                String s12 = (String) array2.at(l);
+                String s12 = (String) array2.get(l);
                 hashmap1.put(s12.toUpperCase(), new Boolean("false"));
             }
 
@@ -866,7 +866,7 @@ public class MirrorConfiguration extends Action {
 
     boolean excludeFileRegEx(String s, HashMap hashmap, boolean flag) {
         String s1 = s.toUpperCase();
-        for (Enumeration enumeration = hashmap.keys(); enumeration
+        for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration
                 .hasMoreElements();) {
             String s2 = (String) enumeration.nextElement();
             Array array = new Array();

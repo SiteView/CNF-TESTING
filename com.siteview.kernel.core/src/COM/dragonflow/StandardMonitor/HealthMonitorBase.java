@@ -21,7 +21,7 @@ import COM.dragonflow.Health.FileBase;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteView.AtomicMonitor;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public class HealthMonitorBase extends AtomicMonitor
 {
@@ -52,7 +52,7 @@ public class HealthMonitorBase extends AtomicMonitor
          StringBuffer stringbuffer = new StringBuffer(256);
          for(int i = 0; i < array.size(); i++)
          {
-             COM.dragonflow.Health.FileBase.ErrorMessage errormessage = (COM.dragonflow.Health.FileBase.ErrorMessage)array.at(i);
+             COM.dragonflow.Health.FileBase.ErrorMessage errormessage = (COM.dragonflow.Health.FileBase.ErrorMessage)array.get(i);
              stringbuffer.append(errormessage.message);
              if(i != array.size() - 1)
              {

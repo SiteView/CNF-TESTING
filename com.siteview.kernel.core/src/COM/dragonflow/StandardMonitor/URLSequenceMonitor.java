@@ -26,8 +26,8 @@ import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -505,7 +505,7 @@ public class URLSequenceMonitor extends AtomicMonitor
             al = checkURLSequence(s, as, as1, as10, as2, as3, s2, s4, s3, aenumeration, as4, as5, as6, as7, as8, as9, as11, getProperty(pTimeout), flag, stringbuffer2, this, null, null, stepURLs, stepStatus, stringbuffer, stringbuffer1, stringbuffer3, false);
         } else
         {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())
@@ -936,7 +936,7 @@ public class URLSequenceMonitor extends AtomicMonitor
             }
 
         }
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public static long[] checkURLSequence(HashMap hashmap, StringBuffer stringbuffer, PrintWriter printwriter, StringBuffer stringbuffer1, StringBuffer stringbuffer2, StringBuffer stringbuffer3, URLSequenceMonitor urlsequencemonitor)
@@ -949,7 +949,7 @@ public class URLSequenceMonitor extends AtomicMonitor
         int i;
         for(i = 0; TextUtils.getValue(hashmap, "_reference" + (i + 1)).length() > 0; i++) { }
         String s = "";
-        Enumeration enumeration = hashmap.values("_location");
+        Enumeration enumeration = (Enumeration) hashmap.values("_location");
         if(enumeration.hasMoreElements())
         {
             s = (String)enumeration.nextElement();
@@ -1013,7 +1013,7 @@ public class URLSequenceMonitor extends AtomicMonitor
 
                 if(array1.size() > 0)
                 {
-                    aenumeration[j] = array1.elements();
+                    aenumeration[j] =  (Enumeration) array1.iterator();
                 } else
                 {
                     aenumeration[j] = null;
@@ -1024,7 +1024,7 @@ public class URLSequenceMonitor extends AtomicMonitor
                 aenumeration[j] = null;
             } else
             {
-                aenumeration[j] = hashmap.values(pPostData[j - 1].getName());
+                aenumeration[j] = (Enumeration) hashmap.values(pPostData[j - 1].getName());
             }
             as5[j] = TextUtils.getValue(hashmap, pUserName[j - 1].getName());
             if(TextUtils.getValue(hashmap, "_challengeResponse").length() > 0)
@@ -1048,7 +1048,7 @@ public class URLSequenceMonitor extends AtomicMonitor
             al = checkURLSequence(s, as, as1, as2, as3, as4, s2, TextUtils.getValue(hashmap, pProxyUserName.getName()), TextUtils.getValue(hashmap, pProxyPassword.getName()), aenumeration, as5, as6, as7, as8, as9, as10, as11, TextUtils.getValue(hashmap, pTimeout.getName()), flag1, stringbuffer, urlsequencemonitor, printwriter, stringbuffer1, null, null, stringbuffer4, stringbuffer2, stringbuffer3, flag);
         } else
         {
-            Enumeration enumeration1 = array.elements();
+            Enumeration enumeration1 = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration1.hasMoreElements())
@@ -1222,7 +1222,7 @@ public class URLSequenceMonitor extends AtomicMonitor
     static Array mergeVariable(Array array, String s)
     {
         Array array1 = new Array();
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         if(s.startsWith(replaceToken))
         {
             String s1 = s.substring(replaceToken.length());
@@ -1467,7 +1467,7 @@ label4:
                                 boolean flag7 = true;
                                 if(array4 != null)
                                 {
-                                    Enumeration enumeration1 = array4.elements();
+                                    Enumeration enumeration1 = (Enumeration) array4.iterator();
                                     int i2 = 0;
                                     do
                                     {
@@ -1602,8 +1602,8 @@ label4:
                                         stringbuffer.append(stringbuffer6);
                                     }
                                 }
-                                Enumeration enumeration2 = array.elements();
-                                Array array6 = (Array)array1.at(k - 1);
+                                Enumeration enumeration2 = (Enumeration) array.iterator();
+                                Array array6 = (Array)array1.get(k - 1);
                                 String s19;
                                 for(; enumeration2.hasMoreElements(); array6.add(s19))
                                 {
@@ -1690,7 +1690,7 @@ label4:
                                     LogManager.log("RunMonitor", "NEXT REFERENCE TYPE=" + s22);
                                     for(int j4 = 0; j4 < htmltagparser.tags.size(); j4++)
                                     {
-                                        LogManager.log("RunMonitor", "TAG=" + htmltagparser.tags.at(j4));
+                                        LogManager.log("RunMonitor", "TAG=" + htmltagparser.tags.get(j4));
                                     }
 
                                 }
@@ -2227,10 +2227,10 @@ label9:
             int i1 = 1;
             for(int j1 = 0; j1 < array1.size(); j1++)
             {
-                Array array2 = (Array)array1.at(j1);
+                Array array2 = (Array)array1.get(j1);
                 for(int k1 = 0; k1 < array2.size(); k1++)
                 {
-                    s10 = array2.at(k1).toString();
+                    s10 = array2.get(k1).toString();
                     urlsequencemonitor.setProperty("matchValue" + i1++, s10);
                 }
 
@@ -2591,7 +2591,7 @@ label9:
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for(int k1 = 0; k1 < array.size(); k1++)
         {
-            astringproperty[k1] = (StringProperty)array.at(k1);
+            astringproperty[k1] = (StringProperty)array.get(k1);
         }
 
         addProperties("COM.dragonflow.StandardMonitor.URLSequenceMonitor", astringproperty);

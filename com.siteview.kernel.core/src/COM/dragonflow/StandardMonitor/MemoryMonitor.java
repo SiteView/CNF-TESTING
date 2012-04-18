@@ -24,7 +24,7 @@ import COM.dragonflow.SiteView.*;
 import COM.dragonflow.Utils.TextUtils;
 
 import java.net.URLEncoder;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public class MemoryMonitor extends ServerMonitor
 {
@@ -94,7 +94,7 @@ public class MemoryMonitor extends ServerMonitor
                         StringBuffer stringbuffer = new StringBuffer();
                         for(int i = 0; i < array.size(); i++)
                         {
-                            stringbuffer.append(array.at(i) + "\n");
+                            stringbuffer.append(array.get(i) + "\n");
                         }
 
                         LogManager.log("Error", "MemoryMonitor: " + getFullID() + " failed, output:\n" + stringbuffer);

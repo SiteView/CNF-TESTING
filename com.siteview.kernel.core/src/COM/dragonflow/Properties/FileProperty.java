@@ -23,7 +23,7 @@ import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.TextUtils;
 
 import java.io.File;
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 //Referenced classes of package COM.dragonflow.Properties:
 //         StringProperty

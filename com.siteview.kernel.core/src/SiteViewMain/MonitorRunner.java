@@ -6,7 +6,7 @@ package SiteViewMain;
 
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteView.AtomicMonitor;
@@ -113,7 +113,7 @@ public class MonitorRunner
                 System.out.println(s + " " + s3 + " in " + (l2 - l1) / 1000L + " seconds\n");
                 Array array = atomicmonitor.getProperties();
                 System.out.println("-----  Parameters  ------");
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 do
                 {
                     if(!enumeration.hasMoreElements())
@@ -123,7 +123,7 @@ public class MonitorRunner
                         System.out.println(stringproperty.getName() + "=" + atomicmonitor.getProperty(stringproperty));
                 } while(true);
                 System.out.println("\n-----  State Properties  ------");
-                enumeration = array.elements();
+                enumeration = (Enumeration) array.iterator();
                 do
                 {
                     if(!enumeration.hasMoreElements())

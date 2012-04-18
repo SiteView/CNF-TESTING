@@ -35,8 +35,8 @@ import COM.dragonflow.Utils.SocketSession;
 import COM.dragonflow.Utils.TextUtils;
 
 import java.io.File;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardMonitor:
 //            URLSequenceMonitor, URLMonitor
@@ -165,7 +165,7 @@ public class SiebelMonitor extends BrowsableBase
             }
             if(array.size() > 0)
             {
-                as[k] = (String)array.at(0);
+                as[k] = (String)array.get(0);
                 as1[k] = "";
             }
         }
@@ -359,7 +359,7 @@ public class SiebelMonitor extends BrowsableBase
         String s4 = s3.substring(0, j);
         for(int k = 0; k < array.size(); k++)
         {
-            String s6 = (String)array.at(k);
+            String s6 = (String)array.get(k);
             String as[] = TextUtils.split(s6, "\t");
             if(as[0].startsWith("startobject") && as[3].startsWith("dynamic"))
             {
@@ -522,7 +522,7 @@ public class SiebelMonitor extends BrowsableBase
         StringProperty astringproperty1[] = new StringProperty[array.size()];
         for(int i = 0; i < array.size(); i++)
         {
-            astringproperty1[i] = (StringProperty)array.at(i);
+            astringproperty1[i] = (StringProperty)array.get(i);
         }
 
         String s = (COM.dragonflow.StandardMonitor.SiebelMonitor.class).getName();

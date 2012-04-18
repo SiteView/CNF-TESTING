@@ -13,8 +13,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 
@@ -54,7 +54,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         {
             throw new HTTPRequestException(557);
         }
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_mapbuildertransparentwidth");
         if(s.equals(""))
         {
@@ -219,14 +219,14 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         printFooter(outputStream);
     }
 
-    public jgl.HashMap MonitorDisplayHash(jgl.HashMap hashmap)
+    public HashMap MonitorDisplayHash(HashMap hashmap)
     {
         try
         {
-            jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/templates.view/xsltemplates.conf");
+            Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/templates.view/xsltemplates.conf");
             if(array != null && array.size() > 0)
             {
-                hashmap = (jgl.HashMap)array.at(0);
+                hashmap = (HashMap)array.get(0);
             }
         }
         catch(java.io.IOException ioexception)
@@ -333,7 +333,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    public void printAddForm(jgl.HashMap hashmap)
+    public void printAddForm(HashMap hashmap)
     {
         outputStream.println("<form method=post action=\"/SiteView/cgi/go.exe/SiteView\" name=presentation ><input type=hidden name=action value=add><input type=submit value=\"Update\"><br>");
         outputStream.println("<table border=1 cellspacing=0><tr><th colspan=7><a href=/SiteView/cgi/go.exe/SiteView?page=mapbuilder>Start a New Mapbuilder</a>/Current Configuration:<font color=red size=+1>" + (String)hashmap.get("xslname") + "</font>   /<a href=/SiteView/cgi/go.exe/SiteView?page=mapbuilder&account=" + request.getAccount() + "&config=" + (String)configHash.get("xslname") + "_" + request.getAccount() + ".conf" + "&action=view target=mapview>" + "Go To ImageMap</a>/<a href=/SiteView/htdocs/mapbuilderhelp.htm> HELP PAGE</A></th></tr>" + "<tr><th>#</th><th>X</th><th>Y</th><th>Monitor</tH><th>Label/XSL(if assigned a monitor.)</th><th>XSL</th><th>DEL</TH>" + "</tr>");
@@ -413,7 +413,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         printwriter.println("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>");
     }
 
-    public void writeXSLtags(jgl.HashMap hashmap, boolean flag, java.io.PrintWriter printwriter)
+    public void writeXSLtags(HashMap hashmap, boolean flag, java.io.PrintWriter printwriter)
     {
         printwriter.println("<?xml version=\"1.0\"?>\r<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/TR/WD-xsl\">\r<xsl:template match=\"/\">");
         for(int i = 1; i <= 2; i++)
@@ -476,9 +476,9 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         printwriter.println("</xsl:template>\r</xsl:stylesheet>\r");
     }
 
-    public void saveConfig(jgl.HashMap hashmap, String s)
+    public void saveConfig(HashMap hashmap, String s)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add(hashmap);
         try
         {
@@ -490,7 +490,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    public jgl.HashMap updateHashMap(Enumeration enumeration, jgl.HashMap hashmap)
+    public HashMap updateHashMap(Enumeration enumeration, HashMap hashmap)
     {
         do
         {
@@ -597,14 +597,14 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         return hashmap;
     }
 
-    public jgl.HashMap loadConfig(jgl.HashMap hashmap, String s)
+    public HashMap loadConfig(HashMap hashmap, String s)
     {
         try
         {
-            jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/templates.view/" + s + "");
+            Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + "/templates.view/" + s + "");
             if(array != null && array.size() > 0)
             {
-                hashmap = (jgl.HashMap)array.at(0);
+                hashmap = (HashMap)array.get(0);
             }
         }
         catch(java.io.IOException ioexception)
@@ -618,7 +618,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
     {
         String s = "";
         int i = 0;
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add(new HashMapOrdered(true));
         String s1 = COM.dragonflow.SiteView.Platform.getRoot() + "/groups/query.config";
         try
@@ -632,10 +632,10 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         {
             COM.dragonflow.Log.LogManager.log("Error", "problem reading config file " + s1 + ": " + ioexception.getMessage());
         }
-        jgl.HashMap hashmap = null;
+        HashMap hashmap = null;
         if(request.getValue("queryid").equals(""))
         {
-            hashmap = (jgl.HashMap)array.at(0);
+            hashmap = (HashMap)array.get(0);
             s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_nextID");
             if(s.length() == 0)
             {
@@ -643,7 +643,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
             }
             String s2 = COM.dragonflow.Utils.TextUtils.increment(s);
             hashmap.put("_nextID", s2);
-            jgl.HashMap hashmap1 = null;
+            HashMap hashmap1 = null;
             hashmap1.put("_id", s);
             hashmap1.put("_query", "property=stateString&property=category&propertySet=mainParameters&propertySet=links&property=last&property=_group&item=heidi:siteseernodes");
             hashmap1.put("_title", "testquery" + s);
@@ -658,7 +658,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
                 {
                     break;
                 }
-                jgl.HashMap hashmap2 = (jgl.HashMap)array.at(j);
+                HashMap hashmap2 = (HashMap)array.get(j);
                 if(COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_id").equals(request.getValue("queryid")))
                 {
                     i = j;
@@ -668,7 +668,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
             } while(true);
             if(i >= 0)
             {
-                hashmap = (jgl.HashMap)array.at(i);
+                hashmap = (HashMap)array.get(i);
             }
             hashmap.put("_id", "" + i);
             hashmap.put("_query", "property=stateString&property=category&propertySet=mainParameters&propertySet=links&property=_group&item=heidi:siteseernodes");
@@ -695,7 +695,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
 
     public void saveView()
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         array.add(new HashMapOrdered(true));
         String s = COM.dragonflow.SiteView.Platform.getRoot() + "/groups/views.config";
         try
@@ -709,7 +709,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         {
             COM.dragonflow.Log.LogManager.log("Error", "problem reading config file " + s + ": " + ioexception.getMessage());
         }
-        jgl.HashMap hashmap = (jgl.HashMap)array.at(0);
+        HashMap hashmap = (HashMap)array.get(0);
         String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_nextID");
         if(s1.length() == 0)
         {
@@ -739,7 +739,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         COM.dragonflow.SiteView.Portal.signalReload();
     }
 
-    public void savePages(COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap)
+    public void savePages(COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap)
     {
         String s = (String)hashmap.get("xslname");
         String s1 = s;
@@ -824,7 +824,7 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
         outputStream.println("Your Browser is currently: " + httprequest.getUserAgent() + "<br>" + "<a href=/SiteView/cgi/go.exe/SiteView?page=portal&view=" + (String)hashmap.get("xslname") + " target=finalview>Click here to see CentraScope View</a>");
     }
 
-    public String[] calculateXSLString(int i, int j, jgl.HashMap hashmap)
+    public String[] calculateXSLString(int i, int j, HashMap hashmap)
     {
         int k = 0;
         int l = 0;

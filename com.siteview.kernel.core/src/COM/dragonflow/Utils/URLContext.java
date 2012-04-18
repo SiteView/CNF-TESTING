@@ -22,8 +22,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 import org.apache.commons.httpclient.Cookie;
 
@@ -36,7 +36,7 @@ public class URLContext {
 
     private COM.dragonflow.SiteView.Monitor context;
 
-    private jgl.Array cookies;
+    private Array cookies;
 
     private String refererURL;
 
@@ -52,7 +52,7 @@ public class URLContext {
 
     private String errorContent;
 
-    private jgl.Array postData;
+    private Array postData;
 
     private StringBuffer contentBuffer;
 
@@ -84,11 +84,11 @@ public class URLContext {
         errorContent = s;
     }
 
-    public jgl.Array getPostData() {
+    public Array getPostData() {
         return postData;
     }
 
-    public void setPostData(jgl.Array array) {
+    public void setPostData(Array array) {
         postData = array;
     }
 
@@ -195,11 +195,11 @@ public class URLContext {
         encodePostData = s;
     }
 
-    public jgl.Array getCookies() {
+    public Array getCookies() {
         return cookies;
     }
 
-    public void setCookies(jgl.Array array) {
+    public void setCookies(Array array) {
         cookies = array;
     }
 
@@ -216,7 +216,7 @@ public class URLContext {
      * @param hashmap
      * @return
      */
-    private static boolean expiredCookie(jgl.HashMap hashmap) {
+    private static boolean expiredCookie(HashMap hashmap) {
         try {
             java.util.Date date;
             java.util.Date date1;
@@ -234,7 +234,7 @@ public class URLContext {
         return false;
     }
 
-    private jgl.Array addCookie(jgl.Array array, jgl.HashMap hashmap) {
+    private Array addCookie(Array array, HashMap hashmap) {
         boolean flag = false;
         if ((COM.dragonflow.StandardMonitor.URLMonitor.debugURL & COM.dragonflow.StandardMonitor.URLMonitor.kDebugCookie) != 0) {
             java.lang.Exception exception = new Exception();
@@ -250,7 +250,7 @@ public class URLContext {
             if (i >= array.size()) {
                 break;
             }
-            jgl.HashMap hashmap1 = (jgl.HashMap) array.at(i);
+            HashMap hashmap1 = (HashMap) array.get(i);
             if ((COM.dragonflow.StandardMonitor.URLMonitor.debugURL & COM.dragonflow.StandardMonitor.URLMonitor.kDebugCookie) != 0) {
                 COM.dragonflow.Log.LogManager.log("RunMonitor", "URLContext.addCookie() - OldCookie at(" + i + ")           key=" + hashmap1.get("key"));
                 COM.dragonflow.Log.LogManager.log("RunMonitor", "URLContext.addCookie() - OldCookie at(" + i + ")           value=" + hashmap1.get("value"));
@@ -297,12 +297,12 @@ public class URLContext {
         return array;
     }
 
-    public static void printCookie(jgl.Array array) {
+    public static void printCookie(Array array) {
         COM.dragonflow.Log.LogManager.log("RunMonitor", "URLContext.printCookie() START");
         java.lang.Exception exception = new Exception();
         COM.dragonflow.Log.LogManager.log("RunMonitor", "URLContext.printCookie(): " + COM.dragonflow.Utils.FileUtils.stackTraceText(exception));
         for (int i = 0; i < array.size(); i ++) {
-            jgl.HashMap hashmap = (jgl.HashMap) array.at(i);
+            HashMap hashmap = (HashMap) array.get(i);
             COM.dragonflow.Log.LogManager.log("RunMonitor", "URLContext.printCookie() - cookie at(" + i + ")           key=" + hashmap.get("key"));
             COM.dragonflow.Log.LogManager.log("RunMonitor", "URLContext.printCookie() - cookie at(" + i + ")           value=" + hashmap.get("value"));
             COM.dragonflow.Log.LogManager.log("RunMonitor", "URLContext.printCookie() - cookie at(" + i + ")           domain=" + hashmap.get("domain"));
@@ -313,7 +313,7 @@ public class URLContext {
 
     }
 
-    private static jgl.HashMap MakeCookie(COM.dragonflow.Utils.URLInfo urlinfo) {
+    private static HashMap MakeCookie(COM.dragonflow.Utils.URLInfo urlinfo) {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         if (urlinfo != null) {
             hashmapordered.put("domain", urlinfo.getHost());
@@ -333,14 +333,14 @@ public class URLContext {
         return hashmapordered;
     }
 
-    private void updateOrAddOneCookie(jgl.Array array, String s, String s1) {
+    private void updateOrAddOneCookie(Array array, String s, String s1) {
         if (COM.dragonflow.Utils.TextUtils.startsWithIgnoreCase(s, COM.dragonflow.StandardMonitor.URLMonitor.SET_COOKIE_HEADER)) {
             if ((COM.dragonflow.StandardMonitor.URLMonitor.debugURL & COM.dragonflow.StandardMonitor.URLMonitor.kDebugCookie) != 0) {
                 COM.dragonflow.Log.LogManager.log("RunMonitor", "parse-cookie, line=" + s + ", url=" + s1);
             }
             boolean flag = true;
             COM.dragonflow.Utils.URLInfo urlinfo = new URLInfo(s1);
-            jgl.HashMap hashmap = COM.dragonflow.Utils.URLContext.MakeCookie(urlinfo);
+            HashMap hashmap = COM.dragonflow.Utils.URLContext.MakeCookie(urlinfo);
             String as[] = COM.dragonflow.Utils.TextUtils.split(s.substring(COM.dragonflow.StandardMonitor.URLMonitor.SET_COOKIE_HEADER.length()).trim(), ";");
             for (int i = 0; i < as.length; i ++) {
                 as[i] = as[i].trim();
@@ -397,10 +397,10 @@ public class URLContext {
         } while (j != -1);
     }
 
-    public void addCookieParameters(jgl.Array array, String s) {
+    public void addCookieParameters(Array array, String s) {
         if (array != null) {
             String s1;
-            for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); updateOrAddOneCookie(cookies, s1, s)) {
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); updateOrAddOneCookie(cookies, s1, s)) {
                 s1 = (String) enumeration.nextElement();
             }
 
@@ -409,11 +409,11 @@ public class URLContext {
 
     public java.util.Vector getCookieHeader(String s) {
         java.util.Vector vector = new Vector();
-        jgl.HashMap hashmap = getCookies(s);
+        HashMap hashmap = getCookies(s);
         if (hashmap != null) {
-            Enumeration enumeration = cookies.elements();
+            Enumeration enumeration = (Enumeration) cookies.iterator();
             while (enumeration.hasMoreElements()) {
-                jgl.HashMap hashmap1 = (jgl.HashMap) enumeration.nextElement();
+                HashMap hashmap1 = (HashMap) enumeration.nextElement();
                 String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "key");
                 if (hashmap.get(s1) == hashmap1) {
                     String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "domain");
@@ -441,7 +441,7 @@ public class URLContext {
         return vector;
     }
 
-    private jgl.HashMap getCookies(String s) {
+    private HashMap getCookies(String s) {
         if ((COM.dragonflow.StandardMonitor.URLMonitor.debugURL & COM.dragonflow.StandardMonitor.URLMonitor.kDebugCookie) != 0) {
             COM.dragonflow.Log.LogManager.log("RunMonitor", "get-cookie=" + s);
         }
@@ -449,13 +449,13 @@ public class URLContext {
         if (cookies == null) {
             return null;
         }
-        Enumeration enumeration = cookies.elements();
-        jgl.HashMap hashmap = new HashMap();
+        Enumeration enumeration = (Enumeration) cookies.iterator();
+        HashMap hashmap = new HashMap();
         while (enumeration.hasMoreElements()) {
-            jgl.HashMap hashmap1 = (jgl.HashMap) enumeration.nextElement();
+            HashMap hashmap1 = (HashMap) enumeration.nextElement();
             if (!urlinfo.getProtocol().equalsIgnoreCase("http") || hashmap1.get("secure") == null) {
                 String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "key");
-                jgl.HashMap hashmap2 = (jgl.HashMap) hashmap.get(s1);
+                HashMap hashmap2 = (HashMap) hashmap.get(s1);
                 if (hashmap2 != null) {
                     if (COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "path").length() > COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "path").length()) {
                         hashmap.put(s1, hashmap1);

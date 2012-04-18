@@ -12,8 +12,8 @@ package COM.dragonflow.Page;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -52,10 +52,10 @@ public class setupPage extends COM.dragonflow.Page.CGI
         {
             outputStream.println("<b>Creating default monitors and groups ...</b><p>");
             outputStream.flush();
-            jgl.Array array = new Array();
-            jgl.Array array1 = new Array();
-            jgl.HashMap hashmap = new HashMap();
-            jgl.HashMap hashmap1 = new HashMap();
+            Array array = new Array();
+            Array array1 = new Array();
+            HashMap hashmap = new HashMap();
+            HashMap hashmap1 = new HashMap();
             int i = 0;
             char c = '\u0258';
             array.add("Examples");
@@ -122,7 +122,7 @@ public class setupPage extends COM.dragonflow.Page.CGI
                 String as[] = {
                     "init", "inetd", "ttymon"
                 };
-                jgl.Array array2 = COM.dragonflow.SiteView.Platform.processList();
+                Array array2 = COM.dragonflow.SiteView.Platform.processList();
                 int k = 0;
                 do
                 {
@@ -130,7 +130,7 @@ public class setupPage extends COM.dragonflow.Page.CGI
                     {
                         break;
                     }
-                    Enumeration enumeration2 = array2.elements();
+                    Enumeration enumeration2 =  (Enumeration) array2.iterator();
                     do
                     {
                         if(!enumeration2.hasMoreElements())
@@ -242,7 +242,7 @@ public class setupPage extends COM.dragonflow.Page.CGI
                 String as1[] = {
                     "IIS Admin", "World Wide Web", "Netscape", "FTP", "HTTP"
                 };
-                jgl.Array array3 = COM.dragonflow.SiteView.Platform.processList();
+                Array array3 = COM.dragonflow.SiteView.Platform.processList();
                 for(Enumeration enumeration1 = array3.elements(); enumeration1.hasMoreElements();)
                 {
                     String s2 = (String)enumeration1.nextElement();
@@ -269,11 +269,11 @@ public class setupPage extends COM.dragonflow.Page.CGI
                 String as2[] = {
                     "http", "ftp", "sendmail"
                 };
-                jgl.Array array4 = COM.dragonflow.SiteView.Platform.processList();
+                Array array4 = COM.dragonflow.SiteView.Platform.processList();
 label0:
                 for(int l = 0; l < as2.length; l++)
                 {
-                    Enumeration enumeration3 = array4.elements();
+                    Enumeration enumeration3 = (Enumeration) array4.iterator();
                     String s5;
                     do
                     {
@@ -565,12 +565,12 @@ label0:
             writeFrameFile(array1, "Database_Subgroup", "mg");
             outputStream.println("<p>Adding default daily and weekly reports...<p>");
             outputStream.flush();
-            jgl.Array array5 = new Array();
+            Array array5 = new Array();
             int i1 = 1;
             for(int j1 = 0; j1 < array.size(); j1++)
             {
-                array5.add(createDailyFrame(i1++, (String)array.at(j1)));
-                array5.add(createWeeklyFrame(i1++, (String)array.at(j1)));
+                array5.add(createDailyFrame(i1++, (String)array.get(j1)));
+                array5.add(createWeeklyFrame(i1++, (String)array.get(j1)));
             }
 
             writeFrameFile(array5, "history", "config");
@@ -588,12 +588,12 @@ label0:
 
     public void printBody()
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         try
         {
-            jgl.Array array1 = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "classes" + java.io.File.separator + "setup.config");
-            jgl.HashMap hashmap = (jgl.HashMap)array1.front();
+            Array array1 = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "classes" + java.io.File.separator + "setup.config");
+            HashMap hashmap = (HashMap)array1.front();
             if(request.isPost())
             {
                 if(request.getValue("licenseAccepted").length() > 0)
@@ -655,7 +655,7 @@ label0:
                     COM.dragonflow.SiteView.SiteViewGroup.SignalReload();
                     StringBuffer stringbuffer = COM.dragonflow.Utils.FileUtils.readCharFile(COM.dragonflow.SiteView.Platform.getRoot() + java.io.File.separator + "templates.view" + java.io.File.separator + (String)hashmap.get("_startupPage") + ".txt");
                     outputStream.println("\n" + stringbuffer.toString() + "\n");
-                    for(Enumeration enumeration = hashmap.values("_showWizardLink"); enumeration.hasMoreElements();)
+                    for(Enumeration enumeration = (Enumeration) hashmap.values("_showWizardLink"); enumeration.hasMoreElements();)
                     {
                         String s2 = (String)enumeration.nextElement();
                         String s3 = "COM.dragonflow.StandardMonitor." + s2 + "Monitor";
@@ -700,7 +700,7 @@ label0:
         }
     }
 
-    void writeFrameFile(jgl.Array array, String s, String s1)
+    void writeFrameFile(Array array, String s, String s1)
     {
         try
         {
@@ -760,7 +760,7 @@ label0:
         return s;
     }
 
-    void updateStatusPage(jgl.Array array)
+    void updateStatusPage(Array array)
     {
         outputStream.println("<p>Updating status pages and config file ...<p>");
         outputStream.flush();
@@ -771,7 +771,7 @@ label0:
             siteviewgroup.saveSettings();
             for(int i = 0; i < array.size(); i++)
             {
-                COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages((String)array.at(i));
+                COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages((String)array.get(i));
             }
 
             siteviewgroup.startingUp = false;
@@ -794,7 +794,7 @@ label0:
 
     jgl.HashMap createDailyFrame(int i, String s)
     {
-        jgl.HashMap hashmap = createHistoryFrame(i, s);
+        HashMap hashmap = createHistoryFrame(i, s);
         hashmap.add("window", String.valueOf(0x15180));
         hashmap.add("schedule", "weekday\tM,T,W,R,F,S,U\t01:00");
         return hashmap;
@@ -802,7 +802,7 @@ label0:
 
     jgl.HashMap createWeeklyFrame(int i, String s)
     {
-        jgl.HashMap hashmap = createHistoryFrame(i, s);
+        HashMap hashmap = createHistoryFrame(i, s);
         hashmap.add("window", String.valueOf(0x93a80));
         hashmap.add("schedule", "weekday\tU\t02:00");
         return hashmap;

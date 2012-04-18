@@ -67,7 +67,7 @@ public class ftpPage extends COM.dragonflow.Page.CGI
                 long l = COM.dragonflow.SiteView.Platform.timeMillis();
                 StringBuffer stringbuffer4 = new StringBuffer();
                 StringBuffer stringbuffer5 = new StringBuffer();
-                jgl.HashMap hashmap = getMasterConfig();
+                HashMap hashmap = getMasterConfig();
                 long l1 = -1L;
                 long l2 = COM.dragonflow.Utils.TextUtils.toLong(COM.dragonflow.Page.ftpPage.getValue(hashmap, "_ftpDownloadLimit"));
                 if(COM.dragonflow.Page.ftpPage.getValue(hashmap, "_urlContentMatchMax").length() > 0)

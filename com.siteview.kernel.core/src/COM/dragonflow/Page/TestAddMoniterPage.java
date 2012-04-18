@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 import COM.dragonflow.Api.APIMonitor;
 import COM.dragonflow.Api.SSInstanceProperty;

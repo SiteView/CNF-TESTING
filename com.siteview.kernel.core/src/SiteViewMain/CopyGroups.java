@@ -7,8 +7,8 @@ package SiteViewMain;
 import java.io.File;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.Utils.TextUtils;
 
@@ -74,7 +74,7 @@ public class CopyGroups
                     System.out.println("Working on file " + args1[j]);
                     File file1 = new File(file, args1[j]);
                     Array array = FrameFile.readFromFile(file1.getAbsolutePath());
-                    Enumeration enumeration = array.elements();
+                    Enumeration enumeration = (Enumeration) array.iterator();
                     int k = 0;
                     while(enumeration.hasMoreElements()) 
                     {

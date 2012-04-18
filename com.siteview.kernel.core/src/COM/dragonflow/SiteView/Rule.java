@@ -20,7 +20,7 @@ package COM.dragonflow.SiteView;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.Properties.StringProperty;
@@ -40,8 +40,8 @@ public class Rule extends SiteViewObject {
     public static final int kClassifierRuleGroup = 1;
     static final int kActionRuleGroup = 2;
     static String cRulePackages[] = { "COM.dragonflow.SiteView.", "COM.dragonflow.StandardAction.", "CustomAction." };
-    private static jgl.HashMap cCurrentActions = new jgl.HashMap();
-    static jgl.HashMap setting;
+    private static HashMap cCurrentActions = new jgl.HashMap();
+    static HashMap setting;
     private static int topazAlertsEnabled = 0;
     int ruleGroup;
     boolean stopOnMatch;
@@ -71,7 +71,7 @@ public class Rule extends SiteViewObject {
         }
     }
 
-    public static Rule createRule(jgl.HashMap hashmap) throws ClassNotFoundException, IllegalAccessException,
+    public static Rule createRule(HashMap hashmap) throws ClassNotFoundException, IllegalAccessException,
             InstantiationException {
         return (Rule) createObject(hashmap, false, cRulePackages);
     }
@@ -134,7 +134,7 @@ public class Rule extends SiteViewObject {
                         rule.includeFilter = new Array();
                         Array array = Platform.split(',', s1);
                         String s2;
-                        for (Enumeration en = array.elements(); en.hasMoreElements(); rule.includeFilter.add(s2)) {
+                        for (Enumeration en = (Enumeration) array.iterator(); en.hasMoreElements(); rule.includeFilter.add(s2)) {
                             s2 = (String) en.nextElement();
                             s2 = '/' + s2.replace(' ', '/') + '/';
                         }

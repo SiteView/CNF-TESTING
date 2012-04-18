@@ -14,8 +14,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.SiteView.SampleCollector;
 import COM.dragonflow.SiteView.SiteViewLogReader;
@@ -43,12 +43,12 @@ public class netuitivePage extends COM.dragonflow.Page.CGI
         for(Enumeration enumeration = request.getValues("id"); enumeration.hasMoreElements();)
         {
             String s = enumeration.nextElement().toString();
-            jgl.Array array = COM.dragonflow.Page.netuitivePage.stringToArray(s, ':');
+            Array array = COM.dragonflow.Page.netuitivePage.stringToArray(s, ':');
             if(array.size() == 3)
             {
-                String s1 = (String)array.at(0);
-                String s2 = (String)array.at(1);
-                String s3 = (String)array.at(2);
+                String s1 = (String)array.get(0);
+                String s2 = (String)array.get(1);
+                String s3 = (String)array.get(2);
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().getGroup(s1);
                 if(monitorgroup != null)
                 {
@@ -72,7 +72,7 @@ public class netuitivePage extends COM.dragonflow.Page.CGI
                                         int i = (int)((l4 - l3) / 1000L);
                                         java.util.Date date = new Date(l3);
                                         java.util.Date date1 = new Date(l4);
-                                        jgl.Array array1 = new Array();
+                                        Array array1 = new Array();
                                         COM.dragonflow.SiteView.SampleCollector samplecollector = new SampleCollector(monitor, stringproperty);
                                         array1.add(samplecollector);
                                         java.io.File file = new File(COM.dragonflow.SiteView.Platform.getDirectoryPath("logs", "administrator") + java.io.File.separator + "SiteView.log");
@@ -96,9 +96,9 @@ public class netuitivePage extends COM.dragonflow.Page.CGI
 
     }
 
-    public static jgl.Array stringToArray(String s, char c)
+    public static Array stringToArray(String s, char c)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         while(s.length() > 0) 
         {
             int i = s.indexOf(c);

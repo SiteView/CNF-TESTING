@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
@@ -80,11 +80,11 @@ public class groupPage extends COM.dragonflow.Page.CGI {
             printButtonBar("EditGroup.htm#how", "", menus1);
         }
         if (s1.length() != 0) {
-            jgl.HashMap hashmap = null;
+            HashMap hashmap = null;
             try {
-                jgl.Array array1 = ReadGroupFrames(s1);
-                Enumeration enumeration = array1.elements();
-                hashmap = (jgl.HashMap) enumeration.nextElement();
+                Array array1 = ReadGroupFrames(s1);
+                Enumeration enumeration =  (Enumeration) array1.iterator();
+                hashmap = (HashMap) enumeration.nextElement();
             } catch (IOException ioexception) {
                 System.out.println("***id: " + s1 + ", error: " + ioexception);
             }
@@ -96,9 +96,9 @@ public class groupPage extends COM.dragonflow.Page.CGI {
                 s5 = HTTPRequest.decodeString(COM.dragonflow.Utils.TextUtils
                         .getValue(hashmap, "_dependsOn"));
                 s6 = TextUtils.getValue(hashmap, "_dependsCondition");
-                jgl.Array array2 = TextUtils.getMultipleValues(hashmap,
+                Array array2 = TextUtils.getMultipleValues(hashmap,
                         "_description");
-                for (Enumeration enumeration1 = array2.elements(); enumeration1
+                for (Enumeration enumeration1 =  (Enumeration) array2.iterator(); enumeration1
                         .hasMoreElements();) {
                     s7 = s7 + enumeration1.nextElement() + "\n";
                 }
@@ -109,7 +109,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
         if (s2.length() > 0) {
             printErrorHeader();
         }
-        jgl.Array array = getAllowedGroupIDs();
+        Array array = getAllowedGroupIDs();
         String s12 = request.getValue("group");
         outputStream.println("<H2>");
         if (request.getValue("_health").length() == 0) {
@@ -172,7 +172,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
                     + ">Error</option>";
             if (COM.dragonflow.Page.treeControl.useTree()) {
                 StringBuffer stringbuffer = new StringBuffer();
-                jgl.Array array3 = new Array();
+                Array array3 = new Array();
                 if (s5.length() > 0) {
                     array3.add(s5);
                 }
@@ -243,7 +243,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
                 } else {
                     s1 = computeGroupName(s1);
                 }
-                jgl.Array array1 = new Array();
+                Array array1 = new Array();
                 HashMapOrdered hashmapordered = new HashMapOrdered(true);
                 if (!Platform.isStandardAccount(request.getAccount())) {
                     hashmapordered.put(MonitorGroup.pAccountName, request
@@ -254,14 +254,14 @@ public class groupPage extends COM.dragonflow.Page.CGI {
                     hashmapordered.put("_parent", COM.dragonflow.Page.groupPage
                             .getGroupIDRelative(s4));
                     try {
-                        jgl.Array array2 = ReadGroupFrames(s5);
-                        jgl.HashMap hashmap = (jgl.HashMap) array2.at(0);
+                        Array array2 = ReadGroupFrames(s5);
+                        HashMap hashmap = (HashMap) array2.get(0);
                         String s8 = COM.dragonflow.Utils.TextUtils.getValue(
                                 hashmap, "_nextID");
                         if (s8.length() == 0) {
                             s8 = "1";
                         }
-                        jgl.HashMap hashmap1 = new HashMap();
+                        HashMap hashmap1 = new HashMap();
                         hashmap1.put("_id", s8);
                         hashmap1.put("_class", "SubGroup");
                         hashmap1.put("_group", I18N
@@ -330,7 +330,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
         } else {
             int i = TextUtils.toInt(request.getPermission("_maximumGroups"));
             if (i > 0) {
-                jgl.Array array = getAllowedGroupIDs();
+                Array array = getAllowedGroupIDs();
                 if (array.size() >= i) {
                     printTooManyGroups(i);
                     return;
@@ -340,10 +340,10 @@ public class groupPage extends COM.dragonflow.Page.CGI {
         }
     }
 
-    String getMonitorOptions(String s, jgl.Array array, String s1)
+    String getMonitorOptions(String s, Array array, String s1)
             throws Exception {
         String s2 = "<option value=\"\">none";
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         String s3 = "";
         String s4 = "";
         if (s1.length() > 0) {
@@ -356,13 +356,13 @@ public class groupPage extends COM.dragonflow.Page.CGI {
         while (enumeration.hasMoreElements()) {
             String s5 = (String) enumeration.nextElement();
             if (!s5.equals(s)) {
-                jgl.Array array1 = ReadGroupFrames(s5);
+                Array array1 = ReadGroupFrames(s5);
                 Enumeration enumeration1 = COM.dragonflow.Page.groupPage
                         .getMonitors(array1);
                 enumeration1.nextElement();
                 String s6 = COM.dragonflow.Page.groupPage.getGroupFullName(s5);
                 while (enumeration1.hasMoreElements()) {
-                    jgl.HashMap hashmap = (jgl.HashMap) enumeration1
+                    HashMap hashmap = (HashMap) enumeration1
                             .nextElement();
                     if (!COM.dragonflow.Utils.TextUtils.getValue(hashmap,
                             "_class").equals("SubGroup")) {
@@ -382,7 +382,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
     }
 
     String getCharSetOptionsHTML(String s) {
-        jgl.HashMap hashmap = getMasterConfig();
+        HashMap hashmap = getMasterConfig();
         java.util.Vector vector = new Vector();
         String s2;
         for (Enumeration enumeration = hashmap
@@ -409,7 +409,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
     }
 
     String getMonitorTemplateOptionsHTML(String s) {
-        jgl.Array array = COM.dragonflow.Properties.PropertiedObject
+        Array array = COM.dragonflow.Properties.PropertiedObject
                 .getTemplateConfigFileList();
         if (array.size() == 0) {
             return "";
@@ -431,10 +431,10 @@ public class groupPage extends COM.dragonflow.Page.CGI {
         printFooter(outputStream);
     }
 
-    void updateDescription(jgl.HashMap hashmap, String s) {
+    void updateDescription(HashMap hashmap, String s) {
         hashmap.remove("_description");
-        jgl.Array array = COM.dragonflow.SiteView.Platform.split('\n', s);
-        for (Enumeration enumeration = array.elements(); enumeration
+        Array array = COM.dragonflow.SiteView.Platform.split('\n', s);
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration
                 .hasMoreElements(); hashmap.add("_description", enumeration
                 .nextElement())) {
         }
@@ -445,7 +445,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
         boolean flag = request.getValue("_health").length() > 0;
         if (request.isPost()) {
             if (flag && s2.equals("__Health__")) {
-                jgl.HashMap hashmap = new HashMap();
+                HashMap hashmap = new HashMap();
                 hashmap.put("_healthDisableLogging", request
                         .getValue("disableLogging"));
                 hashmap.put("_healthTemplateSet", request
@@ -469,9 +469,9 @@ public class groupPage extends COM.dragonflow.Page.CGI {
                         && !COM.dragonflow.Page.treeControl.notHandled(request)) {
                     printForm(s, s1, "a group must have a name");
                 } else {
-                    jgl.Array array = ReadGroupFrames(s2);
-                    Enumeration enumeration = array.elements();
-                    jgl.HashMap hashmap1 = (jgl.HashMap) enumeration
+                    Array array = ReadGroupFrames(s2);
+                    Enumeration enumeration = (Enumeration) array.iterator();
+                    HashMap hashmap1 = (HashMap) enumeration
                             .nextElement();
                     hashmap1.put("_name", s3);
                     hashmap1.put("_dependsOn", request.getValue("_dependsOn"));
@@ -505,10 +505,10 @@ public class groupPage extends COM.dragonflow.Page.CGI {
                             .toDefaultEncoding(COM.dragonflow.Utils.TextUtils
                                     .getValue(hashmap1, "_parent"));
                     if (s7.length() != 0) {
-                        jgl.Array array1 = ReadGroupFrames(s7);
+                        Array array1 = ReadGroupFrames(s7);
                         int j = COM.dragonflow.Page.groupPage.findSubGroupIndex(
                                 array1, s1);
-                        jgl.HashMap hashmap2 = (jgl.HashMap) array1.at(j);
+                        HashMap hashmap2 = (HashMap) array1.get(j);
                         hashmap2.put("_name", s3);
                         hashmap2.put("_encoding", COM.dragonflow.Utils.I18N
                                 .nullEncoding());
@@ -614,7 +614,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
     private void healthAttributes(boolean flag) {
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup
                 .currentSiteView();
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         String s = siteviewgroup.getSetting("_healthDisableLogging");
         if (flag) {
             s = s.length() <= 0 ? "CHECKED" : "";

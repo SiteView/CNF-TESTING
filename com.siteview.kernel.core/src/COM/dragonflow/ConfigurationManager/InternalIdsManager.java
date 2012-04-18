@@ -92,7 +92,7 @@ public class InternalIdsManager {
         vector3.addAll(vector1);
         vector3.addAll(vector2);
         groupByInternalIds(vector3, hashmap, hashset);
-        java.util.Collection collection = hashmap.values();
+        java.util.Collection collection =  hashmap.values();
         resolveDuplicateIds(collection, hashset);
         COM.dragonflow.Api.Alert.getInstance().updateAlertMap(vector2);
         if (hashset.size() > 0) {

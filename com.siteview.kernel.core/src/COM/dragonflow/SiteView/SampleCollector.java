@@ -19,7 +19,7 @@ package COM.dragonflow.SiteView;
  */
 import java.util.Date;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.PercentProperty;

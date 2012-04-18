@@ -8,6 +8,8 @@
  */
 package COM.dragonflow.Utils;
 
+import com.recursionsw.jgl.BinaryPredicate;
+
 /**
  * Comment for <code></code>
  * 
@@ -19,7 +21,7 @@ package COM.dragonflow.Utils;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // TextUtils
-public final class GreaterBrowsableCounterValue implements jgl.BinaryPredicate {
+public final class GreaterBrowsableCounterValue implements BinaryPredicate {
 
     public GreaterBrowsableCounterValue() {
     }

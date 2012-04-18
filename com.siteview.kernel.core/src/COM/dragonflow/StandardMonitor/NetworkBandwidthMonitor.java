@@ -16,8 +16,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 import org.apache.xerces.dom.DocumentImpl;
 import org.apache.xml.serialize.OutputFormat;
@@ -766,7 +766,7 @@ public class NetworkBandwidthMonitor extends BrowsableSNMPBase implements RealTi
         for (Enumeration enumeration = super.getStatePropertyObjects(flag); enumeration.hasMoreElements(); array.add(enumeration.nextElement())) {
         }
         getLogOrStateProperties(array);
-        return array.elements();
+        return (Enumeration) array.iterator();
     }
 
     public Array getProperties() {

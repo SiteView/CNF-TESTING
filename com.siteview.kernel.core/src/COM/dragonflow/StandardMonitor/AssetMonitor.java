@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.JdbcLogger;
 import COM.dragonflow.Log.LogManager;
@@ -313,13 +313,13 @@ public class AssetMonitor extends ServerMonitor {
         String s2 = "-1";
         Array array1 = Platform.split(' ', s1);
         if (array1.size() >= 1) {
-            Array array2 = Platform.split('=', (String) array1.at(0));
+            Array array2 = Platform.split('=', (String) array1.get(0));
             if (array2.size() == 2) {
-                s2 = (String) array2.at(1);
+                s2 = (String) array2.get(1);
             }
         }
         Array array3 = new Array();
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         boolean flag = false;
         while (enumeration.hasMoreElements()) {
             Object obj = enumeration.nextElement();
@@ -482,7 +482,7 @@ public class AssetMonitor extends ServerMonitor {
             LogManager.log("RunMonitor", "asset command=" + s1);
             LogManager.log("RunMonitor", " result=" + i);
             LogManager.log("RunMonitor", " machine=" + s);
-            for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", " output=" + enumeration.nextElement())) {
+            for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); LogManager.log("RunMonitor", " output=" + enumeration.nextElement())) {
             }
         }
     }
@@ -595,7 +595,7 @@ public class AssetMonitor extends ServerMonitor {
         if (commandline.getExitValue() != 0) {
             return commandline.getExitValue();
         }
-        Enumeration enumeration = array1.elements();
+        Enumeration enumeration =  (Enumeration) array1.iterator();
         int i = osadapter.getCommandSettingAsInteger("disks", "total");
         int j = osadapter.getCommandSettingAsInteger("disks", "name");
         int k = osadapter.getCommandSettingAsInteger("disks", "mount");
@@ -731,7 +731,7 @@ public class AssetMonitor extends ServerMonitor {
         if (commandline.getExitValue() != 0) {
             return commandline.getExitValue();
         }
-        Enumeration enumeration = array1.elements();
+        Enumeration enumeration =  (Enumeration) array1.iterator();
         int i = osadapter.getCommandSettingAsInteger("nicHost", "name");
         int j = osadapter.getCommandSettingAsInteger("nicHost", "host");
         HashMap hashmap = new HashMap();
@@ -764,7 +764,7 @@ public class AssetMonitor extends ServerMonitor {
         if (commandline.getExitValue() != 0) {
             return commandline.getExitValue();
         }
-        enumeration = array1.elements();
+        enumeration =  (Enumeration) array1.iterator();
         i = osadapter.getCommandSettingAsInteger("nic", "name");
         int k = osadapter.getCommandSettingAsInteger("nic", "address");
         linereader = new LineReader(array1, osadapter, "nic");
@@ -832,7 +832,7 @@ public class AssetMonitor extends ServerMonitor {
         } 
         
         Array array2;
-        for (Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements(); array.add(array2)) {
+        for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements(); array.add(array2)) {
             String s5 = (String) enumeration.nextElement();
             int i = s5.indexOf(s2);
             String s7 = s5.substring(0, i);
@@ -881,7 +881,7 @@ public class AssetMonitor extends ServerMonitor {
         }
         Array array = Platform.split('\n', s2);
 
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         while (enumeration.hasMoreElements()) {
             String s3 = (String) enumeration.nextElement();
             s3 = s3.trim();
@@ -893,16 +893,16 @@ public class AssetMonitor extends ServerMonitor {
                 if (array1.size() < 3) {
                     LogManager.log("Error", "bad rule, " + s3);
                 }
-                String s4 = (String) array1.at(0);
-                String s5 = (String) array1.at(1);
-                String s6 = (String) array1.at(2);
+                String s4 = (String) array1.get(0);
+                String s5 = (String) array1.get(1);
+                String s6 = (String) array1.get(2);
                 String s7 = "";
                 if (array1.size() >= 4) {
-                    s7 = (String) array1.at(3);
+                    s7 = (String) array1.get(3);
                 }
                 String s8 = "";
                 if (array1.size() >= 5) {
-                    s8 = (String) array1.at(4);
+                    s8 = (String) array1.get(4);
                 }
                 if (s5.equals("path")) {
                     CommandLine commandline = new CommandLine();
@@ -921,7 +921,7 @@ public class AssetMonitor extends ServerMonitor {
                     String s10;
                     String s11;
                     int i;
-                    Enumeration enumeration1 = array2.elements();
+                    Enumeration enumeration1 =  (Enumeration) array2.iterator();
                     while (enumeration1.hasMoreElements()) {
                         s10 = (String) enumeration1.nextElement();
                         s11 = "installed: ";
@@ -1059,7 +1059,7 @@ public class AssetMonitor extends ServerMonitor {
                 if (i != 0) {
                     stringbuffer.append(",");
                 }
-                stringbuffer.append(array.at(i));
+                stringbuffer.append(array.get(i));
             }
 
             LogManager.log("RunMonitor", "asset, adding " + s + " record, " + stringbuffer);
@@ -1156,12 +1156,12 @@ public class AssetMonitor extends ServerMonitor {
             linereader.processLine();
             String s2 = linereader.getCurrentLine();
             Array array1 = Platform.split(' ', s2);
-            hashmap.put("host_name", array1.at(1));
-            hashmap.put("machine_name", array1.at(5));
-            hashmap.put("os", array1.at(0));
-            hashmap.put("os_release", array1.at(2));
-            hashmap.put("os_name", array1.at(0));
-            hashmap.put("class", array1.at(4));
+            hashmap.put("host_name", array1.get(1));
+            hashmap.put("machine_name", array1.get(5));
+            hashmap.put("os", array1.get(0));
+            hashmap.put("os_release", array1.get(2));
+            hashmap.put("os_name", array1.get(0));
+            hashmap.put("class", array1.get(4));
             return 0;
         }
     }

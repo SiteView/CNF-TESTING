@@ -26,11 +26,11 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import jgl.Filtering;
-import jgl.HashMap;
-import jgl.Reversing;
-import jgl.Sorting;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Reversing;
+import com.recursionsw.jgl.algorithms.Sorting;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Log.DailyFileLogger;
@@ -266,7 +266,7 @@ public class MonitorGroup extends Monitor {
         if (Platform.isPortal()) {
             s2 = PortalSync.getPortalServerFromPath(s);
         }
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         if (enumeration.hasMoreElements()) {
             HashMap hashmap = (HashMap) enumeration.nextElement();
             hashmap.put("_id", s1);
@@ -310,7 +310,7 @@ public class MonitorGroup extends Monitor {
         if ((new File(s)).exists()) {
             try {
                 Array array = FrameFile.readFromFile(s);
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 while (enumeration.hasMoreElements()) {
                     HashMap hashmap = (HashMap) enumeration.nextElement();
                     String s1 = (String) hashmap.get("id");
@@ -338,7 +338,7 @@ public class MonitorGroup extends Monitor {
         array.add(getValuesTable());
         Array array1 = getElementsOfClass("COM.dragonflow.SiteView.Monitor", false);
         Monitor monitor;
-        for (Enumeration enumeration = array1.elements(); enumeration.hasMoreElements(); array.add(monitor.getValuesTable())) {
+        for (Enumeration enumeration =  (Enumeration) array1.iterator(); enumeration.hasMoreElements(); array.add(monitor.getValuesTable())) {
             monitor = (Monitor) enumeration.nextElement();
             monitor.setProperty("id", monitor.getProperty(pID));
         }
@@ -371,10 +371,10 @@ public class MonitorGroup extends Monitor {
                     rule = (Rule) enumeration.nextElement();
                 }
 
-                return array1.elements();
+                return  (Enumeration) array1.iterator();
             }
         }
-        return cEmptyArray.elements();
+        return cEmpty(Enumeration) array.iterator();
     }
 
     /**
@@ -589,7 +589,7 @@ public class MonitorGroup extends Monitor {
             String groupfile = Platform.getRoot() + File.separator + "groups" + File.separator + s + ".mg";
             try {
                 Array array = FrameFile.readFromFile(groupfile);
-                HashMap hashmap = (HashMap) array.at(0);
+                HashMap hashmap = (HashMap) array.get(0);
                 String s3 = (String) hashmap.get("_logInGroup");
                 if (s3 != null && s3.length() > 0) {
                     s1 = s;
@@ -796,7 +796,7 @@ public class MonitorGroup extends Monitor {
         }
         Array array = CGI.getGroupFilterForAccount(httprequest);
         String s3;
-        if (array.size() > 0 && !array.at(0).equals(httprequest.getAccount())) {
+        if (array.size() > 0 && !array.get(0).equals(httprequest.getAccount())) {
             s3 = CGI.getGroupFullName(I18N.toDefaultEncoding(getProperty(pID)));
         } else {
             s3 = CGI.getGroupFullLinks(this, httprequest);
@@ -1337,7 +1337,7 @@ public class MonitorGroup extends Monitor {
             s4 = s.substring(k + 7);
             printwriter.print("<TD>" + s.substring(0, k));
             HashMap hashmap = CGI.loadMasterConfig(httprequest);
-            Enumeration enumeration = hashmap.values("_monitorEditCustom");
+            Enumeration enumeration = (Enumeration) hashmap.values("_monitorEditCustom");
             while (enumeration.hasMoreElements()) {
                 String s7 = (String) enumeration.nextElement();
                 String as[] = TextUtils.split(s7, "|");
@@ -1365,7 +1365,7 @@ public class MonitorGroup extends Monitor {
     }
 
     static boolean isParentPresent(Array array, String s) {
-        for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements();) {
             String s1 = (String) enumeration.nextElement();
             if (CGI.isRelated(s, s1)) {
                 return true;
@@ -1396,7 +1396,7 @@ public class MonitorGroup extends Monitor {
                     getSubgroup(monitor, hashmap);
                 }
             }
-            enumeration = hashmap.keys();
+            enumeration = (Enumeration) hashmap.keys();
         }
 
         while (enumeration.hasMoreElements()) {
@@ -1547,7 +1547,7 @@ public class MonitorGroup extends Monitor {
             if (file2 != null && file2.exists()) {
                 Array array1 = FrameFile.readFromFile(file2.getAbsolutePath());
                 if (array1.size() > 0) {
-                    HashMap hashmap1 = (HashMap) array1.at(0);
+                    HashMap hashmap1 = (HashMap) array1.get(0);
                     hashmap = (HashMap) MasterConfig.getMasterConfig().clone();
                     String s4;
                     for (Enumeration enumeration1 = hashmap1.keys(); enumeration1.hasMoreElements(); hashmap.put(s4, hashmap1.get(s4))) {
@@ -1558,8 +1558,8 @@ public class MonitorGroup extends Monitor {
                 }
             }
             hashmap = (HashMap) MasterConfig.getMasterConfig().clone();
-            Machine.registerMachines(hashmap.values("_remoteMachine"));
-            Enumeration enumeration = hashmap.values("_urlLocation");
+            Machine.registerMachines((Enumeration) hashmap.values("_remoteMachine"));
+            Enumeration enumeration = (Enumeration) hashmap.values("_urlLocation");
             HTTPUtils.locations = new Array();
             if (enumeration.hasMoreElements()) {
                 String s2;
@@ -1574,7 +1574,7 @@ public class MonitorGroup extends Monitor {
             System.exit(0);
         }
         for (int k = 0; k < array.size(); k ++) {
-            String s1 = (String) array.at(k);
+            String s1 = (String) array.get(k);
             File file3 = new File(s1);
             String s3 = file3.getName();
             s3 = s3.substring(0, s3.lastIndexOf('.'));

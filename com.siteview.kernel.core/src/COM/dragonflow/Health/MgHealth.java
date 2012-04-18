@@ -20,7 +20,7 @@ package COM.dragonflow.Health;
 import java.io.File;
 import java.util.HashMap;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 // Referenced classes of package COM.dragonflow.Health:
 // FileBase
@@ -29,9 +29,9 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
 {
 
     private String mgFiles[];
-    private jgl.Array mgs;
+    private Array mgs;
     private java.util.HashMap groupsHM;
-    jgl.Array checks;
+    Array checks;
 
     public MgHealth()
     {
@@ -139,7 +139,7 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
         return "MgHealth";
     }
 
-    public jgl.Array errorCheck()
+    public Array errorCheck()
     {
         buildTree();
         checkORPHANGroups();
@@ -180,7 +180,7 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
         {
             try
             {
-                jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + groupsLocation + java.io.File.separator + mgFiles[l]);
+                Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Platform.getRoot() + groupsLocation + java.io.File.separator + mgFiles[l]);
                 mgs.add(array);
                 groupsHM.put(mgFiles[l], array);
                 continue;
@@ -197,12 +197,12 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
 
         for(int i1 = 0; i1 < mgFiles.length; i1++)
         {
-            jgl.Array array1 = (jgl.Array)mgs.at(i1);
+            Array array1 = (Array)mgs.get(i1);
             if(array1.size() <= 0)
             {
                 continue;
             }
-            jgl.HashMap hashmap = (jgl.HashMap)array1.at(0);
+            HashMap hashmap = (HashMap)array1.get(0);
             String s1 = (String)hashmap.get("_parent");
             if(s1 == null)
             {
@@ -229,11 +229,11 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
         return -1;
     }
 
-    public boolean fillTree(jgl.Array array, COM.dragonflow.Health.FileBase.HealthNode healthnode, jgl.Array array1)
+    public boolean fillTree(Array array, COM.dragonflow.Health.FileBase.HealthNode healthnode, Array array1)
     {
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+            HashMap hashmap = (HashMap)array.get(i);
             String s = checkSingleValue(healthnode, hashmap, "_id", "frame number: '" + i + "'");
             String s1 = checkSingleValue(healthnode, hashmap, "_class", s);
             checkSingleValue(healthnode, hashmap, "_name", s);
@@ -242,10 +242,10 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
             {
                 String s2 = checkSingleValue(healthnode, hashmap, "_group", s);
                 int j = nameToIndex(s2);
-                jgl.Array array2 = null;
+                Array array2 = null;
                 if(j >= 0 && j < array1.size())
                 {
-                    array2 = (jgl.Array)array1.at(j);
+                    array2 = (Array)array1.get(j);
                 }
                 String s3 = "ERROR, Group File: '" + healthnode.fileName + "' did not find sub-group file(_group=): '" + s2 + "' with ID: '" + s + "'";
                 COM.dragonflow.Health.FileBase.ErrorMessage errormessage = new FileBase.ErrorMessage("OrphanGroup", s3, healthnode.fileName);
@@ -276,9 +276,9 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
         return true;
     }
 
-    private String checkSingleValue(COM.dragonflow.Health.FileBase.HealthNode healthnode, jgl.HashMap hashmap, String s, String s1)
+    private String checkSingleValue(COM.dragonflow.Health.FileBase.HealthNode healthnode, HashMap hashmap, String s, String s1)
     {
-        jgl.Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, s);
+        Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, s);
         COM.dragonflow.Health.FileBase.ErrorMessage errormessage = null;
         String s2 = "Group File: " + healthnode.fileName + " blank '" + s + "' tag in frame with ID: '" + s1 + "'.";
         errormessage = new FileBase.ErrorMessage("OrphanGroup", s2, healthnode.fileName);
@@ -292,8 +292,8 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
             checkCondition(array.size() != 0, errormessage1);
             s3 = "Group File: " + healthnode.fileName + " blank '" + s + "' tag in frame with ID: '" + s1 + "'.";
             errormessage1 = new FileBase.ErrorMessage("OrphanGroup", s3, healthnode.fileName);
-            checkCondition(((String)array.at(0)).length() > 0, errormessage1);
-            return (String)array.at(0);
+            checkCondition(((String)array.get(0)).length() > 0, errormessage1);
+            return (String)array.get(0);
         } else
         {
             return "";
@@ -311,14 +311,14 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
             {
                 s1 = s.substring(0, l);
             }
-            jgl.Array array = (jgl.Array)mgs.at(i);
+            Array array = (Array)mgs.get(i);
             String s2 = "error.log MgHealth: Group: '" + s + "' file is empty; it has no lines.";
             COM.dragonflow.Health.FileBase.ErrorMessage errormessage = new FileBase.ErrorMessage("OrphanGroup", s2, s);
             if(!checkCondition(array.size() > 0, errormessage))
             {
                 continue;
             }
-            String s3 = COM.dragonflow.Utils.TextUtils.getValue((jgl.HashMap)array.at(0), "_parent");
+            String s3 = COM.dragonflow.Utils.TextUtils.getValue((HashMap)array.get(0), "_parent");
             if(s3.length() <= 0 || hasNode(s))
             {
                 continue;
@@ -328,12 +328,12 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
             errormessage = new FileBase.ErrorMessage("OrphanGroup", s2, s);
             checkCondition(obj != null, errormessage);
             boolean flag = false;
-            if(!(obj instanceof jgl.Array))
+            if(!(obj instanceof Array))
             {
                 continue;
             }
-            jgl.Array array1 = new Array();
-            array1 = (jgl.Array)obj;
+            Array array1 = new Array();
+            array1 = (Array)obj;
             int i1 = 0;
             do
             {
@@ -341,7 +341,7 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
                 {
                     break;
                 }
-                jgl.HashMap hashmap = (jgl.HashMap)array1.at(i1);
+                HashMap hashmap = (HashMap)array1.get(i1);
                 String s4 = (String)hashmap.get("_group");
                 if(s4 != null && s4.equals(s1))
                 {
@@ -360,10 +360,10 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
 
         for(int j = 0; j < tree.size(); j++)
         {
-            COM.dragonflow.Health.FileBase.HealthNode healthnode = (COM.dragonflow.Health.FileBase.HealthNode)tree.at(j);
+            COM.dragonflow.Health.FileBase.HealthNode healthnode = (COM.dragonflow.Health.FileBase.HealthNode)tree.get(j);
             for(int k = 0; k < healthnode.children.size(); k++)
             {
-                checkParentChild(healthnode, (COM.dragonflow.Health.FileBase.HealthNode)healthnode.children.at(k));
+                checkParentChild(healthnode, (COM.dragonflow.Health.FileBase.HealthNode)healthnode.children.get(k));
             }
 
         }
@@ -372,9 +372,9 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
 
     private void checkParentChild(COM.dragonflow.Health.FileBase.HealthNode healthnode, COM.dragonflow.Health.FileBase.HealthNode healthnode1)
     {
-        jgl.Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues((jgl.HashMap)getAt(healthnode.frames, healthnode1.parentFrameIndex, "jgl.HashMap"), "_name");
+        Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues((HashMap)getAt(healthnode.frames, healthnode1.parentFrameIndex, "jgl.HashMap"), "_name");
         String s = (String)getAt(array, 0, "String");
-        jgl.Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues((jgl.HashMap)getAt(healthnode1.frames, 0, "jgl.HashMap"), "_name");
+        Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues((HashMap)getAt(healthnode1.frames, 0, "jgl.HashMap"), "_name");
         String s1 = (String)getAt(array1, 0, "String");
         boolean flag = s1.equals("config");
         boolean flag1 = s1.equals(s);
@@ -384,7 +384,7 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
         checkCondition(flag && flag2 || flag1, errormessage);
         for(int i = 0; i < healthnode1.children.size(); i++)
         {
-            checkParentChild(healthnode1, (COM.dragonflow.Health.FileBase.HealthNode)healthnode1.children.at(i));
+            checkParentChild(healthnode1, (COM.dragonflow.Health.FileBase.HealthNode)healthnode1.children.get(i));
         }
 
     }
@@ -404,7 +404,7 @@ public class MgHealth extends COM.dragonflow.Health.FileBase
         }
     }
 
-    public boolean addMonitorNames(jgl.HashMap hashmap, String s)
+    public boolean addMonitorNames(HashMap hashmap, String s)
     {
         int i = s.lastIndexOf(".mg");
         String s1 = s.substring(0, i);

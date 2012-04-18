@@ -6,8 +6,8 @@ package SiteViewMain;
 
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.StandardMonitor.URLMonitor;
 import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.SocketSession;
@@ -90,7 +90,7 @@ public class CLI extends Thread
 
         if(globals != null)
         {
-            Enumeration enumeration = globals.keys();
+            Enumeration enumeration = (Enumeration) globals.keys();
             do
             {
                 if(!enumeration.hasMoreElements())
@@ -205,7 +205,7 @@ public class CLI extends Thread
             stringbuffer.append("sending request...\n url=" + s9 + "\n");
         Array array = new Array();
         array.add("page=" + s8);
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         do
         {
             if(!enumeration.hasMoreElements())

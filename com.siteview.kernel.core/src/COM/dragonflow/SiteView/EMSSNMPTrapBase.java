@@ -20,7 +20,7 @@ package COM.dragonflow.SiteView;
 import java.io.File;
 import java.util.Observer;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.PropertiedObject;
 import COM.dragonflow.Properties.StringProperty;

@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.StandardMonitor.URLMonitor;
@@ -200,7 +200,7 @@ public class PortalSync {
                     }
                 }
 
-                for (Enumeration enumeration = hashmap.keys(); enumeration
+                for (Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration
                         .hasMoreElements();) {
                     String s4 = (String) enumeration.nextElement();
                     l = deleteFile(portalsiteview, s4);

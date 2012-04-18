@@ -17,7 +17,7 @@ package COM.dragonflow.SiteView;
  * 
  * 
  */
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 
 // Referenced classes of package COM.dragonflow.SiteView:
@@ -123,7 +123,7 @@ class ServerControlThread extends Thread {
         HashMap hashmap = null;
         if (Server.serversCache != null
                 && nextServer < Server.serversCache.size()) {
-            hashmap = (HashMap) Server.serversCache.at(nextServer);
+            hashmap = (HashMap) Server.serversCache.get(nextServer);
             nextServer++;
         }
         return hashmap;

@@ -21,8 +21,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Enumeration;
 
-import jgl.Array;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NTCredentials;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -30,6 +28,9 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 
 import COM.datachannel.xml.om.Document;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // RawXmlWriter, XSLUtils, TextUtils
@@ -98,11 +99,11 @@ public class SoapRpc
     private String getFaultString(org.w3c.dom.Node node)
     {
         String s = "";
-        jgl.Array array = new Array();
+        Array array = new Array();
         try
         {
             COM.dragonflow.Utils.XSLUtils.findElements(node, SOAPENV_EL + "." + SOAPBODY_EL + "." + SOAPFAULT_EL, array);
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             while (enumeration.hasMoreElements()) {
                 org.w3c.dom.Node node1 = (org.w3c.dom.Node)enumeration.nextElement();
                 if(node1.getNodeName().equals(SOAPFAULT_EL))
@@ -127,14 +128,14 @@ public class SoapRpc
 
     private String getAttrValue(org.w3c.dom.Node node, String s, String s1, StringBuffer stringbuffer)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s2 = null;
         try
         {
             if(s.length() > 0)
             {
                 COM.dragonflow.Utils.XSLUtils.findElements(node, s, array);
-                Enumeration enumeration = array.elements();
+                Enumeration enumeration = (Enumeration) array.iterator();
                 org.w3c.dom.Node node1 = (org.w3c.dom.Node)enumeration.nextElement();
                 s2 = ((COM.datachannel.xml.om.Element)node1).getAttribute(s1);
             } else
@@ -228,7 +229,7 @@ public class SoapRpc
         char c = '\310';
         httpclient = new HttpClient();
         getmethod = new GetMethod(s);
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_URLUserAgent");
         
         int i;
@@ -351,7 +352,7 @@ public class SoapRpc
         httpclient.getState().setAuthenticationPreemptive(true);
         if(s1 == null || s1.length() == 0)
         {
-            jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
             s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_defaultAuthUsername");
             if(s1.length() > 0)
             {

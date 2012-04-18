@@ -25,7 +25,7 @@ public class portalUserPrefsPage extends COM.dragonflow.Page.userPrefsPage
         return "UserPrefs.htm";
     }
 
-    void printAccessFields(String s, jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printAccessFields(String s, HashMap hashmap, HashMap hashmap1)
         throws java.lang.Exception
     {
         String s1;
@@ -39,13 +39,13 @@ public class portalUserPrefsPage extends COM.dragonflow.Page.userPrefsPage
         String s2 = "Query";
         String s3 = "</TD></TR><TR><TD><FONT SIZE=-1>optional, restrict access to the selected items - the default allows access to all items</FONT></TD></TR>";
         COM.dragonflow.Page.portalChooserPage.printQueryChooseList(outputStream, request, s2, s3, s1);
-        jgl.Array array = COM.dragonflow.SiteView.Portal.getParentViewArray();
+        Array array = COM.dragonflow.SiteView.Portal.getParentViewArray();
         outputStream.println("<TR><TD ALIGN=RIGHT>Home View</TD><TD><TABLE><TR><TD ALIGN=LEFT><select size=1 name=_homeView>" + COM.dragonflow.Page.portalUserPrefsPage.getOptionsHTML(array, COM.dragonflow.Page.portalUserPrefsPage.getValue(hashmap1, "_homeView")) + "</SELECT></TD></TR>" + "<TR><TD><FONT SIZE=-1>the home view (front page) for this user</FONT></TD></TR>" + "</TABLE></TD><TD></TD></TR>");
-        jgl.Array array1 = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray("Bar", true);
+        Array array1 = COM.dragonflow.SiteView.Portal.getEditableViewContentsArray("Bar", true);
         outputStream.println("<TR><TD ALIGN=RIGHT>Top Bar</TD><TD><TABLE><TR><TD ALIGN=LEFT><select size=1 name=_buttonBar>" + COM.dragonflow.Page.portalUserPrefsPage.getOptionsHTML(array1, COM.dragonflow.Page.portalUserPrefsPage.getValue(hashmap1, "_buttonBar")) + "</SELECT></TD></TR>" + "<TR><TD><FONT SIZE=-1>the top function bar for this user on portal generated pages</FONT></TD></TR>" + "</TABLE></TD><TD></TD></TR>");
     }
 
-    void printPermissionsCheckBoxes(boolean flag, jgl.HashMap hashmap)
+    void printPermissionsCheckBoxes(boolean flag, HashMap hashmap)
     {
         printOption(flag, hashmap, "Edit Groups", "_groupEdit", "add, rename, copy, or delete groups");
         printOption(flag, hashmap, "Edit Monitors", "_monitorEdit", "add, edit, or delete monitors");

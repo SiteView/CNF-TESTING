@@ -20,8 +20,8 @@ package COM.dragonflow.StandardMonitor;
 
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteView.*;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class SybaseMonitor extends BrowsableMdrvBase
 {
@@ -100,7 +100,7 @@ public class SybaseMonitor extends BrowsableMdrvBase
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for(int i = 0; i < array.size(); i++)
         {
-            astringproperty[i] = (StringProperty)array.at(i);
+            astringproperty[i] = (StringProperty)array.get(i);
         }
 
         String s = (COM.dragonflow.StandardMonitor.SybaseMonitor.class).getName();

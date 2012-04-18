@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // portalChooserPage
@@ -27,8 +27,8 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
     private static String ACTION_NAMES[] = {
         "Enable", "Disable", "Refresh", "Replace"
     };
-    private static jgl.HashMap EXCLUDE_MAP;
-    private jgl.HashMap groups;
+    private static HashMap EXCLUDE_MAP;
+    private HashMap groups;
 
     public portalManagePage()
     {
@@ -48,7 +48,7 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
         printButton(printwriter, "Replace", "#replace", "Replace values in the selected groups and monitors");
     }
 
-    protected void handlePost(String s, jgl.Array array, jgl.Array array1, jgl.Array array2)
+    protected void handlePost(String s, Array array, Array array1, Array array2)
         throws java.lang.Exception
     {
         printRefreshHeader(s + " Items", getReturnURL(), 10);
@@ -81,7 +81,7 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
             {
                 printProgressMessage(byte0 + " monitor" + (array2.size() <= 1 ? "" : "s") + "<BR>");
                 COM.dragonflow.SiteView.AtomicMonitor atomicmonitor;
-                for(Enumeration enumeration = array2.elements(); enumeration.hasMoreElements(); modifyMonitor(atomicmonitor, byte0, as))
+                for(Enumeration enumeration =  (Enumeration) array2.iterator(); enumeration.hasMoreElements(); modifyMonitor(atomicmonitor, byte0, as))
                 {
                     atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)enumeration.nextElement();
                 }
@@ -91,7 +91,7 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
             {
                 printProgressMessage(byte0 + " group" + (array1.size() <= 1 ? "" : "s") + "<BR>");
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup;
-                for(Enumeration enumeration1 = array1.elements(); enumeration1.hasMoreElements(); modifyGroup(monitorgroup, byte0, as))
+                for(Enumeration enumeration1 =  (Enumeration) array1.iterator(); enumeration1.hasMoreElements(); modifyGroup(monitorgroup, byte0, as))
                 {
                     monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)enumeration1.nextElement();
                 }
@@ -252,10 +252,10 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
         return as;
     }
 
-    private jgl.Array getGroupFrames(String s)
+    private Array getGroupFrames(String s)
         throws java.lang.Exception
     {
-        jgl.Array array = (jgl.Array)groups.get(s);
+        Array array = (Array)groups.get(s);
         if(array == null)
         {
             array = ReadGroupFrames(s);
@@ -276,7 +276,7 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
                 break;
             }
             String s = (String)enumeration.nextElement();
-            jgl.Array array = (jgl.Array)groups.get(s);
+            Array array = (Array)groups.get(s);
             if(array != null)
             {
                 printProgressMessage("Saving group configuration for " + COM.dragonflow.Page.portalManagePage.getGroupName(array, s) + "<BR>");
@@ -328,8 +328,8 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
             }
             String s1 = s.substring(0, j);
             String s2 = s.substring(j + 1);
-            jgl.Array array = getGroupFrames(s1);
-            jgl.HashMap hashmap = COM.dragonflow.Page.portalManagePage.findMonitor(array, s2);
+            Array array = getGroupFrames(s1);
+            HashMap hashmap = COM.dragonflow.Page.portalManagePage.findMonitor(array, s2);
             printProgressMessage(ACTION_NAMES[i] + " " + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_name") + "<BR>");
             if(i == 1)
             {
@@ -356,7 +356,7 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
     private void modifyGroup(String s, int i, String as[])
         throws java.lang.Exception
     {
-        jgl.Array array = getGroupFrames(s);
+        Array array = getGroupFrames(s);
         String s1 = COM.dragonflow.Page.portalManagePage.getGroupName(array, s);
         if(debug)
         {
@@ -365,7 +365,7 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
         printProgressMessage(ACTION_NAMES[i] + " " + s1 + " Group<BR>");
         for(int j = 1; j < array.size(); j++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(j);
+            HashMap hashmap = (HashMap)array.get(j);
             String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class");
             if(s2.equals("SubGroup"))
             {

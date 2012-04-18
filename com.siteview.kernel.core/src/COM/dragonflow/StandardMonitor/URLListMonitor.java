@@ -26,8 +26,8 @@ import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.TextUtils;
 
 import java.io.File;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.StandardMonitor:
 //            URLList, URLMonitor

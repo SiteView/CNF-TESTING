@@ -9,7 +9,7 @@
  */
 package COM.dragonflow.Page;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.SiteView.User;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -27,7 +27,7 @@ public class accountPrefsPage extends COM.dragonflow.Page.prefsPage
         String s = "";
         try
         {
-            jgl.HashMap hashmap = getSettings();
+            HashMap hashmap = getSettings();
             COM.dragonflow.SiteView.User user = request.getUser();
             if(user != null)
             {
@@ -52,10 +52,10 @@ public class accountPrefsPage extends COM.dragonflow.Page.prefsPage
                 if(s.length() == 0)
                 {
                     COM.dragonflow.SiteView.User user1 = new User();
-                    jgl.Array array = user.getImmediateProperties();
+                    Array array = user.getImmediateProperties();
                     for(int i = 0; i < array.size(); i++)
                     {
-                        COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.at(i);
+                        COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.get(i);
                         user1.setProperty(stringproperty, user.getProperty(stringproperty));
                     }
 
@@ -64,14 +64,14 @@ public class accountPrefsPage extends COM.dragonflow.Page.prefsPage
                     user1.setProperty(COM.dragonflow.SiteView.User.pPassword, s2);
                     user1.setProperty(COM.dragonflow.SiteView.User.pEmail, request.getValue("contactEmail"));
                     java.lang.Object obj = hashmap.get("_user");
-                    jgl.Array array1 = new Array();
+                    Array array1 = new Array();
                     array1.add(COM.dragonflow.Utils.TextUtils.hashMapToString(user1.getValuesTable()));
-                    if(obj != null && (obj instanceof jgl.Array))
+                    if(obj != null && (obj instanceof Array))
                     {
-                        jgl.Array array2 = (jgl.Array)obj;
+                        Array array2 = (Array)obj;
                         for(int j = 1; j < array2.size(); j++)
                         {
-                            array1.add(array2.at(j));
+                            array1.add(array2.get(j));
                         }
 
                     }
@@ -166,7 +166,7 @@ public class accountPrefsPage extends COM.dragonflow.Page.prefsPage
         {
             s7 = "To subscribe to SiteSeer, <a href=" + COM.dragonflow.SiteView.Platform.homeURLPrefix + "/OrderOpts.htm>order online</a>, call us toll-free at " + COM.dragonflow.SiteView.Platform.salesPhone + "\n" + "or send e-mail to <a href=mailto:" + COM.dragonflow.SiteView.Platform.salesEmail + ">" + COM.dragonflow.SiteView.Platform.salesEmail + "</a>.";
         }
-        jgl.HashMap hashmap = monitorgroup.getValuesTable();
+        HashMap hashmap = monitorgroup.getValuesTable();
         long al[] ;//= COM.dragonflow.Page.siteseerAdminPage.getDays(hashmap);
         // XXX COM.dragonflow.Page.siteseerAdminPage class does not exist.
         long l = 0;// = al[1];

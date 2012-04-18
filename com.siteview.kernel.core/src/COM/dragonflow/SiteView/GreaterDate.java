@@ -19,7 +19,7 @@ package COM.dragonflow.SiteView;
  */
 import java.util.Date;
 
-import jgl.BinaryPredicate;
+import com.recursionsw.jgl.BinaryPredicate;
 
 public final class GreaterDate implements BinaryPredicate {
 

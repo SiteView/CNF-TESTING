@@ -21,13 +21,13 @@ import java.io.StringReader;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.HashMap;
-
 import org.xml.sax.InputSource;
 
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.XmlApi:
 // XmlApiRequest, XmlApiObject
@@ -98,7 +98,7 @@ public class XmlApiRequestXML extends XmlApiRequest {
         if (node.getNodeType() == 1) {
             String s = node.getNodeName();
             if (s != null && s.length() > 0) {
-                jgl.HashMap hashmap = new HashMap();
+                HashMap hashmap = new HashMap();
                 org.w3c.dom.NamedNodeMap namednodemap = node.getAttributes();
                 for (int i = 0; i < namednodemap.getLength(); i ++) {
                     org.w3c.dom.Attr attr = (org.w3c.dom.Attr) namednodemap.item(i);
@@ -215,19 +215,19 @@ public class XmlApiRequestXML extends XmlApiRequest {
     private void addXmlElement(XmlApiObject xmlapiobject) {
         startXmlElement(xmlapiobject.getName(), xmlapiobject.getProperties(false));
         XmlApiObject xmlapiobject1;
-        for (Enumeration enumeration = xmlapiobject.elements(); enumeration.hasMoreElements(); endXmlElement(xmlapiobject1)) {
+        for (Enumeration enumeration = (Enumeration) xmlapiobject.iterator(); enumeration.hasMoreElements(); endXmlElement(xmlapiobject1)) {
             xmlapiobject1 = (XmlApiObject) enumeration.nextElement();
             addXmlElement(xmlapiobject1);
         }
 
     }
 
-    private void startXmlElement(String s, jgl.HashMap hashmap) {
+    private void startXmlElement(String s, HashMap hashmap) {
         boolean flag = false;
         Vector vector = null;
         xmlResponse.append("<" + s);
         if (hashmap != null) {
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             while (enumeration.hasMoreElements()) {
                 String s1 = enumeration.nextElement().toString();
                 java.lang.Object obj = hashmap.get(s1);

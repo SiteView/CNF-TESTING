@@ -12,7 +12,7 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Utils.HTMLTagParser;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -355,7 +355,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
             {
                 break;
             }
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             String s = new String("");
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "http-equiv").equalsIgnoreCase("refresh"))
             {
@@ -375,7 +375,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
         String s;
         for(; enumeration.hasMoreElements(); vector.addElement(s.length() <= displayMax ? ((java.lang.Object) (s)) : ((java.lang.Object) (s.substring(0, displayMax - 1)))))
         {
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "name").trim();
             if(s.length() == 0)
             {
@@ -387,7 +387,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
         String s1;
         for(; enumeration1.hasMoreElements(); vector.addElement(s1.length() <= displayMax ? ((java.lang.Object) (s1)) : ((java.lang.Object) (s1.substring(0, displayMax - 1)))))
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)enumeration1.nextElement();
+            HashMap hashmap1 = (HashMap)enumeration1.nextElement();
             s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "name").trim();
             if(s1.length() == 0)
             {
@@ -411,7 +411,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
                 break;
             }
             i++;
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "name").trim();
             if(s.length() == 0)
             {
@@ -436,7 +436,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
                 String s2 = "";
                 String s5 = "";
                 String s7 = "";
-                jgl.HashMap hashmap1 = (jgl.HashMap)enumeration1.nextElement();
+                HashMap hashmap1 = (HashMap)enumeration1.nextElement();
                 String s8 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "tag");
                 if(s8.equals("select"))
                 {
@@ -449,7 +449,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
                         {
                             break;
                         }
-                        jgl.HashMap hashmap2 = (jgl.HashMap)enumeration2.nextElement();
+                        HashMap hashmap2 = (HashMap)enumeration2.nextElement();
                         if(s12 == null)
                         {
                             s12 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "value");
@@ -555,7 +555,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
         String s;
         for(Enumeration enumeration = htmltagparser.findTags("a"); enumeration.hasMoreElements(); vector.addElement(s.length() <= displayMax ? ((java.lang.Object) (s)) : ((java.lang.Object) (s.substring(0, displayMax - 1)))))
         {
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "contents").trim();
             vector.addElement(s);
         }
@@ -563,7 +563,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
         String s1;
         for(Enumeration enumeration1 = htmltagparser.findTags("area"); enumeration1.hasMoreElements(); vector.addElement(s1.length() <= displayMax ? ((java.lang.Object) (s1)) : ((java.lang.Object) (s1.substring(0, displayMax - 1)))))
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)enumeration1.nextElement();
+            HashMap hashmap1 = (HashMap)enumeration1.nextElement();
             s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "contents").trim();
             if(s1.length() == 0 || s1.toLowerCase().lastIndexOf("<img") >= 0)
             {
@@ -582,7 +582,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
         StringBuffer stringbuffer1 = new StringBuffer();
         boolean flag = false;
         COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = null;
-        jgl.Array array3 = null;
+        Array array3 = null;
         String s = request.getValue("group");
         String s1 = COM.dragonflow.Utils.I18N.toDefaultEncoding(s);
         String s2 = COM.dragonflow.Utils.I18N.getDefaultEncoding();
@@ -601,7 +601,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
             siteviewgroup.saveSettings();
             COM.dragonflow.SiteView.MasterConfig.clearConfigCache();
         }
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         if(s.length() > 0)
         {
             array3 = ReadGroupFrames(s);
@@ -622,7 +622,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
         int i = COM.dragonflow.StandardMonitor.URLSequenceMonitor.numberOfSteps;
         if(s11.equals(request.getValue("class")))
         {
-            int j = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue((jgl.HashMap)array3.at(0), "_URLRemoteSequenceMonitorSteps"));
+            int j = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue((HashMap)array3.get(0), "_URLRemoteSequenceMonitorSteps"));
             if(j <= COM.dragonflow.StandardMonitor.URLSequenceMonitor.numberOfSteps && j != 0)
             {
                 i = j;
@@ -660,8 +660,8 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
         if(!request.getValue("operation").equals("Add") && request.getValue("group").length() > 0)
         {
             atomicmonitor = COM.dragonflow.SiteView.AtomicMonitor.MonitorCreate(array3, request.getValue("id"), request.getPortalServer());
-            jgl.Array array = atomicmonitor.getProperties();
-            Enumeration enumeration = array.elements();
+            Array array = atomicmonitor.getProperties();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())
@@ -778,8 +778,8 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
                     }
                 }
             }
-            jgl.Array array1 = atomicmonitor.getProperties();
-            Enumeration enumeration1 = array1.elements();
+            Array array1 = atomicmonitor.getProperties();
+            Enumeration enumeration1 =  (Enumeration) array1.iterator();
             do
             {
                 if(!enumeration1.hasMoreElements())
@@ -883,7 +883,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
                 atomicmonitor.setProperty(stringproperty1, s19);
                 request.setValue(stringproperty1.getName(), s19);
             } while(true);
-            jgl.HashMap hashmap2 = new HashMap();
+            HashMap hashmap2 = new HashMap();
             super.saveThresholds(atomicmonitor, request, hashmap2);
             StringBuffer stringbuffer2 = new StringBuffer();
             StringBuffer stringbuffer4 = new StringBuffer();
@@ -1167,10 +1167,10 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
             outputStream.print("<TR><TD></TD><TD></TD><TD>Choose <b>Add Step</b> to add this step and go on to the next step in the sequence");
         }
         outputStream.println("</table><p><HR><p><table>");
-        jgl.HashMap hashmap1 = new HashMap();
+        HashMap hashmap1 = new HashMap();
         boolean flag1 = false;
-        jgl.Array array2 = COM.dragonflow.Properties.StringProperty.sortByOrder(atomicmonitor.getProperties());
-        Enumeration enumeration2 = array2.elements();
+        Array array2 = COM.dragonflow.Properties.StringProperty.sortByOrder(atomicmonitor.getProperties());
+        Enumeration enumeration2 =  (Enumeration) array2.iterator();
         do
         {
             if(!enumeration2.hasMoreElements())
@@ -1187,7 +1187,7 @@ public class tranWizardPage extends COM.dragonflow.Page.monitorPage
         outputStream.println("<P><HR><CENTER><B>Advanced Settings</B></CENTER><P>");
         outputStream.println("<TABLE>");
         array2 = COM.dragonflow.Properties.StringProperty.sortByOrder(atomicmonitor.getProperties());
-        enumeration2 = array2.elements();
+        enumeration2 =  (Enumeration) array2.iterator();
         do
         {
             if(!enumeration2.hasMoreElements())

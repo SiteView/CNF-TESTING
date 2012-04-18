@@ -34,11 +34,11 @@ public class Sound extends COM.dragonflow.SiteView.Action
     {
     }
 
-    public void initializeFromArguments(jgl.Array array, jgl.HashMap hashmap)
+    public void initializeFromArguments(Array array, HashMap hashmap)
     {
         if(array.size() > 0)
         {
-            setProperty(pSound, array.at(0));
+            setProperty(pSound, array.get(0));
         }
     }
 
@@ -64,12 +64,12 @@ public class Sound extends COM.dragonflow.SiteView.Action
         return stringbuffer.toString();
     }
 
-    public boolean defaultsAreSet(jgl.HashMap hashmap)
+    public boolean defaultsAreSet(HashMap hashmap)
     {
         return true;
     }
 
-    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, jgl.HashMap hashmap)
+    public String verify(COM.dragonflow.Properties.StringProperty stringproperty, String s, COM.dragonflow.HTTP.HTTPRequest httprequest, HashMap hashmap)
     {
         return super.verify(stringproperty, s, httprequest, hashmap);
     }
@@ -184,7 +184,7 @@ public class Sound extends COM.dragonflow.SiteView.Action
         COM.dragonflow.StandardAction.Sound.setClassProperty("COM.dragonflow.StandardAction.Sound", "name", "Sound");
         COM.dragonflow.StandardAction.Sound.setClassProperty("COM.dragonflow.StandardAction.Sound", "class", "Sound");
         COM.dragonflow.StandardAction.Sound.setClassProperty("COM.dragonflow.StandardAction.Sound", "prefs", "");
-        jgl.HashMap hashmap = SiteViewMain.SiteViewSupport.CopyDefaultConfig();
+        HashMap hashmap = SiteViewMain.SiteViewSupport.CopyDefaultConfig();
         audioSleepTime = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_AudioSleepTime"));
         if(audioSleepTime == 0)
         {

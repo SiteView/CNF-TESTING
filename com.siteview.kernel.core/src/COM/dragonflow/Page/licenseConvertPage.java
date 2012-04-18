@@ -174,8 +174,8 @@ public class licenseConvertPage extends COM.dragonflow.Page.CGI
         s = s + "\n<li>total URL List Items: " + aobj[4] + "</li>";
         s = s + "\n<p>\n<li>monitor types used: \n";
         s = s + "<ul>";
-        jgl.HashMap hashmap = (jgl.HashMap)aobj[2];
-        for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements();)
+        HashMap hashmap = (HashMap)aobj[2];
+        for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements();)
         {
             String s1 = (String)enumeration.nextElement();
             s = s + "\n<li>" + s1 + ": " + hashmap.get(s1) + " monitor";
@@ -215,8 +215,8 @@ public class licenseConvertPage extends COM.dragonflow.Page.CGI
         String s2 = date.toString() + ": ";
         if(aobj[2] != null)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)aobj[2];
-            for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements();)
+            HashMap hashmap = (HashMap)aobj[2];
+            for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements();)
             {
                 String s3 = (String)enumeration.nextElement();
                 String s4 = (String)hashmap.get(s3);
@@ -306,7 +306,7 @@ public class licenseConvertPage extends COM.dragonflow.Page.CGI
         return _getLicenseKey(COM.dragonflow.SiteView.MasterConfig.getMasterConfig());
     }
 
-    private String _getLicenseKey(jgl.HashMap hashmap)
+    private String _getLicenseKey(HashMap hashmap)
     {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_license");
         if(s.equals("") || s.startsWith("EX"))

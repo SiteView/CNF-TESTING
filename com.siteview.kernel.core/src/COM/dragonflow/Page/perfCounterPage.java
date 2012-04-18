@@ -12,7 +12,7 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.SiteView.Machine;
 import COM.dragonflow.Utils.CommandLine;
 
@@ -82,7 +82,7 @@ public class perfCounterPage extends COM.dragonflow.Page.CGI
         String s4 = "<option value=\"(No Counter Objects available)\">(NO COUNTERS OBJECTS AVAILABLE using this username and password)</option>";
         String s5 = COM.dragonflow.SiteView.Platform.perfexCommand(s1) + " -u -p -h";
         COM.dragonflow.Utils.CommandLine commandline = new CommandLine();
-        jgl.Array array = execNTorSSH(s1, s5, commandline);
+        Array array = execNTorSSH(s1, s5, commandline);
         String s6 = COM.dragonflow.SiteView.Platform.perfexCommand(s1);
         if(username.length() > 0)
         {
@@ -98,7 +98,7 @@ public class perfCounterPage extends COM.dragonflow.Page.CGI
         {
             array = new Array();
         }
-        Enumeration enumeration = array.elements();
+        Enumeration enumeration = (Enumeration) array.iterator();
         java.util.Hashtable hashtable = new Hashtable();
         if(array != null && array.size() > 3)
         {
@@ -198,8 +198,8 @@ public class perfCounterPage extends COM.dragonflow.Page.CGI
             }
             s11 = s11 + " -o " + s2;
             COM.dragonflow.Utils.CommandLine commandline1 = new CommandLine();
-            jgl.Array array1 = execNTorSSH(s1, s11, commandline1);
-            Enumeration enumeration1 = array1.elements();
+            Array array1 = execNTorSSH(s1, s11, commandline1);
+            Enumeration enumeration1 =  (Enumeration) array1.iterator();
             do
             {
                 if(!enumeration1.hasMoreElements())
@@ -273,7 +273,7 @@ public class perfCounterPage extends COM.dragonflow.Page.CGI
         printFooter(outputStream);
     }
 
-    private jgl.Array execNTorSSH(String s, String s1, COM.dragonflow.Utils.CommandLine commandline)
+    private Array execNTorSSH(String s, String s1, COM.dragonflow.Utils.CommandLine commandline)
     {
         String s2 = s;
         if(s2.startsWith("\\\\"))
@@ -281,7 +281,7 @@ public class perfCounterPage extends COM.dragonflow.Page.CGI
             s2 = s2.substring(2);
         }
         COM.dragonflow.SiteView.Machine machine = COM.dragonflow.SiteView.Machine.getNTMachine(s2);
-        jgl.Array array = new Array();
+        Array array = new Array();
         boolean flag = false;
         if(machine == null || !COM.dragonflow.SiteView.Machine.isNTSSH(s))
         {

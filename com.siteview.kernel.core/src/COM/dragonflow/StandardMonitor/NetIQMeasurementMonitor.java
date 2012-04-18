@@ -35,8 +35,8 @@ import COM.dragonflow.ems.xmlMonitor.StaticInitializer;
 //import COM.dragonflow.topaz.ems.monitorComps.pullMonitor.lifeCycle.MonitorEmulator;
 import java.util.Arrays;
 import java.util.Vector;
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class NetIQMeasurementMonitor extends AtomicMonitor
 //    implements JdbcMonitorCallback

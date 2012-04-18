@@ -23,11 +23,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
 
-import jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 import COM.dragonflow.SiteViewException.SiteViewParameterException;
+
+import com.recursionsw.jgl.Array;
 
 // Referenced classes of package COM.dragonflow.Api:
 // APISiteView, SSInstanceProperty, SSPropertyDetails, SSPreferenceInstance,
@@ -55,7 +56,7 @@ public class APIPreference extends COM.dragonflow.Api.APISiteView
 
             java.lang.Class class1 = java.lang.Class.forName(s1);
             COM.dragonflow.SiteView.Preferences preferences = (COM.dragonflow.SiteView.Preferences)class1.newInstance();
-            jgl.Array array = getPropertiesForClass(preferences, s1, "Preferences", COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL);
+            Array array = getPropertiesForClass(preferences, s1, "Preferences", COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL);
             hashmap = preferences.validateProperties(hashmap, array, new HashMap());
             String as[] = preferences.addPreferences(hashmap);
             ssinstanceproperty = new SSInstanceProperty(as[0], as[1]);
@@ -91,7 +92,7 @@ public class APIPreference extends COM.dragonflow.Api.APISiteView
 
             java.lang.Class class1 = java.lang.Class.forName(s3);
             COM.dragonflow.SiteView.Preferences preferences = (COM.dragonflow.SiteView.Preferences)class1.newInstance();
-            jgl.Array array = getPropertiesForClass(preferences, s3, "Preferences", COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+            Array array = getPropertiesForClass(preferences, s3, "Preferences", COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
             hashmap = preferences.validateProperties(hashmap, array, new HashMap());
             String as[] = preferences.updatePreferences(hashmap, s1, s2);
             ssinstanceproperty = new SSInstanceProperty(as[0], as[1]);
@@ -211,12 +212,12 @@ public class APIPreference extends COM.dragonflow.Api.APISiteView
             String s1 = "COM.dragonflow.StandardPreference." + s;
             java.lang.Class class1 = java.lang.Class.forName(s1);
             COM.dragonflow.SiteView.SiteViewObject siteviewobject = (COM.dragonflow.SiteView.SiteViewObject)class1.newInstance();
-            jgl.Array array = getPropertiesForClass(siteviewobject, s1, "Preferences", i);
+            Array array = getPropertiesForClass(siteviewobject, s1, "Preferences", i);
             java.util.Vector vector = new Vector();
             if(i == COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL || i == COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_BASIC || i == COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ADVANCED || i == COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL || i == COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_BASIC || i == COM.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ADVANCED)
             {
-                Enumeration enumeration = array.elements();
-                jgl.Array array1 = new Array();
+                Enumeration enumeration = (Enumeration) array.iterator();
+                Array array1 = new Array();
                 while (enumeration.hasMoreElements()) {
                     COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
                     if(stringproperty.isThreshold())
@@ -226,14 +227,14 @@ public class APIPreference extends COM.dragonflow.Api.APISiteView
                 }
                 for(int k = 0; k < array1.size(); k++)
                 {
-                    array.remove(array1.at(k));
+                    array.remove(array1.get(k));
                 }
 
             }
             asspropertydetails = new COM.dragonflow.Api.SSPropertyDetails[array.size() + vector.size()];
             for(int j = 0; j < array.size(); j++)
             {
-                asspropertydetails[j] = getClassProperty((COM.dragonflow.Properties.StringProperty)array.at(j), (COM.dragonflow.SiteView.Preferences)siteviewobject);
+                asspropertydetails[j] = getClassProperty((COM.dragonflow.Properties.StringProperty)array.get(j), (COM.dragonflow.SiteView.Preferences)siteviewobject);
             }
 
         }

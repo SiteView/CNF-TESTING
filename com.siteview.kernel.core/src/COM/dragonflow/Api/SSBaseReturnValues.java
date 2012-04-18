@@ -17,7 +17,7 @@ package COM.dragonflow.Api;
  * 
  */
 
-public abstract class SSBaseReturnValues {
+public abstract class SSBaseReturnValues implements java.io.Serializable {
 
     public SSBaseReturnValues() {
     }

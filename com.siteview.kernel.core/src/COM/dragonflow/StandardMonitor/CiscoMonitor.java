@@ -27,7 +27,7 @@ import COM.dragonflow.SiteView.Rule;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.Utils.Snmp.BrowsableMIB;
 import java.util.Vector;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 
 public class CiscoMonitor extends BrowsableSNMPBase
 {

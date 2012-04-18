@@ -19,9 +19,6 @@ import java.util.Vector;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import jgl.Array;
-import jgl.HashMap;
-
 import org.xml.sax.InputSource;
 
 import COM.dragonflow.HTTP.HTTPRequest;
@@ -55,6 +52,9 @@ import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 import COM.dragonflow.SiteViewException.SiteViewParameterException;
 import COM.dragonflow.Utils.HTMLTagParser;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Api:
 // APISiteView, SSInstanceProperty, SSStringReturnValue, SSMonitorInstance,
@@ -176,7 +176,7 @@ public class APIMonitor extends APISiteView
         String s2 = "";
         try
         {
-            jgl.HashMap hashmap = new HashMap(true);
+            HashMap hashmap = new HashMap(true);
             String s3 = "";
             boolean flag = false;
             boolean flag1 = false;
@@ -311,7 +311,7 @@ public class APIMonitor extends APISiteView
                 }
             }
 
-            jgl.HashMap hashmap1 = MasterConfig.getMasterConfig();
+            HashMap hashmap1 = MasterConfig.getMasterConfig();
             int j = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_URLSequenceMonitorSteps"));
             for(int k = 0; k < j; k++)
             {
@@ -382,7 +382,7 @@ public class APIMonitor extends APISiteView
     {
         try
         {
-            jgl.HashMap hashmap = new HashMap(true);
+            HashMap hashmap = new HashMap(true);
             String s2 = "";
             boolean flag = false;
             boolean flag1 = false;
@@ -581,9 +581,9 @@ public class APIMonitor extends APISiteView
         }
     }
 
-    private void fixPostDataParams(jgl.HashMap hashmap)
+    private void fixPostDataParams(HashMap hashmap)
     {
-        jgl.HashMap hashmap1 = MasterConfig.getMasterConfig();
+        HashMap hashmap1 = MasterConfig.getMasterConfig();
         int i = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_URLSequenceMonitorSteps"));
         for(int j = 0; j < i; j++)
         {
@@ -618,7 +618,7 @@ public class APIMonitor extends APISiteView
 
     }
 
-    private void processMachineName(String s, jgl.HashMap hashmap)
+    private void processMachineName(String s, HashMap hashmap)
         throws COM.dragonflow.SiteViewException.SiteViewParameterException
     {
         if(s != null)
@@ -695,15 +695,15 @@ public class APIMonitor extends APISiteView
         String s3 = "";
         try
         {
-            jgl.Array array = new Array();
-            jgl.Array array1 = new Array();
+            Array array = new Array();
+            Array array1 = new Array();
             array1.add("");
             array.add(s1 + " " + s);
             ConfigurationChanger configurationchanger = new ConfigurationChanger();
             String as[] = new String[0];
             configurationchanger.manageMonitors(array, array1, s2, true, as);
-            jgl.Array array2 = ReadGroupFrames(s2);
-            s3 = (String)((jgl.HashMap)array2.at(0)).get("_nextID");
+            Array array2 = ReadGroupFrames(s2);
+            s3 = (String)((HashMap)array2.get(0)).get("_nextID");
             long l = java.lang.Long.parseLong(s3);
             s3 = String.valueOf(l - 1L);
             DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
@@ -729,20 +729,20 @@ public class APIMonitor extends APISiteView
         String s3 = "";
         try
         {
-            jgl.Array array = new Array();
-            jgl.Array array1 = new Array();
+            Array array = new Array();
+            Array array1 = new Array();
             array.add(s1 + " " + s);
             ConfigurationChanger configurationchanger = new ConfigurationChanger();
             String as[] = new String[0];
-            jgl.Array array2 = getGroupFrames(s1);
+            Array array2 = getGroupFrames(s1);
             int i = COM.dragonflow.Page.CGI.findMonitorIndex(array2, s);
             if(i >= 1)
             {
-                jgl.HashMap hashmap = (jgl.HashMap)array2.at(i);
+                HashMap hashmap = (HashMap)array2.get(i);
                 array1.add(hashmap.get("_name"));
             }
-            jgl.Array array3 = configurationchanger.manageMonitors(array, array1, s2, false, as);
-            s3 = (String)((jgl.HashMap)array3.at(0)).get("_nextID");
+            Array array3 = configurationchanger.manageMonitors(array, array1, s2, false, as);
+            s3 = (String)((HashMap)array3.get(0)).get("_nextID");
             long l = java.lang.Long.parseLong(s3);
             s3 = String.valueOf(l - 1L);
             DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
@@ -894,7 +894,7 @@ public class APIMonitor extends APISiteView
         COM.dragonflow.Utils.ThreadPool.SingleThread singlethread;
         
         try {
-        jgl.HashMap hashmap = new HashMap(true);
+        HashMap hashmap = new HashMap(true);
         for(int i = 0; i < assinstanceproperty.length; i++)
         {
             hashmap.add(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -972,11 +972,11 @@ public class APIMonitor extends APISiteView
     {
         try {
         SSInstanceProperty assinstanceproperty[];
-        jgl.HashMap hashmap = getClassAttribs(s);
+        HashMap hashmap = getClassAttribs(s);
         assinstanceproperty = null;
         int i = 0;
         assinstanceproperty = new SSInstanceProperty[hashmap.size()];
-        for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements();)
+        for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements();)
         {
             String s1 = (String)enumeration.nextElement();
             String s2 = "";
@@ -1007,7 +1007,7 @@ public class APIMonitor extends APISiteView
         SSPropertyDetails asspropertydetails[] = null;
         try
         {
-            jgl.Array array = new Array();
+            Array array = new Array();
             AtomicMonitor atomicmonitor = instantiateMonitor(s);
             for(int j = 0; j < assinstanceproperty.length; j++)
             {
@@ -1028,7 +1028,7 @@ public class APIMonitor extends APISiteView
             asspropertydetails = new SSPropertyDetails[array.size() + vector.size()];
             for(int l = 0; l < array.size(); l++)
             {
-                asspropertydetails[l] = getClassProperty((COM.dragonflow.Properties.StringProperty)array.at(l), atomicmonitor, hashmap, false);
+                asspropertydetails[l] = getClassProperty((COM.dragonflow.Properties.StringProperty)array.get(l), atomicmonitor, hashmap, false);
             }
 
             for(int i1 = 0; i1 < vector.size(); i1++)
@@ -1084,10 +1084,10 @@ public class APIMonitor extends APISiteView
                     Enumeration enumeration = atomicmonitor.getStatePropertyObjects(false);
                     if(!atomicmonitor.isMultiThreshold())
                     {
-                        jgl.Array array = atomicmonitor.getProperties();
-                        enumeration = array.elements();
+                        Array array = atomicmonitor.getProperties();
+                        enumeration = (Enumeration) array.iterator();
                     }
-                    jgl.Array array1 = new Array();
+                    Array array1 = new Array();
                     while (enumeration.hasMoreElements()) {
                         COM.dragonflow.Properties.StringProperty stringproperty1 = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
                         if(stringproperty1.isThreshold())
@@ -1165,7 +1165,7 @@ public class APIMonitor extends APISiteView
         SSPropertyDetails sspropertydetails = null;
         try
         {
-            jgl.Array array = null;
+            Array array = null;
             SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
             s2 = COM.dragonflow.Utils.I18N.toDefaultEncoding(s2);
             MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElementByID(s2);
@@ -1186,8 +1186,8 @@ public class APIMonitor extends APISiteView
                 COM.dragonflow.Properties.StringProperty stringproperty = atomicmonitor.getPropertyObject(s);
                 if(s.indexOf("error-") >= 0 || s.indexOf("warning-") >= 0 || s.indexOf("good-") >= 0)
                 {
-                    Enumeration enumeration1 = array.elements();
-                    jgl.Array array1 = new Array();
+                    Enumeration enumeration1 = (Enumeration) array.iterator();
+                    Array array1 = new Array();
                     while (enumeration1.hasMoreElements()) {
                         COM.dragonflow.Properties.StringProperty stringproperty1 = (COM.dragonflow.Properties.StringProperty)enumeration1.nextElement();
                         if(stringproperty1.isThreshold())
@@ -1405,7 +1405,7 @@ public class APIMonitor extends APISiteView
         SSInstanceProperty assinstanceproperty1[] = null;
         try
         {
-            jgl.HashMap hashmap = new HashMap(true);
+            HashMap hashmap = new HashMap(true);
             for(int i = 0; i < assinstanceproperty.length; i++)
             {
                 hashmap.add(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -1426,7 +1426,7 @@ public class APIMonitor extends APISiteView
             if(s3.length() > 0)
             {
                 COM.dragonflow.Utils.HTMLTagParser htmltagparser = new HTMLTagParser(s3, TARGET_TAGS);
-                jgl.HashMap hashmap1 = MasterConfig.getMasterConfig();
+                HashMap hashmap1 = MasterConfig.getMasterConfig();
                 htmltagparser.ignoreScripts = false;
                 htmltagparser.ignoreNoscripts = false;
                 if(hashmap1.get("_urlHTMLInJavaScript") != null && ((String)hashmap1.get("_urlHTMLInJavaScript")).length() == 0)
@@ -1536,11 +1536,11 @@ public class APIMonitor extends APISiteView
         try
         {
             int i = findType("Monitor");
-            jgl.Array array = (jgl.Array)ssChildObjects.elementAt(i);
+            Array array = (Array)ssChildObjects.elementAt(i);
             assstringreturnvalue = new SSStringReturnValue[array.size()];
             for(int j = 0; j < array.size(); j++)
             {
-                SSStringReturnValue ssstringreturnvalue = new SSStringReturnValue(((String[])array.at(j))[0]);
+                SSStringReturnValue ssstringreturnvalue = new SSStringReturnValue(((String[])array.get(j))[0]);
                 int k = ssstringreturnvalue.getValue().lastIndexOf(".");
                 if(k != -1)
                 {
@@ -1640,7 +1640,7 @@ public class APIMonitor extends APISiteView
         String s9;
         String s3;
         int i;
-        jgl.HashMap hashmap1;
+        HashMap hashmap1;
         java.util.Iterator iterator;
         if(atomicmonitor instanceof BrowsableMonitor) {
         if(atomicmonitor != null) {
@@ -1667,7 +1667,7 @@ public class APIMonitor extends APISiteView
         {
             String s4 = (String)iterator.next();
             String s6 = (String)hashmap.get(s4);
-            jgl.HashMap hashmap2 = MasterConfig.getMasterConfig();
+            HashMap hashmap2 = MasterConfig.getMasterConfig();
             int k = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_browsableContentMaxCounters"));
             if(k == 0)
             {
@@ -1719,7 +1719,7 @@ public class APIMonitor extends APISiteView
         {
             s5 = s5.substring(j + 1);
         }
-        jgl.Array array = ReadGroupFrames(s1);
+        Array array = ReadGroupFrames(s1);
         AtomicMonitor atomicmonitor1 = AtomicMonitor.MonitorCreate(array, s, "");
         setMonitorProperties(OP_EDIT, atomicmonitor1, s, s1, hashmap1);
         validateProperties(hashmap1, atomicmonitor1, s5, APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
@@ -1766,13 +1766,13 @@ public class APIMonitor extends APISiteView
                 {
                     String s2 = ((BrowsableMonitor)atomicmonitor).getBrowseName();
                     String s4 = ((BrowsableMonitor)atomicmonitor).getBrowseID();
-                    jgl.HashMap hashmap1 = new HashMap();
+                    HashMap hashmap1 = new HashMap();
                     java.util.Set set = hashmap.keySet();
                     for(java.util.Iterator iterator = set.iterator(); iterator.hasNext();)
                     {
                         String s5 = (String)iterator.next();
                         String s7 = (String)hashmap.get(s5);
-                        jgl.HashMap hashmap2 = MasterConfig.getMasterConfig();
+                        HashMap hashmap2 = MasterConfig.getMasterConfig();
                         int j = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_browsableContentMaxCounters"));
                         if(j == 0)
                         {
@@ -1809,7 +1809,7 @@ public class APIMonitor extends APISiteView
                     {
                         s6 = s6.substring(i + 1);
                     }
-                    jgl.Array array = ReadGroupFrames(s1);
+                    Array array = ReadGroupFrames(s1);
                     AtomicMonitor atomicmonitor1 = AtomicMonitor.MonitorCreate(array, s, "");
                     setMonitorProperties(OP_EDIT, atomicmonitor1, s, s1, hashmap1);
                     validateProperties(hashmap1, atomicmonitor1, s6, APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
@@ -1848,7 +1848,7 @@ public class APIMonitor extends APISiteView
         SSStringReturnValue ssstringreturnvalue = null;
         try
         {
-            jgl.HashMap hashmap = getClassAttribs(s);
+            HashMap hashmap = getClassAttribs(s);
             ssstringreturnvalue = new SSStringReturnValue((String)hashmap.get(s1));
         }
         catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
@@ -1879,8 +1879,8 @@ public class APIMonitor extends APISiteView
             }
             if(i == FILTER_ALL)
             {
-                jgl.Array array = atomicmonitor.getProperties();
-                enumeration = array.elements();
+                Array array = atomicmonitor.getProperties();
+                enumeration = (Enumeration) array.iterator();
             } else
             if(i == FILTER_CONFIGURATION_ADD_ALL)
             {
@@ -1953,18 +1953,18 @@ public class APIMonitor extends APISiteView
             if(i == PREREQ_OP)
             {
                 Object obj = null;
-                jgl.Array array1 = new Array();
-                jgl.Array array2 = atomicmonitor.getProperties();
+                Array array1 = new Array();
+                Array array2 = atomicmonitor.getProperties();
                 for(int j = 0; j < array2.size(); j++)
                 {
-                    SSPropertyDetails sspropertydetails = getClassPropertyDetails(((COM.dragonflow.Properties.StringProperty)array2.at(j)).getName(), s, new SSInstanceProperty[0]);
+                    SSPropertyDetails sspropertydetails = getClassPropertyDetails(((COM.dragonflow.Properties.StringProperty)array2.get(j)).getName(), s, new SSInstanceProperty[0]);
                     if(sspropertydetails.isPrerequisite())
                     {
-                        array1.add(array2.at(j));
+                        array1.add(array2.get(j));
                     }
                 }
 
-                enumeration = array1.elements();
+                enumeration =  (Enumeration) array1.iterator();
             } else
             if(!$assertionsDisabled)
             {
@@ -2023,7 +2023,7 @@ public class APIMonitor extends APISiteView
         try
         {
             SSInstanceProperty assinstanceproperty1[] = null;
-            jgl.Array array = new Array();
+            Array array = new Array();
             java.util.Vector vector = new Vector();
             String s1 = null;
             java.util.Vector vector1 = new Vector();
@@ -2032,12 +2032,12 @@ public class APIMonitor extends APISiteView
             Enumeration enumeration = null;
             if(s != null && s.length() > 0)
             {
-                jgl.Array array1 = new Array();
+                Array array1 = new Array();
                 COM.dragonflow.Properties.StringProperty stringproperty = atomicmonitor.getPropertyObject(s);
                 if(stringproperty != null)
                 {
                     array1.add(stringproperty);
-                    enumeration = array1.elements();
+                    enumeration =  (Enumeration) array1.iterator();
                 }
             } else
             {
@@ -2161,7 +2161,7 @@ public class APIMonitor extends APISiteView
             }
             assinstanceproperty = new SSInstanceProperty[j + array.size() + assinstanceproperty1.length + vector.size() + vector1.size() + vector2.size()];
             int k = 0;
-            for(Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements();)
+            for(Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1.hasMoreElements();)
             {
                 COM.dragonflow.Properties.StringProperty stringproperty3 = (COM.dragonflow.Properties.StringProperty)enumeration1.nextElement();
                 String s4 = GetPropertyLabel(stringproperty3, true);
@@ -2316,13 +2316,13 @@ public class APIMonitor extends APISiteView
         return assinstanceproperty;
     }
 
-    private java.util.Vector createThresholdProperties(int i, jgl.Array array, SiteViewObject siteviewobject, java.util.HashMap hashmap)
+    private java.util.Vector createThresholdProperties(int i, Array array, SiteViewObject siteviewobject, java.util.HashMap hashmap)
     {
         java.util.Vector vector = new Vector();
         if(i == APISiteView.FILTER_CONFIGURATION_ADD_ALL || i == APISiteView.FILTER_CONFIGURATION_ADD_BASIC || i == APISiteView.FILTER_CONFIGURATION_ADD_ADVANCED || i == APISiteView.FILTER_CONFIGURATION_EDIT_ALL || i == APISiteView.FILTER_CONFIGURATION_EDIT_BASIC || i == APISiteView.FILTER_CONFIGURATION_EDIT_ADVANCED || i == APISiteView.FILTER_ALL || i == APISiteView.FILTER_CONFIGURATION_ALL)
         {
-            Enumeration enumeration = array.elements();
-            jgl.Array array1 = new Array();
+            Enumeration enumeration = (Enumeration) array.iterator();
+            Array array1 = new Array();
             while (enumeration.hasMoreElements()) {
                 COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
                 if(stringproperty.isThreshold())
@@ -2334,7 +2334,7 @@ public class APIMonitor extends APISiteView
             {
                 for(int j = 0; j < array1.size(); j++)
                 {
-                    array.remove(array1.at(j));
+                    array.remove(array1.get(j));
                 }
 
             }
@@ -2343,17 +2343,17 @@ public class APIMonitor extends APISiteView
         return vector;
     }
 
-    protected java.util.Vector getThresholds(jgl.Array array, SiteViewObject siteviewobject, java.util.HashMap hashmap)
+    protected java.util.Vector getThresholds(Array array, SiteViewObject siteviewobject, java.util.HashMap hashmap)
     {
         int i = getThresholdNum((Monitor)siteviewobject);
         java.util.Vector vector = new Vector();
         if(siteviewobject instanceof Monitor)
         {
-            jgl.Array array1 = new Array();
-            jgl.Array array2 = new Array();
+            Array array1 = new Array();
+            Array array2 = new Array();
             for(int j = 0; j < array.size(); j++)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.at(j);
+                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.get(j);
                 if(stringproperty != Monitor.pNumStdDev && stringproperty != Monitor.pNumPercent || siteviewobject.hasValue(Monitor.pBaselineDate))
                 {
                     array1.add(stringproperty.getName());
@@ -2412,10 +2412,10 @@ public class APIMonitor extends APISiteView
                             }
                             for(int l1 = 0; l1 < array1.size(); l1++)
                             {
-                                if(array1.at(l1) != null)
+                                if(array1.get(l1) != null)
                                 {
-                                    as2[l1] = (String)array1.at(l1);
-                                    as3[l1] = (String)array2.at(l1);
+                                    as2[l1] = (String)array1.get(l1);
+                                    as3[l1] = (String)array2.get(l1);
                                 }
                             }
 
@@ -2458,7 +2458,7 @@ public class APIMonitor extends APISiteView
         return as;
     }
 
-    private void getThresholdCounters(java.util.HashMap hashmap, jgl.Array array, int i)
+    private void getThresholdCounters(java.util.HashMap hashmap, Array array, int i)
     {
         if(hashmap.containsKey("_counters") || hashmap.containsKey("_counter"))
         {
@@ -2516,7 +2516,7 @@ public class APIMonitor extends APISiteView
         }
     }
 
-    private SSPropertyDetails getThreshold(String s, jgl.Array array, Monitor monitor)
+    private SSPropertyDetails getThreshold(String s, Array array, Monitor monitor)
     {
         int i = getThresholdNum(monitor);
         String s2 = s.substring(0, s.indexOf("-"));
@@ -2559,7 +2559,7 @@ public class APIMonitor extends APISiteView
             vector1.add("default");
             for(int k1 = 0; k1 < array.size(); k1++)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.at(k1);
+                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.get(k1);
                 String s13 = monitor.GetPropertyLabel(stringproperty, true);
                 String s14 = stringproperty.getName();
                 if(s13 != null && s13.length() > 0)
@@ -2642,7 +2642,7 @@ public class APIMonitor extends APISiteView
         java.util.Vector vector = new Vector();
         int j = getThresholdNum(monitor);
         java.util.HashMap hashmap = new java.util.HashMap();
-        Enumeration enumeration = monitor.getProperties().elements();
+        Enumeration enumeration = (Enumeration) monitor.getProperties().iterator();
         while (enumeration.hasMoreElements()) {
             COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
             if(stringproperty.isThreshold())
@@ -2700,10 +2700,10 @@ public class APIMonitor extends APISiteView
         return vector;
     }
 
-    private void validateCustomProperties(jgl.HashMap hashmap, AtomicMonitor atomicmonitor, jgl.HashMap hashmap1)
+    private void validateCustomProperties(HashMap hashmap, AtomicMonitor atomicmonitor, HashMap hashmap1)
     {
-        jgl.HashMap hashmap2 = MasterConfig.getMasterConfig();
-        Enumeration enumeration = hashmap2.values("_monitorEditCustom");
+        HashMap hashmap2 = MasterConfig.getMasterConfig();
+        Enumeration enumeration = (Enumeration) hashmap2.values("_monitorEditCustom");
         while (enumeration.hasMoreElements()) {
             String s = "";
             String s1 = (String)enumeration.nextElement();
@@ -2737,14 +2737,14 @@ public class APIMonitor extends APISiteView
         } 
     }
 
-    private jgl.HashMap validateProperties(jgl.HashMap hashmap, AtomicMonitor atomicmonitor, String s, int i)
+    private HashMap validateProperties(HashMap hashmap, AtomicMonitor atomicmonitor, String s, int i)
         throws COM.dragonflow.SiteViewException.SiteViewException
     {
-        jgl.HashMap hashmap1 = new HashMap(true);
+        HashMap hashmap1 = new HashMap(true);
         try
         {
             Enumeration enumeration = getFilteredMonitorProperties(atomicmonitor, new Vector(), i);
-            jgl.HashMap hashmap2 = new HashMap();
+            HashMap hashmap2 = new HashMap();
             COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
             if(enumeration != null)
             {
@@ -2763,7 +2763,7 @@ public class APIMonitor extends APISiteView
                 while (enumeration.hasMoreElements()) {
                     COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
                     String s1 = stringproperty.getName();
-                    Enumeration enumeration2 = hashmap.values(s1);
+                    Enumeration enumeration2 = (Enumeration) hashmap.values(s1);
                     hashmap.remove(s1);
                     if(!stringproperty.isThreshold())
                     {
@@ -2796,7 +2796,7 @@ public class APIMonitor extends APISiteView
             {
                 java.util.HashMap hashmap3 = new java.util.HashMap();
                 COM.dragonflow.Properties.StringProperty stringproperty1;
-                for(Enumeration enumeration1 = hashmap2.keys(); enumeration1.hasMoreElements(); hashmap3.put(stringproperty1.getName(), hashmap2.get(stringproperty1)))
+                for(Enumeration enumeration1 = (Enumeration) hashmap2.keys(); enumeration1.hasMoreElements(); hashmap3.put(stringproperty1.getName(), hashmap2.get(stringproperty1)))
                 {
                     stringproperty1 = (COM.dragonflow.Properties.StringProperty)enumeration1.nextElement();
                 }
@@ -2818,7 +2818,7 @@ public class APIMonitor extends APISiteView
         return hashmap1;
     }
 
-    private jgl.HashMap getClassAttribs(String s)
+    private HashMap getClassAttribs(String s)
         throws COM.dragonflow.SiteViewException.SiteViewException
     {
         AtomicMonitor atomicmonitor = instantiateMonitor(s);
@@ -2846,10 +2846,10 @@ public class APIMonitor extends APISiteView
         {
             if(atomicmonitor instanceof BrowsableMonitor)
             {
-                jgl.Array array = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
+                Array array = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
                 for(int i = 0; i < array.size(); i++)
                 {
-                    String s1 = ((COM.dragonflow.Properties.StringProperty)array.at(i)).getName();
+                    String s1 = ((COM.dragonflow.Properties.StringProperty)array.get(i)).getName();
                     atomicmonitor.unsetProperty(s1);
                     if(hashmap.get(s1) == null)
                     {
@@ -2890,7 +2890,7 @@ public class APIMonitor extends APISiteView
             } else
             if(((atomicmonitor instanceof BrowsableMonitor) || (atomicmonitor instanceof BrowsableSNMPBase)) && stringproperty.getName() != null)
             {
-                jgl.Array array1 = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
+                Array array1 = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
                 int j = 0;
                 do
                 {
@@ -2898,7 +2898,7 @@ public class APIMonitor extends APISiteView
                     {
                         break;
                     }
-                    String s2 = ((COM.dragonflow.Properties.StringProperty)array1.at(j)).getName();
+                    String s2 = ((COM.dragonflow.Properties.StringProperty)array1.get(j)).getName();
                     if(stringproperty.getName().equals(s2) && hashmap.get(s2) == null)
                     {
                         flag1 = true;
@@ -2958,7 +2958,7 @@ public class APIMonitor extends APISiteView
                 cgi1.initialize(httprequest, null);
                 if(hashmap.get("_machine") != null)
                 {
-                    jgl.HashMap hashmap3 = COM.dragonflow.Utils.jglUtils.toJgl(hashmap);
+                    HashMap hashmap3 = COM.dragonflow.Utils.jglUtils.toJgl(hashmap);
                     processMachineName((String)hashmap.get("_machine"), hashmap3);
                     hashmap = COM.dragonflow.Utils.jglUtils.fromJgl(hashmap3);
                 }
@@ -3031,13 +3031,13 @@ public class APIMonitor extends APISiteView
                     if(s6 != null)
                     {
                         atomicmonitor.setProperty("_machine", s6);
-                        jgl.Array array7 = ((NTCounterBase)atomicmonitor).getAvailableCounters();
-                        jgl.HashMap hashmap2 = new HashMap();
+                        Array array7 = ((NTCounterBase)atomicmonitor).getAvailableCounters();
+                        HashMap hashmap2 = new HashMap();
                         for(int j1 = 0; j1 < array7.size(); j1++)
                         {
-                            if(((COM.dragonflow.Utils.PerfCounter)array7.at(j1)).object != null)
+                            if(((COM.dragonflow.Utils.PerfCounter)array7.get(j1)).object != null)
                             {
-                                hashmap2.put(((COM.dragonflow.Utils.PerfCounter)array7.at(j1)).object, "");
+                                hashmap2.put(((COM.dragonflow.Utils.PerfCounter)array7.get(j1)).object, "");
                             }
                         }
 
@@ -3052,9 +3052,9 @@ public class APIMonitor extends APISiteView
                 } else
                 if((atomicmonitor instanceof NTCounterBase) && stringproperty.getName() != null && stringproperty.getName().equals("availableCounters"))
                 {
-                    jgl.Array array2 = new Array(0);
+                    Array array2 = new Array(0);
                     StringBuffer stringbuffer2 = new StringBuffer();
-                    jgl.Array array8 = new Array();
+                    Array array8 = new Array();
                     String s13 = (String)hashmap.get("_machine");
                     if(s13 != null)
                     {
@@ -3063,13 +3063,13 @@ public class APIMonitor extends APISiteView
                         if(s16 != null)
                         {
                             array8.add(s16);
-                            jgl.Array array3 = NTCounterBase.getPerfCounters(s13, array8, stringbuffer2, "");
-                            jgl.HashMap hashmap4 = new HashMap();
+                            Array array3 = NTCounterBase.getPerfCounters(s13, array8, stringbuffer2, "");
+                            HashMap hashmap4 = new HashMap();
                             for(int j3 = 0; j3 < array3.size(); j3++)
                             {
-                                if(((COM.dragonflow.Utils.PerfCounter)array3.at(j3)).counterName != null)
+                                if(((COM.dragonflow.Utils.PerfCounter)array3.get(j3)).counterName != null)
                                 {
-                                    hashmap4.put(((COM.dragonflow.Utils.PerfCounter)array3.at(j3)).counterName, "");
+                                    hashmap4.put(((COM.dragonflow.Utils.PerfCounter)array3.get(j3)).counterName, "");
                                 }
                             }
 
@@ -3083,9 +3083,9 @@ public class APIMonitor extends APISiteView
                             hashmap4 = new HashMap();
                             for(int j5 = 0; j5 < array3.size(); j5++)
                             {
-                                if(((COM.dragonflow.Utils.PerfCounter)array3.at(j5)).counterID != null)
+                                if(((COM.dragonflow.Utils.PerfCounter)array3.get(j5)).counterID != null)
                                 {
-                                    hashmap4.put(((COM.dragonflow.Utils.PerfCounter)array3.at(j5)).counterID, "");
+                                    hashmap4.put(((COM.dragonflow.Utils.PerfCounter)array3.get(j5)).counterID, "");
                                 }
                             }
 
@@ -3101,9 +3101,9 @@ public class APIMonitor extends APISiteView
                 } else
                 if((atomicmonitor instanceof NTCounterBase) && stringproperty.getName() != null && stringproperty.getName().equals("availableInstances"))
                 {
-                    jgl.Array array4 = new Array(0);
+                    Array array4 = new Array(0);
                     StringBuffer stringbuffer3 = new StringBuffer();
-                    jgl.Array array9 = new Array();
+                    Array array9 = new Array();
                     String s14 = (String)hashmap.get("_machine");
                     if(s14 != null)
                     {
@@ -3112,13 +3112,13 @@ public class APIMonitor extends APISiteView
                         if(s17 != null)
                         {
                             array9.add(s17);
-                            jgl.Array array5 = NTCounterBase.getPerfCounters(s14, array9, stringbuffer3, "");
-                            jgl.HashMap hashmap5 = new HashMap();
+                            Array array5 = NTCounterBase.getPerfCounters(s14, array9, stringbuffer3, "");
+                            HashMap hashmap5 = new HashMap();
                             for(int l3 = 0; l3 < array5.size(); l3++)
                             {
-                                if(((COM.dragonflow.Utils.PerfCounter)array5.at(l3)).instance != null)
+                                if(((COM.dragonflow.Utils.PerfCounter)array5.get(l3)).instance != null)
                                 {
-                                    hashmap5.put(((COM.dragonflow.Utils.PerfCounter)array5.at(l3)).instance, "");
+                                    hashmap5.put(((COM.dragonflow.Utils.PerfCounter)array5.get(l3)).instance, "");
                                 }
                             }
 
@@ -3269,7 +3269,7 @@ public class APIMonitor extends APISiteView
                 } else
                 if((atomicmonitor instanceof ApplicationBase) && stringproperty.getName() != null && stringproperty.getName().equals("availableCounters"))
                 {
-                    jgl.Array array6 = ((ApplicationBase)atomicmonitor).getAvailableCounters();
+                    Array array6 = ((ApplicationBase)atomicmonitor).getAvailableCounters();
                     if(array6 != null)
                     {
                         as = new String[array6.size()];
@@ -3279,7 +3279,7 @@ public class APIMonitor extends APISiteView
                         int l1 = 0;
                         for(; i1 < array6.size(); i1++)
                         {
-                            String s18 = (String)array6.at(i1);
+                            String s18 = (String)array6.get(i1);
                             if(s18 != null)
                             {
                                 as[l1] = s18;
@@ -3680,7 +3680,7 @@ public class APIMonitor extends APISiteView
      * @param hashmap
      * @throws COM.dragonflow.SiteViewException.SiteViewException
      */
-    private void setMonitorProperties(String s, AtomicMonitor atomicmonitor, String s1, String s2, jgl.HashMap hashmap)
+    private void setMonitorProperties(String s, AtomicMonitor atomicmonitor, String s1, String s2, HashMap hashmap)
         throws COM.dragonflow.SiteViewException.SiteViewException
     {
         try {
@@ -3689,7 +3689,7 @@ public class APIMonitor extends APISiteView
         SiteViewGroup siteviewgroup;
         int j;
         String s5;
-        jgl.HashMap hashmap1;
+        HashMap hashmap1;
         Enumeration enumeration;
         user = User.getUserForAccount("administrator");
         httprequest = new HTTPRequest();
@@ -3766,7 +3766,7 @@ public class APIMonitor extends APISiteView
             int l1 = atomicmonitor.getMaxCounters();
             if(as.length > l1)
             {
-                jgl.HashMap hashmap3 = MasterConfig.getMasterConfig();
+                HashMap hashmap3 = MasterConfig.getMasterConfig();
                 hashmap3.put("_ApplicationMonitorMaxCounters", (new Integer(as.length)).toString());
                 MasterConfig.saveMasterConfig(hashmap3);
                 ((ISelectableCounter)atomicmonitor).increaseCounters(as.length);
@@ -3775,7 +3775,7 @@ public class APIMonitor extends APISiteView
         }
         if(atomicmonitor instanceof COM.dragonflow.StandardMonitor.URLSequenceMonitor)
         {
-            jgl.HashMap hashmap2 = MasterConfig.getMasterConfig();
+            HashMap hashmap2 = MasterConfig.getMasterConfig();
             int j1 = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_URLSequenceMonitorSteps"));
             if(j1 == 0)
             {
@@ -3802,10 +3802,10 @@ public class APIMonitor extends APISiteView
         }
         if(atomicmonitor instanceof BrowsableMonitor)
         {
-            jgl.Array array = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
+            Array array = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
             for(int k1 = 0; k1 < array.size(); k1++)
             {
-                String s10 = ((COM.dragonflow.Properties.StringProperty)array.at(k1)).getName();
+                String s10 = ((COM.dragonflow.Properties.StringProperty)array.get(k1)).getName();
                 String s12 = (String)hashmap.get(s10);
                 if(s12 != null)
                 {
@@ -3842,7 +3842,7 @@ public class APIMonitor extends APISiteView
                             throw new AssertionError();
                         }
                         atomicmonitor.setProperty(s9 + j4, s24);
-                        jgl.Array array3 = new Array();
+                        Array array3 = new Array();
                         String as3[] = s24.split("/");
                         for(int i5 = as3.length - 1; i5 >= 0; i5--)
                         {
@@ -3868,7 +3868,7 @@ public class APIMonitor extends APISiteView
                     String s34 = s28.substring(0, k4);
                     if(!COM.dragonflow.Utils.TextUtils.isNumber(s34))
                     {
-                        jgl.Array array4 = new Array();
+                        Array array4 = new Array();
                         array4.add(s28);
                         hashmap.put(s11 + j4, ((BrowsableMonitor)atomicmonitor).setBrowseID(array4));
                     }
@@ -3879,10 +3879,10 @@ public class APIMonitor extends APISiteView
             String s19 = (String)hashmap.get("uniqueID");
             if(s19 != null && s19.length() > 0)
             {
-                jgl.HashMap hashmap4 = BrowsableCache.getCache(s19, true, false);
-                jgl.HashMap hashmap5 = (jgl.HashMap)hashmap4.get("selectNames");
-                jgl.HashMap hashmap6 = (jgl.HashMap)hashmap4.get("selectIDs");
-                for(Enumeration enumeration4 = hashmap5.keys(); enumeration4.hasMoreElements();)
+                HashMap hashmap4 = BrowsableCache.getCache(s19, true, false);
+                HashMap hashmap5 = (HashMap)hashmap4.get("selectNames");
+                HashMap hashmap6 = (HashMap)hashmap4.get("selectIDs");
+                for(Enumeration enumeration4 = (Enumeration) hashmap5.keys(); enumeration4.hasMoreElements();)
                 {
                     String s35 = (String)enumeration4.nextElement();
                     String s36 = (String)hashmap6.get(s35);
@@ -3901,9 +3901,9 @@ public class APIMonitor extends APISiteView
             siteviewgroup.checkDispatcherForStart(atomicmonitor);
         }
         
-        jgl.Array array1 = atomicmonitor.getProperties();
+        Array array1 = atomicmonitor.getProperties();
         array1 = COM.dragonflow.Properties.StringProperty.sortByOrder(array1);
-        enumeration = array1.elements();
+        enumeration =  (Enumeration) array1.iterator();
         COM.dragonflow.Properties.StringProperty stringproperty;
         String s14;
         while (enumeration.hasMoreElements())
@@ -3984,8 +3984,8 @@ public class APIMonitor extends APISiteView
                     String s33 = COM.dragonflow.Utils.I18N.toDefaultEncoding(user.getValue("_account"));
                     MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(s33);
                     String s37 = monitorgroup.getProperty(Monitor.pGroupID);
-                    jgl.Array array5 = monitorgroup.getMonitorsOfClass("", s37);
-                    Enumeration enumeration5 = array5.elements();
+                    Array array5 = monitorgroup.getMonitorsOfClass("", s37);
+                    Enumeration enumeration5 = (Enumeration) array5.iterator();
                     int j5 = 0;
                     while (enumeration5.hasMoreElements())
                         {
@@ -4037,7 +4037,7 @@ public class APIMonitor extends APISiteView
         } else
         if((stringproperty instanceof COM.dragonflow.Properties.ScalarProperty) && ((COM.dragonflow.Properties.ScalarProperty)stringproperty).multiple)
         {
-            jgl.Array array2 = new Array();
+            Array array2 = new Array();
             if(!Platform.isStandardAccount(user.getValue("_account")) && stringproperty.getName().equals("_location"))
             {
                 Enumeration enumeration1 = atomicmonitor.getMultipleValues(stringproperty);
@@ -4064,7 +4064,7 @@ public class APIMonitor extends APISiteView
             }
             if(array2 != null && array2.size() > 0)
             {
-                Enumeration enumeration3 = array2.elements();
+                Enumeration enumeration3 =  (Enumeration) array2.iterator();
                 while(enumeration3.hasMoreElements()) 
                 {
                     atomicmonitor.addProperty(stringproperty, (String)enumeration3.nextElement());
@@ -4115,8 +4115,8 @@ public class APIMonitor extends APISiteView
         {
             COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
             int i = saveOrdering(httprequest);
-            jgl.HashMap hashmap = atomicmonitor.getValuesTable();
-            jgl.Array array = null;
+            HashMap hashmap = atomicmonitor.getValuesTable();
+            Array array = null;
             if(!$assertionsDisabled && s.equals(OP_TEMP))
             {
                 throw new AssertionError();
@@ -4124,7 +4124,7 @@ public class APIMonitor extends APISiteView
             array = ReadGroupFrames(s2);
             if(s.equals(OP_ADD))
             {
-                jgl.HashMap hashmap1 = (jgl.HashMap)array.at(0);
+                HashMap hashmap1 = (HashMap)array.get(0);
                 s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_nextID");
                 if(s3.length() == 0)
                 {
@@ -4140,13 +4140,13 @@ public class APIMonitor extends APISiteView
             } else
             {
                 int j = monitorUtils.findMonitorIndex(array, s1);
-                java.lang.Object obj = array.at(j);
+                java.lang.Object obj = array.get(j);
                 array.remove(obj);
                 array.insert(j, hashmap);
             }
 //            if(TopazConfigurator.configInTopazAndRegistered())
 //            {
-//                jgl.Array array1 = new Array();
+//                Array array1 = new Array();
 //                array1.add(atomicmonitor);
 //                if(s.equals(OP_EDIT) && atomicmonitor.isDispatcher())
 //                {
@@ -4184,7 +4184,7 @@ public class APIMonitor extends APISiteView
         }
     }
 
-    private void saveThresholds(Monitor monitor, jgl.HashMap hashmap)
+    private void saveThresholds(Monitor monitor, HashMap hashmap)
         throws COM.dragonflow.SiteViewException.SiteViewException
     {
         int i = getThresholdNum(monitor);
@@ -4261,10 +4261,10 @@ public class APIMonitor extends APISiteView
         }
     }
 
-    private void saveCustomProperties(Monitor monitor, jgl.HashMap hashmap)
+    private void saveCustomProperties(Monitor monitor, HashMap hashmap)
     {
-        jgl.HashMap hashmap1 = MasterConfig.getMasterConfig();
-        Enumeration enumeration = hashmap1.values("_monitorEditCustom");
+        HashMap hashmap1 = MasterConfig.getMasterConfig();
+        Enumeration enumeration = (Enumeration) hashmap1.values("_monitorEditCustom");
         while (enumeration.hasMoreElements()) {
             String s = (String)enumeration.nextElement();
             String as[] = COM.dragonflow.Utils.TextUtils.split(s, "|");
@@ -4314,7 +4314,7 @@ public class APIMonitor extends APISiteView
             {
                 String s1 = s.substring(0, i);
                 String s2 = s.substring(i + 1);
-                jgl.Array array = null;
+                Array array = null;
                 array = getGroupFrames(s1);
                 int j = findMonitorIndex(array, s2);
                 if(j >= 1)
@@ -4325,7 +4325,7 @@ public class APIMonitor extends APISiteView
                     AtomicMonitor atomicmonitor = (AtomicMonitor)siteviewgroup.getElement(s3);
                     if(atomicmonitor != null)
                     {
-                        jgl.Array array1 = new Array();
+                        Array array1 = new Array();
                         siteviewgroup.notifyMonitorDeletion(atomicmonitor);
 //                        if(TopazConfigurator.configInTopazAndRegistered())
 //                        {
@@ -4366,7 +4366,7 @@ public class APIMonitor extends APISiteView
         java.util.Vector vector = new Vector();
         Enumeration enumeration = htmltagparser.findTags("meta");
         while (enumeration.hasMoreElements()) {
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             String s = new String("");
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap, "http-equiv").equalsIgnoreCase("refresh"))
             {
@@ -4386,7 +4386,7 @@ public class APIMonitor extends APISiteView
         String s;
         for(; enumeration.hasMoreElements(); vector.addElement(s.length() <= 80 ? ((java.lang.Object) (s)) : ((java.lang.Object) (s.substring(0, 79)))))
         {
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "name").trim();
             if(s.length() == 0)
             {
@@ -4398,7 +4398,7 @@ public class APIMonitor extends APISiteView
         String s1;
         for(; enumeration1.hasMoreElements(); vector.addElement(s1.length() <= 80 ? ((java.lang.Object) (s1)) : ((java.lang.Object) (s1.substring(0, 79)))))
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)enumeration1.nextElement();
+            HashMap hashmap1 = (HashMap)enumeration1.nextElement();
             s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "name").trim();
             if(s1.length() == 0)
             {
@@ -4417,7 +4417,7 @@ public class APIMonitor extends APISiteView
         int i = 0;
         while (enumeration.hasMoreElements()) {
             i++;
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "name").trim();
             if(s1.length() == 0)
             {
@@ -4437,7 +4437,7 @@ public class APIMonitor extends APISiteView
                 String s3 = "";
                 String s6 = "";
                 String s8 = "";
-                jgl.HashMap hashmap1 = (jgl.HashMap)enumeration1.nextElement();
+                HashMap hashmap1 = (HashMap)enumeration1.nextElement();
                 String s9 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "tag");
                 if(s9.equals("select"))
                 {
@@ -4445,7 +4445,7 @@ public class APIMonitor extends APISiteView
                     String s12 = null;
                     Enumeration enumeration2 = htmltagparser.findTags(hashmap1, "option");
                     while (enumeration2.hasMoreElements()) {
-                        jgl.HashMap hashmap2 = (jgl.HashMap)enumeration2.nextElement();
+                        HashMap hashmap2 = (HashMap)enumeration2.nextElement();
                         if(s12 == null)
                         {
                             s12 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "value");
@@ -4550,7 +4550,7 @@ public class APIMonitor extends APISiteView
         String s;
         for(Enumeration enumeration = htmltagparser.findTags("a"); enumeration.hasMoreElements(); vector.addElement(s.length() <= 80 ? ((java.lang.Object) (s)) : ((java.lang.Object) (s.substring(0, 79)))))
         {
-            jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+            HashMap hashmap = (HashMap)enumeration.nextElement();
             s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "contents").trim();
             vector.addElement(s);
         }
@@ -4558,7 +4558,7 @@ public class APIMonitor extends APISiteView
         String s1;
         for(Enumeration enumeration1 = htmltagparser.findTags("area"); enumeration1.hasMoreElements(); vector.addElement(s1.length() <= 80 ? ((java.lang.Object) (s1)) : ((java.lang.Object) (s1.substring(0, 79)))))
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)enumeration1.nextElement();
+            HashMap hashmap1 = (HashMap)enumeration1.nextElement();
             s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "contents").trim();
             if(s1.length() == 0 || s1.toLowerCase().lastIndexOf("<img") >= 0)
             {
@@ -4596,9 +4596,9 @@ public class APIMonitor extends APISiteView
         }
     }
 
-    private jgl.Array getNodeNames(org.w3c.dom.Node node)
+    private Array getNodeNames(org.w3c.dom.Node node)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s = ((org.w3c.dom.Element)node).getAttribute("name");
         if(s == null)
         {
@@ -4623,9 +4623,9 @@ public class APIMonitor extends APISiteView
         return array;
     }
 
-    jgl.Array getNodeIdNames(org.w3c.dom.Node node)
+    Array getNodeIdNames(org.w3c.dom.Node node)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s = "id";
         String s1 = ((org.w3c.dom.Element)node).getAttribute(s);
         if(s1 == null || s1.length() == 0)

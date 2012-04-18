@@ -21,8 +21,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public abstract class FileBase {
     public class DoCheck {
@@ -30,7 +30,7 @@ public abstract class FileBase {
         public void setup() {
         }
 
-        public String expand(String s, HealthNode healthnode, jgl.HashMap hashmap) {
+        public String expand(String s, HealthNode healthnode, HashMap hashmap) {
             s = COM.dragonflow.Utils.TextUtils.replaceString(s, "<group>", healthnode.fileName);
             if (healthnode.parent != null) {
                 s = COM.dragonflow.Utils.TextUtils.replaceString(s, "<parentFileName>", healthnode.parent.fileName);
@@ -54,15 +54,15 @@ public abstract class FileBase {
             return "";
         }
 
-        public String getValue(jgl.Array array, String s, int i) {
+        public String getValue(Array array, String s, int i) {
             String s1 = "";
             if (i >= array.size()) {
                 return s1;
             }
             if (s.length() > 0) {
-                return getSubVal((String) array.at(i), s);
+                return getSubVal((String) array.get(i), s);
             } else {
-                return (String) array.at(i);
+                return (String) array.get(i);
             }
         }
 
@@ -71,10 +71,10 @@ public abstract class FileBase {
 			if(checkme.operation==null||checkme.property==null)/*dingbing.xu add this line!!*/
 				return;
 			
-            jgl.HashMap hashmap = new HashMap(false);
+            HashMap hashmap = new HashMap(false);
             for (int i = 0; i < healthnode.frames.size(); i ++) {
-                jgl.HashMap hashmap1 = (jgl.HashMap) healthnode.frames.at(i);
-                jgl.Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap1, "_class");
+                HashMap hashmap1 = (HashMap) healthnode.frames.get(i);
+                Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap1, "_class");
                 if (i == 0 && array.size() <= 0) {
                     if (checkme.operation!=null&&!checkme.operation.startsWith("subGroupR") && !checkme.operation.startsWith("monitorR")) { /*dingbing.xu add checkme.operation!=null*/
                         processFrame(healthnode, hashmap1, checkme);
@@ -82,23 +82,23 @@ public abstract class FileBase {
                     continue;
                 }
                 if (checkme.operation!=null&&checkme.operation.equals("noDupValues") && (checkme.property.equals("_id") || checkme.property.equals("_name") && COM.dragonflow.Utils.TextUtils.getSingleValue(masterConfig, "_healthCheckForUniqueMonitorNames").length() > 0)) {
-                    jgl.Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap1, checkme.property);
+                    Array array1 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap1, checkme.property);
                     if (array1.size() < 1) {
                         continue;
                     }
                     String s = null;
-                    String s2 = checkme.property + array1.at(0);
+                    String s2 = checkme.property + array1.get(0);
                     s = (String) hashmap.put(s2, "");
                     try {
                         String s3 = checkme.errorMessage;
                         s3 = COM.dragonflow.Utils.TextUtils.replaceString(s3, "<tag>", checkme.property);
                         s3 = COM.dragonflow.Utils.TextUtils.replaceString(s3, "<group>", healthnode.fileName);
-                        s3 = COM.dragonflow.Utils.TextUtils.replaceString(s3, "<value>", (String) array1.at(0));
+                        s3 = COM.dragonflow.Utils.TextUtils.replaceString(s3, "<value>", (String) array1.get(0));
                         ErrorMessage errormessage1 = new ErrorMessage("noDupValues", s3, healthnode.fileName);
                         checkCondition(s == null, errormessage1);
                         continue;
                     } catch (java.lang.Exception exception) {
-                        String s4 = "Error Message Failed chk.errorMessage: " + checkme.errorMessage + " chk.property is a tag: " + checkme.property + " value: " + (String) array1.at(0) + " node.fileName: " + healthnode.fileName;
+                        String s4 = "Error Message Failed chk.errorMessage: " + checkme.errorMessage + " chk.property is a tag: " + checkme.property + " value: " + (String) array1.get(0) + " node.fileName: " + healthnode.fileName;
                         COM.dragonflow.Log.LogManager.log("Error", s4);
                         java.lang.System.out.println(s4);
                         COM.dragonflow.Utils.TextUtils.debugPrint("Exception: " + exception);
@@ -110,7 +110,7 @@ public abstract class FileBase {
                 if (checkme.operation!=null&&checkme.operation.startsWith("group")) {
                     continue;
                 }
-                jgl.Array array2 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap1, "_class");
+                Array array2 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap1, "_class");
                 if (healthnode.fileName.endsWith(".mg")) {
                     if (checkme.property!=null&&checkme.property.equals("_class") && (checkme.property.equals("subGroupRequired") || checkme.property.equals("monitorRequired"))) {
                         String s1 = "_class tag missing in one of the group frames, cannot determine whether to check monitor or subGroup";
@@ -120,7 +120,7 @@ public abstract class FileBase {
                     if (array2.size() <= 0) {
                         continue;
                     }
-                    if (array2.at(0).equals("SubGroup")) {
+                    if (array2.get(0).equals("SubGroup")) {
                         if (checkme.operation!=null&&!checkme.operation.startsWith("monitorR")) {
                             processFrame(healthnode, hashmap1, checkme);
                         }
@@ -137,24 +137,24 @@ public abstract class FileBase {
             }
 
             for (int j = 0; j < healthnode.children.size(); j ++) {
-                HealthNode healthnode1 = (HealthNode) healthnode.children.at(j);
+                HealthNode healthnode1 = (HealthNode) healthnode.children.get(j);
                 processNode(healthnode1, checkme);
             }
 
         }
 
-        public void processTree(jgl.Array array) {
+        public void processTree(Array array) {
             for (int i = 0; i < array.size(); i ++) {
-                CheckMe checkme = (CheckMe) array.at(i);
+                CheckMe checkme = (CheckMe) array.get(i);
                 for (int j = 0; j < tree.size(); j ++) {
-                    processNode((HealthNode) tree.at(j), checkme);
+                    processNode((HealthNode) tree.get(j), checkme);
                 }
 
             }
 
         }
 
-        public boolean processFrame(HealthNode healthnode, jgl.HashMap hashmap, CheckMe checkme) {
+        public boolean processFrame(HealthNode healthnode, HashMap hashmap, CheckMe checkme) {
             String as[] = COM.dragonflow.Utils.TextUtils.split(checkme.property, ", ");
             java.util.LinkedList linkedlist = new LinkedList();
             for (int i = 0; i < as.length; i ++) {
@@ -165,16 +165,16 @@ public abstract class FileBase {
                     s2 = new String(s1.substring(0, s1.indexOf(".")));
                     s3 = new String(s1.substring(s1.indexOf(".") + 1));
                 }
-                jgl.Array array2 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, s2);
+                Array array2 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, s2);
                 linkedlist.add(new CheckMePropInfo(s2, s3, array2));
             }
 
             String s = checkme.operation;
             CheckMePropInfo checkmepropinfo = (CheckMePropInfo) linkedlist.get(0);
-            jgl.Array array = checkmepropinfo.wholeValue;
+            Array array = checkmepropinfo.wholeValue;
             String s4 = checkmepropinfo.mainProp;
             String s5 = checkmepropinfo.subProp;
-            jgl.Array array3 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_id");
+            Array array3 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_id");
             String s7 = getValue(array3, s5, 0);
             String s8 = new String(expand(checkme.errorMessage, healthnode, hashmap));
             ErrorMessage errormessage = new ErrorMessage(s, s8, healthnode.fileName);
@@ -199,7 +199,7 @@ public abstract class FileBase {
                     }
                 } else if (array.size() > 0) {
                     for (int k = 0; k < array.size(); k ++) {
-                        errormessage.message = COM.dragonflow.Utils.TextUtils.replaceString(errormessage.messageTemplate, "<value>", array.at(k).toString());
+                        errormessage.message = COM.dragonflow.Utils.TextUtils.replaceString(errormessage.messageTemplate, "<value>", array.get(k).toString());
                         if (!checkCondition(getValue(array, s5, k).length() > 0, errormessage)) {
                             flag = false;
                         }
@@ -216,7 +216,7 @@ public abstract class FileBase {
                             java.lang.Integer.parseInt(s12);
                             continue;
                         } catch (java.lang.NumberFormatException numberformatexception1) {
-                            errormessage.message = COM.dragonflow.Utils.TextUtils.replaceString(errormessage.messageTemplate, "<value>", array.at(l).toString());
+                            errormessage.message = COM.dragonflow.Utils.TextUtils.replaceString(errormessage.messageTemplate, "<value>", array.get(l).toString());
                         }
                         checkCondition(false, errormessage);
                         flag1 = false;
@@ -250,7 +250,7 @@ public abstract class FileBase {
                     return flag5;
                 }
                 if (s.startsWith("range")) {
-                    jgl.Array array4 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_class");
+                    Array array4 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_class");
                     String s11 = getValue(array4, s5, 0);
                     int i2 = s.indexOf("(") + 1;
                     int k2 = s.indexOf(")");
@@ -291,9 +291,9 @@ public abstract class FileBase {
                     if (s.equals("frequencyTimeout")) {
                         boolean flag2 = true;
                         try {
-                            jgl.Array array5 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_class");
+                            Array array5 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_class");
                             String s13 = getValue(array5, s5, 0);
-                            jgl.Array array6 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_timeout");
+                            Array array6 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_timeout");
                             String s17 = getValue(array6, s5, 0);
                             String s20 = getValue(array, s5, 0);
                             if (s17.length() > 0 && s20.length() > 0) {
@@ -335,9 +335,9 @@ public abstract class FileBase {
                                 int j2 = s.indexOf(")");
                                 String s16 = s.substring(k1, j2);
                                 String s18 = "0";
-                                jgl.HashMap hashmap1 = (jgl.HashMap) healthnode.frames.at(0);
+                                HashMap hashmap1 = (HashMap) healthnode.frames.get(0);
                                 boolean flag6 = false;
-                                jgl.Array array7 = new Array();
+                                Array array7 = new Array();
                                 if (healthnode.fileName.equals("history.config")) {
                                     array7 = COM.dragonflow.Utils.TextUtils.getMultipleValues(masterConfig, s16);
                                     flag6 = true;
@@ -345,7 +345,7 @@ public abstract class FileBase {
                                     array7 = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap1, s16);
                                 }
                                 if (array7.size() >= 1) {
-                                    s18 = (String) array7.at(0);
+                                    s18 = (String) array7.get(0);
                                 } else {
                                     String s22 = "missing : '" + s16 + "' required" + (flag6 ? " in master.config " : " ") + "to compare with tag '" + s4 + "'" + (s5.trim().length() <= 0 ? "." : " and sub-tag '" + s5 + "'");
                                     ErrorMessage errormessage2 = new ErrorMessage("required", s22, healthnode.fileName);
@@ -363,7 +363,7 @@ public abstract class FileBase {
                                 boolean flag4 = true;
                                 for (java.util.Iterator iterator = linkedlist.iterator(); iterator.hasNext();) {
                                     CheckMePropInfo checkmepropinfo1 = (CheckMePropInfo) iterator.next();
-                                    jgl.Array array1 = checkmepropinfo1.wholeValue;
+                                    Array array1 = checkmepropinfo1.wholeValue;
                                     s4 = checkmepropinfo1.mainProp;
                                     String s6 = checkmepropinfo1.subProp;
                                     int i3 = 0;
@@ -454,9 +454,9 @@ public abstract class FileBase {
 
         public String mainProp;
 
-        public jgl.Array wholeValue;
+        public Array wholeValue;
 
-        public CheckMePropInfo(String s, String s1, jgl.Array array) {
+        public CheckMePropInfo(String s, String s1, Array array) {
             mainProp = s;
             subProp = s1;
             wholeValue = array;
@@ -521,17 +521,17 @@ public abstract class FileBase {
 
         public HealthNode parent;
 
-        public jgl.Array children;
+        public Array children;
 
         public String fileName;
 
-        public jgl.Array frames;
+        public Array frames;
 
         public int parentFrameIndex;
 
         public boolean nodeOK;
 
-        public HealthNode(HealthNode healthnode, int i, jgl.Array array, String s) {
+        public HealthNode(HealthNode healthnode, int i, Array array, String s) {
             super();
             parent = null;
             parent = healthnode;
@@ -550,7 +550,7 @@ public abstract class FileBase {
             if (j > 0) {
                 String s1 = fileName.substring(0, j);
                 monitorAndGroupNames.add(s1);
-                jgl.HashMap hashmap = (jgl.HashMap) frames.at(0);
+                HashMap hashmap = (HashMap) frames.get(0);
                 if (!hashmap.isEmpty()) {
                     circularHm.put(s1, hashmap);
                 }
@@ -563,9 +563,9 @@ public abstract class FileBase {
 
     String groupsLocation;
 
-    jgl.Array errorLog;
+    Array errorLog;
 
-    jgl.HashMap masterConfig;
+    HashMap masterConfig;
 
     protected java.util.Vector monitorAndGroupNames;
 
@@ -573,15 +573,15 @@ public abstract class FileBase {
 
     public static boolean debug = false;
 
-    protected jgl.Array tree;
+    protected Array tree;
 
-    public abstract jgl.Array errorCheck();
+    public abstract Array errorCheck();
 
     abstract String getClassName();
 
     protected boolean hasNode(String s) {
         for (int i = 0; i < tree.size(); i ++) {
-            HealthNode healthnode = (HealthNode) tree.at(i);
+            HealthNode healthnode = (HealthNode) tree.get(i);
             if (isNode(healthnode, s)) {
                 return true;
             }
@@ -595,7 +595,7 @@ public abstract class FileBase {
             return true;
         }
         for (int i = 0; i < healthnode.children.size(); i ++) {
-            if (isNode((HealthNode) healthnode.children.at(i), s)) {
+            if (isNode((HealthNode) healthnode.children.get(i), s)) {
                 return true;
             }
         }
@@ -633,9 +633,9 @@ public abstract class FileBase {
         masterConfig = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
     }
 
-    public java.lang.Object getAt(jgl.Array array, int i, String s) {
+    public java.lang.Object getAt(Array array, int i, String s) {
         if (array.size() > i) {
-            return array.at(i);
+            return array.get(i);
         }
         if (s.equals("String")) {
             return "";
@@ -649,12 +649,12 @@ public abstract class FileBase {
 
     private boolean checkCircular(java.util.Vector vector, String s) {
         String s1 = (String) vector.lastElement();
-        jgl.HashMap hashmap = (jgl.HashMap) circularHm.get(s1);
+        HashMap hashmap = (HashMap) circularHm.get(s1);
         if (hashmap == null) {
             vector.remove(s1);
             return false;
         }
-        jgl.Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, s);
+        Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, s);
         if (debug) {
             COM.dragonflow.Log.LogManager.log("Error", "###CIRCULAR FRAME DUMP - mainProp: " + s + " wholeValue: " + array.toString() + " currentFrame: " + hashmap);
         }
@@ -663,7 +663,7 @@ public abstract class FileBase {
             return false;
         }
         for (int i = 0; i < array.size(); i ++) {
-            String s2 = (String) array.at(i);
+            String s2 = (String) array.get(i);
             if (debug) {
                 COM.dragonflow.Log.LogManager.log("Error", "###CIRCULAR FRAME DUMP - Find Monitor to check? dependent: " + s2 + " monitorAndGroupNames: " + monitorAndGroupNames.toString());
                 if (s1.equals("MON_CompositeEbusMon_TwoOK 5")) {
@@ -699,7 +699,7 @@ public abstract class FileBase {
         return new DoCheck();
     }
 
-    public HealthNode getHealthNode(HealthNode healthnode, int i, jgl.Array array, String s) {
+    public HealthNode getHealthNode(HealthNode healthnode, int i, Array array, String s) {
         return new HealthNode(healthnode, i, array, s);
     }
 

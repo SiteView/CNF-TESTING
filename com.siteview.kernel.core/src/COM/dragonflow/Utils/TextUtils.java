@@ -29,11 +29,13 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import jgl.Array;
-import jgl.HashMap;
-import jgl.LessString;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.oroinc.text.perl.Perl5Util;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
+import com.recursionsw.jgl.predicates.LessString;
 
 // Referenced classes of package COM.dragonflow.Utils:
 // StringBinaryPredicate, StringHashMapBinaryPredicate, ParameterParser,
@@ -96,8 +98,8 @@ public class TextUtils
             return;
         }
         decValuesInitialized = true;
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
-        Enumeration enumeration = hashmap.values("_noScientificNotation");
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        Enumeration enumeration = (Enumeration) hashmap.values("_noScientificNotation");
         String s = "";
         while (enumeration.hasMoreElements())
             {
@@ -133,19 +135,19 @@ public class TextUtils
 
     public static boolean getuseDecFormat()
     {
-        return COM.dragonflow.Utils.TextUtils.isUseDecFormat();
+        return TextUtils.isUseDecFormat();
     }
 
     public static void hackQuote(String s)
         throws java.lang.Exception
     {
-        java.io.BufferedReader bufferedreader = COM.dragonflow.Utils.FileUtils.MakeInputReader(new FileInputStream(s));
+        java.io.BufferedReader bufferedreader = FileUtils.MakeInputReader(new FileInputStream(s));
         while (true)
         {
             String s1 = bufferedreader.readLine();
             if(s1 != null)
             {
-                s1 = COM.dragonflow.Utils.TextUtils.replaceChar(s1, '"', "\\\"");
+                s1 = TextUtils.replaceChar(s1, '"', "\\\"");
                 java.lang.System.out.println("+\"" + s1 + "\\n\"");
             } else
             {
@@ -162,9 +164,9 @@ public class TextUtils
             if(args[0].equals("-version"))
             {
                 java.util.Date date = new Date(java.lang.System.currentTimeMillis());
-                String s = COM.dragonflow.Utils.TextUtils.prettyDate(date) + " Build: " + date.getTime() + "\n";
+                String s = TextUtils.prettyDate(date) + " Build: " + date.getTime() + "\n";
                 java.lang.System.out.println("Creating date.txt with: " + s);
-                COM.dragonflow.Utils.FileUtils.writeFile("date.txt", s);
+                FileUtils.writeFile("date.txt", s);
             } else
             if(args[0].equals("-delay"))
             {
@@ -174,11 +176,11 @@ public class TextUtils
             {
                 if(args[0].equals("-s"))
                 {
-                    java.lang.System.out.println(COM.dragonflow.Utils.TextUtils.obscure(args[1]));
+                    java.lang.System.out.println(TextUtils.obscure(args[1]));
                 } else
                 if(args[0].equals("-d"))
                 {
-                    java.lang.System.out.println(COM.dragonflow.Utils.TextUtils.enlighten(args[1]));
+                    java.lang.System.out.println(TextUtils.enlighten(args[1]));
                 } else
                 {
                     java.lang.System.out.println("bad option");
@@ -188,7 +190,7 @@ public class TextUtils
         }
         try
         {
-            java.lang.Class.forName("COM.dragonflow.Utils.TextUtils");
+            java.lang.Class.forName("TextUtils");
         }
         catch(java.lang.Exception exception)
         {
@@ -198,16 +200,16 @@ public class TextUtils
         float f = 3.402823E+038F;
         for(int i = 0; i < 200; i++)
         {
-            java.lang.System.out.println(i + ":   " + f + ", " + COM.dragonflow.Utils.TextUtils.floatToString(f, 2));
-            java.lang.System.out.println(i + ": " + -f + ", " + COM.dragonflow.Utils.TextUtils.floatToString(-f, 2));
+            java.lang.System.out.println(i + ":   " + f + ", " + TextUtils.floatToString(f, 2));
+            java.lang.System.out.println(i + ": " + -f + ", " + TextUtils.floatToString(-f, 2));
             f /= 10F;
         }
 
         f = 2.147484E+009F;
         for(int j = 0; j < 200; j++)
         {
-            java.lang.System.out.println(j + ":   " + f + ", " + COM.dragonflow.Utils.TextUtils.floatToString(f, 2));
-            java.lang.System.out.println(j + ": " + -f + ", " + COM.dragonflow.Utils.TextUtils.floatToString(-f, 2));
+            java.lang.System.out.println(j + ":   " + f + ", " + TextUtils.floatToString(f, 2));
+            java.lang.System.out.println(j + ": " + -f + ", " + TextUtils.floatToString(-f, 2));
             f /= 10F;
         }
 
@@ -288,10 +290,10 @@ public class TextUtils
 
     public static String prettyDate()
     {
-        return COM.dragonflow.Utils.TextUtils.prettyDate(COM.dragonflow.SiteView.Platform.makeDate());
+        return TextUtils.prettyDate(COM.dragonflow.SiteView.Platform.makeDate());
     }
 
-    public static String getValue(jgl.HashMap hashmap, String s)
+    public static String getValue(HashMap hashmap, String s)
     {
         java.lang.Object obj = hashmap.get(s);
         if(obj == null)
@@ -307,13 +309,13 @@ public class TextUtils
         }
     }
 
-    public static jgl.Array getMultipleValues(jgl.HashMap hashmap, String s)
+    public static Array getMultipleValues(HashMap hashmap, String s)
     {
         java.lang.Object obj = hashmap.get(s);
-        jgl.Array array;
-        if(obj instanceof jgl.Array)
+        Array array;
+        if(obj instanceof Array)
         {
-            array = (jgl.Array)obj;
+            array = (Array)obj;
         } else
         if(obj instanceof String)
         {
@@ -326,9 +328,9 @@ public class TextUtils
         return array;
     }
 
-    public static String getSingleValue(jgl.HashMap hashmap, String s)
+    public static String getSingleValue(HashMap hashmap, String s)
     {
-        jgl.Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, s);
+        Array array = TextUtils.getMultipleValues(hashmap, s);
         if(array == null)
         {
             return "";
@@ -386,43 +388,43 @@ public class TextUtils
 
     public static String prettyDate(long l)
     {
-        return COM.dragonflow.Utils.TextUtils.prettyDate(new Date(l));
+        return TextUtils.prettyDate(new Date(l));
     }
 
     public static String prettyDateDate(java.util.Date date)
     {
-        return COM.dragonflow.Utils.TextUtils.prettyDatePart(date, false);
+        return TextUtils.prettyDatePart(date, false);
     }
 
     public static String prettyDateDate(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.prettyDatePart(s, false);
+        return TextUtils.prettyDatePart(s, false);
     }
 
     public static String prettyDateTime(java.util.Date date)
     {
-        return COM.dragonflow.Utils.TextUtils.prettyDatePart(date, true);
+        return TextUtils.prettyDatePart(date, true);
     }
 
     public static String prettyDateTime(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.prettyDatePart(s, true);
+        return TextUtils.prettyDatePart(s, true);
     }
 
     public static String prettyDatePart(java.util.Date date, boolean flag)
     {
-        if(COM.dragonflow.Utils.LocaleUtils.getTimeFormatter() != null)
+        if(LocaleUtils.getTimeFormatter() != null)
         {
             if(flag)
             {
-                return COM.dragonflow.Utils.LocaleUtils.getTimeFormatter().format(date);
+                return LocaleUtils.getTimeFormatter().format(date);
             } else
             {
-                return COM.dragonflow.Utils.LocaleUtils.getDateFormatter().format(date);
+                return LocaleUtils.getDateFormatter().format(date);
             }
         } else
         {
-            return COM.dragonflow.Utils.TextUtils.prettyDatePart(COM.dragonflow.Utils.TextUtils.prettyDate(date), flag);
+            return TextUtils.prettyDatePart(TextUtils.prettyDate(date), flag);
         }
     }
 
@@ -446,17 +448,17 @@ public class TextUtils
 
     public static String prettyDate(java.util.Date date)
     {
-        return COM.dragonflow.Utils.TextUtils.prettyDate(date, " ");
+        return TextUtils.prettyDate(date, " ");
     }
 
     public static String prettyDate(java.util.Date date, long l)
     {
-        return COM.dragonflow.Utils.TextUtils.prettyDate(date, " ", l);
+        return TextUtils.prettyDate(date, " ", l);
     }
 
     public static String prettyDate(java.util.Date date, String s)
     {
-        return COM.dragonflow.Utils.TextUtils.prettyDate(date, s, 0L);
+        return TextUtils.prettyDate(date, s, 0L);
     }
 
     private static void initializeCustomFormatter()
@@ -468,7 +470,7 @@ public class TextUtils
                 if(!customPrettyDatePatternInitialized)
                 {
                     customPrettyDatePatternInitialized = true;
-                    String s = COM.dragonflow.Utils.TextUtils.getValue(COM.dragonflow.SiteView.MasterConfig.getMasterConfig(), "_prettyDateCustomPattern");
+                    String s = TextUtils.getValue(COM.dragonflow.SiteView.MasterConfig.getMasterConfig(), "_prettyDateCustomPattern");
                     if(s.length() > 0)
                     {
                         try
@@ -497,12 +499,12 @@ public class TextUtils
     public static String prettyDate(java.util.Date date, String s, long l)
     {
         java.text.DateFormat dateformat;
-        COM.dragonflow.Utils.TextUtils.initializeCustomFormatter();
+        TextUtils.initializeCustomFormatter();
         if(l != 0L)
         {
             date = new Date(date.getTime() + l);
         }
-        dateformat = COM.dragonflow.Utils.LocaleUtils.getTimeFormatter();
+        dateformat = LocaleUtils.getTimeFormatter();
         if(prettyDateCustomFormatter != null)
         {
             synchronized (prettyDateCustomFormatter) {
@@ -512,7 +514,7 @@ public class TextUtils
 
         if(dateformat != null)
         {
-            String s1 = dateformat.format(date) + " " + COM.dragonflow.Utils.LocaleUtils.getDateFormatter().format(date);
+            String s1 = dateformat.format(date) + " " + LocaleUtils.getDateFormatter().format(date);
             return s1;
         } else
         {
@@ -555,12 +557,12 @@ public class TextUtils
 
     public static String dateToString(long l)
     {
-        return COM.dragonflow.Utils.TextUtils.dateToString(new Date(l));
+        return TextUtils.dateToString(new Date(l));
     }
 
     public static String dateToString()
     {
-        return COM.dragonflow.Utils.TextUtils.dateToString(COM.dragonflow.SiteView.Platform.makeDate());
+        return TextUtils.dateToString(COM.dragonflow.SiteView.Platform.makeDate());
     }
 
     public static String dateToString(java.util.Date date)
@@ -603,12 +605,12 @@ public class TextUtils
         {
             try
             {
-                int i = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 0);
-                int j = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 3);
-                int k = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 6);
-                int l = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 9) - 1;
-                int i1 = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 12);
-                int j1 = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 15);
+                int i = TextUtils.readIntegerSafe(s, 0);
+                int j = TextUtils.readIntegerSafe(s, 3);
+                int k = TextUtils.readIntegerSafe(s, 6);
+                int l = TextUtils.readIntegerSafe(s, 9) - 1;
+                int i1 = TextUtils.readIntegerSafe(s, 12);
+                int j1 = TextUtils.readIntegerSafe(s, 15);
                 date = (new GregorianCalendar(j1, l, i1, i, j, k)).getTime();
                 COM.dragonflow.Log.LogManager.log("RunMonitor", "Could not parse " + s + " into a date using default parsing");
             }
@@ -637,9 +639,9 @@ public class TextUtils
         {
             return "n/a";
         }
-        if(COM.dragonflow.Utils.TextUtils.isUseDecFormat() && COM.dragonflow.Utils.TextUtils.getDecFormatFixed() != null)
+        if(TextUtils.isUseDecFormat() && TextUtils.getDecFormatFixed() != null)
         {
-            return COM.dragonflow.Utils.TextUtils.getDecFormatFixed().format(f);
+            return TextUtils.getDecFormatFixed().format(f);
         }
         String s = String.valueOf(f);
         int j = s.indexOf("E");
@@ -666,7 +668,7 @@ public class TextUtils
         int l = s.indexOf(".");
         if(l < 0)
         {
-            return s + "." + COM.dragonflow.Utils.TextUtils.filledString('0', i);
+            return s + "." + TextUtils.filledString('0', i);
         }
         int i1 = s.length() - l - 1;
         if(i1 > i)
@@ -675,7 +677,7 @@ public class TextUtils
         } else
         if(i1 < i)
         {
-            s = s + COM.dragonflow.Utils.TextUtils.filledString('0', i - i1);
+            s = s + TextUtils.filledString('0', i - i1);
         }
         return s;
     }
@@ -686,18 +688,18 @@ public class TextUtils
         {
             return "n/a";
         }
-        if(COM.dragonflow.Utils.TextUtils.isUseDecFormat() && COM.dragonflow.Utils.TextUtils.getDecFormat() != null)
+        if(TextUtils.isUseDecFormat() && TextUtils.getDecFormat() != null)
         {
-            return COM.dragonflow.Utils.TextUtils.getDecFormat().format(f);
+            return TextUtils.getDecFormat().format(f);
         } else
         {
-            return COM.dragonflow.Utils.TextUtils.floatToString(f, i);
+            return TextUtils.floatToString(f, i);
         }
     }
 
     public static String dateToFileName()
     {
-        return COM.dragonflow.Utils.TextUtils.dateToFileName(COM.dragonflow.SiteView.Platform.makeDate());
+        return TextUtils.dateToFileName(COM.dragonflow.SiteView.Platform.makeDate());
     }
 
     public static String dateToFileName(java.util.Date date)
@@ -717,11 +719,11 @@ public class TextUtils
         }
         catch(java.text.ParseException parseexception)
         {
-            int i = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 0);
-            int j = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 3);
-            int k = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 6) - 1;
-            int l = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 9);
-            int i1 = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 12);
+            int i = TextUtils.readIntegerSafe(s, 0);
+            int j = TextUtils.readIntegerSafe(s, 3);
+            int k = TextUtils.readIntegerSafe(s, 6) - 1;
+            int l = TextUtils.readIntegerSafe(s, 9);
+            int i1 = TextUtils.readIntegerSafe(s, 12);
             date = (new GregorianCalendar(i1, k, l, i, j)).getTime();
             COM.dragonflow.Log.LogManager.log("RunMonitor", "Could not parse " + s + " into a date using default parsing");
         }
@@ -730,17 +732,17 @@ public class TextUtils
 
     public static String dayToFileName()
     {
-        return COM.dragonflow.Utils.TextUtils.dayToFileName(COM.dragonflow.SiteView.Platform.makeDate());
+        return TextUtils.dayToFileName(COM.dragonflow.SiteView.Platform.makeDate());
     }
 
     public static String dayToFileName(java.util.Date date)
     {
-        return COM.dragonflow.Utils.TextUtils.dayToFileName(date, false);
+        return TextUtils.dayToFileName(date, false);
     }
 
     public static String timeToFileName(java.util.Date date)
     {
-        return COM.dragonflow.Utils.TextUtils.dayToFileName(date, true);
+        return TextUtils.dayToFileName(date, true);
     }
 
     public static String dayToFileName(java.util.Date date, boolean flag)
@@ -784,15 +786,15 @@ public class TextUtils
         }
         catch (java.text.ParseException parseexception) {
         COM.dragonflow.Log.LogManager.log("RunMonitor", "Could not parse " + s + " into a date using default parsing");
-        int i = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 0);
-        int j = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 5) - 1;
-        int k = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 8);
+        int i = TextUtils.readIntegerSafe(s, 0);
+        int j = TextUtils.readIntegerSafe(s, 5) - 1;
+        int k = TextUtils.readIntegerSafe(s, 8);
         int l = 0;
         int i1 = 0;
         if(flag)
         {
-            l = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 11);
-            i1 = COM.dragonflow.Utils.TextUtils.readIntegerSafe(s, 14);
+            l = TextUtils.readIntegerSafe(s, 11);
+            i1 = TextUtils.readIntegerSafe(s, 14);
         }
         return (new GregorianCalendar(i, j, k, l, i1)).getTime();
         }
@@ -810,7 +812,7 @@ public class TextUtils
         } else
         {
             float f = (float)l / 1048576F;
-            return COM.dragonflow.Utils.TextUtils.floatToString(f, 2) + " MB";
+            return TextUtils.floatToString(f, 2) + " MB";
         }
     }
 
@@ -836,7 +838,7 @@ public class TextUtils
         int i = as.length / 2;
         for(int j = 0; j < i; j++)
         {
-            s = COM.dragonflow.Utils.TextUtils.replaceString(s, as[j], as[j + i]);
+            s = TextUtils.replaceString(s, as[j], as[j + i]);
         }
 
         return s;
@@ -887,12 +889,12 @@ public class TextUtils
 
     public static void appendStringRightJustify(StringBuffer stringbuffer, String s, int i)
     {
-        COM.dragonflow.Utils.TextUtils.appendString(stringbuffer, s, i, false, true);
+        TextUtils.appendString(stringbuffer, s, i, false, true);
     }
 
     public static void appendStringLeftJustify(StringBuffer stringbuffer, String s, int i)
     {
-        COM.dragonflow.Utils.TextUtils.appendString(stringbuffer, s, i, true, false);
+        TextUtils.appendString(stringbuffer, s, i, true, false);
     }
 
     public static void appendString(StringBuffer stringbuffer, String s, int i, boolean flag, boolean flag1)
@@ -945,11 +947,11 @@ public class TextUtils
         return 0;
         }
         
-        int j = COM.dragonflow.Utils.TextUtils.readInteger(s, 0);
+        int j = TextUtils.readInteger(s, 0);
         int k = 0;
         if(i + 1 < s.length())
         {
-            k = COM.dragonflow.Utils.TextUtils.readInteger(s, i + 1);
+            k = TextUtils.readInteger(s, i + 1);
         }
         return j * HOUR_SECONDS + k * MINUTE_SECONDS;
     }
@@ -963,9 +965,9 @@ public class TextUtils
     public static boolean isDateStringValid(String s)
     {
         try {
-        if(COM.dragonflow.Utils.LocaleUtils.getDateFormatter() != null)
+        if(LocaleUtils.getDateFormatter() != null)
         {
-        return COM.dragonflow.Utils.LocaleUtils.getDateFormatter().parse(s) != null;
+        return LocaleUtils.getDateFormatter().parse(s) != null;
         }
         }
         catch (java.lang.Exception exception) {
@@ -973,7 +975,7 @@ public class TextUtils
         }
         
         String as[];
-        as = COM.dragonflow.Utils.TextUtils.split(s, "/");
+        as = TextUtils.split(s, "/");
         try {
         if(as.length != 3)
         {
@@ -997,18 +999,18 @@ public class TextUtils
      */
     public static boolean isTimeStringValid(String s)
     {
-        if(COM.dragonflow.Utils.LocaleUtils.getDateFormatter() != null)
+        if(LocaleUtils.getDateFormatter() != null)
         {
             try {
         java.text.SimpleDateFormat simpledateformat;
         java.text.ParsePosition parseposition;
-        if(COM.dragonflow.Utils.LocaleUtils.getLocale().equals(new Locale("en", "US")) && !COM.dragonflow.Utils.LocaleUtils.getLocale().equals(new Locale("en", "CA")) && !COM.dragonflow.Utils.LocaleUtils.getLocale().equals(new Locale("en", "")))
+        if(LocaleUtils.getLocale().equals(new Locale("en", "US")) && !LocaleUtils.getLocale().equals(new Locale("en", "CA")) && !LocaleUtils.getLocale().equals(new Locale("en", "")))
         {
         simpledateformat = new SimpleDateFormat("HH:mm");
         parseposition = new ParsePosition(0);
         return simpledateformat.parse(s, parseposition) != null;
         }
-        return COM.dragonflow.Utils.LocaleUtils.getTimeFormatter().parse(s) != null;
+        return LocaleUtils.getTimeFormatter().parse(s) != null;
             }
         catch (java.lang.Exception exception) {
         return false;
@@ -1017,7 +1019,7 @@ public class TextUtils
         
         
         String as[];
-        as = COM.dragonflow.Utils.TextUtils.split(s, ":");
+        as = TextUtils.split(s, ":");
         if(as.length == 2)
         {
             try {
@@ -1042,26 +1044,26 @@ public class TextUtils
     public static long dateStringToSeconds(String s, String s1)
     {
         String s2;
-        if(COM.dragonflow.Utils.LocaleUtils.getDateTimeFormatter() != null)
+        if(LocaleUtils.getDateTimeFormatter() != null)
         {
          s2 = s + " " + s1;
         java.util.Date date;
         try {
-        COM.dragonflow.Utils.LocaleUtils.getDateTimeFormatter().setLenient(true);
-        if(COM.dragonflow.Utils.LocaleUtils.getLocale().equals(new Locale("en", "US")) || COM.dragonflow.Utils.LocaleUtils.getLocale().equals(new Locale("en", "")))
+        LocaleUtils.getDateTimeFormatter().setLenient(true);
+        if(LocaleUtils.getLocale().equals(new Locale("en", "US")) || LocaleUtils.getLocale().equals(new Locale("en", "")))
         {
             java.text.SimpleDateFormat simpledateformat = new SimpleDateFormat("MM/dd/yy HH:mm");
             java.text.ParsePosition parseposition = new ParsePosition(0);
             date = simpledateformat.parse(s2, parseposition);
         } else
-        if(COM.dragonflow.Utils.LocaleUtils.getLocale().equals(new Locale("en", "CA")))
+        if(LocaleUtils.getLocale().equals(new Locale("en", "CA")))
         {
             java.text.SimpleDateFormat simpledateformat1 = new SimpleDateFormat("dd/MM/yy HH:mm");
             java.text.ParsePosition parseposition1 = new ParsePosition(0);
             date = simpledateformat1.parse(s2, parseposition1);
         } else
         {
-            date = COM.dragonflow.Utils.LocaleUtils.getDateTimeFormatter().parse(s2);
+            date = LocaleUtils.getDateTimeFormatter().parse(s2);
         }
         if(date == null)
         {
@@ -1078,7 +1080,7 @@ public class TextUtils
         return 0L;
         }
         }
-        long l1 = COM.dragonflow.Utils.TextUtils.stringToDateSeconds(s) + COM.dragonflow.Utils.TextUtils.stringToDaySeconds(s1);
+        long l1 = TextUtils.stringToDateSeconds(s) + TextUtils.stringToDaySeconds(s1);
         return l1;
     }
 
@@ -1092,7 +1094,7 @@ public class TextUtils
     {
         String as[];
         int i;
-        as = COM.dragonflow.Utils.TextUtils.split(s, "/");
+        as = TextUtils.split(s, "/");
         i = 0;
         if(as.length == 1)
         {
@@ -1217,31 +1219,31 @@ public class TextUtils
         return s;
     }
 
-    public static jgl.Array splitArray(String s, String s1)
+    public static Array splitArray(String s, String s1)
     {
-        return COM.dragonflow.Utils.TextUtils.splitArrayImplementation(new StringTokenizer(s, s1));
+        return TextUtils.splitArrayImplementation(new StringTokenizer(s, s1));
     }
 
-    public static jgl.Array splitArray(String s)
+    public static Array splitArray(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.splitArrayImplementation(new StringTokenizer(s));
+        return TextUtils.splitArrayImplementation(new StringTokenizer(s));
     }
 
-    private static jgl.Array splitArrayImplementation(java.util.StringTokenizer stringtokenizer)
+    private static Array splitArrayImplementation(java.util.StringTokenizer stringtokenizer)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         for(; stringtokenizer.hasMoreTokens(); array.add(stringtokenizer.nextToken())) { }
         return array;
     }
 
     public static String[] split(String s, String s1)
     {
-        return COM.dragonflow.Utils.TextUtils.splitImplementation(new StringTokenizer(s, s1));
+        return TextUtils.splitImplementation(new StringTokenizer(s, s1));
     }
 
     public static String[] split(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.splitImplementation(new StringTokenizer(s));
+        return TextUtils.splitImplementation(new StringTokenizer(s));
     }
 
     private static String[] splitImplementation(java.util.StringTokenizer stringtokenizer)
@@ -1293,7 +1295,7 @@ public class TextUtils
 
     public static String[] tokenize(String s)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         StringBuffer stringbuffer = new StringBuffer();
         char c = ' ';
         char c1 = ' ';
@@ -1337,7 +1339,7 @@ public class TextUtils
         String as[] = new String[array.size()];
         for(int j = 0; j < array.size(); j++)
         {
-            as[j] = (String)array.at(j);
+            as[j] = (String)array.get(j);
         }
 
         return as;
@@ -1397,12 +1399,12 @@ public class TextUtils
 
     public static String toEmailList(String s)
     {
-        String as[] = COM.dragonflow.Utils.TextUtils.split(s, " ,");
+        String as[] = TextUtils.split(s, " ,");
         StringBuffer stringbuffer = new StringBuffer(s.length());
         String s1 = "";
         for(int i = 0; i < as.length; i++)
         {
-            String s2 = COM.dragonflow.Utils.TextUtils.removeChars(as[i], ",");
+            String s2 = TextUtils.removeChars(as[i], ",");
             stringbuffer.append(s1);
             stringbuffer.append(s2);
             s1 = ",";
@@ -1413,7 +1415,7 @@ public class TextUtils
 
     public static String checkPhone(String s)
     {
-        if(COM.dragonflow.Utils.TextUtils.digits(s) == 10)
+        if(TextUtils.digits(s) == 10)
         {
             s = "1" + s;
         }
@@ -1431,7 +1433,7 @@ public class TextUtils
 
     public static int findInteger(String s, String s1, String s2)
     {
-        long l = COM.dragonflow.Utils.TextUtils.findLong(s, s1, s2);
+        long l = TextUtils.findLong(s, s1, s2);
         if(l <= 0x7fffffffL)
         {
             return (int)l;
@@ -1530,7 +1532,7 @@ public class TextUtils
 
     public static int readInteger(String s, int i)
     {
-        long l = COM.dragonflow.Utils.TextUtils.readLong(s, i);
+        long l = TextUtils.readLong(s, i);
         if(l <= 0x7fffffffL)
         {
             return (int)l;
@@ -1572,7 +1574,7 @@ public class TextUtils
         for(j = s.length() - 1; j >= 0 && java.lang.Character.isDigit(s.charAt(j)); j--) { }
         if(j >= 0 && j != s.length() - 1)
         {
-            i = COM.dragonflow.Utils.TextUtils.toInt(s.substring(j + 1));
+            i = TextUtils.toInt(s.substring(j + 1));
         }
         return i;
     }
@@ -1657,9 +1659,9 @@ public class TextUtils
             return (0.0F / 0.0F);
         }
         try {
-        if(COM.dragonflow.Utils.TextUtils.isUseDecFormat())
+        if(TextUtils.isUseDecFormat())
         {
-            return java.lang.Float.valueOf(COM.dragonflow.Utils.TextUtils.replaceString(s, ",", "")).floatValue();
+            return java.lang.Float.valueOf(TextUtils.replaceString(s, ",", "")).floatValue();
         }
         return java.lang.Float.valueOf(s).floatValue();
         }
@@ -1679,27 +1681,27 @@ public class TextUtils
         return String.valueOf(l + 1L);
     }
 
-    public static void incrementEntry(jgl.HashMap hashmap, String s)
+    public static void incrementEntry(HashMap hashmap, String s)
     {
         String s1 = (String)hashmap.get(s);
         if(s1 == null)
         {
             s1 = "0";
         }
-        hashmap.put(s, COM.dragonflow.Utils.TextUtils.increment(s1));
+        hashmap.put(s, TextUtils.increment(s1));
     }
 
     public static int compare(String s, String s1)
     {
-        int i = s != null ? COM.dragonflow.Utils.TextUtils.toInt(s) : 0;
-        int j = s1 != null ? COM.dragonflow.Utils.TextUtils.toInt(s1) : 0;
+        int i = s != null ? TextUtils.toInt(s) : 0;
+        int j = s1 != null ? TextUtils.toInt(s1) : 0;
         return i - j;
     }
 
     public static int readIntegerSafe(String s, int i)
         throws java.lang.NumberFormatException
     {
-        int j = COM.dragonflow.Utils.TextUtils.readInteger(s, i);
+        int j = TextUtils.readInteger(s, i);
         if(j == -1)
         {
             throw new NumberFormatException("Integer not found at offset " + i + " in: " + s);
@@ -1826,17 +1828,17 @@ public class TextUtils
 
     public static boolean isFloat(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.onlyChars(s, "0123456789.-Ee+") && s.indexOf(".") != -1;
+        return TextUtils.onlyChars(s, "0123456789.-Ee+") && s.indexOf(".") != -1;
     }
 
     public static boolean isInteger(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.onlyChars(s, "0123456789-");
+        return TextUtils.onlyChars(s, "0123456789-");
     }
 
     public static boolean isNumber(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.isFloat(s) || COM.dragonflow.Utils.TextUtils.isInteger(s);
+        return TextUtils.isFloat(s) || TextUtils.isInteger(s);
     }
 
     private static int isEscaped(StringBuffer stringbuffer, String s, int i)
@@ -1894,7 +1896,7 @@ public class TextUtils
 
     public static void escapeChar(char c, StringBuffer stringbuffer)
     {
-        if(!COM.dragonflow.Utils.TextUtils.escapeSpecial(c, stringbuffer))
+        if(!TextUtils.escapeSpecial(c, stringbuffer))
         {
             String s = java.lang.Integer.toString(c);
             if(s.length() == 1)
@@ -1921,13 +1923,13 @@ public class TextUtils
             {
                 break;
             }
-            i += COM.dragonflow.Utils.TextUtils.isEscaped(stringbuffer, s1, i);
+            i += TextUtils.isEscaped(stringbuffer, s1, i);
             if(i >= s1.length())
             {
                 break;
             }
             char c = s1.charAt(i++);
-            if(!COM.dragonflow.Utils.TextUtils.escapeSpecial(c, stringbuffer))
+            if(!TextUtils.escapeSpecial(c, stringbuffer))
             {
                 stringbuffer.append(c);
             }
@@ -1946,13 +1948,13 @@ public class TextUtils
             {
                 break;
             }
-            i += COM.dragonflow.Utils.TextUtils.isEscaped(stringbuffer, s, i);
+            i += TextUtils.isEscaped(stringbuffer, s, i);
             if(i >= s.length())
             {
                 break;
             }
             char c = s.charAt(i++);
-            if(!COM.dragonflow.Utils.TextUtils.escapeSpecial(c, stringbuffer))
+            if(!TextUtils.escapeSpecial(c, stringbuffer))
             {
                 stringbuffer.append(c);
             }
@@ -1971,7 +1973,7 @@ public class TextUtils
             {
                 break;
             }
-            for(int j = 0; (j = COM.dragonflow.Utils.TextUtils.isEscaped(stringbuffer, s, i)) > 0 && i < s.length(); i += j) { }
+            for(int j = 0; (j = TextUtils.isEscaped(stringbuffer, s, i)) > 0 && i < s.length(); i += j) { }
             if(i >= s.length())
             {
                 break;
@@ -1982,7 +1984,7 @@ public class TextUtils
                 stringbuffer.append(c);
             } else
             {
-                COM.dragonflow.Utils.TextUtils.escapeChar(c, stringbuffer);
+                TextUtils.escapeChar(c, stringbuffer);
             }
         } while(true);
         return stringbuffer.toString();
@@ -1995,8 +1997,8 @@ public class TextUtils
 
     public static String unescapeHTML(String s)
     {
-        s = COM.dragonflow.Utils.TextUtils.replaceString(s, "&amp;", "&");
-        s = COM.dragonflow.Utils.TextUtils.replaceString(s, "&AMP;", "&");
+        s = TextUtils.replaceString(s, "&amp;", "&");
+        s = TextUtils.replaceString(s, "&AMP;", "&");
         return s;
     }
 
@@ -2060,7 +2062,7 @@ public class TextUtils
             {
                 i1 += 128;
             }
-            stringbuffer.append(COM.dragonflow.Utils.TextUtils.toHex(i1));
+            stringbuffer.append(TextUtils.toHex(i1));
         }
 
         stringbuffer.append(')');
@@ -2121,12 +2123,12 @@ public class TextUtils
                     break;
 
                 case 120: // 'x'
-                    abyte0[i++] = COM.dragonflow.Utils.TextUtils.digitsToByte(s, j + 1, 16);
+                    abyte0[i++] = TextUtils.digitsToByte(s, j + 1, 16);
                     j += 2;
                     break;
 
                 case 48: // '0'
-                    abyte0[i++] = COM.dragonflow.Utils.TextUtils.digitsToByte(s, j + 1, 8);
+                    abyte0[i++] = TextUtils.digitsToByte(s, j + 1, 8);
                     j += 2;
                     break;
 
@@ -2230,9 +2232,9 @@ public class TextUtils
         return s;
     }
 
-    public static jgl.HashMap stringToHashMap(String s)
+    public static HashMap stringToHashMap(String s)
     {
-        String as[] = COM.dragonflow.Utils.TextUtils.split(s);
+        String as[] = TextUtils.split(s);
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         for(int i = 0; i < as.length; i++)
         {
@@ -2242,10 +2244,10 @@ public class TextUtils
                 continue;
             }
             String s1 = as[i].substring(0, j);
-            String s2 = COM.dragonflow.Utils.TextUtils.storedValueToValue(as[i].substring(j + 1));
+            String s2 = TextUtils.storedValueToValue(as[i].substring(j + 1));
             if(s1.indexOf("assword") != -1 || s1.startsWith("_private"))
             {
-                s2 = COM.dragonflow.Utils.TextUtils.enlighten(s2);
+                s2 = TextUtils.enlighten(s2);
             }
             hashmapordered.add(s1, s2);
         }
@@ -2253,9 +2255,9 @@ public class TextUtils
         return hashmapordered;
     }
 
-    public static String hashMapToString(jgl.HashMap hashmap)
+    public static String hashMapToString(HashMap hashmap)
     {
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         StringBuffer stringbuffer = new StringBuffer();
         String s;
         for(; enumeration.hasMoreElements(); stringbuffer.append(s))
@@ -2271,9 +2273,9 @@ public class TextUtils
             String s1 = obj.toString();
             if(s1.indexOf("assword") != -1 && s1.indexOf("rompt") == -1 || s1.startsWith("_private"))
             {
-                s = COM.dragonflow.Utils.TextUtils.obscure(s);
+                s = TextUtils.obscure(s);
             }
-            s = COM.dragonflow.Utils.TextUtils.valueToStoredValue(s);
+            s = TextUtils.valueToStoredValue(s);
         }
 
         return stringbuffer.toString();
@@ -2298,19 +2300,19 @@ public class TextUtils
             String s1 = obj.toString();
             if(s1.indexOf("assword") != -1 && s1.indexOf("rompt") == -1 || s1.startsWith("_private"))
             {
-                s = COM.dragonflow.Utils.TextUtils.obscure(s);
+                s = TextUtils.obscure(s);
             }
-            s = COM.dragonflow.Utils.TextUtils.valueToStoredValue(s);
+            s = TextUtils.valueToStoredValue(s);
         }
 
         return stringbuffer.toString();
     }
 
-    public static String hashMapToOrderedString(jgl.HashMap hashmap)
+    public static String hashMapToOrderedString(HashMap hashmap)
     {
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.Array array = new Array();
+        Array array = new Array();
         StringBuffer stringbuffer1;
         for(; enumeration.hasMoreElements(); array.add(stringbuffer1.toString()))
         {
@@ -2323,17 +2325,17 @@ public class TextUtils
             stringbuffer1.append(obj);
             stringbuffer1.append("=");
             String s1 = (String)hashmap.get(obj);
-            s1 = COM.dragonflow.Utils.TextUtils.valueToStoredValue(s1);
+            s1 = TextUtils.valueToStoredValue(s1);
             String s2 = obj.toString();
             if(s2.indexOf("assword") != -1)
             {
-                s1 = COM.dragonflow.Utils.TextUtils.obscure(s1);
+                s1 = TextUtils.obscure(s1);
             }
             stringbuffer1.append(s1);
         }
 
-        jgl.Sorting.sort(array, new LessString());
-        enumeration = array.elements();
+        Sorting.sort(array, new LessString());
+        enumeration = (Enumeration) array.iterator();
         while (enumeration.hasMoreElements()) {
             String s = (String)enumeration.nextElement();
             stringbuffer.append(s);
@@ -2402,29 +2404,29 @@ public class TextUtils
 
     public static boolean isSubstituteExpression(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.substitutionExpressionDelimiter(s).length() > 0;
+        return TextUtils.substitutionExpressionDelimiter(s).length() > 0;
     }
 
     public static boolean isPrivateSubstituteExpression(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.substitutionExpressionDelimiter(s).length() > 0 && s.indexOf(GET_PRIVATE) > 0;
+        return TextUtils.substitutionExpressionDelimiter(s).length() > 0 && s.indexOf(GET_PRIVATE) > 0;
     }
 
     public static String substitute(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.substitute(s, null);
+        return TextUtils.substitute(s, null);
     }
 
     public static String substitute(String s, COM.dragonflow.SiteView.SiteViewObject siteviewobject)
     {
-        String s1 = COM.dragonflow.Utils.TextUtils.substitutionExpressionDelimiter(s);
+        String s1 = TextUtils.substitutionExpressionDelimiter(s);
         if(s1.length() > 0)
         {
             int i = s.indexOf(s1);
             int j = s.lastIndexOf(s1);
             if(i >= 0 && j >= 0)
             {
-                s = COM.dragonflow.Utils.TextUtils.doSubstitution(s.substring(i + 1, j), siteviewobject);
+                s = TextUtils.doSubstitution(s.substring(i + 1, j), siteviewobject);
             }
         }
         return s;
@@ -2432,7 +2434,7 @@ public class TextUtils
 
     public static String doSubstitution(String s)
     {
-        return COM.dragonflow.Utils.TextUtils.doSubstitution(s, null);
+        return TextUtils.doSubstitution(s, null);
     }
 
     public static String doSubstitution(String s, COM.dragonflow.SiteView.SiteViewObject siteviewobject)
@@ -2442,7 +2444,7 @@ public class TextUtils
             int i = s.indexOf(GET_PRIVATE);
             if(i >= 0)
             {
-                jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+                HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
                 Object obj = null;
                 Object obj1 = null;
                 String s1 = null;
@@ -2457,7 +2459,7 @@ public class TextUtils
                     if(k > i)
                     {
                         String s4 = s.substring(i + GET_PRIVATE.length(), k);
-                        jgl.Array array = COM.dragonflow.Utils.TextUtils.getMultipleValues(hashmap, "_private");
+                        Array array = TextUtils.getMultipleValues(hashmap, "_private");
                         int j1 = 0;
                         do
                         {
@@ -2465,14 +2467,14 @@ public class TextUtils
                             {
                                 break;
                             }
-                            jgl.HashMap hashmap1 = COM.dragonflow.Utils.TextUtils.stringToHashMap((String)array.at(j1));
-                            String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_name");
+                            HashMap hashmap1 = TextUtils.stringToHashMap((String)array.get(j1));
+                            String s3 = TextUtils.getValue(hashmap1, "_name");
                             if(s3.equals(s4))
                             {
-                                s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_privateValue");
+                                s1 = TextUtils.getValue(hashmap1, "_privateValue");
                                 if(s1.length() == 0)
                                 {
-                                    s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_value");
+                                    s1 = TextUtils.getValue(hashmap1, "_value");
                                 }
                                 s1 = s1.replace('^', ' ');
                                 break;
@@ -2516,7 +2518,7 @@ public class TextUtils
                 {
                     String s5 = s.substring(i1 + OFFSET_MINUTES.length(), k1);
                     s = s.substring(0, i1) + s.substring(k1 + 1);
-                    l = COM.dragonflow.Utils.TextUtils.toLong(s5) * 1000L * 60L;
+                    l = TextUtils.toLong(s5) * 1000L * 60L;
                 }
             }
             if(siteviewobject != null)
@@ -2561,7 +2563,7 @@ public class TextUtils
                 }
                 java.text.SimpleDateFormat simpledateformat = new SimpleDateFormat("MMMM", new Locale(s8, s12));
                 String s16 = simpledateformat.format(date);
-                s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, s20, s16);
+                s = TextUtils.replaceVariable(s, s20, s16);
             }
             while((i1 = s.indexOf("$monthName_")) >= 0) 
             {
@@ -2580,7 +2582,7 @@ public class TextUtils
                 }
                 java.text.SimpleDateFormat simpledateformat1 = new SimpleDateFormat("MMM", new Locale(s9, s13));
                 String s17 = simpledateformat1.format(date);
-                s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, s21, s17);
+                s = TextUtils.replaceVariable(s, s21, s17);
             }
             while((i1 = s.indexOf("$fullWeekdayName_")) >= 0) 
             {
@@ -2599,7 +2601,7 @@ public class TextUtils
                 }
                 java.text.SimpleDateFormat simpledateformat2 = new SimpleDateFormat("EEEE", new Locale(s10, s14));
                 String s18 = simpledateformat2.format(date);
-                s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, s22, s18);
+                s = TextUtils.replaceVariable(s, s22, s18);
             }
             while((i1 = s.indexOf("$weekdayName_")) >= 0) 
             {
@@ -2618,16 +2620,16 @@ public class TextUtils
                 }
                 java.text.SimpleDateFormat simpledateformat3 = new SimpleDateFormat("EEE", new Locale(s11, s15));
                 String s19 = simpledateformat3.format(date);
-                s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, s23, s19);
+                s = TextUtils.replaceVariable(s, s23, s19);
             }
             String s24 = "" + gregoriancalendar.get(11);
-            String s25 = COM.dragonflow.Utils.TextUtils.padWithZeros(s24, 2);
+            String s25 = TextUtils.padWithZeros(s24, 2);
             String s26 = "" + gregoriancalendar.get(12);
-            String s27 = COM.dragonflow.Utils.TextUtils.padWithZeros(s26, 2);
+            String s27 = TextUtils.padWithZeros(s26, 2);
             String s28 = "" + (gregoriancalendar.get(2) + 1);
-            String s29 = COM.dragonflow.Utils.TextUtils.padWithZeros(s28, 2);
+            String s29 = TextUtils.padWithZeros(s28, 2);
             String s30 = "" + gregoriancalendar.get(5);
-            String s31 = COM.dragonflow.Utils.TextUtils.padWithZeros(s30, 2);
+            String s31 = TextUtils.padWithZeros(s30, 2);
             int j3 = gregoriancalendar.get(7) - 1;
             String s32 = as2[j3];
             String s33 = as3[j3];
@@ -2635,33 +2637,33 @@ public class TextUtils
             String s34 = as[k3];
             String s35 = as1[k3];
             int l3 = gregoriancalendar.get(1);
-            String s36 = COM.dragonflow.Utils.TextUtils.padWithZeros("" + (l3 - 1900) % 100, 2);
+            String s36 = TextUtils.padWithZeros("" + (l3 - 1900) % 100, 2);
             String s37 = "" + l3;
             String s38 = "" + gregoriancalendar.getTimeInMillis();
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$hour$", s24);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$0hour$", s25);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$minute$", s26);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$0minute$", s27);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$month$", s28);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$0month$", s29);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$monthName$", s34);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$fullMonthName$", s35);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$day$", s30);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$0day$", s31);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$weekdayName$", s32);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$fullWeekdayName$", s33);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$year$", s37);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$shortYear$", s36);
-            s = COM.dragonflow.Utils.TextUtils.replaceVariable(s, "$ticks$", s38);
+            s = TextUtils.replaceVariable(s, "$hour$", s24);
+            s = TextUtils.replaceVariable(s, "$0hour$", s25);
+            s = TextUtils.replaceVariable(s, "$minute$", s26);
+            s = TextUtils.replaceVariable(s, "$0minute$", s27);
+            s = TextUtils.replaceVariable(s, "$month$", s28);
+            s = TextUtils.replaceVariable(s, "$0month$", s29);
+            s = TextUtils.replaceVariable(s, "$monthName$", s34);
+            s = TextUtils.replaceVariable(s, "$fullMonthName$", s35);
+            s = TextUtils.replaceVariable(s, "$day$", s30);
+            s = TextUtils.replaceVariable(s, "$0day$", s31);
+            s = TextUtils.replaceVariable(s, "$weekdayName$", s32);
+            s = TextUtils.replaceVariable(s, "$fullWeekdayName$", s33);
+            s = TextUtils.replaceVariable(s, "$year$", s37);
+            s = TextUtils.replaceVariable(s, "$shortYear$", s36);
+            s = TextUtils.replaceVariable(s, "$ticks$", s38);
         }
         return s;
     }
 
-    public static void rewriteMapEntry(jgl.HashMap hashmap, String s)
+    public static void rewriteMapEntry(HashMap hashmap, String s)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s1;
-        for(Enumeration enumeration = hashmap.values(s); enumeration.hasMoreElements(); array.add(COM.dragonflow.Utils.TextUtils.stringToHashMap(s1)))
+        for(Enumeration enumeration = (Enumeration) hashmap.values(s); enumeration.hasMoreElements(); array.add(TextUtils.stringToHashMap(s1)))
         {
             s1 = (String)enumeration.nextElement();
         }
@@ -2669,30 +2671,30 @@ public class TextUtils
         hashmap.remove(s);
         for(int i = 0; i < array.size(); i++)
         {
-            hashmap.add(s, COM.dragonflow.Utils.TextUtils.hashMapToString((jgl.HashMap)array.at(i)));
+            hashmap.add(s, TextUtils.hashMapToString((HashMap)array.get(i)));
         }
 
     }
 
     public static boolean match(String s, String s1)
     {
-        return COM.dragonflow.Utils.TextUtils.matchExpression(s, s1) == COM.dragonflow.SiteView.Monitor.kURLok;
+        return TextUtils.matchExpression(s, s1) == COM.dragonflow.SiteView.Monitor.kURLok;
     }
 
     public static int matchExpression(String s, String s1)
     {
-        return COM.dragonflow.Utils.TextUtils.matchExpression(s, s1, new Array(), new StringBuffer());
+        return TextUtils.matchExpression(s, s1, new Array(), new StringBuffer());
     }
 
-    public static int matchExpression(String s, String s1, jgl.Array array, StringBuffer stringbuffer)
+    public static int matchExpression(String s, String s1, Array array, StringBuffer stringbuffer)
     {
-        return COM.dragonflow.Utils.TextUtils.matchExpression(s, s1, array, stringbuffer, "matched ");
+        return TextUtils.matchExpression(s, s1, array, stringbuffer, "matched ");
     }
 
-    public static int matchExpression(String s, String s1, jgl.Array array, StringBuffer stringbuffer, String s2)
+    public static int matchExpression(String s, String s1, Array array, StringBuffer stringbuffer, String s2)
     {
-        jgl.Array array1 = new Array();
-        int i = COM.dragonflow.Utils.TextUtils.matchExpression(s, s1, array1);
+        Array array1 = new Array();
+        int i = TextUtils.matchExpression(s, s1, array1);
         if(array1.size() >= 2)
         {
             stringbuffer.append(s2);
@@ -2701,23 +2703,23 @@ public class TextUtils
         {
             if(array != null)
             {
-                array.add(array1.at(j));
+                array.add(array1.get(j));
             }
             if(j != 1)
             {
                 stringbuffer.append(", ");
             }
-            stringbuffer.append(array1.at(j));
+            stringbuffer.append(array1.get(j));
         }
 
         return i;
     }
 
-    public static int matchExpressionForWebServiceMonitor(String s, String s1, jgl.Array array, StringBuffer stringbuffer)
+    public static int matchExpressionForWebServiceMonitor(String s, String s1, Array array, StringBuffer stringbuffer)
     {
         String s2 = "matched ";
-        jgl.Array array1 = new Array();
-        int i = COM.dragonflow.Utils.TextUtils.matchExpression(s, s1, array1);
+        Array array1 = new Array();
+        int i = TextUtils.matchExpression(s, s1, array1);
         if(array1.size() >= 1)
         {
             stringbuffer.append(s2);
@@ -2726,13 +2728,13 @@ public class TextUtils
         {
             if(array != null)
             {
-                array.add(array1.at(j));
+                array.add(array1.get(j));
             }
             if(j != 0)
             {
                 stringbuffer.append(", ");
             }
-            stringbuffer.append(array1.at(j));
+            stringbuffer.append(array1.get(j));
         }
 
         return i;
@@ -2743,9 +2745,9 @@ public class TextUtils
         return s;
     }
 
-    public static int matchExpression(String s, String s1, jgl.Array array)
+    public static int matchExpression(String s, String s1, Array array)
     {
-        return COM.dragonflow.Utils.TextUtils.matchExpression(s, s1, array, new Perl5Util());
+        return TextUtils.matchExpression(s, s1, array, new Perl5Util());
     }
 
     /**
@@ -2757,28 +2759,28 @@ public class TextUtils
      * @param perl5util
      * @return
      */
-    public static int matchExpression(String s, String s1, jgl.Array array, COM.oroinc.text.perl.Perl5Util perl5util)
+    public static int matchExpression(String s, String s1, Array array, COM.oroinc.text.perl.Perl5Util perl5util)
     {
         int i;
         boolean flag;
         i = COM.dragonflow.SiteView.Monitor.kURLContentMatchError;
-        s = COM.dragonflow.Utils.TextUtils.stripLineTerminators(s);
-        s1 = COM.dragonflow.Utils.TextUtils.stripLineTerminators(s1);
-        s1 = COM.dragonflow.Utils.TextUtils.doSubstitution(s1);
+        s = TextUtils.stripLineTerminators(s);
+        s1 = TextUtils.stripLineTerminators(s1);
+        s1 = TextUtils.doSubstitution(s1);
         if(s1.startsWith("xml."))
         {
             StringBuffer stringbuffer = new StringBuffer();
-            jgl.Array array1 = new Array();
-            i = COM.dragonflow.Utils.XSLUtils.matchXML(s, s1, array1, stringbuffer);
+            Array array1 = new Array();
+            i = XSLUtils.matchXML(s, s1, array1, stringbuffer);
             array.add(stringbuffer.toString());
             for(int j = 0; j < array1.size(); j++)
             {
-                array.add(array1.at(j));
+                array.add(array1.get(j));
             }
         } else 
-        if(COM.dragonflow.Utils.TextUtils.isRegularExpression(s1))
+        if(TextUtils.isRegularExpression(s1))
         {
-        if(COM.dragonflow.Utils.TextUtils.isWhiteSpaceRegularExpression(s1))
+        if(TextUtils.isWhiteSpaceRegularExpression(s1))
         {
             String s2 = "\t\n\f\r";
             StringBuffer stringbuffer1 = new StringBuffer("");
@@ -2809,12 +2811,12 @@ public class TextUtils
         {
             perl5util = new Perl5Util();
         }
-        flag2 = COM.dragonflow.Utils.TextUtils.isComplementedRegularExpression(s1);
-        flag4 = COM.dragonflow.Utils.TextUtils.isDateRegularExpression(s1);
-        flag5 = COM.dragonflow.Utils.TextUtils.isAbsoluteValueRegularExpression(s1);
+        flag2 = TextUtils.isComplementedRegularExpression(s1);
+        flag4 = TextUtils.isDateRegularExpression(s1);
+        flag5 = TextUtils.isAbsoluteValueRegularExpression(s1);
         if(flag2 || flag4)
         {
-            s1 = COM.dragonflow.Utils.TextUtils.getLegalRegularExpression(s1);
+            s1 = TextUtils.getLegalRegularExpression(s1);
         }
         flag = perl5util.match(s1, s);
         if(flag)
@@ -2835,7 +2837,7 @@ public class TextUtils
         String s4;
         java.util.Date date1;
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        l2 = COM.dragonflow.Utils.TextUtils.toLong(siteviewgroup.getSetting("_timeOffset")) * 1000L;
+        l2 = TextUtils.toLong(siteviewgroup.getSetting("_timeOffset")) * 1000L;
         enumeration = siteviewgroup.getMultipleSettings("_dateCompareFormat");
         date = new Date(COM.dragonflow.SiteView.Platform.makeDate().getTime() + l2);
         l3 = -1L;
@@ -2919,7 +2921,7 @@ public class TextUtils
 
     public static boolean isValueExpression(String s)
     {
-        return s.startsWith("xml.") || COM.dragonflow.Utils.TextUtils.isRegularExpression(s);
+        return s.startsWith("xml.") || TextUtils.isRegularExpression(s);
     }
 
     public static boolean isRegularExpression(String s)
@@ -2930,7 +2932,7 @@ public class TextUtils
             if(i > 0)
             {
                 String s1 = s.substring(i + 1);
-                if(COM.dragonflow.Utils.TextUtils.onlyChars(s1, allRegExModifiers))
+                if(TextUtils.onlyChars(s1, allRegExModifiers))
                 {
                     return true;
                 }
@@ -3015,7 +3017,7 @@ public class TextUtils
         if(i > 0)
         {
             String s1 = s.substring(i + 1);
-            s = s.substring(0, i + 1) + COM.dragonflow.Utils.TextUtils.removeChars(s1, extRegExModifiers);
+            s = s.substring(0, i + 1) + TextUtils.removeChars(s1, extRegExModifiers);
         }
         return s;
     }
@@ -3029,11 +3031,11 @@ public class TextUtils
             if(i > 0)
             {
                 String s2 = s.substring(i + 1);
-                if(COM.dragonflow.Utils.TextUtils.onlyChars(s2, allRegExModifiers))
+                if(TextUtils.onlyChars(s2, allRegExModifiers))
                 {
-                    if(COM.dragonflow.Utils.TextUtils.isComplementedRegularExpression(s) || COM.dragonflow.Utils.TextUtils.isDateRegularExpression(s))
+                    if(TextUtils.isComplementedRegularExpression(s) || TextUtils.isDateRegularExpression(s))
                     {
-                        s = COM.dragonflow.Utils.TextUtils.getLegalRegularExpression(s);
+                        s = TextUtils.getLegalRegularExpression(s);
                     }
                     COM.oroinc.text.perl.Perl5Util perl5util = new Perl5Util();
                     try
@@ -3053,7 +3055,7 @@ public class TextUtils
         return s1;
     }
 
-    public static String replaceMatchValues(String s, jgl.Array array, jgl.Array array1)
+    public static String replaceMatchValues(String s, Array array, Array array1)
     {
         int i = 0;
         do
@@ -3072,11 +3074,11 @@ public class TextUtils
                 int k1 = java.lang.Integer.parseInt(s.substring(l + 1, i1));
                 if(array1.size() >= j1 && k1 > 0 && k1 < 30)
                 {
-                    jgl.Array array2 = (jgl.Array)array1.at(j1 - 1);
+                    Array array2 = (Array)array1.get(j1 - 1);
                     if(array2.size() >= k1)
                     {
-                        String s3 = (String)array2.at(k1 - 1);
-                        s = COM.dragonflow.Utils.TextUtils.replaceString(s, s.substring(j - 3, i1 + 1), s3);
+                        String s3 = (String)array2.get(k1 - 1);
+                        s = TextUtils.replaceString(s, s.substring(j - 3, i1 + 1), s3);
                     }
                 }
             }
@@ -3088,8 +3090,8 @@ public class TextUtils
                 String s1 = "{$" + k + "}";
                 if(s.indexOf(s1) != -1)
                 {
-                    String s2 = (String)array.at(k - 1);
-                    s = COM.dragonflow.Utils.TextUtils.replaceString(s, s1, s2);
+                    String s2 = (String)array.get(k - 1);
+                    s = TextUtils.replaceString(s, s1, s2);
                 }
             }
 
@@ -3153,31 +3155,31 @@ public class TextUtils
         stringbuffer.append(s);
     }
 
-    public static jgl.Array sortStrings(Enumeration enumeration, boolean flag)
+    public static Array sortStrings(Enumeration enumeration, boolean flag)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         for(; enumeration.hasMoreElements(); array.add(enumeration.nextElement())) { }
-        return COM.dragonflow.Utils.TextUtils.sortStrings(array, flag);
+        return TextUtils.sortStrings(array, flag);
     }
 
-    public static jgl.Array sortStrings(jgl.Array array, boolean flag)
+    public static Array sortStrings(Array array, boolean flag)
     {
-        jgl.Sorting.sort(array.begin(), array.end(), new StringBinaryPredicate(flag));
+        Sorting.sort(array.begin(), array.end(), new StringBinaryPredicate(flag));
         return array;
     }
 
-    public static jgl.Array sortStringHashMapArray(jgl.Array array, String as[], boolean flag)
+    public static Array sortStringHashMapArray(Array array, String as[], boolean flag)
     {
-        jgl.Sorting.sort(array.begin(), array.end(), new StringHashMapBinaryPredicate(as, flag));
+        Sorting.sort(array.begin(), array.end(), new StringHashMapBinaryPredicate(as, flag));
         return array;
     }
 
-    public static String arrayToString(jgl.Array array)
+    public static String arrayToString(Array array)
     {
-        return COM.dragonflow.Utils.TextUtils.arrayToString(array, ",");
+        return TextUtils.arrayToString(array, ",");
     }
 
-    public static String arrayToString(jgl.Array array, String s)
+    public static String arrayToString(Array array, String s)
     {
         StringBuffer stringbuffer = new StringBuffer();
         for(int i = 0; i < array.size(); i++)
@@ -3186,15 +3188,15 @@ public class TextUtils
             {
                 stringbuffer.append(s);
             }
-            stringbuffer.append(array.at(i));
+            stringbuffer.append(array.get(i));
         }
 
         return stringbuffer.toString();
     }
 
-    public static jgl.Array stringToArray(String s, String s1)
+    public static Array stringToArray(String s, String s1)
     {
-        jgl.Array array = new Array();
+        Array array = new Array();
         while(s.length() > 0) 
         {
             int i = s.indexOf(s1);
@@ -3211,9 +3213,9 @@ public class TextUtils
         return array;
     }
 
-    public static jgl.Array enumToArray(Enumeration enumeration)
+    public static Array enumToArray(Enumeration enumeration)
     {
-        jgl.Array array = null;
+        Array array = null;
         if(enumeration != null && enumeration.hasMoreElements())
         {
             for(; enumeration.hasMoreElements(); array.add(enumeration.nextElement()))
@@ -3230,10 +3232,10 @@ public class TextUtils
 
     public static long getClosestNumber(String s, long l)
     {
-        String as[] = COM.dragonflow.Utils.TextUtils.split(s, ",");
+        String as[] = TextUtils.split(s, ",");
         for(int i = 0; i < as.length; i++)
         {
-            long l1 = COM.dragonflow.Utils.TextUtils.toLong(as[i]);
+            long l1 = TextUtils.toLong(as[i]);
             if(l1 > l)
             {
                 return l1;
@@ -3243,24 +3245,24 @@ public class TextUtils
         return 0L;
     }
 
-    public static String keyToDisplayString(String s, jgl.Array array)
+    public static String keyToDisplayString(String s, Array array)
     {
         for(int i = 0; i < array.size(); i += 2)
         {
-            String s1 = (String)array.at(i);
+            String s1 = (String)array.get(i);
             if(s1.equals(s))
             {
-                return (String)array.at(i + 1);
+                return (String)array.get(i + 1);
             }
         }
 
         return "";
     }
 
-    public static String replaceInHashMap(jgl.HashMap hashmap, String as[], jgl.HashMap hashmap1)
+    public static String replaceInHashMap(HashMap hashmap, String as[], HashMap hashmap1)
     {
         String s = "";
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         while (enumeration.hasMoreElements()) {
             java.lang.Object obj = enumeration.nextElement();
             if(hashmap1 != null)
@@ -3276,23 +3278,23 @@ public class TextUtils
             {
                 if(obj1 instanceof String)
                 {
-                    String s2 = COM.dragonflow.Utils.TextUtils.replaceString((String)obj1, as);
+                    String s2 = TextUtils.replaceString((String)obj1, as);
                     if(!s2.equals(obj1))
                     {
                         s = s + "&nbsp;&nbsp;replaced " + obj + ", " + obj1 + " ==> " + s2 + "<br>";
                         hashmap.put(obj, s2);
                     }
                 } else
-                if(obj1 instanceof jgl.Array)
+                if(obj1 instanceof Array)
                 {
-                    jgl.Array array = (jgl.Array)obj1;
+                    Array array = (Array)obj1;
                     int i = 0;
                     while(i < array.size()) 
                     {
-                        java.lang.Object obj2 = array.at(i);
+                        java.lang.Object obj2 = array.get(i);
                         if(obj2 instanceof String)
                         {
-                            String s3 = COM.dragonflow.Utils.TextUtils.replaceString((String)obj2, as);
+                            String s3 = TextUtils.replaceString((String)obj2, as);
                             if(!s3.equals(obj2))
                             {
                                 array.put(i, s3);
@@ -3302,33 +3304,33 @@ public class TextUtils
                         i++;
                     }
                 } else
-                if(obj1 instanceof jgl.HashMap)
+                if(obj1 instanceof HashMap)
                 {
-                    COM.dragonflow.Utils.TextUtils.replaceInHashMap((jgl.HashMap)obj1, as, null);
+                    TextUtils.replaceInHashMap((HashMap)obj1, as, null);
                 }
             }
         } 
         return s;
     }
 
-    public static String replaceInHashMapList(jgl.Array array, String as[], jgl.HashMap hashmap)
+    public static String replaceInHashMapList(Array array, String as[], HashMap hashmap)
     {
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.HashMap hashmap1;
-        for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); stringbuffer.append(COM.dragonflow.Utils.TextUtils.replaceInHashMap(hashmap1, as, hashmap)))
+        HashMap hashmap1;
+        for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); stringbuffer.append(TextUtils.replaceInHashMap(hashmap1, as, hashmap)))
         {
-            hashmap1 = (jgl.HashMap)enumeration.nextElement();
+            hashmap1 = (HashMap)enumeration.nextElement();
         }
 
         return stringbuffer.toString();
     }
 
-    public static jgl.HashMap findItemInHashMapArray(jgl.Array array, jgl.HashMap hashmap, boolean flag)
+    public static HashMap findItemInHashMapArray(Array array, HashMap hashmap, boolean flag)
     {
-        return COM.dragonflow.Utils.TextUtils.findItemInHashMapArray(array, 0, -1, hashmap, flag);
+        return TextUtils.findItemInHashMapArray(array, 0, -1, hashmap, flag);
     }
 
-    public static jgl.HashMap findItemInHashMapArray(jgl.Array array, int i, int j, jgl.HashMap hashmap, boolean flag)
+    public static HashMap findItemInHashMapArray(Array array, int i, int j, HashMap hashmap, boolean flag)
     {
         if(array == null)
         {
@@ -3350,12 +3352,12 @@ public class TextUtils
 
         lab: for(int k = i; k <= j; k++)
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(k);
+            HashMap hashmap1 = (HashMap)array.get(k);
             if(hashmap1 == null)
             {
                 continue;
             }
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             Enumeration enumeration1 = hashmap.elements();
             while(enumeration.hasMoreElements()) 
             {
@@ -3373,7 +3375,7 @@ public class TextUtils
         return null;
     }
 
-    public static void mergeHashMaps(jgl.HashMap hashmap, jgl.HashMap hashmap1, boolean flag, boolean flag1)
+    public static void mergeHashMaps(HashMap hashmap, HashMap hashmap1, boolean flag, boolean flag1)
     {
         if(hashmap == null)
         {
@@ -3383,7 +3385,7 @@ public class TextUtils
         {
             throw new NullPointerException();
         }
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         while (enumeration.hasMoreElements()) {
             java.lang.Object obj = enumeration.nextElement();
             if(hashmap1.get(obj) == null && flag1 || flag)
@@ -3399,7 +3401,7 @@ public class TextUtils
         for(int i = 0; i < s.length(); i++)
         {
             char c = s.charAt(i);
-            if(COM.dragonflow.Utils.TextUtils.isPrintable(c))
+            if(TextUtils.isPrintable(c))
             {
                 stringbuffer.append(c);
             }
@@ -3424,7 +3426,7 @@ public class TextUtils
         String s2 = s;
         if(s1 != null)
         {
-            COM.dragonflow.Utils.ParameterParser parameterparser = new ParameterParser(s1);
+            ParameterParser parameterparser = new ParameterParser(s1);
             java.util.List list = parameterparser.doParse();
             java.util.ListIterator listiterator = list.listIterator();
             for(int i = 1; listiterator.hasNext(); i++)
@@ -3435,7 +3437,7 @@ public class TextUtils
                     String s4 = as[j];
                     if(s4 != null)
                     {
-                        s2 = COM.dragonflow.Utils.TextUtils.replaceString(s2, s4 + String.valueOf(i), s3);
+                        s2 = TextUtils.replaceString(s2, s4 + String.valueOf(i), s3);
                     }
                 }
 
@@ -3547,19 +3549,19 @@ public class TextUtils
 
     public static boolean isUseDecFormat()
     {
-        COM.dragonflow.Utils.TextUtils.initDecValues();
+        TextUtils.initDecValues();
         return useDecFormat;
     }
 
     public static java.text.DecimalFormat getDecFormat()
     {
-        COM.dragonflow.Utils.TextUtils.initDecValues();
+        TextUtils.initDecValues();
         return DecFormat;
     }
 
     public static java.text.DecimalFormat getDecFormatFixed()
     {
-        COM.dragonflow.Utils.TextUtils.initDecValues();
+        TextUtils.initDecValues();
         return DecFormatFixed;
     }
 
@@ -3594,7 +3596,7 @@ public class TextUtils
         StringBuffer stringbuffer = new StringBuffer();
         do
         {
-            int i = COM.dragonflow.Utils.TextUtils.findNextSymbol(s, j);
+            int i = TextUtils.findNextSymbol(s, j);
             if(i >= 0)
             {
                 stringbuffer.append(s.substring(j, i));
@@ -3677,7 +3679,7 @@ public class TextUtils
         String s1 = (String)COM.dragonflow.SiteView.MasterConfig.getMasterConfig().get(s);
         if(s1 != null && s1.length() > 0)
         {
-            String as[] = COM.dragonflow.Utils.TextUtils.split(s1, ",");
+            String as[] = TextUtils.split(s1, ",");
             if(as != null && as.length > 0)
             {
                 return as;
@@ -3688,7 +3690,7 @@ public class TextUtils
 
     static 
     {
-        $assertionsDisabled = !(COM.dragonflow.Utils.TextUtils.class).desiredAssertionStatus();
+        $assertionsDisabled = !(TextUtils.class).desiredAssertionStatus();
         MINUTE_SECONDS = 60;
         HOUR_SECONDS = 60 * MINUTE_SECONDS;
         DAY_SECONDS = 24 * HOUR_SECONDS;

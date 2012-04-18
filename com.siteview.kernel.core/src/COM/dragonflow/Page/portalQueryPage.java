@@ -12,7 +12,7 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -35,7 +35,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
         return "QueryPrefs.htm";
     }
 
-    void printBasicProperties(jgl.HashMap hashmap, jgl.HashMap hashmap1)
+    void printBasicProperties(HashMap hashmap, HashMap hashmap1)
             throws java.io.IOException {
         String s = COM.dragonflow.Page.portalQueryPage.getValue(hashmap,
                 "_query");
@@ -77,8 +77,8 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
     /**
      * 
      */
-    void printAdvancedProperties(jgl.HashMap hashmap, jgl.HashMap hashmap1) {
-        jgl.HashMap hashmap2 = COM.dragonflow.SiteView.PortalFilter
+    void printAdvancedProperties(HashMap hashmap, HashMap hashmap1) {
+        HashMap hashmap2 = COM.dragonflow.SiteView.PortalFilter
                 .queryStringToMap(COM.dragonflow.Utils.TextUtils.getValue(
                         hashmap, "_query"));
         outputStream.println("<TABLE border=\"0\">");
@@ -100,7 +100,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                         + "</TABLE></TD><TD><I>"
                         + COM.dragonflow.Utils.TextUtils.getValue(hashmap1,
                                 "nameMatch") + "</I></TD></TR>");
-        jgl.HashMap hashmap3 = new HashMap();
+        HashMap hashmap3 = new HashMap();
         for (Enumeration enumeration = hashmap2.values("category"); enumeration
                 .hasMoreElements(); hashmap3.add(enumeration.nextElement(),
                 "true")) {
@@ -125,7 +125,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                         + "<TR><TD><FONT SIZE=-1>Hold the \"Ctrl\" key to select multiple statuses to filter on</FONT></TD></TR>"
                         + "</TABLE></TD><TD><I></I></TD></TR>");
 
-        jgl.HashMap hashmap4 = new HashMap();
+        HashMap hashmap4 = new HashMap();
         for (Enumeration enumeration1 = hashmap2.values("type"); enumeration1
                 .hasMoreElements(); hashmap4.add(enumeration1.nextElement(),
                 "true")) {
@@ -133,8 +133,8 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
         Vector vector1 = new Vector();
         vector1.addElement("");
         vector1.addElement("Any");
-        jgl.Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses();
-        Enumeration enumeration2 = array.elements();
+        Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses();
+        Enumeration enumeration2 = (Enumeration) array.iterator();
         Class class1;
 
         while (enumeration2.hasMoreElements()) {
@@ -166,7 +166,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                         + "</TD></TR>"
                         + "<TR><TD><FONT SIZE=-1>Hold the \"Ctrl\" key to select multiple monitor types to filter on</FONT></TD></TR>"
                         + "</TABLE></TD><TD><I></I></TD></TR>");
-        jgl.HashMap hashmap5 = new HashMap();
+        HashMap hashmap5 = new HashMap();
         for (Enumeration enumeration3 = hashmap2.values("propertySet"); enumeration3
                 .hasMoreElements(); hashmap5.add(enumeration3.nextElement(),
                 "true")) {
@@ -194,7 +194,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                         + "</TD></TR>"
                         + "<TR><TD><FONT SIZE=-1>Hold the \"Ctrl\" key to select multiple property sets</FONT></TD></TR>"
                         + "</TABLE></TD><TD><I></I></TD></TR>");
-        jgl.HashMap hashmap6 = new HashMap();
+        HashMap hashmap6 = new HashMap();
         for (Enumeration enumeration4 = hashmap2.values("property"); enumeration4
                 .hasMoreElements(); hashmap6.add(enumeration4.nextElement(),
                 "true")) {
@@ -223,9 +223,9 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
         return;
     }
 
-    jgl.HashMap fillInResultFrame(jgl.HashMap hashmap) {
+    jgl.HashMap fillInResultFrame(HashMap hashmap) {
         String s = request.getValue("query");
-        jgl.HashMap hashmap1 = COM.dragonflow.SiteView.PortalFilter
+        HashMap hashmap1 = COM.dragonflow.SiteView.PortalFilter
                 .queryStringToMap(s);
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(
                 true);
@@ -288,7 +288,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                 .println("<TH>Name</TH><TH WIDTH=10%>Edit</TH><TH WIDTH=3%>Del</TH>");
     }
 
-    void printListItem(jgl.HashMap hashmap) {
+    void printListItem(HashMap hashmap) {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
         String s1 = COM.dragonflow.Page.portalQueryPage.getValue(hashmap,
                 "_title");
@@ -300,7 +300,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                 + s4 + "</TD>" + "<TD" + ">" + s3 + "</TD>" + "</TR>\n");
     }
 
-    void verify(jgl.HashMap hashmap, jgl.HashMap hashmap1) {
+    void verify(HashMap hashmap, HashMap hashmap1) {
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_title");
         if (s.length() == 0) {
             hashmap1.put("title", "query title required");

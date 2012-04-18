@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
+import com.recursionsw.jgl.HashMap;
+
 // Referenced classes of package COM.dragonflow.Log:
 // Logger, LogManager
 
@@ -122,7 +124,7 @@ public class SSEELogger extends COM.dragonflow.Log.Logger {
             COM.dragonflow.Log.LogManager.log("Unable to establish a RTS/Heartbeat socket connection to host: " + s + " and port: " + i + ". Check your firewall or network settings to insure that a socket connection is permitted.");
             throw new IOException("Unable to establish a RTS/Heartbeat socket connection on host: " + s1 + " and port: " + j + ". Check your firewall or network settings to insure that a socket connection is permitted.");
         }
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_sseeLoggerLoadFactor");
         if (s3 != null && s3.length() > 0) {
             loadFactor = java.lang.Integer.parseInt(s3);
@@ -147,9 +149,9 @@ public class SSEELogger extends COM.dragonflow.Log.Logger {
         }
     }
 
-    private static void appendSSEEStatusProperties(StringBuffer stringbuffer, jgl.HashMap hashmap, String s, String s1, String s2) {
+    private static void appendSSEEStatusProperties(StringBuffer stringbuffer, HashMap hashmap, String s, String s1, String s2) {
         boolean flag = true;
-        Enumeration enumeration = hashmap.keys();
+        Enumeration enumeration = (Enumeration) hashmap.keys();
         while (enumeration.hasMoreElements()) {
             java.lang.Object obj = enumeration.nextElement();
             String s3;
@@ -161,7 +163,7 @@ public class SSEELogger extends COM.dragonflow.Log.Logger {
             if (s3.equals(s)) {
                 flag = false;
                 java.lang.Object obj1;
-                for (Enumeration enumeration1 = hashmap.values(obj); enumeration1.hasMoreElements(); stringbuffer.append(obj1)) {
+                for (Enumeration enumeration1 = (Enumeration) hashmap.values(obj); enumeration1.hasMoreElements(); stringbuffer.append(obj1)) {
                     obj1 = enumeration1.nextElement();
                 }
 
@@ -173,7 +175,7 @@ public class SSEELogger extends COM.dragonflow.Log.Logger {
         }
     }
 
-    protected static void createAndSendSSEEStatusRecord(COM.dragonflow.Properties.PropertiedObject propertiedobject, jgl.HashMap hashmap, String s) {
+    protected static void createAndSendSSEEStatusRecord(COM.dragonflow.Properties.PropertiedObject propertiedobject, HashMap hashmap, String s) {
         java.util.Vector vector = new Vector();
         vector.add("stateString");
         vector.add("category");

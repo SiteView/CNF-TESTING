@@ -15,8 +15,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import jgl.Array;
-import jgl.HashMap;
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.SampleCollector;
@@ -30,7 +30,7 @@ public class managePage extends COM.dragonflow.Page.CGI
 {
 
     private COM.dragonflow.SiteView.Monitor infoMonitor;
-    private jgl.HashMap infoState;
+    private HashMap infoState;
     private COM.dragonflow.SiteView.MonitorGroup infoGroup;
     private static final String DISABLE_OP = "Disable";
     private static final String ENABLE_OP = "Enable";
@@ -49,7 +49,7 @@ public class managePage extends COM.dragonflow.Page.CGI
     private static final String ENABLE_TEMP_ALERTS_ONLY = "enable_temp_alerts_only";
 //    public static final String TOPAZ_LOGGING_OP = COM.dragonflow.SiteView.TopazInfo.getTopazNameShort() + " Logging Options";
     public static boolean debug = false;
-    static jgl.HashMap EXCLUDE_MAP;
+    static HashMap EXCLUDE_MAP;
     jgl.HashMap groups;
     public static String OPEN_VARIABLE = "open";
     public static String CLOSE_VARIABLE = "close";
@@ -244,7 +244,7 @@ public class managePage extends COM.dragonflow.Page.CGI
         printFooter(outputStream);
     }
 
-    private boolean isAncestor(COM.dragonflow.SiteView.MonitorGroup monitorgroup, COM.dragonflow.SiteView.SiteViewGroup siteviewgroup, jgl.HashMap hashmap)
+    private boolean isAncestor(COM.dragonflow.SiteView.MonitorGroup monitorgroup, COM.dragonflow.SiteView.SiteViewGroup siteviewgroup, HashMap hashmap)
     {
         if(monitorgroup == null)
         {
@@ -293,7 +293,7 @@ public class managePage extends COM.dragonflow.Page.CGI
         return (COM.dragonflow.SiteView.MonitorGroup)monitor;
     }
 
-    private int addToList(String s, COM.dragonflow.SiteView.Monitor monitor, boolean flag, boolean flag1, int i, jgl.Array array, StringBuffer stringbuffer, 
+    private int addToList(String s, COM.dragonflow.SiteView.Monitor monitor, boolean flag, boolean flag1, int i, Array array, StringBuffer stringbuffer, 
             String s1)
     {
         boolean flag2 = false;
@@ -409,16 +409,16 @@ public class managePage extends COM.dragonflow.Page.CGI
             flag = request.actionAllowed("_groupDisable");
             flag1 = request.actionAllowed("_monitorDisable");
         }
-        jgl.Array array = new Array();
-        jgl.Array array1 = new Array();
+        Array array = new Array();
+        Array array1 = new Array();
         String s2 = "";
         if(request.getValue("_health").length() > 0)
         {
             s2 = s2 + "<input type=hidden name=_health value=true>\n";
         }
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        jgl.Array array2 = new Array();
-        jgl.Array array3 = new Array();
+        Array array2 = new Array();
+        Array array3 = new Array();
         boolean flag9 = s.startsWith("Duplicate") || s.startsWith("Copy");
         boolean flag10 = s.startsWith("Duplicate");
         boolean flag11 = s.startsWith("Replace");
@@ -430,13 +430,13 @@ public class managePage extends COM.dragonflow.Page.CGI
         String s4 = "";
         String s5 = "";
         String s6 = new String("");
-        jgl.Array array4 = new Array();
+        Array array4 = new Array();
         Object obj = null;
         if(COM.dragonflow.Page.treeControl.useTree())
         {
             int i = 1;
-            jgl.HashMap hashmap = new HashMap();
-            jgl.Array array5 = new Array();
+            HashMap hashmap = new HashMap();
+            Array array5 = new Array();
 label0:
             do
             {
@@ -451,7 +451,7 @@ label1:
                         {
                             continue label1;
                         }
-                        jgl.Array array6 = COM.dragonflow.Utils.TextUtils.getMultipleValues(request.variables, s12);
+                        Array array6 = COM.dragonflow.Utils.TextUtils.getMultipleValues(request.variables, s12);
                         int i2 = 0;
                         while(i2 < array6.size()) 
                         {
@@ -463,8 +463,8 @@ label1:
                                 {
                                     break;
                                 }
-                                String s29 = (String)array5.at(j3);
-                                if(s29.equals(array6.at(i2)))
+                                String s29 = (String)array5.get(j3);
+                                if(s29.equals(array6.get(i2)))
                                 {
                                     flag13 = true;
                                     break;
@@ -473,7 +473,7 @@ label1:
                             } while(true);
                             if(!flag13)
                             {
-                                array5.add(array6.at(i2));
+                                array5.add(array6.get(i2));
                             }
                             i2++;
                         }
@@ -481,7 +481,7 @@ label1:
 
                     break label0;
                 } while(!s12.startsWith("monitor"));
-                jgl.Array array7 = COM.dragonflow.Utils.TextUtils.getMultipleValues(request.variables, s12);
+                Array array7 = COM.dragonflow.Utils.TextUtils.getMultipleValues(request.variables, s12);
                 int j2 = 0;
                 while(j2 < array7.size()) 
                 {
@@ -493,8 +493,8 @@ label1:
                         {
                             break;
                         }
-                        String s30 = (String)array5.at(k3);
-                        if(s30.equals(array7.at(j2)))
+                        String s30 = (String)array5.get(k3);
+                        if(s30.equals(array7.get(j2)))
                         {
                             flag14 = true;
                             break;
@@ -503,7 +503,7 @@ label1:
                     } while(true);
                     if(!flag14)
                     {
-                        array5.add(array7.at(j2));
+                        array5.add(array7.get(j2));
                     }
                     j2++;
                 }
@@ -517,7 +517,7 @@ label1:
                     break;
                 }
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup = null;
-                String s31 = (String)array5.at(k1);
+                String s31 = (String)array5.get(k1);
                 String s37 = COM.dragonflow.HTTP.HTTPRequest.decodeString(s31);
                 int k4 = s37.indexOf(' ');
                 if(s31.equals("_master"))
@@ -787,7 +787,7 @@ label1:
         if(s.startsWith("Disable"))
         {
             String s19 = "";
-            jgl.HashMap hashmap1 = getMasterConfig();
+            HashMap hashmap1 = getMasterConfig();
             s19 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_defaultDisableTime");
             int l3 = COM.dragonflow.Utils.TextUtils.toInt(request.getUserSetting("_timeOffset"));
             String s34 = COM.dragonflow.Page.managePage.getStartTimeHTML(l3);
@@ -835,7 +835,7 @@ label1:
                 outputStream.println("<P>Acknowledge Comment <INPUT TYPE=TEXT SIZE=50 NAME=acknowledgeComment\n");
             }
             String s21 = "";
-            jgl.HashMap hashmap2 = getMasterConfig();
+            HashMap hashmap2 = getMasterConfig();
             s21 = COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_defaultDisableAlertTime");
             Enumeration enumeration1 = request.getValues("monitor");
             String s26 = new String("");
@@ -952,7 +952,7 @@ label1:
                 {
                     for(int l2 = 0; l2 < array.size(); l2++)
                     {
-                        if(((String)array.at(l2)).equalsIgnoreCase("Health"))
+                        if(((String)array.get(l2)).equalsIgnoreCase("Health"))
                         {
                             outputStream.println("<p><b>NOTE: Only the contents of the \"Health Group\" will be deleted by this operation. The \"Health Group\" will remain.<p>");
                         }
@@ -965,7 +965,7 @@ label1:
         }
         outputStream.println("<TD ALIGN=RIGHT WIDTH=27%><b><A HREF=" + getReturnURL(false) + ">" + getReturnLabel() + "</A></b></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
         String s22 = "";
-        jgl.HashMap hashmap3 = getMasterConfig();
+        HashMap hashmap3 = getMasterConfig();
         s22 = COM.dragonflow.Utils.TextUtils.getValue(hashmap3, "_defaultDisableAlertTime");
         if(flag6)
         {
@@ -1024,15 +1024,15 @@ label1:
      * @param s
      * @param array
      */
-    void completeGroupList(String s, jgl.Array array)
+    void completeGroupList(String s, Array array)
     {
         try
         {
-            jgl.Array array1 = getGroupFrames(s);
-            Enumeration enumeration = array1.elements();
+            Array array1 = getGroupFrames(s);
+            Enumeration enumeration =  (Enumeration) array1.iterator();
             while (enumeration.hasMoreElements())
                 {
-                jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap = (HashMap)enumeration.nextElement();
                 String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class");
                 if(s1.equals("SubGroup"))
                 {
@@ -1083,7 +1083,7 @@ label1:
     {
         StringBuffer stringbuffer;
         Enumeration enumeration;
-        jgl.Array array1;
+        Array array1;
         String s = "";
         if(request.getValue("monitorNameSelect").length() > 0)
         {
@@ -1105,8 +1105,8 @@ label1:
         stringbuffer.append("<tr><td align=\"right\" valign=\"top\">Match Name:</td><td align=\"left\"valign=\"top\"><input type=text name=monitorNameSelect size=15 value=\"" + s + "\"></td>");
         stringbuffer.append("<td align=\"right\" valign=\"top\">Match Machine:</td><td align=\"left\"valign=\"top\"><input type=text name=machineNameSelect size=15 value=\"" + s1 + "\"></td>");
         stringbuffer.append("<td align=\"right\" valign=\"top\">For Monitor Type: </td><td align=\"left\"valign=\"top\"><SELECT NAME=monitorTypeSelect><option value=\"\">All types</option>\n");
-        jgl.Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses();
-        enumeration = array.elements();
+        Array array = COM.dragonflow.Page.monitorPage.getMonitorClasses();
+        enumeration = (Enumeration) array.iterator();
         array1 = _getUsedMonitorClasses();
 
         java.lang.Class class1;
@@ -1146,7 +1146,7 @@ _L1:
         return;
     }
 
-    void printTopazLoggingOptions(java.io.PrintWriter printwriter, jgl.Array array, jgl.Array array1)
+    void printTopazLoggingOptions(java.io.PrintWriter printwriter, Array array, Array array1)
     {
 //        String s = "<p>";
 //        int i = COM.dragonflow.TopazIntegration.TopazManager.getInstance().getTopazServerSettings().getTopazIntegrationVersion();
@@ -1163,7 +1163,7 @@ _L1:
 //        printwriter.println(s);
     }
 
-    void printMetricPerMinute(java.io.PrintWriter printwriter, jgl.Array array, jgl.Array array1)
+    void printMetricPerMinute(java.io.PrintWriter printwriter, Array array, Array array1)
     {
     }
 
@@ -1194,10 +1194,10 @@ _L1:
         printProgressMessage("<P><FONT SIZE=+1><B>" + s + "</B></FONT><P>");
         try
         {
-            jgl.Array array = new Array();
-            jgl.Array array1 = new Array();
-            jgl.Array array2 = new Array();
-            jgl.Array array3 = new Array();
+            Array array = new Array();
+            Array array1 = new Array();
+            Array array2 = new Array();
+            Array array3 = new Array();
             String s2 = "something";
             String s3 = "something";
             for(int i = 1; s2.length() > 0 || s3.length() > 0; i++)
@@ -1226,7 +1226,7 @@ _L1:
 
             if(s.startsWith("Delete"))
             {
-                jgl.Array array4 = new Array(COM.dragonflow.Utils.I18N.toDefaultArray(array));
+                Array array4 = new Array(COM.dragonflow.Utils.I18N.toDefaultArray(array));
                 COM.dragonflow.SiteView.ConfigurationChanger.delete(array4, array2, request, outputStream);
             } else
             if(s.startsWith("Baseline"))
@@ -1318,7 +1318,7 @@ _L1:
                     }
                     for(int l = 0; l < array2.size(); l++)
                     {
-                        String s20 = (String)array2.at(l);
+                        String s20 = (String)array2.get(l);
                         performMonitorConfigChange(s20, s6, as2, s15, s12, s17);
                     }
 
@@ -1334,7 +1334,7 @@ _L1:
                     }
                     for(int i1 = 0; i1 < array.size(); i1++)
                     {
-                        String s21 = COM.dragonflow.Utils.I18N.toDefaultEncoding((String)array.at(i1));
+                        String s21 = COM.dragonflow.Utils.I18N.toDefaultEncoding((String)array.get(i1));
                         performGroupConfigChange(s21, s6, as2, s15, s12, s17);
                     }
 
@@ -1378,7 +1378,7 @@ _L1:
                         printProgressMessage(s + " monitor" + (array2.size() <= 1 ? "" : "s") + "<BR>");
                         for(int j = 0; j < array2.size(); j++)
                         {
-                            String s13 = (String)array2.at(j);
+                            String s13 = (String)array2.get(j);
                             if(s7.length() > 0)
                             {
                                 performMonitorConfigChange(s13, "Disable", as1, "", s7, "");
@@ -1413,7 +1413,7 @@ _L1:
                         printProgressMessage(s + " group" + (array.size() <= 1 ? "" : "s") + "<BR>");
                         for(int k = 0; k < array.size(); k++)
                         {
-                            String s14 = COM.dragonflow.Utils.I18N.toDefaultEncoding((String)array.at(k));
+                            String s14 = COM.dragonflow.Utils.I18N.toDefaultEncoding((String)array.get(k));
                             try
                             {
                                 acknowledgeGroup(s14, s11, request.remoteAddress, s5, s7, s.equals("Acknowledge"));
@@ -1427,17 +1427,17 @@ _L1:
                             {
                                 performGroupConfigChange(s14, "Disable", as1, "", s7, "");
                             }
-                            jgl.Array array5 = getGroupFrames(s14);
-                            jgl.HashMap hashmap = (jgl.HashMap)array5.at(0);
+                            Array array5 = getGroupFrames(s14);
+                            HashMap hashmap = (HashMap)array5.get(0);
                             String s19 = (String)hashmap.get("_parent");
                             if(s19 == null || s19.length() <= 0)
                             {
                                 continue;
                             }
-                            jgl.Array array6 = getGroupFrames(s19);
+                            Array array6 = getGroupFrames(s19);
                             for(int j1 = 1; j1 < array6.size(); j1++)
                             {
-                                jgl.HashMap hashmap1 = (jgl.HashMap)array6.at(j1);
+                                HashMap hashmap1 = (HashMap)array6.get(j1);
                                 String s22 = (String)hashmap1.get("_group");
                                 if(s22 != null && s22.equals(s14))
                                 {
@@ -1512,7 +1512,7 @@ _L1:
         }
         int i;
         String s2 = monitorgroup.getProperty(COM.dragonflow.SiteView.Monitor.pName);
-        jgl.Array array = new Array();
+        Array array = new Array();
         i = COM.dragonflow.Utils.TextUtils.matchExpression(s2, s1, array, new StringBuffer());
         if(i != COM.dragonflow.SiteView.Monitor.kURLok)
         {
@@ -1544,8 +1544,8 @@ _L1:
         {
         String s1 = s.substring(0, i);
         String s2 = s.substring(i + 1);
-        jgl.Array array = getGroupFrames(s1);
-        jgl.HashMap hashmap = COM.dragonflow.Page.CGI.findMonitor(array, s2);
+        Array array = getGroupFrames(s1);
+        HashMap hashmap = COM.dragonflow.Page.CGI.findMonitor(array, s2);
         atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)COM.dragonflow.SiteView.AtomicMonitor.createMonitor(hashmap, "");
         if(monitorPassFilter(atomicmonitor))
         {
@@ -1559,10 +1559,10 @@ _L1:
         return false;
     }
 
-    private jgl.Array getFilteredGroupList()
+    private Array getFilteredGroupList()
     {
         boolean flag = true;
-        jgl.Array array = new Array();
+        Array array = new Array();
         if(request.getValue("monitorNameSelect").length() <= 0)
         {
             return array;
@@ -1584,7 +1584,7 @@ _L1:
         return array;
     }
 
-    private void createFilteredMonitorList(COM.dragonflow.SiteView.Monitor monitor, jgl.Array array)
+    private void createFilteredMonitorList(COM.dragonflow.SiteView.Monitor monitor, Array array)
     {
         try
         {
@@ -1624,7 +1624,7 @@ _L1:
         if(s1.length() > 0)
         {
             String s3 = atomicmonitor.getProperty(COM.dragonflow.SiteView.Monitor.pName) + atomicmonitor.getProperty(COM.dragonflow.SiteView.Monitor.pDescription);
-            jgl.Array array = new Array();
+            Array array = new Array();
             int i = COM.dragonflow.Utils.TextUtils.matchExpression(s3, s1, array, new StringBuffer());
             if(i != COM.dragonflow.SiteView.Monitor.kURLok)
             {
@@ -1638,7 +1638,7 @@ _L1:
         if(s2.length() > 0)
         {
             String s4 = atomicmonitor.getHostname();
-            jgl.Array array1 = new Array();
+            Array array1 = new Array();
             int j = COM.dragonflow.Utils.TextUtils.matchExpression(s4, s2, array1, new StringBuffer());
             if(j != COM.dragonflow.SiteView.Monitor.kURLok)
             {
@@ -1652,7 +1652,7 @@ _L1:
         return s.length() <= 0 || s.indexOf((String)atomicmonitor.getClassProperty("class")) != -1;
     }
 
-    private void printMonitorGroupTable(String s, boolean flag, jgl.Array array, boolean flag1, boolean flag2, jgl.Array array1, boolean flag3)
+    private void printMonitorGroupTable(String s, boolean flag, Array array, boolean flag1, boolean flag2, Array array1, boolean flag3)
     {
         outputStream.print("<TABLE BORDER=1 cellspacing=0><TR CLASS=\"tabhead\"><TH>" + s + "</TH>" + "<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>");
         if(request.getValue("_health").length() > 0)
@@ -1666,7 +1666,7 @@ _L1:
         outputStream.println("</TR>");
         for(int i = 0; i < array.size(); i++)
         {
-            String s1 = (String)array.at(i);
+            String s1 = (String)array.get(i);
             outputStream.print("<TR><TD>");
             if(flag1)
             {
@@ -1677,7 +1677,7 @@ _L1:
                 outputStream.print("All Groups and Monitors" + (flag2 ? "" : "<font color=red> Not Permitted</font>"));
             } else
             {
-                outputStream.print((String)array.at(i) + (flag2 ? "" : "<font color=red> Not Permitted</font>"));
+                outputStream.print((String)array.get(i) + (flag2 ? "" : "<font color=red> Not Permitted</font>"));
             }
             outputStream.println("</TD></TR>");
         }
@@ -1689,14 +1689,14 @@ _L1:
             {
                 outputStream.print("Monitor ");
             }
-            outputStream.print(array1.at(j) + (flag3 ? "" : "<font color=red> Not Permitted</font>"));
+            outputStream.print(array1.get(j) + (flag3 ? "" : "<font color=red> Not Permitted</font>"));
             outputStream.println("</TD></TR>");
         }
 
         outputStream.println("</TABLE>");
     }
 
-    void excludeAllSubGroups(COM.dragonflow.SiteView.Monitor monitor, jgl.Array array)
+    void excludeAllSubGroups(COM.dragonflow.SiteView.Monitor monitor, Array array)
     {
         array.add(monitor.getProperty(COM.dragonflow.SiteView.Monitor.pID));
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
@@ -1719,10 +1719,10 @@ _L1:
         } while(true);
     }
 
-    private jgl.Array getGroupFrames(String s)
+    private Array getGroupFrames(String s)
         throws java.lang.Exception
     {
-        jgl.Array array = (jgl.Array)groups.get(s);
+        Array array = (Array)groups.get(s);
         if(array == null)
         {
             array = COM.dragonflow.Page.CGI.ReadGroupFrames(s, request);
@@ -1742,7 +1742,7 @@ _L1:
                 break;
             }
             String s = (String)enumeration.nextElement();
-            jgl.Array array = (jgl.Array)groups.get(s);
+            Array array = (Array)groups.get(s);
             if(array != null)
             {
                 printProgressMessage("Saving group configuration for " + COM.dragonflow.Page.managePage.getGroupName(array, s) + "<BR>");
@@ -1760,7 +1760,7 @@ _L1:
         groups.clear();
     }
 
-    boolean exceedsLicenseLimit(jgl.Array array, String s)
+    boolean exceedsLicenseLimit(Array array, String s)
     {
         boolean flag = COM.dragonflow.Utils.LUtils.wouldExceedLimit(array, s);
         if(flag)
@@ -1771,7 +1771,7 @@ _L1:
         return flag;
     }
 
-    public void manageMonitors(jgl.Array array, jgl.Array array1, String s, boolean flag, String as[])
+    public void manageMonitors(Array array, Array array1, String s, boolean flag, String as[])
         throws java.lang.Exception
     {
         if(!flag)
@@ -1785,12 +1785,12 @@ _L1:
                 return;
             }
         }
-        jgl.Array array2 = new Array();
-        jgl.Array array3 = new Array();
+        Array array2 = new Array();
+        Array array3 = new Array();
         for(int i = 0; i < array.size(); i++)
         {
-            String s1 = (String)array.at(i);
-            String s2 = (String)array1.at(i);
+            String s1 = (String)array.get(i);
+            String s2 = (String)array1.get(i);
             String s4 = s1.replace(' ', '/');
             array3.add(s4);
             if(debug)
@@ -1814,13 +1814,13 @@ _L1:
                 }
                 continue;
             }
-            jgl.Array array5 = getGroupFrames(s5);
+            Array array5 = getGroupFrames(s5);
             int i1 = COM.dragonflow.Page.managePage.findMonitorIndex(array5, s6);
             if(i1 < 1)
             {
                 continue;
             }
-            jgl.HashMap hashmap3 = (jgl.HashMap)array5.at(i1);
+            HashMap hashmap3 = (HashMap)array5.get(i1);
             if(flag)
             {
                 if(debug)
@@ -1857,12 +1857,12 @@ _L1:
         {
             return;
         }
-        jgl.Array array4 = getGroupFrames(s);
+        Array array4 = getGroupFrames(s);
         if(debug)
         {
             COM.dragonflow.Utils.TextUtils.debugPrint("READ TOGROUP=" + s);
         }
-        jgl.HashMap hashmap = COM.dragonflow.Page.managePage.findMonitor(array4, "_config");
+        HashMap hashmap = COM.dragonflow.Page.managePage.findMonitor(array4, "_config");
         String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_nextID");
         if(s3.length() == 0)
         {
@@ -1870,7 +1870,7 @@ _L1:
         }
         for(int j = 0; j < array2.size(); j++)
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)array2.at(j);
+            HashMap hashmap1 = (HashMap)array2.get(j);
             hashmap1.put("_id", s3);
             s3 = COM.dragonflow.Utils.TextUtils.increment(s3);
             array4.add(hashmap1);
@@ -1882,14 +1882,14 @@ _L1:
         {
             for(int k = 0; k < array2.size(); k++)
             {
-                jgl.HashMap hashmap2 = (jgl.HashMap)((jgl.HashMap)array2.at(k)).clone();
+                HashMap hashmap2 = (HashMap)((HashMap)array2.get(k)).clone();
                 COM.dragonflow.SiteView.AtomicMonitor atomicmonitor = (COM.dragonflow.SiteView.AtomicMonitor)COM.dragonflow.SiteView.AtomicMonitor.createMonitor(hashmap2, request.getPortalServer());
-                atomicmonitor.notifyMove((String)array3.at(k));
+                atomicmonitor.notifyMove((String)array3.get(k));
 //                if(COM.dragonflow.SiteView.TopazConfigurator.configInTopazAndRegistered())
 //                {
 //                    String s7 = "SiteView/" + s + "/" + atomicmonitor.getFullID();
-//                    jgl.Array array6 = new Array();
-//                    jgl.Array array7 = new Array();
+//                    Array array6 = new Array();
+//                    Array array7 = new Array();
 //                    array6.add(atomicmonitor);
 //                    array7.add(s7);
 //                    StringBuffer stringbuffer = new StringBuffer();
@@ -1913,25 +1913,25 @@ _L1:
         }
     }
 
-    public void manageGroups(jgl.Array array, jgl.Array array1, String s, boolean flag, String as[])
+    public void manageGroups(Array array, Array array1, String s, boolean flag, String as[])
         throws java.lang.Exception
     {
-        jgl.Array array2 = new Array();
-        jgl.Array array3 = new Array();
+        Array array2 = new Array();
+        Array array3 = new Array();
         for(int i = 0; i < array.size(); i++)
         {
-            String s1 = COM.dragonflow.Utils.I18N.toDefaultEncoding((String)array.at(i));
-            String s2 = (String)array1.at(i);
+            String s1 = COM.dragonflow.Utils.I18N.toDefaultEncoding((String)array.get(i));
+            String s2 = (String)array1.get(i);
             if(debug)
             {
                 COM.dragonflow.Utils.TextUtils.debugPrint("GROUPID=" + s1);
             }
-            jgl.Array array4 = getGroupFrames(s1);
+            Array array4 = getGroupFrames(s1);
             if(!flag && exceedsLicenseLimit(array4, s1))
             {
                 return;
             }
-            jgl.HashMap hashmap1 = COM.dragonflow.Page.managePage.findMonitor(array4, "_config");
+            HashMap hashmap1 = COM.dragonflow.Page.managePage.findMonitor(array4, "_config");
             String s4 = COM.dragonflow.Utils.I18N.toDefaultEncoding(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_parent"));
             java.lang.Object obj = null;
             if(s4.length() > 0)
@@ -1940,11 +1940,11 @@ _L1:
                 {
                     COM.dragonflow.Utils.TextUtils.debugPrint("PARENTID=" + s4);
                 }
-                jgl.Array array6 = getGroupFrames(s4);
+                Array array6 = getGroupFrames(s4);
                 int k = COM.dragonflow.Page.managePage.findSubGroupIndex(array6, COM.dragonflow.Utils.I18N.toNullEncoding(s1));
                 if(k >= 1)
                 {
-                    obj = (jgl.HashMap)array6.at(k);
+                    obj = (HashMap)array6.get(k);
                     if(flag)
                     {
                         if(debug)
@@ -1966,9 +1966,9 @@ _L1:
                     COM.dragonflow.Utils.TextUtils.debugPrint("CREATING SUBGROUP FRAME");
                 }
                 obj = new HashMapOrdered(true);
-                ((jgl.HashMap) (obj)).put("_name", COM.dragonflow.Page.managePage.getGroupName(hashmap1, s1));
-                ((jgl.HashMap) (obj)).put("_class", "SubGroup");
-                ((jgl.HashMap) (obj)).put("_group", COM.dragonflow.Utils.I18N.toNullEncoding(s1));
+                ((HashMap) (obj)).put("_name", COM.dragonflow.Page.managePage.getGroupName(hashmap1, s1));
+                ((HashMap) (obj)).put("_class", "SubGroup");
+                ((HashMap) (obj)).put("_group", COM.dragonflow.Utils.I18N.toNullEncoding(s1));
                 array2.add(obj);
                 hashmap1.put("_parent", COM.dragonflow.Utils.I18N.toNullEncoding(s));
             } else
@@ -1977,15 +1977,15 @@ _L1:
             }
             if(!COM.dragonflow.SiteView.Platform.isStandardAccount(request.getAccount()))
             {
-                jgl.HashMap hashmap3 = new HashMap();
+                HashMap hashmap3 = new HashMap();
                 COM.dragonflow.SiteView.monitorUtils.getGroupMonitors(hashmap3, null, array4, s1);
                 Enumeration enumeration = hashmap3.keys();
                 int i1 = 0;
-                jgl.Array array8 = new Array();
-                jgl.HashMap hashmap5;
+                Array array8 = new Array();
+                HashMap hashmap5;
                 for(; enumeration.hasMoreElements(); array8.add(hashmap5))
                 {
-                    hashmap5 = (jgl.HashMap)enumeration.nextElement();
+                    hashmap5 = (HashMap)enumeration.nextElement();
                     i1++;
                 }
 
@@ -2008,11 +2008,11 @@ _L1:
             if(!flag)
             {
                 s1 = new String(COM.dragonflow.Utils.I18N.toDefaultEncoding(s2));
-                jgl.Array array7 = new Array();
-                array7 = duplicateGroupFile(s1, array4, ((jgl.HashMap) (obj)), as, array7);
+                Array array7 = new Array();
+                array7 = duplicateGroupFile(s1, array4, ((HashMap) (obj)), as, array7);
                 for(int l = 0; l < array7.size(); l++)
                 {
-                    COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages((String)array7.at(l));
+                    COM.dragonflow.SiteView.SiteViewGroup.updateStaticPages((String)array7.get(l));
                 }
 
                 continue;
@@ -2021,7 +2021,7 @@ _L1:
 //            {
 //                continue;
 //            }
-            jgl.HashMap hashmap4 = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+            HashMap hashmap4 = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
 //            if(COM.dragonflow.Utils.TextUtils.getValue(hashmap4, "_topazGroupMoveHardSync").length() > 0)
 //            {
 //                COM.dragonflow.SiteView.TopazConfigurator.hardSync = true;
@@ -2031,12 +2031,12 @@ _L1:
 
         if(s.length() > 0)
         {
-            jgl.Array array5 = getGroupFrames(s);
+            Array array5 = getGroupFrames(s);
             if(debug)
             {
                 COM.dragonflow.Utils.TextUtils.debugPrint("READ TOGROUP=" + s);
             }
-            jgl.HashMap hashmap = COM.dragonflow.Page.managePage.findMonitor(array5, "_config");
+            HashMap hashmap = COM.dragonflow.Page.managePage.findMonitor(array5, "_config");
             String s3 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_nextID");
             if(s3.length() == 0)
             {
@@ -2044,7 +2044,7 @@ _L1:
             }
             for(int j = 0; j < array2.size(); j++)
             {
-                jgl.HashMap hashmap2 = (jgl.HashMap)array2.at(j);
+                HashMap hashmap2 = (HashMap)array2.get(j);
                 hashmap2.put("_id", s3);
                 s3 = COM.dragonflow.Utils.TextUtils.increment(s3);
                 array5.add(hashmap2);
@@ -2062,18 +2062,18 @@ _L1:
         }
     }
 
-    private boolean overRemoteMonitorsLimit(String s, jgl.Array array)
+    private boolean overRemoteMonitorsLimit(String s, Array array)
     {
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
         COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s);
-        jgl.HashMap hashmap1 = monitorgroup.getValuesTable();
+        HashMap hashmap1 = monitorgroup.getValuesTable();
         int i = 0;
         int j = 0;
         int k = 0;
         String s1 = "";
         for(int l = 0; l < array.size(); l++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(l);
+            HashMap hashmap = (HashMap)array.get(l);
             String s2 = (String)hashmap.get("_class");
             if(s2.equals("URLRemoteMonitor"))
             {
@@ -2148,10 +2148,10 @@ _L1:
         int i = 0;
         try
         {
-            jgl.Array array = getGroupFrames(s);
-            jgl.HashMap hashmap = new HashMap(true);
+            Array array = getGroupFrames(s);
+            HashMap hashmap = new HashMap(true);
             COM.dragonflow.SiteView.monitorUtils.getGroupMonitors(hashmap, null, array, s);
-            Enumeration enumeration = hashmap.keys();
+            Enumeration enumeration = (Enumeration) hashmap.keys();
             String s1 = "";
             do
             {
@@ -2159,7 +2159,7 @@ _L1:
                 {
                     break;
                 }
-                jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap1 = (HashMap)enumeration.nextElement();
                 String s2 = (String)hashmap1.get("_class");
                 if(s2.startsWith("URLRemote") && (hashmap1.get("_getImages") != null && ((String)hashmap1.get("_getImages")).equals("on") || hashmap1.get("_getFrames") != null && ((String)hashmap1.get("_getFrames")).equals("on")))
                 {
@@ -2197,20 +2197,20 @@ _L1:
         }
     }
 
-    private boolean overUrlLocationsMax(String s, jgl.Array array)
+    private boolean overUrlLocationsMax(String s, Array array)
     {
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
         COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElementByID(s);
         int i = (new Integer(monitorgroup.getTreeSetting("_URLRemoteLocationsMax"))).intValue();
         for(int j = 0; j < array.size(); j++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(j);
+            HashMap hashmap = (HashMap)array.get(j);
             String s1 = (String)hashmap.get("_class");
             if(!s1.startsWith("URLRemote"))
             {
                 continue;
             }
-            Enumeration enumeration = hashmap.values("_location");
+            Enumeration enumeration = (Enumeration) hashmap.values("_location");
             int k = 0;
             boolean flag = false;
             do
@@ -2248,7 +2248,7 @@ _L1:
         return false;
     }
 
-    jgl.Array duplicateGroupFile(String s, jgl.Array array, jgl.HashMap hashmap, String as[], jgl.Array array1)
+    jgl.Array duplicateGroupFile(String s, Array array, HashMap hashmap, String as[], Array array1)
         throws java.lang.Exception
     {
         if(debug)
@@ -2266,14 +2266,14 @@ _L1:
         array1.add(s);
         if(as.length > 0)
         {
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             do
             {
                 if(!enumeration.hasMoreElements())
                 {
                     break;
                 }
-                jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
+                HashMap hashmap1 = (HashMap)enumeration.nextElement();
                 if(as.length > 0 && COM.dragonflow.SiteView.Monitor.isMonitorFrame(hashmap1))
                 {
                     printProgressMessage(COM.dragonflow.Utils.TextUtils.replaceInHashMap(hashmap1, as, EXCLUDE_MAP));
@@ -2290,17 +2290,17 @@ _L1:
         }
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap2 = (jgl.HashMap)array.at(i);
+            HashMap hashmap2 = (HashMap)array.get(i);
             if(COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_class").equals("SubGroup"))
             {
                 String s1 = COM.dragonflow.Utils.I18N.toDefaultEncoding(COM.dragonflow.Utils.TextUtils.getValue(hashmap2, "_group"));
-                jgl.Array array2 = null;
+                Array array2 = null;
                 try
                 {
                     array2 = ReadGroupFrames(s1);
                     if(array2.size() > 0)
                     {
-                        jgl.HashMap hashmap3 = (jgl.HashMap)array2.at(0);
+                        HashMap hashmap3 = (HashMap)array2.get(0);
                         String s2 = COM.dragonflow.Utils.TextUtils.getValue(hashmap3, "_name");
                         if(s2 != null && s2.length() > 0 && s2.equalsIgnoreCase("config"))
                         {
@@ -2314,7 +2314,7 @@ _L1:
                 }
                 if(array2 != null && array2.size() > 0)
                 {
-                    jgl.HashMap hashmap4 = (jgl.HashMap)array2.at(0);
+                    HashMap hashmap4 = (HashMap)array2.get(0);
                     hashmap4.put("_parent", COM.dragonflow.Utils.I18N.toNullEncoding(s));
                     duplicateGroupFile(s1, array2, hashmap2, as, array1);
                 }
@@ -2387,7 +2387,7 @@ _L1:
             outputStream.println(s2);
         }
         boolean flag = false;
-        jgl.Array array = null;
+        Array array = null;
         if((request.getValue("monitorNameSelect").length() > 0 || request.getValue("machineNameSelect").length() > 0 || request.getValue("monitorTypeSelect").length() > 0) && request.getValue("operation").startsWith("Apply"))
         {
             printBrowseFilterOptionForm(outputStream);
@@ -2408,11 +2408,11 @@ _L1:
             {
                 array = new Array();
             }
-            jgl.HashMap hashmap = null;
+            HashMap hashmap = null;
             String s3 = request.getAccount();
             for(int i = 0; i < array.size(); i++)
             {
-                jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+                HashMap hashmap1 = (HashMap)array.get(i);
                 if(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_user").equals(s3))
                 {
                     hashmap = hashmap1;
@@ -2460,8 +2460,8 @@ _L1:
                     }
                 }
             } while(true);
-            jgl.Array array1 = new Array();
-            jgl.HashMap hashmap2 = new HashMap();
+            Array array1 = new Array();
+            HashMap hashmap2 = new HashMap();
             Object obj = null;
             if(COM.dragonflow.Page.treeControl.useTree())
             {
@@ -2500,8 +2500,8 @@ _L1:
             } else
             {
                 COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
-                jgl.Array array2 = getGroupNameList(hashmapordered, null, null, true);
-                for(Enumeration enumeration6 = array2.elements(); enumeration6.hasMoreElements();)
+                Array array2 = getGroupNameList(hashmapordered, null, null, true);
+                for(Enumeration enumeration6 =  (Enumeration) array2.iterator(); enumeration6.hasMoreElements();)
                 {
                     String s9 = (String)enumeration6.nextElement();
                     Enumeration enumeration5 = hashmapordered.values(s9);
@@ -2574,7 +2574,7 @@ _L1:
     {
         String s = COM.dragonflow.SiteView.Platform.getURLPath("htdocs", request.getAccount()) + "/Detail";
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        jgl.Array array = getFilteredGroupList();
+        Array array = getFilteredGroupList();
         outputStream.println("<FORM METHOD=GET ACTION=/SiteView/cgi/go.exe/SiteView><INPUT TYPE=HIDDEN NAME=page VALUE=manage><INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">");
         if(request.getValue("_health").length() > 0)
         {
@@ -2586,7 +2586,7 @@ _L1:
             outputStream.print("<table border=\"0\" cellspacing=\"0\" cellpadding=\"2\">");
             for(int i = 0; i < array.size(); i++)
             {
-                String s1 = (String)array.at(i);
+                String s1 = (String)array.get(i);
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s1);
                 outputStream.println("<tr><td><input type=checkbox name=group" + i + " value=\"" + s1 + "\" " + "CHECKED" + "></td>");
                 outputStream.print("<td><a href=\"" + s + COM.dragonflow.HTTP.HTTPRequest.encodeString(COM.dragonflow.Utils.I18N.toDefaultEncoding(monitorgroup.getProperty(COM.dragonflow.SiteView.Monitor.pID))) + ".html\"><b>" + monitorgroup.getProperty(COM.dragonflow.SiteView.Monitor.pName) + "</b></a></td></tr>");
@@ -2594,7 +2594,7 @@ _L1:
 
             outputStream.println("</table>");
         }
-        jgl.Array array1 = new Array();
+        Array array1 = new Array();
         COM.dragonflow.SiteView.Monitor monitor;
         for(Enumeration enumeration = siteviewgroup.getMonitors(); enumeration.hasMoreElements(); createFilteredMonitorList(monitor, array1))
         {
@@ -2607,7 +2607,7 @@ _L1:
             outputStream.print("<table border=\"0\" cellspacing=\"0\" cellpadding=\"2\">");
             for(int j = 0; j < array1.size(); j++)
             {
-                COM.dragonflow.SiteView.Monitor monitor1 = (COM.dragonflow.SiteView.Monitor)array1.at(j);
+                COM.dragonflow.SiteView.Monitor monitor1 = (COM.dragonflow.SiteView.Monitor)array1.get(j);
                 String s2 = monitor1.getOwner().getProperty(COM.dragonflow.SiteView.Monitor.pID) + " " + monitor1.getProperty(COM.dragonflow.SiteView.Monitor.pID);
                 outputStream.print("<tr><td><input type=checkbox name=monitor value=\"" + s2 + "\"+ CHECKED></td>");
                 outputStream.print("<td><a href=\"" + s + COM.dragonflow.HTTP.HTTPRequest.encodeString(COM.dragonflow.Utils.I18N.toDefaultEncoding(monitor1.getOwner().getProperty(COM.dragonflow.SiteView.Monitor.pID))) + ".html\">(" + monitor1.getOwner().getProperty(COM.dragonflow.SiteView.Monitor.pName) + ")</a></td><td><b>" + monitor1.getProperty(COM.dragonflow.SiteView.Monitor.pName) + "</b>");
@@ -2625,7 +2625,7 @@ _L1:
         }
     }
 
-    private void printGroup(COM.dragonflow.SiteView.MonitorGroup monitorgroup, jgl.HashMap hashmap, jgl.HashMap hashmap1, int i)
+    private void printGroup(COM.dragonflow.SiteView.MonitorGroup monitorgroup, HashMap hashmap, HashMap hashmap1, int i)
     {
         String s = monitorgroup.getProperty(COM.dragonflow.SiteView.Monitor.pID);
         boolean flag = hashmap.get(s) != null;
@@ -2709,7 +2709,7 @@ _L1:
 //        }
     }
 
-    void baselineMonitors(jgl.Array array, jgl.Array array1)
+    void baselineMonitors(Array array, Array array1)
         throws java.lang.Exception
     {
         int i = COM.dragonflow.Utils.TextUtils.toInt(request.getValue("baselineDays"));
@@ -2718,7 +2718,7 @@ _L1:
             i = 5;
         }
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        jgl.Array array2 = new Array();
+        Array array2 = new Array();
         String s = "administrator";
         Object obj = null;
         Object obj1 = null;
@@ -2729,7 +2729,7 @@ _L1:
 label0:
         for(int j = 0; j < array.size(); j++)
         {
-            String s1 = (String)array.at(j);
+            String s1 = (String)array.get(j);
             printProgressMessage("Baselining monitor" + (array.size() <= 1 ? "" : "s") + "<BR>");
             String as[] = COM.dragonflow.Utils.TextUtils.split(s1);
             String s3 = as[0] + COM.dragonflow.SiteView.SiteViewGroup.ID_SEPARATOR + as[1];
@@ -2779,7 +2779,7 @@ label0:
 label1:
         for(int k = 0; k < array1.size(); k++)
         {
-            String s2 = (String)array1.at(k);
+            String s2 = (String)array1.get(k);
             COM.dragonflow.SiteView.MonitorGroup monitorgroup1 = (COM.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s2);
             if(monitorgroup1 != null)
             {
@@ -2844,14 +2844,14 @@ label2:
         siteviewlogreader.process(array2, date1, date, i1, l);
         for(int j1 = 0; j1 < array2.size(); j1++)
         {
-            COM.dragonflow.SiteView.SampleCollector samplecollector = (COM.dragonflow.SiteView.SampleCollector)array2.at(j1);
+            COM.dragonflow.SiteView.SampleCollector samplecollector = (COM.dragonflow.SiteView.SampleCollector)array2.get(j1);
             float f = samplecollector.getAverage();
             float f1 = samplecollector.getStandardDeviation();
             COM.dragonflow.SiteView.Monitor monitor2 = samplecollector.getMonitor();
             String s4 = monitor2.getProperty(COM.dragonflow.SiteView.Monitor.pGroupID);
             String s5 = monitor2.getProperty(COM.dragonflow.SiteView.Monitor.pID);
-            jgl.Array array3 = getGroupFrames(s4);
-            jgl.HashMap hashmap = COM.dragonflow.Page.managePage.findMonitor(array3, s5);
+            Array array3 = getGroupFrames(s4);
+            HashMap hashmap = COM.dragonflow.Page.managePage.findMonitor(array3, s5);
             COM.dragonflow.SiteView.Monitor _tmp = monitor2;
             String s6 = COM.dragonflow.SiteView.Monitor.pBaselineMean.getName();
             COM.dragonflow.SiteView.Monitor _tmp1 = monitor2;
@@ -2871,13 +2871,13 @@ label2:
         }
     }
 
-    private void addCollector(jgl.Array array, COM.dragonflow.SiteView.Monitor monitor, COM.dragonflow.Properties.StringProperty stringproperty)
+    private void addCollector(Array array, COM.dragonflow.SiteView.Monitor monitor, COM.dragonflow.Properties.StringProperty stringproperty)
     {
         COM.dragonflow.SiteView.SampleCollector samplecollector = new SampleCollector(monitor, stringproperty);
         array.add(samplecollector);
     }
 
-    public static jgl.HashMap copyHashMap(jgl.HashMap hashmap)
+    public static HashMap copyHashMap(HashMap hashmap)
     {
         java.lang.Object obj;
         if(hashmap instanceof COM.dragonflow.Properties.HashMapOrdered)
@@ -2887,26 +2887,26 @@ label2:
         {
             obj = new HashMap();
         }
-        for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements();)
+        for(Enumeration enumeration = (Enumeration) hashmap.keys(); enumeration.hasMoreElements();)
         {
             java.lang.Object obj1 = enumeration.nextElement();
-            if(hashmap.get(obj1) instanceof jgl.Array)
+            if(hashmap.get(obj1) instanceof Array)
             {
-                jgl.Array array = (jgl.Array)hashmap.get(obj1);
-                jgl.Array array1 = new Array();
+                Array array = (Array)hashmap.get(obj1);
+                Array array1 = new Array();
                 for(int i = 0; i < array.size(); i++)
                 {
-                    array1.add(new String((String)array.at(i)));
+                    array1.add(new String((String)array.get(i)));
                 }
 
-                ((jgl.HashMap) (obj)).put(obj1, array1);
+                ((HashMap) (obj)).put(obj1, array1);
             } else
             {
-                ((jgl.HashMap) (obj)).put(obj1, hashmap.get(obj1));
+                ((HashMap) (obj)).put(obj1, hashmap.get(obj1));
             }
         }
 
-        return ((jgl.HashMap) (obj));
+        return ((HashMap) (obj));
     }
 
     public void performGroupConfigChange(String s, String s1, String as[], String s2, String s3, String s4)
@@ -2925,7 +2925,7 @@ label2:
 
             return;
         }
-        jgl.Array array = getGroupFrames(s);
+        Array array = getGroupFrames(s);
         String s5 = COM.dragonflow.Page.managePage.getGroupName(array, s);
         if(debug)
         {
@@ -2941,7 +2941,7 @@ label2:
         }
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+            HashMap hashmap = (HashMap)array.get(i);
             String s7 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class");
             if(s7.equals("SubGroup"))
             {
@@ -2990,8 +2990,8 @@ label2:
             }
             String s5 = s.substring(0, i);
             String s6 = s.substring(i + 1);
-            jgl.Array array = getGroupFrames(s5);
-            jgl.HashMap hashmap = COM.dragonflow.Page.managePage.findMonitor(array, s6);
+            Array array = getGroupFrames(s5);
+            HashMap hashmap = COM.dragonflow.Page.managePage.findMonitor(array, s6);
             String s7 = (String)hashmap.get("_class");
             if(s7 != null && s7.equals("SubGroup"))
             {
@@ -3004,7 +3004,7 @@ label2:
         }
     }
 
-    private void performMonitorConfigChange(jgl.HashMap hashmap, String s, String s1, String s2, String s3, String s4, String as[])
+    private void performMonitorConfigChange(HashMap hashmap, String s, String s1, String s2, String s3, String s4, String as[])
     {
         COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
         String s5 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class");
@@ -3106,7 +3106,7 @@ label2:
         {
             String s1 = COM.dragonflow.Utils.I18N.toDefaultEncoding(s.substring(0, i));
             String s2 = s.substring(i + 1);
-            jgl.Array array = getGroupFrames(s1);
+            Array array = getGroupFrames(s1);
             infoState = COM.dragonflow.Page.managePage.findMonitor(array, s2);
             String s3 = s1 + COM.dragonflow.SiteView.SiteViewGroup.ID_SEPARATOR + s2;
             COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
@@ -3182,7 +3182,7 @@ label2:
     public void acknowledgeGroup(String s, String s1, String s2, String s3, String s4, boolean flag)
         throws java.lang.Exception
     {
-        jgl.Array array = null;
+        Array array = null;
         try
         {
             array = getGroupFrames(s);
@@ -3196,7 +3196,7 @@ label2:
         printProgressMessage("Acknowledge" + s5 + " Group<BR>");
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
+            HashMap hashmap = (HashMap)array.get(i);
             String s6 = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_class");
             if(s6.equals("SubGroup"))
             {
@@ -3227,7 +3227,7 @@ label2:
         {
             s2 = request.user.getProperty("_login");
             s3 = request.user.getProperty("_password");
-            jgl.Array array = new Array();
+            Array array = new Array();
             array.add(new String("page=login"));
             array.add(new String("operation=Login"));
             array.add(new String("_login=" + s2));
@@ -3249,7 +3249,7 @@ label2:
                 s4 = s4.substring(0, i1);
             }
         }
-        jgl.Array array1 = new Array();
+        Array array1 = new Array();
         array1.add(new String("page=manage"));
         array1.add(new String("operation=" + s));
         array1.add(new String("account=" + s4));
@@ -3288,8 +3288,8 @@ label2:
         s = s.substring(0, s.indexOf(':'));
         try
         {
-            jgl.Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Portal.PORTAL_SERVERS_CONFIG_PATH);
-            jgl.HashMap hashmap = COM.dragonflow.Page.portalPreferencePage.findFrameByID(array, s);
+            Array array = COM.dragonflow.Properties.FrameFile.readFromFile(COM.dragonflow.SiteView.Portal.PORTAL_SERVERS_CONFIG_PATH);
+            HashMap hashmap = COM.dragonflow.Page.portalPreferencePage.findFrameByID(array, s);
             COM.dragonflow.Page.portalServerPage.syncRemoteSiteView(hashmap, outputStream);
         }
         catch(java.lang.Exception exception)
@@ -3345,10 +3345,10 @@ label2:
 
     private Enumeration getExistingSchedule(COM.dragonflow.SiteView.SiteViewGroup siteviewgroup)
     {
-        jgl.HashMap hashmap = new HashMap();
+        HashMap hashmap = new HashMap();
         for(Enumeration enumeration = request.getValues("group"); enumeration.hasMoreElements();)
         {
-            jgl.HashMap hashmap1 = new HashMap();
+            HashMap hashmap1 = new HashMap();
             String s = (String)enumeration.nextElement();
             try
             {
@@ -3384,7 +3384,7 @@ label2:
                 String s4 = s1.substring(0, i);
                 String s7 = s1.substring(i + 1);
                 String s8 = getExistingMonitorSchedule(s4, s7, siteviewgroup);
-                jgl.HashMap hashmap2 = new HashMap();
+                HashMap hashmap2 = new HashMap();
                 if(!s8.equals("SubGroup"))
                 {
                     if(s8.length() > 0)
@@ -3451,11 +3451,11 @@ label2:
         return s5;
     }
 
-    private jgl.HashMap getExistingGroupSchedule(String s, COM.dragonflow.SiteView.SiteViewGroup siteviewgroup)
+    private HashMap getExistingGroupSchedule(String s, COM.dragonflow.SiteView.SiteViewGroup siteviewgroup)
         throws java.lang.Exception
     {
-        jgl.Array array = null;
-        jgl.HashMap hashmap = new HashMap();
+        Array array = null;
+        HashMap hashmap = new HashMap();
         try
         {
             array = getGroupFrames(s);
@@ -3469,7 +3469,7 @@ label2:
 label0:
         for(int i = 1; i < array.size(); i++)
         {
-            jgl.HashMap hashmap1 = (jgl.HashMap)array.at(i);
+            HashMap hashmap1 = (HashMap)array.get(i);
             String s1 = COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_class");
             if(s1.equals("SubGroup"))
             {
@@ -3478,7 +3478,7 @@ label0:
                 {
                     continue;
                 }
-                jgl.HashMap hashmap2 = getExistingGroupSchedule(s2, siteviewgroup);
+                HashMap hashmap2 = getExistingGroupSchedule(s2, siteviewgroup);
                 Enumeration enumeration = hashmap2.keys();
                 do
                 {

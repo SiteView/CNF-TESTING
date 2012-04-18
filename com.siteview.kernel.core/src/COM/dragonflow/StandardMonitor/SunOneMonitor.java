@@ -25,7 +25,7 @@ import COM.dragonflow.Utils.*;
 
 import java.io.StringReader;
 import java.util.HashMap;
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
@@ -337,7 +337,7 @@ public class SunOneMonitor extends BrowsableURLContentBase
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for(int i = 0; i < array.size(); i++)
         {
-            astringproperty[i] = (StringProperty)array.at(i);
+            astringproperty[i] = (StringProperty)array.get(i);
         }
 
         String s = (COM.dragonflow.StandardMonitor.SunOneMonitor.class).getName();

@@ -20,7 +20,7 @@ package COM.dragonflow.StandardPreference;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.StringProperty;
 
@@ -45,7 +45,7 @@ public class MailDefaultPreferences extends COM.dragonflow.SiteView.Preferences 
         java.util.Vector vector = new Vector();
         String s1 = COM.dragonflow.SiteView.Platform.productName + " test message";
         String s2 = "This is a test.  This is only a test.\n\n - " + COM.dragonflow.SiteView.Platform.productName;
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s5 = getValue("_mailAlertCC");
         String s6 = "";
         if (!s.startsWith("_id:")) {
@@ -62,7 +62,7 @@ public class MailDefaultPreferences extends COM.dragonflow.SiteView.Preferences 
             s2 = "Email address was not found or supplied!";
             throw new Exception(s2);
         }
-        jgl.Array array = new Array();
+        Array array = new Array();
         String s8 = COM.dragonflow.Utils.MailUtils.mail(hashmap, s6, s1, s2, s5, array);
         if (s8.length() == 0) {
             String s3 = "Mail Test Completed! The test message was sent to " + s6;
@@ -72,7 +72,7 @@ public class MailDefaultPreferences extends COM.dragonflow.SiteView.Preferences 
             throw new Exception(s4);
         }
         String s9;
-        for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); vector.add(COM.dragonflow.Utils.TextUtils.escapeHTML(s9))) {
+        for (Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); vector.add(COM.dragonflow.Utils.TextUtils.escapeHTML(s9))) {
             s9 = (String) enumeration.nextElement();
         }
 

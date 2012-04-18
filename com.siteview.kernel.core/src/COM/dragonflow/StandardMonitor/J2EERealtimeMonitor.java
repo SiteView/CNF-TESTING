@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.Properties.NumericProperty;
@@ -102,7 +102,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
         allGroups = new HashSet();
     }
 
-    public void initialize(jgl.HashMap hashmap) {
+    public void initialize(HashMap hashmap) {
         super.initialize(hashmap);
         groups = getMonitoredGroups();
         groupStateValues = new String[groups.length];
@@ -287,7 +287,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
             StringBuffer stringbuffer = new StringBuffer("Max ART: ");
             String s3 = "";
             for (int k = 0; k < pGroupStates.size(); k ++) {
-                stringbuffer.append(s3 + groups[k] + ": " + getProperty((StringProperty) pGroupStates.at(k)));
+                stringbuffer.append(s3 + groups[k] + ": " + getProperty((StringProperty) pGroupStates.get(k)));
                 s3 = ", ";
             }
 
@@ -369,7 +369,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
         }
         Array array1 = new Array(array);
         array1.add(pAvailabilityIndicator);
-        return array1.elements();
+        return  (Enumeration) array1.iterator();
     }
 
     private Array makeGroupStatePropertyArray(Object aobj[]) {
@@ -391,7 +391,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
         Array array = super.getLogProperties();
         int i = pGroupStates.size();
         for (int j = 0; j < i; j ++) {
-            array.add(pGroupStates.at(j));
+            array.add(pGroupStates.get(j));
         }
 
         array.add(pAvailabilityIndicator);
@@ -422,7 +422,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
         return as;
     }
 
-    public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, jgl.HashMap hashmap) {
+    public String verify(StringProperty stringproperty, String s, HTTPRequest httprequest, HashMap hashmap) {
         s = super.verify(stringproperty, s, httprequest, hashmap);
         if (stringproperty == pTarget) {
             SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
@@ -453,10 +453,10 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
             String s = getProperty(pHostname);
             if (s.length() == 0) {
                 String s1 = httprequest.getValue("uniqueID");
-                jgl.HashMap hashmap = BrowsableCache.getCache(s1, true, false);
-                jgl.HashMap hashmap1 = (jgl.HashMap) hashmap.get("cParms");
+                HashMap hashmap = BrowsableCache.getCache(s1, true, false);
+                HashMap hashmap1 = (HashMap) hashmap.get("cParms");
                 s = (String) hashmap1.get("_server");
-                jgl.HashMap hashmap2 = (jgl.HashMap) hashmap.get("selectNames");
+                HashMap hashmap2 = (HashMap) hashmap.get("selectNames");
                 String s2;
                 for (Enumeration enumeration2 = hashmap2.keys(); enumeration2.hasMoreElements(); allGroups.add(J2EEConnection.getGroupFromCounterName(HTTPRequest.decodeString(s2)))) {
                     s2 = (String) enumeration2.nextElement();
@@ -507,7 +507,7 @@ public class J2EERealtimeMonitor extends J2EEMonitor {
         array.add(pAvailabilityMonitor);
         StringProperty astringproperty[] = new StringProperty[array.size()];
         for (int i = 0; i < array.size(); i ++) {
-            astringproperty[i] = (StringProperty) array.at(i);
+            astringproperty[i] = (StringProperty) array.get(i);
         }
 
         addProperties("COM.dragonflow.StandardMonitor.J2EERealtimeMonitor", astringproperty);

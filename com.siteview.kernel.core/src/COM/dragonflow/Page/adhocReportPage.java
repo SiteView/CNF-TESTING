@@ -11,7 +11,7 @@ package COM.dragonflow.Page;
 
 import java.util.Date;
 
-import jgl.HashMap;
+import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.SiteViewException.SiteViewParameterException;
 
@@ -37,7 +37,7 @@ public class adhocReportPage extends COM.dragonflow.Page.CGI
                 {
                     throw new HTTPRequestException(557);
                 }
-                jgl.HashMap hashmap = new HashMap();
+                HashMap hashmap = new HashMap();
                 hashmap.put("mainLink", request.getValue("mainLink"));
                 hashmap.put("aboutLink", request.getValue("aboutLink"));
                 COM.dragonflow.SiteView.HistoryReport.generateReportFromQueryID(request.getValue("queryID"), outputStream, request.getAccount(), hashmap);

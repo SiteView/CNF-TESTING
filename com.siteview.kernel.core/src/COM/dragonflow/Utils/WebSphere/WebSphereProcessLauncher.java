@@ -92,7 +92,7 @@ public class WebSphereProcessLauncher {
 
     static {
         defaultRegistryPort = 1099;
-        jgl.HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
+        HashMap hashmap = COM.dragonflow.SiteView.MasterConfig.getMasterConfig();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_webSphereRMIRegistryPort");
         if (s.length() > 0) {
             try {

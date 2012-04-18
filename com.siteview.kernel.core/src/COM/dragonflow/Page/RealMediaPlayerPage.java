@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Enumeration;
 
-import jgl.Array;
+import com.recursionsw.jgl.Array;
 import COM.dragonflow.Utils.CommandLine;
 import COM.dragonflow.Utils.RealPlayerMonitorUtils;
 
@@ -49,7 +49,7 @@ public class RealMediaPlayerPage extends COM.dragonflow.Page.CGI {
                     mediaLog);
             outputStream.println("<b>Command: </b>" + s);
             outputStream.flush();
-            jgl.Array array = new Array();
+            Array array = new Array();
             long l = java.lang.System.currentTimeMillis();
             outputStream.println("Begin at " + l + " ms.");
             outputStream.println("Playing...");
@@ -66,7 +66,7 @@ public class RealMediaPlayerPage extends COM.dragonflow.Page.CGI {
             int i = commandline.getExitValue();
             outputStream.println("Exit Value: " + i);
             outputStream.flush();
-            Enumeration enumeration = array.elements();
+            Enumeration enumeration = (Enumeration) array.iterator();
             outputStream.println("Results jgl.Array " + i);
             for (; enumeration.hasMoreElements(); outputStream
                     .println("Results: " + enumeration.nextElement())) {

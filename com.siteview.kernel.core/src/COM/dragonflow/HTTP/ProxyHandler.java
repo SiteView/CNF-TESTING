@@ -19,15 +19,17 @@ package COM.dragonflow.HTTP;
 
 import java.util.Enumeration;
 
-import jgl.Array;
 import COM.dragonflow.Properties.HashMapOrdered;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.HTTP:
 // HTTPRequest
 
 public class ProxyHandler {
 
-    public static jgl.HashMap monitor = new HashMapOrdered(true);
+    public static HashMap monitor = new HashMapOrdered(true);
 
     public static boolean started = false;
 
@@ -84,7 +86,7 @@ public class ProxyHandler {
         COM.dragonflow.Utils.TextUtils.debugPrint("method=" + httprequest.requestMethod);
         long l = 0xf4240L;
         StringBuffer stringbuffer = new StringBuffer();
-        jgl.Array array = new Array();
+        Array array = new Array();
         for (Enumeration enumeration = httprequest.getVariables(); enumeration.hasMoreElements();) {
             String s9 = (String) enumeration.nextElement();
             Enumeration enumeration2 = httprequest.getValues(s9);
@@ -98,7 +100,7 @@ public class ProxyHandler {
         }
         COM.dragonflow.Utils.TextUtils.debugPrint("GETTING URL=" + s);
         if (array != null) {
-            for (Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements(); COM.dragonflow.Utils.TextUtils.debugPrint((String) enumeration1.nextElement())) {
+            for (Enumeration enumeration1 = (Enumeration) array.iterator(); enumeration1.hasMoreElements(); COM.dragonflow.Utils.TextUtils.debugPrint((String) enumeration1.nextElement())) {
             }
         }
         StringBuffer stringbuffer1 = new StringBuffer("");
@@ -121,9 +123,9 @@ public class ProxyHandler {
         String s11 = COM.dragonflow.StandardMonitor.URLMonitor.getHTTPHeaders(stringbuffer.toString());
         if (started) {
             boolean flag = true;
-            jgl.Array array1 = new Array();
+            Array array1 = new Array();
             if (COM.dragonflow.Utils.TextUtils.matchExpression(s11, "/content-type:\\s*(\\S*)/i", array1, new StringBuffer()) > 0) {
-                String s12 = (String) array1.at(0);
+                String s12 = (String) array1.get(0);
                 COM.dragonflow.Utils.TextUtils.debugPrint("CONTENTTYPE=" + s12);
                 if (!s12.equalsIgnoreCase("text/html")) {
                     flag = false;
@@ -136,7 +138,7 @@ public class ProxyHandler {
                 monitor.put("_reference" + step, s);
                 if (array != null) {
                     for (int i1 = 0; i1 < array.size(); i1 ++) {
-                        monitor.add("_postData" + step, array.at(i1));
+                        monitor.add("_postData" + step, array.get(i1));
                     }
 
                 }
@@ -155,7 +157,7 @@ public class ProxyHandler {
         hashmapordered.put("_name", "config");
         hashmapordered.put("_nextID", "2");
         try {
-            jgl.Array array = new Array();
+            Array array = new Array();
             array.add(hashmapordered);
             array.add(monitor);
             String s = COM.dragonflow.SiteView.Platform.getRoot() + "/groups/" + groupID + ".mg";
