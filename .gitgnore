@@ -1,1 +1,6 @@
 *.class
+com.siteview.kernel.core/classes/*.class
+com.siteview.kernel.core/bin/*.class
+com.siteview.kernel.core/logs/*.log
+com.siteview.kernel.core/groups/*.dyn
+com.siteview.kernel.core/groups/*.mg

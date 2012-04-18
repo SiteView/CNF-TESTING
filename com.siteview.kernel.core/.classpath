@@ -35,7 +35,7 @@
 	<classpathentry kind="lib" path="lib/missed/WebSphere5/pmiclient.jar"/>
 	<classpathentry kind="lib" path="lib/missed/WebSphere5/wssec.jar"/>
 	<classpathentry kind="lib" path="lib/ext/freemarker.jar"/>
-	<classpathentry kind="lib" path="lib/ext/jgl.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="lib/ext/jgl5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

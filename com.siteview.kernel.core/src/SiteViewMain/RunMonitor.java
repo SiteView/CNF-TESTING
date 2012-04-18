@@ -4,8 +4,8 @@
 
 package SiteViewMain;
 
-import COM.dragonflow.SiteView.AtomicMonitor;
-import COM.dragonflow.SiteView.SiteViewGroup;
+import com.dragonflow.SiteView.AtomicMonitor;
+import com.dragonflow.SiteView.SiteViewGroup;
 import java.io.PrintStream;
 
 public class RunMonitor

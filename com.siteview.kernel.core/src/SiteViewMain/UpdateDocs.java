@@ -4,8 +4,8 @@
 
 package SiteViewMain;
 
-import COM.dragonflow.SiteView.Platform;
-import COM.dragonflow.Utils.FileUtils;
+import com.dragonflow.SiteView.Platform;
+import com.dragonflow.Utils.FileUtils;
 
 import java.io.*;
 import com.recursionsw.jgl.Array;

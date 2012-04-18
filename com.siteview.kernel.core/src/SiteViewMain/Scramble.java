@@ -4,7 +4,7 @@
 
 package SiteViewMain;
 
-import COM.dragonflow.Utils.TextUtils;
+import com.dragonflow.Utils.TextUtils;
 
 import java.io.PrintStream;
 

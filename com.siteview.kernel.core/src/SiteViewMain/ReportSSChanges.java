@@ -9,9 +9,9 @@ import java.util.GregorianCalendar;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
-import COM.dragonflow.Utils.CommandLine;
-import COM.dragonflow.Utils.MailUtils;
-import COM.dragonflow.Utils.TextUtils;
+import com.dragonflow.Utils.CommandLine;
+import com.dragonflow.Utils.MailUtils;
+import com.dragonflow.Utils.TextUtils;
 
 public class ReportSSChanges
 {

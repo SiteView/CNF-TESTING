@@ -1,8 +1,8 @@
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import COM.dragonflow.Log.LogManager;
-import COM.dragonflow.SiteView.Platform;
+import com.dragonflow.Log.LogManager;
+import com.dragonflow.SiteView.Platform;
 import SiteViewMain.SiteViewSupport;
 
 

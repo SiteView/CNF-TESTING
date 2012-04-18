@@ -8,14 +8,14 @@ import java.util.Properties;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
-import COM.dragonflow.HTTP.HTTPRequest;
-import COM.dragonflow.Page.CGI;
-import COM.dragonflow.SiteView.MasterConfig;
-import COM.dragonflow.SiteView.Platform;
-import COM.dragonflow.SiteView.SiteViewGroup;
-import COM.dragonflow.Utils.CommandLine;
-import COM.dragonflow.Utils.FileUtils;
-import COM.dragonflow.Utils.SocketStream;
+import com.dragonflow.HTTP.HTTPRequest;
+import com.dragonflow.Page.CGI;
+import com.dragonflow.SiteView.MasterConfig;
+import com.dragonflow.SiteView.Platform;
+import com.dragonflow.SiteView.SiteViewGroup;
+import com.dragonflow.Utils.CommandLine;
+import com.dragonflow.Utils.FileUtils;
+import com.dragonflow.Utils.SocketStream;
 
 public class go
 {
@@ -108,7 +108,7 @@ public class go
              String s3 = (String)hashmap.get("_httpPort");
              if((s3 == null || s3.length() <= 0) && Platform.isUnix())
                  SocketStream.initialize(hashmap);
-             Class class1 = Class.forName("COM.dragonflow.Page." + s + "Page");
+             Class class1 = Class.forName("com.dragonflow.Page." + s + "Page");
              CGI cgi = (CGI)class1.newInstance();
              cgi.initialize(httprequest, printwriter);
              cgi.printBody();

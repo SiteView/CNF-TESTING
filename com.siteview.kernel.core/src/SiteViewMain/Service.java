@@ -9,13 +9,13 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import COM.dragonflow.SiteView.MasterConfig;
-import COM.dragonflow.SiteView.Platform;
-import COM.dragonflow.SiteView.SiteViewGroup;
-import COM.dragonflow.Utils.CommandLine;
-import COM.dragonflow.Utils.FileUtils;
-import COM.dragonflow.Utils.MailUtils;
-import COM.dragonflow.Utils.TextUtils;
+import com.dragonflow.SiteView.MasterConfig;
+import com.dragonflow.SiteView.Platform;
+import com.dragonflow.SiteView.SiteViewGroup;
+import com.dragonflow.Utils.CommandLine;
+import com.dragonflow.Utils.FileUtils;
+import com.dragonflow.Utils.MailUtils;
+import com.dragonflow.Utils.TextUtils;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
@@ -75,11 +75,11 @@ public class Service
         try
         {
             Process process = CommandLine.execSync(s);
-            COM.dragonflow.Utils.ThreadPool.SingleThread singlethread = ServicePrinter.servicePrinterThreadPool.getThread();
+            com.dragonflow.Utils.ThreadPool.SingleThread singlethread = ServicePrinter.servicePrinterThreadPool.getThread();
             ServicePrinter serviceprinter = new ServicePrinter();
             serviceprinter.stream = FileUtils.MakeInputReader(process.getInputStream());
             singlethread.activate(serviceprinter);
-            COM.dragonflow.Utils.ThreadPool.SingleThread singlethread1 = ServicePrinter.servicePrinterThreadPool.getThread();
+            com.dragonflow.Utils.ThreadPool.SingleThread singlethread1 = ServicePrinter.servicePrinterThreadPool.getThread();
             ServicePrinter serviceprinter1 = new ServicePrinter();
             serviceprinter1.stream = FileUtils.MakeInputReader(process.getErrorStream());
             singlethread1.activate(serviceprinter1);

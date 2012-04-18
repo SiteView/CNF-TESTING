@@ -4,8 +4,8 @@
 
 package SiteViewMain;
 
-import COM.dragonflow.SiteView.*;
-import COM.dragonflow.Utils.*;
+import com.dragonflow.SiteView.*;
+import com.dragonflow.Utils.*;
 
 import java.io.*;
 import java.util.Vector;

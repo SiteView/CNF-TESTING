@@ -7,11 +7,11 @@ package SiteViewMain;
 import java.util.Enumeration;
 
 import com.recursionsw.jgl.Array;
-import COM.dragonflow.Properties.HashMapOrdered;
-import COM.dragonflow.Properties.StringProperty;
-import COM.dragonflow.SiteView.AtomicMonitor;
-import COM.dragonflow.SiteView.Platform;
-import COM.dragonflow.SiteView.SiteViewGroup;
+import com.dragonflow.Properties.HashMapOrdered;
+import com.dragonflow.Properties.StringProperty;
+import com.dragonflow.SiteView.AtomicMonitor;
+import com.dragonflow.SiteView.Platform;
+import com.dragonflow.SiteView.SiteViewGroup;
 
 public class MonitorRunner
 {

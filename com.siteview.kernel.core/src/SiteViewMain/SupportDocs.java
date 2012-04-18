@@ -22,10 +22,10 @@ import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 
-import COM.dragonflow.Properties.FrameFile;
-import COM.dragonflow.SiteView.Platform;
-import COM.dragonflow.Utils.FileUtils;
-import COM.dragonflow.Utils.TextUtils;
+import com.dragonflow.Properties.FrameFile;
+import com.dragonflow.SiteView.Platform;
+import com.dragonflow.Utils.FileUtils;
+import com.dragonflow.Utils.TextUtils;
 
 // Referenced classes of package SiteViewMain:
 //            SupportNoteUtils

@@ -13,9 +13,9 @@ import java.util.Enumeration;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
-import COM.dragonflow.Properties.HashMapOrdered;
-import COM.dragonflow.Utils.FileUtils;
-import COM.dragonflow.Utils.TextUtils;
+import com.dragonflow.Properties.HashMapOrdered;
+import com.dragonflow.Utils.FileUtils;
+import com.dragonflow.Utils.TextUtils;
 
 public class SupportNoteUtils
 {

@@ -4,8 +4,8 @@
 
 package SiteViewMain;
 
-import COM.dragonflow.Utils.FileUtils;
-import COM.dragonflow.Utils.TextUtils;
+import com.dragonflow.Utils.FileUtils;
+import com.dragonflow.Utils.TextUtils;
 
 import java.io.*;
 

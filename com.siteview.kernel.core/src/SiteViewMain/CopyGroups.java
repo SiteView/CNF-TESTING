@@ -9,8 +9,8 @@ import java.util.Enumeration;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
-import COM.dragonflow.Properties.FrameFile;
-import COM.dragonflow.Utils.TextUtils;
+import com.dragonflow.Properties.FrameFile;
+import com.dragonflow.Utils.TextUtils;
 
 public class CopyGroups
 {
