@@ -16,6 +16,7 @@ import COM.dragonflow.Utils.CommandLine;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Reversing;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, pingPage
@@ -142,7 +143,7 @@ public class eventLogPage extends COM.dragonflow.Page.CGI
     void printEvents(Array array, java.io.PrintWriter printwriter)
     {
         printwriter.println("<FONT SIZE=-1><TABLE><TH><TH>Date<TH>Time<TH>Source<TH>Event<TH>Cat<TH>Message");
-        jgl.Reversing.reverse(array);
+        Reversing.reverse(array);
         Enumeration enumeration = (Enumeration) array.iterator();
         HashMap hashmap = new HashMap();
         do

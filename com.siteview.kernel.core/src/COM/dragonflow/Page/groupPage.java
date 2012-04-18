@@ -386,7 +386,7 @@ public class groupPage extends COM.dragonflow.Page.CGI {
         HashMap hashmap = getMasterConfig();
         java.util.Vector vector = new Vector();
         String s2;
-        for (Enumeration enumeration = hashmap
+        for (Enumeration enumeration = (Enumeration) hashmap
                 .values("_httpCharSetOption"); enumeration.hasMoreElements(); vector
                 .addElement(s2)) {
             String s1 = (String) enumeration.nextElement();

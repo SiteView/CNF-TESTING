@@ -703,7 +703,7 @@ public abstract class Monitor extends SiteViewObject {
         if (owner instanceof MonitorGroup)
             return ((MonitorGroup) siteviewobject).getParentActionRules();
         else
-            return cEmpty(Enumeration) array.iterator();
+            return (Enumeration) cEmptyArray.iterator();
     }
 
     /**

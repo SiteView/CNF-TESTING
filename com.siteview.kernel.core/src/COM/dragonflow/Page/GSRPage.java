@@ -898,7 +898,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         for(Enumeration enumeration4 =  (Enumeration) array2.iterator(); enumeration4.hasMoreElements();)
         {
             String s14 = (String)enumeration4.nextElement();
-            Enumeration enumeration3 = hashmapordered.values(s14);
+            Enumeration enumeration3 = (Enumeration) hashmapordered.values(s14);
             while(enumeration3.hasMoreElements()) 
             {
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)enumeration3.nextElement();
@@ -1366,7 +1366,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
         {
             HashMap hashmap2 = (HashMap)COM.dragonflow.SiteView.MasterConfig.getMasterConfig().clone();
             hashmap2.allowsDuplicates();
-            Enumeration enumeration = hashmap2.values("_monitorEditCustom");
+            Enumeration enumeration = (Enumeration) hashmap2.values("_monitorEditCustom");
             hashmap2.remove("_monitorEditCustom");
             do
             {

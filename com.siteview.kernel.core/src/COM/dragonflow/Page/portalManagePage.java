@@ -269,7 +269,7 @@ public class portalManagePage extends COM.dragonflow.Page.portalChooserPage
     private void saveGroups()
         throws java.lang.Exception
     {
-        Enumeration enumeration = groups.keys();
+        Enumeration enumeration = (Enumeration) groups.keys();
         do
         {
             if(!enumeration.hasMoreElements())

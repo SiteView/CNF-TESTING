@@ -137,7 +137,7 @@ public class AbsoluteScheduleInstancePreferences extends COM.dragonflow.Standard
                     vector.add(hashmap1);
                 }
             } else {
-                java.util.HashMap hashmap2 = new HashMap();
+                HashMap hashmap2 = new HashMap();
                 Array array = preferences.getProperties();
                 for (int k = 0; k < array.size(); k ++) {
                     String s6 = (String) hashmap.get(((COM.dragonflow.Properties.StringProperty) array.get(k)).getName());
@@ -154,9 +154,9 @@ public class AbsoluteScheduleInstancePreferences extends COM.dragonflow.Standard
             }
             if (vector != null) {
                 for (int j = 0; j < vector.size(); j ++) {
-                    java.util.HashMap hashmap3 = new HashMap();
+                    HashMap hashmap3 = new HashMap();
                     COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
-                    java.util.HashMap hashmap4 = (java.util.HashMap) vector.get(j);
+                    HashMap hashmap4 = (HashMap) vector.get(j);
                     java.util.Set set = hashmap4.keySet();
                     java.util.Iterator iterator = set.iterator();
                     while (iterator.hasNext()) {

@@ -1668,7 +1668,7 @@ public abstract class CGI {
         for (Enumeration enumeration = (Enumeration) array3.iterator(); enumeration
                 .hasMoreElements();) {
             String s1 = (String) enumeration.nextElement();
-            Enumeration enumeration1 = hashmapordered.values(s1);
+            Enumeration enumeration1 = (Enumeration) hashmapordered.values(s1);
             while (enumeration1.hasMoreElements()) {
                 MonitorGroup monitorgroup = (MonitorGroup) enumeration1
                         .nextElement();
