@@ -22,8 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -41,6 +41,8 @@ import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.Pair;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // ExchangeToolBase, MasterConfig
@@ -329,7 +331,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
         return vec;
     }
 
-    private Map findOutboundMessages(Vector vector) {
+    private HashMap findOutboundMessages(Vector vector) {
         HashMap hashmap = new HashMap();
         for (int i = 0; i < vector.size(); i ++) {
             HashMap hashmap1 = (HashMap) vector.elementAt(i);
@@ -349,7 +351,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
      * @param vector
      * @return
      */
-    private Map findInboundMessages(Vector vector) {
+    private HashMap findInboundMessages(Vector vector) {
         HashMap hashmap = new HashMap();
         for (int i = 0; i < vector.size(); i ++) {
             HashMap hashmap1 = (HashMap) vector.elementAt(i);
@@ -360,7 +362,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
             }
         }
 
-        Iterator iterator = (Enumeration) hashmap.values().iterator();
+        Iterator iterator = (Iterator) hashmap.values().iterator();
         while (iterator.hasNext()) {
             Map map = (Map) iterator.next();
             String s1 = (String) map.get("SenderAddress");
@@ -396,7 +398,7 @@ public abstract class ExchangeMsgTrafficBase extends ExchangeToolBase {
             }
         }
 
-        Object aobj[] = hashmap.entrySet().toArray();
+        Object aobj[] = ((Map) hashmap).entrySet().toArray();
         Arrays.sort(aobj, new MECompare());
         java.util.Map.Entry aentry[] = new java.util.Map.Entry[aobj.length];
         System.arraycopy(((Object) (aobj)), 0, aentry, 0, aobj.length);

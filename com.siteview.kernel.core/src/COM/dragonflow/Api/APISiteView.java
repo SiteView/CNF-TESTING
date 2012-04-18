@@ -1800,7 +1800,7 @@ public class APISiteView
     {
         try
         {
-            Enumeration enumeration = groups.keys();
+            Enumeration enumeration = (Enumeration) groups.keys();
             while (enumeration.hasMoreElements()) {
                 String s = (String)enumeration.nextElement();
                 Array array = (Array)groups.get(s);

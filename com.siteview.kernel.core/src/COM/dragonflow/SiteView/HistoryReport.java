@@ -629,7 +629,7 @@ public class HistoryReport extends SiteViewObject {
         initializeSampleCollectors();
         initializeTimeParameters();
         initializeFilePaths();
-        Enumeration enumeration1 = collectors.elements();
+        Enumeration enumeration1 = (Enumeration) collectors.iterator();
         long l1 = getPropertyAsLong(pWindow);
         long l2 = getSettingAsLong("_chartWidth", 600) - 75;
         while (enumeration1.hasMoreElements()) {
@@ -968,7 +968,7 @@ public class HistoryReport extends SiteViewObject {
             boolean flag15 = getProperty(pStatusFilter).indexOf("warning") != -1;
             boolean flag16 = getProperty(pStatusFilter).indexOf("error") != -1;
             Array array2 = new Array();
-            Enumeration enumeration2 = collectors.elements();
+            Enumeration enumeration2 = (Enumeration) collectors.iterator();
             while (enumeration2.hasMoreElements()) {
                 SampleCollector samplecollector3 = (SampleCollector) enumeration2.nextElement();
                 if (flag14 && samplecollector3.getGoodTime() > 0) {
@@ -1072,7 +1072,7 @@ public class HistoryReport extends SiteViewObject {
             } else {
                 if (debug) {
                     TextUtils.debugPrint("HistoryReport dumping SampleCollectors START", "indent");
-                    for (Enumeration enumeration = collectors.elements(); enumeration.hasMoreElements(); TextUtils.debugPrint("HistoryReport Individual Collector Dump END", "unindent")) {
+                    for (Enumeration enumeration = (Enumeration) collectors.iterator(); enumeration.hasMoreElements(); TextUtils.debugPrint("HistoryReport Individual Collector Dump END", "unindent")) {
                         TextUtils.debugPrint("HistoryReport Individual Collector Dump START", "indent");
                         SampleCollector samplecollector1 = (SampleCollector) enumeration.nextElement();
                         samplecollector1.print();
@@ -1100,7 +1100,7 @@ public class HistoryReport extends SiteViewObject {
                 } else if (flag5) {
                     SampleCollector samplecollector = (SampleCollector) collectors.front();
                     if (samplecollector.getBucketCount() >= 3) {
-                        Enumeration enumeration1 = collectors.elements();
+                        Enumeration enumeration1 = (Enumeration) collectors.iterator();
                         int i1 = 1;
                         SampleCollector samplecollector2;
                         for (; enumeration1.hasMoreElements(); imageBarGraph(printwriter, array, samplecollector2, i1 ++)) {
@@ -1243,7 +1243,7 @@ public class HistoryReport extends SiteViewObject {
         HashMap hashmap = new HashMap();
         boolean flag = getProperty(pReportType).indexOf("similarProperties") >= 0;
         boolean flag1 = getProperty(pReportType).indexOf("multipleMonitors") >= 0;
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         int i = 1;
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
@@ -1253,7 +1253,7 @@ public class HistoryReport extends SiteViewObject {
                 boolean flag3 = true;
                 StringProperty stringproperty = null;
                 Monitor monitor = null;
-                Enumeration enumeration1 = collectors.elements();
+                Enumeration enumeration1 = (Enumeration) collectors.iterator();
                 while (enumeration1.hasMoreElements()) {
                     SampleCollector samplecollector1 = (SampleCollector) enumeration1.nextElement();
                     if (samplecollector1.isNumeric() && hashmap.get(samplecollector1.getIDString()) == null && (samplecollector1.getMonitor() == samplecollector.getMonitor() || flag1)
@@ -1725,7 +1725,7 @@ public class HistoryReport extends SiteViewObject {
         printwriter.print("<TR " + reportTableHeaderHTML + "><TH WIDTH=\"20%\"" + ">Time</TH>\n");
         int l = 80 / j;
         int i1 = 0;
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
             if (++ i1 < i) {
@@ -1762,7 +1762,7 @@ public class HistoryReport extends SiteViewObject {
      */
     public void HTMLTable(PrintWriter printwriter, int i, int j) {
         printwriter.print("<CENTER>\n");
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
         int k = samplecollector.getBucketCount();
         if (k > 48) {
@@ -1775,7 +1775,7 @@ public class HistoryReport extends SiteViewObject {
                 HTMLTableHeader(printwriter, i, j, l);
             }
             printwriter.print("<TR " + reportTableDataHTML + "><TD>" + dateString(samplecollector.getBucketStartTime(l) * 1000L) + "</TD>");
-            Enumeration enumeration1 = collectors.elements();
+            Enumeration enumeration1 = (Enumeration) collectors.iterator();
             int i1 = 0;
             while (enumeration1.hasMoreElements()) {
                 SampleCollector samplecollector1 = (SampleCollector) enumeration1.nextElement();
@@ -1830,7 +1830,7 @@ public class HistoryReport extends SiteViewObject {
             printwriter.println("<TR " + reportTableDataHTML + "><TD COLSPAN=3 ALIGN=CENTER>No Goods</TD></TR>");
         } else {
             String as[] = new String[3];
-            Enumeration enumeration = goodList.elements();
+            Enumeration enumeration = (Enumeration) goodList.iterator();
             while (enumeration.hasMoreElements()) {
                 int i = TextUtils.splitChar((String) enumeration.nextElement(), '\t', as);
                 if (i < 3) {
@@ -1868,7 +1868,7 @@ public class HistoryReport extends SiteViewObject {
             printwriter.println("<TR " + reportTableDataHTML + "><TD COLSPAN=3 ALIGN=CENTER>No warnings</TD></TR>");
         } else {
             String as[] = new String[3];
-            Enumeration enumeration = warningList.elements();
+            Enumeration enumeration = (Enumeration) warningList.iterator();
             while (enumeration.hasMoreElements()) {
                 int i = TextUtils.splitChar((String) enumeration.nextElement(), '\t', as);
                 if (i < 3) {
@@ -1901,7 +1901,7 @@ public class HistoryReport extends SiteViewObject {
             printwriter.println("<TR " + reportTableDataHTML + "><TD COLSPAN=3 ALIGN=CENTER>No errors</TD></TR>");
         } else {
             String as[] = new String[3];
-            Enumeration enumeration = errorList.elements();
+            Enumeration enumeration =(Enumeration) errorList.iterator();
             while (enumeration.hasMoreElements()) {
                 printwriter.println("<TR BGCOLOR=\"" + errorColor + "\"><TD>" + dateString(StringProperty.toLong(as[0]) * 1000L) + "</TD><TD>" + I18N.toNullEncoding(as[1]) + "</TD><TD>" + I18N.toNullEncoding(as[2]) + "</TD></TR>");
                 int i = TextUtils.splitChar((String) enumeration.nextElement(), '\t', as);
@@ -1936,7 +1936,7 @@ public class HistoryReport extends SiteViewObject {
                     + "><TH>Name</TH><TH>Uptime %</TH><TH>Error %</TH><TH>Last</TH></TR>");
         }
         String s = "";
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
             if (!s.equals(samplecollector.getMonitorName())) {
@@ -1967,7 +1967,7 @@ public class HistoryReport extends SiteViewObject {
 
         printwriter.println("</TABLE><P><A NAME=readingsSummary> </A>\n<TABLE WIDTH=\"100%\" " + reportTableHTML + "><CAPTION><B>Measurement Summary</B></CAPTION>\n" + "<TR " + reportTableHeaderHTML
                 + "><TH>Name</TH><TH>Measurement</TH><TH>Max</TH><TH>Avg</TH><TH>Last</TH></TR>");
-        Enumeration enumeration1 = collectors.elements();
+        Enumeration enumeration1 = (Enumeration) collectors.iterator();
         while (enumeration1.hasMoreElements()) {
             SampleCollector samplecollector1 = (SampleCollector) enumeration1.nextElement();
             String s1 = "Graph" + samplecollector1.getMonitorFullID() + "/" + samplecollector1.getProperty().getName();
@@ -2012,7 +2012,7 @@ public class HistoryReport extends SiteViewObject {
     private void HTMLErrorTimeSummary(PrintWriter printwriter) {
         printwriter.println("<P><CENTER>\n<A NAME=errorTimeSummary> </A>\n<TABLE WIDTH=\"100%\" " + reportTableHTML + "><CAPTION><B>Time in Error Summary</B></CAPTION>\n" + "<TR " + reportTableHeaderHTML + "><TH>Name</TH><TH>Time in Error</TH></TR>");
         String s = "";
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
             if (!s.equals(samplecollector.getMonitorName())) {
@@ -2033,7 +2033,7 @@ public class HistoryReport extends SiteViewObject {
         printwriter.println("<P><CENTER>\n<A NAME=thresholdSummary> </A>\n<TABLE WIDTH=\"100%\" " + reportTableHTML + "><CAPTION><B>Monitor Threshold Summary</B></CAPTION>\n" + "<TR " + reportTableHeaderHTML
                 + "><TH>Name</TH><TH>Error if</TH><TH>Warning if</TH><TH>Good if</TH></TR>");
         String s = "";
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
             if (!s.equals(samplecollector.getMonitor().getFullID())) {
@@ -2093,7 +2093,7 @@ public class HistoryReport extends SiteViewObject {
      */
     private String getSummaryString() {
         StringBuffer stringbuffer = new StringBuffer();
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
             stringbuffer.append(samplecollector.getMonitorFullID());
@@ -2204,7 +2204,7 @@ public class HistoryReport extends SiteViewObject {
         String s1 = "";
         String s2 = System.getProperty("line.separator");
         if (flag) {
-            Enumeration enumeration = collectors.elements();
+            Enumeration enumeration = (Enumeration) collectors.iterator();
             while (enumeration.hasMoreElements()) {
                 SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
                 String s3 = samplecollector.getPropertyLabel();
@@ -2259,7 +2259,7 @@ public class HistoryReport extends SiteViewObject {
         TextUtils.appendStringRightJustify(stringbuffer, "Last", byte0);
         stringbuffer.append(s2);
 
-        Enumeration enumeration1 = collectors.elements();
+        Enumeration enumeration1 = (Enumeration) collectors.iterator();
         while (enumeration1.hasMoreElements()) {
             SampleCollector samplecollector1 = (SampleCollector) enumeration1.nextElement();
             if (!s1.equals(samplecollector1.getMonitorName())) {
@@ -2298,7 +2298,7 @@ public class HistoryReport extends SiteViewObject {
         stringbuffer.append(s);
         TextUtils.appendStringRightJustify(stringbuffer, "Last", k);
         stringbuffer.append(s2);
-        for (Enumeration enumeration2 = collectors.elements(); enumeration2.hasMoreElements(); stringbuffer.append(s2)) {
+        for (Enumeration enumeration2 = (Enumeration) collectors.iterator(); enumeration2.hasMoreElements(); stringbuffer.append(s2)) {
             SampleCollector samplecollector2 = (SampleCollector) enumeration2.nextElement();
             TextUtils.appendStringLeftJustify(stringbuffer, samplecollector2.getMonitorName(), i1);
             stringbuffer.append(s);
@@ -2336,7 +2336,7 @@ public class HistoryReport extends SiteViewObject {
         int k = 0;
         String s1 = System.getProperty("line.separator");
         if (flag) {
-            Enumeration enumeration = collectors.elements();
+            Enumeration enumeration = (Enumeration) collectors.iterator();
             while (enumeration.hasMoreElements()) {
                 SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
                 String s2 = samplecollector.getPropertyLabel();
@@ -2357,7 +2357,7 @@ public class HistoryReport extends SiteViewObject {
             j = -1;
             k = -1;
         }
-        Enumeration enumeration1 = collectors.elements();
+        Enumeration enumeration1 = (Enumeration) collectors.iterator();
         TextUtils.appendStringLeftJustify(stringbuffer, "Name", j);
         stringbuffer.append(s);
         TextUtils.appendStringRightJustify(stringbuffer, "Time in Error", i);
@@ -2387,7 +2387,7 @@ public class HistoryReport extends SiteViewObject {
         int k = 0;
         int l = 0;
         String s2 = "";
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         Array array = new Array();
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
@@ -2406,7 +2406,7 @@ public class HistoryReport extends SiteViewObject {
         if (flag) {
             for (int i1 = 0; i1 < array.size(); i1 ++) {
                 HashMap hashmap1 = (HashMap) array.get(i1);
-                for (Enumeration enumeration1 = hashmap1.keys(); enumeration1.hasMoreElements();) {
+                for (Enumeration enumeration1 = (Enumeration) hashmap1.keys(); enumeration1.hasMoreElements();) {
                     String s4 = (String) enumeration1.nextElement();
                     i = s4.length() <= i ? i : s4.length();
                     Array array2 = (Array) hashmap1.get(s4);
@@ -2479,7 +2479,7 @@ public class HistoryReport extends SiteViewObject {
             s = s + "Warnings from " + getProperty(pReportPeriod);
             stringbuffer.append(TextUtils.escapeXML("description", s));
             String as[] = new String[3];
-            for (Enumeration enumeration = warningList.elements(); enumeration.hasMoreElements(); stringbuffer.append("</warning>\n")) {
+            for (Enumeration enumeration = (Enumeration) warningList.iterator(); enumeration.hasMoreElements(); stringbuffer.append("</warning>\n")) {
                 stringbuffer.append("<warning>\n");
                 int i = TextUtils.splitChar((String) enumeration.nextElement(), '\t', as);
                 if (i < 3) {
@@ -2504,7 +2504,7 @@ public class HistoryReport extends SiteViewObject {
         StringBuffer stringbuffer = new StringBuffer();
         stringbuffer.append("<summary>\n");
         String s = "";
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
             if (!s.equals(samplecollector.getMonitorName())) {
@@ -2534,7 +2534,7 @@ public class HistoryReport extends SiteViewObject {
             }
         }
 
-        for (Enumeration enumeration1 = collectors.elements(); enumeration1.hasMoreElements(); stringbuffer.append("</measurement>\n")) {
+        for (Enumeration enumeration1 = (Enumeration) collectors.iterator(); enumeration1.hasMoreElements(); stringbuffer.append("</measurement>\n")) {
             SampleCollector samplecollector1 = (SampleCollector) enumeration1.nextElement();
             stringbuffer.append("<measurement>\n");
             stringbuffer.append("<monitor>" + samplecollector1.getMonitorName() + "</monitor>\n");
@@ -2561,7 +2561,7 @@ public class HistoryReport extends SiteViewObject {
     private String createXMLErrorTimeSummaryMessage() {
         StringBuffer stringbuffer = new StringBuffer();
         stringbuffer.append("<errorTimeSummary>\n");
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
             stringbuffer.append("<row>\n");
@@ -2590,7 +2590,7 @@ public class HistoryReport extends SiteViewObject {
             s = s + "Errors from " + getProperty(pReportPeriod);
             stringbuffer.append(TextUtils.escapeXML("description", s));
             String as[] = new String[3];
-            Enumeration enumeration = errorList.elements();
+            Enumeration enumeration =(Enumeration) errorList.iterator();
             while (enumeration.hasMoreElements()) {
                 stringbuffer.append("<error>\n");
                 int i = TextUtils.splitChar((String) enumeration.nextElement(), '\t', as);
@@ -2617,7 +2617,7 @@ public class HistoryReport extends SiteViewObject {
         StringBuffer stringbuffer = new StringBuffer();
         stringbuffer.append("<monitorThresholdSummary>\n");
         String s = "";
-        Enumeration enumeration = collectors.elements();
+        Enumeration enumeration = (Enumeration) collectors.iterator();
         while (enumeration.hasMoreElements()) {
             SampleCollector samplecollector = (SampleCollector) enumeration.nextElement();
             if (!s.equals(samplecollector.getMonitorName())) {
@@ -2663,7 +2663,7 @@ public class HistoryReport extends SiteViewObject {
             stringbuffer.append(s2 + "Errors from " + getProperty(pReportPeriod));
             stringbuffer.append(s1 + "Time" + s + "Monitor" + s + "Status" + s1);
             String as[] = new String[3];
-            Enumeration enumeration = errorList.elements();
+            Enumeration enumeration =(Enumeration) errorList.iterator();
             while (enumeration.hasMoreElements()) {
                 int i = TextUtils.splitChar((String) enumeration.nextElement(), '\t', as);
                 if (i < 3) {
@@ -2698,7 +2698,7 @@ public class HistoryReport extends SiteViewObject {
             stringbuffer.append(s2 + "Warnings from " + getProperty(pReportPeriod));
             stringbuffer.append(s1 + "Time" + s + "Monitor" + s + "Status" + s1);
             String as[] = new String[3];
-            Enumeration enumeration = warningList.elements();
+            Enumeration enumeration = (Enumeration) warningList.iterator();
             while (enumeration.hasMoreElements()) {
                 int i = TextUtils.splitChar((String) enumeration.nextElement(), '\t', as);
                 if (i < 3) {
@@ -2733,7 +2733,7 @@ public class HistoryReport extends SiteViewObject {
             stringbuffer.append(s2 + "OKs from " + getProperty(pReportPeriod));
             stringbuffer.append(s1 + "Time" + s + "Monitor" + s + "Status" + s1);
             String as[] = new String[3];
-            Enumeration enumeration = goodList.elements();
+            Enumeration enumeration = (Enumeration) goodList.iterator();
             while (enumeration.hasMoreElements()) {
                 int i = TextUtils.splitChar((String) enumeration.nextElement(), '\t', as);
                 if (i < 3) {
@@ -2783,7 +2783,7 @@ public class HistoryReport extends SiteViewObject {
             if (flag3) {
                 printwriter.print("time");
                 SampleCollector samplecollector = null;
-                Enumeration enumeration = collectors.elements();
+                Enumeration enumeration = (Enumeration) collectors.iterator();
                 while (enumeration.hasMoreElements()) {
                     SampleCollector samplecollector1 = (SampleCollector) enumeration.nextElement();
 //                    String s13 = TextUtils.toInitialUpper(TopazAPI.getTopazName(samplecollector1.getMonitor(), samplecollector1.getProperty()));
@@ -2798,7 +2798,7 @@ public class HistoryReport extends SiteViewObject {
                     }
                 }
 
-                enumeration = collectors.elements();
+                enumeration = (Enumeration) collectors.iterator();
                 while (enumeration.hasMoreElements()) {
                     SampleCollector samplecollector2 = (SampleCollector) enumeration.nextElement();
 //                    String s14 = TextUtils.toInitialUpper(TopazAPI.getTopazName(samplecollector2.getMonitor(), samplecollector2.getProperty()));
@@ -2816,7 +2816,7 @@ public class HistoryReport extends SiteViewObject {
 
                 for (int i = 0; samplecollector != null && i < samplecollector.getBucketCount(); i ++) {
                     printwriter.print(dateString(samplecollector.getBucketStartTime(i) * 1000L));
-                    for (Enumeration enumeration1 = collectors.elements(); enumeration1.hasMoreElements();) {
+                    for (Enumeration enumeration1 = (Enumeration) collectors.iterator(); enumeration1.hasMoreElements();) {
                         SampleCollector samplecollector3 = (SampleCollector) enumeration1.nextElement();
                         String s17 = null;
                         String s19 = samplecollector3.getWorstCategory(i);
@@ -2833,7 +2833,7 @@ public class HistoryReport extends SiteViewObject {
                         }
                     }
 
-                    for (Enumeration enumeration2 = collectors.elements(); enumeration2.hasMoreElements();) {
+                    for (Enumeration enumeration2 = (Enumeration) collectors.iterator(); enumeration2.hasMoreElements();) {
                         SampleCollector samplecollector4 = (SampleCollector) enumeration2.nextElement();
                         String s18 = null;
                         String s20 = samplecollector4.getWorstCategory(i);
@@ -3060,7 +3060,7 @@ public class HistoryReport extends SiteViewObject {
                 }
                 if (flag3) {
                     SampleCollector samplecollector = null;
-                    Enumeration enumeration = collectors.elements();
+                    Enumeration enumeration = (Enumeration) collectors.iterator();
                     while (enumeration.hasMoreElements()) {
                         SampleCollector samplecollector1 = (SampleCollector) enumeration.nextElement();
                         if (samplecollector == null) {
@@ -3072,7 +3072,7 @@ public class HistoryReport extends SiteViewObject {
                     for (int j = 0; j < samplecollector.getBucketCount(); j ++) {
                         printwriter.println("<row>");
                         printwriter.print(TextUtils.escapeXML("date", dateString(samplecollector.getBucketStartTime(j) * 1000L)));
-                        for (Enumeration enumeration1 = collectors.elements(); enumeration1.hasMoreElements(); printwriter.println("</sample>")) {
+                        for (Enumeration enumeration1 = (Enumeration) collectors.iterator(); enumeration1.hasMoreElements(); printwriter.println("</sample>")) {
                             printwriter.println("<sample>");
                             SampleCollector samplecollector2 = (SampleCollector) enumeration1.nextElement();
                             String s9 = TextUtils.toInitialUpper(samplecollector2.getProperty().printString());
@@ -3206,7 +3206,7 @@ public class HistoryReport extends SiteViewObject {
             setProperty(pWindow, i);
         }
         if (i <= 0) {
-            Enumeration enumeration = collectors.elements();
+            Enumeration enumeration = (Enumeration) collectors.iterator();
             int j;
             SampleCollector samplecollector;
             for (j = 0x7fffffff; enumeration.hasMoreElements(); j = Math.min(j, samplecollector.getMonitor().getPropertyAsInteger(AtomicMonitor.pFrequency))) {

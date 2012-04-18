@@ -20,7 +20,6 @@ package COM.dragonflow.SiteView;
 import java.text.NumberFormat;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -37,6 +36,7 @@ import COM.dragonflow.StatefulMonitor.StatefulConnsMgr;
 import COM.dragonflow.Utils.TextUtils;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 //import com.dragonflow.topaz.j2ee.aggregator.Node;
 //import com.dragonflow.topaz.j2ee.aggregator.SiteViewAggregator;
@@ -391,7 +391,7 @@ public abstract class J2EEMonitor extends AtomicMonitor implements
         return i * 1;
     }
 
-    protected abstract void processResults(Map map, String s);
+    protected abstract void processResults(HashMap map, String s);
 
     protected abstract Set getAllCounters();
 

@@ -18,7 +18,6 @@ package COM.dragonflow.SiteView;
  * 
  */
 import java.io.File;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +26,7 @@ import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.TextUtils;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 //import com.dragonflow.infra.xdr.XDRMemInputStream;
 //import com.dragonflow.infra.xdr.XDRMemOutputStream;
