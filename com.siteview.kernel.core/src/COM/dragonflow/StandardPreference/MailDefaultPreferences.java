@@ -20,9 +20,11 @@ package COM.dragonflow.StandardPreference;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.StringProperty;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class MailDefaultPreferences extends COM.dragonflow.SiteView.Preferences {
 

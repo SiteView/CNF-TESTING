@@ -440,7 +440,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
             StringBuffer stringbuffer, boolean flag,
             AtomicMonitor atomicmonitor, Array array1, Map map) {
         boolean bMapOk = map != null;
-        HashMap hashmap = new jgl.HashMap();
+        HashMap hashmap = new HashMap();
         int iCounters = array.size() > nMaxCounters ? nMaxCounters : array.size();
         String strPerfTime100nSec = "";
         String strPerfFreq = "";
@@ -451,7 +451,7 @@ public abstract class NTCounterBase extends ServerMonitor implements
         String[] strCountValue = new String[iCounters];
         String[] strUnit = new String[iCounters];
         StringBuffer strCmds = new StringBuffer();
-        jgl.HashMap mapObject = new jgl.HashMap();
+        HashMap mapObject = new HashMap();
         for (int i = 0; i < iCounters; i++) {
         	bCounterAv[i] = false;
             PerfCounter perfcounter = (PerfCounter) array.get(i);

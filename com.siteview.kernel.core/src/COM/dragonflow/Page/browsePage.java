@@ -12,6 +12,8 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Utils.TextUtils;
 

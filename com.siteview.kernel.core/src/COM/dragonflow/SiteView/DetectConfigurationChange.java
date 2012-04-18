@@ -74,7 +74,7 @@ public class DetectConfigurationChange extends Action {
             Array array1 = new Array();
             Array array2 = new Array();
             Array array3 = siteviewgroup.getGroupFiles();
-            Enumeration enumeration = array3.elements();
+            Enumeration enumeration = (Enumeration) array3.iterator();
             File file = null;
             File file1 = null;
             File file2 = null;

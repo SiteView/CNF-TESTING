@@ -15,12 +15,13 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.Utils.SMTP;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class GSRPage extends COM.dragonflow.Page.CGI {
     
@@ -559,7 +560,7 @@ public class GSRPage extends COM.dragonflow.Page.CGI {
                                                     {
                                                         outputStream.println(exception + "\n");
                                                     }
-                                                    Enumeration enumeration2 = array3.elements();
+                                                    Enumeration enumeration2 = (Enumeration) array3.iterator();
                                                     outputStream.println("<h2>MAIL SENT TO " + s21 + "</H2><BR><B>DETAILS:</B><BR><PRE>");
                                                     for(; enumeration2.hasMoreElements(); outputStream.println(COM.dragonflow.Utils.TextUtils.escapeHTML(COM.dragonflow.Utils.TextUtils.replaceString((String)enumeration2.nextElement(), "<CRLF>", "<CRLF>\n")))) { }
                                                     outputStream.println("</pre>");

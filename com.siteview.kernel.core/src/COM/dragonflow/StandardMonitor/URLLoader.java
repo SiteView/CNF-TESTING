@@ -438,7 +438,7 @@ label0:
         addHeaderToSummary("Frame", stringbuffer1);
         boolean flag = false;
         boolean flag1 = false;
-        Enumeration enumeration = urlList.elements();
+        Enumeration enumeration = (Enumeration) urlList.iterator();
         do
         {
             if(!enumeration.hasMoreElements())

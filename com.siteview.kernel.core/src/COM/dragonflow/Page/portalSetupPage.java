@@ -9,8 +9,10 @@
  */
 package COM.dragonflow.Page;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.HashMapOrdered;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, portalServerPage
@@ -22,7 +24,7 @@ public class portalSetupPage extends COM.dragonflow.Page.CGI
     {
     }
 
-    jgl.Array getDefaultServers(Array array)
+    Array getDefaultServers(Array array)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         hashmapordered.add("_id", "demo.Dragonflow.com");
@@ -45,7 +47,7 @@ public class portalSetupPage extends COM.dragonflow.Page.CGI
         return array;
     }
 
-    jgl.Array getSiteViewServer(Array array)
+    Array getSiteViewServer(Array array)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         hashmapordered.add("_server", request.getValue("server").trim());
@@ -60,7 +62,7 @@ public class portalSetupPage extends COM.dragonflow.Page.CGI
         return array;
     }
 
-    jgl.Array getSiteSeerAccount(Array array)
+    Array getSiteSeerAccount(Array array)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         hashmapordered.add("_server", request.getValue("siteseerserver").trim());

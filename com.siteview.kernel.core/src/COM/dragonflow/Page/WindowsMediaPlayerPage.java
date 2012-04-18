@@ -67,7 +67,7 @@ public class WindowsMediaPlayerPage extends COM.dragonflow.Page.CGI {
             outputStream.println("Exit Value: " + i);
             outputStream.flush();
             Enumeration enumeration = (Enumeration) array.iterator();
-            outputStream.println("Results jgl.Array " + i);
+            outputStream.println("Results Array " + i);
             for (; enumeration.hasMoreElements(); outputStream
                     .println("Results: " + enumeration.nextElement())) {
             }

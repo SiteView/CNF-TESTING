@@ -1838,7 +1838,7 @@ public class URLOriginalMonitor extends AtomicMonitor {
                             array1.add(Platform.getRoot() + "/tools/sslget");
                             if (s19.length() > 0) {
                                 Array array3 = Platform.split(' ', s19);
-                                Enumeration enumeration = array3.elements();
+                                Enumeration enumeration = (Enumeration) array3.iterator();
                                 while (enumeration.hasMoreElements()) {
                                     array1.add(enumeration.nextElement());
                                 }

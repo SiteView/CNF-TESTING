@@ -2403,7 +2403,7 @@ label0:
                 Object obj = array.get(j);
                 if(obj instanceof String)
                 {
-                    LogManager.log("RunMonitor", "        URLMonitor.toString() jgl.Array postData(" + j + ")=" + (String)obj);
+                    LogManager.log("RunMonitor", "        URLMonitor.toString() Array postData(" + j + ")=" + (String)obj);
                 }
             }
 

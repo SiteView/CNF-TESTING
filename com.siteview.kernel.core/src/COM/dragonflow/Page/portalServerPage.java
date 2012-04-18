@@ -11,8 +11,10 @@ package COM.dragonflow.Page;
 
 import java.io.File;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.SiteView.PortalSync;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // portalPreferencePage
@@ -187,7 +189,7 @@ public class portalServerPage extends COM.dragonflow.Page.portalPreferencePage
         outputStream.println("</TABLE>");
     }
 
-    jgl.HashMap fillInResultFrame(HashMap hashmap)
+    HashMap fillInResultFrame(HashMap hashmap)
     {
         hashmap.put("_id", request.getValue("id"));
         hashmap.put("_server", request.getValue("server"));

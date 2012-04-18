@@ -15,12 +15,13 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.SampleCollector;
 import COM.dragonflow.SiteView.SiteViewLogReader;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, treeControl, monitorPage, portalPreferencePage,
@@ -50,7 +51,7 @@ public class managePage extends COM.dragonflow.Page.CGI
 //    public static final String TOPAZ_LOGGING_OP = COM.dragonflow.SiteView.TopazInfo.getTopazNameShort() + " Logging Options";
     public static boolean debug = false;
     static HashMap EXCLUDE_MAP;
-    jgl.HashMap groups;
+    HashMap groups;
     public static String OPEN_VARIABLE = "open";
     public static String CLOSE_VARIABLE = "close";
     int groupCount;
@@ -2248,7 +2249,7 @@ _L1:
         return false;
     }
 
-    jgl.Array duplicateGroupFile(String s, Array array, HashMap hashmap, String as[], Array array1)
+    Array duplicateGroupFile(String s, Array array, HashMap hashmap, String as[], Array array1)
         throws java.lang.Exception
     {
         if(debug)
@@ -2504,7 +2505,7 @@ _L1:
                 for(Enumeration enumeration6 =  (Enumeration) array2.iterator(); enumeration6.hasMoreElements();)
                 {
                     String s9 = (String)enumeration6.nextElement();
-                    Enumeration enumeration5 = hashmapordered.values(s9);
+                    Enumeration enumeration5 = (Enumeration) hashmapordered.values(s9);
                     while(enumeration5.hasMoreElements()) 
                     {
                         COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup)enumeration5.nextElement();
@@ -3355,7 +3356,7 @@ label2:
                 hashmap1 = getExistingGroupSchedule(s, siteviewgroup);
             }
             catch(java.lang.Exception exception) { }
-            Enumeration enumeration2 = hashmap1.keys();
+            Enumeration enumeration2 = (Enumeration) hashmap1.keys();
             while(enumeration2.hasMoreElements()) 
             {
                 String s2 = enumeration2.nextElement().toString();

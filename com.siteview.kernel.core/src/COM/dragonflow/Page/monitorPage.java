@@ -16,8 +16,6 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.TreeMap;
 
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.BrowsableBase;
@@ -41,6 +39,11 @@ import COM.dragonflow.SiteView.SiteViewObject;
 import COM.dragonflow.SiteView.URLContentBase;
 import COM.dragonflow.SiteView.monitorUtils;
 import COM.dragonflow.Utils.GreaterCounterByXml;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.BinaryPredicate;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, treeControl, managePage
@@ -961,7 +964,7 @@ label0:
     void printThresholds(AtomicMonitor atomicmonitor, HashMap hashmap)
     {
         boolean flag = atomicmonitor.hasValue(Monitor.pBaselineDate);
-        Enumeration enumeration = atomicmonitor.getProperties().elements();
+        Enumeration enumeration = (Enumeration) atomicmonitor.getProperties().iterator();
         Enumeration enumeration1 = atomicmonitor.getStatePropertyObjects(false);
         boolean flag1 = false;
         boolean flag2 = false;
@@ -1132,7 +1135,7 @@ label0:
 
                 } else
                 {
-                    Enumeration enumeration4 = atomicmonitor.getProperties().elements();
+                    Enumeration enumeration4 = (Enumeration) atomicmonitor.getProperties().iterator();
                     do
                     {
                         if(!enumeration4.hasMoreElements())
@@ -1560,7 +1563,7 @@ label2:
                             atomicmonitor.unsetProperty(s18 + k3);
                         }
 
-                        Enumeration enumeration3 = hashmap2.keys();
+                        Enumeration enumeration3 = (Enumeration) hashmap2.keys();
                         String s30 = "";
                         boolean flag = (atomicmonitor instanceof BrowsableBase) && ((BrowsableBase)atomicmonitor).isSortedCounters();
                         if(flag)
@@ -2395,7 +2398,7 @@ label2:
                         }
                     }
                 } while(true);
-                enumeration1 = hashmap1.values("monitors");
+                enumeration1 = (Enumeration) hashmap1.values("monitors");
                 if(enumeration1.hasMoreElements())
                 {
                     array1.add(hashmap1);
@@ -2857,7 +2860,7 @@ label2:
                             printstream2.println("<TR><TD>" + stringproperty.getName() + "</TD><TD>" + stringproperty.getLabel() + "</TD><TD></TD></TR>");
                             i1++;
                         } while(true);
-                        Enumeration enumeration = monitor3.getImmediateProperties().elements();
+                        Enumeration enumeration = (Enumeration) monitor3.getImmediateProperties().iterator();
                         do
                         {
                             if(!enumeration.hasMoreElements())

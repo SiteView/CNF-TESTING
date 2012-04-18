@@ -18,11 +18,11 @@ package COM.dragonflow.Utils;
  */
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import COM.dragonflow.Properties.HashMapOrdered;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 import com.recursionsw.jgl.HashMapIterator;
 
 public class jglUtils {
@@ -47,7 +47,7 @@ public class jglUtils {
     }
 
     public static HashMap toJgl(java.util.Map map) {
-        COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
+        HashMapOrdered hashmapordered = new HashMapOrdered(true);
         java.util.Iterator iterator = map.entrySet().iterator();
         while (iterator.hasNext()) {
             java.util.Map.Entry entry = (java.util.Map.Entry) iterator.next();
@@ -65,7 +65,7 @@ public class jglUtils {
     }
 
     public static java.util.HashMap fromJgl(HashMap hashmap) {
-        java.util.HashMap hashmap1 = new HashMap();
+        java.util.HashMap hashmap1 = new java.util.HashMap();
         for (HashMapIterator hashmapiterator = hashmap.begin(); hashmapiterator.hasMoreElements();) {
             Pair pair = (Pair) hashmapiterator.nextElement();
             if (pair.second instanceof Array) {

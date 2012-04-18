@@ -24,6 +24,7 @@ import COM.dragonflow.SiteView.*;
 import COM.dragonflow.Utils.Pair;
 
 import java.util.*;
+
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
 
@@ -91,7 +92,7 @@ public class CitrixMonitor extends BrowsablePdhBase
              if(hashmap != null)
              {
                  HashMap hashmap3 = (HashMap)hashmap.get("mProp");
-                 Enumeration enumeration = hashmap3.keys();
+                 Enumeration enumeration = (Enumeration) hashmap3.keys();
                  do
                  {
                      if(!enumeration.hasMoreElements())

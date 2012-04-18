@@ -40,7 +40,7 @@ public class Rule extends SiteViewObject {
     public static final int kClassifierRuleGroup = 1;
     static final int kActionRuleGroup = 2;
     static String cRulePackages[] = { "COM.dragonflow.SiteView.", "COM.dragonflow.StandardAction.", "CustomAction." };
-    private static HashMap cCurrentActions = new jgl.HashMap();
+    private static HashMap cCurrentActions = new HashMap();
     static HashMap setting;
     private static int topazAlertsEnabled = 0;
     int ruleGroup;

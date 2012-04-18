@@ -67,7 +67,7 @@ public abstract class CGI {
         }
     }
 
-    public static class menus extends jgl.Array {
+    public static class menus extends Array {
 
         public menus() {
             add(new menuItems("Multi-view", "overview", "", "script",
@@ -259,7 +259,7 @@ public abstract class CGI {
         COM.dragonflow.Page.CGI.printFooter(printwriter, httprequest, false);
     }
 
-    jgl.Array _getUsedMonitorClasses() {
+    Array _getUsedMonitorClasses() {
         Array array = new Array();
         SiteViewGroup siteviewgroup = SiteViewGroup
                 .currentSiteView();
@@ -989,7 +989,7 @@ public abstract class CGI {
         return hashmap.get("_id") == null;
     }
 
-    jgl.Array getAllowedGroupIDs() {
+    Array getAllowedGroupIDs() {
         return COM.dragonflow.Page.CGI.getAllowedGroupIDsForAccount(request);
     }
 
@@ -1665,7 +1665,7 @@ public abstract class CGI {
                 true);
         Array array3 = getGroupNameList(hashmapordered, hashmap1, hashmap2,
                 false);
-        for (Enumeration enumeration = array3.elements(); enumeration
+        for (Enumeration enumeration = (Enumeration) array3.iterator(); enumeration
                 .hasMoreElements();) {
             String s1 = (String) enumeration.nextElement();
             Enumeration enumeration1 = hashmapordered.values(s1);
@@ -2079,7 +2079,7 @@ public abstract class CGI {
         }
     }
 
-    jgl.Array readMachines(String s) throws java.io.IOException {
+    Array readMachines(String s) throws java.io.IOException {
         Array array = new Array();
         HashMap hashmap = getMasterConfig();
         String s1;
@@ -2120,7 +2120,7 @@ public abstract class CGI {
         saveMasterConfig(hashmap);
     }
 
-    jgl.HashMap findMachine(Array array, String s) {
+    HashMap findMachine(Array array, String s) {
         Enumeration enumeration = (Enumeration) array.iterator();
         HashMap hashmap = new HashMap();
         while (enumeration.hasMoreElements()) {

@@ -164,12 +164,12 @@ public class portalPreferencePage extends COM.dragonflow.Page.CGI
     {
     }
 
-    jgl.HashMap getResultFrame()
+    HashMap getResultFrame()
     {
         return fillInResultFrame(new HashMapOrdered(true));
     }
 
-    jgl.HashMap fillInResultFrame(HashMap hashmap)
+    HashMap fillInResultFrame(HashMap hashmap)
     {
         return hashmap;
     }
@@ -312,7 +312,7 @@ public class portalPreferencePage extends COM.dragonflow.Page.CGI
         printFooter(outputStream);
     }
 
-    jgl.Array readListFrames()
+    Array readListFrames()
     {
         Array array = null;
         try

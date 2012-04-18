@@ -20,6 +20,8 @@ import COM.dragonflow.Utils.TextUtils;
 import COM.dragonflow.XmlApi.XmlApiObject;
 import COM.dragonflow.XmlApi.XmlApiRequestXML;
 
+import com.recursionsw.jgl.HashMap;
+
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
 
@@ -53,7 +55,7 @@ public class xmlApiPage extends COM.dragonflow.Page.CGI {
         java.lang.System.out.println("APIRequest: \r\n" + requestXml);
         XmlApiRequestXML xmlapirequestxml = new XmlApiRequestXML(requestXml);
         XmlApiObject xmlapirequest = (XmlApiObject) xmlapirequestxml.getAPIRequest();
-        Enumeration enumeration = xmlapirequest.elements();
+        Enumeration enumeration = (Enumeration) xmlapirequest.iterator();
         XmlApiObject xmlapiobject1 = (XmlApiObject) enumeration.nextElement();
         String s7 = xmlapiobject1.getName();
         if (!licenseExpired.booleanValue() || s7.equals("updateLicense")) {

@@ -125,7 +125,7 @@ public class monitorSetTemplate {
         m_whereVarUsed = new HashMap();
         for (int i = 1; i < m_frames.size(); i ++) {
             HashMap hashmap1 = (HashMap) m_frames.get(i);
-            Enumeration enumeration1 = hashmap1.keys();
+            Enumeration enumeration1 = (Enumeration) hashmap1.keys();
             String s2 = (String) hashmap1.get("_class");
             while (enumeration1.hasMoreElements()) {
                 String s3 = (String) enumeration1
@@ -133,7 +133,7 @@ public class monitorSetTemplate {
                 java.lang.Object obj = hashmap1.get(s3);
                 if (obj instanceof String) {
                     String s4 = (String) obj;
-                    Enumeration enumeration2 = m_varTbl.keys();
+                    Enumeration enumeration2 = (Enumeration) m_varTbl.keys();
                     while (enumeration2.hasMoreElements()) {
                         String s5 = (String) enumeration2
                                 .nextElement();
@@ -193,7 +193,7 @@ public class monitorSetTemplate {
             parseTemplate();
         }
         String as[] = new String[m_varTbl.size()];
-        Enumeration enumeration = m_varTbl.keys();
+        Enumeration enumeration = (Enumeration) m_varTbl.keys();
         for (int i = 0; enumeration.hasMoreElements(); i++) {
             as[i] = (String) enumeration.nextElement();
         }
@@ -201,7 +201,7 @@ public class monitorSetTemplate {
         return as;
     }
 
-    jgl.HashMap getVariableInfo(String s) {
+    HashMap getVariableInfo(String s) {
         if (m_varTbl == null) {
             parseTemplate();
         }
@@ -345,7 +345,7 @@ public class monitorSetTemplate {
             if (hashmap.get("FOREACH") != null) {
                 String s = (String) hashmap.get("FOREACH");
                 HashMap hashmap1;
-                for (Enumeration enumeration = m_foreachVarTbl
+                for (Enumeration enumeration = (Enumeration) m_foreachVarTbl
                         .values(s); enumeration.hasMoreElements(); array
                         .add(replaceAllForeachVariablesInFrame(s, hashmap1,
                                 hashmap, i++))) {
@@ -363,7 +363,7 @@ public class monitorSetTemplate {
     private HashMap replaceAllForeachVariablesInFrame(String s,
             HashMap hashmap, HashMap hashmap1, int i) {
         HashMap hashmap2 = new HashMap();
-        Enumeration enumeration = hashmap1.keys();
+        Enumeration enumeration = (Enumeration) hashmap1.keys();
         label0: do {
             if (enumeration.hasMoreElements()) {
                 String s1 = (String) enumeration

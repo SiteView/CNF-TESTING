@@ -51,7 +51,7 @@ public class PropertyTable extends HashMap implements java.io.Serializable {
         if (j == 1) {
             return super.get(obj);
         }
-        for (Enumeration enumeration = values(obj); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration = (Enumeration) values(obj); enumeration.hasMoreElements();) {
             StringProperty stringproperty = (StringProperty) enumeration.nextElement();
             if (stringproperty.onPlatform(i)) {
                 return stringproperty;

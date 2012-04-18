@@ -29,7 +29,7 @@ public class StatefulConnsMgr {
 
     private java.lang.Class connClass;
 
-    jgl.Array conns;
+    Array conns;
 
     public StatefulConnsMgr(java.lang.Class class1) {
         connClass = null;

@@ -183,7 +183,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
      */
     public static boolean notHandled(COM.dragonflow.HTTP.HTTPRequest httprequest) {
             if (COM.dragonflow.Page.treeControl.useTree()) {
-            Enumeration enumeration = httprequest.variables.keys();
+            Enumeration enumeration = (Enumeration) httprequest.variables.keys();
             String s;
             while (enumeration.hasMoreElements()) {
                 s = (String) enumeration.nextElement();
@@ -315,12 +315,12 @@ public class treeControl extends COM.dragonflow.Page.CGI {
                 true);
         Array array3 = cgi.getGroupNameList(hashmapordered, hashmap1,
                 hashmap2, true);
-        for (Enumeration enumeration2 = array3.elements(); enumeration2
+        for (Enumeration enumeration2 = (Enumeration) array3.iterator(); enumeration2
                 .hasMoreElements();) {
             int i1 = 0;
             parentSelected = false;
             String s6 = (String) enumeration2.nextElement();
-            Enumeration enumeration5 = hashmapordered.values(s6);
+            Enumeration enumeration5 = (Enumeration) hashmapordered.values(s6);
             while (enumeration5.hasMoreElements()) {
                 COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) enumeration5
                         .nextElement();
@@ -553,7 +553,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
     private int changeSelection(String s, String s1,
             HashMap hashmap, int i) {
         int j = 1;
-        Enumeration enumeration = request.variables.keys();
+        Enumeration enumeration = (Enumeration) request.variables.keys();
         while (enumeration.hasMoreElements()) {
             String s2 = (String) enumeration.nextElement();
             if (!s2.startsWith("treeSeleected") || s2.indexOf(".y") >= 0) {
@@ -590,7 +590,7 @@ public class treeControl extends COM.dragonflow.Page.CGI {
                     .hasMoreElements();) {
                 String s2 = (String) enumeration
                         .nextElement();
-                Enumeration enumeration1 = hashmapordered.values(s2);
+                Enumeration enumeration1 = (Enumeration) hashmapordered.values(s2);
                 while (enumeration1.hasMoreElements()) {
                     COM.dragonflow.SiteView.MonitorGroup monitorgroup = (COM.dragonflow.SiteView.MonitorGroup) enumeration1
                             .nextElement();

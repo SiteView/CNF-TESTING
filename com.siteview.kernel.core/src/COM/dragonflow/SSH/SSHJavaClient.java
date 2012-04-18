@@ -29,6 +29,7 @@ import com.mindbright.ssh2.SSH2SimpleClient;
 import com.mindbright.ssh2.SSH2Transport;
 import com.mindbright.util.RandomSeed;
 import com.mindbright.util.SecureRandomAndPad;
+import com.recursionsw.jgl.Array;
 
 // Referenced classes of package COM.dragonflow.SSH:
 // SSHClientBase, SSHConnectionProperties, ISSHSession

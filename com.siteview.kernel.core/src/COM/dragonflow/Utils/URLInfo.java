@@ -8,6 +8,8 @@
  */
 package COM.dragonflow.Utils;
 
+import com.recursionsw.jgl.BinaryPredicate;
+
 /**
  * Comment for <code></code>
  * 

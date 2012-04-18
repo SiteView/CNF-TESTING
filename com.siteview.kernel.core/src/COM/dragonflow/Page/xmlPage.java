@@ -48,7 +48,7 @@ public class xmlPage extends COM.dragonflow.Page.CGI
             }
             array = new Array();
             Array array2 = COM.dragonflow.Page.xmlPage.getGroupFilterForAccount(httprequest);
-            Enumeration enumeration2 = ((HashMap) (obj)).values("group");
+            Enumeration enumeration2 = (Enumeration) ((HashMap) (obj)).values("group");
             do
             {
                 if(!enumeration2.hasMoreElements())

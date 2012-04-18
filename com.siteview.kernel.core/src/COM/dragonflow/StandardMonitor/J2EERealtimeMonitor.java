@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Page.CGI;
 import COM.dragonflow.Properties.NumericProperty;
@@ -48,6 +47,8 @@ import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.StatefulMonitor.J2EEConnection;
 import COM.dragonflow.Utils.J2EEDummyMonitor;
 import COM.dragonflow.Utils.LUtils;
+
+import com.recursionsw.jgl.Array;
 
 //import com.dragonflow.topaz.j2ee.comm.HashedSample;
 

@@ -12,6 +12,7 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // prefsPage
@@ -131,7 +132,7 @@ public class settingsPrefsPage extends COM.dragonflow.Page.prefsPage {
         }
     }
 
-    jgl.HashMap getAdditionalSettings(String s, String s1) {
+    HashMap getAdditionalSettings(String s, String s1) {
         HashMap hashmap = null;
         if (s1.length() > 0) {
             String s2 = getSettingsGroup().getAdditionalSettings(s,

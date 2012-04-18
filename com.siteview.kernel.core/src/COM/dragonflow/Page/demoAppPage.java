@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.Enumeration;
 
+import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -270,7 +271,7 @@ public class demoAppPage extends COM.dragonflow.Page.CGI
         }
     }
 
-    jgl.HashMap findFrame(Array array, String s, String s1)
+    HashMap findFrame(Array array, String s, String s1)
     {
         for(int i = 0; i < array.size(); i++)
         {

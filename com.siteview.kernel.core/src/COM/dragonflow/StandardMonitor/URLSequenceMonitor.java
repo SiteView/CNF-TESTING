@@ -1453,7 +1453,7 @@ label4:
                                         }
                                     }
 
-                                    enumeration = array3.elements();
+                                    enumeration = (Enumeration) array3.iterator();
                                 }
                                 if(urlsequencemonitor != null)
                                 {
@@ -1746,7 +1746,7 @@ label5:
                                     }
                                     if(array8.size() > 0)
                                     {
-                                        for(Enumeration enumeration11 = array8.elements(); enumeration11.hasMoreElements();)
+                                        for(Enumeration enumeration11 = (Enumeration) array8.iterator(); enumeration11.hasMoreElements();)
                                         {
                                             String s32 = (String)enumeration11.nextElement();
                                             s5 = s5 + s32;
@@ -1850,7 +1850,7 @@ label8:
                                                         s35 = s39.substring(URLMonitor.ACTION_HEADER.length());
                                                     }
                                                 } while(true);
-                                                aenumeration[k3] = array10.elements();
+                                                aenumeration[k3] = (Enumeration) array10.iterator();
                                             }
                                             array7 = checkForm(s21, hashmap9, htmltagparser, i5, flag1);
                                             if(array7 == null)
@@ -2093,7 +2093,7 @@ label9:
                             if(s23.equalsIgnoreCase("get"))
                             {
                                 Array array9 = new Array();
-                                Enumeration enumeration12 = array7.elements();
+                                Enumeration enumeration12 = (Enumeration) array7.iterator();
                                 byte byte0 = -1;
                                 String s34 = s5.indexOf("?") != -1 ? "&" : "?";
                                 while(enumeration12.hasMoreElements()) 
@@ -2141,10 +2141,10 @@ label9:
                                         s34 = "&";
                                     }
                                 }
-                                enumeration = array9.elements();
+                                enumeration = (Enumeration) array9.iterator();
                             } else
                             {
-                                enumeration = array7.elements();
+                                enumeration = (Enumeration) array7.iterator();
                             }
                         }
                     }

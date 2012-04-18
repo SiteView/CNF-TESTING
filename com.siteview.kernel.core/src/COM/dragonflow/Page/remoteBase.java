@@ -43,9 +43,9 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
     public remoteBase() {
     }
 
-    abstract jgl.Array getListTableHeaders(String s);
+    abstract Array getListTableHeaders(String s);
 
-    abstract jgl.Array getListTableRow(HashMap hashmap, String s);
+    abstract Array getListTableRow(HashMap hashmap, String s);
 
     abstract void doTest(COM.dragonflow.SiteView.Machine machine);
 
@@ -111,11 +111,11 @@ public abstract class remoteBase extends COM.dragonflow.Page.prefsPage {
         return s;
     }
 
-    jgl.HashMap getTestMachineFrame() {
+    HashMap getTestMachineFrame() {
         return findMachine(getFrames(), getMachineID());
     }
 
-    jgl.Array getFrames() {
+    Array getFrames() {
         Array array = new Array();
         try {
             array = readMachines(getRemoteName());

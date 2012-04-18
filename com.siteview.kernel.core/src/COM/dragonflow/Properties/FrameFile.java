@@ -386,7 +386,7 @@ public class FrameFile {
                         printFrame(stringbuffer, (HashMap) obj1, s, flag, flag1);
                         stringbuffer.append("}" + Platform.FILE_NEWLINE);
                     } else if (obj1 instanceof Array) {
-                        Enumeration enumeration2 = ((Array) obj1).elements();
+                        Enumeration enumeration2 = (Enumeration) ((Array) obj1).iterator();
                         while (enumeration2.hasMoreElements()) {
                             stringbuffer.append(s1 + "=" + enumeration2.nextElement() + Platform.FILE_NEWLINE);
                         }

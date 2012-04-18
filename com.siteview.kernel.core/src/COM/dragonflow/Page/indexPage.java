@@ -12,6 +12,8 @@ package COM.dragonflow.Page;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import com.recursionsw.jgl.HashMap;
+
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
 

@@ -738,7 +738,7 @@ public class monitorSetPage extends CGI
             }
             HTMLPage.append("<TABLE BORDER=1 CELLSPACING=0 WIDTH=\"100%\">\n");
             HTMLPage.append("<TR><TH width=\"20%\">Property</TH><TH width=\"30%\">Value</TH><TH width=\"50%\"> Property or Syntax Errors</TH></TR>\n");
-            Enumeration enumeration2 = hashmap3.keys();
+            Enumeration enumeration2 = (Enumeration) hashmap3.keys();
             do
             {
                 if(!enumeration2.hasMoreElements())
@@ -817,7 +817,7 @@ public class monitorSetPage extends CGI
             if(ssrtn.isErrorList())
             {
                 HashMap hashmap5 = ssrtn.getErrorList();
-                for(Enumeration enumeration3 = hashmap5.keys(); enumeration3.hasMoreElements();)
+                for(Enumeration enumeration3 = (Enumeration) hashmap5.keys(); enumeration3.hasMoreElements();)
                 {
                     java.lang.Object obj = enumeration3.nextElement();
                     String s15 = (String)hashmap5.get(obj);
@@ -878,10 +878,10 @@ public class monitorSetPage extends CGI
         return thisPageName;
     }
 
-    protected jgl.HashMap populateForeachVariables()
+    protected HashMap populateForeachVariables()
     {
         HashMap hashmap = new HashMap(true);
-        Enumeration enumeration = request.variables.keys();
+        Enumeration enumeration = (Enumeration) request.variables.keys();
         do
         {
             if(!enumeration.hasMoreElements())
@@ -951,7 +951,7 @@ public class monitorSetPage extends CGI
             HTMLPage.append("<p>Creating Monitor: " + s6 + ": " + s7 + " ... ");
             if(flag)
             {
-                Enumeration enumeration = hashmap2.keys();
+                Enumeration enumeration = (Enumeration) hashmap2.keys();
                 do
                 {
                     if(!enumeration.hasMoreElements())
@@ -1267,7 +1267,7 @@ public class monitorSetPage extends CGI
             }
 
             HashMap hashmap5 = getMasterConfig();
-            Enumeration enumeration1 = hashmap5.values("_monitorEditCustom");
+            Enumeration enumeration1 = (Enumeration) hashmap5.values("_monitorEditCustom");
             do
             {
                 if(!enumeration1.hasMoreElements())
@@ -1440,7 +1440,7 @@ public class monitorSetPage extends CGI
         return ssrtn;
     }
 
-    protected jgl.HashMap populateRegularVariables(monitorSetTemplate monitorsettemplate, boolean flag)
+    protected HashMap populateRegularVariables(monitorSetTemplate monitorsettemplate, boolean flag)
     {
         String as[] = monitorsettemplate.getVariables();
         HashMap hashmap = new HashMap();

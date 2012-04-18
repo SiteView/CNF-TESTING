@@ -17,22 +17,9 @@ package COM.dragonflow.StandardMonitor;
  *
  *
  */
-import COM.dragonflow.HTTP.HTTPRequest;
-import COM.dragonflow.Log.LogManager;
-import COM.dragonflow.Properties.BooleanProperty;
-import COM.dragonflow.Properties.NumericProperty;
-import COM.dragonflow.Properties.StringProperty;
-import COM.dragonflow.SiteView.BrowsableBase;
-import COM.dragonflow.SiteView.MasterConfig;
-import COM.dragonflow.SiteView.Rule;
-//import COM.dragonflow.SiteView.TopazInfo;
-import COM.dragonflow.Utils.LUtils;
-import COM.dragonflow.Utils.TextUtils;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -44,15 +31,29 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
-import com.recursionsw.jgl.Array;
+
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import COM.dragonflow.HTTP.HTTPRequest;
+import COM.dragonflow.Log.LogManager;
+import COM.dragonflow.Properties.BooleanProperty;
+import COM.dragonflow.Properties.NumericProperty;
+import COM.dragonflow.Properties.StringProperty;
+import COM.dragonflow.SiteView.BrowsableBase;
+import COM.dragonflow.SiteView.MasterConfig;
+import COM.dragonflow.SiteView.Rule;
+import COM.dragonflow.Utils.LUtils;
+import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
 
 public class DatabaseCounterMonitor extends BrowsableBase
 {

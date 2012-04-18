@@ -393,7 +393,7 @@ public class TivoliDmPassiveMonitor extends AtomicMonitor
         }
 
 //        logger_.debug("<== TivoliDmPassiveMonitor::getStatePropertyObjects");
-        return result.elements();
+        return (Enumeration) result.iterator();
     }
 
     public boolean isServerBased()

@@ -27,8 +27,6 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import com.recursionsw.jgl.Array;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -44,16 +42,8 @@ import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.SiteView.Rule;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.Utils.TextUtils;
-import COM.dragonflow.Utils.WMIUtils;
-//import COM.dragonflow.WMIMonitor.xdr.property_pair;
-//import COM.dragonflow.WMIMonitor.xdr.property_pair_seq;
-//import COM.dragonflow.WMIMonitor.xdr.wmi_connect;
-//import COM.dragonflow.WMIMonitor.xdr.wmi_instance_result;
-//import COM.dragonflow.WMIMonitor.xdr.wmi_instance_seq;
-//import COM.dragonflow.WMIMonitor.xdr.wmi_measurement;
-//import COM.dragonflow.WMIMonitor.xdr.wmi_measurement_seq;
-//import COM.dragonflow.WMIMonitor.xdr.wmi_run_measurements;
-//import COM.dragonflow.WMIMonitor.xdr.wmi_string_seq;
+
+import com.recursionsw.jgl.Array;
 
 public class BrowsableWMIMonitor extends BrowsableBase {
 

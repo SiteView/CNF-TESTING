@@ -20,15 +20,17 @@ package COM.dragonflow.StandardPreference;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
-import jgl.LessString;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 import COM.dragonflow.SiteViewException.SiteViewParameterException;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
+import com.recursionsw.jgl.predicates.LessString;
 
 public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences {
 
@@ -141,7 +143,7 @@ public class UserInstancePreferences extends COM.dragonflow.SiteView.Preferences
                 if (hashmap1.size() > 0) {
                     java.util.HashMap hashmap4 = new java.util.HashMap();
                     COM.dragonflow.Properties.StringProperty stringproperty1;
-                    for (Enumeration enumeration1 = hashmap1.keys(); enumeration1.hasMoreElements(); hashmap4.put(stringproperty1.getName(), hashmap1.get(stringproperty1))) {
+                    for (Enumeration enumeration1 = (Enumeration) hashmap1.keys(); enumeration1.hasMoreElements(); hashmap4.put(stringproperty1.getName(), hashmap1.get(stringproperty1))) {
                         stringproperty1 = (COM.dragonflow.Properties.StringProperty) enumeration1.nextElement();
                     }
 

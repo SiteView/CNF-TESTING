@@ -231,12 +231,12 @@ public class PropertiedObject implements java.io.Serializable {
             LogManager.log("Error", "Loop detected in templates.config");
             return;
         }
-        for (Enumeration enumeration = hashmap1.values("__template"); enumeration.hasMoreElements();) {
+        for (Enumeration enumeration = (Enumeration) hashmap1.values("__template"); enumeration.hasMoreElements();) {
             String s = (String) enumeration.nextElement();
             HashMap hashmap2 = (HashMap) hashmap.get(s);
             if (hashmap2 != null) {
                 resolveTemplateReferences(hashmap, hashmap2, i + 1, j);
-                Enumeration enumeration1 = hashmap2.keys();
+                Enumeration enumeration1 = (Enumeration) hashmap2.keys();
                 while (enumeration1.hasMoreElements()) {
                     String s1 = (String) enumeration1.nextElement();
                     if (hashmap1.get(s1) == null)
@@ -314,7 +314,7 @@ public class PropertiedObject implements java.io.Serializable {
                     hashmap1.remove(stringproperty);
                 }
                 if (obj instanceof Array) {
-                    for (Enumeration enumeration = ((Array) obj).elements(); enumeration.hasMoreElements(); hashmap1
+                    for (Enumeration enumeration = (Enumeration) ((Array) obj).iterator(); enumeration.hasMoreElements(); hashmap1
                             .add(stringproperty, enumeration.nextElement()))
                         ;
                 } else {
@@ -327,7 +327,7 @@ public class PropertiedObject implements java.io.Serializable {
             }
 
             if (obj instanceof Array) {
-                Enumeration enumeration1 = ((Array) obj).elements();
+                Enumeration enumeration1 = (Enumeration) ((Array) obj).iterator();
                 while (enumeration1.hasMoreElements()) {
                     Object obj1 = enumeration1.nextElement();
                     if ((obj1 instanceof String)) {
@@ -520,7 +520,7 @@ public class PropertiedObject implements java.io.Serializable {
         if (hashmap != null) {
             return (Enumeration) hashmap.values(stringproperty);
         } else {
-            return cEmpty(Enumeration) array.iterator();
+            return (Enumeration) cEmptyArray.iterator();
         }
     }
 
@@ -535,7 +535,7 @@ public class PropertiedObject implements java.io.Serializable {
                 return (Enumeration) hashmap.values(s);
             }
         }
-        return cEmpty(Enumeration) array.iterator();
+        return (Enumeration) cEmptyArray.iterator();
     }
 
     public boolean hasMultipleValues(StringProperty stringproperty) {
@@ -640,7 +640,7 @@ public class PropertiedObject implements java.io.Serializable {
     public void unsetPropertiesWithPrefix(String s) {
         LinkedList linkedlist = new LinkedList();
         if (valuesTable != null) {
-            Enumeration enumeration = valuesTable.keys();
+            Enumeration enumeration = (Enumeration) valuesTable.keys();
             while (enumeration.hasMoreElements()) {
                 Object obj = enumeration.nextElement();
                 if (obj instanceof StringProperty) {
@@ -711,7 +711,7 @@ public class PropertiedObject implements java.io.Serializable {
 
     public Array getCurrentPropertyNames() {
         if (valuesTable != null) {
-            Enumeration enumeration = valuesTable.keys();
+            Enumeration enumeration = (Enumeration) valuesTable.keys();
             String s = "";
             Array array = new Array();
             while (enumeration.hasMoreElements()) {
@@ -841,9 +841,9 @@ public class PropertiedObject implements java.io.Serializable {
 
     public String currentStatus;
 
-    static HashMap cPropertyMap = new jgl.HashMap();
+    static HashMap cPropertyMap = new HashMap();
 
-    static HashMap cClassValues = new jgl.HashMap();
+    static HashMap cClassValues = new HashMap();
 
     static Array cEmptyArray = new Array();
 

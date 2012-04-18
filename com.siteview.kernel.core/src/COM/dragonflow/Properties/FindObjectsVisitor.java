@@ -46,7 +46,7 @@ public class FindObjectsVisitor extends Visitor
  {
      if(results != null)
      {
-         return results.elements();
+         return (Enumeration) results.iterator();
      } else
      {
          return null;

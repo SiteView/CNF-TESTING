@@ -115,7 +115,7 @@ public class BrowsableNTCounterMonitor extends BrowsableBase implements IServerP
 
     private Map mIDMap;
 
-    static HashMap noData = new jgl.HashMap();
+    static HashMap noData = new HashMap();
 
     public BrowsableNTCounterMonitor() {
         showDebug = false;

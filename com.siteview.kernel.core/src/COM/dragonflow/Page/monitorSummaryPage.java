@@ -11,8 +11,12 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequestException;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.BinaryPredicate;
+import com.recursionsw.jgl.HashMap;
+import com.recursionsw.jgl.algorithms.Sorting;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, treeControl
@@ -528,7 +532,7 @@ public class monitorSummaryPage extends COM.dragonflow.Page.CGI
                     String s15 = atomicmonitor1.createFromTemplate("<mainParameters>", false);
                     Array array3 = COM.dragonflow.SiteView.Platform.split('\n', s15);
                     StringBuffer stringbuffer4 = new StringBuffer();
-                    Enumeration enumeration7 = array3.elements();
+                    Enumeration enumeration7 = (Enumeration) array3.iterator();
                     while(enumeration7.hasMoreElements())
                         {
                         String s19 = (String)enumeration7.nextElement();

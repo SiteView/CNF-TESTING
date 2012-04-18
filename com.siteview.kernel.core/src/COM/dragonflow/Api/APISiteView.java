@@ -131,7 +131,7 @@ public class APISiteView
     protected User user;
     protected String account;
     protected boolean debug;
-    protected jgl.HashMap groups;
+    protected HashMap groups;
     private static final double CURRENT_API_VERSION = 2D;
     private static final String SITEVIEW_DATE_FORMAT = "EEE MM-dd-yyyy HH:mm:ss ('GMT'Z)";
     protected static java.util.Vector siteViewObjects = null;

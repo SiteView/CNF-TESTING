@@ -12,8 +12,10 @@ package COM.dragonflow.Page;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.Properties.HashMapOrdered;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // portalPreferencePage, portalChooserPage, monitorPage
@@ -101,7 +103,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                         + COM.dragonflow.Utils.TextUtils.getValue(hashmap1,
                                 "nameMatch") + "</I></TD></TR>");
         HashMap hashmap3 = new HashMap();
-        for (Enumeration enumeration = hashmap2.values("category"); enumeration
+        for (Enumeration enumeration = (Enumeration) hashmap2.values("category"); enumeration
                 .hasMoreElements(); hashmap3.add(enumeration.nextElement(),
                 "true")) {
         }
@@ -126,7 +128,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                         + "</TABLE></TD><TD><I></I></TD></TR>");
 
         HashMap hashmap4 = new HashMap();
-        for (Enumeration enumeration1 = hashmap2.values("type"); enumeration1
+        for (Enumeration enumeration1 = (Enumeration) hashmap2.values("type"); enumeration1
                 .hasMoreElements(); hashmap4.add(enumeration1.nextElement(),
                 "true")) {
         }
@@ -167,7 +169,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                         + "<TR><TD><FONT SIZE=-1>Hold the \"Ctrl\" key to select multiple monitor types to filter on</FONT></TD></TR>"
                         + "</TABLE></TD><TD><I></I></TD></TR>");
         HashMap hashmap5 = new HashMap();
-        for (Enumeration enumeration3 = hashmap2.values("propertySet"); enumeration3
+        for (Enumeration enumeration3 = (Enumeration) hashmap2.values("propertySet"); enumeration3
                 .hasMoreElements(); hashmap5.add(enumeration3.nextElement(),
                 "true")) {
         }
@@ -195,7 +197,7 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                         + "<TR><TD><FONT SIZE=-1>Hold the \"Ctrl\" key to select multiple property sets</FONT></TD></TR>"
                         + "</TABLE></TD><TD><I></I></TD></TR>");
         HashMap hashmap6 = new HashMap();
-        for (Enumeration enumeration4 = hashmap2.values("property"); enumeration4
+        for (Enumeration enumeration4 = (Enumeration) hashmap2.values("property"); enumeration4
                 .hasMoreElements(); hashmap6.add(enumeration4.nextElement(),
                 "true")) {
         }
@@ -223,13 +225,13 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
         return;
     }
 
-    jgl.HashMap fillInResultFrame(HashMap hashmap) {
+    HashMap fillInResultFrame(HashMap hashmap) {
         String s = request.getValue("query");
         HashMap hashmap1 = COM.dragonflow.SiteView.PortalFilter
                 .queryStringToMap(s);
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(
                 true);
-        for (Enumeration enumeration = hashmap1.values("item"); enumeration
+        for (Enumeration enumeration = (Enumeration) hashmap1.values("item"); enumeration
                 .hasMoreElements(); hashmapordered.add("item", enumeration
                 .nextElement())) {
         }
@@ -256,10 +258,10 @@ public class portalQueryPage extends COM.dragonflow.Page.portalPreferencePage {
                 .nextElement())) {
         }
         s = "";
-        for (Enumeration enumeration5 = hashmapordered.keys(); enumeration5
+        for (Enumeration enumeration5 = (Enumeration) hashmapordered.keys(); enumeration5
                 .hasMoreElements();) {
             String s1 = (String) enumeration5.nextElement();
-            Enumeration enumeration6 = hashmapordered.values(s1);
+            Enumeration enumeration6 = (Enumeration) hashmapordered.values(s1);
             while (enumeration6.hasMoreElements()) {
                 String s2 = (String) enumeration6.nextElement();
                 if (s2.length() > 0) {

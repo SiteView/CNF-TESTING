@@ -3,7 +3,6 @@ package COM.dragonflow.StandardMonitor;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.servicePage;
 import COM.dragonflow.Properties.NumericProperty;
@@ -18,6 +17,9 @@ import COM.dragonflow.SiteView.ServerMonitor;
 import COM.dragonflow.SiteViewException.SiteViewAvailabilityException;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 public class CPUMonitor extends ServerMonitor
 {

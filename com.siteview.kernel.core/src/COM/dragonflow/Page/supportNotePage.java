@@ -136,7 +136,7 @@ public class supportNotePage extends COM.dragonflow.Page.CGI
             obj = new HashMapOrdered(true);
         }
         HashMap hashmap = new HashMap();
-        for(Enumeration enumeration1 = ((HashMap) (obj)).values("topic"); enumeration1.hasMoreElements(); hashmap.put(enumeration1.nextElement(), "true")) { }
+        for(Enumeration enumeration1 = (Enumeration) ((HashMap) (obj)).values("topic"); enumeration1.hasMoreElements(); hashmap.put(enumeration1.nextElement(), "true")) { }
         String s7 = "";
         Array array = COM.dragonflow.Properties.FrameFile.readFromFile(s1 + "topics.txt");
         for(Enumeration enumeration2 = (Enumeration) array.iterator(); enumeration2.hasMoreElements();)

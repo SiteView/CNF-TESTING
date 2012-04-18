@@ -12,9 +12,10 @@ package COM.dragonflow.Page;
 import java.io.File;
 import java.util.Enumeration;
 
+import COM.dragonflow.Properties.HashMapOrdered;
+
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
-import COM.dragonflow.Properties.HashMapOrdered;
 
 // Referenced classes of package COM.dragonflow.Page:
 // portalPreferencePage, portalServerPage, portalPage
@@ -46,7 +47,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         return COM.dragonflow.SiteView.Platform.getRoot() + "/groups/views.config";
     }
 
-    void printLayout(jgl.HashMap ahashmap[][], String s)
+    void printLayout(HashMap ahashmap[][], String s)
         throws java.io.IOException
     {
         outputStream.println("<INPUT TYPE=HIDDEN NAME=layout." + s + ".height VALUE=" + ahashmap.length + ">");
@@ -109,7 +110,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         outputStream.println("<TABLE BORDER=0><INPUT TYPE=HIDDEN NAME=" + s4 + "xStart VALUE=" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "xStart") + ">" + "<INPUT TYPE=HIDDEN NAME=" + s4 + "xEnd VALUE=" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "xEnd") + ">" + "<INPUT TYPE=HIDDEN NAME=" + s4 + "yStart VALUE=" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "yStart") + ">" + "<INPUT TYPE=HIDDEN NAME=" + s4 + "yEnd VALUE=" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "yEnd") + ">" + "<TR><TD>Cell contents:</TD><TD><select name=" + s4 + "view>" + COM.dragonflow.Page.portalViewPage.getOptionsHTML(array, s1) + "</select></TD><tr></tr><TD colspan=2><font size=\"-1\">Select a HTML or XSL template (required)</font></TD></TR>" + "<TR><TD>Data query:</TD><TD><select name=" + s4 + "query>" + COM.dragonflow.Page.portalViewPage.getOptionsHTML(array1, s2) + "</select></TD><tr></tr><TD colspan=2><font size=\"-1\">Named Query for XML/XSL (optional)</font></TD></TR>" + "<TR><TD>Focus:</TD><TD><input type=text name=" + s4 + "focus " + "value=\"" + COM.dragonflow.Utils.TextUtils.getValue(hashmap, "focus") + "\"></TD>" + "<tr></tr><TD colspan=2><font size=\"-1\">Optional data focus variable</font></TD></TR>" + "<TR><TD>Level(s):</TD><TD><select name=" + s4 + "hint>" + COM.dragonflow.Page.portalViewPage.getOptionsHTML(array2, COM.dragonflow.Utils.TextUtils.getValue(hashmap, "hint")) + "</select></TD><tr></tr><TD colspan=2><font size=\"-1\">Optional XML data trimming </font></TD></TR>" + "</TABLE>");
     }
 
-    boolean matchLayout(jgl.HashMap ahashmap[][], jgl.HashMap ahashmap1[][])
+    boolean matchLayout(HashMap ahashmap[][], HashMap ahashmap1[][])
     {
         if(ahashmap.length != ahashmap1.length)
         {
@@ -180,7 +181,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
                     array3.add(array2.get(i));
                 }
 
-                jgl.HashMap ahashmap[][] = (jgl.HashMap[][])null;
+                HashMap ahashmap[][] = (HashMap[][])null;
                 for(int j = 0; j < array3.size(); j++)
                 {
                     HashMap hashmap2 = (HashMap)array3.get(j);
@@ -189,7 +190,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
                     int ai[] = COM.dragonflow.Page.portalPage.getTableDimensions(hashmap2.values("_cell"));
                     int k = ai[0];
                     int l = ai[1];
-                    jgl.HashMap ahashmap1[][] = COM.dragonflow.Page.portalPage.getLayout(hashmap2.values("_cell"), k, l);
+                    HashMap ahashmap1[][] = COM.dragonflow.Page.portalPage.getLayout(hashmap2.values("_cell"), k, l);
                     if(j == 0)
                     {
                         ahashmap = ahashmap1;
@@ -223,7 +224,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         outputStream.println("</TABLE>");
     }
 
-    jgl.HashMap fillInResultFrame(HashMap hashmap)
+    HashMap fillInResultFrame(HashMap hashmap)
     {
         String s = request.getValue("layout");
         HashMap hashmap1 = new HashMap();
@@ -239,7 +240,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         hashmap.remove("_cell");
         int i = COM.dragonflow.Utils.TextUtils.toInt(request.getValue("layout." + s + ".width"));
         int j = COM.dragonflow.Utils.TextUtils.toInt(request.getValue("layout." + s + ".height"));
-        jgl.HashMap ahashmap[][] = new jgl.HashMap[j][i];
+        HashMap ahashmap[][] = new HashMap[j][i];
         for(int k = 0; k < j; k++)
         {
             for(int l = 0; l < i; l++)
@@ -412,7 +413,7 @@ public class portalViewPage extends COM.dragonflow.Page.portalPreferencePage
         printFooter(outputStream);
     }
 
-    jgl.Array readListFrames()
+    Array readListFrames()
     {
         Array array = super.readListFrames();
         try

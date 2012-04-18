@@ -3364,7 +3364,7 @@ public class HistoryReport extends SiteViewObject {
             Array array2 = new Array();
             Array array3 = siteviewgroup.getElementsOfClass("COM.dragonflow.SiteView.MonitorGroup", false);
             String s2;
-            for (Enumeration enumeration1 = array3.elements(); enumeration1.hasMoreElements(); array2.add(s2)) {
+            for (Enumeration enumeration1 = (Enumeration) array3.iterator(); enumeration1.hasMoreElements(); array2.add(s2)) {
                 MonitorGroup monitorgroup1 = (MonitorGroup) enumeration1.nextElement();
                 s2 = monitorgroup1.getFullID();
             }
@@ -4094,7 +4094,7 @@ public class HistoryReport extends SiteViewObject {
         l = l <= k ? k : l;
         Enumeration enumeration1 =  (Enumeration) array1.iterator();
         Enumeration enumeration2 =  (Enumeration) array2.iterator();
-        Enumeration enumeration3 = array3.elements();
+        Enumeration enumeration3 = (Enumeration) array3.iterator();
         for (int i1 = 0; i1 < l; i1 ++) {
             HashMap hashmap = new HashMap();
             if (enumeration1.hasMoreElements()) {

@@ -955,7 +955,7 @@ public class NetworkBandwidthMonitor extends BrowsableSNMPBase implements RealTi
             if (hashmap2 != null) {
                 HashMap hashmap4 = (HashMap) hashmap2.get("mProp");
                 String s8;
-                for (Enumeration enumeration = hashmap4.keys(); enumeration.hasMoreElements(); setProperty(s8, (String) hashmap4.get(s8))) {
+                for (Enumeration enumeration = (Enumeration) hashmap4.keys(); enumeration.hasMoreElements(); setProperty(s8, (String) hashmap4.get(s8))) {
                     s8 = (String) enumeration.nextElement();
                 }
 

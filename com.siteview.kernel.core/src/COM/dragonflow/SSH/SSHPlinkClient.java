@@ -23,6 +23,8 @@ import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+import com.recursionsw.jgl.Array;
+
 // Referenced classes of package COM.dragonflow.SSH:
 // SSHClientBase, ISSHSession
 

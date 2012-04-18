@@ -18,6 +18,8 @@ import java.util.StringTokenizer;
 
 import COM.dragonflow.Utils.MgParser;
 
+import com.recursionsw.jgl.HashMap;
+
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
 

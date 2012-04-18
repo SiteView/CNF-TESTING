@@ -243,7 +243,7 @@ public class setupPage extends COM.dragonflow.Page.CGI
                     "IIS Admin", "World Wide Web", "Netscape", "FTP", "HTTP"
                 };
                 Array array3 = COM.dragonflow.SiteView.Platform.processList();
-                for(Enumeration enumeration1 = array3.elements(); enumeration1.hasMoreElements();)
+                for(Enumeration enumeration1 = (Enumeration) array3.iterator(); enumeration1.hasMoreElements();)
                 {
                     String s2 = (String)enumeration1.nextElement();
                     int k1 = 0;
@@ -402,7 +402,7 @@ label0:
             hashmap1.put("_frequency", "43200");
             hashmap1.put("_monitorDescription", "<br>An example Ping Monitor watching basic network connectivity.");
             array1.add(hashmap1);
-            for(Enumeration enumeration = COM.dragonflow.SiteView.Platform.getDNSAddresses().elements(); enumeration.hasMoreElements(); array1.add(hashmap1))
+            for(Enumeration enumeration = (Enumeration) COM.dragonflow.SiteView.Platform.getDNSAddresses().iterator(); enumeration.hasMoreElements(); array1.add(hashmap1))
             {
                 String s = (String)enumeration.nextElement();
                 hashmap1 = new HashMap();
@@ -779,7 +779,7 @@ label0:
         catch(java.lang.Exception exception) { }
     }
 
-    jgl.HashMap createHistoryFrame(int i, String s)
+    HashMap createHistoryFrame(int i, String s)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         hashmapordered.add("startHour", "now");
@@ -792,7 +792,7 @@ label0:
         return hashmapordered;
     }
 
-    jgl.HashMap createDailyFrame(int i, String s)
+    HashMap createDailyFrame(int i, String s)
     {
         HashMap hashmap = createHistoryFrame(i, s);
         hashmap.add("window", String.valueOf(0x15180));
@@ -800,7 +800,7 @@ label0:
         return hashmap;
     }
 
-    jgl.HashMap createWeeklyFrame(int i, String s)
+    HashMap createWeeklyFrame(int i, String s)
     {
         HashMap hashmap = createHistoryFrame(i, s);
         hashmap.add("window", String.valueOf(0x93a80));

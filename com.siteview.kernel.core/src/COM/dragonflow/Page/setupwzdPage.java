@@ -9,9 +9,11 @@
  */
 package COM.dragonflow.Page;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.SiteView.MirrorConfiguration;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
@@ -150,7 +152,7 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
         return true;
     }
 
-    jgl.HashMap createHistoryFrame(int i, String s)
+    HashMap createHistoryFrame(int i, String s)
     {
         COM.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
         hashmapordered.add("startHour", "now");
@@ -163,7 +165,7 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
         return hashmapordered;
     }
 
-    jgl.HashMap createDailyFrame(int i, String s)
+    HashMap createDailyFrame(int i, String s)
     {
         HashMap hashmap = createHistoryFrame(i, s);
         hashmap.add("window", String.valueOf(0x15180));
@@ -171,7 +173,7 @@ public class setupwzdPage extends COM.dragonflow.Page.CGI
         return hashmap;
     }
 
-    jgl.HashMap createWeeklyFrame(int i, String s)
+    HashMap createWeeklyFrame(int i, String s)
     {
         HashMap hashmap = createHistoryFrame(i, s);
         hashmap.add("window", String.valueOf(0x93a80));

@@ -26,6 +26,8 @@ import COM.dragonflow.Properties.ScheduleProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.StandardAction.Page;
 
+import com.recursionsw.jgl.Array;
+
 public class PagerInstancePreferences extends COM.dragonflow.SiteView.Preferences {
 
     private String settingName;

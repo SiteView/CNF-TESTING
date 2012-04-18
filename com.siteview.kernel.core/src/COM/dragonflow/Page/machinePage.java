@@ -11,8 +11,10 @@ package COM.dragonflow.Page;
 
 import java.io.PipedReader;
 import java.io.PipedWriter;
+import java.util.Enumeration;
 
 import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // remoteBase, MachineTestPrinter
@@ -221,7 +223,7 @@ public class machinePage extends COM.dragonflow.Page.remoteBase
         hashmap.put("_trace", request.getValue("trace"));
     }
 
-    jgl.Array getListTableHeaders(String s)
+    Array getListTableHeaders(String s)
     {
         Array array = new Array();
         array.add(new String("Name"));
@@ -239,7 +241,7 @@ public class machinePage extends COM.dragonflow.Page.remoteBase
         return array;
     }
 
-    jgl.Array getListTableRow(HashMap hashmap, String s)
+    Array getListTableRow(HashMap hashmap, String s)
     {
         Array array = new Array();
         Array array1 = COM.dragonflow.SiteView.Machine.getAllowedMethods();

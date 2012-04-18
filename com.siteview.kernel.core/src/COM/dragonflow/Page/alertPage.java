@@ -26,7 +26,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 
 	public static String DISABLED_EXPRESSION = "disabled and ";
 
-	jgl.HashMap alertStats;
+	HashMap alertStats;
 
 	static int alertArtID;
 
@@ -684,7 +684,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 		String s36 = s12.indexOf("Any Monitor") == -1 ? ""
 				: " selected";
 		Array array3 = COM.dragonflow.Page.monitorPage.getMonitorClasses();
-		enumeration1 = array3.elements();
+		enumeration1 = (Enumeration) array3.iterator();
 		s38 = "<option value=Any Monitor" + s36 + ">" + "Any Monitor "
 				+ "</option>\n";
 
@@ -1255,8 +1255,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 			}
 			for (int j = 0; j < array1.size(); j++) {
 				HashMap hashmap2 = (HashMap) array1.get(j);
-				Enumeration enumeration1 = hashmap2
-						.values("_alertCondition");
+				Enumeration enumeration1 = (Enumeration) hashmap2.values("_alertCondition");
 				if (!enumeration1.hasMoreElements()) {
 					continue;
 				}
@@ -1409,7 +1408,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 		alertpage.handleRequest();
 	}
 
-	jgl.Array findCondition(String s) throws java.lang.Exception {
+	Array findCondition(String s) throws java.lang.Exception {
 		COM.dragonflow.Api.Alert alert = COM.dragonflow.Api.Alert.getInstance()
 				.getByID((new Long(s)).longValue());
 		return COM.dragonflow.SiteView.Platform.split('\t', alert.getCondStr());
@@ -1626,7 +1625,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 				+ "\t" + s;
 	}
 
-	jgl.HashMap replaceCondition(String s, String s1,
+	HashMap replaceCondition(String s, String s1,
 			String s2, String s3, String s4,
 			String s5, String s6) {
 		if (s.equals(s2) && s1.equals(s3)) {
@@ -1642,12 +1641,12 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 		mungeCondition(s, s1, s2, null, null);
 	}
 
-	jgl.HashMap addCondition(String s, String s1,
+	HashMap addCondition(String s, String s1,
 			String s2, String s3) {
 		return mungeCondition(s, s1, null, s2, s3);
 	}
 
-	jgl.HashMap mungeCondition(String s, String s1,
+	HashMap mungeCondition(String s, String s1,
 			String s2, String s3, String s4) {
 		if (COM.dragonflow.SiteView.AtomicMonitor.alertDebug) {
 			COM.dragonflow.Utils.TextUtils.debugPrint("group: " + s
@@ -1673,8 +1672,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 			}
 			Array array1 = new Array();
 			boolean flag = false;
-			Enumeration enumeration = hashmap
-					.values("_alertCondition");
+			Enumeration enumeration = (Enumeration) hashmap.values("_alertCondition");
 			if (COM.dragonflow.SiteView.AtomicMonitor.alertDebug) {
 				java.lang.System.out
 						.println("alertPage: Attempting to replace id: " + s2);
@@ -2138,7 +2136,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 		}
 	}
 
-	jgl.HashMap parseCondition(String s, HashMap hashmap,
+	HashMap parseCondition(String s, HashMap hashmap,
 			String s1, String s2) {
 		HashMap hashmap1 = new HashMap();
 		hashmap1.put("raw", s);
@@ -2235,8 +2233,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 		if (COM.dragonflow.SiteView.AtomicMonitor.alertDebug) {
 			java.lang.System.out.println("=" + hashmap + "=");
 		}
-		for (Enumeration enumeration = hashmap
-				.values("_alertCondition"); enumeration.hasMoreElements();) {
+		for (Enumeration enumeration = (Enumeration) hashmap.values("_alertCondition"); enumeration.hasMoreElements();) {
 			String s2 = (String) enumeration.nextElement();
 			if (COM.dragonflow.SiteView.AtomicMonitor.alertDebug) {
 				java.lang.System.out.println("<br>raw(" + s2 + ")");
@@ -2375,7 +2372,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 	 * @return
 	 * @throws java.io.IOException
 	 */
-	jgl.Array getConditions() throws java.io.IOException {
+	Array getConditions() throws java.io.IOException {
 		Array array = new Array();
 		HashMap hashmap = getMasterConfig();
 		if (!request.getPermission("_editGlobalAlerts").equals("hidden")) {
@@ -2412,7 +2409,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 		return array;
 	}
 
-	jgl.Array getActionClasses() {
+	Array getActionClasses() {
 		Array array = new Array();
 		HashMap hashmap = null;
 		if (isPortalServerRequest()) {
@@ -2501,7 +2498,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 		printFooter(outputStream);
 	}
 
-	jgl.HashMap getAlertStats() {
+	HashMap getAlertStats() {
 		if (alertStats == null) {
 			try {
 				Array array = getAllowedGroupIDs();
@@ -2544,8 +2541,7 @@ public class alertPage extends COM.dragonflow.Page.CGI {
 	}
 
 	void updateAlertStats(HashMap hashmap, HashMap hashmap1) {
-		for (Enumeration enumeration = hashmap
-				.values("_alertCondition"); enumeration.hasMoreElements(); COM.dragonflow.Utils.TextUtils
+		for (Enumeration enumeration = (Enumeration) hashmap.values("_alertCondition"); enumeration.hasMoreElements(); COM.dragonflow.Utils.TextUtils
 				.incrementEntry(hashmap1, "TotalAlerts")) {
 			String s = (String) enumeration.nextElement();
 			Array array = COM.dragonflow.SiteView.Platform.split('\t', s);

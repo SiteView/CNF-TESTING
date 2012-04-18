@@ -21,8 +21,6 @@ import java.io.File;
 import java.net.URLDecoder;
 import java.util.Enumeration;
 
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
 import COM.datachannel.xml.om.Document;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
@@ -31,6 +29,9 @@ import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.SiteView:
 // BrowsableMonitor, Platform, AtomicMonitor
@@ -129,7 +130,7 @@ public class BrowsableCache {
                 hashmap2 = (HashMap) hashmap.get("selectIDs");
             }
             if (flag) {
-                Enumeration enumeration = hashmap1.keys();
+                Enumeration enumeration = (Enumeration) hashmap1.keys();
                 while (enumeration.hasMoreElements()) {
                     hashmap1.put(enumeration.nextElement(), "");
                 }
@@ -192,7 +193,7 @@ public class BrowsableCache {
                 hashmap1.put(s3, s1);
             }
 
-            Enumeration enumeration1 = hashmap1.keys();
+            Enumeration enumeration1 = (Enumeration) hashmap1.keys();
             while (enumeration1.hasMoreElements()) {
                 String s4 = (String) enumeration1.nextElement();
                 String s6 = (String) hashmap1.get(s4);
@@ -208,7 +209,7 @@ public class BrowsableCache {
                 HashMap hashmap5 = (HashMap) hashmap.get("permanentSelectIDs");
                 String s9;
                 String s10;
-                for (Enumeration enumeration2 = hashmap1.keys(); enumeration2
+                for (Enumeration enumeration2 = (Enumeration) hashmap1.keys(); enumeration2
                         .hasMoreElements(); hashmap4.put(s9, s10)) {
                     s9 = (String) enumeration2.nextElement();
                     s10 = (String) hashmap1.get(s9);
@@ -216,7 +217,7 @@ public class BrowsableCache {
 
                 String s11;
                 String s12;
-                for (Enumeration enumeration3 = hashmap2.keys(); enumeration3
+                for (Enumeration enumeration3 = (Enumeration) hashmap2.keys(); enumeration3
                         .hasMoreElements(); hashmap5.put(s11, s12)) {
                     s11 = (String) enumeration3.nextElement();
                     s12 = (String) hashmap2.get(s11);
@@ -250,7 +251,7 @@ public class BrowsableCache {
             hashmap3.clear();
             String s1;
             String s2;
-            for (Enumeration enumeration = hashmap1.keys(); enumeration
+            for (Enumeration enumeration = (Enumeration) hashmap1.keys(); enumeration
                     .hasMoreElements(); hashmap3.put(s1, s2)) {
                 s1 = (String) enumeration.nextElement();
                 s2 = (String) hashmap1.get(s1);

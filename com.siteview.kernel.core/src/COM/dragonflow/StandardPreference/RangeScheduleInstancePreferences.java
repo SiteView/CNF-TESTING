@@ -28,6 +28,8 @@ import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 
+import com.recursionsw.jgl.Array;
+
 // Referenced classes of package COM.dragonflow.StandardPreference:
 // ScheduleInstancePreferences
 

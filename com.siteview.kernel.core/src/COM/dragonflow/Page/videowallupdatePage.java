@@ -26,7 +26,7 @@ public class videowallupdatePage extends COM.dragonflow.Page.CGI
     public static boolean isScrolling = true;
     String action;
     int last;
-    jgl.HashMap configHash;
+    HashMap configHash;
     String version;
 
     public videowallupdatePage()

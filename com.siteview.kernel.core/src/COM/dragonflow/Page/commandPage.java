@@ -79,7 +79,7 @@ public class commandPage extends COM.dragonflow.Page.CGI
                     for(Enumeration enumeration = (Enumeration) array.iterator(); enumeration.hasMoreElements(); outputStream.println("</user>"))
                     {
                         HashMap hashmap3 = (HashMap)enumeration.nextElement();
-                        Enumeration enumeration4 = hashmap3.keys();
+                        Enumeration enumeration4 = (Enumeration) hashmap3.keys();
                         String s10 = "";
                         outputStream.println("<user>");
                         while(enumeration4.hasMoreElements()) 

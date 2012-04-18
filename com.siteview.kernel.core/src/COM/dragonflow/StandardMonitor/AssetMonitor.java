@@ -350,7 +350,7 @@ public class AssetMonitor extends ServerMonitor {
             LogManager.log("RunMonitor", "logging " + s + ", " + stringbuffer);
         }
         if (s.equals("server")) {
-            Enumeration enumeration1 = array3.elements();
+            Enumeration enumeration1 = (Enumeration) array3.iterator();
             Array array4 = new Array();
             String s5;
             for (; enumeration1.hasMoreElements(); array4.add(s5)) {
@@ -366,7 +366,7 @@ public class AssetMonitor extends ServerMonitor {
             JdbcLogger.logger.logCustom(this, array4, "server_asset", server_asset_create, server_asset_define, server_asset_insert);
         } else if (s.equals("service")) {
             Array array6;
-            for (Enumeration enumeration2 = array3.elements(); enumeration2.hasMoreElements(); JdbcLogger.logger.logCustom(this, array6, "service_asset", service_asset_create, service_asset_create2, service_asset_define, service_asset_insert)) {
+            for (Enumeration enumeration2 = (Enumeration) array3.iterator(); enumeration2.hasMoreElements(); JdbcLogger.logger.logCustom(this, array6, "service_asset", service_asset_create, service_asset_create2, service_asset_define, service_asset_insert)) {
                 Object obj1 = enumeration2.nextElement();
                 array6 = splitRecord(obj1);
                 array6.pushFront(s2);
@@ -375,7 +375,7 @@ public class AssetMonitor extends ServerMonitor {
 
         } else if (s.equals("software")) {
             Array array7;
-            for (Enumeration enumeration3 = array3.elements(); enumeration3.hasMoreElements(); JdbcLogger.logger.logCustom(this, array7, "software_asset", software_asset_create, software_asset_create2, software_asset_define, software_asset_insert)) {
+            for (Enumeration enumeration3 = (Enumeration) array3.iterator(); enumeration3.hasMoreElements(); JdbcLogger.logger.logCustom(this, array7, "software_asset", software_asset_create, software_asset_create2, software_asset_define, software_asset_insert)) {
                 Object obj2 = enumeration3.nextElement();
                 array7 = splitRecord(obj2);
                 array7.pushFront(s2);
@@ -384,7 +384,7 @@ public class AssetMonitor extends ServerMonitor {
 
         } else if (s.equals("drive")) {
             Array array8;
-            for (Enumeration enumeration4 = array3.elements(); enumeration4.hasMoreElements(); JdbcLogger.logger.logCustom(this, array8, "drive_asset", drive_asset_create, drive_asset_define, drive_asset_insert)) {
+            for (Enumeration enumeration4 = (Enumeration) array3.iterator(); enumeration4.hasMoreElements(); JdbcLogger.logger.logCustom(this, array8, "drive_asset", drive_asset_create, drive_asset_define, drive_asset_insert)) {
                 Object obj3 = enumeration4.nextElement();
                 array8 = splitRecord(obj3);
                 array8.pushFront(s2);
@@ -393,7 +393,7 @@ public class AssetMonitor extends ServerMonitor {
 
         } else if (s.equals("nic")) {
             Array array9;
-            for (Enumeration enumeration5 = array3.elements(); enumeration5.hasMoreElements(); JdbcLogger.logger.logCustom(this, array9, "nic_asset", nic_asset_create, nic_asset_define, nic_asset_insert)) {
+            for (Enumeration enumeration5 = (Enumeration) array3.iterator(); enumeration5.hasMoreElements(); JdbcLogger.logger.logCustom(this, array9, "nic_asset", nic_asset_create, nic_asset_define, nic_asset_insert)) {
                 Object obj4 = enumeration5.nextElement();
                 array9 = splitRecord(obj4);
                 array9.pushFront(s2);
@@ -401,7 +401,7 @@ public class AssetMonitor extends ServerMonitor {
             }
 
         } else if (s.equals("unix_server")) {
-            Enumeration enumeration6 = array3.elements();
+            Enumeration enumeration6 = (Enumeration) array3.iterator();
             Array array5 = new Array();
             String s6;
             for (; enumeration6.hasMoreElements(); array5.add(s6)) {
@@ -417,7 +417,7 @@ public class AssetMonitor extends ServerMonitor {
             JdbcLogger.logger.logCustom(this, array5, "unix_server_asset", unix_server_asset_create, unix_server_asset_define, unix_server_asset_insert);
         } else if (s.equals("unix_procs")) {
             Array array10;
-            for (Enumeration enumeration7 = array3.elements(); enumeration7.hasMoreElements(); JdbcLogger.logger.logCustom(this, array10, "unix_procs", unix_procs_create, unix_procs_define, unix_procs_insert)) {
+            for (Enumeration enumeration7 = (Enumeration) array3.iterator(); enumeration7.hasMoreElements(); JdbcLogger.logger.logCustom(this, array10, "unix_procs", unix_procs_create, unix_procs_define, unix_procs_insert)) {
                 Object obj5 = enumeration7.nextElement();
                 array10 = splitRecord(obj5);
                 array10.pushFront(s2);
@@ -426,7 +426,7 @@ public class AssetMonitor extends ServerMonitor {
 
         } else if (s.equals("unix_patch")) {
             Array array11;
-            for (Enumeration enumeration8 = array3.elements(); enumeration8.hasMoreElements(); JdbcLogger.logger.logCustom(this, array11, "unix_patch", unix_patch_create, unix_patch_define, unix_patch_insert)) {
+            for (Enumeration enumeration8 = (Enumeration) array3.iterator(); enumeration8.hasMoreElements(); JdbcLogger.logger.logCustom(this, array11, "unix_patch", unix_patch_create, unix_patch_define, unix_patch_insert)) {
                 Object obj6 = enumeration8.nextElement();
                 array11 = splitRecord(obj6);
                 array11.pushFront(s2);
@@ -435,7 +435,7 @@ public class AssetMonitor extends ServerMonitor {
 
         } else if (s.equals("unix_package")) {
             Array array12;
-            for (Enumeration enumeration9 = array3.elements(); enumeration9.hasMoreElements(); JdbcLogger.logger.logCustom(this, array12, "unix_package", unix_package_create, unix_package_create2, unix_package_create3, unix_package_define,
+            for (Enumeration enumeration9 = (Enumeration) array3.iterator(); enumeration9.hasMoreElements(); JdbcLogger.logger.logCustom(this, array12, "unix_package", unix_package_create, unix_package_create2, unix_package_create3, unix_package_define,
                     unix_package_insert)) {
                 Object obj7 = enumeration9.nextElement();
                 array12 = splitRecord(obj7);
@@ -445,7 +445,7 @@ public class AssetMonitor extends ServerMonitor {
 
         } else if (s.equals("unix_drive")) {
             Array array13;
-            for (Enumeration enumeration10 = array3.elements(); enumeration10.hasMoreElements(); JdbcLogger.logger.logCustom(this, array13, "unix_drive_asset", unix_drive_asset_create, unix_drive_asset_define, unix_drive_asset_insert)) {
+            for (Enumeration enumeration10 = (Enumeration) array3.iterator(); enumeration10.hasMoreElements(); JdbcLogger.logger.logCustom(this, array13, "unix_drive_asset", unix_drive_asset_create, unix_drive_asset_define, unix_drive_asset_insert)) {
                 Object obj8 = enumeration10.nextElement();
                 array13 = splitRecord(obj8);
                 array13.pushFront(s2);
@@ -454,7 +454,7 @@ public class AssetMonitor extends ServerMonitor {
 
         } else if (s.equals("unix_nic")) {
             Array array14;
-            for (Enumeration enumeration11 = array3.elements(); enumeration11.hasMoreElements(); JdbcLogger.logger.logCustom(this, array14, "unix_nic_asset", unix_nic_asset_create, unix_nic_asset_define, unix_nic_asset_insert)) {
+            for (Enumeration enumeration11 = (Enumeration) array3.iterator(); enumeration11.hasMoreElements(); JdbcLogger.logger.logCustom(this, array14, "unix_nic_asset", unix_nic_asset_create, unix_nic_asset_define, unix_nic_asset_insert)) {
                 Object obj9 = enumeration11.nextElement();
                 array14 = splitRecord(obj9);
                 array14.pushFront(s2);

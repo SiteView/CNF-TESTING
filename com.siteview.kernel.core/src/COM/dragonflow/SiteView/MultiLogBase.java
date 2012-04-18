@@ -351,7 +351,7 @@ public abstract class MultiLogBase extends ServerMonitor {
 
     protected Array readUnixRemoteFile(String s, long l) {
         String s1 = getProperty(pMachineName);
-        HashMap hashmap = new jgl.HashMap();
+        HashMap hashmap = new HashMap();
         hashmap.put("file", s);
         hashmap.put("bytes", "" + l);
         String s2 = Machine.getCommandString("tail", s1, hashmap);

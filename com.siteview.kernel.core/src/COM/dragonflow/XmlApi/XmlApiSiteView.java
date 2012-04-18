@@ -319,7 +319,7 @@ public class XmlApiSiteView {
 //            java.util.Vector vector = new Vector();
 //            java.util.HashMap hashmap = api.getServerSettingsByEntity(s);
 //            if (hashmap != null) {
-//                HashMap hashmap1 = new jgl.HashMap();
+//                HashMap hashmap1 = new HashMap();
 //                java.util.Set set = hashmap.keySet();
 //                String s1;
 //                for (java.util.Iterator iterator = set.iterator(); iterator.hasNext(); hashmap1.put(s1, hashmap.get(s1))) {
@@ -342,7 +342,7 @@ public class XmlApiSiteView {
 //            java.util.Vector vector = new Vector();
 //            java.util.HashMap hashmap = api.getTopazServerSettings(s);
 //            if (hashmap != null) {
-//                HashMap hashmap1 = new jgl.HashMap();
+//                HashMap hashmap1 = new HashMap();
 //                java.util.Set set = hashmap.keySet();
 //                String s2;
 //                for (java.util.Iterator iterator = set.iterator(); iterator.hasNext(); hashmap1.put(s2, hashmap.get(s2))) {

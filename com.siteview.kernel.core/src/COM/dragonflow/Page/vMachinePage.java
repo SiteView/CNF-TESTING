@@ -13,10 +13,11 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
-import com.recursionsw.jgl.HashMap;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Properties.HashMapOrdered;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // prefsPage, CGI, treeControl
@@ -772,7 +773,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         hashmap.put("_dbConnectTimeout", request.getValue("dbConnectTimeout"));
     }
 
-    jgl.Array getListTableHeaders() {
+    Array getListTableHeaders() {
         Array array = new Array();
         array.add(new String("Name"));
         array.add(new String("Server"));
@@ -784,7 +785,7 @@ public class vMachinePage extends COM.dragonflow.Page.prefsPage {
         return array;
     }
 
-    jgl.Array getListTableRow(HashMap hashmap) {
+    Array getListTableRow(HashMap hashmap) {
         Array array = new Array();
         String s = COM.dragonflow.Utils.TextUtils.getValue(hashmap, "_id");
         String s1 = COM.dragonflow.Page.vMachinePage.getValue(hashmap, "_name");

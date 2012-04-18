@@ -11,9 +11,11 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.SiteView.PortalFilter;
 import COM.dragonflow.SiteView.PortalQuery;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI, portalPreferencePage
@@ -98,7 +100,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
 
     public static HashMap[][] getLayout(Enumeration enumeration, int i, int j)
     {
-        jgl.HashMap ahashmap[][] = new jgl.HashMap[i][j];
+        HashMap ahashmap[][] = new HashMap[i][j];
         for(int k = 0; k < ahashmap.length; k++)
         {
             for(int l = 0; l < ahashmap[k].length; l++)
@@ -169,7 +171,7 @@ public class portalPage extends COM.dragonflow.Page.CGI
             int ai[] = COM.dragonflow.Page.portalPage.getTableDimensions(hashmap1.values("_cell"));
             int i = ai[0];
             int j = ai[1];
-            jgl.HashMap ahashmap[][] = COM.dragonflow.Page.portalPage.getLayout(hashmap1.values("_cell"), i, j);
+            HashMap ahashmap[][] = COM.dragonflow.Page.portalPage.getLayout(hashmap1.values("_cell"), i, j);
             String s2 = COM.dragonflow.Page.portalPage.getValue(hashmap1, "_contentType");
             if(s2.length() == 0)
             {

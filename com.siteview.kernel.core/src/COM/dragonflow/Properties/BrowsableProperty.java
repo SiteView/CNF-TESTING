@@ -216,7 +216,7 @@ public class BrowsableProperty extends StringProperty {
             HashMap hashmap6 = (HashMap) hashmap.get("permanentSelectNames");
             HashMap hashmap8 = (HashMap) hashmap.get("permanentSelectIDs");
             HashMap hashmap10 = (HashMap) hashmap6.clone();
-            Enumeration enumeration = hashmap10.keys();
+            Enumeration enumeration = (Enumeration) hashmap10.keys();
             if (enumeration.hasMoreElements()) {
                 int i = 1;
                 while (enumeration.hasMoreElements() || i > atomicmonitor.getMaxCounters()) {

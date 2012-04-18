@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.StringProperty;
@@ -32,6 +31,8 @@ import COM.dragonflow.SiteView.MasterConfig;
 import COM.dragonflow.SiteView.Rule;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.Utils.TextUtils;
+
+import com.recursionsw.jgl.Array;
 
 //import com.dragonflow.IPMI.IPMIException;
 //import com.dragonflow.IPMI.Commands.AnalogSensorReadingRecord;

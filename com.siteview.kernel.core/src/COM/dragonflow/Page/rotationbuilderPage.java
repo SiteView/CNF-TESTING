@@ -25,7 +25,7 @@ public class rotationbuilderPage extends COM.dragonflow.Page.CGI
 
     String action;
     int last;
-    jgl.HashMap configHash;
+    HashMap configHash;
     String version;
 
     public rotationbuilderPage()

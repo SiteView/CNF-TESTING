@@ -31,8 +31,8 @@ public class mapbuilderPage extends COM.dragonflow.Page.CGI
     String serverconnecterrorxsl;
     String queryid;
     int last;
-    jgl.HashMap configHash;
-    jgl.HashMap mdHash;
+    HashMap configHash;
+    HashMap mdHash;
     String version;
     String replacestr[] = {
         "\r", "\n", "&CR;", "&LF;"

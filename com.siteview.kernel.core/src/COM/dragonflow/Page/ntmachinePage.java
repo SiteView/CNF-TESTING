@@ -11,9 +11,11 @@ package COM.dragonflow.Page;
 
 import java.util.Enumeration;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.Utils.CounterLock;
 import COM.dragonflow.Utils.SSHCommandLine;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.HashMap;
 
 // Referenced classes of package COM.dragonflow.Page:
 // remoteBase
@@ -160,7 +162,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
         hashmap.put("_status", "unknown");
     }
 
-    jgl.Array getListTableHeaders(String s)
+    Array getListTableHeaders(String s)
     {
         Array array = new Array();
         array.add(new String("Name"));
@@ -191,7 +193,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
         return sshcommandline.exitValue == 0 ? 0 : 100;
     }
 
-    jgl.Array getListTableRow(HashMap hashmap, String s)
+    Array getListTableRow(HashMap hashmap, String s)
     {
         COM.dragonflow.SiteView.Machine.getAllowedMethods();
         Array array = new Array();

@@ -21,6 +21,8 @@ import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.SiteViewException.SiteViewOperationalException;
 
+import com.recursionsw.jgl.HashMap;
+
 public class GeneralDefaultPreferences extends COM.dragonflow.SiteView.Preferences {
 
     public static COM.dragonflow.Properties.StringProperty pLicense;

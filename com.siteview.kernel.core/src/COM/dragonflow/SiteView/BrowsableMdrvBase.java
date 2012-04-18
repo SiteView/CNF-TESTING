@@ -177,7 +177,7 @@ public abstract class BrowsableMdrvBase extends BrowsableBase {
 
     String saveResultProps(Array array) {
         String s = "";
-        HashMap hashmap = new jgl.HashMap();
+        HashMap hashmap = new HashMap();
         for (int i = 0; i < array.size(); i++) {
             String s1 = (String) array.get(i);
             int k = s1.indexOf('=');

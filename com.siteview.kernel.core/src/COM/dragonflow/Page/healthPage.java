@@ -9,6 +9,8 @@
  */
 package COM.dragonflow.Page;
 
+import com.recursionsw.jgl.Array;
+
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
 

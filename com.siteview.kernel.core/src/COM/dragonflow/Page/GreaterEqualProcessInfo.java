@@ -9,6 +9,9 @@
  */
 package COM.dragonflow.Page;
 
+import com.recursionsw.jgl.BinaryPredicate;
+import com.recursionsw.jgl.HashMap;
+
 class GreaterEqualProcessInfo implements BinaryPredicate {
 
     GreaterEqualProcessInfo() {

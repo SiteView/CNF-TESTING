@@ -557,7 +557,7 @@ public class userPrefsPage extends COM.dragonflow.Page.prefsPage
         }
     }
 
-    jgl.Array getUserFrames()
+    Array getUserFrames()
         throws java.io.IOException
     {
         Array array = null;

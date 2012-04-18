@@ -3042,7 +3042,7 @@ public class APIMonitor extends APISiteView
                         }
 
                         int k1 = 0;
-                        Enumeration enumeration = hashmap2.keys();
+                        Enumeration enumeration = (Enumeration) hashmap2.keys();
                         as = new String[hashmap2.size()];
                         while(enumeration.hasMoreElements()) 
                         {
@@ -3074,7 +3074,7 @@ public class APIMonitor extends APISiteView
                             }
 
                             int k3 = 0;
-                            Enumeration enumeration1 = hashmap4.keys();
+                            Enumeration enumeration1 = (Enumeration) hashmap4.keys();
                             as = new String[hashmap4.size()];
                             while(enumeration1.hasMoreElements()) 
                             {
@@ -3090,7 +3090,7 @@ public class APIMonitor extends APISiteView
                             }
 
                             k3 = 0;
-                            enumeration1 = hashmap4.keys();
+                            enumeration1 = (Enumeration) hashmap4.keys();
                             as1 = new String[hashmap4.size()];
                             while(enumeration1.hasMoreElements()) 
                             {
@@ -3123,7 +3123,7 @@ public class APIMonitor extends APISiteView
                             }
 
                             int i4 = 0;
-                            Enumeration enumeration2 = hashmap5.keys();
+                            Enumeration enumeration2 = (Enumeration) hashmap5.keys();
                             as = new String[hashmap5.size()];
                             while(enumeration2.hasMoreElements()) 
                             {

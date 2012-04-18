@@ -13,9 +13,11 @@ import java.io.FileInputStream;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import com.recursionsw.jgl.Array;
 import COM.dragonflow.HTTP.HTTPRequestException;
 import COM.dragonflow.Utils.URLInfo;
+
+import com.recursionsw.jgl.Array;
+import com.recursionsw.jgl.algorithms.Sorting;
 
 // Referenced classes of package COM.dragonflow.Page:
 // CGI

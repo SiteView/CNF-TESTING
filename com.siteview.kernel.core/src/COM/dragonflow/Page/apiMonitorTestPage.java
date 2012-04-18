@@ -894,7 +894,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
         return "<img src=/SiteView/htdocs/artwork/empty1111.gif height=11 width=" + j + " border=0>";
     }
 
-    jgl.Array getNodeNames(org.w3c.dom.Node node)
+    Array getNodeNames(org.w3c.dom.Node node)
     {
         Array array = new Array();
         String s = ((org.w3c.dom.Element)node).getAttribute("name");
@@ -921,7 +921,7 @@ public class apiMonitorTestPage extends apiMasterTestPage
         return array;
     }
 
-    jgl.Array getNodeIdNames(org.w3c.dom.Node node)
+    Array getNodeIdNames(org.w3c.dom.Node node)
     {
         Array array = new Array();
         String s = "id";

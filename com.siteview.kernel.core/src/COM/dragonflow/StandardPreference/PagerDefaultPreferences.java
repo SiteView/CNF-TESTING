@@ -24,6 +24,8 @@ import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.StandardAction.Page;
 
+import com.recursionsw.jgl.Array;
+
 public class PagerDefaultPreferences extends COM.dragonflow.SiteView.Preferences {
 
     public static COM.dragonflow.Properties.StringProperty pPagerPort;

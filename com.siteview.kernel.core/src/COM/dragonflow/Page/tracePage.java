@@ -11,6 +11,8 @@ package COM.dragonflow.Page;
 
 import COM.dragonflow.HTTP.HTTPRequestException;
 
+import com.recursionsw.jgl.Array;
+
 // Referenced classes of package COM.dragonflow.Page:
 // CGI
 
