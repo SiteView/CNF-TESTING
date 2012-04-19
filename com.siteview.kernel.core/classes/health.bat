@@ -1,1 +1,0 @@
-..\java\bin\java -cp . COM.freshtech.Health.CommandLineHealth
