@@ -21,13 +21,13 @@ package COM.dragonflow.Api;
 // Referenced classes of package COM.dragonflow.Api:
 // SSBaseReturnValues, SSInstanceProperty
 
-public class SSGroupInstance extends COM.dragonflow.Api.SSBaseReturnValues
+public class SSGroupInstance extends SSBaseReturnValues
 {
 
     private String groupId;
-    private COM.dragonflow.Api.SSInstanceProperty instanceProperties[];
+    private SSInstanceProperty instanceProperties[];
 
-    public SSGroupInstance(String s, COM.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    public SSGroupInstance(String s, SSInstanceProperty assinstanceproperty[])
     {
         groupId = s;
         instanceProperties = assinstanceproperty;
@@ -44,7 +44,7 @@ public class SSGroupInstance extends COM.dragonflow.Api.SSBaseReturnValues
         return groupId;
     }
 
-    public COM.dragonflow.Api.SSInstanceProperty[] getInstanceProperties()
+    public SSInstanceProperty[] getInstanceProperties()
     {
         return instanceProperties;
     }

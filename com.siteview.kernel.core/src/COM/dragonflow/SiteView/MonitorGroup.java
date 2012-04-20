@@ -498,9 +498,9 @@ public class MonitorGroup extends Monitor {
         return s;
     }
 
-    public static MonitorGroup getMonitorGroup(String s) {
+    public static MonitorGroup getMonitorGroup(String groupid) {
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
-        SiteViewObject siteviewobject = siteviewgroup.getElementByID(s);
+        SiteViewObject siteviewobject = siteviewgroup.getElementByID(groupid);
         MonitorGroup monitorgroup = null;
         if (siteviewobject instanceof SubGroup) {
             SubGroup subgroup = (SubGroup) siteviewobject;

@@ -523,7 +523,7 @@ public class SiteViewGroup extends MonitorGroup {
                         bHasCircularGroups = true;
                         return true;
                     }
-                    if ((COM.dragonflow.SiteView.MonitorGroup.class).isInstance(siteviewobject)) {
+                    if ((MonitorGroup.class).isInstance(siteviewobject)) {
                         siteviewobject = ((MonitorGroup) siteviewobject).getParent();
                     } else {
                         siteviewobject = null;
@@ -2073,14 +2073,14 @@ public class SiteViewGroup extends MonitorGroup {
 
     public int getAlertCount() {
         int i = 0;
-        i += getElementsOfClass("COM.dragonflow.SiteView.Rule", false, false).size();
+        i += getElementsOfClass("Rule", false, false).size();
         for (Enumeration enumeration = getMonitors(); enumeration.hasMoreElements();) {
             MonitorGroup monitorgroup = (MonitorGroup) enumeration.nextElement();
-            i += monitorgroup.getElementsOfClass("COM.dragonflow.SiteView.Rule", false, false).size();
+            i += monitorgroup.getElementsOfClass("Rule", false, false).size();
             Enumeration enumeration1 = monitorgroup.getMonitors();
             while (enumeration1.hasMoreElements()) {
                 Monitor monitor = (Monitor) enumeration1.nextElement();
-                i += monitor.getElementsOfClass("COM.dragonflow.SiteView.Rule", false, false).size();
+                i += monitor.getElementsOfClass("Rule", false, false).size();
             }
         }
 
@@ -2507,11 +2507,11 @@ public class SiteViewGroup extends MonitorGroup {
     }
 
     static {
-        $assertionsDisabled = !(COM.dragonflow.SiteView.SiteViewGroup.class).desiredAssertionStatus();
+        $assertionsDisabled = !(SiteViewGroup.class).desiredAssertionStatus();
         pWebserverAddress = new StringProperty("_webserverAddress", "localhost");
         pAdminURL = new StringProperty("_adminURL", "http://localhost:8888/SiteView");
         StringProperty astringproperty[] = { pWebserverAddress, pAdminURL };
-        addProperties("COM.dragonflow.SiteView.SiteViewGroup", astringproperty);
+        addProperties("SiteViewGroup", astringproperty);
         HashMap hashmap = MasterConfig.getMasterConfig();
         if (hashmap.get("_killProcesses") != null && ((String) hashmap.get("_killProcesses")).length() > 0) {
             killProcessesIsSet = true;

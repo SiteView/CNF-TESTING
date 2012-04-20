@@ -1,12 +1,13 @@
+package SiteViewMain;
 import java.io.IOException;
 
 import COM.dragonflow.Api.ApiRmiServer;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.SiteView.Platform;
 import SiteViewMain.SiteViewSupport;
-public class TestHttp {
+public class Start {
 	 
-	public TestHttp()
+	public Start()
 	 {
 	 }
 	public static void main(String args[])

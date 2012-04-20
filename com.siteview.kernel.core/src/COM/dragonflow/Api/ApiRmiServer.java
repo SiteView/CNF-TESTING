@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 
 import COM.dragonflow.SiteView.AtomicMonitor;
-import COM.dragonflow.SiteView.Group;
 import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteViewException.SiteViewException;
@@ -46,14 +46,26 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	}
 
 
-	public Collection getAllGroupInstances() throws SiteViewException {		
-		return apigroup.getAllGroupInstances();
+	public ArrayList<Map<String, Object>> getAllGroupInstances() throws SiteViewException {	
+		ArrayList<MonitorGroup> mgs = apigroup.getAllGroupInstances();
+        ArrayList list = new ArrayList();
+		for (MonitorGroup mg:mgs) {
+			SSInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+            Map<String,Object> hashmap1 = new HashMap();
+            for (int k = 0; k < assinstanceproperty1.length; k ++) {
+                hashmap1.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
+            }
+
+            hashmap1.put("_id", mg.getFullID());
+            list.add(hashmap1);
+		}
+		return list;
 	}
 
 
-	public ArrayList<HashMap<String, String>> getTopLevelGroupInstances() throws RemoteException, SiteViewException {		
+	public ArrayList<Map<String, Object>> getTopLevelGroupInstances() throws RemoteException, SiteViewException {		
 		
-		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		
 		try
 		{
@@ -62,7 +74,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 
 			for(MonitorGroup group:mg)
 			{
-				HashMap<String, String> nodedata = new HashMap<String, String>();
+				Map<String, Object> nodedata = new HashMap<String, Object>();
 				nodedata.put(new String("Name"), group.getProperty(MonitorGroup.pName));
 				nodedata.put(new String("GroupID"), group.getProperty(MonitorGroup.pGroupID));
 				list.add(nodedata);

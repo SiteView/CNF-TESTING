@@ -2382,10 +2382,10 @@ public class APISiteView
         return array1;
     }
 
-    protected Collection getAllAllowedGroups()
+    protected ArrayList<MonitorGroup> getAllAllowedGroups()
     {
         jgl.Array array = getAllAllowedGroupIDs();
-        ArrayList arraylist = new ArrayList(array.size());
+        ArrayList<MonitorGroup> arraylist = new ArrayList(array.size());
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         for(int i = 0; i < array.size(); i++)
         {

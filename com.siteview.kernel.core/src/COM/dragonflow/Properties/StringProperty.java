@@ -18,6 +18,7 @@ package COM.dragonflow.Properties;
  * 
  */
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Enumeration;
 
 import jgl.Array;
@@ -35,7 +36,7 @@ import COM.dragonflow.Utils.TextUtils;
 // Referenced classes of package COM.dragonflow.Properties:
 // FileProperty, GreaterEqualOrder, PropertiedObject
 
-public class StringProperty {
+public class StringProperty implements Serializable {
 
 	String testString="ÄãºÃ!";
 	

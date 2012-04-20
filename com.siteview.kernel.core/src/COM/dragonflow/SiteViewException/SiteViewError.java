@@ -8,6 +8,8 @@
  */
 package COM.dragonflow.SiteViewException;
 
+import java.io.Serializable;
+
 /**
  * Comment for <code></code>
  * 
@@ -18,7 +20,7 @@ package COM.dragonflow.SiteViewException;
  */
 
 
-public class SiteViewError
+public class SiteViewError implements Serializable
 {
 
     public static final int SS_ERR_TYPE_UNKNOWN = -1;

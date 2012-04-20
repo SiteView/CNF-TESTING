@@ -17,6 +17,7 @@ package COM.dragonflow.HTTP;
  * 
  */
 
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.util.Enumeration;
 import java.util.HashSet;

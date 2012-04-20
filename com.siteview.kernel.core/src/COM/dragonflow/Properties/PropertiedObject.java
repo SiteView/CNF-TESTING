@@ -41,7 +41,7 @@ import COM.dragonflow.Utils.TextUtils;
 // PropertyTable, HashMapOrdered, StringProperty, GreaterEqualOrder,
 // FrameFile, XMLProperty, Visitor
 
-public class PropertiedObject {
+public class PropertiedObject implements Serializable {
 
     protected static void addProperties(String s, StringProperty astringproperty[]) {
         Class class1;

@@ -5,13 +5,18 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
+import jgl.HashMap;
+
+import COM.dragonflow.SiteView.MonitorGroup;
+import COM.dragonflow.SiteView.SiteViewObject;
 import COM.dragonflow.SiteViewException.SiteViewException;
+import COM.dragonflow.Utils.jglUtils;
 
 public class APIRmiClient{
 	
-  static public void main(String args[]) throws SiteViewException{
+  static public void main(String args[]) throws SiteViewException, ClassNotFoundException, IllegalAccessException, InstantiationException{
 	  APIInterfaces rmiServer;
 	  Registry registry;
 	  String serverAddress= "localhost";
@@ -21,12 +26,25 @@ public class APIRmiClient{
 	  try{
 		  registry=LocateRegistry.getRegistry(serverAddress,(new Integer(serverPort)).intValue());
 		  
-		  rmiServer=(APIInterfaces)(registry.lookup("rmiServer"));
+		  rmiServer=(APIInterfaces)(registry.lookup("kernelRmiServer"));
 		  // call the remote method
-		  ArrayList<HashMap<String, String>> groups = rmiServer.getTopLevelGroupInstances();
-		  for(HashMap<String, String> group : groups) {
+		  ArrayList<Map<String, Object>> groups = rmiServer.getTopLevelGroupInstances();
+		  for(Map<String, Object> group : groups) {
 			  System.out.println("name:"+group.get("Name")+",id:"+group.get("GroupID"));
 		  }
+		  
+		  ArrayList<Map<String,Object>> mgList = rmiServer.getAllGroupInstances();
+		  ArrayList<MonitorGroup> mgobjList = new  ArrayList<MonitorGroup>(); 
+		  
+		  for(Map<String, Object> mg:mgList) {
+			  mg.put("_class","MonitorGroup");
+			  mgobjList.add((MonitorGroup) SiteViewObject.createObject(jglUtils.toJgl(mg)));
+		  }
+		  
+		  for(MonitorGroup mgObj:mgobjList) {
+			  System.out.println("name:"+mgObj.getProperty("_name")+",id:"+mgObj.getProperty("_id"));
+		  }
+		  
 	  }
 	  catch(RemoteException e){
 		  e.printStackTrace();
