@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -48,7 +48,7 @@ public class CNFContentProvider implements ITreeContentProvider
             }
 
             try {
-            	ArrayList<HashMap<String, String>> groups = rmiServer.getTopLevelGroupInstances();
+            	ArrayList<Map<String, Object>> groups = rmiServer.getTopLevelGroupInstances();
 				return groups.toArray();
 			} catch (SiteViewException e) {
 				e.printStackTrace();

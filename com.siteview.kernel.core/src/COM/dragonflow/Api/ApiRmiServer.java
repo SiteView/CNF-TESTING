@@ -48,10 +48,10 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 
 	public ArrayList<Map<String, Object>> getAllGroupInstances() throws SiteViewException {	
 		ArrayList<MonitorGroup> mgs = apigroup.getAllGroupInstances();
-        ArrayList list = new ArrayList();
+        ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		for (MonitorGroup mg:mgs) {
 			SSInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
-            Map<String,Object> hashmap1 = new HashMap();
+            Map<String,Object> hashmap1 = new HashMap<String, Object>();
             for (int k = 0; k < assinstanceproperty1.length; k ++) {
                 hashmap1.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
             }

@@ -1,3 +1,9 @@
+/*
+ * server side object --> server side map list -> rmi -> client side map list -> client side object
+with the client side object, the methonds can be used
+
+ * */
+
 package COM.dragonflow.Api;
 
 import java.rmi.NotBoundException;
@@ -44,7 +50,7 @@ public class APIRmiClient{
 		  for(MonitorGroup mgObj:mgobjList) {
 			  System.out.println("name:"+mgObj.getProperty("_name")+",id:"+mgObj.getProperty("_id"));
 		  }
-		  
+
 	  }
 	  catch(RemoteException e){
 		  e.printStackTrace();

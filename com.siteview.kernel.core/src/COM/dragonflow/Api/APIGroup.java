@@ -629,7 +629,7 @@ public class APIGroup extends APISiteView
         return getAllAllowedGroups();
     }
     
-    public ArrayList getTopLevelGroupInstances()
+    public ArrayList<MonitorGroup>  getTopLevelGroupInstances()
             throws SiteViewException
     {
             return getTopLevelAllowedGroups();

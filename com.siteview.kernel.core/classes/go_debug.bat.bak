@@ -1,2 +1,0 @@
-set SITESCOPE_JAVA_PARAMS=-Xdebug -Xnoagent -Xrunjdwp:transport=dt_shmem,server=y,suspend=y,address=sitescope_javadebug
-go.bat

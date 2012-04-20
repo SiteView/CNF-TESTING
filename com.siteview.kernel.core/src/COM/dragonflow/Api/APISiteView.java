@@ -29,8 +29,6 @@ import java.util.Vector;
 
 import jgl.Array;
 import jgl.HashMap;
-import jgl.Reversing;
-import jgl.Sorting;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -44,7 +42,6 @@ import COM.dragonflow.SiteView.CompareSlot;
 import COM.dragonflow.SiteView.ConfigurationChanger;
 import COM.dragonflow.SiteView.DetectConfigurationChange;
 import COM.dragonflow.SiteView.FindRunningMonitors;
-import COM.dragonflow.SiteView.GreaterEqualMonitorName;
 import COM.dragonflow.SiteView.Group;
 import COM.dragonflow.SiteView.Machine;
 import COM.dragonflow.SiteView.MasterConfig;
@@ -71,7 +68,7 @@ import COM.dragonflow.Utils.WSDLParser;
 // SSHealthStats, SSInstanceProperty, APIPreference, APIMonitor,
 // APIGroup, APIAlert, APIReport, SSPropertyDetails
 
-public class APISiteView
+public class APISiteView 
 {
     class HeartbeatTask extends java.util.TimerTask
         implements java.lang.Runnable
@@ -2399,10 +2396,10 @@ public class APISiteView
         return arraylist;
     }
     
-    protected  ArrayList getTopLevelAllowedGroups()
+    protected  ArrayList<MonitorGroup>  getTopLevelAllowedGroups()
     {
         jgl.Array array = getAllAllowedGroupIDs();
-        ArrayList arraylist = new ArrayList(array.size());
+        ArrayList<MonitorGroup>  arraylist = new ArrayList<MonitorGroup> (array.size());
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         for(int i = 0; i < array.size(); i++)
         {
