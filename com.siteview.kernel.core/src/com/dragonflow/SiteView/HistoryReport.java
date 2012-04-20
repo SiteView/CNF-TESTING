@@ -64,6 +64,7 @@ import com.netaphor.smtp.SMTPException;
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
 import com.recursionsw.jgl.Sequence;
+import com.recursionsw.jgl.SequenceIterator;
 import com.recursionsw.jgl.algorithms.Reversing;
 import com.recursionsw.jgl.algorithms.Sorting;
 

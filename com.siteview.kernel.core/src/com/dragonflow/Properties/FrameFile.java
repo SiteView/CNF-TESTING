@@ -23,8 +23,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.util.Collections;
 import java.util.Date;
-import java.util.Enumeration;
+//import java.util.Enumeration;
+import java.util.Iterator;
 
 import com.recursionsw.jgl.Array;
 import com.recursionsw.jgl.HashMap;
@@ -588,7 +590,10 @@ public class FrameFile {
                 }
 
             }
+            
             return readFrames((Enumeration) array.iterator());
+//            Iterator  i = Collections.synchronizedList(array).iterator();
+//            return readFrames((Enumeration)i);
         }
     }
 
