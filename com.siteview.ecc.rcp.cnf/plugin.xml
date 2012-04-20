@@ -41,7 +41,7 @@
             allowMultiple="false"
             class="com.siteview.ecc.rcp.cnf.provider.CNFNavigator"
             id="com.siteview.ecc.rcp.cnf.view"
-            name="Virtual CNF"
+            name="Monitor Explorer"
             restorable="true">
       </view>
    </extension>
