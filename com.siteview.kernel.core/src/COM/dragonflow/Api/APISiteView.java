@@ -2023,7 +2023,7 @@ public class APISiteView
         return flag;
     }
 
-    protected java.util.Vector getLocalServers()
+    protected Vector getLocalServers()
         throws SiteViewException
     {
         java.util.Vector vector = new Vector();
@@ -2416,14 +2416,14 @@ public class APISiteView
     
 
 
-    protected java.util.Collection getMonitorsForGroup(String s)
+    protected java.util.Collection getMonitorsForGroup(String groupid)
         throws SiteViewParameterException
     {
-        if(isGroupAllowedForAccount(s))
+        if(isGroupAllowedForAccount(groupid))
         {
             java.util.Vector vector = new Vector();
             SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
-            MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(s);
+            MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(groupid);
             java.util.ArrayList arraylist = new ArrayList();
             if(monitorgroup != null)
             {

@@ -3,7 +3,7 @@ package com.siteview.ecc.rcp.cnf.provider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-import com.siteview.ecc.rcp.cnf.data.Parent;
+import COM.dragonflow.SiteView.MonitorGroup;
 
 /**
  * @author Dragonflow
@@ -18,10 +18,11 @@ public class CNFFilter extends ViewerFilter
     @Override
     public boolean select(Viewer viewer, Object parentElement, Object element)
     {
-        if (element instanceof Parent) 
+        if (element instanceof MonitorGroup) 
         {
-            Parent parent = (Parent) element;
-            return (parent.getName().equals("Parent 11"));
+        	MonitorGroup mg = (MonitorGroup) element;
+//            return (mg.getProperty("_name").equals("test"));
+        	return true;
         } else {
             return true;
         }

@@ -22,6 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -148,7 +150,19 @@ public class MonitorGroup extends Monitor {
     }
 
     public String getHostname() {
-        return "GroupHost";
+    	String hostname = "";
+    	try {
+    	    InetAddress addr = InetAddress.getLocalHost();
+
+    	    // Get IP Address
+    	    byte[] ipAddr = addr.getAddress();
+
+    	    // Get hostname
+    	    hostname = addr.getHostName();
+    	} catch (UnknownHostException e) {
+    	}
+    	return hostname;
+//        return "GroupHost";
     }
 
     protected void startGroup() {

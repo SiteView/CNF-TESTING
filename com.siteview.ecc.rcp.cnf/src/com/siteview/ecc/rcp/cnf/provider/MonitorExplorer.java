@@ -2,7 +2,8 @@ package com.siteview.ecc.rcp.cnf.provider;
 
 import org.eclipse.ui.navigator.CommonNavigator;
 
-import com.siteview.ecc.rcp.cnf.data.MonitorSession;
+import com.siteview.ecc.rcp.cnf.data.MonitorServer;
+import com.siteview.ecc.rcp.cnf.data.MonitorServerManager;
 
 
 /**
@@ -11,11 +12,11 @@ import com.siteview.ecc.rcp.cnf.data.MonitorSession;
  */
 public class MonitorExplorer extends CommonNavigator
 {
-	private MonitorSession session;
+	private MonitorServer server;
     protected Object getInitialInput()
     {
-    	session = new MonitorSession();
-//    	return session.getRoot();
-        return new com.siteview.ecc.rcp.cnf.data.Root();
+    	server = new MonitorServer();
+//    	return server.getRoot();
+        return new MonitorServerManager();
     }
 }
