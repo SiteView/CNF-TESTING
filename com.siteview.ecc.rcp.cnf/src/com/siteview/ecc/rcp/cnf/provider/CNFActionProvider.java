@@ -15,7 +15,7 @@ import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.navigator.ICommonViewerSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 
-import com.siteview.ecc.rcp.cnf.data.Child;
+import COM.dragonflow.SiteView.Monitor;
 
 /**
  * @author Dragonflow
@@ -85,7 +85,7 @@ public class CNFActionProvider extends CommonActionProvider
     class OpenChildAction extends Action
     {
         private ISelectionProvider provider;
-        private Child data;
+        private Monitor data;
 
         public OpenChildAction(IWorkbenchPage workbenchPage, ISelectionProvider selectionProvider)
         {
@@ -100,7 +100,7 @@ public class CNFActionProvider extends CommonActionProvider
             
             if (data != null)
             {
-                System.out.println("Run on " + data.getName());
+                System.out.println("Run on " + data.getProperty("_name"));
             } 
             super.run();
         }
@@ -112,9 +112,9 @@ public class CNFActionProvider extends CommonActionProvider
             if (!selection.isEmpty())
             {
                 IStructuredSelection sSelection = (IStructuredSelection) selection;
-                if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof Child) 
+                if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof Monitor) 
                 {
-                    data = (Child)sSelection.getFirstElement();
+                    data = (Monitor)sSelection.getFirstElement();
                     return true;
                 }
             }

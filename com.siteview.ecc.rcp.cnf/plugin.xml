@@ -11,18 +11,26 @@
       </application>
    </extension>
    <extension
-         id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="com.siteview.ecc.rcp.cnf.application"
-            name="CNF Example">
-         <property
-               name="appName"
-               value="CNF Example">
-         </property>
+            application="com.siteview.ecc.rcp.cnf.internal.Application"
+            description="SiteView ECC Client Product"
+            name="SiteView ECC Client">
          <property
                name="windowImages"
-               value="icons/favicon.gif">
+               value="icons/alt16.gif,icons/alt32.gif">
+         </property>
+         <property
+               name="aboutImage"
+               value="icons/about.gif">
+         </property>
+         <property
+               name="aboutText"
+               value="%aboutText">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="preferences.ini">
          </property>
       </product>
    </extension>
@@ -39,7 +47,8 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
-            class="com.siteview.ecc.rcp.cnf.provider.CNFNavigator"
+            class="com.siteview.ecc.rcp.cnf.provider.MonitorExplorer"
+            icon="icons/groups.gif"
             id="com.siteview.ecc.rcp.cnf.view"
             name="Monitor Explorer"
             restorable="true">
@@ -80,7 +89,7 @@
          <includes>
             <contentExtension
                   isRoot="false"
-                  pattern="com.siteview.ecc.rcp.cnf.content.VirtualContent">
+                  pattern="com.siteview.ecc.rcp.cnf.content.MonitorContent">
             </contentExtension>
          </includes>
       </viewerContentBinding>
@@ -89,10 +98,10 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             activeByDefault="true"
-            contentProvider="com.siteview.ecc.rcp.cnf.provider.CNFContentProvider"
-            id="com.siteview.ecc.rcp.cnf.content.VirtualContent"
-            labelProvider="com.siteview.ecc.rcp.cnf.provider.CNFLabelProvider"
-            name="Virtual content"
+            contentProvider="com.siteview.ecc.rcp.cnf.provider.MonitorContentProvider"
+            id="com.siteview.ecc.rcp.cnf.content.MonitorContent"
+            labelProvider="com.siteview.ecc.rcp.cnf.provider.MonitorLabelProvider"
+            name="Monitor Explorer"
             priority="normal">
          <actionProvider
                class="com.siteview.ecc.rcp.cnf.provider.CNFActionProvider"
@@ -101,13 +110,16 @@
          <enablement>
             <or>
                <instanceof
-                     value="com.siteview.ecc.rcp.cnf.data.Parent">
+                     value="com.siteview.ecc.rcp.cnf.data.MonitorServerManager">
                </instanceof>
                <instanceof
-                     value="com.siteview.ecc.rcp.cnf.data.Child">
+                     value="com.siteview.ecc.rcp.cnf.data.MonitorServer">
                </instanceof>
                <instanceof
-                     value="com.siteview.ecc.rcp.cnf.data.Root">
+                     value="COM.dragonflow.SiteView.MonitorGroup">
+               </instanceof>
+               <instanceof
+                     value="COM.dragonflow.SiteView.Monitor">
                </instanceof>
             </or>
          </enablement>
@@ -199,6 +211,56 @@
             </iterate>
          </with>
       </definition>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="com.siteview.ecc.rcp.cnf.data.MonitorServerManager"
+            class="com.siteview.ecc.rcp.cnf.data.AdapterFactory">
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="com.siteview.ecc.rcp.cnf.data.MonitorServer"
+            class="com.siteview.ecc.rcp.cnf.data.AdapterFactory">
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="COM.dragonflow.SiteView.MonitorGroup"
+            class="com.siteview.ecc.rcp.cnf.data.AdapterFactory">
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="COM.dragonflow.SiteView.Monitor"
+            class="com.siteview.ecc.rcp.cnf.data.AdapterFactory">
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.siteview.ecc.rcp.cnf.internal.GeneralPreferencePage"
+            id="com.siteview.ecc.preferences.general"
+            name="General">
+      </page>
+      <page
+            class="org.eclipse.ui.ExtensionFactory:keysPreferencePage"
+            id="com.siteview.ecc.preferences.keys"
+            name="Keys">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.siteview.ecc.rcp.cnf.internal.PreferenceInitializer">
+      </initializer>
    </extension>
    <!-- extension
          point="org.eclipse.ui.popupMenus">

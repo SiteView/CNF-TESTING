@@ -11,6 +11,6 @@ public class CNFNavigator extends CommonNavigator
 {
     protected Object getInitialInput()
     {
-        return new com.siteview.ecc.rcp.cnf.data.Root();
+        return new com.siteview.ecc.rcp.cnf.data.MonitorServerManager();
     }
 }

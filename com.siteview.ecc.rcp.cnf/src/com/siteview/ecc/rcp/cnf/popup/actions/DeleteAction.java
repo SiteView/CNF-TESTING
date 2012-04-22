@@ -7,14 +7,14 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
-import com.siteview.ecc.rcp.cnf.data.Child;
+import COM.dragonflow.SiteView.Monitor;
 
 
 
 public class DeleteAction implements IObjectActionDelegate
 {
 
-    private Child data;
+    private Monitor data;
 
     /**
      * Constructor for Action1.
@@ -38,7 +38,7 @@ public class DeleteAction implements IObjectActionDelegate
     {
         if (data != null)
         {
-            System.out.println("Delete on " + data.getName());
+            System.out.println("Delete on " + data.getProperty("_name"));
         }
     }
 
@@ -50,12 +50,12 @@ public class DeleteAction implements IObjectActionDelegate
         if (!selection.isEmpty())
         {
             IStructuredSelection sSelection = (IStructuredSelection) selection;
-            if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof Child)
+            if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof Monitor)
             {
 
-                if (sSelection.getFirstElement() instanceof Child)
+                if (sSelection.getFirstElement() instanceof Monitor)
                 {
-                    data = (Child) sSelection.getFirstElement();
+                    data = (Monitor) sSelection.getFirstElement();
                 }
             }
         }
