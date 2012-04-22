@@ -121,6 +121,9 @@
                <instanceof
                      value="COM.dragonflow.SiteView.Monitor">
                </instanceof>
+               <instanceof
+                     value="java.util.List">
+               </instanceof>
             </or>
          </enablement>
       </navigatorContent>
@@ -237,6 +240,13 @@
       </factory>
       <factory
             adaptableType="COM.dragonflow.SiteView.Monitor"
+            class="com.siteview.ecc.rcp.cnf.data.AdapterFactory">
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="java.util.HashMap"
             class="com.siteview.ecc.rcp.cnf.data.AdapterFactory">
          <adapter
                type="org.eclipse.ui.model.IWorkbenchAdapter">

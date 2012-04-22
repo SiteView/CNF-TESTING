@@ -551,6 +551,10 @@ public class Platform {
         return ping(host, i, j, k, null);
     }
 
+    //TODO: for testing only
+    public static int[] ping(String host, int i, int j, int k,Monitor monitor) {
+    	return ping( host,  i,  j,  k, monitor);
+    }
     /**
      * 
      * 
@@ -561,8 +565,7 @@ public class Platform {
      * @param atomicmonitor
      * @return
      */
-    public static int[] ping(String host, int i, int j, int k,
-            AtomicMonitor atomicmonitor) {
+    public static int[] ping(String host, int i, int j, int k,AtomicMonitor atomicmonitor) {
         if (atomicmonitor != null)
             atomicmonitor.currentStatus = "PingMonitor executing cmd...";
         String s1 = pingCommand(host, i, j, k);
