@@ -13,12 +13,11 @@ import org.eclipse.jface.viewers.Viewer;
 import COM.dragonflow.Api.APIGroup;
 import COM.dragonflow.Api.APIInterfaces;
 import COM.dragonflow.Api.APIMonitor;
+import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteViewException.SiteViewException;
 
-import com.siteview.ecc.rcp.cnf.data.Child;
-import com.siteview.ecc.rcp.cnf.data.Parent;
-import com.siteview.ecc.rcp.cnf.data.Root;
+import com.siteview.ecc.rcp.cnf.data.MonitorServerManager;
 
 public class CNFContentProvider implements ITreeContentProvider
 {
@@ -32,7 +31,7 @@ public class CNFContentProvider implements ITreeContentProvider
 
     public Object[] getChildren(Object parentElement)
     {
-        if (parentElement instanceof Root)
+        if (parentElement instanceof MonitorServerManager)
         {
             if (rmiServer == null) {
       		  try {
@@ -80,19 +79,19 @@ public class CNFContentProvider implements ITreeContentProvider
 
     public Object getParent(Object element)
     {
-        if (element instanceof Child)
+        if (element instanceof Monitor)
         {
-            return ((Child) element).getParent();
-        } else if (element instanceof Parent)
+            return ((Monitor) element).getParent();
+        } else if (element instanceof MonitorGroup)
         {
-            return ((Parent) element).getRoot();
+            return ((MonitorGroup) element).getPlatform();
         }
         return null;
     }
 
     public boolean hasChildren(Object element)
     {
-        return (element instanceof Root || element instanceof Parent);
+        return (element instanceof MonitorServerManager || element instanceof MonitorGroup);
     }
 
     public Object[] getElements(Object inputElement)

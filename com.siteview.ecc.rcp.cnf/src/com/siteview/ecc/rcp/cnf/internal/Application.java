@@ -1,14 +1,16 @@
 package com.siteview.ecc.rcp.cnf.internal;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
-import COM.dragonflow.Log.LogManager;
-import COM.dragonflow.SiteView.Platform;
-import SiteViewMain.SiteViewSupport;
+import com.siteview.ecc.rcp.cnf.data.MonitorServer;
+import com.siteview.ecc.rcp.cnf.data.MonitorServerManager;
 
 /**
  * This class controls all aspects of the application's execution
@@ -16,9 +18,22 @@ import SiteViewMain.SiteViewSupport;
 public class Application implements IApplication
 {
 
+	public static final String PLUGIN_ID = "com.siteview.ecc";
     public Object start(IApplicationContext context)
     {
      
+
+		try {
+			MonitorServer server = new MonitorServer();
+			server.connectAndLogin();
+			MonitorServerManager.getInstance().registerServer(server);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	Display display = PlatformUI.createDisplay();
         try
         {

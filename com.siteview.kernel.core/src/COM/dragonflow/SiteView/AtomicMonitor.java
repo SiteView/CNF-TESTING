@@ -1522,8 +1522,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         for (int j = 0; j < properties.size(); j++) {
             StringProperty stringproperty = (StringProperty) properties.at(j);
             if (stringproperty.isConfigurable && stringproperty.isParameter)
-                addBasedOnExcludeAttribs(configurationAddProperties,
-                        stringproperty, vector, bool, i);
+                addBasedOnExcludeAttribs(configurationAddProperties,stringproperty, vector, bool, i);
         }
         configurationAddProperties.add(new StringProperty("_classifier"));
         return configurationAddProperties.elements();

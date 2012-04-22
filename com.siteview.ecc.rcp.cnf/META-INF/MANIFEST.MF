@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: SiteView ECC CNF Plug-in
+Bundle-Name: SiteView ECC Plug-in
 Bundle-SymbolicName: com.siteview.ecc.rcp.cnf;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: com.siteview.ecc.rcp.cnf.internal.CNFActivator

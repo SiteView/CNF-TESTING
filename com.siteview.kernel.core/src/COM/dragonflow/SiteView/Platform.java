@@ -1,12 +1,4 @@
-/*
- * 
- * Created on 2005-2-6 15:53:53
- *
- * Platform.java
- *
- * History:
- *
- */
+
 package COM.dragonflow.SiteView;
 
 /**
@@ -139,7 +131,7 @@ public class Platform {
     }
 
     public static String platformName() {
-        String s = "NT";
+        String s = "WIN";
         if (isUnix())
             s = "Unix";
         return s;
