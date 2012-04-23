@@ -92,8 +92,7 @@
                   pattern="com.siteview.ecc.rcp.cnf.content.MonitorContent">
             </contentExtension>
          </includes>
-      </viewerContentBinding>
-   </extension>
+      </viewerContentBinding>   </extension>
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
@@ -195,21 +194,38 @@
             </reference>
          </enabledWhen>
       </handler>
+      <handler
+            class="com.siteview.ecc.rcp.cnf.handler.DeleteHandler"
+            commandId="org.eclipse.ui.edit.delete">
+         <activeWhen>
+            <reference
+                  definitionId="com.siteview.ecc.rcp.cnf.elementSelected">
+            </reference>
+         </activeWhen>
+         <enabledWhen>
+            <reference
+                  definitionId="com.siteview.ecc.rcp.cnf.elementSelected">
+            </reference>
+         </enabledWhen>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.core.expressions.definitions">
       <definition
             id="com.siteview.ecc.rcp.cnf.elementSelected">
-         <with
+         <or
                variable="selection">
-            <iterate
-                  ifEmpty="false"
-                  operator="or">
+            <iterate>
                <instanceof
-                     value="com.siteview.ecc.rcp.cnf.data.Child">
+                     value="java.util.HashMap">
                </instanceof>
             </iterate>
-         </with>
+            <iterate>
+               <instanceof
+                     value="COM.dragonflow.SiteView.MonitorGroup">
+               </instanceof>
+            </iterate>
+         </or>
       </definition>
    </extension>
    <extension

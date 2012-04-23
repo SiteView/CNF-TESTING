@@ -14,5 +14,8 @@ public interface APIInterfaces extends Remote
 	List<Map<String, Object>> getTopLevelGroupInstances()  throws RemoteException,SiteViewException;
 	List<Map<String, Object>> getChildGroupInstances(String groupid)  throws RemoteException,SiteViewException;
 	List<Map<String, Object>> getMonitorsForGroup(String groupid)  throws RemoteException,SiteViewException;
+	int getNumOfMonitorsForGroup(String groupid)  throws RemoteException,SiteViewException;
+	void deleteGroup(String groupId)  throws RemoteException,SiteViewException;
+	void deleteMonitor(String monitorId,String groupId)  throws RemoteException,SiteViewException;
 	
 }

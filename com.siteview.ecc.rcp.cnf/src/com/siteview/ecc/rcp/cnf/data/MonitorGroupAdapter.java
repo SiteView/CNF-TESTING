@@ -88,29 +88,15 @@ public class MonitorGroupAdapter implements IWorkbenchAdapter, IWorkbenchAdapter
 	}
 	
 	private int getNumMonitors(MonitorGroup monitorGroup) {
-		int total = 0;
     	String hostname = monitorGroup.getHostname();
     	MonitorServer server  = (MonitorServer) MonitorServerManager.getInstance().getServers().get(hostname);
-    	String groupid = monitorGroup.getProperty("_name");
-    	try {//TODO: optimize, should calculate on the server side, not on client side
-	    	List<Map<String, Object>> monitorList =  server.getRmiServer().getMonitorsForGroup(groupid);
-	    	total = monitorList.size();
-			List<Map<String, Object>> subGroupList = server.getRmiServer().getChildGroupInstances(groupid);
-	    	for(Map subGroup:subGroupList) {
-	    		subGroup.put("_class","MonitorGroup");
-	    		total += getNumMonitors((MonitorGroup)SiteViewObject.createObject(jglUtils.toJgl(subGroup)));
-	    		List<Map<String, Object>> monitorList2 = server.getRmiServer().getMonitorsForGroup((String)subGroup.get("_name"));
-	    	}
-	    	return total;
+    	String groupid = monitorGroup.getProperty("_name");    	
+    	
+    	try {
+	    	return server.getRmiServer().getNumOfMonitorsForGroup(groupid);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (SiteViewException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
 			e.printStackTrace();
 		}
     	return 0;
