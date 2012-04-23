@@ -1,12 +1,4 @@
-/*
- * 
- * Created on 2005-2-16 15:14:00
- *
- * MonitorGroup.java
- *
- * History:
- *
- */
+
 package COM.dragonflow.SiteView;
 
 /**

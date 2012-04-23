@@ -13,6 +13,8 @@ import com.siteview.ecc.rcp.cnf.data.MonitorServerManager;
 public class MonitorExplorer extends CommonNavigator
 {
 	private MonitorServer server;
+	public static final String ID = "com.siteview.ecc.rcp.cnf.view";
+	
     protected Object getInitialInput()
     {
     	server = new MonitorServer();
