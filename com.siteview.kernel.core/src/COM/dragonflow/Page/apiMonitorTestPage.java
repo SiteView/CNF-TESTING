@@ -202,21 +202,21 @@ public class apiMonitorTestPage extends apiMasterTestPage
             } else
             if(request.hasValue("testName") && request.getValue("testName").equals("deleteMonitor"))
             {
-                String s4 = request.getValue("deleteMonitorID");
-                String s21 = request.getValue("deleteGroupID");
-                if(s21 == null || s21.length() <= 0)
+                String monitorId = request.getValue("deleteMonitorID");
+                String groupid = request.getValue("deleteGroupID");
+                if(groupid == null || groupid.length() <= 0)
                 {
                     outputStream.println("<p>Group ID must be supplied!");
                 } else
-                if(s4 == null || s4.length() <= 0)
+                if(monitorId == null || monitorId.length() <= 0)
                 {
                     outputStream.println("<p>Monitor ID must be supplied!");
                 } else
                 {
                     try
                     {
-                        apimonitor.delete(s4, s21);
-                        outputStream.println("Monitor target " + s21 + " " + s4 + " deleted succesfully!\n");
+                        apimonitor.delete(monitorId, groupid);
+                        outputStream.println("Monitor target " + groupid + " " + monitorId + " deleted succesfully!\n");
                     }
                     catch(java.lang.Exception exception16)
                     {
