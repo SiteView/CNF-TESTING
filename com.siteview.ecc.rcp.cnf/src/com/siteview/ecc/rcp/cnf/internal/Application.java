@@ -22,7 +22,8 @@ public class Application implements IApplication
     public Object start(IApplicationContext context)
     {
      
-
+    	//create and register a backend server
+    	//TODO: this info should be saved, not hard coded.
 		try {
 			MonitorServer server = new MonitorServer();
 			server.connectAndLogin();

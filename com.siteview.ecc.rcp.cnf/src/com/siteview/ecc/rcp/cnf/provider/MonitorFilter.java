@@ -9,7 +9,7 @@ import COM.dragonflow.SiteView.MonitorGroup;
  * @author Dragonflow
  * @version $Id$
  */
-public class CNFFilter extends ViewerFilter
+public class MonitorFilter extends ViewerFilter
 {
 
     /* (non-Javadoc)

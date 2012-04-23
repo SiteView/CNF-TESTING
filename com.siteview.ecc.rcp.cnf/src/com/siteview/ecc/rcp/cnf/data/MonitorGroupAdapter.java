@@ -70,18 +70,50 @@ public class MonitorGroupAdapter implements IWorkbenchAdapter, IWorkbenchAdapter
 		return MonitorServerManager.getInstance().getServers().get(mg.getHostname());
 	}
 	
-	public String getLabel(Object o) {
-		MonitorGroup monitorGroup = ((MonitorGroup) o);
-		int total = getNumMonitors(monitorGroup);
-		return monitorGroup.getProperty("_name") + "(" + total + ")";
+	public String getLabel(Object parentElement) {
+		if (parentElement instanceof MonitorGroup) {
+			MonitorGroup monitorGroup = ((MonitorGroup) parentElement);
+			int total = getNumMonitors(monitorGroup);
+			return monitorGroup.getProperty("_name") + "(" + total + ")";
+		} else if (parentElement instanceof Monitor) {
+			Monitor monitor = (Monitor) parentElement;
+//			return (String) monitor.get("_name");
+			return "ping1";
+		} else {
+			return "default";
+		} 
+			
+		
 		//FIXME: get:  error/warning/ok counts			
 	}
 	
 	private int getNumMonitors(MonitorGroup monitorGroup) {
 		int total = 0;
-//		server.getRmiServer()
-
-		return total;
+    	String hostname = monitorGroup.getHostname();
+    	MonitorServer server  = (MonitorServer) MonitorServerManager.getInstance().getServers().get(hostname);
+    	String groupid = monitorGroup.getProperty("_name");
+    	try {//TODO: optimize, should calculate on the server side, not on client side
+	    	List<Map<String, Object>> monitorList =  server.getRmiServer().getMonitorsForGroup(groupid);
+	    	total = monitorList.size();
+			List<Map<String, Object>> subGroupList = server.getRmiServer().getChildGroupInstances(groupid);
+	    	for(Map subGroup:subGroupList) {
+	    		subGroup.put("_class","MonitorGroup");
+	    		total += getNumMonitors((MonitorGroup)SiteViewObject.createObject(jglUtils.toJgl(subGroup)));
+	    		List<Map<String, Object>> monitorList2 = server.getRmiServer().getMonitorsForGroup((String)subGroup.get("_name"));
+	    	}
+	    	return total;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (SiteViewException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		}
+    	return 0;
 	}
 
 	public ImageDescriptor getImageDescriptor(Object object) {
@@ -93,27 +125,30 @@ public class MonitorGroupAdapter implements IWorkbenchAdapter, IWorkbenchAdapter
 		if (parentElement instanceof MonitorGroup)
         {
             try {
+            	List<Object> mgobjList = new  ArrayList<Object>(); 
+            	
             	//the MonitorServer upon which the monitor group is run.
             	String hostname = ((MonitorGroup)parentElement).getHostname();
             	MonitorServer server  = (MonitorServer) MonitorServerManager.getInstance().getServers().get(hostname);
             	//obtain the groupid
             	String groupid = ((MonitorGroup)parentElement).getProperty("_name");
+
             	List<Map<String, Object>> subGroupList = server.getRmiServer().getChildGroupInstances(groupid); 
-            	List<Map<String, Object>> monitorList =  server.getRmiServer().getMonitorsForGroup(groupid);
-            	List<Monitor> mgobjList = new  ArrayList<Monitor>(); 
-    		  
-    		  for(Map<String, Object> mg:subGroupList) {
+            	for(Map<String, Object> mg:subGroupList) {
     			  mg.put("_class","MonitorGroup");
     			  mgobjList.add((MonitorGroup)SiteViewObject.createObject(jglUtils.toJgl(mg)));
-    		  }
-    		  
-    		  for(Map<String, Object> monitor:monitorList) {
-//    			  monitor.put("_class","PingMonitor");
-//    			  AtomicMonitor m = (AtomicMonitor) SiteViewObject.createObject(jglUtils.toJgl(monitor));
-//    			  mgobjList.add(m);
-    		  }
-    		  
+            	}
+
+            	List<Map<String, Object>> monitorList =  server.getRmiServer().getMonitorsForGroup(groupid);
+            	for(Map<String, Object> monitor:monitorList) {
+//            	  Class mon = Class.forName("COM.dragonflow.StandardMonitor.TestMonitor");	
+//            	  SiteViewObject siteviewobject = (SiteViewObject) mon.newInstance();
+//    			  monitor.put("_class","TestMonitor");
+//    			  Monitor m = (Monitor) SiteViewObject.createObject(jglUtils.toJgl(monitor));
+    			  mgobjList.add(monitor);
+            	}    		  
 				return mgobjList.toArray();
+				
 			} catch (RemoteException e) {
 				e.printStackTrace();
 				return EMPTY_ARRAY;

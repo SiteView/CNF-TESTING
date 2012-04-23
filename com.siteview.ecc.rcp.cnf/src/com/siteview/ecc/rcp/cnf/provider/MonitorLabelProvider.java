@@ -19,11 +19,10 @@ public class MonitorLabelProvider extends LabelProvider {
 	protected final IWorkbenchAdapter getAdapter(Object element) {
 		IWorkbenchAdapter adapter = null;
 		if (element instanceof IAdaptable)
-			adapter = (IWorkbenchAdapter) ((IAdaptable) element)
-					.getAdapter(IWorkbenchAdapter.class);
+			adapter = (IWorkbenchAdapter) ((IAdaptable) element).getAdapter(IWorkbenchAdapter.class);
 		if (adapter == null)
 			adapter = (IWorkbenchAdapter) Platform.getAdapterManager()
-					.loadAdapter(element, IWorkbenchAdapter.class.getName());
+						.loadAdapter(element, IWorkbenchAdapter.class.getName());
 		return adapter;
 	}
 
