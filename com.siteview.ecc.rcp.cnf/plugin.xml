@@ -104,7 +104,7 @@
             name="Monitor Explorer"
             priority="normal">
          <actionProvider
-               class="com.siteview.ecc.rcp.cnf.provider.CNFActionProvider"
+               class="com.siteview.ecc.rcp.cnf.provider.MonitorActionProvider"
                id="openChildProvider">
          </actionProvider>
          <enablement>
@@ -121,14 +121,11 @@
                <instanceof
                      value="COM.dragonflow.SiteView.Monitor">
                </instanceof>
-               <instanceof
-                     value="java.util.List">
-               </instanceof>
             </or>
          </enablement>
       </navigatorContent>
       <commonFilter
-            class="com.siteview.ecc.rcp.cnf.provider.CNFFilter"
+            class="com.siteview.ecc.rcp.cnf.provider.MonitorFilter"
             description="Only shows the Parent02"
             id="com.siteview.ecc.rcp.cnf.filters.parent2only"
             name="Parent 02 Filter">
