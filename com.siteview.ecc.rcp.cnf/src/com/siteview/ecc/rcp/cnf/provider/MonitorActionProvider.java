@@ -21,13 +21,13 @@ import COM.dragonflow.SiteView.Monitor;
  * @author Dragonflow
  * @version $Id$
  */
-public class CNFActionProvider extends CommonActionProvider
+public class MonitorActionProvider extends CommonActionProvider
 {
 
     private OpenChildAction openAction;
 
 
-    public CNFActionProvider()
+    public MonitorActionProvider()
     {
 
     }

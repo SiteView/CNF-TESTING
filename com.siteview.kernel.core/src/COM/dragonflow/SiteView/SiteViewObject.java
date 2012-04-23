@@ -85,8 +85,7 @@ public abstract class SiteViewObject extends PropertiedObject {
                                 + " was marked \"not loadable\". "
                                 + "This monitor type not supported on this platform and is ignored.");
             } else {
-                SiteViewObject siteviewobject = (SiteViewObject) class1
-                        .newInstance();
+                SiteViewObject siteviewobject = (SiteViewObject) class1.newInstance();
                 siteviewobject.readFromHashMap(hashmap);
                 siteviewobject.initialize(hashmap);
                 return siteviewobject;

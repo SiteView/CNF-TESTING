@@ -317,33 +317,33 @@ public class APIMonitor extends APISiteView
             int j = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_URLSequenceMonitorSteps"));
             for(int k = 0; k < j; k++)
             {
-                String s8 = (String)hashmap.get("_postData" + (new Integer(k + 1)).toString());
+                String postData = (String)hashmap.get("_postData" + (new Integer(k + 1)).toString());
                 int l = -1;
                 do
                 {
-                    if(s8 != null && s8.length() > 0)
+                    if(postData != null && postData.length() > 0)
                     {
-                        l = s8.indexOf("{[");
-                        int i1 = s8.indexOf("}");
+                        l = postData.indexOf("{[");
+                        int i1 = postData.indexOf("}");
                         if(l >= 0 && i1 >= 0)
                         {
-                            s8 = s8.substring(0, l) + s8.substring(i1 + 1);
+                            postData = postData.substring(0, l) + postData.substring(i1 + 1);
                         }
-                        hashmap.put("_postData" + (new Integer(k + 1)).toString(), s8);
+                        hashmap.put("_postData" + (new Integer(k + 1)).toString(), postData);
                     }
                 } while(l != -1);
-                String s9 = (String)hashmap.get("_reference" + (new Integer(k + 1)).toString());
-                if(s9 == null || s9.length() <= 0)
+                String reference = (String)hashmap.get("_reference" + (new Integer(k + 1)).toString());
+                if(reference == null || reference.length() <= 0)
                 {
                     continue;
                 }
-                int j1 = s9.indexOf("{[");
-                int k1 = s9.indexOf("}");
+                int j1 = reference.indexOf("{[");
+                int k1 = reference.indexOf("}");
                 if(j1 >= 0 && k1 >= 0)
                 {
-                    s9 = s9.substring(k1 + 1);
+                    reference = reference.substring(k1 + 1);
                 }
-                hashmap.put("_reference" + (new Integer(k + 1)).toString(), s9);
+                hashmap.put("_reference" + (new Integer(k + 1)).toString(), reference);
             }
 
             fixDisableAlertingParams(hashmap);
@@ -353,8 +353,8 @@ public class APIMonitor extends APISiteView
             {
                 processWSDLParameters(hashmap);
             }
-            String s7 = (String)hashmap.get("_machine");
-            processMachineName(s7, hashmap);
+            String machine = (String)hashmap.get("_machine");
+            processMachineName(machine, hashmap);
             AtomicMonitor atomicmonitor = instantiateMonitor(s);
             setMonitorProperties(OP_ADD, atomicmonitor, "", s1, hashmap);
             atomicmonitor.initialize(hashmap);

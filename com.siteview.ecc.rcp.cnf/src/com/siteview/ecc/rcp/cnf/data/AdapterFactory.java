@@ -1,9 +1,10 @@
 package com.siteview.ecc.rcp.cnf.data;
 
+import java.util.HashMap;
+
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 
-import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 
 public class AdapterFactory implements IAdapterFactory {
@@ -12,7 +13,8 @@ public class AdapterFactory implements IAdapterFactory {
 	private IWorkbenchAdapter monitorServerManagerAdapter = new MonitorServerManagerAdapter();	
 	private IWorkbenchAdapter monitorServerAdapter = new MonitorServerAdapter();	
 	private IWorkbenchAdapter monitorGroupAdapter = new MonitorGroupAdapter();	
-	private IWorkbenchAdapter monitorAdapter = new MonitorAdapter();	
+//	private IWorkbenchAdapter monitorAdapter = new MonitorAdapter();	
+	private IWorkbenchAdapter monitorAdapter = new MonitorAdapter();
 
 
 	/* (non-Javadoc)
@@ -29,7 +31,7 @@ public class AdapterFactory implements IAdapterFactory {
 				&& adaptableObject instanceof MonitorGroup)
 			return monitorGroupAdapter;
 		if (adapterType == IWorkbenchAdapter.class
-				&& adaptableObject instanceof Monitor)
+				&& adaptableObject instanceof HashMap)
 			return monitorAdapter;
 		return null;
 	}
