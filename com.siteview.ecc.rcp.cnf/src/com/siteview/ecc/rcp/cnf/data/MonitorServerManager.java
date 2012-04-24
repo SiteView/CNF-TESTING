@@ -17,6 +17,8 @@ import org.eclipse.core.runtime.PlatformObject;
 public class MonitorServerManager extends PlatformObject {
 
 	private Map<String,MonitorServer> servers = new HashMap<String, MonitorServer>();
+	private MonitorServer curServer;
+	private boolean bLogin = false;
 
 	private static MonitorServerManager INSTANCE;
 
@@ -41,6 +43,7 @@ public class MonitorServerManager extends PlatformObject {
 	public void registerServer(MonitorServer server) throws RemoteException, NotBoundException {
 //		server.connectAndLogin();
 		servers.put(server.getHost(),server) ;
+//		servers.put(server.getUserId(), server) ;
 	}
 
 	public String getName() {
@@ -49,5 +52,21 @@ public class MonitorServerManager extends PlatformObject {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public MonitorServer getCurServer() {
+		return this.curServer;
+	}
+	
+	public void setCurServer(MonitorServer server) {
+		this.curServer = server;
+	}
+	
+	public boolean getLoginSucess()	{
+		return this.bLogin;
+	}
+	
+	public boolean setLoginSucess(boolean bIn) {
+		return this.bLogin = bIn;
 	}
 }
