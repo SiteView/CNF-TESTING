@@ -1,18 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2005 Jean-Michel Lemieux, Jeff McAffer and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Hyperbola is an RCP application developed for the book
- *     Eclipse Rich Client Platform - 
- *         Designing, Coding, and Packaging Java Applications
- * See http://eclipsercp.org
- *
- * Contributors:
- *     Jean-Michel Lemieux and Jeff McAffer - initial API and implementation
- *******************************************************************************/
+
 package com.siteview.ecc.rcp.cnf.internal;
 
 import org.eclipse.jface.action.Action;
@@ -41,8 +27,8 @@ public class AddMonitorAction extends Action implements ISelectionListener,
 		this.window = window;
 		setId(ID);
 		setActionDefinitionId(ID);
-		setText("&Add Contact...");
-		setToolTipText("Add a contact to your contacts list.");
+		setText("&Add Monitor...");
+		setToolTipText("Add a monitor to group.");
 		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(
 				Application.PLUGIN_ID, IImageKeys.ADD_CONTACT));
 		window.getSelectionService().addSelectionListener(this);
