@@ -67,7 +67,7 @@ public class SecureLoginDialog extends Dialog {
 
 	private Text passwordText;
 
-	private MonitorServer connectionDetails;
+	private MonitorServer server;
 
 	private HashMap savedDetails = new HashMap();
 
@@ -198,8 +198,8 @@ public class SecureLoginDialog extends Dialog {
 		autoLogin.setSelection(auto_login);
 
 		String lastUser = "none";
-		if (connectionDetails != null)
-			lastUser = connectionDetails.getUserId();
+		if (server != null)
+			lastUser = server.getUserId();
 		initializeUsers(lastUser);
 
 		return composite;
@@ -241,12 +241,12 @@ public class SecureLoginDialog extends Dialog {
 	}
 
 	protected void okPressed() {
-		if (connectionDetails.getUserId().equals("")) {
+		if (server.getUserId().equals("")) {
 			MessageDialog.openError(getShell(), "Invalid User ID",
 					"User ID field must not be blank.");
 			return;
 		}
-		if (connectionDetails.getHost().equals("")) {
+		if (server.getHost().equals("")) {
 			MessageDialog.openError(getShell(), "Invalid Server",
 					"Server field must not be blank.");
 			return;
@@ -256,10 +256,10 @@ public class SecureLoginDialog extends Dialog {
 
 	protected void buttonPressed(int buttonId) {
 		String userId = userIdText.getText();
-		String server = serverText.getText();
+		String hostname = serverText.getText();
 		String password = passwordText.getText();
-		connectionDetails = new MonitorServer(userId, server, password);
-		savedDetails.put(userId, connectionDetails);
+		server = new MonitorServer(userId, hostname, password);
+		savedDetails.put(userId, server);
 		if (buttonId == IDialogConstants.OK_ID
 				|| buttonId == IDialogConstants.CANCEL_ID)
 			saveDescriptors();
@@ -269,7 +269,7 @@ public class SecureLoginDialog extends Dialog {
 	public void saveDescriptors() {
 		try {
 			ISecurePreferences preferences = SecurePreferencesFactory.getDefault();
-			preferences.put(LAST_USER, connectionDetails.getUserId(), false);
+			preferences.put(LAST_USER, server.getUserId(), false);
 			ISecurePreferences connections = preferences.node(SAVED);
 			for (Iterator it = savedDetails.keySet().iterator(); it.hasNext();) {
 				String name = (String) it.next();
@@ -298,7 +298,7 @@ public class SecureLoginDialog extends Dialog {
 						.get(SERVER, ""), node.get(PASSWORD, "")));
 			}
 			savedDetails.put("reader", new MonitorServer("admin", "", "admin"));
-			connectionDetails = (MonitorServer) savedDetails
+			server = (MonitorServer) savedDetails
 					.get(preferences.get(LAST_USER, ""));
 		} catch (StorageException e) {
 			e.printStackTrace();
@@ -310,6 +310,6 @@ public class SecureLoginDialog extends Dialog {
 	 * if the dialog was canceled.
 	 */
 	public MonitorServer getConnectionDetails() {
-		return connectionDetails;
+		return server;
 	}
 }
