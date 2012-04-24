@@ -194,4 +194,13 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		}
 		return list;
 	}
+	
+	public boolean trylogin(String strUser, String strPwd) throws RemoteException,SiteViewException {
+		jgl.Array array = COM.dragonflow.SiteView.User.findUsersForLogin(strUser, strPwd);
+		if(array.size() > 0)
+			return true;
+		else
+			return false;
+	}
+
 }

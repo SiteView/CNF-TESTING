@@ -28,14 +28,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor
 
 	private IWorkbenchAction aboutAction;
 
-	private AddMointorAction addMointorAction;
+	private AddMonitorAction addMointorAction;
 
 	protected void makeActions(IWorkbenchWindow window) {
 		exitAction = ActionFactory.QUIT.create(window);
 		register(exitAction);
 		aboutAction = ActionFactory.ABOUT.create(window);
 		register(aboutAction);
-		addMointorAction = new AddMointorAction(window);
+		addMointorAction = new AddMonitorAction(window);
 		register(addMointorAction);
 	}
 

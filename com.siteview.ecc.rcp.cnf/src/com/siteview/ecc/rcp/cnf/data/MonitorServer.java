@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.PlatformObject;
 
 import COM.dragonflow.Api.APIInterfaces;
+import COM.dragonflow.SiteViewException.SiteViewException;
 
 
 /**
@@ -24,22 +25,44 @@ public class MonitorServer extends PlatformObject {
     private  APIInterfaces rmiServer;
 	private String host, port, userId,password,alias,description;
 
-	public MonitorServer() {
-		
-    	String hostname = "";
-    	try {
-    	    InetAddress addr = InetAddress.getLocalHost();
-
-    	    // Get IP Address
-    	    byte[] ipAddr = addr.getAddress();
-
-    	    // Get hostname
-    	    this.host = addr.getHostName();
-    	} catch (UnknownHostException e) {
-    	}
+	public MonitorServer() 
+	{	
+		initServer();
+	}
+	
+	private void initServer()
+	{
+		String hostname = "";
+		try {
+		    InetAddress addr = InetAddress.getLocalHost();
+	
+		    // Get IP Address
+		    byte[] ipAddr = addr.getAddress();
+	
+		    // Get hostname
+		    this.host = addr.getHostName();
+		}
+		catch (UnknownHostException e) 
+		{
+			
+		}
 
 		this.port = "3232";
 		this.alias=this.host;
+	}
+	
+	public MonitorServer(String userId, String host, String password) 
+	{
+		initServer();
+		 
+		this.userId = userId;
+		
+		if(!this.host.endsWith(""))
+			this.host = host;
+//		this.port = port;
+		this.password = password;
+//		this.alias = alias;
+//		this.description= description;
 	}
 	
 	public MonitorServer(String host, String port, String userId,String password,String alias,String description) {
@@ -126,5 +149,17 @@ public class MonitorServer extends PlatformObject {
 	    	Registry registry=LocateRegistry.getRegistry(host,(new Integer(port).intValue()));
 		  	rmiServer=(APIInterfaces)(registry.lookup("kernelApiRmiServer"));		  	
 	}
-
+	
+	public void connectAndLogin(final IProgressMonitor monitor)throws RemoteException, NotBoundException, SiteViewException 
+	{
+    	Registry registry=LocateRegistry.getRegistry(host,(new Integer(port).intValue()));
+	  	rmiServer=(APIInterfaces)(registry.lookup("kernelApiRmiServer"));		 
+		monitor.beginTask("Connecting...", IProgressMonitor.UNKNOWN);
+		monitor.subTask("Contacting " + this.getHost()
+				+ "...");
+		
+		MonitorServerManager.getInstance().setLoginSucess(rmiServer.trylogin(this.getUserId(), this.getPassword()));
+		
+		monitor.done();
+	}
 }
