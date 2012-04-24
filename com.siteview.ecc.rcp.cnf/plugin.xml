@@ -47,7 +47,7 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
-            class="com.siteview.ecc.rcp.cnf.provider.MonitorExplorer"
+            class="com.siteview.ecc.rcp.cnf.ui.MonitorExplorer"
             icon="icons/groups.gif"
             id="com.siteview.ecc.rcp.cnf.view"
             name="Monitor Explorer"
@@ -284,6 +284,23 @@
       <initializer
             class="com.siteview.ecc.rcp.cnf.internal.PreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="com.siteview.ecc.rcp.cnf.actions.monitorGroup"
+            objectClass="COM.dragonflow.SiteView.MonitorGroup">
+         <action
+              class="com.siteview.ecc.rcp.cnf.actions.DeleteMonitorGroupAction"
+               enablesFor="1"
+               helpContextId="org.eclipse.ui.edit.delete"
+               icon="icons/delete_obj.gif"
+               id="com.siteview.ecc.rcp.cnf.actions.deleteMonitorGroup"
+               label="Delete Monitor Group"
+               menubarPath="group.edit"
+               tooltip="Delete a monitor group"/>
+      </objectContribution>
    </extension>
    <!-- extension
          point="org.eclipse.ui.popupMenus">

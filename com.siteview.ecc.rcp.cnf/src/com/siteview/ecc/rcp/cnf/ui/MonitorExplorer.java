@@ -1,4 +1,4 @@
-package com.siteview.ecc.rcp.cnf.provider;
+package com.siteview.ecc.rcp.cnf.ui;
 
 import org.eclipse.ui.navigator.CommonNavigator;
 

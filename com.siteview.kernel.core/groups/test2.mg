@@ -1,0 +1,11 @@
+_encoding=GBK
+_dependsCondition=good
+_nextID=2
+_fileEncoding=UTF-8
+_name=test2
+#
+_class=SubGroup
+_id=1
+_encoding=GBK
+_group=sub22
+_name=sub22
