@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -18,24 +19,29 @@ import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteViewException.SiteViewException;
 
 public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements APIInterfaces{
-	String address;
+	String hostname;
 	Registry registry; 
 	APIGroup apigroup;
 	APIMonitor apimonitor;
 
 
 	public ApiRmiServer() throws RemoteException{
-		try{  
-			address = (InetAddress.getLocalHost()).toString();
+		try{
+			InetAddress addr = InetAddress.getLocalHost();
+		    // Get IP Address
+//		    byte[] ipAddr = addr.getAddress();
+
+		    // Get hostname
+		    hostname = addr.getHostName();
 		}
 		catch(Exception e){
 			System.out.println("can't get inet address.");
 		}
 		int port=3232; 
-		System.out.println("this address=" + address +  ",port=" + port);
+		System.out.println("RMI server start at this address=" + hostname +  ",port=" + port);
 		try{
 			registry = LocateRegistry.createRegistry(port);
-			registry.rebind("kernelRmiServer", this);
+			registry.rebind("kernelApiRmiServer", this);
 			
 			apigroup = new APIGroup();
 			apimonitor = new APIMonitor();
@@ -44,40 +50,47 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			System.out.println("remote exception"+ e);
 		}
 	}
+	
+	public String getHostname () {
+		return hostname;
+	}
 
 
-	public ArrayList<Map<String, Object>> getAllGroupInstances() throws SiteViewException {	
-		ArrayList<MonitorGroup> mgs = apigroup.getAllGroupInstances();
-        ArrayList list = new ArrayList();
+	public List<Map<String, Object>> getAllGroupInstances() throws SiteViewException {	
+		List<MonitorGroup> mgs = apigroup.getAllGroupInstances();
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		for (MonitorGroup mg:mgs) {
 			SSInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
-            Map<String,Object> hashmap1 = new HashMap();
+            Map<String,Object> nodedata = new HashMap<String, Object>();
             for (int k = 0; k < assinstanceproperty1.length; k ++) {
-                hashmap1.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
+                nodedata.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
             }
 
-            hashmap1.put("_id", mg.getFullID());
-            list.add(hashmap1);
+            nodedata.put("_id", mg.getFullID());
+            list.add(nodedata);
 		}
 		return list;
 	}
 
 
-	public ArrayList<Map<String, Object>> getTopLevelGroupInstances() throws RemoteException, SiteViewException {		
+	public List<Map<String, Object>> getTopLevelGroupInstances() throws RemoteException, SiteViewException {		
 		
-		ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		
 		try
 		{
 			APIGroup apimg = new APIGroup();
-			ArrayList<MonitorGroup> mg = apigroup.getTopLevelGroupInstances();
+			ArrayList<MonitorGroup> mgs = apigroup.getTopLevelGroupInstances();
 
-			for(MonitorGroup group:mg)
+			for(MonitorGroup mg:mgs)
 			{
+				SSInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
 				Map<String, Object> nodedata = new HashMap<String, Object>();
-				nodedata.put(new String("Name"), group.getProperty(MonitorGroup.pName));
-				nodedata.put(new String("GroupID"), group.getProperty(MonitorGroup.pGroupID));
-				list.add(nodedata);
+	            for (int k = 0; k < assinstanceproperty1.length; k ++) {
+	                nodedata.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
+	            }
+	            nodedata.put("_id", mg.getFullID());
+	            list.add(nodedata);
 			}
 		} catch (java.lang.Exception e)
 		{
@@ -85,6 +98,72 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		}
 		return list;
 		
+	}
+	
+	public List<Map<String, Object>> getChildGroupInstances(String groupID) throws RemoteException, SiteViewException {		
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		try
+		{
+			Collection mgs = apigroup.getChildGroupInstances(groupID);
+			
+			if(mgs.size() > 0) {
+				for(Iterator iter=mgs.iterator();iter.hasNext();){
+					MonitorGroup mg = (MonitorGroup) iter.next();
+					SSInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+					Map<String, Object> nodedata = new HashMap<String, Object>();
+		            for (int k = 0; k < assinstanceproperty1.length; k ++) {
+		                nodedata.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
+		            }
+		            nodedata.put("_id", mg.getFullID());
+		            list.add(nodedata);
+				}
+			}
+		} catch (java.lang.Exception e)
+		{
+			System.out.println(e);
+		}
+		return list;
+	}
+	
+	public void deleteGroup(String groupID) throws RemoteException, SiteViewException {		
+		apigroup.delete(groupID);
+	}
+
+	public void deleteMonitor(String monitorID,String groupID) throws RemoteException, SiteViewException {		
+		apimonitor.delete(monitorID,groupID);
+	}
+
+	public List<Map<String, Object>> getMonitorsForGroup(String groupID) throws RemoteException, SiteViewException {		
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		try
+		{
+			Collection mgs = apimonitor.getMonitorsForGroup(groupID);
+			
+			if(mgs.size() > 0) {
+				for(Iterator iter=mgs.iterator();iter.hasNext();){
+					AtomicMonitor monitor = (AtomicMonitor) iter.next();
+					SSInstanceProperty assinstanceproperty1[] = apimonitor.getInstanceProperties(monitor.getProperty("_id"), groupID,APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+					Map<String, Object> nodedata = new HashMap<String, Object>();
+		            for (int k = 0; k < assinstanceproperty1.length; k ++) {
+		                nodedata.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
+		            }
+		            nodedata.put("_id", monitor.getFullID());
+		            list.add(nodedata);
+				}
+			}
+		} catch (java.lang.Exception e)
+		{
+			System.out.println(e);
+		}
+		return list;
+	}
+
+	public int getNumOfMonitorsForGroup(String groupID) throws RemoteException, SiteViewException {		
+		return apigroup.getNumOfMonitorsForGroup(groupID);
 	}
 	
 	static public ArrayList<HashMap<String, String>> getMonitorsData()
@@ -115,4 +194,13 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		}
 		return list;
 	}
+	
+	public boolean trylogin(String strUser, String strPwd) throws RemoteException,SiteViewException {
+		jgl.Array array = COM.dragonflow.SiteView.User.findUsersForLogin(strUser, strPwd);
+		if(array.size() > 0)
+			return true;
+		else
+			return false;
+	}
+
 }

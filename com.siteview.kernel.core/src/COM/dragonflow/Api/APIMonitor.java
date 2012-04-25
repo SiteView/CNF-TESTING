@@ -25,6 +25,8 @@ import jgl.HashMap;
 import org.xml.sax.InputSource;
 
 import COM.dragonflow.HTTP.HTTPRequest;
+import COM.dragonflow.Page.CGI;
+import COM.dragonflow.Properties.ScalarProperty;
 import COM.dragonflow.Properties.StringProperty;
 import COM.dragonflow.Resource.SiteViewErrorCodes;
 import COM.dragonflow.SiteView.ApplicationBase;
@@ -68,7 +70,7 @@ public class APIMonitor extends APISiteView
 
         public int compare(java.lang.Object obj, java.lang.Object obj1)
         {
-            return ((COM.dragonflow.Properties.StringProperty)obj).getOrder() - ((COM.dragonflow.Properties.StringProperty)obj1).getOrder();
+            return ((StringProperty)obj).getOrder() - ((StringProperty)obj1).getOrder();
         }
 
         public boolean equals(java.lang.Object obj)
@@ -150,20 +152,20 @@ public class APIMonitor extends APISiteView
     public static final String SSPARAM_MACHINE = "_machine";
     public static final String SSPARAM_POSTDATA_PREFIX = "_postData";
     public static final String SSPARAM_REFERENCE_PREFIX = "_reference";
-    private static COM.dragonflow.Properties.StringProperty pMonDisable = new StringProperty("monitorsDisable");
-    private static COM.dragonflow.Properties.StringProperty pMonDisableTime = new StringProperty("disableMonitorsTime");
-    private static COM.dragonflow.Properties.StringProperty pMonDisableDesc = new StringProperty("monitorDisableDescription");
-    private static COM.dragonflow.Properties.StringProperty pMonDisableStartDate = new StringProperty("disableMonitorsStartTimeDate");
-    private static COM.dragonflow.Properties.StringProperty pMonDisableStartTime = new StringProperty("disableMonitorsStartTimeTime");
-    private static COM.dragonflow.Properties.StringProperty pMonDisableEndDate = new StringProperty("disableMonitorsEndTimeDate");
-    private static COM.dragonflow.Properties.StringProperty pMonDisableEndTime = new StringProperty("disableMonitorsEndTimeTime");
-    private static COM.dragonflow.Properties.StringProperty pAlertDisable = new StringProperty("groupAlertsDisable");
-    private static COM.dragonflow.Properties.StringProperty pAlertDisableTime = new StringProperty("disableGroupAlertsTime");
-    private static COM.dragonflow.Properties.StringProperty pAlertDisableDesc = new StringProperty("alertDisableDescription");
-    private static COM.dragonflow.Properties.StringProperty pAlertDisableStartDate = new StringProperty("disableGroupAlertsStartTimeDate");
-    private static COM.dragonflow.Properties.StringProperty pAlertDisableStartTime = new StringProperty("disableGroupAlertsStartTimeTime");
-    private static COM.dragonflow.Properties.StringProperty pAlertDisableEndDate = new StringProperty("disableGroupAlertsEndTimeDate");
-    private static COM.dragonflow.Properties.StringProperty pAlertDisableEndTime = new StringProperty("disableGroupAlertsEndTimeTime");
+    private static StringProperty pMonDisable = new StringProperty("monitorsDisable");
+    private static StringProperty pMonDisableTime = new StringProperty("disableMonitorsTime");
+    private static StringProperty pMonDisableDesc = new StringProperty("monitorDisableDescription");
+    private static StringProperty pMonDisableStartDate = new StringProperty("disableMonitorsStartTimeDate");
+    private static StringProperty pMonDisableStartTime = new StringProperty("disableMonitorsStartTimeTime");
+    private static StringProperty pMonDisableEndDate = new StringProperty("disableMonitorsEndTimeDate");
+    private static StringProperty pMonDisableEndTime = new StringProperty("disableMonitorsEndTimeTime");
+    private static StringProperty pAlertDisable = new StringProperty("groupAlertsDisable");
+    private static StringProperty pAlertDisableTime = new StringProperty("disableGroupAlertsTime");
+    private static StringProperty pAlertDisableDesc = new StringProperty("alertDisableDescription");
+    private static StringProperty pAlertDisableStartDate = new StringProperty("disableGroupAlertsStartTimeDate");
+    private static StringProperty pAlertDisableStartTime = new StringProperty("disableGroupAlertsStartTimeTime");
+    private static StringProperty pAlertDisableEndDate = new StringProperty("disableGroupAlertsEndTimeDate");
+    private static StringProperty pAlertDisableEndTime = new StringProperty("disableGroupAlertsEndTimeTime");
     static final boolean $assertionsDisabled; /* synthetic field */
 
     public APIMonitor()
@@ -171,7 +173,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSStringReturnValue create(String s, String s1, SSInstanceProperty assinstanceproperty[])
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         String s2 = "";
         try
@@ -315,33 +317,33 @@ public class APIMonitor extends APISiteView
             int j = COM.dragonflow.Utils.TextUtils.toInt(COM.dragonflow.Utils.TextUtils.getValue(hashmap1, "_URLSequenceMonitorSteps"));
             for(int k = 0; k < j; k++)
             {
-                String s8 = (String)hashmap.get("_postData" + (new Integer(k + 1)).toString());
+                String postData = (String)hashmap.get("_postData" + (new Integer(k + 1)).toString());
                 int l = -1;
                 do
                 {
-                    if(s8 != null && s8.length() > 0)
+                    if(postData != null && postData.length() > 0)
                     {
-                        l = s8.indexOf("{[");
-                        int i1 = s8.indexOf("}");
+                        l = postData.indexOf("{[");
+                        int i1 = postData.indexOf("}");
                         if(l >= 0 && i1 >= 0)
                         {
-                            s8 = s8.substring(0, l) + s8.substring(i1 + 1);
+                            postData = postData.substring(0, l) + postData.substring(i1 + 1);
                         }
-                        hashmap.put("_postData" + (new Integer(k + 1)).toString(), s8);
+                        hashmap.put("_postData" + (new Integer(k + 1)).toString(), postData);
                     }
                 } while(l != -1);
-                String s9 = (String)hashmap.get("_reference" + (new Integer(k + 1)).toString());
-                if(s9 == null || s9.length() <= 0)
+                String reference = (String)hashmap.get("_reference" + (new Integer(k + 1)).toString());
+                if(reference == null || reference.length() <= 0)
                 {
                     continue;
                 }
-                int j1 = s9.indexOf("{[");
-                int k1 = s9.indexOf("}");
+                int j1 = reference.indexOf("{[");
+                int k1 = reference.indexOf("}");
                 if(j1 >= 0 && k1 >= 0)
                 {
-                    s9 = s9.substring(k1 + 1);
+                    reference = reference.substring(k1 + 1);
                 }
-                hashmap.put("_reference" + (new Integer(k + 1)).toString(), s9);
+                hashmap.put("_reference" + (new Integer(k + 1)).toString(), reference);
             }
 
             fixDisableAlertingParams(hashmap);
@@ -351,8 +353,8 @@ public class APIMonitor extends APISiteView
             {
                 processWSDLParameters(hashmap);
             }
-            String s7 = (String)hashmap.get("_machine");
-            processMachineName(s7, hashmap);
+            String machine = (String)hashmap.get("_machine");
+            processMachineName(machine, hashmap);
             AtomicMonitor atomicmonitor = instantiateMonitor(s);
             setMonitorProperties(OP_ADD, atomicmonitor, "", s1, hashmap);
             atomicmonitor.initialize(hashmap);
@@ -378,7 +380,7 @@ public class APIMonitor extends APISiteView
     }
 
     public void update(String s, String s1, SSInstanceProperty assinstanceproperty[])
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
@@ -663,15 +665,14 @@ public class APIMonitor extends APISiteView
         }
     }
 
-    public void delete(String s, String s1)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    public void delete(String monitorId, String groupId) throws SiteViewException
     {
         try
         {
             ScheduleManager schedulemanager = ScheduleManager.getInstance();
-            AtomicMonitor atomicmonitor = (AtomicMonitor)SiteViewGroup.currentSiteView().getElement(s1 + "/" + s);
+            AtomicMonitor atomicmonitor = (AtomicMonitor)SiteViewGroup.currentSiteView().getElement(groupId + "/" + monitorId);
             schedulemanager.deleteMonitorFromScheduleObject(schedulemanager.getScheduleIdFromMonitor(atomicmonitor), atomicmonitor.getFullID());
-            deleteMonitorInternal(s1 + " " + s);
+            deleteMonitorInternal(groupId + " " + monitorId);
             saveGroups();
             DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
@@ -690,7 +691,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSStringReturnValue move(String s, String s1, String s2)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         String s3 = "";
         try
@@ -724,7 +725,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSStringReturnValue copy(String s, String s1, String s2)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         String s3 = "";
         try
@@ -763,7 +764,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSMonitorInstance runExisting(String s, String s1, long l)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         return runExisting(s, s1, l, false);
     }
@@ -774,7 +775,7 @@ public class APIMonitor extends APISiteView
      * @deprecated Method runExisting is deprecated
      */
     public SSMonitorInstance runExisting(String s, String s1, long l, boolean flag)
-    throws COM.dragonflow.SiteViewException.SiteViewException
+    throws SiteViewException
     {
         SSMonitorInstance ssmonitorinstance;
         
@@ -876,7 +877,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSInstanceProperty[] runTemporary(String s, SSInstanceProperty assinstanceproperty[], long l)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         return runTemporary(s, assinstanceproperty, l, false);
     }
@@ -887,7 +888,7 @@ public class APIMonitor extends APISiteView
      * @deprecated Method runTemporary is deprecated
      */
     public SSInstanceProperty[] runTemporary(String s, SSInstanceProperty assinstanceproperty[], long l, boolean flag)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSInstanceProperty assinstanceproperty1[] = null;
         AtomicMonitor atomicmonitor;
@@ -965,10 +966,10 @@ public class APIMonitor extends APISiteView
      * 
      * @param s
      * @return
-     * @throws COM.dragonflow.SiteViewException.SiteViewException
+     * @throws SiteViewException
      */
     public SSInstanceProperty[] getClassAttributes(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try {
         SSInstanceProperty assinstanceproperty[];
@@ -1002,7 +1003,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSPropertyDetails[] getClassPropertiesDetails(String s, int i, SSInstanceProperty assinstanceproperty[])
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSPropertyDetails asspropertydetails[] = null;
         try
@@ -1024,11 +1025,11 @@ public class APIMonitor extends APISiteView
                 }
             }
 
-            java.util.Vector vector = createThresholdProperties(i, array, atomicmonitor, hashmap);
+            Vector vector = createThresholdProperties(i, array, atomicmonitor, hashmap);
             asspropertydetails = new SSPropertyDetails[array.size() + vector.size()];
             for(int l = 0; l < array.size(); l++)
             {
-                asspropertydetails[l] = getClassProperty((COM.dragonflow.Properties.StringProperty)array.at(l), atomicmonitor, hashmap, false);
+                asspropertydetails[l] = getClassProperty((StringProperty)array.at(l), atomicmonitor, hashmap, false);
             }
 
             for(int i1 = 0; i1 < vector.size(); i1++)
@@ -1052,7 +1053,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSPropertyDetails getClassPropertyDetails(String s, String s1, SSInstanceProperty assinstanceproperty[])
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSPropertyDetails sspropertydetails = null;
         try
@@ -1078,7 +1079,7 @@ public class APIMonitor extends APISiteView
                     }
                 }
 
-                COM.dragonflow.Properties.StringProperty stringproperty = atomicmonitor.getPropertyObject(s);
+                StringProperty stringproperty = atomicmonitor.getPropertyObject(s);
                 if(s.indexOf("error-") >= 0 || s.indexOf("warning-") >= 0 || s.indexOf("good-") >= 0)
                 {
                     Enumeration enumeration = atomicmonitor.getStatePropertyObjects(false);
@@ -1089,7 +1090,7 @@ public class APIMonitor extends APISiteView
                     }
                     jgl.Array array1 = new Array();
                     while (enumeration.hasMoreElements()) {
-                        COM.dragonflow.Properties.StringProperty stringproperty1 = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                        StringProperty stringproperty1 = (StringProperty)enumeration.nextElement();
                         if(stringproperty1.isThreshold())
                         {
                             array1.add(stringproperty1);
@@ -1160,7 +1161,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSPropertyDetails getInstancePropertyDetails(String s, String s1, String s2)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSPropertyDetails sspropertydetails = null;
         try
@@ -1183,13 +1184,13 @@ public class APIMonitor extends APISiteView
             
             if(atomicmonitor != null)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty = atomicmonitor.getPropertyObject(s);
+                StringProperty stringproperty = atomicmonitor.getPropertyObject(s);
                 if(s.indexOf("error-") >= 0 || s.indexOf("warning-") >= 0 || s.indexOf("good-") >= 0)
                 {
                     Enumeration enumeration1 = array.elements();
                     jgl.Array array1 = new Array();
                     while (enumeration1.hasMoreElements()) {
-                        COM.dragonflow.Properties.StringProperty stringproperty1 = (COM.dragonflow.Properties.StringProperty)enumeration1.nextElement();
+                        StringProperty stringproperty1 = (StringProperty)enumeration1.nextElement();
                         if(stringproperty1.isThreshold())
                         {
                             array1.add(stringproperty1);
@@ -1229,7 +1230,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSMonitorInstance[] getInstances(String groupid, int i)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSMonitorInstance assmonitorinstance[] = null;
         try
@@ -1238,7 +1239,7 @@ public class APIMonitor extends APISiteView
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_MONITOR_GROUP_ID_MISSING);
             }
-            java.util.Vector vector = new Vector();
+            Vector vector = new Vector();
             java.util.Collection collection = getMonitorsForGroup(groupid);
             String s1;
             String s2;
@@ -1294,7 +1295,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSInstanceProperty[] getInstanceProperties(String monitorid, String groupid, int i, boolean flag)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSInstanceProperty assinstanceproperty[] = null;
         try
@@ -1342,14 +1343,13 @@ public class APIMonitor extends APISiteView
         return assinstanceproperty;
     }
 
-    public SSInstanceProperty[] getInstanceProperties(String monitorid, String groupid, int i)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    public SSInstanceProperty[] getInstanceProperties(String monitorid, String groupid, int i) throws SiteViewException
     {
         return getInstanceProperties(monitorid, groupid, i, false);
     }
 
     public SSInstanceProperty getInstanceProperty(String monitorid, String groupid, String s2)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSInstanceProperty ssinstanceproperty = null;
         try
@@ -1400,7 +1400,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSInstanceProperty[] getURLStepProperties(String s, String s1, SSInstanceProperty assinstanceproperty[], String s2)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSInstanceProperty assinstanceproperty1[] = null;
         try
@@ -1425,7 +1425,7 @@ public class APIMonitor extends APISiteView
             assinstanceproperty1[0] = new SSInstanceProperty("content", s3);
             if(s3.length() > 0)
             {
-                COM.dragonflow.Utils.HTMLTagParser htmltagparser = new HTMLTagParser(s3, TARGET_TAGS);
+                HTMLTagParser htmltagparser = new HTMLTagParser(s3, TARGET_TAGS);
                 jgl.HashMap hashmap1 = MasterConfig.getMasterConfig();
                 htmltagparser.ignoreScripts = false;
                 htmltagparser.ignoreNoscripts = false;
@@ -1516,21 +1516,21 @@ public class APIMonitor extends APISiteView
     }
 
     public java.util.Collection getAllMonitors()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         ConfigurationChanger.getGroupsMonitors(getAllAllowedGroups(), vector, null, false);
         return vector;
     }
 
-    public java.util.Collection getChildMonitors(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    public java.util.Collection getChildMonitors(String groupid)
+        throws SiteViewException
     {
-        return getMonitorsForGroup(s);
+        return getMonitorsForGroup(groupid);
     }
 
     public SSStringReturnValue[] getMonitorTypes()
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSStringReturnValue assstringreturnvalue[] = null;
         try
@@ -1565,7 +1565,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSStringReturnValue getTopazID(String s, String s1)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSStringReturnValue ssstringreturnvalue = null;
         try
@@ -1614,10 +1614,10 @@ public class APIMonitor extends APISiteView
      * @param s
      * @param s1
      * @param hashmap
-     * @throws COM.dragonflow.SiteViewException.SiteViewException
+     * @throws SiteViewException
      */
     public void addBrowsableCounters(String s, String s1, java.util.HashMap hashmap)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try {       
         AtomicMonitor atomicmonitor;
@@ -1742,7 +1742,7 @@ public class APIMonitor extends APISiteView
     }
 
     public void removeBrowsableCounters(String s, String s1, java.util.HashMap hashmap)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
@@ -1843,7 +1843,7 @@ public class APIMonitor extends APISiteView
     }
 
     public SSStringReturnValue getClassAttribute(String s, String s1)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSStringReturnValue ssstringreturnvalue = null;
         try
@@ -1865,17 +1865,21 @@ public class APIMonitor extends APISiteView
         return ssstringreturnvalue;
     }
 
-    private Enumeration getFilteredMonitorProperties(AtomicMonitor atomicmonitor, java.util.Vector vector, int i)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    private Enumeration getFilteredMonitorProperties(AtomicMonitor atomicmonitor, Vector vector, int i)
+        throws SiteViewException
     {
         java.util.ArrayList arraylist = new ArrayList();
         Enumeration enumeration = null;
         try
         {
-            String s = atomicmonitor.getClass().getName();
-            if(s.indexOf(".") != -1)
+            String monitorType = atomicmonitor.getClass().getName();
+            StringProperty pClass = new StringProperty("_class");
+            pClass.setValue(monitorType);
+            arraylist.add(pClass);
+            
+            if(monitorType.indexOf(".") != -1)
             {
-                s = s.substring(s.lastIndexOf(".") + 1);
+                monitorType = monitorType.substring(monitorType.lastIndexOf(".") + 1);
             }
             if(i == FILTER_ALL)
             {
@@ -1912,7 +1916,7 @@ public class APIMonitor extends APISiteView
             } else
             if(i == FILTER_CONFIGURATION_ADD_REQUIRED)
             {
-                enumeration = atomicmonitor.getConfigurationRequiredProperties(s);
+                enumeration = atomicmonitor.getConfigurationRequiredProperties(monitorType);
             } else
             if(i == FILTER_RUNTIME_ALL)
             {
@@ -1957,7 +1961,7 @@ public class APIMonitor extends APISiteView
                 jgl.Array array2 = atomicmonitor.getProperties();
                 for(int j = 0; j < array2.size(); j++)
                 {
-                    SSPropertyDetails sspropertydetails = getClassPropertyDetails(((COM.dragonflow.Properties.StringProperty)array2.at(j)).getName(), s, new SSInstanceProperty[0]);
+                    SSPropertyDetails sspropertydetails = getClassPropertyDetails(((StringProperty)array2.at(j)).getName(), monitorType, new SSInstanceProperty[0]);
                     if(sspropertydetails.isPrerequisite())
                     {
                         array1.add(array2.at(j));
@@ -1970,10 +1974,10 @@ public class APIMonitor extends APISiteView
             {
                 throw new AssertionError();
             }
-            COM.dragonflow.Properties.StringProperty stringproperty;
+            StringProperty stringproperty;
             for(; enumeration.hasMoreElements(); arraylist.add(stringproperty))
             {
-                stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                stringproperty = (StringProperty)enumeration.nextElement();
             }
 
         }
@@ -1993,7 +1997,7 @@ public class APIMonitor extends APISiteView
     }
 
 //    private SSStringReturnValue getTopazID(AtomicMonitor atomicmonitor)
-//        throws COM.dragonflow.SiteViewException.SiteViewException
+//        throws SiteViewException
 //    {
 //        SSStringReturnValue ssstringreturnvalue = null;
 //        try
@@ -2016,24 +2020,24 @@ public class APIMonitor extends APISiteView
 //        return ssstringreturnvalue;
 //    }
 
-    private SSInstanceProperty[] getPropertiesForMonitorInstance(AtomicMonitor atomicmonitor, String s, int i)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    private SSInstanceProperty[] getPropertiesForMonitorInstance(AtomicMonitor atomicmonitor, String monitorid, int filter)
+        throws SiteViewException
     {
         SSInstanceProperty assinstanceproperty[] = null;
         try
         {
             SSInstanceProperty assinstanceproperty1[] = null;
             jgl.Array array = new Array();
-            java.util.Vector vector = new Vector();
+            Vector vector = new Vector();
             String s1 = null;
-            java.util.Vector vector1 = new Vector();
+            Vector vector1 = new Vector();
             boolean flag = true;
             Object obj = null;
             Enumeration enumeration = null;
-            if(s != null && s.length() > 0)
+            if(monitorid != null && monitorid.length() > 0)
             {
                 jgl.Array array1 = new Array();
-                COM.dragonflow.Properties.StringProperty stringproperty = atomicmonitor.getPropertyObject(s);
+                StringProperty stringproperty = atomicmonitor.getPropertyObject(monitorid);
                 if(stringproperty != null)
                 {
                     array1.add(stringproperty);
@@ -2041,14 +2045,14 @@ public class APIMonitor extends APISiteView
                 }
             } else
             {
-                enumeration = getFilteredMonitorProperties(atomicmonitor, new Vector(), i);
+                enumeration = getFilteredMonitorProperties(atomicmonitor, new Vector(), filter);
                 enumeration = adjustVirtualProperties(enumeration);
             }
             while (enumeration.hasMoreElements()) {
                 boolean flag1 = false;
                 boolean flag2 = false;
                 boolean flag3 = false;
-                COM.dragonflow.Properties.StringProperty stringproperty2 = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                StringProperty stringproperty2 = (StringProperty)enumeration.nextElement();
                 String s2 = stringproperty2.getName();
                 if(s2 != null)
                 {
@@ -2089,14 +2093,14 @@ public class APIMonitor extends APISiteView
                     }
                     if(flag2)
                     {
-                        COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
+                        HTTPRequest httprequest = new HTTPRequest();
                         java.lang.Class class1 = null;
                         class1 = java.lang.Class.forName("COM.dragonflow.Page.monitorPage");
-                        COM.dragonflow.Page.CGI cgi = (COM.dragonflow.Page.CGI)class1.newInstance();
+                        CGI cgi = (CGI)class1.newInstance();
                         cgi.initialize(httprequest, null);
-                        if(stringproperty2 instanceof COM.dragonflow.Properties.ScalarProperty)
+                        if(stringproperty2 instanceof ScalarProperty)
                         {
-                            java.util.Vector vector3 = atomicmonitor.getScalarValues((COM.dragonflow.Properties.ScalarProperty)stringproperty2, httprequest, cgi);
+                            Vector vector3 = atomicmonitor.getScalarValues((ScalarProperty)stringproperty2, httprequest, cgi);
                             String as1[] = new String[vector3.size() / 2];
                             String as2[] = new String[vector3.size() / 2];
                             int i2 = 0;
@@ -2127,7 +2131,7 @@ public class APIMonitor extends APISiteView
                     {
                         if(s3 != null && s3.length() > 0)
                         {
-                            COM.dragonflow.Properties.StringProperty stringproperty4 = new StringProperty("topazLogging", s2);
+                            StringProperty stringproperty4 = new StringProperty("topazLogging", s2);
                             array.add(stringproperty4);
                         }
                     } else
@@ -2138,21 +2142,20 @@ public class APIMonitor extends APISiteView
             } 
             if(flag)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty1 = new StringProperty("topazLogging", "logEverything");
+                StringProperty stringproperty1 = new StringProperty("topazLogging", "logEverything");
                 array.add(stringproperty1);
             }
-            assinstanceproperty1 = processInstanceThresholdProperties(i, atomicmonitor);
-            java.util.Vector vector2 = new Vector();
+            assinstanceproperty1 = processInstanceThresholdProperties(filter, atomicmonitor);
+            Vector vector2 = new Vector();
             fixDisableAlertingParamsOut(atomicmonitor, vector2);
             fixDisableGroupOrMonitorParamsOut(atomicmonitor, vector2);
             int j = 0;
             SSStringReturnValue ssstringreturnvalue = null;
             try
             {
-                if(i == APISiteView.FILTER_CONFIGURATION_ALL || i == APISiteView.FILTER_ALL)
+                if(filter == APISiteView.FILTER_CONFIGURATION_ALL || filter == APISiteView.FILTER_ALL)
                 {
                     j = 1;
-//                    ssstringreturnvalue = getTopazID(atomicmonitor);
                 }
             }
             catch(java.lang.Exception exception1)
@@ -2163,7 +2166,7 @@ public class APIMonitor extends APISiteView
             int k = 0;
             for(Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements();)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty3 = (COM.dragonflow.Properties.StringProperty)enumeration1.nextElement();
+                StringProperty stringproperty3 = (StringProperty)enumeration1.nextElement();
                 String s4 = GetPropertyLabel(stringproperty3, true);
                 java.lang.Object obj1;
                 if(stringproperty3.isMultiLine)
@@ -2184,11 +2187,10 @@ public class APIMonitor extends APISiteView
                         {
                             s7 = s7 + as3[j2] + "\r\n";
                         }
-
                     }
                     obj1 = s7;
                 } else
-                if((stringproperty3 instanceof COM.dragonflow.Properties.ScalarProperty) && ((COM.dragonflow.Properties.ScalarProperty)stringproperty3).multiple)
+                if((stringproperty3 instanceof ScalarProperty) && ((ScalarProperty)stringproperty3).multiple)
                 {
                     String s5 = atomicmonitor.getProperty(stringproperty3);
                     String as[] = COM.dragonflow.Utils.TextUtils.split(s5, ",");
@@ -2248,7 +2250,7 @@ public class APIMonitor extends APISiteView
 //                assinstanceproperty[k] = new SSInstanceProperty("topazMonitorID", TopazInfo.getTopazName() + " Monitor ID", ssstringreturnvalue.getValue());
             }
         }
-        catch(COM.dragonflow.SiteViewException.SiteViewException siteviewexception)
+        catch(SiteViewException siteviewexception)
         {
             siteviewexception.fillInStackTrace();
             throw siteviewexception;
@@ -2291,14 +2293,14 @@ public class APIMonitor extends APISiteView
     }
 
     private SSInstanceProperty[] processInstanceThresholdProperties(int i, AtomicMonitor atomicmonitor)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[0];
         try
         {
             if(i == FILTER_CONFIGURATION_ADD_ALL || i == FILTER_CONFIGURATION_ADD_BASIC || i == FILTER_CONFIGURATION_ADD_ADVANCED || i == FILTER_CONFIGURATION_EDIT_ALL || i == FILTER_CONFIGURATION_EDIT_BASIC || i == FILTER_CONFIGURATION_EDIT_ADVANCED || i == FILTER_ALL || i == FILTER_CONFIGURATION_ALL || i == FILTER_CONFIGURATION_ALL && i == FILTER_CONFIGURATION_ALL_NOT_EMPTY)
             {
-                java.util.Vector vector = getInstanceThresholds(atomicmonitor, i);
+                Vector vector = getInstanceThresholds(atomicmonitor, i);
                 assinstanceproperty = new SSInstanceProperty[vector.size()];
                 for(int j = 0; j < vector.size(); j++)
                 {
@@ -2316,15 +2318,15 @@ public class APIMonitor extends APISiteView
         return assinstanceproperty;
     }
 
-    private java.util.Vector createThresholdProperties(int i, jgl.Array array, SiteViewObject siteviewobject, java.util.HashMap hashmap)
+    private Vector createThresholdProperties(int i, jgl.Array array, SiteViewObject siteviewobject, java.util.HashMap hashmap)
     {
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         if(i == APISiteView.FILTER_CONFIGURATION_ADD_ALL || i == APISiteView.FILTER_CONFIGURATION_ADD_BASIC || i == APISiteView.FILTER_CONFIGURATION_ADD_ADVANCED || i == APISiteView.FILTER_CONFIGURATION_EDIT_ALL || i == APISiteView.FILTER_CONFIGURATION_EDIT_BASIC || i == APISiteView.FILTER_CONFIGURATION_EDIT_ADVANCED || i == APISiteView.FILTER_ALL || i == APISiteView.FILTER_CONFIGURATION_ALL)
         {
             Enumeration enumeration = array.elements();
             jgl.Array array1 = new Array();
             while (enumeration.hasMoreElements()) {
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                StringProperty stringproperty = (StringProperty)enumeration.nextElement();
                 if(stringproperty.isThreshold())
                 {
                     array1.add(stringproperty);
@@ -2343,17 +2345,17 @@ public class APIMonitor extends APISiteView
         return vector;
     }
 
-    protected java.util.Vector getThresholds(jgl.Array array, SiteViewObject siteviewobject, java.util.HashMap hashmap)
+    protected Vector getThresholds(jgl.Array array, SiteViewObject siteviewobject, java.util.HashMap hashmap)
     {
         int i = getThresholdNum((Monitor)siteviewobject);
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         if(siteviewobject instanceof Monitor)
         {
             jgl.Array array1 = new Array();
             jgl.Array array2 = new Array();
             for(int j = 0; j < array.size(); j++)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.at(j);
+                StringProperty stringproperty = (StringProperty)array.at(j);
                 if(stringproperty != Monitor.pNumStdDev && stringproperty != Monitor.pNumPercent || siteviewobject.hasValue(Monitor.pBaselineDate))
                 {
                     array1.add(stringproperty.getName());
@@ -2553,13 +2555,13 @@ public class APIMonitor extends APISiteView
         if(s.indexOf("condition") >= 0)
         {
             s1 = "condition";
-            java.util.Vector vector = new Vector();
-            java.util.Vector vector1 = new Vector();
+            Vector vector = new Vector();
+            Vector vector1 = new Vector();
             vector.add(s9 + " (default)");
             vector1.add("default");
             for(int k1 = 0; k1 < array.size(); k1++)
             {
-                COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)array.at(k1);
+                StringProperty stringproperty = (StringProperty)array.at(k1);
                 String s13 = monitor.GetPropertyLabel(stringproperty, true);
                 String s14 = stringproperty.getName();
                 if(s13 != null && s13.length() > 0)
@@ -2637,14 +2639,14 @@ public class APIMonitor extends APISiteView
         return as[0] != null ? as : as1;
     }
 
-    protected java.util.Vector getInstanceThresholds(Monitor monitor, int i)
+    protected Vector getInstanceThresholds(Monitor monitor, int i)
     {
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         int j = getThresholdNum(monitor);
         java.util.HashMap hashmap = new java.util.HashMap();
         Enumeration enumeration = monitor.getProperties().elements();
         while (enumeration.hasMoreElements()) {
-            COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+            StringProperty stringproperty = (StringProperty)enumeration.nextElement();
             if(stringproperty.isThreshold())
             {
                 String s = monitor.GetPropertyLabel(stringproperty, true);
@@ -2738,7 +2740,7 @@ public class APIMonitor extends APISiteView
     }
 
     private jgl.HashMap validateProperties(jgl.HashMap hashmap, AtomicMonitor atomicmonitor, String s, int i)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         jgl.HashMap hashmap1 = new HashMap(true);
         try
@@ -2761,7 +2763,7 @@ public class APIMonitor extends APISiteView
                 hashmap.remove(Monitor.pTimedDisable.getName());
                 hashmap.remove(Monitor.pAlertDisabled.getName());
                 while (enumeration.hasMoreElements()) {
-                    COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+                    StringProperty stringproperty = (StringProperty)enumeration.nextElement();
                     String s1 = stringproperty.getName();
                     Enumeration enumeration2 = hashmap.values(s1);
                     hashmap.remove(s1);
@@ -2795,10 +2797,10 @@ public class APIMonitor extends APISiteView
             if(hashmap2.size() > 0)
             {
                 java.util.HashMap hashmap3 = new java.util.HashMap();
-                COM.dragonflow.Properties.StringProperty stringproperty1;
+                StringProperty stringproperty1;
                 for(Enumeration enumeration1 = hashmap2.keys(); enumeration1.hasMoreElements(); hashmap3.put(stringproperty1.getName(), hashmap2.get(stringproperty1)))
                 {
-                    stringproperty1 = (COM.dragonflow.Properties.StringProperty)enumeration1.nextElement();
+                    stringproperty1 = (StringProperty)enumeration1.nextElement();
                 }
 
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_MONITOR_VERIFICATION_ERRORS, hashmap3);
@@ -2819,7 +2821,7 @@ public class APIMonitor extends APISiteView
     }
 
     private jgl.HashMap getClassAttribs(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         AtomicMonitor atomicmonitor = instantiateMonitor(s);
         if(APIMonitor.isValidObject(atomicmonitor.getClass().getName(), "Monitor"))
@@ -2831,8 +2833,8 @@ public class APIMonitor extends APISiteView
         }
     }
 
-    private SSPropertyDetails getClassProperty(COM.dragonflow.Properties.StringProperty stringproperty, AtomicMonitor atomicmonitor, java.util.HashMap hashmap, boolean flag)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    private SSPropertyDetails getClassProperty(StringProperty stringproperty, AtomicMonitor atomicmonitor, java.util.HashMap hashmap, boolean flag)
+        throws SiteViewException
     {
         boolean flag1 = false;
         String s = "";
@@ -2849,14 +2851,14 @@ public class APIMonitor extends APISiteView
                 jgl.Array array = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
                 for(int i = 0; i < array.size(); i++)
                 {
-                    String s1 = ((COM.dragonflow.Properties.StringProperty)array.at(i)).getName();
+                    String s1 = ((StringProperty)array.at(i)).getName();
                     atomicmonitor.unsetProperty(s1);
                     if(hashmap.get(s1) == null)
                     {
                         continue;
                     }
                     String s8 = (String)hashmap.get(s1);
-                    COM.dragonflow.Properties.StringProperty stringproperty1 = atomicmonitor.getPropertyObject(s1);
+                    StringProperty stringproperty1 = atomicmonitor.getPropertyObject(s1);
                     if((stringproperty1 instanceof COM.dragonflow.Properties.BooleanProperty) && s8.equals("0"))
                     {
                         s8 = "";
@@ -2898,7 +2900,7 @@ public class APIMonitor extends APISiteView
                     {
                         break;
                     }
-                    String s2 = ((COM.dragonflow.Properties.StringProperty)array1.at(j)).getName();
+                    String s2 = ((StringProperty)array1.at(j)).getName();
                     if(stringproperty.getName().equals(s2) && hashmap.get(s2) == null)
                     {
                         flag1 = true;
@@ -2916,7 +2918,7 @@ public class APIMonitor extends APISiteView
             if(stringproperty instanceof COM.dragonflow.Properties.ServerProperty)
             {
                 s4 = "SERVER";
-                java.util.Vector vector = returnMachineScalarValues(atomicmonitor);
+                Vector vector = returnMachineScalarValues(atomicmonitor);
                 as = new String[vector.size() / 2];
                 as1 = new String[vector.size() / 2];
                 int k = 0;
@@ -2936,7 +2938,7 @@ public class APIMonitor extends APISiteView
                 java.lang.Class class1 = java.lang.Class.forName("COM.dragonflow.Page.monitorPage");
                 COM.dragonflow.Page.CGI cgi = (COM.dragonflow.Page.CGI)class1.newInstance();
                 cgi.initialize(httprequest, null);
-                java.util.Vector vector1 = atomicmonitor.getScalarValues(scheduleproperty, httprequest, cgi);
+                Vector vector1 = atomicmonitor.getScalarValues(scheduleproperty, httprequest, cgi);
                 as = new String[vector1.size() / 2];
                 as1 = new String[vector1.size() / 2];
                 int i2 = 0;
@@ -2971,7 +2973,7 @@ public class APIMonitor extends APISiteView
                     httprequest.setValue("_machine", "");
                     atomicmonitor.unsetProperty("_machine");
                 }
-                java.util.Vector vector2 = null;
+                Vector vector2 = null;
                 if(stringproperty.getName().equals("_machine"))
                 {
                     vector2 = returnMachineScalarValues(atomicmonitor);
@@ -3022,7 +3024,7 @@ public class APIMonitor extends APISiteView
                 s4 = "NUMERIC";
                 s3 = ((COM.dragonflow.Properties.NumericProperty)stringproperty).getUnits();
             } else
-            if(stringproperty instanceof COM.dragonflow.Properties.StringProperty)
+            if(stringproperty instanceof StringProperty)
             {
                 s4 = "TEXT";
                 if((atomicmonitor instanceof NTCounterBase) && stringproperty.getName() != null && stringproperty.getName().equals("availableObjects"))
@@ -3173,8 +3175,8 @@ public class APIMonitor extends APISiteView
                     if(stringbuffer.length() == 0)
                     {
                         org.w3c.dom.Document document = createDocumentFromString(s9);
-                        java.util.Vector vector3 = new Vector();
-                        java.util.Vector vector4 = new Vector();
+                        Vector vector3 = new Vector();
+                        Vector vector4 = new Vector();
                         org.w3c.dom.NodeList nodelist = document.getDocumentElement().getChildNodes();
                         int l4 = nodelist.getLength();
                         for(int k5 = 0; k5 < l4; k5++)
@@ -3307,7 +3309,7 @@ public class APIMonitor extends APISiteView
                                 boolean flag6 = ((COM.dragonflow.StandardMonitor.PDHMonitor)atomicmonitor).getAvailableObjects(aobj, stringbuffer4);
                                 if(flag6)
                                 {
-                                    COM.dragonflow.Properties.StringProperty astringproperty[] = (COM.dragonflow.Properties.StringProperty[])aobj[0];
+                                    StringProperty astringproperty[] = (StringProperty[])aobj[0];
                                     as = new String[astringproperty.length];
                                     as1 = new String[astringproperty.length];
                                     for(int i3 = 0; i3 < astringproperty.length; i3++)
@@ -3331,7 +3333,7 @@ public class APIMonitor extends APISiteView
                                     boolean flag7 = ((COM.dragonflow.StandardMonitor.PDHMonitor)atomicmonitor).getAvailableCounters(s19, aobj, stringbuffer4);
                                     if(flag7)
                                     {
-                                        COM.dragonflow.Properties.StringProperty astringproperty1[] = (COM.dragonflow.Properties.StringProperty[])aobj[0];
+                                        StringProperty astringproperty1[] = (StringProperty[])aobj[0];
                                         as = new String[astringproperty1.length];
                                         as1 = new String[astringproperty1.length];
                                         for(int j4 = 0; j4 < astringproperty1.length; j4++)
@@ -3356,7 +3358,7 @@ public class APIMonitor extends APISiteView
                                     boolean flag8 = ((COM.dragonflow.StandardMonitor.PDHMonitor)atomicmonitor).getAvailableInstances(s20, aobj, stringbuffer4);
                                     if(flag8)
                                     {
-                                        COM.dragonflow.Properties.StringProperty astringproperty2[] = (COM.dragonflow.Properties.StringProperty[])aobj[0];
+                                        StringProperty astringproperty2[] = (StringProperty[])aobj[0];
                                         as = new String[astringproperty2.length];
                                         as1 = new String[astringproperty2.length];
                                         for(int k4 = 0; k4 < astringproperty2.length; k4++)
@@ -3396,7 +3398,7 @@ public class APIMonitor extends APISiteView
 //                                boolean flag10 = false;//((COM.dragonflow.StandardMonitor.MQStatusMonitor)atomicmonitor).getAvailableObjects(aobj1, stringbuffer5);
 //                                if(flag10)
 //                                {
-//                                    COM.dragonflow.Properties.StringProperty astringproperty3[] = (COM.dragonflow.Properties.StringProperty[])aobj1[0];
+//                                    StringProperty astringproperty3[] = (StringProperty[])aobj1[0];
 //                                    as = new String[astringproperty3.length];
 //                                    as1 = new String[astringproperty3.length];
 //                                    for(int i5 = 0; i5 < astringproperty3.length; i5++)
@@ -3420,7 +3422,7 @@ public class APIMonitor extends APISiteView
 //                                    boolean flag11 = false;//((COM.dragonflow.StandardMonitor.MQStatusMonitor)atomicmonitor).getAvailableCounters(s22, aobj1, stringbuffer5);
 //                                    if(flag11)
 //                                    {
-//                                        COM.dragonflow.Properties.StringProperty astringproperty4[] = (COM.dragonflow.Properties.StringProperty[])aobj1[0];
+//                                        StringProperty astringproperty4[] = (StringProperty[])aobj1[0];
 //                                        as = new String[astringproperty4.length];
 //                                        as1 = new String[astringproperty4.length];
 //                                        for(int j6 = 0; j6 < astringproperty4.length; j6++)
@@ -3445,7 +3447,7 @@ public class APIMonitor extends APISiteView
 //                                    boolean flag12 = false;//((COM.dragonflow.StandardMonitor.MQStatusMonitor)atomicmonitor).getAvailableInstances(s23, aobj1, stringbuffer5);
 //                                    if(flag12)
 //                                    {
-//                                        COM.dragonflow.Properties.StringProperty astringproperty5[] = (COM.dragonflow.Properties.StringProperty[])aobj1[0];
+//                                        StringProperty astringproperty5[] = (StringProperty[])aobj1[0];
 //                                        as = new String[astringproperty5.length];
 //                                        as1 = new String[astringproperty5.length];
 //                                        for(int k6 = 0; k6 < astringproperty5.length; k6++)
@@ -3481,9 +3483,9 @@ public class APIMonitor extends APISiteView
         return new SSPropertyDetails(stringproperty.getName(), s4, stringproperty.getDescription(), stringproperty.getLabel(), stringproperty.isEditable, stringproperty.isMultivalued, stringproperty.getDefault(), as, as1, s5, isRequiredProperty(stringproperty.getName()), flag1, stringproperty.getOrder(), s3, stringproperty.isAdvanced, stringproperty.isPassword, atomicmonitor.getProperty(stringproperty.getName()));
     }
 
-    private java.util.Vector removeDupMachines(java.util.Vector vector)
+    private Vector removeDupMachines(Vector vector)
     {
-        java.util.Vector vector1 = new Vector();
+        Vector vector1 = new Vector();
         java.util.HashSet hashset = new HashSet();
         if(vector.size() > 1)
         {
@@ -3505,10 +3507,10 @@ public class APIMonitor extends APISiteView
         return vector1;
     }
 
-    private java.util.Vector returnMachineScalarValues(AtomicMonitor atomicmonitor)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    private Vector returnMachineScalarValues(AtomicMonitor atomicmonitor)
+        throws SiteViewException
     {
-        java.util.Vector vector = null;
+        Vector vector = null;
         try
         {
             boolean flag = true;
@@ -3678,10 +3680,10 @@ public class APIMonitor extends APISiteView
      * @param s1
      * @param s2
      * @param hashmap
-     * @throws COM.dragonflow.SiteViewException.SiteViewException
+     * @throws SiteViewException
      */
     private void setMonitorProperties(String s, AtomicMonitor atomicmonitor, String s1, String s2, jgl.HashMap hashmap)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try {
         User user;
@@ -3805,7 +3807,7 @@ public class APIMonitor extends APISiteView
             jgl.Array array = ((BrowsableMonitor)atomicmonitor).getConnectionProperties();
             for(int k1 = 0; k1 < array.size(); k1++)
             {
-                String s10 = ((COM.dragonflow.Properties.StringProperty)array.at(k1)).getName();
+                String s10 = ((StringProperty)array.at(k1)).getName();
                 String s12 = (String)hashmap.get(s10);
                 if(s12 != null)
                 {
@@ -3824,7 +3826,7 @@ public class APIMonitor extends APISiteView
                 if(--i3 > k2)
                 {
                     java.util.List list = BrowsableBase.createNewBrowsableCounters(k2, i3);
-                    for(java.util.Iterator iterator = list.iterator(); iterator.hasNext(); COM.dragonflow.Properties.PropertiedObject.addPropertyToPropertyMap(atomicmonitor.getClass().getName(), (COM.dragonflow.Properties.StringProperty)iterator.next())) { }
+                    for(java.util.Iterator iterator = list.iterator(); iterator.hasNext(); COM.dragonflow.Properties.PropertiedObject.addPropertyToPropertyMap(atomicmonitor.getClass().getName(), (StringProperty)iterator.next())) { }
                     ((BrowsableMonitor)atomicmonitor).setMaxCounters(i3);
                     k2 = i3;
                 }
@@ -3902,13 +3904,13 @@ public class APIMonitor extends APISiteView
         }
         
         jgl.Array array1 = atomicmonitor.getProperties();
-        array1 = COM.dragonflow.Properties.StringProperty.sortByOrder(array1);
+        array1 = StringProperty.sortByOrder(array1);
         enumeration = array1.elements();
-        COM.dragonflow.Properties.StringProperty stringproperty;
+        StringProperty stringproperty;
         String s14;
         while (enumeration.hasMoreElements())
             {
-            stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+            stringproperty = (StringProperty)enumeration.nextElement();
         if (s.equals(OP_ADD) || s.equals(OP_TEMP) || hashmap.get(stringproperty.getName()) != null && atomicmonitor.propertyInTemplate(stringproperty) && stringproperty.isConfigurable) {
         if(stringproperty.isMultiLine)
         {
@@ -4108,7 +4110,7 @@ public class APIMonitor extends APISiteView
     }
 
     private void writeMonitor(String s, AtomicMonitor atomicmonitor, String s1, String s2)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         String s3 = s1;
         try
@@ -4185,7 +4187,7 @@ public class APIMonitor extends APISiteView
     }
 
     private void saveThresholds(Monitor monitor, jgl.HashMap hashmap)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         int i = getThresholdNum(monitor);
         String as[] = {
@@ -4235,7 +4237,7 @@ public class APIMonitor extends APISiteView
     }
 
     private void saveThreshold(Monitor monitor, int i, String s, String s1)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         int j = getThresholdNum(monitor);
         String s2 = "SetProperty category " + s;
@@ -4305,7 +4307,7 @@ public class APIMonitor extends APISiteView
     }
 
     private void deleteMonitorInternal(String s)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+        throws SiteViewException
     {
         try
         {
@@ -4361,9 +4363,9 @@ public class APIMonitor extends APISiteView
         }
     }
 
-    private Enumeration getRefresh(COM.dragonflow.Utils.HTMLTagParser htmltagparser)
+    private Enumeration getRefresh(HTMLTagParser htmltagparser)
     {
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         Enumeration enumeration = htmltagparser.findTags("meta");
         while (enumeration.hasMoreElements()) {
             jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
@@ -4378,9 +4380,9 @@ public class APIMonitor extends APISiteView
         return vector.elements();
     }
 
-    private Enumeration getFrames(COM.dragonflow.Utils.HTMLTagParser htmltagparser)
+    private Enumeration getFrames(HTMLTagParser htmltagparser)
     {
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         Enumeration enumeration = htmltagparser.findTags("frame");
         Enumeration enumeration1 = htmltagparser.findTags("iframe");
         String s;
@@ -4410,9 +4412,9 @@ public class APIMonitor extends APISiteView
         return vector.elements();
     }
 
-    private Enumeration getForms(COM.dragonflow.Utils.HTMLTagParser htmltagparser, AtomicMonitor atomicmonitor, String s)
+    private Enumeration getForms(HTMLTagParser htmltagparser, AtomicMonitor atomicmonitor, String s)
     {
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         Enumeration enumeration = htmltagparser.findTags("form");
         int i = 0;
         while (enumeration.hasMoreElements()) {
@@ -4544,9 +4546,9 @@ public class APIMonitor extends APISiteView
         return vector.elements();
     }
 
-    private Enumeration getLinks(COM.dragonflow.Utils.HTMLTagParser htmltagparser)
+    private Enumeration getLinks(HTMLTagParser htmltagparser)
     {
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         String s;
         for(Enumeration enumeration = htmltagparser.findTags("a"); enumeration.hasMoreElements(); vector.addElement(s.length() <= 80 ? ((java.lang.Object) (s)) : ((java.lang.Object) (s.substring(0, 79)))))
         {
@@ -4570,7 +4572,7 @@ public class APIMonitor extends APISiteView
         return vector.elements();
     }
 
-    private void findCounters(Monitor monitor, java.util.Vector vector, java.util.Vector vector1, org.w3c.dom.Node node, int i)
+    private void findCounters(Monitor monitor, Vector vector, Vector vector1, org.w3c.dom.Node node, int i)
     {
         if(node.getNodeType() == 1)
         {
@@ -4706,10 +4708,9 @@ public class APIMonitor extends APISiteView
      * @param s
      * @param s1
      * @return
-     * @throws COM.dragonflow.SiteViewException.SiteViewException
+     * @throws SiteViewException
      */
-    public SSMonitorInstance resetCounters(String s, String s1)
-        throws COM.dragonflow.SiteViewException.SiteViewException
+    public SSMonitorInstance resetCounters(String s, String s1) throws SiteViewException
     {
         SSMonitorInstance ssmonitorinstance;
             ssmonitorinstance = null;
@@ -4760,10 +4761,10 @@ public class APIMonitor extends APISiteView
 
     private Enumeration adjustVirtualProperties(Enumeration enumeration)
     {
-        java.util.Vector vector = new Vector();
+        Vector vector = new Vector();
         while (enumeration.hasMoreElements())
             {
-            COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty)enumeration.nextElement();
+            StringProperty stringproperty = (StringProperty)enumeration.nextElement();
             if(stringproperty == Monitor.pAlertDisabled)
             {
                 vector.add(pAlertDisable);

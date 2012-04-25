@@ -1,1 +1,9 @@
 *.class
+com.siteview.kernel.core/htdocs/Progress.*
+com.siteview.kernel.core/bin/**
+com.siteview.kernel.core/classes/**
+com.siteview.kernel.core/logs/**
+com.siteview.kernel.core/groups/*.mg
+com.siteview.kernel.core/groups/*.dyn
+com.siteview.kernel.core/groups/*.bak
+com.siteview.kernel.core/cache/**

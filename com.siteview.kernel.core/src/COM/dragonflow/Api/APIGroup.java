@@ -18,9 +18,13 @@ package COM.dragonflow.Api;
  */
 
 import java.io.File;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import jgl.Array;
@@ -45,6 +49,7 @@ import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.LUtils;
 import COM.dragonflow.Utils.TextUtils;
+import COM.dragonflow.Utils.jglUtils;
 
 // Referenced classes of package COM.dragonflow.Api:
 // APISiteView, SSStringReturnValue, SSPropertyDetails, APIAlert,
@@ -206,16 +211,16 @@ public class APIGroup extends APISiteView
         }
     }
 
-    public void delete(String s)
+    public void delete(String groupid)
         throws SiteViewException
     {
         try
         {
-            if(s.length() == 0 || s == null)
+            if(groupid.length() == 0 || groupid == null)
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_EMPTY);
             }
-            deleteGroupInternal(s);
+            deleteGroupInternal(groupid);
             saveGroups();
             DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
@@ -629,10 +634,27 @@ public class APIGroup extends APISiteView
         return getAllAllowedGroups();
     }
     
-    public ArrayList getTopLevelGroupInstances()
+    public ArrayList<MonitorGroup>  getTopLevelGroupInstances()
             throws SiteViewException
     {
             return getTopLevelAllowedGroups();
+    }
+    
+    public int getNumOfMonitorsForGroup(String groupid) throws SiteViewException{
+
+		Collection monitors = getMonitorsForGroup(groupid);
+		int total = monitors.size();
+		
+		Collection childgroups = getChildGroupInstances(groupid);
+		
+		if(childgroups.size() > 0) {
+			for(Iterator iter=childgroups.iterator();iter.hasNext();){
+				MonitorGroup mg = (MonitorGroup) iter.next();
+				total += getNumOfMonitorsForGroup(mg.getProperty("_name"));				
+			}
+		}
+		
+		return total;
     }
 
     public Collection getChildGroupInstances(String s)

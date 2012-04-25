@@ -1,12 +1,4 @@
-/*
- * 
- * Created on 2005-2-6 15:53:53
- *
- * Platform.java
- *
- * History:
- *
- */
+
 package COM.dragonflow.SiteView;
 
 /**
@@ -139,7 +131,7 @@ public class Platform {
     }
 
     public static String platformName() {
-        String s = "NT";
+        String s = "WIN";
         if (isUnix())
             s = "Unix";
         return s;
@@ -559,6 +551,10 @@ public class Platform {
         return ping(host, i, j, k, null);
     }
 
+    //TODO: for testing only
+    public static int[] ping(String host, int i, int j, int k,Monitor monitor) {
+    	return ping( host,  i,  j,  k, monitor);
+    }
     /**
      * 
      * 
@@ -569,8 +565,7 @@ public class Platform {
      * @param atomicmonitor
      * @return
      */
-    public static int[] ping(String host, int i, int j, int k,
-            AtomicMonitor atomicmonitor) {
+    public static int[] ping(String host, int i, int j, int k,AtomicMonitor atomicmonitor) {
         if (atomicmonitor != null)
             atomicmonitor.currentStatus = "PingMonitor executing cmd...";
         String s1 = pingCommand(host, i, j, k);

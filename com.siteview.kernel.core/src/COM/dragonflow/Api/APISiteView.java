@@ -29,8 +29,6 @@ import java.util.Vector;
 
 import jgl.Array;
 import jgl.HashMap;
-import jgl.Reversing;
-import jgl.Sorting;
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Page.CGI;
@@ -44,7 +42,6 @@ import COM.dragonflow.SiteView.CompareSlot;
 import COM.dragonflow.SiteView.ConfigurationChanger;
 import COM.dragonflow.SiteView.DetectConfigurationChange;
 import COM.dragonflow.SiteView.FindRunningMonitors;
-import COM.dragonflow.SiteView.GreaterEqualMonitorName;
 import COM.dragonflow.SiteView.Group;
 import COM.dragonflow.SiteView.Machine;
 import COM.dragonflow.SiteView.MasterConfig;
@@ -65,13 +62,14 @@ import COM.dragonflow.SiteViewException.SiteViewParameterException;
 import COM.dragonflow.StandardMonitor.ADReplicationMonitor;
 import COM.dragonflow.StandardMonitor.Exchange2k3MailboxMonitor;
 import COM.dragonflow.Utils.I18N;
+import COM.dragonflow.Utils.TextUtils;
 import COM.dragonflow.Utils.WSDLParser;
 
 // Referenced classes of package COM.dragonflow.Api:
 // SSHealthStats, SSInstanceProperty, APIPreference, APIMonitor,
 // APIGroup, APIAlert, APIReport, SSPropertyDetails
 
-public class APISiteView
+public class APISiteView 
 {
     class HeartbeatTask extends java.util.TimerTask
         implements java.lang.Runnable
@@ -712,7 +710,7 @@ public class APISiteView
         try
         {
             COM.dragonflow.Utils.LUtils.updateSpecialLicense(s, flag);
-            COM.dragonflow.Api.APISiteView.refreshSSChildObjects();
+            refreshSSChildObjects();
             DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }
@@ -1391,7 +1389,7 @@ public class APISiteView
                             as1[1] = "true";
                             as1[2] = "";
                             siteViewObjects.add(as1);
-                            ssChildObjects.add(COM.dragonflow.Api.APISiteView.getObjects(s));
+                            ssChildObjects.add(getObjects(s));
                         }
                         catch(java.lang.Throwable throwable1)
                         {
@@ -1412,7 +1410,7 @@ public class APISiteView
     {
         ssChildObjects = null;
         siteViewObjects = null;
-        COM.dragonflow.Api.APISiteView.initSSChildObjects();
+        initSSChildObjects();
     }
 
     protected boolean isRequiredProperty(String s)
@@ -2026,7 +2024,7 @@ public class APISiteView
         return flag;
     }
 
-    protected java.util.Vector getLocalServers()
+    protected Vector getLocalServers()
         throws SiteViewException
     {
         java.util.Vector vector = new Vector();
@@ -2146,7 +2144,7 @@ public class APISiteView
         COM.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
         if(httprequest != null)
         {
-            return COM.dragonflow.Api.APISiteView.isPortalServerRequest(httprequest);
+            return isPortalServerRequest(httprequest);
         } else
         {
             return false;
@@ -2246,7 +2244,7 @@ public class APISiteView
         throws SiteViewException
     {
         int i = -1;
-        COM.dragonflow.Api.APISiteView.initSSChildObjects();
+        initSSChildObjects();
         int j = 0;
         do
         {
@@ -2296,12 +2294,12 @@ public class APISiteView
         String s1 = (String)array.at(0);
         for(int i = 1; i < array.size(); i++)
         {
-            for(; !COM.dragonflow.Api.APISiteView.childOf(s1, (String)array.at(i)); s1 = COM.dragonflow.Api.APISiteView.getParent(s1)) { }
+            for(; !childOf(s1, (String)array.at(i)); s1 = getParent(s1)) { }
         }
 
         if(s != null && s.length() > 0)
         {
-            s1 = COM.dragonflow.Api.APISiteView.childOf(s, s1) ? s : s1;
+            s1 = childOf(s, s1) ? s : s1;
         }
         return s1;
     }
@@ -2314,7 +2312,7 @@ public class APISiteView
             array.add(as[i]);
         }
 
-        return COM.dragonflow.Api.APISiteView.getContext(array, s);
+        return getContext(array, s);
     }
 
     private static boolean childOf(String s, String s1)
@@ -2327,7 +2325,7 @@ public class APISiteView
         {
             return true;
         }
-        String s2 = COM.dragonflow.Api.APISiteView.getGroup(s1);
+        String s2 = getGroup(s1);
         if(s.equals(s2))
         {
             return true;
@@ -2337,15 +2335,15 @@ public class APISiteView
             return false;
         } else
         {
-            return COM.dragonflow.Api.APISiteView.childOf(s, COM.dragonflow.Api.APISiteView.getParent(s2));
+            return childOf(s, getParent(s2));
         }
     }
 
     private static String getParent(String s)
     {
-        if(!s.equals(COM.dragonflow.Api.APISiteView.getGroup(s)))
+        if(!s.equals(getGroup(s)))
         {
-            return COM.dragonflow.Api.APISiteView.getGroup(s);
+            return getGroup(s);
         } else
         {
             MonitorGroup monitorgroup = MonitorGroup.getMonitorGroup(s);
@@ -2356,7 +2354,7 @@ public class APISiteView
     private static String getGroup(String s)
     {
         String s1 = new String(s == null ? "" : s);
-        String as[] = COM.dragonflow.Utils.TextUtils.split(s1, " ");
+        String as[] = TextUtils.split(s1, " ");
         if(as.length == 2)
         {
             try
@@ -2399,10 +2397,10 @@ public class APISiteView
         return arraylist;
     }
     
-    protected  ArrayList getTopLevelAllowedGroups()
+    protected  ArrayList<MonitorGroup>  getTopLevelAllowedGroups()
     {
         jgl.Array array = getAllAllowedGroupIDs();
-        ArrayList arraylist = new ArrayList(array.size());
+        ArrayList<MonitorGroup>  arraylist = new ArrayList<MonitorGroup> (array.size());
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         for(int i = 0; i < array.size(); i++)
         {
@@ -2417,16 +2415,14 @@ public class APISiteView
         return arraylist;
     }
     
-
-
-    protected java.util.Collection getMonitorsForGroup(String s)
+    protected java.util.Collection getMonitorsForGroup(String groupid)
         throws SiteViewParameterException
     {
-        if(isGroupAllowedForAccount(s))
+        if(isGroupAllowedForAccount(groupid))
         {
             java.util.Vector vector = new Vector();
             SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
-            MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(s);
+            MonitorGroup monitorgroup = (MonitorGroup)siteviewgroup.getElement(groupid);
             java.util.ArrayList arraylist = new ArrayList();
             if(monitorgroup != null)
             {
@@ -2797,7 +2793,7 @@ public class APISiteView
 
     static 
     {
-        $assertionsDisabled = !(COM.dragonflow.Api.APISiteView.class).desiredAssertionStatus();
-        COM.dragonflow.Api.APISiteView.initRequiredPropertyArray();
+        $assertionsDisabled = !(APISiteView.class).desiredAssertionStatus();
+        initRequiredPropertyArray();
     }
 }
