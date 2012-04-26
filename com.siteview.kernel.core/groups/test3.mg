@@ -2,7 +2,7 @@ _encoding=GBK
 _dependsCondition=good
 _nextID=3
 _fileEncoding=UTF-8
-_name=test2
+_name=test3
 #
 _class=SubGroup
 _id=1
@@ -13,5 +13,5 @@ _name=sub22
 _class=SubGroup
 _id=2
 _encoding=GBK
-_group=sub22.1
+_group=sub22
 _name=sub22

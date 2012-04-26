@@ -58,7 +58,7 @@ public class MonitorServer extends PlatformObject {
 		this.userId = userId;
 		
 		if(!this.host.endsWith(""))
-			this.host = host;
+		this.host = host;
 //		this.port = port;
 		this.password = password;
 //		this.alias = alias;

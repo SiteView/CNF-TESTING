@@ -154,6 +154,8 @@
             locationURI="popup:com.siteview.ecc.rcp.cnf.view.popup?after=group.edit">
          <command
                commandId="org.eclipse.ui.edit.delete"
+               helpContextId="org.eclipse.ui.edit.delete"
+               icon="icons/delete_obj.gif"
                id="cnf.popupmenu.delete"
                label="Delete"
                mnemonic="D"

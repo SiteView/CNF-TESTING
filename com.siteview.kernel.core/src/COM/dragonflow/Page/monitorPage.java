@@ -136,6 +136,8 @@ public class monitorPage extends COM.dragonflow.Page.CGI
             }
             try
             {
+//            	if(s.indexOf("AssetMonitor") == 0)
+//            		System.out.println("dddd");
                 java.lang.Class class1 = java.lang.Class.forName("COM.dragonflow.StandardMonitor." + s);
                 if(flag)
                 {
@@ -151,6 +153,10 @@ public class monitorPage extends COM.dragonflow.Page.CGI
                 }
             }
             catch(java.lang.Throwable throwable) { }
+//            catch(java.lang.Exception e)
+//            {
+//            	System.out.println(e.toString());
+//            }
         }
 
         java.io.File file1 = new File(Platform.getRoot() + "/classes/CustomMonitor");

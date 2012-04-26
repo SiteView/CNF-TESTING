@@ -13,7 +13,6 @@ public class AdapterFactory implements IAdapterFactory {
 	private IWorkbenchAdapter monitorServerManagerAdapter = new MonitorServerManagerAdapter();	
 	private IWorkbenchAdapter monitorServerAdapter = new MonitorServerAdapter();	
 	private IWorkbenchAdapter monitorGroupAdapter = new MonitorGroupAdapter();	
-//	private IWorkbenchAdapter monitorAdapter = new MonitorAdapter();	
 	private IWorkbenchAdapter monitorAdapter = new MonitorAdapter();
 
 

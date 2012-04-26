@@ -56,9 +56,11 @@ public class DeleteHandler extends AbstractHandler
 				} catch (SiteViewException e) {
 					e.printStackTrace();
 				}     			
+            	
     		} else if (selection.getFirstElement() instanceof HashMap) {
     			
     		}
+    		
     	}
     }
 

@@ -77,7 +77,7 @@ public class SecureLoginDialog extends Dialog {
 
 	private static final String SERVER = "server";
 
-	private static final String SAVED = "org.eclipsercp.hyperbola/saved-connections";
+	private static final String SAVED = "com.siteview.ecc.rcp.cnf/saved-connections";
 
 	private static final String LAST_USER = "prefs_last_connection";
 
@@ -210,20 +210,23 @@ public class SecureLoginDialog extends Dialog {
 				IDialogConstants.CLIENT_ID, "&Delete User", false);
 		removeCurrentUser.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				savedDetails.remove(userIdText.getText());
+				String userId = userIdText.getText();
+				savedDetails.remove(userId);
 				initializeUsers("");
-//				ISecurePreferences preferences = SecurePreferencesFactory.getDefault();
-//				ISecurePreferences connections = preferences.node(SAVED);
-//				connections.remove(userIdText.getText());
-//				preferences.removeNode();
-//				try {
-//					preferences.flush();
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+				ISecurePreferences preferences = SecurePreferencesFactory.getDefault();
+				ISecurePreferences connections = preferences.node(SAVED);
+				ISecurePreferences connection = connections.node(userId);		
+				connection.removeNode();
+				try {
+					preferences.flush();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}				
 			}
 		});
+		Button mutilview = createButton(parent,
+				IDialogConstants.CLIENT_ID, "&MutliView Login", false);
 		createButton(parent, IDialogConstants.OK_ID, "&Login", true);
 		createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
@@ -269,12 +272,17 @@ public class SecureLoginDialog extends Dialog {
 	public void saveDescriptors() {
 		try {
 			ISecurePreferences preferences = SecurePreferencesFactory.getDefault();
+<<<<<<< HEAD
 			preferences.put(LAST_USER, server.getUserId(), false);
 			ISecurePreferences connections = preferences.node(SAVED);
+=======
+			preferences.put(LAST_USER, connectionDetails.getUserId(), false);			
+			ISecurePreferences connections = preferences.node(SAVED);			
+>>>>>>> 5225d6f83e2cdf93e0612d9f4ce5a15c528254b5
 			for (Iterator it = savedDetails.keySet().iterator(); it.hasNext();) {
 				String name = (String) it.next();
 				MonitorServer d = (MonitorServer) savedDetails.get(name);
-				ISecurePreferences connection = connections.node(name);
+				ISecurePreferences connection = connections.node(name);				
 				connection.put(SERVER, d.getHost(), false);
 				connection.put(PASSWORD, d.getPassword(), true);
 			}
@@ -297,8 +305,13 @@ public class SecureLoginDialog extends Dialog {
 				savedDetails.put(userName, new MonitorServer(userName, node
 						.get(SERVER, ""), node.get(PASSWORD, "")));
 			}
+<<<<<<< HEAD
 			savedDetails.put("reader", new MonitorServer("admin", "", "admin"));
 			server = (MonitorServer) savedDetails
+=======
+//			savedDetails.put("admin", new MonitorServer("admin", "", "admin"));
+			connectionDetails = (MonitorServer) savedDetails
+>>>>>>> 5225d6f83e2cdf93e0612d9f4ce5a15c528254b5
 					.get(preferences.get(LAST_USER, ""));
 		} catch (StorageException e) {
 			e.printStackTrace();
@@ -311,5 +324,13 @@ public class SecureLoginDialog extends Dialog {
 	 */
 	public MonitorServer getConnectionDetails() {
 		return server;
+	}
+	
+	/**
+	 * Returns the connection details entered by the user, or <code>null</code>
+	 * if the dialog was canceled.
+	 */
+	public HashMap getSavedDetails() {
+		return savedDetails;
 	}
 }
