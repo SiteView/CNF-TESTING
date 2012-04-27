@@ -233,7 +233,5 @@ public class PingMonitor extends AtomicMonitor
         setClassProperty("COM.dragonflow.StandardMonitor.PingMonitor", "target", "_hostname");
         setClassProperty("COM.dragonflow.StandardMonitor.PingMonitor", "toolName", "Ping");
         setClassProperty("COM.dragonflow.StandardMonitor.PingMonitor", "toolDescription", "Performs a roundtrip test on the network.");
-        setClassProperty("COM.dragonflow.StandardMonitor.PingMonitor", "topazName", "Ping");
-        setClassProperty("COM.dragonflow.StandardMonitor.PingMonitor", "topazType", "System Resources");
     }
 }

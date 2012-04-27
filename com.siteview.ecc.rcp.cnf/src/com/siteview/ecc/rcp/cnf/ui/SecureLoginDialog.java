@@ -272,13 +272,10 @@ public class SecureLoginDialog extends Dialog {
 	public void saveDescriptors() {
 		try {
 			ISecurePreferences preferences = SecurePreferencesFactory.getDefault();
-<<<<<<< HEAD
+
 			preferences.put(LAST_USER, server.getUserId(), false);
 			ISecurePreferences connections = preferences.node(SAVED);
-=======
-			preferences.put(LAST_USER, connectionDetails.getUserId(), false);			
-			ISecurePreferences connections = preferences.node(SAVED);			
->>>>>>> 5225d6f83e2cdf93e0612d9f4ce5a15c528254b5
+
 			for (Iterator it = savedDetails.keySet().iterator(); it.hasNext();) {
 				String name = (String) it.next();
 				MonitorServer d = (MonitorServer) savedDetails.get(name);
@@ -305,13 +302,10 @@ public class SecureLoginDialog extends Dialog {
 				savedDetails.put(userName, new MonitorServer(userName, node
 						.get(SERVER, ""), node.get(PASSWORD, "")));
 			}
-<<<<<<< HEAD
-			savedDetails.put("reader", new MonitorServer("admin", "", "admin"));
+
+//			savedDetails.put("reader", new MonitorServer("admin", "", "admin"));
 			server = (MonitorServer) savedDetails
-=======
-//			savedDetails.put("admin", new MonitorServer("admin", "", "admin"));
-			connectionDetails = (MonitorServer) savedDetails
->>>>>>> 5225d6f83e2cdf93e0612d9f4ce5a15c528254b5
+
 					.get(preferences.get(LAST_USER, ""));
 		} catch (StorageException e) {
 			e.printStackTrace();
