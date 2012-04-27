@@ -35,7 +35,7 @@
       <menuContribution
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
-               label="Commit Menu"
+               label="SiteView"
                mnemonic="M"
                id="com.siteview.ecc.workbench.menus.commitMenu">
             <command
