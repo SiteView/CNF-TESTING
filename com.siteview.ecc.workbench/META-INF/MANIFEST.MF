@@ -4,5 +4,7 @@ Bundle-Name: Workbench
 Bundle-SymbolicName: com.siteview.ecc.workbench; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: SITEVIEW
-Require-Bundle: org.eclipse.ui
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.jdt;bundle-version="3.7.2",
+ org.eclipse.core.resources;bundle-version="3.7.101"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
