@@ -1266,16 +1266,16 @@ public class APIGroup extends APISiteView
         return ((jgl.HashMap) (obj));
     }
 
-    private void deleteGroupInternal(String s)
+    private void deleteGroupInternal(String groupid)
         throws SiteViewException
     {
         try
         {
             if(debug)
             {
-                TextUtils.debugPrint("DELETING GROUP " + s);
+                TextUtils.debugPrint("DELETING GROUP " + groupid);
             }
-            java.io.File file = new File(getGroupFilePath(s, ".mg"));
+            java.io.File file = new File(getGroupFilePath(groupid, ".mg"));
             if(debug)
             {
                 TextUtils.debugPrint("DELETING GROUP IN FILE " + file);
@@ -1283,17 +1283,17 @@ public class APIGroup extends APISiteView
             if(!file.exists())
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_NOT_VALID, new String[] {
-                    s
+                    groupid
                 });
             }
-            jgl.Array array = getGroupFrames(s);
+            jgl.Array array = getGroupFrames(groupid);
             Enumeration enumeration = array.elements();
             jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
             String s1 = TextUtils.getValue(hashmap, "_parent");
             if(s1.length() != 0)
             {
                 jgl.Array array1 = getGroupFrames(s1);
-                int i = findSubGroupIndex(array1, s);
+                int i = findSubGroupIndex(array1, groupid);
                 if(i >= 1)
                 {
                     array1.remove(i);
@@ -1315,7 +1315,7 @@ public class APIGroup extends APISiteView
                 {
                     SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
                     String s4 = TextUtils.getValue(hashmap1, "_id");
-                    String s5 = I18N.toDefaultEncoding(s + SiteViewGroup.ID_SEPARATOR + s4);
+                    String s5 = I18N.toDefaultEncoding(groupid + SiteViewGroup.ID_SEPARATOR + s4);
                     AtomicMonitor atomicmonitor = (AtomicMonitor)siteviewgroup.getElement(s5);
                     if(atomicmonitor != null)
                     {
@@ -1346,7 +1346,7 @@ public class APIGroup extends APISiteView
 
             if(COM.dragonflow.Properties.JdbcConfig.configInDB())
             {
-                COM.dragonflow.Properties.JdbcConfig.deleteGroupFromDB(s);
+                COM.dragonflow.Properties.JdbcConfig.deleteGroupFromDB(groupid);
             }
 //            if(TopazConfigurator.configInTopazAndRegistered())
 //            {
@@ -1358,22 +1358,22 @@ public class APIGroup extends APISiteView
                 TextUtils.debugPrint("DELETING FILE " + file);
             }
             file.delete();
-            java.io.File file1 = new File(getGroupFilePath(s, ".mg.bak"));
+            java.io.File file1 = new File(getGroupFilePath(groupid, ".mg.bak"));
             if(file1.exists())
             {
                 file1.delete();
             }
-            java.io.File file2 = new File(getGroupFilePath(s, ".dyn"));
+            java.io.File file2 = new File(getGroupFilePath(groupid, ".dyn"));
             if(file2.exists())
             {
                 file2.delete();
             }
-            java.io.File file3 = new File(getGroupFilePath(s, ".dyn.bak"));
+            java.io.File file3 = new File(getGroupFilePath(groupid, ".dyn.bak"));
             if(file3.exists())
             {
                 file3.delete();
             }
-            groups.remove(s);
+            groups.remove(groupid);
         }
         catch(SiteViewException siteviewexception)
         {

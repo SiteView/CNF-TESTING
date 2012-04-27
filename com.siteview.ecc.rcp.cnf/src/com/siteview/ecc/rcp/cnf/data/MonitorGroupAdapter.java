@@ -119,14 +119,17 @@ public class MonitorGroupAdapter implements IWorkbenchAdapter, IWorkbenchAdapter
             	//obtain the groupid
             	String groupid = ((MonitorGroup)parentElement).getProperty("_name");
 
+            	//obtain the child groups
             	List<Map<String, Object>> subGroupList = server.getRmiServer().getChildGroupInstances(groupid); 
             	for(Map<String, Object> mg:subGroupList) {
     			  mg.put("_class","MonitorGroup");
     			  mgobjList.add((MonitorGroup)SiteViewObject.createObject(jglUtils.toJgl(mg)));
             	}
 
+            	//obtaining the monitors inside the group
             	List<Map<String, Object>> monitorList =  server.getRmiServer().getMonitorsForGroup(groupid);
             	for(Map<String, Object> monitor:monitorList) {
+            		//FIXME: can't create Monitor object, using map for now
 //            	  Class mon = Class.forName("COM.dragonflow.StandardMonitor.TestMonitor");	
 //            	  SiteViewObject siteviewobject = (SiteViewObject) mon.newInstance();
 //    			  monitor.put("_class","TestMonitor");

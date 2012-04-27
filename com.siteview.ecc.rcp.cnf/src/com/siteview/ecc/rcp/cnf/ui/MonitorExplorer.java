@@ -18,7 +18,6 @@ public class MonitorExplorer extends CommonNavigator
     protected Object getInitialInput()
     {
     	server = new MonitorServer();
-//    	return server.getRoot();
         return new MonitorServerManager();
     }
 }

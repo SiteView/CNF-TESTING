@@ -3,7 +3,6 @@ package com.siteview.ecc.rcp.cnf.ui;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
-import com.siteview.ecc.rcp.cnf.provider.MonitorExplorer;
 
 public class Perspective implements IPerspectiveFactory
 {

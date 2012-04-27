@@ -589,16 +589,16 @@ public class MonitorGroup extends Monitor {
         return s1;
     }
 
-    public String findLogInGroup(String s) {
+    public String findLogInGroup(String groupid) {
         String s1 = "";
-        if (s != null && s.length() > 0) {
-            String groupfile = Platform.getRoot() + File.separator + "groups" + File.separator + s + ".mg";
+        if (groupid != null && groupid.length() > 0) {
+            String groupfile = Platform.getRoot() + File.separator + "groups" + File.separator + groupid + ".mg";
             try {
                 Array array = FrameFile.readFromFile(groupfile);
                 HashMap hashmap = (HashMap) array.at(0);
                 String s3 = (String) hashmap.get("_logInGroup");
                 if (s3 != null && s3.length() > 0) {
-                    s1 = s;
+                    s1 = groupid;
                 } else {
                     s1 = findLogInGroup(I18N.toDefaultEncoding((String) hashmap.get("_parent")));
                 }
