@@ -154,15 +154,22 @@
       <menuContribution
             locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
          <command
-               commandId="org.eclipse.ui.edit.delete"
-               helpContextId="org.eclipse.ui.edit.delete"
-               icon="icons/delete_obj.gif"
+               commandId="org.eclipse.ui.examples.navigator.submit"
+               helpContextId="Submit to the backend"
                id="cnf.popupmenu.delete"
                label="SiteView Submit"
                mnemonic="S"
                style="push">
          </command>
       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="submit to the server"
+            id="org.eclipse.ui.examples.navigator.submit"
+            name="submit">
+      </command>
    </extension>
    
    <!-- 
