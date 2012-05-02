@@ -216,20 +216,25 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	}
 
 	public void createMonitor(String monitorType, String groupid,
-			List<Map<String, String>> paramlist) throws RemoteException,SiteViewException{
+			List<Map<String, String>> paramlist) throws RemoteException,
+			SiteViewException {
 		// TODO Auto-generated method stub
-		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[paramlist
-				.size()];
+		SSInstanceProperty[] assinstanceproperty = null;
+				
 		for (int i = 0; i < paramlist.size(); i++) {
 			Map<String, String> map = paramlist.get(i);
+			assinstanceproperty = new SSInstanceProperty[map.size()];
+			int j = 0;
 			for (Entry<String, String> entry : map.entrySet()) {
 				String k = entry.getKey();
 				String v = entry.getValue();
-				assinstanceproperty[i] = new SSInstanceProperty(k, v);
+				assinstanceproperty[j] = new SSInstanceProperty(k, v);
+				j++;
 			}
 		}
 		COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue2 = apimonitor
 				.create(monitorType, groupid, assinstanceproperty);
 	}
+
 
 }
