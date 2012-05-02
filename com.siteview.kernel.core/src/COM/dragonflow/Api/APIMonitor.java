@@ -355,10 +355,13 @@ public class APIMonitor extends APISiteView
             }
             String machine = (String)hashmap.get("_machine");
             processMachineName(machine, hashmap);
-            AtomicMonitor atomicmonitor = instantiateMonitor(s);
+            AtomicMonitor atomicmonitor = instantiateMonitor("MemoryMonitor");
+            
+//            AtomicMonitor atomicmonitor = instantiateMonitor(s);
             setMonitorProperties(OP_ADD, atomicmonitor, "", s1, hashmap);
             atomicmonitor.initialize(hashmap);
-            validateProperties(hashmap, atomicmonitor, s, APISiteView.FILTER_CONFIGURATION_ADD_ALL);
+            atomicmonitor.setValuesTable(hashmap);
+           // validateProperties(hashmap, atomicmonitor, s, APISiteView.FILTER_CONFIGURATION_ADD_ALL);
             writeMonitor(OP_ADD, atomicmonitor, "", s1);
             ScheduleManager schedulemanager = ScheduleManager.getInstance();
             schedulemanager.addMonitorToScheduleObject(atomicmonitor);
@@ -2798,6 +2801,8 @@ public class APIMonitor extends APISiteView
             {
                 java.util.HashMap hashmap3 = new java.util.HashMap();
                 StringProperty stringproperty1;
+                
+                
                 for(Enumeration enumeration1 = hashmap2.keys(); enumeration1.hasMoreElements(); hashmap3.put(stringproperty1.getName(), hashmap2.get(stringproperty1)))
                 {
                     stringproperty1 = (StringProperty)enumeration1.nextElement();
