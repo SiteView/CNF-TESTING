@@ -271,14 +271,10 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="com.siteview.ecc.rcp.cnf.internal.GeneralPreferencePage"
-            id="com.siteview.ecc.preferences.general"
-            name="General">
-      </page>
-      <page
-            class="org.eclipse.ui.ExtensionFactory:keysPreferencePage"
-            id="com.siteview.ecc.preferences.keys"
-            name="Keys">
+            category="SiteviewPreferencePage"
+            class="com.siteview.ecc.rcp.cnf.internal.LoginPreferencePage"
+            id="LoginPreferencePage"
+            name="LoginPreference">
       </page>
    </extension>
    <extension

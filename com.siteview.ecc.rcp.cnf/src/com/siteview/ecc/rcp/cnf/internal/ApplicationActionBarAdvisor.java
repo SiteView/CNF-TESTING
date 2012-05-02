@@ -29,6 +29,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor
 	private IWorkbenchAction aboutAction;
 
 	private AddMonitorAction addMointorAction;
+	
+	private IWorkbenchAction preferencesAction;
 
 	protected void makeActions(IWorkbenchWindow window) {
 		exitAction = ActionFactory.QUIT.create(window);
@@ -37,11 +39,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor
 		register(aboutAction);
 		addMointorAction = new AddMonitorAction(window);
 		register(addMointorAction);
+		preferencesAction = ActionFactory.PREFERENCES.create(window);
+		register(preferencesAction);		
 	}
 
 	protected void fillMenuBar(IMenuManager menuBar) {
 		MenuManager siteviewMenu = new MenuManager("&SiteView", "SiteView");
 		siteviewMenu.add(addMointorAction);
+		siteviewMenu.add(preferencesAction);
 		siteviewMenu.add(new Separator());
 		siteviewMenu.add(exitAction);
 		MenuManager helpMenu = new MenuManager("&Help", "help");

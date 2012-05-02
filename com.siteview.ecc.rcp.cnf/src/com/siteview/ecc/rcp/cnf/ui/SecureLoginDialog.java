@@ -52,7 +52,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import com.siteview.ecc.rcp.cnf.data.MonitorServer;
 import com.siteview.ecc.rcp.cnf.internal.Application;
-import com.siteview.ecc.rcp.cnf.internal.GeneralPreferencePage;
+import com.siteview.ecc.rcp.cnf.internal.LoginPreferencePage;
 //import com.siteview.ecc.rcp.cnf.model.MonitorServer;
 
 /**
@@ -187,13 +187,13 @@ public class SecureLoginDialog extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				IEclipsePreferences prefs = new ConfigurationScope()
 						.getNode(Application.PLUGIN_ID);
-				prefs.putBoolean(GeneralPreferencePage.AUTO_LOGIN, autoLogin
+				prefs.putBoolean(LoginPreferencePage.AUTO_LOGIN, autoLogin
 						.getSelection());
 			}
 		});
 		IPreferencesService service = Platform.getPreferencesService();
 		boolean auto_login = service.getBoolean(Application.PLUGIN_ID,
-				GeneralPreferencePage.AUTO_LOGIN, true, null);
+				LoginPreferencePage.AUTO_LOGIN, true, null);
 
 		autoLogin.setSelection(auto_login);
 

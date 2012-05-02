@@ -9,14 +9,14 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
-public class GeneralPreferencePage extends FieldEditorPreferencePage implements
+public class LoginPreferencePage extends FieldEditorPreferencePage implements
 		IWorkbenchPreferencePage {
 
 	public static final String AUTO_LOGIN = "prefs_auto_login";
 
 	private ScopedPreferenceStore preferences;
 
-	public GeneralPreferencePage() {
+	public LoginPreferencePage() {
 		super(GRID);
 		this.preferences = new ScopedPreferenceStore(new ConfigurationScope(),
 				Application.PLUGIN_ID);

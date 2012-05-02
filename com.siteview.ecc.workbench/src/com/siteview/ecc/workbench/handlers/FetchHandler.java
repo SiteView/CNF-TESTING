@@ -1,3 +1,5 @@
+
+
 package com.siteview.ecc.workbench.handlers;
 
 import java.util.ArrayList;
@@ -22,26 +24,27 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
- * Handler to commit the changes to the backend through RMI.  Based on different cope:
+ * Handler to fetch the changes from the backend through RMI to update the workbench.  Based on different cope:
  * 
  *  <ul>
  * <li>Projects wide:</li>
- * <li>Package: there is a java class with the same name as the parent package, the group object is derived from this class.  Using @see JavaElementUtil for subPackages</li>
+ * <li>Package: there is a java class with the same name as the parent package, the group object is derived from this class.  Including its subpackages
  * <li>Java Class: take the key=value to obtain the monitor object</li>
  * </ul>
  * @see org.eclipse.core.commands.IHandler
  * @see org.eclipse.core.commands.AbstractHandler
  */
-public class CommitHandler extends AbstractHandler {
+public class FetchHandler extends AbstractHandler {
 	/**
 	 * The constructor.
 	 */
-	public CommitHandler() {
+	public FetchHandler() {
 	}
 
 	List groups = new ArrayList();
@@ -58,7 +61,7 @@ public class CommitHandler extends AbstractHandler {
 		if (currentSelection instanceof IStructuredSelection) {
 			IStructuredSelection ss = (IStructuredSelection) currentSelection;
 			try {
-				commit(ss);
+				fetch(ss);
 			} catch (JavaModelException e) {
 				e.printStackTrace();
 			} catch (CoreException e) {
@@ -75,7 +78,7 @@ public class CommitHandler extends AbstractHandler {
 	 * @param selection
 	 * @throws Exception
 	 */
-	private void commit(IStructuredSelection selection) throws Exception {
+	private void fetch(IStructuredSelection selection) throws Exception {
 		groups.clear();
 		monitors.clear();
 		if (selection.size() == 1) {
@@ -101,7 +104,7 @@ public class CommitHandler extends AbstractHandler {
     		}
     		if (selection.getFirstElement() instanceof ICompilationUnit) {    			
     			System.out.println("seletion is ICompilationUnit: " + ((ICompilationUnit)selection.getFirstElement()).getElementName()) ;
-    			getMonitor((ICompilationUnit)selection.getFirstElement());
+    			setMonitor((ICompilationUnit)selection.getFirstElement());
     		}
 		}
 	}
@@ -140,7 +143,7 @@ public class CommitHandler extends AbstractHandler {
 						if (packageName.equalsIgnoreCase(monitorName))  
 							getGroup(unit);
 						else 
-							getMonitor(unit);
+							setMonitor(unit);
 				} 
 				
 
@@ -185,17 +188,19 @@ public class CommitHandler extends AbstractHandler {
 	}
 
 	/**
-	 * Read the java file and add the content of the java file to a monitor map
+	 * Fetch the monitor map from the backend and set the java file content: replacing existing one or create new
+	 * 
 	 * @param unit
 	 */
-	private void getMonitor(ICompilationUnit unit) {
+	private void setMonitor(ICompilationUnit unit) {
 		CompilationUnit parse = parse(unit);
-		MethodVisitor methodvisitor = new MethodVisitor();
-		parse.accept(methodvisitor);
+		AST ast = parse.getAST();
+		ASTRewrite rewriter = ASTRewrite.create(ast);
+		
+		//replacing existing
+//		rewriter.replace(node, replacement, editGroup)
 
-		for (MethodDeclaration method : methodvisitor.getMethods()) {
-//			System.out.println("Method name: " + method.getName() + " Return type: " + method.getReturnType2());
-		}
+		//create new if no existing key
 		
 		FieldVisitor filedvisitor = new FieldVisitor();
 		parse.accept(filedvisitor);

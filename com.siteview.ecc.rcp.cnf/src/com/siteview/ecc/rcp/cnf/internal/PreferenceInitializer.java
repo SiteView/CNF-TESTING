@@ -27,6 +27,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	public void initializeDefaultPreferences() {
 		IEclipsePreferences defaults = new DefaultScope()
 				.getNode(Application.PLUGIN_ID);
-		defaults.putBoolean(GeneralPreferencePage.AUTO_LOGIN, false);
+		defaults.putBoolean(LoginPreferencePage.AUTO_LOGIN, false);
 	}
 }

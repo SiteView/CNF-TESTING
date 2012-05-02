@@ -66,7 +66,7 @@ public class Application implements IApplication
 		{
 			IPreferencesService service = Platform.getPreferencesService();
 			boolean auto_login = service.getBoolean(Application.PLUGIN_ID,
-					GeneralPreferencePage.AUTO_LOGIN, false, null);
+					LoginPreferencePage.AUTO_LOGIN, false, null);
 			MonitorServer details = loginDialog.getConnectionDetails();
 			if (!auto_login || details == null || !firstTry) 
 			{
