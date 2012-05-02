@@ -19,6 +19,8 @@ import siteview.IAutoTaskExtension;
 import COM.dragonflow.Api.APIInterfaces;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import Siteview.Api.BusinessObject;
+import Siteview.Api.BusinessObjectCollection;
+import Siteview.Api.Relationship;
 
 public class AddMonitorBundle implements IAutoTaskExtension {
 
@@ -33,10 +35,26 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		system.Collections.ArrayList al = new system.Collections.ArrayList();
 		al.AddRange(bo.get_FieldNames());
 		Map<String, String> map = new HashMap<String, String>();
+//		Relationship bo1=bo.GetRelationship("");
+//		BusinessObjectCollection bo2=bo1.get_BusinessObjects();
 		for (int i = 0; i < bo.get_FieldNames().get_Count(); i++) {
-			map.put(al.get_Item(i).toString(),
+			String s=al.get_Item(i).toString();
+			if(s.equals("frequency")){
+				s="pFrequency";
+			}else if(s.equals("DNSServer")){
+				s="pServer";
+			}else if(s.equals("depends_condition")){
+				s="pDependsCondition";
+			}else if(s.equals("URLLinkCheck")){
+				s="pURL";
+			}else if(s.equals("TimeoutLinkCheck")){
+				s="pTimeout";
+			}
+				map.put(s,
 					bo.GetField(al.get_Item(i).toString()).get_NativeValue()
 							.toString());
+				System.out.println("key:"+s+"->value:"+bo.GetField(al.get_Item(i).toString()).get_NativeValue());
+			
 		}
 		// System.out.print(al);
 		// System.out.println(bo.GetField("Host").get_NativeValue());
@@ -75,7 +93,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			List<Map<String, String>> paramlist = new ArrayList<Map<String, String>>();
 			paramlist.add(map);
 			String monitorType = getMonitorType(map.get("EccType"));
-			rmiServer.createMonitor(monitorType, "WWW.1", paramlist);
+			rmiServer.createMonitor(monitorType, "lili", paramlist);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
@@ -86,7 +104,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 
 	private static String getMonitorType(String monitorType) {
 		String filePath;
-		filePath = "src/itsm_siteview9.2.properties";
+		filePath = "D:/siteview9.2¡ªitsm/itsm_siteview9.2.properties";
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
