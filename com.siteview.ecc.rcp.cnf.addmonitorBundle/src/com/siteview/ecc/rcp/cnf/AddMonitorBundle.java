@@ -33,49 +33,23 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		system.Collections.ArrayList al = new system.Collections.ArrayList();
 		al.AddRange(bo.get_FieldNames());
 		Map<String, String> map = new HashMap<String, String>();
-		Relationship rs = bo.GetRelationship("MemoryContainsAlarmMemory");
+		Relationship rs = bo.GetRelationship("DNSContainsAlarmDNS");
 		BusinessObjectCollection list = rs.get_BusinessObjects();
 		for (int i = 0; i < bo.get_FieldNames().get_Count(); i++) {
 			String ecckey = al.get_Item(i).toString();
 			String javakey = this.getMonitorParam(ecckey);
-			if(ecckey.equals("disable")|| ecckey.equals("verfiy_error")|| ecckey.equals("activate_baseline")){
-				if(bo.GetField(al.get_Item(i).toString())
-						.get_NativeValue().toString().equals("true")){map.put(javakey, "on");
+			if (javakey != null) {
+				if(javakey.equals("_notLogToTopaz")||javakey.equals("_verifyError")||javakey.equals("_disabled")){
+					if(bo.GetField(al.get_Item(i).toString()).get_NativeValue().toString().equals("true")){
+						map.put(javakey,"on");
 					}else{
 						continue;
-					}	
-			}
-			// System.out.println("itsmkey:" + ecckey + " ; 9.2key:" + javakey);
-			/** Memory monitor data example begin **/
-			// map.put("class", "MemoryMonitor");
-			// map.put("page", "monitor");
-			// map.put("account", "administrator");
-			// map.put("ordering", "4");
-			// map.put("_schedule", "");
-			// map.put("error-comparison0", ">");
-			// map.put("warning-condition0", "default");
-			// map.put("group", "testGroup");
-			// map.put("_errorFrequency", "");
-			// map.put("_frequency", "10");
-			// map.put("_description", "none");
-			// map.put("id", "");
-			// map.put("good-parameter0", "");
-			// map.put("error-parameter0", "");
-			// map.put("_errorFrequencyUnits", "minutes");
-			// map.put("_dependsCondition", "good");
-			// map.put("rview", "");
-			// map.put("_machine", "\\\\192.168.9.131");
-			// map.put("counters", "");
-			// map.put("_monitorDescription", "");
-			// map.put("good-comparison0", ">=");
-			// map.put("_name", "MeM:192.168.9.131");
-			// map.put("detail", "");
-			// map.put("_dependsOn", "");
-			// map.put("operation", "RefreshMonitor");
-			/** Memory monitor data example end **/
-			if (javakey != null) {
-				map.put(javakey, bo.GetField(al.get_Item(i).toString())
-						.get_NativeValue().toString());
+					}
+				}else{
+					map.put(javakey, bo.GetField(al.get_Item(i).toString())
+							.get_NativeValue().toString());
+				}
+				
 			} else {
 				map.put(ecckey, bo.GetField(al.get_Item(i).toString())
 						.get_NativeValue().toString());
@@ -94,7 +68,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 					.toString();
 			String parameter = bosun.GetField("AlramValue").get_NativeValue()
 					.toString();
-			String returnitem = bosun.GetField("MemoryReturnItem").get_NativeValue().toString();
+			String returnitem = bosun.GetField("ReturnItemDNS").get_NativeValue().toString();
 			String isAnd=bosun.GetField("isAnd").get_NativeValue().toString();
 			if (status.equals("Good")) {
 				map.put("_classifier", returnitem + " "+comparison+" "+ parameter + " " + "good");
@@ -110,6 +84,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 
 		try {
 			addMonitor(map);
+			
 		} catch (SiteViewException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -155,7 +130,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 
 	private static String getMonitorType(String monitorType) {
 		String filePath;
-		filePath = "d:\\itsm_siteview9.2.properties";
+		filePath = "itsm_siteview9.2.properties";
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
@@ -171,7 +146,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 
 	private static String getMonitorParam(String param) {
 		String filePath;
-		filePath = "d:\\itsm_eccmonitorparams.properties";
+		filePath = "itsm_eccmonitorparams.properties";
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
