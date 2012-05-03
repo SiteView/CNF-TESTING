@@ -1,6 +1,7 @@
 package com.siteview.ecc.rcp.cnf;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.rmi.NotBoundException;
@@ -28,16 +29,19 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 
 	@Override
 	public String run(Map<String, Object> params) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub 
+	    
 		BusinessObject bo = (BusinessObject) params.get("_CUROBJ_");
 		system.Collections.ArrayList al = new system.Collections.ArrayList();
 		al.AddRange(bo.get_FieldNames());
 		Map<String, String> map = new HashMap<String, String>();
-		Relationship rs = bo.GetRelationship("MemoryContainsAlarmMemory");
-		BusinessObjectCollection list = rs.get_BusinessObjects();
+		String relationship=null;
+		
+		
 		for (int i = 0; i < bo.get_FieldNames().get_Count(); i++) {
 			String ecckey = al.get_Item(i).toString();
 			String javakey = this.getMonitorParam(ecckey);
+			relationship=this.getAlertConditionUnit(javakey);
 			if(ecckey.equals("disable")|| ecckey.equals("verfiy_error")|| ecckey.equals("activate_baseline")){
 				if(bo.GetField(al.get_Item(i).toString())
 						.get_NativeValue().toString().equals("true")){map.put(javakey, "on");
@@ -45,34 +49,6 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 						continue;
 					}	
 			}
-			// System.out.println("itsmkey:" + ecckey + " ; 9.2key:" + javakey);
-			/** Memory monitor data example begin **/
-			// map.put("class", "MemoryMonitor");
-			// map.put("page", "monitor");
-			// map.put("account", "administrator");
-			// map.put("ordering", "4");
-			// map.put("_schedule", "");
-			// map.put("error-comparison0", ">");
-			// map.put("warning-condition0", "default");
-			// map.put("group", "testGroup");
-			// map.put("_errorFrequency", "");
-			// map.put("_frequency", "10");
-			// map.put("_description", "none");
-			// map.put("id", "");
-			// map.put("good-parameter0", "");
-			// map.put("error-parameter0", "");
-			// map.put("_errorFrequencyUnits", "minutes");
-			// map.put("_dependsCondition", "good");
-			// map.put("rview", "");
-			// map.put("_machine", "\\\\192.168.9.131");
-			// map.put("counters", "");
-			// map.put("_monitorDescription", "");
-			// map.put("good-comparison0", ">=");
-			// map.put("_name", "MeM:192.168.9.131");
-			// map.put("detail", "");
-			// map.put("_dependsOn", "");
-			// map.put("operation", "RefreshMonitor");
-			/** Memory monitor data example end **/
 			if (javakey != null) {
 				map.put(javakey, bo.GetField(al.get_Item(i).toString())
 						.get_NativeValue().toString());
@@ -86,6 +62,8 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			// + bo.GetField(al.get_Item(i).toString()).get_NativeValue()
 			// .toString());
 		}
+		Relationship rs = bo.GetRelationship(relationship);
+		BusinessObjectCollection list = rs.get_BusinessObjects();
 		for (int i = 0; i < list.get_Count(); i++) {
 			BusinessObject bosun = (BusinessObject) list.get_Item(i);
 			String status = bosun.GetField("AlarmStatus").get_NativeValue()
@@ -155,7 +133,8 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 
 	private static String getMonitorType(String monitorType) {
 		String filePath;
-		filePath = "d:\\itsm_siteview9.2.properties";
+		String RootFilePath=System.getProperty("user.dir");
+		filePath = RootFilePath+"itsm_siteview9.2.properties";
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
@@ -171,7 +150,9 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 
 	private static String getMonitorParam(String param) {
 		String filePath;
-		filePath = "d:\\itsm_eccmonitorparams.properties";
+
+		String RootFilePath=System.getProperty("user.dir");
+		filePath =RootFilePath+ "d:\\itsm_eccmonitorparams.properties";
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
@@ -184,9 +165,26 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			return null;
 		}
 	}
-
+	private static String getAlertConditionUnit(String param)
+	{
+		String filePath;
+		String RootFilePath=System.getProperty("user.dir");
+		filePath =RootFilePath +"itsm_monitoralertconditionUnit.properties";
+		Properties props = new Properties();
+		try {
+			InputStream in = new BufferedInputStream(new FileInputStream(
+					filePath));
+			props.load(in);
+			String value = props.getProperty(param);
+			return value;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public static void main(String args[]) {
 		System.out.println(getMonitorType("Memory"));
+		
 
 	}
 }
