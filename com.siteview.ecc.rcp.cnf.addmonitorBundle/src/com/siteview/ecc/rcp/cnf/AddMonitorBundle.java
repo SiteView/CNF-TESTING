@@ -35,11 +35,18 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		system.Collections.ArrayList al = new system.Collections.ArrayList();
 		al.AddRange(bo.get_FieldNames());
 		Map<String, String> map = new HashMap<String, String>();
-		String relationship=null; 
+		String monitortype=null;
+		String relationship=null;
 		for (int i = 0; i < bo.get_FieldNames().get_Count(); i++) {
 			String ecckey = al.get_Item(i).toString();
 			String javakey = this.getMonitorParam(ecckey);
-			relationship=this.getAlertConditionUnit(javakey);
+//			relationship=this.getAlertConditionUnit(javakey);
+			if(ecckey.equals("EccType"))
+			{
+				monitortype =bo.GetField("EccType").get_NativeValue()
+						.toString();
+			}
+			
 			if (javakey != null) {
 				if(javakey.equals("_notLogToTopaz")||javakey.equals("_verifyError")||javakey.equals("_disabled")){
 					if(bo.GetField(al.get_Item(i).toString()).get_NativeValue().toString().equals("true")){
@@ -57,6 +64,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 						.get_NativeValue().toString());
 			} 
 		} 
+		relationship=this.getAlertConditionUnit(monitortype);
 		Relationship rs = bo.GetRelationship(relationship);
 		BusinessObjectCollection list = rs.get_BusinessObjects();
 		for (int i = 0; i < list.get_Count(); i++) {
@@ -67,7 +75,8 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 					.toString();
 			String parameter = bosun.GetField("AlramValue").get_NativeValue()
 					.toString();
-			String returnitem = bosun.GetField("ReturnItemDNS").get_NativeValue().toString();
+			String returnitemstr=getMonitorReturnItem(monitortype);
+			String returnitem = bosun.GetField(returnitemstr).get_NativeValue().toString();
 			String isAnd=bosun.GetField("isAnd").get_NativeValue().toString();
 			if (status.equals("Good")) {
 				map.put("_classifier", returnitem + " "+comparison+" "+ parameter + " " + "good");
@@ -130,7 +139,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 	private static String getMonitorType(String monitorType) {
 		String filePath; 
 		String RootFilePath=System.getProperty("user.dir");
-		filePath = RootFilePath+"itsm_siteview9.2.properties"; 
+		filePath = RootFilePath+"\\itsm_siteview9.2.properties"; 
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
@@ -148,7 +157,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		String filePath; 
 
 		String RootFilePath=System.getProperty("user.dir");
-		filePath =RootFilePath+ "itsm_eccmonitorparams.properties"; 
+		filePath =RootFilePath+ "\\itsm_eccmonitorparams.properties"; 
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
@@ -166,7 +175,24 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 	{
 		String filePath;
 		String RootFilePath=System.getProperty("user.dir");
-		filePath =RootFilePath +"itsm_monitoralertconditionUnit.properties";
+		filePath =RootFilePath +"\\itsm_monitoralertconditionUnit.properties";
+		Properties props = new Properties();
+		try {
+			InputStream in = new BufferedInputStream(new FileInputStream(
+					filePath));
+			props.load(in);
+			String value = props.getProperty(param);
+			return value;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	private static String getMonitorReturnItem(String param)
+	{
+		String filePath;
+		String RootFilePath=System.getProperty("user.dir");
+		filePath =RootFilePath +"\\itsm_monitorreturnitem.properties";
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
