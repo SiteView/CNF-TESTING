@@ -36,32 +36,27 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		al.AddRange(bo.get_FieldNames());
 		Map<String, String> map = new HashMap<String, String>();
 		String relationship=null;
-		
-		
+		 
 		for (int i = 0; i < bo.get_FieldNames().get_Count(); i++) {
 			String ecckey = al.get_Item(i).toString();
 			String javakey = this.getMonitorParam(ecckey);
-			relationship=this.getAlertConditionUnit(javakey);
-			if(ecckey.equals("disable")|| ecckey.equals("verfiy_error")|| ecckey.equals("activate_baseline")){
-				if(bo.GetField(al.get_Item(i).toString())
-						.get_NativeValue().toString().equals("true")){map.put(javakey, "on");
+			if (javakey != null) {
+				if(javakey.equals("_notLogToTopaz")||javakey.equals("_verifyError")||javakey.equals("_disabled")){
+					if(bo.GetField(al.get_Item(i).toString()).get_NativeValue().toString().equals("true")){
+						map.put(javakey,"on");
 					}else{
 						continue;
-					}	
-			}
-			if (javakey != null) {
-				map.put(javakey, bo.GetField(al.get_Item(i).toString())
-						.get_NativeValue().toString());
+					}
+				}else{
+					map.put(javakey, bo.GetField(al.get_Item(i).toString())
+							.get_NativeValue().toString());
+				}
+				
 			} else {
 				map.put(ecckey, bo.GetField(al.get_Item(i).toString())
 						.get_NativeValue().toString());
-			}
-			// System.out.println("key:>>"
-			// + al.get_Item(i).toString()
-			// + "value:>>"
-			// + bo.GetField(al.get_Item(i).toString()).get_NativeValue()
-			// .toString());
-		}
+			} 
+		} 
 		Relationship rs = bo.GetRelationship(relationship);
 		BusinessObjectCollection list = rs.get_BusinessObjects();
 		for (int i = 0; i < list.get_Count(); i++) {
@@ -72,7 +67,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 					.toString();
 			String parameter = bosun.GetField("AlramValue").get_NativeValue()
 					.toString();
-			String returnitem = bosun.GetField("MemoryReturnItem").get_NativeValue().toString();
+			String returnitem = bosun.GetField("ReturnItemDNS").get_NativeValue().toString();
 			String isAnd=bosun.GetField("isAnd").get_NativeValue().toString();
 			if (status.equals("Good")) {
 				map.put("_classifier", returnitem + " "+comparison+" "+ parameter + " " + "good");
@@ -88,6 +83,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 
 		try {
 			addMonitor(map);
+			
 		} catch (SiteViewException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,9 +128,9 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 	}
 
 	private static String getMonitorType(String monitorType) {
-		String filePath;
+		String filePath; 
 		String RootFilePath=System.getProperty("user.dir");
-		filePath = RootFilePath+"itsm_siteview9.2.properties";
+		filePath = RootFilePath+"itsm_siteview9.2.properties"; 
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
@@ -149,10 +145,10 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 	}
 
 	private static String getMonitorParam(String param) {
-		String filePath;
+		String filePath; 
 
 		String RootFilePath=System.getProperty("user.dir");
-		filePath =RootFilePath+ "d:\\itsm_eccmonitorparams.properties";
+		filePath =RootFilePath+ "itsm_eccmonitorparams.properties"; 
 		Properties props = new Properties();
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(
@@ -165,6 +161,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			return null;
 		}
 	}
+	//根据监测器类型得到该监测器报警条件关系的名称
 	private static String getAlertConditionUnit(String param)
 	{
 		String filePath;

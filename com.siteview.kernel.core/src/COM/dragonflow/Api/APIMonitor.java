@@ -355,7 +355,7 @@ public class APIMonitor extends APISiteView
             }
             String machine = (String)hashmap.get("_machine");
             processMachineName(machine, hashmap);
-            AtomicMonitor atomicmonitor = instantiateMonitor("MemoryMonitor");
+            AtomicMonitor atomicmonitor = instantiateMonitor(s);
             
 //            AtomicMonitor atomicmonitor = instantiateMonitor(s);
             setMonitorProperties(OP_ADD, atomicmonitor, "", s1, hashmap);
