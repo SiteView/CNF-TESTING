@@ -90,6 +90,12 @@
             id="ServerListPreferencePage"
             name="ServerListPreference">
       </page>
+      <page
+            category="SiteviewPreferencePage"
+            class="com.siteview.ecc.workbench.preferences.RuntimePreferencePage"
+            id="RuntimePreferencePage"
+            name="RuntimePreference">
+      </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">

@@ -77,7 +77,7 @@ public class SecureLoginDialog extends Dialog {
 
 	private static final String SERVER = "server";
 
-	private static final String SAVED = "com.siteview.ecc.rcp.cnf/saved-connections";
+	public static final String SAVED = "com.siteview.ecc.rcp.cnf/saved-connections";
 
 	private static final String LAST_USER = "prefs_last_connection";
 

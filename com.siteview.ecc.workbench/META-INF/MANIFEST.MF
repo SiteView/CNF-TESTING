@@ -12,4 +12,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text;bundle-version="3.7.2",
  com.siteview.ecc.rcp.cnf;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.apache.commons.jxpath
+Import-Package: org.apache.commons.jxpath,
+ org.eclipse.equinox.security.storage;version="1.0.0"

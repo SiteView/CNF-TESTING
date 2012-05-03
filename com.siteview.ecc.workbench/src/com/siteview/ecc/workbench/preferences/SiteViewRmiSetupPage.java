@@ -1,5 +1,7 @@
 package com.siteview.ecc.workbench.preferences;
 
+import java.io.IOException;
+
 import org.eclipse.jface.preference.*;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbench;
@@ -61,4 +63,13 @@ public class SiteViewRmiSetupPage
 	public void init(IWorkbench workbench) {
 	}
 	
+//	public boolean performOk() {
+//		try {
+//			this.getPreferenceStore().;
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return super.performOk();
+//	}
+//	
 }

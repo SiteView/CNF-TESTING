@@ -1,5 +1,13 @@
 package com.siteview.ecc.workbench.preferences;
 
+import org.eclipse.core.runtime.IProduct;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IPreferencesService;
+import org.eclipse.equinox.security.storage.ISecurePreferences;
+import org.eclipse.equinox.security.storage.SecurePreferencesFactory;
+import org.eclipse.equinox.security.storage.StorageException;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -37,7 +45,20 @@ public class ServerListPreferencePage extends PreferencePage implements
 		super(title, image);
 
 	}
-
+	
+	private void loadDescriptors() {
+		ISecurePreferences preferences = SecurePreferencesFactory.getDefault();
+		ISecurePreferences connections = preferences.node(com.siteview.ecc.rcp.cnf.ui.SecureLoginDialog.SAVED);
+		String[] userNames = connections.childrenNames();
+		for (int i = 0; i < userNames.length; i++) {
+			String userName = userNames[i];
+			ISecurePreferences node = connections.node(userName);
+			bean.addServer(userName);
+//				savedDetails.put(userName, new MonitorServer(userName, node
+//						.get(SERVER, ""), node.get(PASSWORD, "")));
+		}
+	}
+	
 	@Override
 	protected Control createContents(Composite parent) {
 		// parent.setLayout(new FillLayout());
@@ -47,7 +68,7 @@ public class ServerListPreferencePage extends PreferencePage implements
 		container.setLayout(gridLayout);
 
 		bean = new ServerBean();
-
+		loadDescriptors();
 		final ListViewer listViewer = new ListViewer(container, SWT.BORDER);
 		list = listViewer.getList();
 		list.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));

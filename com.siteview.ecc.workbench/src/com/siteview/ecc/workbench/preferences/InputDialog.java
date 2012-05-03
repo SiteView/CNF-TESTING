@@ -73,7 +73,7 @@ public class InputDialog extends Dialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(270, 100);
+		return new Point(270, 150);
 	}
 
 	private InputBean bean;
