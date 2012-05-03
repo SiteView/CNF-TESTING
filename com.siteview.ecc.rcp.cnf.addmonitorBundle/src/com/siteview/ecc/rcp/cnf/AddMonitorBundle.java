@@ -35,11 +35,11 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		system.Collections.ArrayList al = new system.Collections.ArrayList();
 		al.AddRange(bo.get_FieldNames());
 		Map<String, String> map = new HashMap<String, String>();
-		String relationship=null;
-		 
+		String relationship=null; 
 		for (int i = 0; i < bo.get_FieldNames().get_Count(); i++) {
 			String ecckey = al.get_Item(i).toString();
 			String javakey = this.getMonitorParam(ecckey);
+			relationship=this.getAlertConditionUnit(javakey);
 			if (javakey != null) {
 				if(javakey.equals("_notLogToTopaz")||javakey.equals("_verifyError")||javakey.equals("_disabled")){
 					if(bo.GetField(al.get_Item(i).toString()).get_NativeValue().toString().equals("true")){
