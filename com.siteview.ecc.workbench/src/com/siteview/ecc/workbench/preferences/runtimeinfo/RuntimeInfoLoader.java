@@ -21,6 +21,11 @@ public class RuntimeInfoLoader {
     static final String MANAGED = "managed";
     static final String LONG_NAME = "longName";
     static final String START_SHELL = "startShell";
+    
+    static final String RMI_SERVERIP = "rmiserverip";
+    static final String RMI_SERVERPORT = "rmiserverport";
+    static final String USER_NAME = "rmiserveruser";
+    static final String USER_PWD = "rmiserverpwd";
 
     private final RuntimeInfo info;
 
@@ -38,6 +43,11 @@ public class RuntimeInfoLoader {
         node.putBoolean(MANAGED, info.isManaged());
         node.putBoolean(LONG_NAME, info.getLongName());
         node.putBoolean(START_SHELL, info.isStartShell());
+        
+        node.put(RMI_SERVERIP, info.getRmiserverIp());
+        node.put(RMI_SERVERPORT, info.getRmiserverPort());
+        node.put(USER_NAME, info.getLoginUserName());
+        node.put(USER_PWD, info.getLoginUserPassword());
     }
 
     public void load(final Preferences node) {
@@ -53,6 +63,11 @@ public class RuntimeInfoLoader {
         info.setManaged(node.getBoolean(MANAGED, true));
         info.useLongName(node.getBoolean(LONG_NAME, true));
         info.setStartShell(node.getBoolean(START_SHELL, false));
+        
+        info.setRmiserverIp(node.get(RMI_SERVERIP, ""));
+        info.setRmiserverPort(node.get(RMI_SERVERIP, ""));
+        info.setLoginUserName(node.get(USER_NAME, ""));
+        info.setLoginUserPassword(node.get(USER_PWD, ""));
     }
 
 }

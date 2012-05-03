@@ -685,6 +685,27 @@ public class RuntimePreferencePage extends PreferencePage implements
         column3.setText("Version");
         column3.setResizable(false);
 
+        final TableColumn column4 = new TableColumn(table, SWT.NULL);
+        column4.setWidth(80);
+        column4.setText("ServerIp");
+        column4.setResizable(false);
+        
+        final TableColumn column5 = new TableColumn(table, SWT.NULL);
+        column5.setWidth(80);
+        column5.setText("ServerPort");
+        column5.setResizable(false);
+        
+        final TableColumn column6 = new TableColumn(table, SWT.NULL);
+        column6.setWidth(80);
+        column6.setText("LoginUserName");
+        column6.setResizable(false);
+        
+        final TableColumn column7 = new TableColumn(table, SWT.NULL);
+        column7.setWidth(80);
+        column7.setText("LoginUserPwd");
+        column7.setResizable(false);     
+        
+
         fRuntimeList = new CheckboxTableViewer(table);
         fRuntimeList.setLabelProvider(new RuntimeLabelProvider());
         fRuntimeList.setContentProvider(new RuntimeContentProvider());
@@ -778,8 +799,8 @@ public class RuntimePreferencePage extends PreferencePage implements
             }
         });
 
-        configureTableResizing(parent, buttons, table, column1, column2,
-                column3);
+//        configureTableResizing(parent, buttons, table, column1, column2,
+//                column3);
 
         enableButtons();
 
@@ -863,6 +884,14 @@ public class RuntimePreferencePage extends PreferencePage implements
                     return vm.getOtpHome();
                 case 2:
                     return vm.getVersion().toString();
+                case 3:
+                    return vm.getRmiserverIp();
+                case 4:
+                    return vm.getRmiserverPort();
+                case 5:
+                    return vm.getLoginUserName();
+                case 6:
+                    return vm.getLoginUserPassword();                    
                 }
             }
             return element.toString();

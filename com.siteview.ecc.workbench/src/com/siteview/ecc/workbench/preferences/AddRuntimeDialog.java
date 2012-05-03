@@ -82,6 +82,10 @@ public class AddRuntimeDialog extends StatusDialog implements
     private StringButtonDialogField fOtpHome;
     private ListDialogField<String> fCodePath;
     private StringDialogField fArgs;
+    private StringDialogField fServerIp;
+    private StringDialogField fServerPort;
+    private StringDialogField fUserName;
+    private StringDialogField fUserPwd;
     private final boolean returnNew;
 
     private final IStatus[] fStatuses;
@@ -160,6 +164,18 @@ public class AddRuntimeDialog extends StatusDialog implements
 
         fArgs = new StringDialogField();
         fArgs.setLabelText("E&xtra args"); //$NON-NLS-1$
+        
+        fServerIp = new StringDialogField();
+        fServerIp.setLabelText("fServerIp"); //$NON-NLS-1$
+        
+        fServerPort = new StringDialogField();
+        fServerPort.setLabelText("fServerPort"); //$NON-NLS-1$
+        
+        fUserName = new StringDialogField();
+        fUserName.setLabelText("fUserName"); //$NON-NLS-1$
+        
+        fUserPwd = new StringDialogField();
+        fUserPwd.setLabelText("fUserPwd"); //$NON-NLS-1$        
 
         final Composite parent = (Composite) super.createDialogArea(ancestor);
         ((GridLayout) parent.getLayout()).numColumns = 3;
@@ -168,6 +184,10 @@ public class AddRuntimeDialog extends StatusDialog implements
         fName.doFillIntoGrid(parent, 3);
         fCodePath.doFillIntoGrid(parent, 3);
         fArgs.doFillIntoGrid(parent, 3);
+        fServerIp.doFillIntoGrid(parent, 3);
+        fServerPort.doFillIntoGrid(parent, 3);
+        fUserName.doFillIntoGrid(parent, 3);
+        fUserPwd.doFillIntoGrid(parent, 3);
 
         final Text t = fName.getTextControl(parent);
         final GridData gd = (GridData) t.getLayoutData();
@@ -192,11 +212,19 @@ public class AddRuntimeDialog extends StatusDialog implements
             fOtpHome.setText(""); //$NON-NLS-1$
             fCodePath.setElements(new ArrayList<String>(5));
             fArgs.setText(""); //$NON-NLS-1$
+            fServerIp.setText(""); 
+            fServerPort.setText(""); 
+            fUserName.setText(""); 
+            fUserPwd.setText("");             
         } else {
             fName.setText(fEditedRuntime.getName());
             fOtpHome.setText(fEditedRuntime.getOtpHome());
             fCodePath.setElements(fEditedRuntime.getCodePath());
             fArgs.setText(fEditedRuntime.getArgs());
+            fServerIp.setText(fEditedRuntime.getRmiserverIp()); 
+            fServerPort.setText(fEditedRuntime.getRmiserverPort()); 
+            fUserName.setText(fEditedRuntime.getLoginUserName()); 
+            fUserPwd.setText(fEditedRuntime.getLoginUserPassword());                 
         }
         setNameStatus(validateName());
         // setNodeNameStatus(validateNodeName());
@@ -284,6 +312,10 @@ public class AddRuntimeDialog extends StatusDialog implements
         runtime.setCodePath(fCodePath.getElements());
         final String argString = fArgs.getText().trim();
         runtime.setArgs(argString);
+        runtime.setRmiserverIp(fServerIp.getText().trim());
+        runtime.setRmiserverPort(fServerPort.getText().trim());
+        runtime.setLoginUserName(fUserName.getText().trim());
+        runtime.setLoginUserPassword(fUserPwd.getText().trim());        
     }
 
     protected void setNameStatus(final IStatus status) {

@@ -88,7 +88,7 @@ public final class RuntimeInfoManager implements IPreferenceChangeListener {
 
     public synchronized void load() {
         fRuntimes.clear();
-        loadDefaultPrefs();
+//        loadDefaultPrefs();
 
         IEclipsePreferences root = new DefaultScope()
                 .getNode(CNFActivator.PLUGIN_ID + "/runtimes");

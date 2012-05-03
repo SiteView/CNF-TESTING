@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -40,8 +41,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
-import org.erlide.ui.util.PixelConverter;
-import org.erlide.ui.util.SWTUtil;
+//import org.erlide.ui.util.PixelConverter;
+//import org.erlide.ui.util.SWTUtil;
 
 /**
  * A list with a button bar. Typical buttons are 'Add', 'Remove', 'Up' and

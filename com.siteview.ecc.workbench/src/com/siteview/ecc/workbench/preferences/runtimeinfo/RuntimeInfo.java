@@ -44,6 +44,11 @@ public class RuntimeInfo {
     private boolean startShell = false;
     private boolean console = true;
     private boolean loadAllNodes = false;
+    
+    private String rmiserverIp = "127.0.0.1";
+    private String rmiserverPort = "";
+    private String loginUserName = "";
+    private String loginUserPassword = "";
 
     public RuntimeInfo() {
         super();
@@ -396,5 +401,49 @@ public class RuntimeInfo {
         }
         return host;
     }
+
+	public String getRmiserverIp() {
+		return rmiserverIp;
+	}
+
+	public void setRmiserverIp(String rmiserverIp) {
+		this.rmiserverIp = rmiserverIp;
+	}
+
+	public String getRmiserverPort() {
+		return rmiserverPort;
+	}
+
+	public void setRmiserverPort(String rmiserverPort) {
+		this.rmiserverPort = rmiserverPort;
+	}
+
+	/**
+	 * @return the loginUserName
+	 */
+	public String getLoginUserName() {
+		return loginUserName;
+	}
+
+	/**
+	 * @param loginUserName the loginUserName to set
+	 */
+	public void setLoginUserName(String loginUserName) {
+		this.loginUserName = loginUserName;
+	}
+
+	/**
+	 * @return the loginUserPassword
+	 */
+	public String getLoginUserPassword() {
+		return loginUserPassword;
+	}
+
+	/**
+	 * @param loginUserPassword the loginUserPassword to set
+	 */
+	public void setLoginUserPassword(String loginUserPassword) {
+		this.loginUserPassword = loginUserPassword;
+	}
 
 }
