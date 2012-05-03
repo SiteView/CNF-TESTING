@@ -89,27 +89,33 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			}
 
 		}
-		
+		int j;
 		if(map.get("timeUnitSelf").equals("Minute")){
-			Double i=Double.parseDouble(map.get("_frequency"))*60;
-			map.put("_frequency", i+"");
+			float i=Float.parseFloat(map.get("_frequency"))*60;
+			j=(int)i;
+			map.put("_frequency", j+"");
 		}else if(map.get("timeUnitSelf").equals("Hour")){
-			Double i=Double.parseDouble(map.get("_frequency"))*3600;
-			map.put("_frequency", i+"");
+			float i=Float.parseFloat(map.get("_frequency"))*3600;
+			j=(int)i;
+			map.put("_frequency", j+"");
 		}else if(map.get("timeUnitSelf").equals("Day")){
-			Double i=Double.parseDouble(map.get("_frequency"))*86400;
-			map.put("_frequency", i+"");
+			float i=Float.parseFloat(map.get("_frequency"))*86400;
+			j=(int)i;
+			map.put("_frequency", j+"");
 		}
 		
 		if(map.get("ErrorFrequency").equals("Minute")){
-			Double i=Double.parseDouble(map.get("_errorFrequency"))*60;
-			map.put("_errorFrequency", i+"");
+			float i=Float.parseFloat(map.get("_errorFrequency"))*60;
+			j=(int)i;
+			map.put("_errorFrequency", j+"");
 		}else if(map.get("ErrorFrequency").equals("Hour")){
-			Double i=Double.parseDouble(map.get("_errorFrequency"))*3600;
-			map.put("_errorFrequency", i+"");
+			float i=Float.parseFloat(map.get("_errorFrequency"))*3600;
+			j=(int)i;
+			map.put("_errorFrequency", j+"");
 		}else if(map.get("ErrorFrequency").equals("Day")){
-			Double i=Double.parseDouble(map.get("_errorFrequency"))*86400;
-			map.put("_errorFrequency", i+"");
+			float i=Float.parseFloat(map.get("_errorFrequency"))*86400;
+			j=(int)i;
+			map.put("_errorFrequency", j+"");
 		}
 		
 		try {
@@ -228,6 +234,9 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		}
 	}
 	public static void main(String args[]) {
+		String s="20.0";
+		float d=Float.parseFloat(s);
+		System.out.println((int)d);
 		
 	}
 }
