@@ -48,16 +48,18 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			}
 			
 			if (javakey != null) {
-				if(javakey.equals("_notLogToTopaz")||javakey.equals("_verifyError")||javakey.equals("_disabled")){
-					if(bo.GetField(al.get_Item(i).toString()).get_NativeValue().toString().equals("true")){
-						map.put(javakey,"on");
-					}else{
-						continue;
-					}
+				String value;
+				//判断值是否是逻辑值，如果是则对值进行替换，否则不变
+				if(bo.GetField(al.get_Item(i).toString()).get_NativeValue().toString().equals("true")){
+					value="on";
+				}else if(bo.GetField(al.get_Item(i).toString()).get_NativeValue().toString().equals("false")){
+					continue;
 				}else{
-					map.put(javakey, bo.GetField(al.get_Item(i).toString())
-							.get_NativeValue().toString());
+					value=bo.GetField(al.get_Item(i).toString())
+							.get_NativeValue().toString();
 				}
+					map.put(javakey,value );
+
 				
 			} else {
 				map.put(ecckey, bo.GetField(al.get_Item(i).toString())
@@ -125,6 +127,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		}
 		
 		try {
+
 			addMonitor(map,goodmap,warningmap,errormap); 
 		} catch (SiteViewException e) {
 			// TODO Auto-generated catch block
