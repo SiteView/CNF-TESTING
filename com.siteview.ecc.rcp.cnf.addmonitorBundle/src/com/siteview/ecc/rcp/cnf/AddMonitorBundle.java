@@ -67,7 +67,12 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		relationship=this.getAlertConditionUnit(monitortype);
 		Relationship rs = bo.GetRelationship(relationship);
 		BusinessObjectCollection list = rs.get_BusinessObjects();
+		Map<String,String> goodmap=new HashMap<String,String>();
+		Map<String,String> warningmap=new HashMap<String,String>();
+		Map<String,String> errormap=new HashMap<String,String>();
+		
 		for (int i = 0; i < list.get_Count(); i++) {
+			
 			BusinessObject bosun = (BusinessObject) list.get_Item(i);
 			String status = bosun.GetField("AlarmStatus").get_NativeValue()
 					.toString();
@@ -78,14 +83,15 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			String returnitemstr=getMonitorReturnItem(monitortype);
 			String returnitem = bosun.GetField(returnitemstr).get_NativeValue().toString();
 			String isAnd=bosun.GetField("isAnd").get_NativeValue().toString();
-			if (status.equals("Good")) {
-				map.put("_classifier", returnitem + " "+comparison+" "+ parameter + " " + "good");
+			if (status.equals("Good")) { 
+				goodmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + " " + "good");
 			} else if (status.equals("Warning")) {
-				map.put("_classifier", returnitem + " "+comparison+" "+ parameter + " " + "warning");
-			} else if (status.equals("Error")) {
-				map.put("_classifier", returnitem += " "+comparison+" "+ parameter + " " + "error");
+				warningmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + " " + "warning");
+			} else if (status.equals("Error")) { 
+				errormap.put("_classifier", returnitem += " "+comparison+" "+ parameter + " " + "error");
 			} else if (status.equals("Empty")) {
-				map.put("_classifier", returnitem += " "+comparison+" "+ parameter + " " + "empty");
+//				alertlist.add(returnitem + " "+comparison+" "+ parameter + "	" + "empty");
+//				map.put("_classifier", returnitem += " "+comparison+" "+ parameter + " " + "empty");
 			}
 
 		}
@@ -119,8 +125,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		}
 		
 		try {
-			addMonitor(map);
-			
+			addMonitor(map,goodmap,warningmap,errormap); 
 		} catch (SiteViewException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,7 +142,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		return null;
 	}
 
-	void addMonitor(Map<String, String> map) throws SiteViewException,
+	void addMonitor(Map<String, String> map,Map<String, String> goodmap,Map<String, String> warningmap,Map<String, String> errormap) throws SiteViewException,
 			ClassNotFoundException, IllegalAccessException,
 			InstantiationException {
 		APIInterfaces rmiServer;
@@ -154,6 +159,9 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			// call the remote method
 			List<Map<String, String>> paramlist = new ArrayList<Map<String, String>>();
 			paramlist.add(map);
+			paramlist.add(errormap);
+			paramlist.add(warningmap);
+			paramlist.add(goodmap); 
 			String monitorType = getMonitorType(map.get("class"));
 			rmiServer.createMonitor(monitorType, map.get("group"), paramlist);
 		} catch (RemoteException e) {

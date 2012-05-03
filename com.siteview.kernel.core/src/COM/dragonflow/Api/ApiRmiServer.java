@@ -219,12 +219,13 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			List<Map<String, String>> paramlist) throws RemoteException,
 			SiteViewException {
 		// TODO Auto-generated method stub
-		SSInstanceProperty[] assinstanceproperty = null;
-				
+		int size=getPropertyCount(paramlist);
+		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[size]; 
+				int j = 0;
 		for (int i = 0; i < paramlist.size(); i++) {
 			Map<String, String> map = paramlist.get(i);
-			assinstanceproperty = new SSInstanceProperty[map.size()];
-			int j = 0;
+//			assinstanceproperty = new SSInstanceProperty[map.size()];
+			
 			for (Entry<String, String> entry : map.entrySet()) {
 				String k = entry.getKey();
 				String v = entry.getValue();
@@ -234,6 +235,17 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		}
 		COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue2 = apimonitor
 				.create(monitorType, groupid, assinstanceproperty);
+	}
+	private int getPropertyCount(List<Map<String, String>> paramlist)
+	{
+		int total=0;
+		for (int i = 0; i < paramlist.size(); i++) {
+			Map<String, String> map = paramlist.get(i);
+//			assinstanceproperty = new SSInstanceProperty[map.size()];
+			total+=map.size(); 
+		}
+		
+		return total;
 	}
 
 
