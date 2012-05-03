@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import siteview.IAutoTaskExtension;
+import system.Math;
 import COM.dragonflow.Api.APIInterfaces;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import Siteview.Api.BusinessObject;
@@ -30,7 +31,6 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 	@Override
 	public String run(Map<String, Object> params) {
 		// TODO Auto-generated method stub 
-	    
 		BusinessObject bo = (BusinessObject) params.get("_CUROBJ_");
 		system.Collections.ArrayList al = new system.Collections.ArrayList();
 		al.AddRange(bo.get_FieldNames());
@@ -89,7 +89,29 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			}
 
 		}
-
+		
+		if(map.get("timeUnitSelf").equals("Minute")){
+			Double i=Double.parseDouble(map.get("_frequency"))*60;
+			map.put("_frequency", i+"");
+		}else if(map.get("timeUnitSelf").equals("Hour")){
+			Double i=Double.parseDouble(map.get("_frequency"))*3600;
+			map.put("_frequency", i+"");
+		}else if(map.get("timeUnitSelf").equals("Day")){
+			Double i=Double.parseDouble(map.get("_frequency"))*86400;
+			map.put("_frequency", i+"");
+		}
+		
+		if(map.get("ErrorFrequency").equals("Minute")){
+			Double i=Double.parseDouble(map.get("_errorFrequency"))*60;
+			map.put("_errorFrequency", i+"");
+		}else if(map.get("ErrorFrequency").equals("Hour")){
+			Double i=Double.parseDouble(map.get("_errorFrequency"))*3600;
+			map.put("_errorFrequency", i+"");
+		}else if(map.get("ErrorFrequency").equals("Day")){
+			Double i=Double.parseDouble(map.get("_errorFrequency"))*86400;
+			map.put("_errorFrequency", i+"");
+		}
+		
 		try {
 			addMonitor(map);
 			
@@ -206,8 +228,6 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		}
 	}
 	public static void main(String args[]) {
-		System.out.println(getMonitorType("Memory"));
 		
-
 	}
 }
