@@ -1,0 +1,47 @@
+lastSaved=1335602821125
+id=-1
+last=1335602762765
+#
+sample=1
+monitorDoneTime=1335602706171
+category=error
+warningCount=0
+gethostname=127.0.0.1
+id=3
+errorCount=1
+stateString=Failed to send message. Error:  Operation timed out.
+last=1335602706171
+errorTimeSinceFirst=1335602706171
+roundTripValue=n/a
+lastCategory=error
+#
+sample=1
+monitorDoneTime=1335602706203
+category=error
+warningCount=0
+gethostname=127.0.0.1
+id=3
+errorCount=1
+stateString=Failed to send message. Error:  Operation timed out.
+last=1335602706203
+errorTimeSinceFirst=1335602706203
+roundTripValue=n/a
+lastCategory=error
+#
+lastMeasurement=0
+measurement=0
+sample=21
+monitorDoneTime=1335602762765
+category=error
+warningCount=0
+gethostname=\\NOTE-NONE
+lastPageFaults=0
+id=19
+errorCount=16
+stateString=no data
+percentFull=n/a
+last=1335602762765
+errorTimeSinceFirst=1335601696156
+freeSpace=n/a
+lastCategory=error
+pageFaultsPerSecond=n/a
