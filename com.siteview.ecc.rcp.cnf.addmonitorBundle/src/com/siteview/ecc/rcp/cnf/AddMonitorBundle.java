@@ -86,11 +86,11 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			String returnitem = bosun.GetField(returnitemstr).get_NativeValue().toString();
 			String isAnd=bosun.GetField("isAnd").get_NativeValue().toString();
 			if (status.equals("Good")) { 
-				goodmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + " " + "good");
+				goodmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + "	" + "good");
 			} else if (status.equals("Warning")) {
-				warningmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + " " + "warning");
+				warningmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + "	" + "warning");
 			} else if (status.equals("Error")) { 
-				errormap.put("_classifier", returnitem += " "+comparison+" "+ parameter + " " + "error");
+				errormap.put("_classifier", returnitem += " "+comparison+" "+ parameter +"	"+ "error");
 			} else if (status.equals("Empty")) {
 //				alertlist.add(returnitem + " "+comparison+" "+ parameter + "	" + "empty");
 //				map.put("_classifier", returnitem += " "+comparison+" "+ parameter + " " + "empty");
