@@ -110,10 +110,13 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			float i=Float.parseFloat(map.get("_frequency"))*86400;
 			j=(int)i;
 			map.put("_frequency", j+"");
+		}else if(map.get("timeUnitSelf").equals("Second")){
+			float i=Float.parseFloat(map.get("_frequency"));
+			j=(int)i;
+			map.put("_frequency", j+"");
 		}
-		
-		if(map.get("ErrorFrequency").equals("Minute")){
-			float i=Float.parseFloat(map.get("_errorFrequency"))*60;
+		if(map.get("ErrorFrequency").equals("Minute")){ 
+			float i=Float.parseFloat(map.get("_errorFrequency"))*60; 
 			j=(int)i;
 			map.put("_errorFrequency", j+"");
 		}else if(map.get("ErrorFrequency").equals("Hour")){
@@ -122,6 +125,10 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			map.put("_errorFrequency", j+"");
 		}else if(map.get("ErrorFrequency").equals("Day")){
 			float i=Float.parseFloat(map.get("_errorFrequency"))*86400;
+			j=(int)i;
+			map.put("_errorFrequency", j+"");
+		}else if(map.get("ErrorFrequency").equals("Second")){
+			float i=Float.parseFloat(map.get("_errorFrequency"));
 			j=(int)i;
 			map.put("_errorFrequency", j+"");
 		}
@@ -246,8 +253,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 	}
 	public static void main(String args[]) {
 		String s="20.0";
-		float d=Float.parseFloat(s);
-		System.out.println((int)d);
+		System.out.println(Integer.valueOf(s));
 		
 	}
 }
