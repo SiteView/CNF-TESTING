@@ -79,9 +79,9 @@ public class AddRuntimeDialog extends StatusDialog implements
     private final RuntimeInfo fEditedRuntime;
 
     private StringDialogField fName;
-    private StringButtonDialogField fOtpHome;
-    private ListDialogField<String> fCodePath;
-    private StringDialogField fArgs;
+//    private StringButtonDialogField fOtpHome;
+//    private ListDialogField<String> fCodePath;
+//    private StringDialogField fArgs;
     private StringDialogField fServerIp;
     private StringDialogField fServerPort;
     private StringDialogField fUserName;
@@ -115,14 +115,14 @@ public class AddRuntimeDialog extends StatusDialog implements
     }
 
     protected void createFieldListeners() {
-        fOtpHome.setDialogFieldListener(new IDialogFieldListener() {
-
-            @Override
-            public void dialogFieldChanged(final DialogField field) {
-                setLocationStatus(validateLocation());
-                updateStatusLine();
-            }
-        });
+//        fOtpHome.setDialogFieldListener(new IDialogFieldListener() {
+//
+//            @Override
+//            public void dialogFieldChanged(final DialogField field) {
+//                setLocationStatus(validateLocation());
+//                updateStatusLine();
+//            }
+//        });
         fName.setDialogFieldListener(new IDialogFieldListener() {
 
             @Override
@@ -139,31 +139,31 @@ public class AddRuntimeDialog extends StatusDialog implements
 
     @Override
     protected Control createDialogArea(final Composite ancestor) {
-        fOtpHome = new StringButtonDialogField(new IStringButtonAdapter() {
-
-            @Override
-            public void changeControlPressed(final DialogField field) {
-                browseForInstallDir();
-            }
-        });
-        fOtpHome.setLabelText("Location"); //$NON-NLS-1$
-        fOtpHome.setButtonLabel("&Browse..."); //$NON-NLS-1$
-
+//        fOtpHome = new StringButtonDialogField(new IStringButtonAdapter() {
+//
+//            @Override
+//            public void changeControlPressed(final DialogField field) {
+//                browseForInstallDir();
+//            }
+//        });
+//        fOtpHome.setLabelText("Location"); //$NON-NLS-1$
+//        fOtpHome.setButtonLabel("&Browse..."); //$NON-NLS-1$
+//
         fName = new StringDialogField();
         fName.setLabelText(RuntimePreferenceMessages.addDialog_ertsName);
-
-        final String[] buttons = new String[] {
-                RuntimePreferenceMessages.addDialog_add,
-                RuntimePreferenceMessages.addDialog_remove, "Move up",
-                "Move down" };
-        fCodePath = new ListDialogField<String>(this, buttons,
-                new StringLabelProvider());
-        fCodePath.setLabelText("Code path");
-        // TODO enable this when it will work (#163)
-        fCodePath.setEnabled(false);
-
-        fArgs = new StringDialogField();
-        fArgs.setLabelText("E&xtra args"); //$NON-NLS-1$
+//
+//        final String[] buttons = new String[] {
+//                RuntimePreferenceMessages.addDialog_add,
+//                RuntimePreferenceMessages.addDialog_remove, "Move up",
+//                "Move down" };
+//        fCodePath = new ListDialogField<String>(this, buttons,
+//                new StringLabelProvider());
+//        fCodePath.setLabelText("Code path");
+//        // TODO enable this when it will work (#163)
+//        fCodePath.setEnabled(false);
+//
+//        fArgs = new StringDialogField();
+//        fArgs.setLabelText("E&xtra args"); //$NON-NLS-1$
         
         fServerIp = new StringDialogField();
         fServerIp.setLabelText("fServerIp"); //$NON-NLS-1$
@@ -180,10 +180,10 @@ public class AddRuntimeDialog extends StatusDialog implements
         final Composite parent = (Composite) super.createDialogArea(ancestor);
         ((GridLayout) parent.getLayout()).numColumns = 3;
 
-        fOtpHome.doFillIntoGrid(parent, 3);
+//        fOtpHome.doFillIntoGrid(parent, 3);
         fName.doFillIntoGrid(parent, 3);
-        fCodePath.doFillIntoGrid(parent, 3);
-        fArgs.doFillIntoGrid(parent, 3);
+//        fCodePath.doFillIntoGrid(parent, 3);
+//        fArgs.doFillIntoGrid(parent, 3);
         fServerIp.doFillIntoGrid(parent, 3);
         fServerPort.doFillIntoGrid(parent, 3);
         fUserName.doFillIntoGrid(parent, 3);
@@ -209,26 +209,26 @@ public class AddRuntimeDialog extends StatusDialog implements
     private void initializeFields() {
         if (fEditedRuntime == null) {
             fName.setText(""); //$NON-NLS-1$
-            fOtpHome.setText(""); //$NON-NLS-1$
-            fCodePath.setElements(new ArrayList<String>(5));
-            fArgs.setText(""); //$NON-NLS-1$
+//            fOtpHome.setText(""); //$NON-NLS-1$
+//            fCodePath.setElements(new ArrayList<String>(5));
+//            fArgs.setText(""); //$NON-NLS-1$
             fServerIp.setText(""); 
             fServerPort.setText(""); 
             fUserName.setText(""); 
             fUserPwd.setText("");             
         } else {
             fName.setText(fEditedRuntime.getName());
-            fOtpHome.setText(fEditedRuntime.getOtpHome());
-            fCodePath.setElements(fEditedRuntime.getCodePath());
-            fArgs.setText(fEditedRuntime.getArgs());
+//            fOtpHome.setText(fEditedRuntime.getOtpHome());
+//            fCodePath.setElements(fEditedRuntime.getCodePath());
+//            fArgs.setText(fEditedRuntime.getArgs());
             fServerIp.setText(fEditedRuntime.getRmiserverIp()); 
             fServerPort.setText(fEditedRuntime.getRmiserverPort()); 
             fUserName.setText(fEditedRuntime.getLoginUserName()); 
             fUserPwd.setText(fEditedRuntime.getLoginUserPassword());                 
         }
         setNameStatus(validateName());
-        // setNodeNameStatus(validateNodeName());
-        setLocationStatus(validateLocation());
+//         setNodeNameStatus(validateNodeName());
+//        setLocationStatus(validateLocation());
         updateStatusLine();
     }
 
@@ -254,23 +254,23 @@ public class AddRuntimeDialog extends StatusDialog implements
         return status;
     }
 
-    protected IStatus validateLocation() {
-        final StatusInfo status = new StatusInfo();
-        final String loc = fOtpHome.getText();
-        if (loc == null || loc.trim().length() == 0) {
-            status.setInfo("Enter the installation's location");
-        } else {
-            final File f = new File(loc);
-            if (!f.exists()) {
-                status.setError("Location doesn't exist");
-            } else if (!f.isDirectory()) {
-                status.setError("Location isn't a directory");
-            } else if (!RuntimeInfo.validateLocation(loc)) {
-                status.setError("Location is not a valid OTP home");
-            }
-        }
-        return status;
-    }
+//    protected IStatus validateLocation() {
+//        final StatusInfo status = new StatusInfo();
+////        final String loc = fOtpHome.getText();
+//        if (loc == null || loc.trim().length() == 0) {
+//            status.setInfo("Enter the installation's location");
+//        } else {
+//            final File f = new File(loc);
+//            if (!f.exists()) {
+//                status.setError("Location doesn't exist");
+//            } else if (!f.isDirectory()) {
+//                status.setError("Location isn't a directory");
+//            } else if (!RuntimeInfo.validateLocation(loc)) {
+//                status.setError("Location is not a valid OTP home");
+//            }
+//        }
+//        return status;
+//    }
 
     protected void updateStatusLine() {
         IStatus max = null;
@@ -307,11 +307,11 @@ public class AddRuntimeDialog extends StatusDialog implements
     }
 
     protected void storeValues(final RuntimeInfo runtime) {
-        runtime.setOtpHome(fOtpHome.getText());
+//        runtime.setOtpHome(fOtpHome.getText());
         runtime.setName(fName.getText());
-        runtime.setCodePath(fCodePath.getElements());
-        final String argString = fArgs.getText().trim();
-        runtime.setArgs(argString);
+//        runtime.setCodePath(fCodePath.getElements());
+//        final String argString = fArgs.getText().trim();
+//        runtime.setArgs(argString);
         runtime.setRmiserverIp(fServerIp.getText().trim());
         runtime.setRmiserverPort(fServerPort.getText().trim());
         runtime.setLoginUserName(fUserName.getText().trim());
@@ -466,11 +466,11 @@ public class AddRuntimeDialog extends StatusDialog implements
 
     protected void browseForInstallDir() {
         final DirectoryDialog dialog = new DirectoryDialog(getShell());
-        dialog.setFilterPath(fOtpHome.getText());
+//        dialog.setFilterPath(fOtpHome.getText());
         dialog.setMessage(RuntimePreferenceMessages.addDialog_pickInstallationRoot);
         final String newPath = dialog.open();
         if (newPath != null) {
-            fOtpHome.setText(newPath);
+//            fOtpHome.setText(newPath);
             final File f = new File(newPath);
             if (fName.getText().equals("")) {
                 fName.setText(f.getName());

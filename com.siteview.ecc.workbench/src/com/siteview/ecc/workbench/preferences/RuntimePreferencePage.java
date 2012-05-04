@@ -129,7 +129,7 @@ public class RuntimePreferencePage extends PreferencePage implements
 
     public RuntimePreferencePage() {
         super();
-        setTitle("Installed Erlang runtimes ");
+        setTitle("Installed runtimes ");
         setDescription("Add, remove or edit runtime definitions.\n"
                 + "The checked one will be used by default in new projects "
                 + "to build the project's code.");
@@ -223,8 +223,8 @@ public class RuntimePreferencePage extends PreferencePage implements
                 if (e1 instanceof RuntimeInfo && e2 instanceof RuntimeInfo) {
                     final RuntimeInfo left = (RuntimeInfo) e1;
                     final RuntimeInfo right = (RuntimeInfo) e2;
-                    return left.getOtpHome().compareToIgnoreCase(
-                            right.getOtpHome());
+//                    return left.getOtpHome().compareToIgnoreCase(
+//                            right.getOtpHome());
                 }
                 return super.compare(viewer, e1, e2);
             }
@@ -522,7 +522,7 @@ public class RuntimePreferencePage extends PreferencePage implements
         if (tableWidth > columnWidth) {
             return (float) columnWidth / tableWidth;
         }
-        return 1 / 3F;
+        return 1 / 5F;
     }
 
     /**
@@ -668,42 +668,42 @@ public class RuntimePreferencePage extends PreferencePage implements
             }
         });
 
-        final TableColumn column2 = new TableColumn(table, SWT.NULL);
-        column2.setWidth(150);
-        column2.setText("Directory");
-        column2.setResizable(true);
-        column2.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(final SelectionEvent e) {
-                sortByDirectory();
-            }
-        });
+//        final TableColumn column2 = new TableColumn(table, SWT.NULL);
+//        column2.setWidth(150);
+//        column2.setText("Directory");
+//        column2.setResizable(true);
+//        column2.addSelectionListener(new SelectionAdapter() {
+//
+//            @Override
+//            public void widgetSelected(final SelectionEvent e) {
+//                sortByDirectory();
+//            }
+//        });
+//
+//        final TableColumn column3 = new TableColumn(table, SWT.NULL);
+//        column3.setWidth(80);
+//        column3.setText("Version");
+//        column3.setResizable(false);
 
         final TableColumn column3 = new TableColumn(table, SWT.NULL);
         column3.setWidth(80);
-        column3.setText("Version");
-        column3.setResizable(false);
-
+        column3.setText("RmiServerIp");
+        column3.setResizable(true);
+        
         final TableColumn column4 = new TableColumn(table, SWT.NULL);
         column4.setWidth(80);
-        column4.setText("ServerIp");
-        column4.setResizable(false);
+        column4.setText("RmiServerPort");
+        column4.setResizable(true);
         
         final TableColumn column5 = new TableColumn(table, SWT.NULL);
         column5.setWidth(80);
-        column5.setText("ServerPort");
+        column5.setText("RmiLoginUserName");
         column5.setResizable(false);
         
         final TableColumn column6 = new TableColumn(table, SWT.NULL);
         column6.setWidth(80);
-        column6.setText("LoginUserName");
-        column6.setResizable(false);
-        
-        final TableColumn column7 = new TableColumn(table, SWT.NULL);
-        column7.setWidth(80);
-        column7.setText("LoginUserPwd");
-        column7.setResizable(false);     
+        column6.setText("RmiLoginUserPwd");
+        column6.setResizable(false);     
         
 
         fRuntimeList = new CheckboxTableViewer(table);
@@ -799,8 +799,8 @@ public class RuntimePreferencePage extends PreferencePage implements
             }
         });
 
-//        configureTableResizing(parent, buttons, table, column1, column2,
-//                column3);
+        configureTableResizing(parent, buttons, table, column1, column3,
+                column4);
 
         enableButtons();
 
@@ -880,17 +880,17 @@ public class RuntimePreferencePage extends PreferencePage implements
                 switch (columnIndex) {
                 case 0:
                     return vm.getName();
+//                case 1:
+//                    return vm.getOtpHome();
+//                case 2:
+//                    return vm.getVersion().toString();
                 case 1:
-                    return vm.getOtpHome();
-                case 2:
-                    return vm.getVersion().toString();
-                case 3:
                     return vm.getRmiserverIp();
-                case 4:
+                case 2:
                     return vm.getRmiserverPort();
-                case 5:
+                case 3:
                     return vm.getLoginUserName();
-                case 6:
+                case 4:
                     return vm.getLoginUserPassword();                    
                 }
             }

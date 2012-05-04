@@ -50,7 +50,7 @@ public final class RuntimeInfoManager implements IPreferenceChangeListener {
     public RuntimeInfoManager() {
         getRootPreferenceNode().addPreferenceChangeListener(this);
         load();
-        initializeRuntimesList();
+//        initializeRuntimesList();
         setDefaultRuntimes();
     }
 
@@ -90,41 +90,41 @@ public final class RuntimeInfoManager implements IPreferenceChangeListener {
         fRuntimes.clear();
 //        loadDefaultPrefs();
 
-        IEclipsePreferences root = new DefaultScope()
-                .getNode(CNFActivator.PLUGIN_ID + "/runtimes");
-        loadPrefs(root);
-        root = getRootPreferenceNode();
+//        IEclipsePreferences root = new DefaultScope()
+//                .getNode(CNFActivator.PLUGIN_ID + "/rmiserver");
+//        loadPrefs(root);
+        IEclipsePreferences root = getRootPreferenceNode();
         loadPrefs(root);
     }
 
-    private void loadDefaultPrefs() {
-        final IPreferencesService ps = Platform.getPreferencesService();
-        final String DEFAULT_ID = "org.erlide";
-
-        final String defName = ps.getString(DEFAULT_ID, "default_name", null,
-                null);
-        final RuntimeInfo runtime = getRuntime(defName);
-        if (defName != null && runtime == null) {
-            final RuntimeInfo rt = new RuntimeInfo();
-            rt.setName(defName);
-            final String path = ps.getString(DEFAULT_ID, "default_"
-                    + RuntimeInfoLoader.CODE_PATH, "", null);
-//            rt.setCodePath(PreferencesUtils.unpackList(path));
-            rt.setOtpHome(ps.getString(DEFAULT_ID, "default_"
-                    + RuntimeInfoLoader.HOME_DIR, "", null));
-            rt.setArgs(ps.getString(DEFAULT_ID, "default_"
-                    + RuntimeInfoLoader.ARGS, "", null));
-            final String wd = ps.getString(DEFAULT_ID, "default_"
-                    + RuntimeInfoLoader.WORKING_DIR, "", null);
-            if (wd.length() != 0) {
-                rt.setWorkingDir(wd);
-            }
-            rt.setManaged(ps.getBoolean(DEFAULT_ID, "default_"
-                    + RuntimeInfoLoader.MANAGED, true, null));
-            addRuntime(rt);
-        }
-        defaultRuntimeName = defName;
-    }
+//    private void loadDefaultPrefs() {
+//        final IPreferencesService ps = Platform.getPreferencesService();
+//        final String DEFAULT_ID = "org.erlide";
+//
+//        final String defName = ps.getString(DEFAULT_ID, "default_name", null,
+//                null);
+//        final RuntimeInfo runtime = getRuntime(defName);
+//        if (defName != null && runtime == null) {
+//            final RuntimeInfo rt = new RuntimeInfo();
+//            rt.setName(defName);
+//            final String path = ps.getString(DEFAULT_ID, "default_"
+//                    + RuntimeInfoLoader.CODE_PATH, "", null);
+////            rt.setCodePath(PreferencesUtils.unpackList(path));
+//            rt.setOtpHome(ps.getString(DEFAULT_ID, "default_"
+//                    + RuntimeInfoLoader.HOME_DIR, "", null));
+//            rt.setArgs(ps.getString(DEFAULT_ID, "default_"
+//                    + RuntimeInfoLoader.ARGS, "", null));
+//            final String wd = ps.getString(DEFAULT_ID, "default_"
+//                    + RuntimeInfoLoader.WORKING_DIR, "", null);
+//            if (wd.length() != 0) {
+//                rt.setWorkingDir(wd);
+//            }
+////            rt.setManaged(ps.getBoolean(DEFAULT_ID, "default_"
+////                    + RuntimeInfoLoader.MANAGED, true, null));
+//            addRuntime(rt);
+//        }
+//        defaultRuntimeName = defName;
+//    }
 
     private void loadPrefs(final IEclipsePreferences root) {
         final String defrt = root.get("default", null);
@@ -154,7 +154,7 @@ public final class RuntimeInfoManager implements IPreferenceChangeListener {
     }
 
     protected IEclipsePreferences getRootPreferenceNode() {
-        return new InstanceScope().getNode(CNFActivator.PLUGIN_ID + "/runtimes");
+        return new InstanceScope().getNode(CNFActivator.PLUGIN_ID + "/rmiserver");
     }
 
     public synchronized void setRuntimes(final Collection<RuntimeInfo> elements) {
@@ -212,7 +212,7 @@ public final class RuntimeInfoManager implements IPreferenceChangeListener {
 
     private synchronized void setErlideRuntime(final RuntimeInfo runtime) {
         if (runtime != null) {
-            runtime.setNodeName("erlide");
+//            runtime.setNodeName("erlide");
         }
         final RuntimeInfo old = erlideRuntime;
         if (old == null || !old.equals(runtime)) {
@@ -378,7 +378,7 @@ public final class RuntimeInfoManager implements IPreferenceChangeListener {
             final Collection<File> roots = findRuntime(loc);
             for (final File root : roots) {
                 final RuntimeInfo rt = new RuntimeInfo();
-                rt.setOtpHome(root.getPath());
+//                rt.setOtpHome(root.getPath());
                 rt.setName(root.getName());
                 final IWorkspaceRoot wroot = ResourcesPlugin.getWorkspace()
                         .getRoot();

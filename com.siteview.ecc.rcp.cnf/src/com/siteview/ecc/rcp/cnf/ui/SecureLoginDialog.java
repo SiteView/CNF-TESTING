@@ -304,9 +304,7 @@ public class SecureLoginDialog extends Dialog {
 			}
 
 //			savedDetails.put("reader", new MonitorServer("admin", "", "admin"));
-			server = (MonitorServer) savedDetails
-
-					.get(preferences.get(LAST_USER, ""));
+			server = (MonitorServer) savedDetails.get(preferences.get(LAST_USER, ""));
 		} catch (StorageException e) {
 			e.printStackTrace();
 		}

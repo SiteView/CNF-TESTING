@@ -10,6 +10,9 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -25,6 +28,10 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
+
+import com.siteview.ecc.rcp.cnf.internal.CNFActivator;
+import com.siteview.ecc.workbench.preferences.runtimeinfo.RuntimeInfo;
+import com.siteview.ecc.workbench.preferences.runtimeinfo.RuntimeInfoLoader;
 
 /**
  * Handler to commit the changes to the backend through RMI.  Based on different cope:
@@ -78,6 +85,14 @@ public class CommitHandler extends AbstractHandler {
 	private void commit(IStructuredSelection selection) throws Exception {
 		groups.clear();
 		monitors.clear();
+        IEclipsePreferences root = new  InstanceScope().getNode(CNFActivator.PLUGIN_ID + "/rmiserver");
+        final String defrt = root.get("default", null);
+        if (defrt != null) {
+            final RuntimeInfo rt = new RuntimeInfo();
+            final RuntimeInfoLoader rtl = new RuntimeInfoLoader(rt);
+            rtl.load(root.node(defrt));
+            System.out.println("RmiServer:--------------" + rt.toString());
+        }
 		if (selection.size() == 1) {
     		if (selection.getFirstElement() instanceof IProject) {    			
     			System.out.println("seletion is project");

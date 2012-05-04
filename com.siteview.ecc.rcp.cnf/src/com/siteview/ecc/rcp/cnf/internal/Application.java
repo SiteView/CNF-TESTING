@@ -58,6 +58,62 @@ public class Application implements IApplication
         }
     }
     
+	private boolean mutiviewlogin(final MonitorServer server)
+	{
+		boolean firstTry = true;
+		SecureLoginDialog loginDialog = new SecureLoginDialog(null);
+		while (!(MonitorServerManager.getInstance().getLoginSucess()))
+		{
+			IPreferencesService service = Platform.getPreferencesService();
+			boolean auto_login = service.getBoolean(Application.PLUGIN_ID,
+					LoginPreferencePage.AUTO_LOGIN, false, null);
+			MonitorServer details = loginDialog.getConnectionDetails();
+			if (!auto_login || details == null || !firstTry) 
+			{
+				if (loginDialog.open() != Window.OK)
+					return false;
+				details = loginDialog.getConnectionDetails();
+			}
+			firstTry = false;
+			
+//			session.setConnectionDetails(details);	
+//			MonitorServerManager.getInstance().registerServer(server);
+			
+			MonitorServerManager.getInstance().setCurServer(details);
+			try {
+				MonitorServerManager.getInstance().registerServer(details);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotBoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			connectWithProgress(details);
+			
+//			HashMap savedDetails = loginDialog.getSavedDetails();
+//			for (Iterator it = savedDetails.keySet().iterator(); it.hasNext();) {
+//				String name = (String) it.next();
+//				MonitorServer multServer = (MonitorServer) savedDetails.get(name);
+//				
+//				MonitorServerManager.getInstance().setCurServer(multServer);
+//				try {
+//					MonitorServerManager.getInstance().registerServer(multServer);
+////					multServer.connectAndLogin();
+//				} catch (RemoteException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (NotBoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
+////				connectWithProgress(multServer);
+//			}
+		}		
+		return true;
+	}
+    
 	private boolean login(final MonitorServer server)
 	{
 		boolean firstTry = true;
