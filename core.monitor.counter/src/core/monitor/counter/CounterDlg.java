@@ -1,11 +1,15 @@
 package core.monitor.counter;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -17,7 +21,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.SWT;
-
 
 import Siteview.Api.BusinessObject;
 import Siteview.Api.ISiteviewApi;
@@ -55,13 +58,12 @@ public class CounterDlg extends Dialog {
 		container.setLayout(new FillLayout());
 
 		tree = new Tree(container, SWT.CHECK);
-	
 
 		initCounters();
 
 		return container;
 	}
-	
+
 	/**
 	 * init Monitor Counters
 	 */
@@ -75,26 +77,32 @@ public class CounterDlg extends Dialog {
 					serverPort)).intValue());
 
 			rmiServer = (APIInterfaces) (registry.lookup("kernelApiRmiServer"));
-			//Get SiteviewApi
+			// Get SiteviewApi
 			this.m_api = ConnectionBroker.get_SiteviewApi();
-			//Get all Object
+			// Get all Object
 			Object[] object = GetIeditorInput.getIeditorInput(m_api);
-			//Get BusinessObject
+			// Get BusinessObject
 			this.busob = (BusinessObject) object[1];
-			String monitortype = busob.GetField("EccType").get_NativeValue().toString();
-			String hostname = "";
-			if (monitortype.equals("SQLServerMonitor")) {//Get sqlserver monitor hostname
-				hostname = busob.GetField("SQLHostName").get_NativeValue().toString();
+			String rcptype = busob.GetField("EccType").get_NativeValue()
+					.toString();
+			String monitortype = this.getMonitorType(rcptype);
+			if (monitortype == null) {
+				monitortype = rcptype;
 			}
-			System.out.println("The hostname is : "+hostname+" and the monitortype is : "+monitortype);
-			//Call siteview9.2 api and return monitor counter string.
-			String returnstr =  rmiServer.getMonitorCounters(hostname, monitortype);
+			String rcphostnamefiled = this.getMonitorHostName(monitortype);
+			// Get sqlserver monitor hostname
+			String hostname = busob.GetField(rcphostnamefiled)
+					.get_NativeValue().toString();
+			System.out.println("The hostname is : " + hostname
+					+ " and the monitortype is : " + monitortype);
+			// Call siteview9.2 api and return monitor counter string.
+			String returnstr = rmiServer.getMonitorCounters(hostname,
+					monitortype);
 			String[] str = returnstr.split(",");
-			for (String s: str) {
+			for (String s : str) {
 				new TreeItem(tree, SWT.NONE).setText(s);
 			}
-			
-			
+
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
@@ -151,5 +159,37 @@ public class CounterDlg extends Dialog {
 		super.okPressed();
 	}
 
+	private static String getMonitorType(String monitorType) {
+		String filePath;
+		String RootFilePath = System.getProperty("user.dir");
+		filePath = RootFilePath + "\\itsm_siteview9.2.properties";
+		Properties props = new Properties();
+		try {
+			InputStream in = new BufferedInputStream(new FileInputStream(
+					filePath));
+			props.load(in);
+			String value = props.getProperty(monitorType);
+			return value;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
+	private static String getMonitorHostName(String monitorType) {
+		String filePath;
+		String RootFilePath = System.getProperty("user.dir");
+		filePath = RootFilePath + "\\itsm_rcphostfiled.properties";
+		Properties props = new Properties();
+		try {
+			InputStream in = new BufferedInputStream(new FileInputStream(
+					filePath));
+			props.load(in);
+			String value = props.getProperty(monitorType);
+			return value;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

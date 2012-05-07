@@ -261,9 +261,9 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		AtomicMonitor atomicmonitor = null;
 		try {
 			atomicmonitor = AtomicMonitor.MonitorCreate(monitorType);
-			atomicmonitor.setProperty(
-					((IServerPropMonitor) atomicmonitor).getServerProperty(),
-					hostname);
+//			atomicmonitor.setProperty(
+//					((IServerPropMonitor) atomicmonitor).getServerProperty(),
+//					hostname);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

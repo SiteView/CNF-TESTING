@@ -4,14 +4,11 @@ import java.util.Map;
 
 import Siteview.SiteviewValue;
 import Siteview.Api.BusinessObject;
-import Siteview.BusinessLogic.BusinessObjectCollection;
 import Siteview.Presentation.Common.BarDef;
 import Siteview.Presentation.Common.ToolbarDef;
 import Siteview.Windows.Forms.IPresentationRegionAccess;
-import Siteview.Windows.Forms.Res;
 import siteview.windows.forms.CommandEventArgs;
 import siteview.windows.forms.PresentationRegionExtensionBase;
-import system.Collections.ArrayList;
 
 public class MonitorCounter extends PresentationRegionExtensionBase {
 
@@ -21,7 +18,7 @@ public class MonitorCounter extends PresentationRegionExtensionBase {
 	
 	@Override
 	public Boolean ExecuteCommand(CommandEventArgs e) {
-		//Ñ¡Ôñ¼ÆÊýÆ÷
+		//Choose monitor counters
 		if (e.get_Command().equals("SelectCounter")){
 			SelectCounter();
 			return true;
@@ -31,9 +28,9 @@ public class MonitorCounter extends PresentationRegionExtensionBase {
 
 	private void SelectCounter() {
 		IPresentationRegionAccess pra = (IPresentationRegionAccess) super.get_PresentationRegionAccess();
-		if (pra.get_PrimaryBusinessObject().get_Definition().get_Name().equals("Ecc.SQLServerMonitor")){
+//		if (pra.get_PrimaryBusinessObject().get_Definition().get_Name().equals("Ecc.WinMediaServer")){
 			CounterDlg dlg = new CounterDlg(null);
-			Siteview.Api.BusinessObjectCollection curCounters = pra.get_Relationship().get_BusinessObjects();
+//			Siteview.Api.BusinessObjectCollection curCounters = pra.get_Relationship().get_BusinessObjects();
 
 			dlg.open();
 			if (dlg.getReturnCode() == CounterDlg.OK){
@@ -52,7 +49,7 @@ public class MonitorCounter extends PresentationRegionExtensionBase {
 				}
 				pra.get_Relationship().Refresh(true);
 			}
-		}
+//		}
 		
 	}
 
