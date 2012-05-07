@@ -46,7 +46,12 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 				monitortype =bo.GetField("EccType").get_NativeValue()
 						.toString();
 			}
-			
+			if(ecckey.equals("_timeout"))
+			{
+				Double timeoutdb=Double.valueOf(map.get("_timeout"));
+				int timeout=(int)i;
+				map.put("_timeout", timeout+"");
+			}
 			if (javakey != null) {
 				String value;
 				//判断值是否是逻辑值，如果是则对值进行替换，否则不变
