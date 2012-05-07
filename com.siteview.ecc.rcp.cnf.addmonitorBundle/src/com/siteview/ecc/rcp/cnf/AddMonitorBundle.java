@@ -39,20 +39,22 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		String relationship=null;
 		for (int i = 0; i < bo.get_FieldNames().get_Count(); i++) {
 			String ecckey = al.get_Item(i).toString();
-			String javakey = this.getMonitorParam(ecckey);
+			String javakey=this.getMonitorParam(ecckey);
 //			relationship=this.getAlertConditionUnit(javakey);
 			if(ecckey.equals("EccType"))
 			{
 				monitortype =bo.GetField("EccType").get_NativeValue()
 						.toString();
 			}
-			if(ecckey.equals("_timeout"))
-			{
-				Double timeoutdb=Double.valueOf(map.get("_timeout"));
-				int timeout=(int)i;
-				map.put("_timeout", timeout+"");
-			}
+	 
 			if (javakey != null) {
+				//将超时转换成int类型存储到siteview9.2中
+				if(javakey.equals("_timeout"))
+				{
+					float timeoutdb=Float.parseFloat(bo.GetField("TimeoutUrlList").get_NativeValue().toString());
+					int timeout=(int)timeoutdb; 
+					map.put("_timeout", timeout+"");
+				}
 				String value;
 				//判断值是否是逻辑值，如果是则对值进行替换，否则不变
 				if(bo.GetField(al.get_Item(i).toString()).get_NativeValue().toString().equals("true")){
