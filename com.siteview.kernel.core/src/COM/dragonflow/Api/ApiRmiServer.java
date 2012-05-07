@@ -14,9 +14,12 @@ import java.util.Map.Entry;
 import java.util.Vector;
 
 import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.IServerPropMonitor;
 import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
+import COM.dragonflow.SiteView.NTCounterBase;
 import COM.dragonflow.SiteViewException.SiteViewException;
+import COM.dragonflow.StandardMonitor.SQLServerMonitor;
 
 public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		APIInterfaces {
@@ -222,10 +225,9 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		int size=getPropertyCount(paramlist);
 		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[size]; 
 				int j = 0;
+
 		for (int i = 0; i < paramlist.size(); i++) {
 			Map<String, String> map = paramlist.get(i);
-//			assinstanceproperty = new SSInstanceProperty[map.size()];
-			
 			for (Entry<String, String> entry : map.entrySet()) {
 				String k = entry.getKey();
 				String v = entry.getValue();
@@ -248,5 +250,43 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		return total;
 	}
 
+	/**
+	 * Get monitor counters
+	 * parms:hostname,monitorType
+	 * return String monitorcounters
+	 */
+	public String getMonitorCounters(String hostname, String monitorType)
+			throws RemoteException, SiteViewException {
+		// TODO Auto-generated method stub
+		AtomicMonitor atomicmonitor = null;
+		try {
+			atomicmonitor = AtomicMonitor.MonitorCreate(monitorType);
+			atomicmonitor.setProperty(
+					((IServerPropMonitor) atomicmonitor).getServerProperty(),
+					hostname);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		boolean flag = true;
+		String monitorcounters = ((NTCounterBase) atomicmonitor).getCountersContent();
+		if (monitorcounters.length() == 0) {
+			jgl.Array array1 = ((NTCounterBase) atomicmonitor)
+					.getAvailableCounters();
+			if (array1.size() > 0) {
+				monitorcounters = ((NTCounterBase) atomicmonitor).getDefaultCounters();
+			} else {
+				flag = false;
+			}
+			if (monitorcounters.length() == 0) {
+				if (flag) {
+					monitorcounters = "No Counters selected";
+				} else {
+					monitorcounters = "No Counters available for this machine";
+				}
+			}
+		}
+		return monitorcounters;
+	}
 
 }

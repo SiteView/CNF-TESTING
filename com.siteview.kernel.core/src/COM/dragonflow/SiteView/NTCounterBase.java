@@ -76,6 +76,8 @@ public abstract class NTCounterBase extends ServerMonitor implements
     public abstract String getDefaultInstance();
 
     public abstract String getDefaultCounters();
+    
+//    public abstract List getCountersList();
 
     public abstract String getReturnURL();
 

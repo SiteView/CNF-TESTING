@@ -59,7 +59,7 @@ import SiteViewMain.SiteViewSupport;
 
 // import jgl.Array;
 
-public abstract class AtomicMonitor extends Monitor implements Runnable,
+public  class AtomicMonitor extends Monitor implements Runnable,
         IPropertyFilter, IErrorCodeProvider, IObjectWithUniqueId {
     public static StringProperty pFrequency;
 
@@ -1793,4 +1793,10 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         if (j > 0)
             monitorDebugLevel = j;
     }
+
+	@Override
+	public String getHostname() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
