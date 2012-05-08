@@ -19,7 +19,6 @@ import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteView.NTCounterBase;
 import COM.dragonflow.SiteViewException.SiteViewException;
-import COM.dragonflow.StandardMonitor.SQLServerMonitor;
 
 public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		APIInterfaces {
@@ -27,6 +26,31 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	Registry registry;
 	APIGroup apigroup;
 	APIMonitor apimonitor;
+	static String[] NTCounterGroups = { "SQLServerMonitor",
+			"WindowsMediaMonitor", "ADPerformanceMonitor", "ASPMonitor",
+			"ColdFusionMonitor", "IISServerMonitor", "RealMonitor" };
+	static String[] DispatcherMonitorCounterGroups = { "OracleDBMonitor",
+			"PatrolMonitor", "TuxedoMonitor" };
+	static String[] MultiContentBaseCounterGroups = {
+			"HealthUnixServerMonitor", "LogEventHealthMonitor",
+			"MediaPlayerMonitorBase", "MonitorLoadMonitor" };
+	static String[] MediaPlayerMonitorBaseCounterGroups = {
+			"RealMediaPlayerMonitor", "WindowsMediaPlayerMonitor" };
+	static String[] SNMPBaseCounterGroups = { "DynamoMonitor",
+			"CheckPointMonitor", "WebLogic5xMonitor" };
+	static String[] BrowsableSNMPBaseCounterGroups = { "BrowsableSNMPMonitor",
+			"CiscoMonitor", "F5Monitor", "IPlanetAppServerMonitor",
+			"IPlanetWSMonitor", "NetworkBandwidthMonitor", "VMWareMonitor" };
+	static String[] ServerMonitorCounterGroups = { "AssetMonitor",
+			"CPUMonitor", "DiskSpaceMonitor", "MemoryMonitor",
+			"NTCounterMonitor", "NTEventLogMonitor", "ScriptMonitor",
+			"ServiceMonitor", "UnixCounterMonitor", "WebServerMonitor" };
+	static String[] BrowsableExeBaseCounterGroups = { "DB2Monitor",
+			"SAPMonitor" };
+	static String[] BrowsableBaseCounterGroups = { "BrowsableNTCounterMonitor",
+			"BrowsableWMIMonitor", "DatabaseCounterMonitor", "IPMIMonitor",
+			"OracleJDBCMonitor", "SiebelMonitor", "WebLogic6xMonitor",
+			"WebSphereMonitor" };
 
 	public ApiRmiServer() throws RemoteException {
 		try {
@@ -55,6 +79,18 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 
 	public String getHostname() {
 		return hostname;
+	}
+
+	public static boolean isHave(String[] strs, String s) {
+		/*
+		 * 此方法有两个参数，第一个是要查找的字符串数组，第二个是要查找的字符或字符串
+		 */
+		for (int i = 0; i < strs.length; i++) {
+			if (strs[i].indexOf(s) != -1) {// 循环查找字符串数组中的每个字符串中是否包含所有查找的内容
+				return true;// 查找到了就返回真，不在继续查询
+			}
+		}
+		return false;// 没找到返回false
 	}
 
 	public List<Map<String, Object>> getAllGroupInstances()
@@ -222,9 +258,9 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			List<Map<String, String>> paramlist) throws RemoteException,
 			SiteViewException {
 		// TODO Auto-generated method stub
-		int size=getPropertyCount(paramlist);
-		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[size]; 
-				int j = 0;
+		int size = getPropertyCount(paramlist);
+		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[size];
+		int j = 0;
 
 		for (int i = 0; i < paramlist.size(); i++) {
 			Map<String, String> map = paramlist.get(i);
@@ -238,22 +274,21 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		COM.dragonflow.Api.SSStringReturnValue ssstringreturnvalue2 = apimonitor
 				.create(monitorType, groupid, assinstanceproperty);
 	}
-	private int getPropertyCount(List<Map<String, String>> paramlist)
-	{
-		int total=0;
+
+	private int getPropertyCount(List<Map<String, String>> paramlist) {
+		int total = 0;
 		for (int i = 0; i < paramlist.size(); i++) {
 			Map<String, String> map = paramlist.get(i);
-//			assinstanceproperty = new SSInstanceProperty[map.size()];
-			total+=map.size(); 
+			// assinstanceproperty = new SSInstanceProperty[map.size()];
+			total += map.size();
 		}
-		
+
 		return total;
 	}
 
 	/**
-	 * Get monitor counters
-	 * parms:hostname,monitorType
-	 * return String monitorcounters
+	 * Get monitor counters parms:hostname,monitorType return String
+	 * monitorcounters
 	 */
 	public String getMonitorCounters(String hostname, String monitorType)
 			throws RemoteException, SiteViewException {
@@ -269,21 +304,28 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 		boolean flag = true;
-		String monitorcounters = ((NTCounterBase) atomicmonitor).getCountersContent();
-		if (monitorcounters.length() == 0) {
-			jgl.Array array1 = ((NTCounterBase) atomicmonitor)
-					.getAvailableCounters();
-			if (array1.size() > 0) {
-				monitorcounters = ((NTCounterBase) atomicmonitor).getDefaultCounters();
-			} else {
-				flag = false;
-			}
+		String monitorcounters = "";
+		if (isHave(NTCounterGroups, monitorType)) {// NTCounterGroups
+			monitorcounters = ((NTCounterBase) atomicmonitor)
+					.getCountersContent();
 			if (monitorcounters.length() == 0) {
-				if (flag) {
-					monitorcounters = "No Counters selected";
+				jgl.Array array1 = ((NTCounterBase) atomicmonitor)
+						.getAvailableCounters();
+				if (array1.size() > 0) {
+					monitorcounters = ((NTCounterBase) atomicmonitor)
+							.getDefaultCounters();
 				} else {
-					monitorcounters = "No Counters available for this machine";
+					flag = false;
 				}
+			}
+		} else if (isHave(DispatcherMonitorCounterGroups, monitorType)) {// DispatcherMonitorCounterGroups
+
+		}
+		if (monitorcounters.length() == 0) {
+			if (flag) {
+				monitorcounters = "No Counters selected";
+			} else {
+				monitorcounters = "No Counters available for this machine";
 			}
 		}
 		return monitorcounters;

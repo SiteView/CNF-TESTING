@@ -333,7 +333,7 @@ public class OracleJDBCMonitor extends BrowsableBase {
                 DriverManager.setLoginTimeout(i);
             }
             if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(s2, s3, s4);
+                connection = DriverManager.getConnection("jdbc:oracle:thin:@"+s2, s3, s4);
                 LogManager.log("RunMonitor", "DB monitor, connecting, database=" + s2 + ", " + s3);
             }
             statement = connection.createStatement();
