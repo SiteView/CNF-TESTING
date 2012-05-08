@@ -106,6 +106,9 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		}
 		catch(Exception e)
 		{}
+		//¹ýÂË¼à²âÆ÷
+		FilterMonitor(map,monitortype);
+		
 	
 		if(map.get("timeUnitSelf").equals("Minute")){
 			float i=Float.parseFloat(map.get("_frequency"))*60;
@@ -268,6 +271,33 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	private void FilterMonitor(Map<String, String> map,String monitortype)
+	{
+		if(monitortype.equals("File"))
+		{
+			String cccf=map.get("CheckContentChangesFile").toString();
+			if(cccf.equals("compare to last contents"))
+			{
+				map.remove("CheckContentChangesFile");
+				map.put("_checkContent", "on");
+			}
+			else if(cccf.equals("compare to saved contents")||cccf.equals("reset saved contents"))
+			{ 
+				map.remove("CheckContentChangesFile");
+				map.put("_checkContent", "baseline");
+			}
+			else if(cccf.equals("no content checking"))
+			{
+				map.remove("CheckContentChangesFile");
+			}
+			if(map.get("NoErroronFileNotFound").toString().equals("true"))
+			{
+				map.remove("NoErroronFileNotFound");
+				map.put("_noFileCheckExist", "on");
+			}
+		}
+		
 	}
 	public static void main(String args[]) { 
 		Map<String,String> map=new HashMap<String,String>();
