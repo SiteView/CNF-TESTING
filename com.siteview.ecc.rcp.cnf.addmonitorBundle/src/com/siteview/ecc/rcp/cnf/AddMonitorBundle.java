@@ -113,14 +113,6 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 				map.put("_couter",couter);
 			}
 		}		
-		//如有超时字段，将该转换成int类型存储到siteview9.2中
-		try{ 
-				float timeoutdb=Float.parseFloat(map.get("_timeout").toString());
-				int timeout=(int)timeoutdb; 
-				map.put("_timeout", timeout+""); 
-		}
-		catch(Exception e)
-		{}
 		//过滤监测器
 		FilterMonitor(map,monitortype);
 		try {
