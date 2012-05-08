@@ -10,12 +10,15 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import siteview.IAutoTaskExtension;
 import system.Math;
+import system.Collections.ICollection;
 import COM.dragonflow.Api.APIInterfaces;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import Siteview.Api.BusinessObject;
@@ -66,38 +69,50 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 						.get_NativeValue().toString());
 			} 
 		} 
-		relationship=this.getAlertConditionUnit(monitortype);
-		Relationship rs = bo.GetRelationship(relationship);
-		BusinessObjectCollection list = rs.get_BusinessObjects();
+		
+		ICollection relationships=bo.get_RelationshipNames();
+		system.Collections.ArrayList a2 = new system.Collections.ArrayList();
+		a2.AddRange(relationships);
 		Map<String,String> goodmap=new HashMap<String,String>();
 		Map<String,String> warningmap=new HashMap<String,String>();
 		Map<String,String> errormap=new HashMap<String,String>();
-		
-		for (int i = 0; i < list.get_Count(); i++) {
-			
-			BusinessObject bosun = (BusinessObject) list.get_Item(i);
-			String status = bosun.GetField("AlarmStatus").get_NativeValue()
-					.toString();
-			String comparison = bosun.GetField("Operator").get_NativeValue()
-					.toString();
-			String parameter = bosun.GetField("AlramValue").get_NativeValue()
-					.toString();
-			String returnitemstr=getMonitorReturnItem(monitortype);
-			String returnitem = bosun.GetField(returnitemstr).get_NativeValue().toString();
-			String isAnd=bosun.GetField("isAnd").get_NativeValue().toString();
-			if (status.equals("Good")) { 
-				goodmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + "	" + "good");
-			} else if (status.equals("Warning")) {
-				warningmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + "	" + "warning");
-			} else if (status.equals("Error")) { 
-				errormap.put("_classifier", returnitem += " "+comparison+" "+ parameter +"	"+ "error");
-			} else if (status.equals("Empty")) {
-//				alertlist.add(returnitem + " "+comparison+" "+ parameter + "	" + "empty");
-//				map.put("_classifier", returnitem += " "+comparison+" "+ parameter + " " + "empty");
-			}
+		for(int j=0;j<a2.get_Count();j++){
+			Relationship rs1=bo.GetRelationship(a2.get_Item(j).toString());
+			BusinessObjectCollection list=rs1.get_BusinessObjects();
+			if(a2.get_Item(j).toString().contains("Alarm")){
+				for (int i = 0; i < list.get_Count(); i++) {
+					BusinessObject bosun = (BusinessObject) list.get_Item(i);
+					String status = bosun.GetField("AlarmStatus").get_NativeValue()
+							.toString();
+					String comparison = bosun.GetField("Operator").get_NativeValue()
+							.toString();
+					String parameter = bosun.GetField("AlramValue").get_NativeValue()
+							.toString();
+					String returnitemstr=getMonitorReturnItem(monitortype);
+					String returnitem = bosun.GetField(returnitemstr).get_NativeValue().toString();
+					String isAnd=bosun.GetField("isAnd").get_NativeValue().toString();
+					if (status.equals("Good")) { 
+						goodmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + "	" + "good");
+					} else if (status.equals("Warning")) {
+						warningmap.put("_classifier", returnitem + " "+comparison+" "+ parameter + "	" + "warning");
+					} else if (status.equals("Error")) { 
+						errormap.put("_classifier", returnitem += " "+comparison+" "+ parameter +"	"+ "error");
+					} else if (status.equals("Empty")) {
+//						alertlist.add(returnitem + " "+comparison+" "+ parameter + "	" + "empty");
+//						map.put("_classifier", returnitem += " "+comparison+" "+ parameter + " " + "empty");
+					}
 
-		}
-		int j;
+				}
+			}else{
+				String couter="";
+				for(int i = 0; i < list.get_Count(); i++){
+					BusinessObject bosun=(BusinessObject)list.get_Item(i);
+					couter=couter+bosun.GetField("Name").get_NativeValue().toString();
+					System.out.println(couter);
+				}
+				map.put("_couter",couter);
+			}
+		}		
 		//如有超时字段，将该转换成int类型存储到siteview9.2中
 		try{ 
 				float timeoutdb=Float.parseFloat(map.get("_timeout").toString());
@@ -108,43 +123,6 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		{}
 		//过滤监测器
 		FilterMonitor(map,monitortype);
-		
-	
-		if(map.get("timeUnitSelf").equals("Minute")){
-			float i=Float.parseFloat(map.get("_frequency"))*60;
-			j=(int)i;
-			map.put("_frequency", j+"");
-		}else if(map.get("timeUnitSelf").equals("Hour")){
-			float i=Float.parseFloat(map.get("_frequency"))*3600;
-			j=(int)i;
-			map.put("_frequency", j+"");
-		}else if(map.get("timeUnitSelf").equals("Day")){
-			float i=Float.parseFloat(map.get("_frequency"))*86400;
-			j=(int)i;
-			map.put("_frequency", j+"");
-		}else if(map.get("timeUnitSelf").equals("Second")){
-			float i=Float.parseFloat(map.get("_frequency"));
-			j=(int)i;
-			map.put("_frequency", j+"");
-		}
-		if(map.get("ErrorFrequency").equals("Minute")){ 
-			float i=Float.parseFloat(map.get("_errorFrequency"))*60; 
-			j=(int)i;
-			map.put("_errorFrequency", j+"");
-		}else if(map.get("ErrorFrequency").equals("Hour")){
-			float i=Float.parseFloat(map.get("_errorFrequency"))*3600;
-			j=(int)i;
-			map.put("_errorFrequency", j+"");
-		}else if(map.get("ErrorFrequency").equals("Day")){
-			float i=Float.parseFloat(map.get("_errorFrequency"))*86400;
-			j=(int)i;
-			map.put("_errorFrequency", j+"");
-		}else if(map.get("ErrorFrequency").equals("Second")){
-			float i=Float.parseFloat(map.get("_errorFrequency"));
-			j=(int)i;
-			map.put("_errorFrequency", j+"");
-		}
-		
 		try {
 
 			addMonitor(map,goodmap,warningmap,errormap); 
@@ -228,24 +206,6 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			return null;
 		}
 	}
-	//根据监测器类型得到该监测器报警条件关系的名称
-	private static String getAlertConditionUnit(String param)
-	{
-		String filePath;
-		String RootFilePath=System.getProperty("user.dir");
-		filePath =RootFilePath +"\\itsm_monitoralertconditionUnit.properties";
-		Properties props = new Properties();
-		try {
-			InputStream in = new BufferedInputStream(new FileInputStream(
-					filePath));
-			props.load(in);
-			String value = props.getProperty(param);
-			return value;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 	private static String getMonitorReturnItem(String param)
 	{
 		String filePath;
@@ -289,22 +249,59 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			}
 		}
 		
+		//mail监测器字段过滤
+		if(map.get("_useIMAP")!=null && map.get("_useIMAP").equals("IMAP4")){
+			map.put("_useIMAP", "true");
+		}else if(map.get("_useIMAP")!=null && map.get("_useIMAP").equals("POP3")){
+			map.remove("_useIMAP");
+		}
+		//eBusiness Chain监测器字段过滤
+		if(map.get("_whenError")!=null && map.get("_whenError").equals("continue")){
+			map.remove("_whenError");
+		}
+		int j;//时间单位转化
+		if(map.get("timeUnitSelf").equals("Minute")){
+			float i=Float.parseFloat(map.get("_frequency"))*60;
+			j=(int)i;
+			map.put("_frequency", j+"");
+		}else if(map.get("timeUnitSelf").equals("Hour")){
+			float i=Float.parseFloat(map.get("_frequency"))*3600;
+			j=(int)i;
+			map.put("_frequency", j+"");
+		}else if(map.get("timeUnitSelf").equals("Day")){
+			float i=Float.parseFloat(map.get("_frequency"))*86400;
+			j=(int)i;
+			map.put("_frequency", j+"");
+		}else if(map.get("timeUnitSelf").equals("Second")){
+			float i=Float.parseFloat(map.get("_frequency"));
+			j=(int)i;
+			map.put("_frequency", j+"");
+		}
+		if(map.get("ErrorFrequency").equals("Minute")){ 
+			float i=Float.parseFloat(map.get("_errorFrequency"))*60; 
+			j=(int)i;
+			map.put("_errorFrequency", j+"");
+		}else if(map.get("ErrorFrequency").equals("Hour")){
+			float i=Float.parseFloat(map.get("_errorFrequency"))*3600;
+			j=(int)i;
+			map.put("_errorFrequency", j+"");
+		}else if(map.get("ErrorFrequency").equals("Day")){
+			float i=Float.parseFloat(map.get("_errorFrequency"))*86400;
+			j=(int)i;
+			map.put("_errorFrequency", j+"");
+		}else if(map.get("ErrorFrequency").equals("Second")){
+			float i=Float.parseFloat(map.get("_errorFrequency"));
+			j=(int)i;
+			map.put("_errorFrequency", j+"");
+		}
+		//如有超时字段，将该转换成int类型存储到siteview9.2中				 
+		if(map.get("_timeout")!=null){
+			float timeoutdb=Float.parseFloat(map.get("_timeout").toString());
+			int timeout=(int)timeoutdb; 
+			map.put("_timeout", timeout+"");
+		}
+		
 	}
 	public static void main(String args[]) { 
-		Map<String,String> map=new HashMap<String,String>();
-		map.put("1", "a");
-		map.put("2", "b");
-		try{
-			map.get("3").toString();
-			System.out.print("ok");
-		}
-		catch(Exception e)
-		{
-		}
-		map.put("4", "d");
-		System.out.println("4");
-		
-		
-		
 	}
 }
