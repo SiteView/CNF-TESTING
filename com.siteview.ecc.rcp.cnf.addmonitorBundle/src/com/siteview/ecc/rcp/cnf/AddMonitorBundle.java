@@ -144,16 +144,7 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			j=(int)i;
 			map.put("_errorFrequency", j+"");
 		}
-		//mail¼à²âÆ÷×Ö¶Î¹ýÂË
-		if(map.get("_useIMAP")!=null && map.get("_useIMAP").equals("IMAP4")){
-			map.put("_useIMAP", "true");
-		}else if(map.get("_useIMAP")!=null && map.get("_useIMAP").equals("POP3")){
-			map.remove("_useIMAP");
-		}
-		//eBusiness Chain¼à²âÆ÷×Ö¶Î¹ýÂË
-		if(map.get("_whenError")!=null && map.get("_whenError").equals("continue")){
-			map.remove("_whenError");
-		}
+		
 		try {
 
 			addMonitor(map,goodmap,warningmap,errormap); 
