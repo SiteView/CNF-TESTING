@@ -95,9 +95,32 @@ public class CounterDlg extends Dialog {
 					.get_NativeValue().toString();
 			System.out.println("The hostname is : " + hostname
 					+ " and the monitortype is : " + monitortype);
+			Map parmsmap = new HashMap();
+			parmsmap.put("monitortype", monitortype);
 			// Call siteview9.2 api and return monitor counter string.
-			String returnstr = rmiServer.getMonitorCounters(hostname,
-					monitortype);
+			if (monitortype.equals("OracleJDBCMonitor")) {
+				String oracleuserurl = busob.GetField("DatabaseConnectionURL")
+						.get_NativeValue().toString();
+				String oracleusername = busob.GetField("DatabaseUserName")
+						.get_NativeValue().toString();
+				String oracleuserpwd = busob.GetField("DatabasePassword")
+						.get_NativeValue().toString();
+				String oracleuserdriver = busob.GetField("DatabaseDriver")
+						.get_NativeValue().toString();
+				String connectiontimeout = busob.GetField("ConnectionTimeout")
+						.get_NativeValue().toString();
+				String querytimeout = busob.GetField("QueryTimeout")
+						.get_NativeValue().toString();
+				parmsmap.put("oracleuserurl", oracleuserurl);
+				parmsmap.put("oracleusername", oracleusername);
+				parmsmap.put("oracleuserpwd", oracleuserpwd);
+				parmsmap.put("oracleuserdriver", oracleuserdriver);
+				parmsmap.put("connectiontimeout", connectiontimeout.substring(0, connectiontimeout.indexOf(".")));
+				parmsmap.put("querytimeout", querytimeout.substring(0, querytimeout.indexOf(".")));
+			} else {
+				parmsmap.put("hostname", hostname);
+			}
+			String returnstr = rmiServer.getMonitorCounters(parmsmap);
 			String[] str = returnstr.split(",");
 			for (String s : str) {
 				new TreeItem(tree, SWT.NONE).setText(s);

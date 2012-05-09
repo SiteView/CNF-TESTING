@@ -97,7 +97,8 @@ public class HTTPServer
         throws java.io.IOException
     {
         SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
-        String s = siteviewgroup.getSetting("_httpListenerIP");
+//        String s = siteviewgroup.getSetting("_httpListenerIP");
+        String s = "0.0.0.0";
         javax.net.ServerSocketFactory serversocketfactory = null;
         String s1 = "HTTP";
         if(sslEnabled)

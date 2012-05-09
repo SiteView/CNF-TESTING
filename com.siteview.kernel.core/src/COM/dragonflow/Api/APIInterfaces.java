@@ -19,5 +19,5 @@ public interface APIInterfaces extends Remote
 	void deleteMonitor(String monitorId,String groupId)  throws RemoteException,SiteViewException;
 	boolean trylogin(String strUser, String strPwd) throws RemoteException,SiteViewException;
 	void createMonitor(String monitorType, String groupid,List<Map<String, String>> paramlist) throws RemoteException,SiteViewException;
-	String getMonitorCounters(String hostname,String monitorType)throws RemoteException,SiteViewException;
+	String getMonitorCounters(Map parmsmap)throws RemoteException,SiteViewException;
 }

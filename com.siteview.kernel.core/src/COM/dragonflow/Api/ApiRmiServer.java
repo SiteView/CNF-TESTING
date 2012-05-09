@@ -1,5 +1,6 @@
 package COM.dragonflow.Api;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -12,6 +13,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.IServerPropMonitor;
@@ -290,22 +299,27 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	 * Get monitor counters parms:hostname,monitorType return String
 	 * monitorcounters
 	 */
-	public String getMonitorCounters(String hostname, String monitorType)
-			throws RemoteException, SiteViewException {
+	public String getMonitorCounters(Map parmsmap) throws RemoteException,
+			SiteViewException {
 		// TODO Auto-generated method stub
 		AtomicMonitor atomicmonitor = null;
 		try {
-			atomicmonitor = AtomicMonitor.MonitorCreate(monitorType);
-			atomicmonitor.setProperty(
-					((IServerPropMonitor) atomicmonitor).getServerProperty(),
-					hostname);
+			atomicmonitor = AtomicMonitor.MonitorCreate(parmsmap.get(
+					"monitortype").toString());
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		boolean flag = true;
 		String monitorcounters = "";
-		if (isHave(NTCounterGroups, monitorType)) {// NTCounterGroups
+		String xmldata = "";
+		StringBuffer stringbuffer = new StringBuffer("");
+		String cachexmlname = "";
+		if (isHave(NTCounterGroups, parmsmap.get("monitortype").toString())) {// NTCounterGroups
+			atomicmonitor.setProperty(
+					((IServerPropMonitor) atomicmonitor).getServerProperty(),
+					hostname);
 			monitorcounters = ((NTCounterBase) atomicmonitor)
 					.getCountersContent();
 			if (monitorcounters.length() == 0) {
@@ -318,7 +332,40 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 					flag = false;
 				}
 			}
-		} else if (isHave(DispatcherMonitorCounterGroups, monitorType)) {// DispatcherMonitorCounterGroups
+		} else if (isHave(BrowsableBaseCounterGroups,
+				parmsmap.get("monitortype").toString())) {// BrowsableBaseCounterGroups
+			if (parmsmap.get("monitortype").toString()
+					.equals("OracleJDBCMonitor")) {
+				atomicmonitor.setProperty("_driver",
+						parmsmap.get("oracleuserdriver").toString());
+				atomicmonitor.setProperty("_connectTimeout",
+						parmsmap.get("connectiontimeout").toString());
+				atomicmonitor.setProperty("_queryTimeout",
+						parmsmap.get("querytimeout").toString());
+				atomicmonitor.setProperty("_server",
+						parmsmap.get("oracleuserurl").toString());
+				atomicmonitor.setProperty("_user",
+						parmsmap.get("oracleusername").toString());
+				atomicmonitor.setProperty("_password",
+						parmsmap.get("oracleuserpwd").toString());
+				boolean flag1 = ((COM.dragonflow.SiteView.BrowsableMonitor) atomicmonitor)
+						.isUsingCountersCache();// Check if use cache
+				if (flag1) {
+					cachexmlname = COM.dragonflow.SiteView.BrowsableCache
+							.getXmlFileName(atomicmonitor);// get Cache xml name
+					xmldata = COM.dragonflow.SiteView.BrowsableCache
+							.getXmlFile(cachexmlname);// Get xml data
+					monitorcounters = analyticXml();
+				}
+				if (xmldata.length() == 0) {
+					xmldata = ((COM.dragonflow.SiteView.BrowsableMonitor) atomicmonitor)
+							.getBrowseData(stringbuffer).trim();
+					if (stringbuffer.length() == 0 && flag1) {
+						COM.dragonflow.SiteView.BrowsableCache.saveXmlFile(
+								cachexmlname, xmldata);
+					}
+				}
+			}
 
 		}
 		if (monitorcounters.length() == 0) {
@@ -331,4 +378,94 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		return monitorcounters;
 	}
 
+	// 解析返回的XML格式的数据成String
+	public static String analyticXml() {
+		String xmldata = "";
+		try {
+			DocumentBuilder db = DocumentBuilderFactory.newInstance()
+					.newDocumentBuilder();
+			Document document = db.parse(new File("d:\\counter.xml"));// 把文件解析成DOCUMENT类型
+			Element root = document.getDocumentElement(); // 得到Document的根
+			// System.out.println("根节点标记名：" + root.getTagName());
+			NodeList nodeList = root.getElementsByTagName("object");
+			String objstr = "";
+			String counterstr = "";
+			String counterString = "";
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				Node fatherNode = nodeList.item(i);
+				// System.out.println("父节点为:" + fatherNode.getNodeName());
+				// 把父节点的属性拿出来
+				NamedNodeMap attributes = fatherNode.getAttributes();
+				for (int j = 0; j < attributes.getLength(); j++) {
+					Node attribute = attributes.item(j);
+					// System.out.println("object的属性名为:" +
+					// attribute.getNodeName()
+					// + " 相对应的属性值为:" + attribute.getNodeValue());
+					objstr = attribute.getNodeValue();
+					if (fatherNode instanceof Element) {
+						NodeList childNodes = ((Element) fatherNode)
+								.getElementsByTagName("counter");
+						for (int k = 0; k < childNodes.getLength(); k++) {
+							Node childNode = childNodes.item(k);
+							NamedNodeMap sonattributes = childNode
+									.getAttributes();
+							for (int h = 0; h < sonattributes.getLength(); h++) {
+								Node sonnode = sonattributes.item(h);
+								// System.out.println("Counter的属性值为:"
+								// + sonnode.getNodeValue());
+								counterstr = sonnode.getNodeValue();
+								counterString = objstr + counterstr;
+								// System.out.println(counterString);
+							}
+							xmldata = xmldata + counterString + ",";
+						}
+
+					}
+
+				}
+
+			}
+			System.out.println(xmldata);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return xmldata;
+
+	}
+
+	public static void showElem(NodeList nl) {
+		for (int i = 0; i < nl.getLength(); i++) {
+			Node n = nl.item(i);// 得到父节点
+			System.out.println("NodeName:" + n.getNodeName());
+			if (n.hasChildNodes()) {
+				NamedNodeMap attributes = n.getAttributes();
+				for (int j = 0; j < attributes.getLength(); j++) {
+					Node attribute = attributes.item(j);
+					// 得到属性名
+					String attributeName = attribute.getNodeName();
+					System.out.println("属性名:" + attributeName);
+					// 得到属性值
+					String attributeValue = attribute.getNodeValue();
+					System.out.println("属性值:" + attributeValue);
+				}
+				NodeList childList = n.getChildNodes();
+				for (int x = 0; x < childList.getLength(); x++) {
+					Node childNode = childList.item(x);
+					// 得到子节点的名字
+					String childNodeName = childNode.getNodeName();
+					System.out.println("子节点名:" + childNodeName);
+					// 得到子节点的值
+					String childNodeValue = childNode.getNodeValue();
+					System.out.println("子节点值:" + childNodeValue);
+				}
+			}
+
+			// showElem(n.getChildNodes());// 递归
+		}
+	}
+
+	public static void main(String[] args) {
+		analyticXml();
+	}
 }
