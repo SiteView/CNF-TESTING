@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.omg.CORBA.Current;
+
 import siteview.IAutoTaskExtension;
 import system.Math;
 import system.Collections.ICollection;
@@ -247,44 +249,57 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		}else if(map.get("_useIMAP")!=null && map.get("_useIMAP").equals("POP3")){
 			map.remove("_useIMAP");
 		}
+		if(map.get("_receiveOnly")!=null && map.get("_receiveOnly").equals("Send & Receive")){
+			map.remove("_receiveOnly");
+		}
 		//eBusiness Chain监测器字段过滤
 		if(map.get("_whenError")!=null && map.get("_whenError").equals("continue")){
 			map.remove("_whenError");
 		}
-		int j;//时间单位转化
-		if(map.get("timeUnitSelf").equals("Minute")){
-			float i=Float.parseFloat(map.get("_frequency"))*60;
-			j=(int)i;
-			map.put("_frequency", j+"");
-		}else if(map.get("timeUnitSelf").equals("Hour")){
-			float i=Float.parseFloat(map.get("_frequency"))*3600;
-			j=(int)i;
-			map.put("_frequency", j+"");
-		}else if(map.get("timeUnitSelf").equals("Day")){
-			float i=Float.parseFloat(map.get("_frequency"))*86400;
-			j=(int)i;
-			map.put("_frequency", j+"");
-		}else if(map.get("timeUnitSelf").equals("Second")){
-			float i=Float.parseFloat(map.get("_frequency"));
-			j=(int)i;
-			map.put("_frequency", j+"");
+		if(map.get("_delay")!=null && (!map.get("_delay").equals(""))){
+			float f=Float.parseFloat(map.get("_delay"));
+			int j=(int)f;
+			map.put("_delay", j+"");
 		}
-		if(map.get("ErrorFrequency").equals("Minute")){ 
-			float i=Float.parseFloat(map.get("_errorFrequency"))*60; 
-			j=(int)i;
-			map.put("_errorFrequency", j+"");
-		}else if(map.get("ErrorFrequency").equals("Hour")){
-			float i=Float.parseFloat(map.get("_errorFrequency"))*3600;
-			j=(int)i;
-			map.put("_errorFrequency", j+"");
-		}else if(map.get("ErrorFrequency").equals("Day")){
-			float i=Float.parseFloat(map.get("_errorFrequency"))*86400;
-			j=(int)i;
-			map.put("_errorFrequency", j+"");
-		}else if(map.get("ErrorFrequency").equals("Second")){
-			float i=Float.parseFloat(map.get("_errorFrequency"));
-			j=(int)i;
-			map.put("_errorFrequency", j+"");
+		
+		int j;//时间单位转化
+		if(!map.get("_frequency").equals("")){
+			if(map.get("timeUnitSelf").equals("Minute")){
+				float i=Float.parseFloat(map.get("_frequency"))*60;
+				j=(int)i;
+				map.put("_frequency", j+"");
+			}else if(map.get("timeUnitSelf").equals("Hour")){
+				float i=Float.parseFloat(map.get("_frequency"))*3600;
+				j=(int)i;
+				map.put("_frequency", j+"");
+			}else if(map.get("timeUnitSelf").equals("Day")){
+				float i=Float.parseFloat(map.get("_frequency"))*86400;
+				j=(int)i;
+				map.put("_frequency", j+"");
+			}else if(map.get("timeUnitSelf").equals("Second")){
+				float i=Float.parseFloat(map.get("_frequency"));
+				j=(int)i;
+				map.put("_frequency", j+"");
+			}
+		}
+		if(!map.get("_errorFrequency").equals("")){
+			if(map.get("ErrorFrequency").equals("Minute")){ 
+				float i=Float.parseFloat(map.get("_errorFrequency"))*60; 
+				j=(int)i;
+				map.put("_errorFrequency", j+"");
+			}else if(map.get("ErrorFrequency").equals("Hour")){
+				float i=Float.parseFloat(map.get("_errorFrequency"))*3600;
+				j=(int)i;
+				map.put("_errorFrequency", j+"");
+			}else if(map.get("ErrorFrequency").equals("Day")){
+				float i=Float.parseFloat(map.get("_errorFrequency"))*86400;
+				j=(int)i;
+				map.put("_errorFrequency", j+"");
+			}else if(map.get("ErrorFrequency").equals("Second")){
+				float i=Float.parseFloat(map.get("_errorFrequency"));
+				j=(int)i;
+				map.put("_errorFrequency", j+"");
+			}
 		}
 		//如有超时字段，将该转换成int类型存储到siteview9.2中				 
 		if(map.get("_timeout")!=null){
@@ -292,8 +307,62 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			int timeout=(int)timeoutdb; 
 			map.put("_timeout", timeout+"");
 		}
-		
+		//过滤url监测器
+		if(map.get("_checkContent")!=null && map.get("_checkContent").equals("no content checking")){
+			map.remove("_checkContent");
+		}else if(map.get("_checkContent")!=null && (map.get("_checkContent").equals("compare to saved contents")||map.get("_checkContent").equals("reset saved contents"))){
+			map.put("_checkContent", "baseline");
+			map.put("_checkContentResetTime", System.currentTimeMillis()+"");
+		}else if(map.get("_checkContent")!=null && map.get("_checkContent").equals("compare to last contents")){
+			map.put("_checkContent", "on");
+			map.put("_checkContentResetTime", System.currentTimeMillis()+"");
+		}
+		if(map.get("_URLDropDownEncodePostData")!=null && map.get("_URLDropDownEncodePostData").equals("Use content-type:")){
+			map.put("_URLDropDownEncodePostData", "contentTypeUrlencoded");
+		}else if(map.get("_URLDropDownEncodePostData")!=null && map.get("_URLDropDownEncodePostData").equals("force url encoding")){
+			map.put("_URLDropDownEncodePostData", "forceEncode");
+		}else if(map.get("_URLDropDownEncodePostData")!=null && map.get("_URLDropDownEncodePostData").equals("force No url encoding")){
+			map.put("_URLDropDownEncodePostData", "forceNoEncode");
+		}
+		if(map.get("_whenToAuthenticate")!=null && map.get("_whenToAuthenticate").equals("Use Global Preference")){
+			map.remove("_whenToAuthenticate");
+		}else if(map.get("_whenToAuthenticate")!=null && map.get("_whenToAuthenticate").equals("Authenticate first request")){
+			map.put("_whenToAuthenticate", "authOnFirst");
+		}else if(map.get("_whenToAuthenticate")!=null && map.get("_whenToAuthenticate").equals("Authenticate if requested")){
+			map.put("_whenToAuthenticate", "authOnSecond");
+		}
+		//过滤linkCheck字段
+		if(map.get("MaxHops")!=null && map.get("MaxHops").equals("no limit")){
+			if(map.get("_maxSearchDepth").equals("")){
+				map.put("_maxSearchDepth", "100");
+			}
+		}else if(map.get("MaxHops")!=null && map.get("MaxHops").equals("main page links")){
+			if(map.get("_maxSearchDepth").equals("")){
+				map.put("_maxSearchDepth", "1");
+			}
+		}
+		if(map.get("_maxLinks")!=null && (!map.get("_maxLinks").equals(""))){
+			float f=Float.parseFloat(map.get("_maxLinks"));
+			j=(int)f;
+			map.put("_maxLinks", j+"");
+		}
+		//Windows Performance Counter过滤
+		if(map.get("_pmcfile")!=null && map.get("_pmcfile").equals("(Custom Object)")){
+			map.put("_pmcfile","none");
+		}
+		if(map.get("_scale")!=null && map.get("_scale").equals("")){
+			if(map.get("Scale").equals("kilobytes")){
+				map.put("_scale", "9.765625E-4");
+			}else if(map.get("Scale").equals("megabytes")){
+				map.put("_scale", "9.536743E-7");
+			}else if(map.get("Scale").equals("Other")){
+				map.remove("_scale");
+			}else{
+				map.put("_scale", map.get("Scale"));
+			}
+		}
 	}
 	public static void main(String args[]) { 
+		System.out.println(System.currentTimeMillis());
 	}
 }
