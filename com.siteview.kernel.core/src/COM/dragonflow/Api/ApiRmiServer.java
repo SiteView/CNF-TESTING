@@ -28,6 +28,7 @@ import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteView.NTCounterBase;
 import COM.dragonflow.SiteViewException.SiteViewException;
+import COM.dragonflow.StandardMonitor.SNMPCPUMonitor;
 
 public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		APIInterfaces {
@@ -60,6 +61,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			"BrowsableWMIMonitor", "DatabaseCounterMonitor", "IPMIMonitor",
 			"OracleJDBCMonitor", "SiebelMonitor", "WebLogic6xMonitor",
 			"WebSphereMonitor" };
+	static String[] InterFaceCounterGroups = { "InterfaceMonitor" };
 
 	public ApiRmiServer() throws RemoteException {
 		try {
@@ -302,71 +304,88 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	public String getMonitorCounters(Map parmsmap) throws RemoteException,
 			SiteViewException {
 		// TODO Auto-generated method stub
-		AtomicMonitor atomicmonitor = null;
-		try {
-			atomicmonitor = AtomicMonitor.MonitorCreate(parmsmap.get(
-					"monitortype").toString());
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		boolean flag = true;
 		String monitorcounters = "";
 		String xmldata = "";
 		StringBuffer stringbuffer = new StringBuffer("");
 		String cachexmlname = "";
-		if (isHave(NTCounterGroups, parmsmap.get("monitortype").toString())) {// NTCounterGroups
-			atomicmonitor.setProperty(
-					((IServerPropMonitor) atomicmonitor).getServerProperty(),
-					hostname);
-			monitorcounters = ((NTCounterBase) atomicmonitor)
-					.getCountersContent();
-			if (monitorcounters.length() == 0) {
-				jgl.Array array1 = ((NTCounterBase) atomicmonitor)
-						.getAvailableCounters();
-				if (array1.size() > 0) {
-					monitorcounters = ((NTCounterBase) atomicmonitor)
-							.getDefaultCounters();
-				} else {
-					flag = false;
-				}
+		if (isHave(InterFaceCounterGroups, parmsmap.get("monitortype")
+				.toString())) {// InterFace Monitor
+			SNMPCPUMonitor snmp = new SNMPCPUMonitor();
+			snmp.createSnmp(parmsmap.get("serverInterface").toString(), Integer
+					.parseInt(parmsmap.get("PortInterface").toString()),
+					parmsmap.get("InterfaceSNMPPublic").toString(), Integer
+							.parseInt(parmsmap.get("TimeOutInterface")
+									.toString()), 800);
+			List<String> interfaceportcounterlist = snmp
+					.getTree("1.3.6.1.2.1.2.2.1.1");
+			List<String> interfacedesccounterlist = snmp
+					.getTree("1.3.6.1.2.1.2.2.1.2");
+			for(String interfacedesc : interfacedesccounterlist){
+				monitorcounters += interfacedesc+",";
 			}
-		} else if (isHave(BrowsableBaseCounterGroups,
-				parmsmap.get("monitortype").toString())) {// BrowsableBaseCounterGroups
-			if (parmsmap.get("monitortype").toString()
-					.equals("OracleJDBCMonitor")) {
-				atomicmonitor.setProperty("_driver",
-						parmsmap.get("oracleuserdriver").toString());
-				atomicmonitor.setProperty("_connectTimeout",
-						parmsmap.get("connectiontimeout").toString());
-				atomicmonitor.setProperty("_queryTimeout",
-						parmsmap.get("querytimeout").toString());
-				atomicmonitor.setProperty("_server",
-						parmsmap.get("oracleuserurl").toString());
-				atomicmonitor.setProperty("_user",
-						parmsmap.get("oracleusername").toString());
-				atomicmonitor.setProperty("_password",
-						parmsmap.get("oracleuserpwd").toString());
-				boolean flag1 = ((COM.dragonflow.SiteView.BrowsableMonitor) atomicmonitor)
-						.isUsingCountersCache();// Check if use cache
-				if (flag1) {
-					cachexmlname = COM.dragonflow.SiteView.BrowsableCache
-							.getXmlFileName(atomicmonitor);// get Cache xml name
-					xmldata = COM.dragonflow.SiteView.BrowsableCache
-							.getXmlFile(cachexmlname);// Get xml data
-					monitorcounters = analyticXml();
-				}
-				if (xmldata.length() == 0) {
-					xmldata = ((COM.dragonflow.SiteView.BrowsableMonitor) atomicmonitor)
-							.getBrowseData(stringbuffer).trim();
-					if (stringbuffer.length() == 0 && flag1) {
-						COM.dragonflow.SiteView.BrowsableCache.saveXmlFile(
-								cachexmlname, xmldata);
+		} else {
+			AtomicMonitor atomicmonitor = null;
+			try {
+				atomicmonitor = AtomicMonitor.MonitorCreate(parmsmap.get(
+						"monitortype").toString());
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (isHave(NTCounterGroups, parmsmap.get("monitortype").toString())) {// NTCounterGroups
+				atomicmonitor.setProperty(((IServerPropMonitor) atomicmonitor)
+						.getServerProperty(), hostname);
+				monitorcounters = ((NTCounterBase) atomicmonitor)
+						.getCountersContent();
+				if (monitorcounters.length() == 0) {
+					jgl.Array array1 = ((NTCounterBase) atomicmonitor)
+							.getAvailableCounters();
+					if (array1.size() > 0) {
+						monitorcounters = ((NTCounterBase) atomicmonitor)
+								.getDefaultCounters();
+					} else {
+						flag = false;
 					}
 				}
-			}
+			} else if (isHave(BrowsableBaseCounterGroups,
+					parmsmap.get("monitortype").toString())) {// BrowsableBaseCounterGroups
+				if (parmsmap.get("monitortype").toString()
+						.equals("OracleJDBCMonitor")) {
+					atomicmonitor.setProperty("_driver",
+							parmsmap.get("oracleuserdriver").toString());
+					atomicmonitor.setProperty("_connectTimeout",
+							parmsmap.get("connectiontimeout").toString());
+					atomicmonitor.setProperty("_queryTimeout",
+							parmsmap.get("querytimeout").toString());
+					atomicmonitor.setProperty("_server",
+							parmsmap.get("oracleuserurl").toString());
+					atomicmonitor.setProperty("_user",
+							parmsmap.get("oracleusername").toString());
+					atomicmonitor.setProperty("_password",
+							parmsmap.get("oracleuserpwd").toString());
+					boolean flag1 = ((COM.dragonflow.SiteView.BrowsableMonitor) atomicmonitor)
+							.isUsingCountersCache();// Check if use cache
+					if (flag1) {
+						cachexmlname = COM.dragonflow.SiteView.BrowsableCache
+								.getXmlFileName(atomicmonitor);// get Cache xml
+																// name
+						xmldata = COM.dragonflow.SiteView.BrowsableCache
+								.getXmlFile(cachexmlname);// Get xml data
+						monitorcounters = analyticXml();
+					}
+					if (xmldata.length() == 0) {
+						xmldata = ((COM.dragonflow.SiteView.BrowsableMonitor) atomicmonitor)
+								.getBrowseData(stringbuffer).trim();
+						if (stringbuffer.length() == 0 && flag1) {
+							COM.dragonflow.SiteView.BrowsableCache.saveXmlFile(
+									cachexmlname, xmldata);
+						}
+					}
+				}
 
+			}
 		}
 		if (monitorcounters.length() == 0) {
 			if (flag) {
@@ -374,7 +393,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			} else {
 				monitorcounters = "No Counters available for this machine";
 			}
-		} 
+		}
 		return monitorcounters;
 	}
 

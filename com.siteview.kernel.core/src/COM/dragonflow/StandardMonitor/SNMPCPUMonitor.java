@@ -759,7 +759,7 @@ public class SNMPCPUMonitor extends AtomicMonitor{
         target.setRetries(retries);
         return target;
     }
-	private Snmp createSnmp(String stIP,int port,String community,int timeout,int retries){
+	public  Snmp createSnmp(String stIP,int port,String community,int timeout,int retries){
 		try{
 			
 			
