@@ -115,8 +115,33 @@ public class CounterDlg extends Dialog {
 				parmsmap.put("oracleusername", oracleusername);
 				parmsmap.put("oracleuserpwd", oracleuserpwd);
 				parmsmap.put("oracleuserdriver", oracleuserdriver);
-				parmsmap.put("connectiontimeout", connectiontimeout.substring(0, connectiontimeout.indexOf(".")));
-				parmsmap.put("querytimeout", querytimeout.substring(0, querytimeout.indexOf(".")));
+				parmsmap.put(
+						"connectiontimeout",
+						connectiontimeout.substring(0,
+								connectiontimeout.indexOf(".")));
+				parmsmap.put("querytimeout",
+						querytimeout.substring(0, querytimeout.indexOf(".")));
+			} else if (monitortype.equals("InterfaceMonitor")) {
+				String serverInterface = busob.GetField("ServerInterface")
+						.get_NativeValue().toString();
+				String SNMPVersionInterface = busob
+						.GetField("SNMPVersionInterface").get_NativeValue()
+						.toString();
+				String InterfaceSNMPPublic = busob
+						.GetField("InterfaceSNMPPublic").get_NativeValue()
+						.toString();
+				String TimeOutInterface = busob.GetField("TimeOutInterface")
+						.get_NativeValue().toString();
+				String PortInterface = busob.GetField("PortInterface")
+						.get_NativeValue().toString();
+				parmsmap.put("serverInterface", serverInterface);
+				parmsmap.put("SNMPVersionInterface", SNMPVersionInterface);
+				parmsmap.put("InterfaceSNMPPublic", InterfaceSNMPPublic);
+				parmsmap.put("PortInterface", PortInterface);
+				parmsmap.put(
+						"TimeOutInterface",
+						TimeOutInterface.substring(0,
+								TimeOutInterface.indexOf(".")));
 			} else {
 				parmsmap.put("hostname", hostname);
 			}
