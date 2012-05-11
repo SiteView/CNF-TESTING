@@ -21,14 +21,26 @@ import org.omg.CORBA.Current;
 import siteview.IAutoTaskExtension;
 import system.Math;
 import system.Collections.ICollection;
+import system.Collections.IEnumerator;
+import system.Xml.XmlElement;
 import COM.dragonflow.Api.APIInterfaces;
 import COM.dragonflow.SiteViewException.SiteViewException;
+import Siteview.Windows.Forms.ConnectionBroker;
+//import COM.dragonflow.StandardMonitor.IEnumerator;
+//import COM.dragonflow.StandardMonitor.ISiteviewApi;
+//import COM.dragonflow.StandardMonitor.SiteviewQuery;
+//import COM.dragonflow.StandardMonitor.XmlElement;
+import Siteview.Operators;
+import Siteview.QueryInfoToGet;
+import Siteview.SiteviewQuery;
 import Siteview.Api.BusinessObject;
 import Siteview.Api.BusinessObjectCollection;
+import Siteview.Api.ISiteviewApi;
 import Siteview.Api.Relationship;
 
 public class AddMonitorBundle implements IAutoTaskExtension {
-
+	APIInterfaces rmiServer;
+	public static String oid="1.3.6.1.2.1.1.2";
 	public AddMonitorBundle() {
 		// TODO Auto-generated constructor stub
 	}
@@ -135,11 +147,10 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 		}
 		return null;
 	}
-
 	void addMonitor(Map<String, String> map,Map<String, String> goodmap,Map<String, String> warningmap,Map<String, String> errormap) throws SiteViewException,
 			ClassNotFoundException, IllegalAccessException,
 			InstantiationException {
-		APIInterfaces rmiServer;
+		
 		Registry registry;
 		String serverAddress = "localhost";
 		String serverPort = "3232";
@@ -151,6 +162,10 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			// List<Map<String, Object>> groups =
 			// rmiServer.getTopLevelGroupInstances();
 			// call the remote method
+			if(map.get("class").equals("SnmpCpu"))
+			{
+				setOid(map);
+			}
 			List<Map<String, String>> paramlist = new ArrayList<Map<String, String>>();
 			paramlist.add(map);
 			paramlist.add(errormap);
@@ -307,6 +322,12 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			int timeout=(int)timeoutdb; 
 			map.put("_timeout", timeout+"");
 		}
+		if(map.get("_retryDelay")!=null)
+		{
+			float retryDelay=Float.parseFloat(map.get("_retryDelay").toString());
+			int retry=(int)retryDelay; 
+			map.put("_retryDelay", retry+"");
+		}
 		//¹ýÂËurl¼à²âÆ÷
 		if(map.get("_checkContent")!=null && map.get("_checkContent").equals("no content checking")){
 			map.remove("_checkContent");
@@ -362,6 +383,56 @@ public class AddMonitorBundle implements IAutoTaskExtension {
 			}
 		}
 	}
+	public void setOid(Map<String,String> map)
+	{
+		String host,community;
+		int timeout=1,retry=2;
+		timeout=800;//Integer.valueOf(map.get("_timeout"));
+		retry=800;//Integer.valueOf(map.get("_retryDelay"));
+		host=map.get("_host");
+		community=map.get("_community");
+		String sysoid="";
+		map.put("_oid", oid);
+		try {
+			sysoid = rmiServer.getSysOid(map);
+			map.put("_oid", getOid(sysoid));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+	}
+	public static String getOid(String sysoid)
+	{
+		ISiteviewApi siteviewApi=ConnectionBroker.get_SiteviewApi();
+		BusinessObject bo;
+		SiteviewQuery siteviewquery_interfaceTable = new SiteviewQuery();
+		siteviewquery_interfaceTable.AddBusObQuery("SpecialOidList", QueryInfoToGet.All);
+		XmlElement xmlElementscanconfigid = siteviewquery_interfaceTable.get_CriteriaBuilder().FieldAndValueExpression(
+		"SysOid", Operators.Equals, sysoid);  
+		siteviewquery_interfaceTable.set_BusObSearchCriteria(xmlElementscanconfigid);
+		ICollection interfaceTableCollection = siteviewApi.get_BusObService().get_SimpleQueryResolver()
+		.ResolveQueryToBusObList(siteviewquery_interfaceTable);
+		IEnumerator interfaceTableIEnum = interfaceTableCollection.GetEnumerator(); 
+		 
+		String spevalue="";
+		while(interfaceTableIEnum.MoveNext())
+		{
+			bo =(BusinessObject)interfaceTableIEnum.get_Current();
+			spevalue = bo.GetField("SpeValue").get_NativeValue().toString();  
+		} 
+		String returnlist[]=spevalue.split(",");
+		for(int i=0;i<returnlist.length;i++)
+		{
+			if(returnlist[i].contains("cpuDutyUsed"))
+			{
+				return returnlist[i].substring(returnlist[i].indexOf("=")+1,returnlist[i].length());
+			}
+		}
+//
+		return null;
+	}  
+	
 	public static void main(String args[]) { 
 		System.out.println(System.currentTimeMillis());
 	}

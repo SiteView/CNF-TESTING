@@ -3,6 +3,7 @@ package COM.dragonflow.StandardMonitor;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 
@@ -799,6 +800,30 @@ public class SNMPCPUMonitor extends AtomicMonitor{
 //		//spMonitor.getAllCDP();
 ////		spMonitor.getAllInterfaceTable();
 //	}
+	public static String getSysOid(Map<String,String> map){
+		int timeout=800,retries=800,port=161;
+		String hostname,community;
+//		timeout=Integer.valueOf(map.get("_timeout"));
+//		retries=Integer.valueOf(map.get("_retryDelay"));
+		hostname=map.get("_host");
+		community=map.get("_community");
+		SNMPCPUMonitor spMonitor=new SNMPCPUMonitor();
+    	snmp=spMonitor.createSnmp(hostname,port,community,timeout,retries);
+    	String oid=map.get("_oid");
+    	PDUFactory pduFactory = new DefaultPDUFactory(PDU.GET);
+		TreeUtils treeUtil=new TreeUtils(snmp,pduFactory);
+		List<TreeEvent> listEvent=treeUtil.getSubtree(target,new OID(oid));
+        for(TreeEvent treeEvent:listEvent){
+        	org.snmp4j.smi.VariableBinding[] vbArray=treeEvent.getVariableBindings();
+        	if(vbArray==null){
+        		continue;
+        	}
+        	for(org.snmp4j.smi.VariableBinding var:vbArray){
+        		return var.toValueString();
+        	}
+        }
+        return null;
+	}
 	
 
 }

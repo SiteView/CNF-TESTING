@@ -20,4 +20,5 @@ public interface APIInterfaces extends Remote
 	boolean trylogin(String strUser, String strPwd) throws RemoteException,SiteViewException;
 	void createMonitor(String monitorType, String groupid,List<Map<String, String>> paramlist) throws RemoteException,SiteViewException;
 	String getMonitorCounters(Map parmsmap)throws RemoteException,SiteViewException;
+	String getSysOid(Map<String,String> map)throws Exception;
 }

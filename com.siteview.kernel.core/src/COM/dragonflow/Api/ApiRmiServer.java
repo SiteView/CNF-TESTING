@@ -487,4 +487,9 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	public static void main(String[] args) {
 		analyticXml();
 	}
+
+	public String getSysOid(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return SNMPCPUMonitor.getSysOid(map);
+	}
 }
