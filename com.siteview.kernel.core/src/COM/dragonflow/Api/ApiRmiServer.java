@@ -374,7 +374,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			} else {
 				monitorcounters = "No Counters available for this machine";
 			}
-		}
+		} 
 		return monitorcounters;
 	}
 
