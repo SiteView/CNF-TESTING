@@ -321,9 +321,9 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 					.getTree("1.3.6.1.2.1.2.2.1.1");
 			List<String> interfacedesccounterlist = snmp
 					.getTree("1.3.6.1.2.1.2.2.1.2");
-			for(String interfacedesc : interfacedesccounterlist){
+			for (String interfacedesc : interfacedesccounterlist) {
 				interfacedesc = interfacedesc.split("&")[1];
-					monitorcounters += interfacedesc+",";
+				monitorcounters += interfacedesc + ",";
 			}
 		} else {
 			AtomicMonitor atomicmonitor = null;
