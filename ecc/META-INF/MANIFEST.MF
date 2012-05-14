@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ecc
+Bundle-SymbolicName: ecc;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: SiteView.ecc.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ Siteview.Windows.Forms;bundle-version="1.0.0",
+ Siteview.lib;bundle-version="1.0.0",
+ Siteview.Forms.Common;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: SiteView.ecc.dialog,
+ SiteView.ecc.editors,
+ SiteView.ecc.views
