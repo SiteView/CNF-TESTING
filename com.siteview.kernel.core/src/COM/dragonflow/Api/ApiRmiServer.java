@@ -411,7 +411,6 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			SAXBuilder saxb = new SAXBuilder();
 			Document document = saxb.build(source); // 把文件解析成DOCUMENT类型
 			Element root = document.getRootElement(); // 得到Document的根
-			// System.out.println("根节点标记名：" + root.getTagName());
 			List nodeList = root.getChildren();
 			Element et = null;
 			for (int i = 0; i < nodeList.size(); i++) {
@@ -421,9 +420,9 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 				Element counterEt = null;
 				for (int j = 0; j < counterNodes.size(); j++) {
 					counterEt = (Element) counterNodes.get(j); // 循环依次得到子元素
-					String countername =  counterEt.getAttributeValue("name");
-					String everycounterstr = objname+" "+countername;
-					xmldata+=everycounterstr+",";
+					String countername = counterEt.getAttributeValue("name");
+					String everycounterstr = objname + " " + countername;
+					xmldata += everycounterstr + ",";
 				}
 
 			}
@@ -435,37 +434,6 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		return xmldata;
 
 	}
-
-	// public static void showElem(NodeList nl) {
-	// for (int i = 0; i < nl.getLength(); i++) {
-	// Node n = nl.item(i);// 得到父节点
-	// System.out.println("NodeName:" + n.getNodeName());
-	// if (n.hasChildNodes()) {
-	// NamedNodeMap attributes = n.getAttributes();
-	// for (int j = 0; j < attributes.getLength(); j++) {
-	// Node attribute = attributes.item(j);
-	// // 得到属性名
-	// String attributeName = attribute.getNodeName();
-	// System.out.println("属性名:" + attributeName);
-	// // 得到属性值
-	// String attributeValue = attribute.getNodeValue();
-	// System.out.println("属性值:" + attributeValue);
-	// }
-	// NodeList childList = n.getChildNodes();
-	// for (int x = 0; x < childList.getLength(); x++) {
-	// Node childNode = childList.item(x);
-	// // 得到子节点的名字
-	// String childNodeName = childNode.getNodeName();
-	// System.out.println("子节点名:" + childNodeName);
-	// // 得到子节点的值
-	// String childNodeValue = childNode.getNodeValue();
-	// System.out.println("子节点值:" + childNodeValue);
-	// }
-	// }
-	//
-	// // showElem(n.getChildNodes());// 递归
-	// }
-	// }
 
 	public String getSysOid(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
