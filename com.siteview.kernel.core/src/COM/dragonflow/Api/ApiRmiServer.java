@@ -1,6 +1,7 @@
 package COM.dragonflow.Api;
 
 import java.io.File;
+import java.io.StringReader;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -16,11 +17,13 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.IServerPropMonitor;
@@ -306,7 +309,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		// TODO Auto-generated method stub
 		boolean flag = true;
 		String monitorcounters = "";
-		String xmldata = "";
+		String xmlDoc = "";
 		StringBuffer stringbuffer = new StringBuffer("");
 		String cachexmlname = "";
 		if (isHave(InterFaceCounterGroups, parmsmap.get("monitortype")
@@ -372,16 +375,16 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 						cachexmlname = COM.dragonflow.SiteView.BrowsableCache
 								.getXmlFileName(atomicmonitor);// get Cache xml
 																// name
-						xmldata = COM.dragonflow.SiteView.BrowsableCache
+						xmlDoc = COM.dragonflow.SiteView.BrowsableCache
 								.getXmlFile(cachexmlname);// Get xml data
-						monitorcounters = analyticXml();
+						monitorcounters = analyticXml(xmlDoc);
 					}
-					if (xmldata.length() == 0) {
-						xmldata = ((COM.dragonflow.SiteView.BrowsableMonitor) atomicmonitor)
+					if (xmlDoc.length() == 0) {
+						xmlDoc = ((COM.dragonflow.SiteView.BrowsableMonitor) atomicmonitor)
 								.getBrowseData(stringbuffer).trim();
 						if (stringbuffer.length() == 0 && flag1) {
 							COM.dragonflow.SiteView.BrowsableCache.saveXmlFile(
-									cachexmlname, xmldata);
+									cachexmlname, xmlDoc);
 						}
 					}
 				}
@@ -399,49 +402,28 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	}
 
 	// 解析返回的XML格式的数据成String
-	public static String analyticXml() {
+	public static String analyticXml(String xmlDoc) {
 		String xmldata = "";
+
 		try {
-			DocumentBuilder db = DocumentBuilderFactory.newInstance()
-					.newDocumentBuilder();
-			Document document = db.parse(new File("d:\\counter.xml"));// 把文件解析成DOCUMENT类型
-			Element root = document.getDocumentElement(); // 得到Document的根
+			StringReader xmlString = new StringReader(xmlDoc);
+			InputSource source = new InputSource(xmlString);
+			SAXBuilder saxb = new SAXBuilder();
+			Document document = saxb.build(source); // 把文件解析成DOCUMENT类型
+			Element root = document.getRootElement(); // 得到Document的根
 			// System.out.println("根节点标记名：" + root.getTagName());
-			NodeList nodeList = root.getElementsByTagName("object");
-			String objstr = "";
-			String counterstr = "";
-			String counterString = "";
-			for (int i = 0; i < nodeList.getLength(); i++) {
-				Node fatherNode = nodeList.item(i);
-				// System.out.println("父节点为:" + fatherNode.getNodeName());
-				// 把父节点的属性拿出来
-				NamedNodeMap attributes = fatherNode.getAttributes();
-				for (int j = 0; j < attributes.getLength(); j++) {
-					Node attribute = attributes.item(j);
-					// System.out.println("object的属性名为:" +
-					// attribute.getNodeName()
-					// + " 相对应的属性值为:" + attribute.getNodeValue());
-					objstr = attribute.getNodeValue();
-					if (fatherNode instanceof Element) {
-						NodeList childNodes = ((Element) fatherNode)
-								.getElementsByTagName("counter");
-						for (int k = 0; k < childNodes.getLength(); k++) {
-							Node childNode = childNodes.item(k);
-							NamedNodeMap sonattributes = childNode
-									.getAttributes();
-							for (int h = 0; h < sonattributes.getLength(); h++) {
-								Node sonnode = sonattributes.item(h);
-								// System.out.println("Counter的属性值为:"
-								// + sonnode.getNodeValue());
-								counterstr = sonnode.getNodeValue();
-								counterString = objstr + counterstr;
-								// System.out.println(counterString);
-							}
-							xmldata = xmldata + counterString + ",";
-						}
-
-					}
-
+			List nodeList = root.getChildren();
+			Element et = null;
+			for (int i = 0; i < nodeList.size(); i++) {
+				et = (Element) nodeList.get(i);// 循环依次得到子元素
+				String objname = et.getAttributeValue("name");
+				List counterNodes = et.getChildren(); // 得到内层子节点
+				Element counterEt = null;
+				for (int j = 0; j < counterNodes.size(); j++) {
+					counterEt = (Element) counterNodes.get(j); // 循环依次得到子元素
+					String countername =  counterEt.getAttributeValue("name");
+					String everycounterstr = objname+" "+countername;
+					xmldata+=everycounterstr+",";
 				}
 
 			}
@@ -454,40 +436,36 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 
 	}
 
-	public static void showElem(NodeList nl) {
-		for (int i = 0; i < nl.getLength(); i++) {
-			Node n = nl.item(i);// 得到父节点
-			System.out.println("NodeName:" + n.getNodeName());
-			if (n.hasChildNodes()) {
-				NamedNodeMap attributes = n.getAttributes();
-				for (int j = 0; j < attributes.getLength(); j++) {
-					Node attribute = attributes.item(j);
-					// 得到属性名
-					String attributeName = attribute.getNodeName();
-					System.out.println("属性名:" + attributeName);
-					// 得到属性值
-					String attributeValue = attribute.getNodeValue();
-					System.out.println("属性值:" + attributeValue);
-				}
-				NodeList childList = n.getChildNodes();
-				for (int x = 0; x < childList.getLength(); x++) {
-					Node childNode = childList.item(x);
-					// 得到子节点的名字
-					String childNodeName = childNode.getNodeName();
-					System.out.println("子节点名:" + childNodeName);
-					// 得到子节点的值
-					String childNodeValue = childNode.getNodeValue();
-					System.out.println("子节点值:" + childNodeValue);
-				}
-			}
-
-			// showElem(n.getChildNodes());// 递归
-		}
-	}
-
-	public static void main(String[] args) {
-		analyticXml();
-	}
+	// public static void showElem(NodeList nl) {
+	// for (int i = 0; i < nl.getLength(); i++) {
+	// Node n = nl.item(i);// 得到父节点
+	// System.out.println("NodeName:" + n.getNodeName());
+	// if (n.hasChildNodes()) {
+	// NamedNodeMap attributes = n.getAttributes();
+	// for (int j = 0; j < attributes.getLength(); j++) {
+	// Node attribute = attributes.item(j);
+	// // 得到属性名
+	// String attributeName = attribute.getNodeName();
+	// System.out.println("属性名:" + attributeName);
+	// // 得到属性值
+	// String attributeValue = attribute.getNodeValue();
+	// System.out.println("属性值:" + attributeValue);
+	// }
+	// NodeList childList = n.getChildNodes();
+	// for (int x = 0; x < childList.getLength(); x++) {
+	// Node childNode = childList.item(x);
+	// // 得到子节点的名字
+	// String childNodeName = childNode.getNodeName();
+	// System.out.println("子节点名:" + childNodeName);
+	// // 得到子节点的值
+	// String childNodeValue = childNode.getNodeValue();
+	// System.out.println("子节点值:" + childNodeValue);
+	// }
+	// }
+	//
+	// // showElem(n.getChildNodes());// 递归
+	// }
+	// }
 
 	public String getSysOid(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
