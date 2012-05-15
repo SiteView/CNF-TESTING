@@ -30,7 +30,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import COM.dragonflow.SiteViewException.SiteViewException;
-import SiteView.ecc.data.MonitorGroup;
+import SiteView.ecc.data.MonitorServer;
 import SiteView.ecc.editors.EccControl;
 import SiteView.ecc.editors.EccControlInput;
 import Siteview.Windows.Forms.controlproperties.DropDownMenu;
@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.TreeItem;
 public class EccTreeControl extends ViewPart {
 	public EccTreeControl() {
 	}
-	MonitorGroup mg=new MonitorGroup();
+	MonitorServer mg=new MonitorServer();
 
 	public static final String ID = "SiteView.ecc.views.EccTreeControl";
 	@Override
