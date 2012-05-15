@@ -23,7 +23,7 @@ public class EccReportChart {
 	}
 
 	public static XYDataset createDataset() {
-		XYSeries series = new XYSeries("Flat Data");
+		XYSeries series = new XYSeries("¼à²â Êý¾Ý");
 		series.add(1.0, 100.0);
 		series.add(5.0, 100.0);
 		series.add(4.0, 100.0);
