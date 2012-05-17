@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
-import org.apache.commons.jxpath.JXPathContext;
+//import org.apache.commons.jxpath.JXPathContext;
 import org.eclipse.core.runtime.IAdaptable;
 
 //import rcpdev.common.core.utils.MiscUtils;
@@ -89,22 +89,23 @@ public class BindingManager implements PropertyChangeListener {
 	}
 
 	protected Object loadFromBean(String attribute) {
-		JXPathContext context = JXPathContext.newContext(bean);
-		return context.getValue(attribute);
+//		JXPathContext context = JXPathContext.newContext(bean);
+//		return context.getValue(attribute);
+		return null;
 	}
 
 	protected void saveToBean(String attribute, Object value) {
-		JXPathContext context = JXPathContext.newContext(bean);
-		Object oldVal = context.getValue(attribute);
-		if (value != oldVal || (value != null && !value.equals(oldVal))) {
-			// ((PropertyChangeSupport) bean
-			// .getAdapter(PropertyChangeSupport.class))
-			// .removePropertyChangeListener(this);
-			context.setValue(attribute, value);
-			// ((PropertyChangeSupport) bean
-			// .getAdapter(PropertyChangeSupport.class))
-			// .addPropertyChangeListener(this);
-		}
+//		JXPathContext context = JXPathContext.newContext(bean);
+//		Object oldVal = context.getValue(attribute);
+//		if (value != oldVal || (value != null && !value.equals(oldVal))) {
+//			// ((PropertyChangeSupport) bean
+//			// .getAdapter(PropertyChangeSupport.class))
+//			// .removePropertyChangeListener(this);
+//			context.setValue(attribute, value);
+//			// ((PropertyChangeSupport) bean
+//			// .getAdapter(PropertyChangeSupport.class))
+//			// .addPropertyChangeListener(this);
+//		}
 	}
 
 	/**

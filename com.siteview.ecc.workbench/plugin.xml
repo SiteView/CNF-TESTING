@@ -108,15 +108,24 @@
       <editor
             class="com.siteview.ecc.workbench.editors.SiteviewPageEditor"
             contributorClass="com.siteview.ecc.workbench.editors.SiteviewPageEditorContributor"
-            extensions="mg"
+            extensions="java"
             icon="icons/sample.gif"
             id="com.siteview.ecc.workbench.editors.SiteviewPageEditor"
             name="Siteview Multi-page Editor">
          <contentTypeBinding
-               contentTypeId="com.siteview.ecc.workbench.mg">
-         </contentTypeBinding>
-         <contentTypeBinding
                contentTypeId="com.siteview.ecc.workbench.java">
+         </contentTypeBinding>
+      </editor>
+      <editor
+            class="com.siteview.mde.internal.ui.editor.category.CategoryEditor"
+            contributorClass="com.siteview.mde.internal.ui.editor.category.CategoryEditorContributor"
+            default="false"
+            extensions="mg"
+            icon="icons/sample.gif"
+            id="com.siteview.ecc.workbench.buildEditor"
+            name="Test buildEditor">
+         <contentTypeBinding
+               contentTypeId="com.siteview.ecc.workbench.mg">
          </contentTypeBinding>
       </editor>
    </extension>
