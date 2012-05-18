@@ -28,6 +28,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.ui.*;
 import org.eclipse.ui.editors.text.TextEditor;
+//import org.eclipse.ui.forms.article.rcp.FreeFormPage;
+//import org.eclipse.ui.forms.article.rcp.MasterDetailsPage;
+//import org.eclipse.ui.forms.article.rcp.PageWithSubPages;
+//import org.eclipse.ui.forms.article.rcp.SecondPage;
+//import org.eclipse.ui.forms.article.rcp.ThirdPage;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
@@ -68,7 +73,8 @@ public class SiteviewPageEditor extends FormEditor implements IResourceChangeLis
 	 */
 	void createPage0() {
 		try {
-			editor = new TextEditor();
+			editor = new TextEditor();			
+
 			int index = addPage(editor, getEditorInput());
 			setPageText(index, editor.getTitle());
 		} catch (PartInitException e) {
@@ -137,14 +143,34 @@ public class SiteviewPageEditor extends FormEditor implements IResourceChangeLis
 		int index = addPage(composite);
 		setPageText(index, "Preview");
 	}
+	
+	void createPageother() {
+		// TODO Auto-generated method stub
+		try {
+//			int index = addPage(src, getEditorInput());
+//			setPageText(index, src.getTitle());			
+			addPage(new FreeFormPage(this), getEditorInput());
+
+			addPage(new SecondPage(this), getEditorInput());
+//			int index = addPage(new Composite(getContainer(), SWT.NULL));
+//			setPageText(index, "Composite"); //$NON-NLS-1$
+			addPage(new ThirdPage(this), getEditorInput());
+			addPage(new MasterDetailsPage(this), getEditorInput());
+			addPage(new PageWithSubPages(this), getEditorInput());	
+		} catch (PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
 	/**
 	 * Creates the pages of the multi-page editor.
 	 */
 	protected void createPages() {
-		createPage0();
+//		createPage0();
 		createPage1();
 		createPage2();
 		createPage3();
+		createPageother();
 	}
 	/**
 	 * The <code>MultiPageEditorPart</code> implementation of this 
@@ -185,8 +211,8 @@ public class SiteviewPageEditor extends FormEditor implements IResourceChangeLis
 	 */
 	public void init(IEditorSite site, IEditorInput editorInput)
 		throws PartInitException {
-		if (!(editorInput instanceof IFileEditorInput))
-			throw new PartInitException("Invalid Input: Must be IFileEditorInput");
+//		if (!(editorInput instanceof IFileEditorInput))
+//			throw new PartInitException("Invalid Input: Must be IFileEditorInput");
 		super.init(site, editorInput);
 	}
 	/* (non-Javadoc)
@@ -201,11 +227,11 @@ public class SiteviewPageEditor extends FormEditor implements IResourceChangeLis
 	protected void pageChange(int newPageIndex) {
 		super.pageChange(newPageIndex);
 		if (newPageIndex == 2) {
-			sortWords();
-			sortWords1();
+//			sortWords();
+//			sortWords1();
 		}
 		else if (newPageIndex == 3) {
-			sortWords1();
+//			sortWords1();
 		}	
 		else
 		{
@@ -272,30 +298,18 @@ public class SiteviewPageEditor extends FormEditor implements IResourceChangeLis
 	 * Sorts the words in page 0, and shows them in page 2.
 	 */
 	void sortWords1() {
+//		String editorText =
+//			editor.getDocumentProvider().getDocument(editor.getEditorInput()).get();
+//		if(src.text != null)
+//			src.text.setText(editorText);
 
-		String editorText =
-			editor.getDocumentProvider().getDocument(editor.getEditorInput()).get();
-		if(src.text != null)
-			src.text.setText(editorText);
-//		StringTokenizer tokenizer =
-//			new StringTokenizer(editorText, " \t\n\r\f!@#\u0024%^&*()-_=+`~[]{};:'\",.<>/?|\\");
-//		ArrayList editorWords = new ArrayList();
-//		while (tokenizer.hasMoreTokens()) {
-//			editorWords.add(tokenizer.nextToken());
-//		}
-//
-//		Collections.sort(editorWords, Collator.getInstance());
-//		StringWriter displayText = new StringWriter();
-//		for (int i = 0; i < editorWords.size(); i++) {
-//			displayText.write(((String) editorWords.get(i)));
-//			displayText.write(System.getProperty("line.separator"));
-//		}
-//		text.setText(displayText.toString());
+//		FormEditorInput input = (FormEditorInput)this.getEditorInput();
+//		String dd = input.getGroups().toArray().toString() + input.getMonitors().toArray().toString();
+//		text.setText(dd);
 	}	
 	
 	@Override
 	protected void addPages() {
-		// TODO Auto-generated method stub
 		
 	}
 }

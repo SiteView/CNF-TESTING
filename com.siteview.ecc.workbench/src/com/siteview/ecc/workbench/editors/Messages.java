@@ -1,5 +1,8 @@
 package com.siteview.ecc.workbench.editors;
 
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 public class Messages {
 	//页面名称
 	public static final String PAGE_NAME_SOURCE = "源代码";
@@ -51,4 +54,22 @@ public class Messages {
 	public static final String P_POS_HOME = "家庭地址";
 	public static final String P_POS_OFFICE = "办公地址";
 	public static final String P_POS_OTHER = "其它地址";
+	
+	private static final String BUNDLE_NAME = "com.siteview.ecc.workbench.editors.messages"; //$NON-NLS-1$
+	
+
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
+			.getBundle(BUNDLE_NAME);
+
+	private Messages() {
+	}
+
+	public static String getString(String key) {
+		// TODO Auto-generated method stub
+		try {
+			return RESOURCE_BUNDLE.getString(key);
+		} catch (MissingResourceException e) {
+			return '!' + key + '!';
+		}
+	}	
 }

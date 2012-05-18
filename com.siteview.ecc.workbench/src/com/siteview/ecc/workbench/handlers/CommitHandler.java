@@ -27,9 +27,12 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.part.FileEditorInput;
 
 import com.siteview.ecc.rcp.cnf.internal.CNFActivator;
+import com.siteview.ecc.workbench.editors.FormEditorInput;
 import com.siteview.ecc.workbench.preferences.runtimeinfo.RuntimeInfo;
 import com.siteview.ecc.workbench.preferences.runtimeinfo.RuntimeInfoLoader;
 
@@ -60,6 +63,8 @@ public class CommitHandler extends AbstractHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		
         ISelection currentSelection = HandlerUtil.getCurrentSelection(event);
+        
+        
 //        System.out.println("Select " + currentSelection);
         
 		if (currentSelection instanceof IStructuredSelection) {
@@ -93,6 +98,8 @@ public class CommitHandler extends AbstractHandler {
             rtl.load(root.node(defrt));
             System.out.println("RmiServer:--------------" + rt.toString());
         }
+        
+        
 		if (selection.size() == 1) {
     		if (selection.getFirstElement() instanceof IProject) {    			
     			System.out.println("seletion is project");
@@ -119,6 +126,13 @@ public class CommitHandler extends AbstractHandler {
     			getMonitor((ICompilationUnit)selection.getFirstElement());
     		}
 		}
+		
+		FormEditorInput input = new FormEditorInput("SiteviewPageEditor");
+		input.setGroups(groups);
+		input.setMonitors(monitors);
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, "com.siteview.ecc.workbench.editors.SiteviewPageEditor");
+//      PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(null), "com.siteview.ecc.workbench.editors.SiteviewPageEditor");
+		
 	}
 	
 	/**
@@ -179,6 +193,7 @@ public class CommitHandler extends AbstractHandler {
 	private void getGroup(ICompilationUnit unit) {
 		CompilationUnit parse = parse(unit);
 		
+		
 		FieldVisitor filedvisitor = new FieldVisitor();
 		parse.accept(filedvisitor);
 		
@@ -220,7 +235,7 @@ public class CommitHandler extends AbstractHandler {
 			String name = ((VariableDeclarationFragment)field.fragments().get(0)).getName().getFullyQualifiedName();
 			String value = ((VariableDeclarationFragment)field.fragments().get(0)).getInitializer().toString();
 //			System.out.println("Field name: " + name + ",Value: " + value);
-			monitor.put(name, value);			
+			monitor.put(name, value);				
 		}
 		monitors.add(monitor);
 		
