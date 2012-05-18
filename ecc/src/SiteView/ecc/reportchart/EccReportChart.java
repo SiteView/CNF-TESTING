@@ -10,11 +10,20 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 public class EccReportChart {
+	public static String reporttitle = "";
+
+	public static String getReporttitle() {
+		return reporttitle;
+	}
+
+	public void setReporttitle(String reporttitle) {
+		this.reporttitle = reporttitle;
+	}
 
 	public static JFreeChart createChart(XYDataset dataset) {
-		JFreeChart chart = ChartFactory.createXYLineChart("Ecc Report Demo",
-				"X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
-
+		JFreeChart chart = ChartFactory.createXYLineChart(getReporttitle(),
+				"时间点", "峰值", dataset, PlotOrientation.VERTICAL, true, true,
+				false);
 		XYPlot plot = (XYPlot) chart.getPlot();
 		NumberAxis axis = (NumberAxis) plot.getRangeAxis();
 		axis.setAutoRangeIncludesZero(false);
@@ -23,7 +32,7 @@ public class EccReportChart {
 	}
 
 	public static XYDataset createDataset() {
-		XYSeries series = new XYSeries("监测 数据");
+		XYSeries series = new XYSeries("数据趋势");
 		series.add(1.0, 100.0);
 		series.add(5.0, 100.0);
 		series.add(4.0, 100.0);

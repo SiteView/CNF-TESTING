@@ -10,12 +10,12 @@ import java.util.Map;
 import COM.dragonflow.Api.APIInterfaces;
 import COM.dragonflow.SiteViewException.SiteViewException;
 
-public class MonitorServer {
+public class MonitorGroup {
 	 APIInterfaces rmiServer;
 	  Registry registry;
 	  String serverAddress= "localhost";
 	  String serverPort="3232";
-	public MonitorServer(){
+	public MonitorGroup(){
 		 try{
 			  registry=LocateRegistry.getRegistry(serverAddress,(new Integer(serverPort)).intValue());
 			  
@@ -38,8 +38,5 @@ public class MonitorServer {
 		// TODO Auto-generated method stub
 		return rmiServer.getChildGroupInstances(groupid);
 	}
-	
-	public List<Map<String,Object>> Getmonitor(String groupid) throws RemoteException, SiteViewException{
-		return rmiServer.getMonitorsForGroup(groupid);
-	}
+
 }

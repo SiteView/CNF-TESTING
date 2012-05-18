@@ -8,6 +8,12 @@
           id="SiteView.ecc.views.EccTreeControl"
           name="Group">
     </view>
+    <view
+          class="SiteView.ecc.views.EccReportView"
+          id="SiteView.ecc.views.EccReportView"
+          name="EccReportView"
+          restorable="true">
+    </view>
  </extension>
  <extension
        point="org.eclipse.ui.editors">

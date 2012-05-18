@@ -2,22 +2,28 @@ package SiteView.ecc.editors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.layout.FormLayout;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
 
+import SiteView.ecc.data.MonitorInfo;
 import SiteView.ecc.reportchart.EccReportChart;
+import SiteView.ecc.views.EccReportView;
 
 public class EccControl extends EditorPart {
 	public EccControl() {
@@ -27,6 +33,7 @@ public class EccControl extends EditorPart {
 	private ChartComposite frame, frame1;
 	private TableViewer tableViewer, toptableViewer;
 	private Table table, toptable;
+	private Composite reportComposite;
 
 	@Override
 	public void doSave(IProgressMonitor arg0) {
@@ -68,77 +75,79 @@ public class EccControl extends EditorPart {
 		SashForm sashForm = new SashForm(parent, SWT.BORDER);
 		sashForm.setOrientation(SWT.VERTICAL);
 
-		Composite composite = new Composite(sashForm, SWT.BORDER);
-		composite.setLayout(new FormLayout());
+		final Composite composite = new Composite(sashForm, SWT.BORDER);
+		composite.setLayout(new FillLayout());
 
 		toptableViewer = new TableViewer(composite, SWT.MULTI
-				| SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+				| SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL
+				| SWT.CHECK);
 		toptable = toptableViewer.getTable();
+		toptable.setLayoutData(new FormData());
 		toptable.setLinesVisible(true);
 		toptable.setHeaderVisible(true);
-		toptable.setBounds(97, 79, 373, 154);
 
 		TableColumn newColumnTableColumn_top = new TableColumn(toptable,
-				SWT.NONE);
-		newColumnTableColumn_top.setWidth(100);
+				SWT.NONE | SWT.CHECK);
+		newColumnTableColumn_top.setWidth(80);
 		newColumnTableColumn_top.setText("状态");
 		TableColumn newColumnTableColumn_top1 = new TableColumn(toptable,
 				SWT.NONE);
-		newColumnTableColumn_top1.setWidth(100);
+		newColumnTableColumn_top1.setWidth(50);
 		newColumnTableColumn_top1.setText("刷新");
 		TableColumn newColumnTableColumn_top2 = new TableColumn(toptable,
 				SWT.NONE);
-		newColumnTableColumn_top2.setWidth(300);
+		newColumnTableColumn_top2.setWidth(350);
 		newColumnTableColumn_top2.setText("名称");
 		TableColumn newColumnTableColumn_top3 = new TableColumn(toptable,
 				SWT.NONE);
-		newColumnTableColumn_top3.setWidth(600);
+		newColumnTableColumn_top3.setWidth(550);
 		newColumnTableColumn_top3.setText("描述");
 		TableColumn newColumnTableColumn_top4 = new TableColumn(toptable,
 				SWT.NONE);
 		newColumnTableColumn_top4.setWidth(200);
 		newColumnTableColumn_top4.setText("最后更新");
 
-		Composite composite_reportControl = new Composite(sashForm, SWT.BORDER);
-		composite_reportControl.setLayout(new FillLayout(SWT.HORIZONTAL));
-		sashForm.setWeights(new int[] { 1, 1 });
+		// 设置内容器
+		toptableViewer.setContentProvider(new ContentProvider());
+		// 设置标签器
+		toptableViewer.setLabelProvider(new TableLabelProvider());
+		// 把数据集合给toptableViewer
+		toptableViewer.setInput(MonitorInfo.getMonitorInfo());
 
-		SashForm reportForm = new SashForm(composite_reportControl, SWT.BORDER);
-		reportForm.setOrientation(SWT.VERTICAL);
+		// 给toptableViewer添加鼠标事件
+		toptableViewer.getTable().addMouseListener(new MouseListener() {
 
-		Composite composite_reportimgControl = new Composite(reportForm,
-				SWT.BORDER);
-		composite_reportimgControl.setLayout(new FillLayout(SWT.HORIZONTAL));
-		Composite composite_reportdescControl = new Composite(reportForm,
-				SWT.BORDER);
-		composite_reportdescControl.setLayout(new FillLayout(SWT.HORIZONTAL));
-		sashForm.setWeights(new int[] { 1, 1 });
-		// TODO Auto-generated method stub
-		XYDataset dataset = EccReportChart.createDataset();
-		JFreeChart chart = EccReportChart.createChart(dataset);
-		frame = new ChartComposite(composite_reportimgControl, SWT.NONE, chart,
-				true);
-		frame1 = new ChartComposite(composite_reportimgControl, SWT.NONE,
-				chart, true);
-		tableViewer = new TableViewer(composite_reportdescControl, SWT.MULTI
-				| SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-		table = tableViewer.getTable();
-		table.setLinesVisible(true);
-		table.setHeaderVisible(true);
-		table.setBounds(97, 79, 373, 154);
+			@Override
+			public void mouseUp(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
 
-		TableColumn newColumnTableColumn = new TableColumn(table, SWT.NONE);
-		newColumnTableColumn.setWidth(600);
-		newColumnTableColumn.setText("返回值");
-		TableColumn newColumnTableColumn_1 = new TableColumn(table, SWT.NONE);
-		newColumnTableColumn_1.setWidth(150);
-		newColumnTableColumn_1.setText("最大值");
-		TableColumn newColumnTableColumn_2 = new TableColumn(table, SWT.NONE);
-		newColumnTableColumn_2.setWidth(150);
-		newColumnTableColumn_2.setText("平均值");
-		TableColumn newColumnTableColumn_3 = new TableColumn(table, SWT.NONE);
-		newColumnTableColumn_3.setWidth(150);
-		newColumnTableColumn_3.setText("最新值");
+			@Override
+			public void mouseDown(MouseEvent e) {
+				// TODO Auto-generated method stub
+				int x = e.x;
+				int y = e.y;
+				Table table = toptableViewer.getTable();
+				TableItem item = table.getItem(new Point(x, y));
+				if (item != null) {
+					MonitorInfo mo = (MonitorInfo) item.getData();
+					EccReportChart erc = new EccReportChart();
+					erc.setReporttitle(mo.getMonitorname());
+					IWorkbenchPart part = PlatformUI.getWorkbench()
+							.getActiveWorkbenchWindow().getActivePage()
+							.findView(EccReportView.ID);
+					if (part instanceof EccReportView) {
+						((EccReportView) part).refreshReport();
+					}
+				}
+			}   
+
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 	}
 
