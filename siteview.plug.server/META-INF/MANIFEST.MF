@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Server
+Bundle-SymbolicName: siteview.plug.server
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: siteview.plug.server.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ Siteview.lib;bundle-version="1.0.0",
+ Siteview.Forms.Common;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
