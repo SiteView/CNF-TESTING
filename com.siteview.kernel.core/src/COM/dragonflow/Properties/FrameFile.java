@@ -580,42 +580,43 @@ public class FrameFile {
 	 * @return
 	 * @throws IOException
 	 */
-	static Array readDataBase(String groupstr, String groups_valid)
+	public static Array readDataBase(String groupstr, String groups_valid)
 			throws IOException {
 		Array array = null;
-		String query_sql = "select * from Ecc where Groups_Valid = 'AC4B5DFAAC8D40B3903B9600CA292B3C'";
+		String query_sql = "select * from Ecc where Groups_Valid ='"+groups_valid+"'";
 		ResultSet rs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
-		StringBuffer filedsbuffer = null;
+		StringBuffer filedsbuffer = new StringBuffer();
 		String monitorinfo = "";
 		try {
+			//System.out.println(rs.next());
 			while (rs.next()) {
 				String monitorclass = "_class=" + rs.getString("EccType");
 				String monitorid = "_id=" + rs.getString("RecId");
 				String encoding = "_encoding=GBK";
-				String frequency = "_frequency" + rs.getString("frequency");
-				String dependscondition = "_dependsCondition"
+				String frequency = "_frequency=" + rs.getString("frequency");
+				String dependscondition = "_dependsCondition="
 						+ rs.getString("dependsCondition");
-				String internalId = "_internalId" + rs.getString("RecId");
-				String machine = "_machine" + rs.getString("HostName");
-				String name = "_name" + rs.getString("title");
-				String reportDescription = "_description"
+				String internalId = "_internalId=" + rs.getString("RecId");
+				String machine = "_machine=" + rs.getString("HostName");
+				String name = "_name=" + rs.getString("title");
+				String reportDescription = "_description="
 						+ rs.getString("reportDescription");
-				String verifyerror = "_verifyError"
+				String verifyerror = "_verifyError="
 						+ rs.getString("verifyerror");
-				String verifyErrorFrequency = "_errorFrequency"
+				String verifyErrorFrequency = "_errorFrequency="
 						+ rs.getString("verifyErrorFrequency");
-				String notlogtotopaz = "_notlogtotopaz"
+				String notlogtotopaz = "_notlogtotopaz="
 						+ rs.getString("notlogtotopaz");
-				String schedule = "_schedule" + rs.getString("ECCschedule");
-				String monitorDescription = "_monitorDescription"
+				String schedule = "_schedule=" + rs.getString("ECCschedule");
+				String monitorDescription = "_monitorDescription="
 						+ rs.getString("description");
 				monitorinfo = monitorclass + "," + monitorid + "," + encoding
 						+ "," + frequency + "," + dependscondition + ","
 						+ internalId + "," + machine + "," + name + ","
 						+ reportDescription + "," + verifyerror + ","
 						+ verifyErrorFrequency + "," + notlogtotopaz + ","
-						+ schedule + "," + monitorDescription;
-				filedsbuffer.append(monitorinfo+",#,");
+						+ schedule + "," + monitorDescription+",#,";
+				filedsbuffer.append(groupstr+monitorinfo);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

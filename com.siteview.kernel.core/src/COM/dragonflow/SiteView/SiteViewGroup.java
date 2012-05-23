@@ -26,6 +26,8 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -33,6 +35,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 
 import jgl.Array;
@@ -70,6 +73,7 @@ import COM.dragonflow.Utils.MailUtils;
 import COM.dragonflow.Utils.TelnetCommandLine;
 import COM.dragonflow.Utils.TempFileManager;
 import COM.dragonflow.Utils.TextUtils;
+import COM.dragonflow.itsm.data.JDBCForSQL;
 import SiteViewMain.UpdateConfig;
 
 
@@ -1259,7 +1263,7 @@ public class SiteViewGroup extends MonitorGroup {
         for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); loadGroup(s)) {
             s = I18N.toNullEncoding((String) enumeration.nextElement());
         }
-
+        
     }
 
     public MonitorGroup loadGroup(String s) {
@@ -1316,6 +1320,7 @@ public class SiteViewGroup extends MonitorGroup {
     private Enumeration addGroups(Array array) {
         Array array1 = new Array();
         Enumeration enumeration = array.elements();
+        ResultSet groups=null ;
         while (enumeration.hasMoreElements()) {
             File file = (File) enumeration.nextElement();
             String s = file.getName();
@@ -1343,16 +1348,32 @@ public class SiteViewGroup extends MonitorGroup {
             } else if (s.equals(TEMPLATES_FILE)) {
                 resetTemplateCache();
             } else {
-                LogManager.log("Debug", "Adding group for: " + file.getAbsolutePath());
-                int i = s.lastIndexOf(".mg");
-                String s3 = I18N.toNullEncoding(s.substring(0, i));
-                MonitorGroup monitorgroup = loadGroup(s3);
-                if (monitorgroup != null) {
-                    array1.add(monitorgroup);
-                }
-            }
+ //              LogManager.log("Debug", "Adding group for: " + file.getAbsolutePath());
+//                int i = s.lastIndexOf(".mg");
+//                String s3 = I18N.toNullEncoding(s.substring(0, i));
+//                MonitorGroup monitorgroup = loadGroup(s3);
+//                if (monitorgroup != null) {
+//                    array1.add(monitorgroup);
+//                }
+            	/*
+            	 * 从数据库读所有的组，并加载组
+            	 */
+            	if(groups==null){
+	            	groups=JDBCForSQL.sql_ConnectExecute_Select("SELECT * FROM Groups");
+	                try{
+	             	   while (groups.next()) {
+	             		   String s3 = groups.getString("GroupName");
+	             		   MonitorGroup monitorgroup = loadGroup(s3,groups);
+	                        if (monitorgroup != null) {
+	                            array1.add(monitorgroup);
+	                        }
+	             	   }
+	                }catch(SQLException e){}     
+            	}       	
+           }
         }
-        return array1.elements();
+
+       return array1.elements();
     }
 
     public synchronized void adjustGroups(Array array, Array array1, Array array2, HashMap hashmap) {
@@ -1376,8 +1397,9 @@ public class SiteViewGroup extends MonitorGroup {
         }
 
         MonitorGroup monitorgroup1;
-        for (; enumeration1.hasMoreElements(); monitorgroup1.startGroup()) {
+        for (; enumeration1.hasMoreElements(); ) {
             monitorgroup1 = (MonitorGroup) enumeration1.nextElement();
+           monitorgroup1.startGroup();
         }
 
         if (array.size() > 0 || array1.size() > 0 || array2.size() > 0) {
@@ -2524,4 +2546,17 @@ public class SiteViewGroup extends MonitorGroup {
             doNotKillProcesses = "";
         }
     }
+    /*
+     * 加载组
+     */
+    public MonitorGroup loadGroup(String s,ResultSet rs) { 
+    	 message("Loading group: " + I18N.toDefaultEncoding(s));
+         MonitorGroup monitorgroup = MonitorGroup.loadGroup(s, rs, false);
+         if (monitorgroup != null) {
+             addElement(monitorgroup);
+             User.registerUsers(monitorgroup, I18N.toDefaultEncoding(monitorgroup.getProperty(pID)), monitorgroup.getMultipleValues("_user"), monitorgroup.getValuesTable());
+         }
+    	return null;
+    }    
+
 }

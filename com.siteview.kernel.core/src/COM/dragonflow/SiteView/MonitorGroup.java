@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -1772,4 +1773,93 @@ public class MonitorGroup extends Monitor {
         MACHINE_COLUMN = columnNum ++;
         CUSTOM_COLUMN = columnNum ++;
     }
+
+	public static MonitorGroup loadGroup(String s, ResultSet rs, boolean flag) {
+		MonitorGroup monitorgroup = null;
+		String groupid;
+        try {
+            monitorgroup = new MonitorGroup();
+            monitorgroup.setProperty("_id", s);
+            monitorgroup.setProperty("_name", s);
+            groupid=rs.getString("RecId");
+            String s1="_encoding=GBK, _dependsCondition="+
+            rs.getString("DependsCondition")+", _fileEncoding=UTF-8, _name="+s;
+            if(!rs.getString("DependsOn").equals("")){
+            	s1=s1+", _dependsOn="+rs.getShort("DependsOn");
+            }
+            if(!rs.getString("Description").equals("")){
+            	s1=s1+", _description="+rs.getString("Description");
+            }
+            if(!rs.getString("RefreshGroup").equals("")){
+            	int i=rs.getInt("RefreshGroup");
+            	if(rs.getString("RefreshGroupUtil").equals("Minute")){
+            		i=i*60;
+            	}else if(rs.getString("RefreshGroupUtil").equals("Hour")){
+            		i=i*3600;
+            	}else if(rs.getString("RefreshGroupUtil").equals("Day")){
+            		i=i*86400;
+            	}
+            	s1=s1+", _frequency="+i;           	
+            }
+            s1=s1+", #,";
+        //  groupid="C:\\Documents and Settings\\Administrator.DRAGONFL-FC1FAA\\git\\siteview9.2\\com.siteview.kernel.core\\groups\\"+s+".mg";
+       //   monitorgroup.file = new File(groupid);
+//          monitorgroup.readMonitors(groupid, s);
+            monitorgroup.readMonitors(groupid,s,s1);
+            monitorgroup.readDynamic();
+            monitorgroup.initialize(monitorgroup.getValuesTable());
+        } catch (FileNotFoundException filenotfoundexception) {
+            monitorgroup = null;
+            if (flag) {
+ //               LogManager.log("Error", "Error loading group, not found: " + groupid);
+                filenotfoundexception.printStackTrace();
+            }
+        } catch (Exception exception) {
+            monitorgroup = null;
+            if (flag) {
+            //    LogManager.log("Error", "Error loading group, file: " + groupid + ", error: " + exception);
+                exception.printStackTrace();
+            }
+        }
+        return monitorgroup;
+	}
+	
+	  void readMonitors(String s, String s1, String s12) throws IOException {
+//	        Array array = FrameFile.readFromFile(s);
+		  Array array = FrameFile.readDataBase(s12,s);
+	        String s2 = "";
+	        if (Platform.isPortal()) {
+	            s2 = PortalSync.getPortalServerFromPath(s);
+	        }
+	        Enumeration enumeration = array.elements();
+	        if (enumeration.hasMoreElements()) {
+	            HashMap hashmap = (HashMap) enumeration.nextElement();
+	            hashmap.put("_id", s);
+	            String s3 = (String) hashmap.get("_name");
+	            if (s3 == null || s3.equals("config") || s3.length() == 0) {
+	                hashmap.put("_name", s1);
+	            }
+	            setValuesTable(hashmap);
+	        }
+	        while (enumeration.hasMoreElements()) {
+	            try {
+	                HashMap hashmap1 = (HashMap) enumeration.nextElement();
+	                if (isMonitorFrame(hashmap1)) {
+	                    Monitor monitor = null;
+	                    monitor = createMonitor(hashmap1, s2);
+	                    monitor.group = this;
+	                    addElement(monitor);
+	                } else if (isReportFrame(hashmap1)) {
+	                    HistoryReport historyreport = HistoryReport.createHistoryReportObject(hashmap1);
+	                    addElement(historyreport);
+	                }
+	            } catch (ClassNotFoundException classnotfoundexception) {
+	                LogManager.log("Error", "Error loading monitor, not found: " + classnotfoundexception.getMessage());
+	            } catch (Exception exception) {
+	                LogManager.log("Error", "Error loading monitor, " + exception);
+	                System.err.println("Error loading monitor, " + exception);
+	                exception.printStackTrace();
+	            }
+	        }
+	    }
 }
