@@ -42,6 +42,7 @@ import COM.dragonflow.Utils.FileUtils;
 import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.TempFileManager;
 import COM.dragonflow.Utils.TextUtils;
+import COM.dragonflow.itsm.data.Config;
 import COM.dragonflow.itsm.data.JDBCForSQL;
 
 // Referenced classes of package COM.dragonflow.Properties:
@@ -588,9 +589,8 @@ public class FrameFile {
 		StringBuffer filedsbuffer = new StringBuffer();
 		String monitorinfo = "";
 		try {
-			//System.out.println(rs.next());
 			while (rs.next()) {
-				String monitorclass = "_class=" + rs.getString("EccType");
+				String monitorclass = "_class=" + Config.getReturnStr(rs.getString("EccType"));
 				String monitorid = "_id=" + rs.getString("RecId");
 				String encoding = "_encoding=GBK";
 				String frequency = "_frequency=" + rs.getString("frequency");
@@ -616,12 +616,13 @@ public class FrameFile {
 						+ reportDescription + "," + verifyerror + ","
 						+ verifyErrorFrequency + "," + notlogtotopaz + ","
 						+ schedule + "," + monitorDescription+",#,";
-				filedsbuffer.append(groupstr+monitorinfo);
+				filedsbuffer.append(monitorinfo);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		filedsbuffer.append(groupstr);
 		array = mangleIt(filedsbuffer.toString());
 		return readFrames(array.elements());
 	}
