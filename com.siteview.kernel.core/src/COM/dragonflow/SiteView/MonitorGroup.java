@@ -1782,7 +1782,7 @@ public class MonitorGroup extends Monitor {
             monitorgroup.setProperty("_id", s);
             monitorgroup.setProperty("_name", s);
             groupid=rs.getString("RecId");
-            String s1="_encoding=GBK, _dependsCondition="+
+            String s1=" _encoding=GBK, _dependsCondition="+
             rs.getString("DependsCondition")+", _fileEncoding=UTF-8, _name="+s;
             if(!rs.getString("DependsOn").equals("")){
             	s1=s1+", _dependsOn="+rs.getShort("DependsOn");

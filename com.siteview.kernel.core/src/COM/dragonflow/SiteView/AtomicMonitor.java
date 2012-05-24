@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import COM.dragonflow.HTTP.HTTPRequest;
@@ -53,6 +54,7 @@ import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.MailUtils;
 import COM.dragonflow.Utils.TextUtils;
 import COM.dragonflow.Utils.ThreadPool;
+import COM.dragonflow.itsm.data.DataManager;
 import SiteViewMain.SiteViewSupport;
 
 //import com.dragonflow.infra.xdr_utils.Variant;
@@ -278,7 +280,9 @@ public  class AtomicMonitor extends Monitor implements Runnable,
                 action = new UpdateMonitor(this);
                 String disabledReason = whyDisabled();
                 if (!disabledReason.equals(MonitorGroup.accountDisabled)) {
+//                	pFrequency = new StringProperty("frequency");
                     okFrequency = getPropertyAsLong(pFrequency) * 1000L;
+//                    pErrorFrequency = new StringProperty("verifyErrorFrequency");
                     errorFrequency = getPropertyAsLong(pErrorFrequency) * 1000L;
                     long lastUpdate = getPropertyAsLong(pLastUpdate);
                     boolean forceRefresh = getProperty(pForceRefresh).length() > 0;
@@ -468,6 +472,7 @@ public  class AtomicMonitor extends Monitor implements Runnable,
 
     public void monitorUpdate() {
         try {
+        	System.out.println("Val:"+ getProperty(pCategory));
             setProperty(pLastCategory, getProperty(pCategory));
             unsetProperty(pNoData);
             setProperty(pOperationalErrorCode, pOperationalErrorCode
@@ -553,6 +558,8 @@ public  class AtomicMonitor extends Monitor implements Runnable,
     public void run() {
         try {
             this.currentStatus = "monitor thread started...";
+//            List<Map<String, String>> data = DataManager.getBusinessObjectData("Ecc");
+//            System.out.println(data);
             if (this.runExclusively()) {
                 this.currentStatus = "ready, waiting for Dialup monitors to finish...";
                 SiteViewGroup siteViewGroup = SiteViewGroup

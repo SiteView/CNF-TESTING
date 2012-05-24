@@ -610,12 +610,12 @@ public class FrameFile {
 				String schedule = "_schedule=" + rs.getString("ECCschedule");
 				String monitorDescription = "_monitorDescription="
 						+ rs.getString("description");
-				monitorinfo = monitorclass + "," + monitorid + "," + encoding
-						+ "," + frequency + "," + dependscondition + ","
-						+ internalId + "," + machine + "," + name + ","
-						+ reportDescription + "," + verifyerror + ","
-						+ verifyErrorFrequency + "," + notlogtotopaz + ","
-						+ schedule + "," + monitorDescription+",#,";
+				monitorinfo = monitorclass + ", " + monitorid + ", " + encoding
+						+ ", " + frequency + ", " + dependscondition + ", "
+						+ internalId + ", " + machine + "," + name + ", "
+						+ reportDescription + ", " + verifyerror + ","
+						+ verifyErrorFrequency + ", " + notlogtotopaz + ", "
+						+ schedule + ", " + monitorDescription+", #, ";
 				filedsbuffer.append(monitorinfo);
 			}
 		} catch (SQLException e) {
@@ -726,7 +726,7 @@ public class FrameFile {
 
 	static Array mangleIt(String s1) throws IOException {
 		s1 = TextUtils.replaceChar(s1, '\r', "");
-		Array array = Platform.split('\n', s1);
+		Array array = Platform.splitdata(s1);
 		return array;
 	}
 

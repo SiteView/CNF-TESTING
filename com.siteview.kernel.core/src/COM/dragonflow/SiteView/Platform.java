@@ -2125,8 +2125,8 @@ public class Platform {
 		al1[1] = cpuuser;
 		al1[2] = cpusystem;
 		al1[3] = cpustrlist.size() - 1;// CpuºËÐÄ¸öÊý
-//		int [] cpuavgindex=new int[cpustrlist.size()-1];
-		int count=4;
+		// int [] cpuavgindex=new int[cpustrlist.size()-1];
+		int count = 4;
 		for (int j = 0; j < cpustrlist.size(); j++) {
 			if (j > 0) {
 				String cpuindex = cpustrlist.get(j);
@@ -2138,8 +2138,8 @@ public class Platform {
 				int cpuidleindex = Integer.parseInt(cpuindexstr[4]);
 				int cpuavgindex = 100 * (cpuuser + cpunice + cpusystem)
 						/ (cpuuser + cpunice + cpusystem + cpuidle);
-					al1[count]=cpuavgindex;
-					count++;
+				al1[count] = cpuavgindex;
+				count++;
 			}
 		}
 		return al1;
@@ -2671,6 +2671,16 @@ public class Platform {
 		if (i != s.length()) {
 			String s1 = s.substring(i, s.length());
 			array.add(s1);
+		}
+		return array;
+	}
+
+	public static Array splitdata(String s) {
+		Array array = new Array();
+		String[] str = s.split(",");
+		for (String sr : str) {
+			array.add(sr);
+
 		}
 		return array;
 	}

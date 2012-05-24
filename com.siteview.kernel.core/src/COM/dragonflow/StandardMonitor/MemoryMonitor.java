@@ -22,8 +22,12 @@ import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.*;
 import COM.dragonflow.SiteView.*;
 import COM.dragonflow.Utils.TextUtils;
+import COM.dragonflow.itsm.data.JDBCForSQL;
 
 import java.net.URLEncoder;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import jgl.Array;
 
 public class MemoryMonitor extends ServerMonitor
