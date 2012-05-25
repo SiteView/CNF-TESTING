@@ -588,12 +588,22 @@ public class FrameFile {
 		ResultSet rs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
 		StringBuffer filedsbuffer = new StringBuffer();
 		String monitorinfo = "";
+		filedsbuffer.append(groupstr);
 		try {
 			while (rs.next()) {
 				String monitorclass = "_class=" + Config.getReturnStr(rs.getString("EccType"));
 				String monitorid = "_id=" + rs.getString("RecId");
 				String encoding = "_encoding=GBK";
-				String frequency = "_frequency=" + rs.getString("frequency");
+				String frequency = "_frequency=";
+				int i=rs.getInt("frequency");
+            	if(rs.getString("timeUnitSelf").equals("Minute")){
+            		i=i*60;
+            	}else if(rs.getString("timeUnitSelf").equals("Hour")){
+            		i=i*3600;
+            	}else if(rs.getString("timeUnitSelf").equals("Day")){
+            		i=i*86400;
+            	}
+            	frequency=frequency+i; 
 				String dependscondition = "_dependsCondition="
 						+ rs.getString("dependsCondition");
 				String internalId = "_internalId=" + rs.getString("RecId");
@@ -603,26 +613,33 @@ public class FrameFile {
 						+ rs.getString("reportDescription");
 				String verifyerror = "_verifyError="
 						+ rs.getString("verifyerror");
-				String verifyErrorFrequency = "_errorFrequency="
-						+ rs.getString("verifyErrorFrequency");
+				String verifyErrorFrequency = "_errorFrequency=";
+				int j=rs.getInt("verifyErrorFrequency");
+				if(rs.getString("timeUnitSelf").equals("Minute")){
+            		j=j*60;
+            	}else if(rs.getString("timeUnitSelf").equals("Hour")){
+            		j=j*3600;
+            	}else if(rs.getString("timeUnitSelf").equals("Day")){
+            		j=j*86400;
+            	}
+				verifyErrorFrequency = verifyErrorFrequency+j;
 				String notlogtotopaz = "_notlogtotopaz="
 						+ rs.getString("notlogtotopaz");
 				String schedule = "_schedule=" + rs.getString("ECCschedule");
 				String monitorDescription = "_monitorDescription="
 						+ rs.getString("description");
-				monitorinfo = monitorclass + ", " + monitorid + ", " + encoding
-						+ ", " + frequency + ", " + dependscondition + ", "
-						+ internalId + ", " + machine + "," + name + ", "
-						+ reportDescription + ", " + verifyerror + ","
-						+ verifyErrorFrequency + ", " + notlogtotopaz + ", "
-						+ schedule + ", " + monitorDescription+", #, ";
+				monitorinfo = monitorclass + "," + monitorid + "," + encoding
+						+ "," + frequency + "," + dependscondition + ","
+						+ internalId + "," + machine + "," + name + ","
+						+ reportDescription + "," + verifyerror + ","
+						+ verifyErrorFrequency + "," + notlogtotopaz + ","
+						+ schedule + "," + monitorDescription+",#,";
 				filedsbuffer.append(monitorinfo);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		filedsbuffer.append(groupstr);
 		array = mangleIt(filedsbuffer.toString());
 		return readFrames(array.elements());
 	}

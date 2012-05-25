@@ -2677,10 +2677,10 @@ public class Platform {
 
 	public static Array splitdata(String s) {
 		Array array = new Array();
+		s = s.substring(0, s.length()-3);
 		String[] str = s.split(",");
 		for (String sr : str) {
 			array.add(sr);
-
 		}
 		return array;
 	}
