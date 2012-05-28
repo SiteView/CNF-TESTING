@@ -16,8 +16,18 @@ package COM.dragonflow.Log;
  * 
  * 
  */
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Enumeration;
+import java.util.UUID;
 import java.util.Vector;
+
+import org.eclipse.swt.widgets.DateTime;
+
+import COM.dragonflow.Properties.PropertiedObject;
+import COM.dragonflow.itsm.data.JDBCForSQL;
 
 public abstract class Logger {
 
@@ -89,7 +99,6 @@ public abstract class Logger {
             s1 = s1.replace('\n', ' ');
             s1 = s1.replace('\t', ' ');
         }
-
         if (propertiedobject.getProperty(COM.dragonflow.SiteView.Monitor.pCategory).equals(COM.dragonflow.SiteView.Monitor.ERROR_CATEGORY)) {
             stringbuffer.append("\t");
             if (((COM.dragonflow.SiteView.AtomicMonitor) propertiedobject).getProperty(COM.dragonflow.SiteView.AtomicMonitor.pNoData).length() > 0) {
@@ -97,11 +106,12 @@ public abstract class Logger {
             } else {
                 stringbuffer.append(COM.dragonflow.SiteView.Monitor.NON_FAILURE);
             }
+            
         }
         log(s, date, stringbuffer.toString());
     }
-
-    public void log(String s, java.util.Date date, String s1) {
+	public void log(String s, java.util.Date date, String s1) {
+		
     }
 
     public void close() {

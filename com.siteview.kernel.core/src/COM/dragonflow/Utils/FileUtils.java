@@ -31,9 +31,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import COM.dragonflow.Properties.FrameFile;
+import COM.dragonflow.itsm.data.JDBCForSQL;
 
 import jgl.Array;
 import jgl.HashMap;
@@ -565,6 +569,9 @@ public class FileUtils
 		java.io.FileInputStream fileinputstream = null;
 		
         StringBuffer stringbuffer = new StringBuffer();
+        if(s.contains(".dyn")&&(!s.contains("__Health__.dyn"))){
+        	stringbuffer=readFromFile(s);
+        }else{
         try
         {
             fileinputstream = new FileInputStream(s);
@@ -579,29 +586,27 @@ public class FileUtils
                     if(j >= s.length())
                     {
                         break;
-                    }
-                    if(s.charAt(j) > '\177')
-                    {
-                        boolean flag = COM.dragonflow.Utils.I18N.testing;
-                        COM.dragonflow.Utils.I18N.testing = false;
-                        String s2 = COM.dragonflow.Utils.I18N.toDefaultEncoding(s);
-                        COM.dragonflow.Utils.I18N.testing = flag;
-                        fileinputstream = new FileInputStream(s2);
-                        break;
-                    }
-                    j++;
-                } while(true);
-                if(fileinputstream == null)
-                {
-                    throw ioexception;
-                }
-            }
-            catch(java.io.IOException ioexception1)
-            {
-                throw ioexception1;
-            }
-        }
+						}
+						if (s.charAt(j) > '\177') {
+							boolean flag = COM.dragonflow.Utils.I18N.testing;
+							COM.dragonflow.Utils.I18N.testing = false;
+							String s2 = COM.dragonflow.Utils.I18N
+									.toDefaultEncoding(s);
+							COM.dragonflow.Utils.I18N.testing = flag;
+							fileinputstream = new FileInputStream(s2);
+							break;
+						}
+						j++;
+					} while (true);
+					if (fileinputstream == null) {
+						throw ioexception;
+					}
+				} catch (java.io.IOException ioexception1) {
+					throw ioexception1;
+				}
+			}
         int i = 0;
+ //       i=1;
         byte abyte0[] = new byte[32768];
         boolean flag1 = true;
         boolean flag2 = false;
@@ -636,6 +641,7 @@ public class FileUtils
                 ioexception2.printStackTrace();
             }
         }
+    }
         return stringbuffer;
     }
 
@@ -1253,5 +1259,33 @@ public class FileUtils
             }
         } while(true);
     }
-
+    public static StringBuffer readFromFile(String substring) {
+    	String s=substring.substring(substring.lastIndexOf("\\")+1,substring.lastIndexOf("."));
+    	String sql="select * from EccDyn where groupid='"+s+"'";
+    	ResultSet rs=JDBCForSQL.sql_ConnectExecute_Select(sql);
+    	StringBuffer stringBuffer=new StringBuffer();
+    	stringBuffer.append("lastSaved=");
+    	stringBuffer.append("1338190380640");
+    	stringBuffer.append("\n");
+    	stringBuffer.append("id=-1");
+    	stringBuffer.append("\n");
+    	stringBuffer.append("last=");
+    	stringBuffer.append("1338190487609");
+    	try{
+	    	while(rs.next()){
+	    		s=rs.getString("monitorDesc");
+	    		stringBuffer.append("\n"); 
+	    		stringBuffer.append("#");
+	    		stringBuffer.append("\n");
+	    		while(s.length()>1){
+	    			s=s.substring(1);
+	    			stringBuffer.append(s.substring(0, s.indexOf("*")));
+	    			stringBuffer.append("\n");
+	    			s=s.substring(s.indexOf("*"));
+	    		}
+	    		stringBuffer.append("id="+rs.getString("monitorid"));
+	    	}
+    	}catch (Exception e) {}
+		return stringBuffer;
+	}
 }

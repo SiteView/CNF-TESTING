@@ -29,8 +29,11 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
+
+import jgl.Array;
 
 import COM.dragonflow.HTTP.HTTPRequest;
 import COM.dragonflow.Log.LogManager;
@@ -40,6 +43,7 @@ import COM.dragonflow.Page.managePage;
 import COM.dragonflow.Properties.BooleanProperty;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.Properties.FrequencyProperty;
+import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.Properties.NumericProperty;
 import COM.dragonflow.Properties.PropertiedObject;
 import COM.dragonflow.Properties.ScalarProperty;

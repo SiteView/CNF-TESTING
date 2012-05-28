@@ -35,7 +35,6 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Vector;
 
 import jgl.Array;
@@ -1458,11 +1457,13 @@ public class SiteViewGroup extends MonitorGroup {
 		Enumeration enumeration = array.elements();
 		ResultSet groups = null;
 		boolean flag = false;
+		File masterfile=null;
 		while (enumeration.hasMoreElements()) {
 			File file = (File) enumeration.nextElement();
 			flag = !(enumeration.hasMoreElements());
 			String s = file.getName();
 			if (s.equals("master.config")) {
+				masterfile=file;
 				LogManager.log("RunMonitor", "Loading master.config");
 				String s1 = getSetting("_httpPort");
 				loadSettings();
@@ -1488,24 +1489,26 @@ public class SiteViewGroup extends MonitorGroup {
 			} else if (s.equals(TEMPLATES_FILE)) {
 				resetTemplateCache();
 			} else {
-				if (s.equals("__Health__.mg")) {
+				//if (s.equals("__Health__.mg")) {
 					LogManager.log("Debug",
 							"Adding group for: " + file.getAbsolutePath());
-					MonitorGroup monitorgroup = loadGroup("__Health__");
+				//	MonitorGroup monitorgroup = loadGroup("__Health__");
+					s=s.substring(0,s.lastIndexOf("."));
+					MonitorGroup monitorgroup = loadGroup(s);
 					if (monitorgroup != null) {
 						array1.add(monitorgroup);
 					}
-				}
+				//}
 			}
 		}
-		//从数据库读组信息，加入组
-		if (flag) {
+	//	从数据库读组信息，加入组
+		if (flag && masterfile!=null) {
 			groups = JDBCForSQL
 					.sql_ConnectExecute_Select("SELECT * FROM Groups");
 			try {
 				while (groups.next()) {
 					String s3 = groups.getString("GroupName");
-					MonitorGroup monitorgroup = loadGroup(s3, groups);
+					MonitorGroup monitorgroup = loadGroup(s3,groups);
 					if (monitorgroup != null) {
 						array1.add(monitorgroup);
 					}

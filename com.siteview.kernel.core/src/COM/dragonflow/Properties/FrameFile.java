@@ -25,9 +25,14 @@ import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.UUID;
+
+import com.sun.corba.se.impl.orbutil.GetPropertyAction;
 
 import jgl.Array;
 import jgl.HashMap;
@@ -321,6 +326,7 @@ public class FrameFile {
 		boolean flag2 = false;
 		try {
 			StringBuffer stringbuffer = new StringBuffer();
+			String s1="";
 			printFrames(stringbuffer, array, s, flag, flag1);
 			if (forceMangleOnWrite) {
 				stringbuffer = mangle(stringbuffer);
@@ -329,6 +335,9 @@ public class FrameFile {
 			printwriter = FileUtils.MakeUTF8OutputWriter(fileoutputstream);
 			printwriter.print(stringbuffer);
 			flag2 = printwriter.checkError();
+			if(stringbuffer.indexOf("measurement=")!=-1){
+				savadyn(stringbuffer,file.getName());
+			}
 		} catch (IOException e) {
 			LogManager.log("Error",
 					" IOException during write of " + file.getAbsolutePath()
@@ -428,6 +437,69 @@ public class FrameFile {
 				}
 			}
 		}
+	}
+
+	private static void savadyn(StringBuffer stringbuffer,String str) {
+		stringbuffer.delete(0, stringbuffer.indexOf("#")+1);
+		String s="";
+		while (stringbuffer.length()>0) {
+			if(stringbuffer.indexOf("#")!=-1){
+				s=stringbuffer.substring(0,stringbuffer.indexOf("#"));
+				savadyn(s,str);
+				stringbuffer.delete(0, stringbuffer.indexOf("#")+1);
+			}else{
+				s=stringbuffer.substring(0,stringbuffer.length());
+				savadyn(s,str);
+				stringbuffer.delete(0, stringbuffer.length());
+			}
+		}
+	}
+
+	private static void savadyn(String s,String str) {
+		String s1;
+		String category=null;
+		String monitorid=null;
+		if(s.contains("category")){
+			s1=s.substring(s.indexOf("category"));
+			category=s1.substring(s1.indexOf("=")+1,s1.indexOf("\n"));
+			s=s.substring(0,s.indexOf("category"))+s1.substring(s1.indexOf("\n")+1);
+		}
+		if(s.contains("id")){
+			s1=s.substring(s.indexOf("id"));
+			monitorid=s1.substring(s1.indexOf("=")+1,s1.indexOf("\n"));
+			s=s.substring(0,s.indexOf("id"))+s1.substring(s1.indexOf("\n")+1);
+		}
+//		s1=s.substring(s.indexOf("_name"));
+//		String monitorName=s1.substring(s1.indexOf("=")+1,s1.indexOf("\n"));
+//		s=s.substring(0,s.indexOf("_name"))+s1.substring(s1.indexOf("\n")+1);
+		
+		
+		s=s.replaceAll("\n", "*");
+		ResultSet rs=JDBCForSQL.sql_ConnectExecute_Select("select * from EccDyn where monitorid='"+monitorid+"'");
+		String RecId;
+		
+		str=str.substring(0,str.indexOf("."));
+			try{
+				if(rs.next()){
+					RecId=rs.getString("RecId");
+					long time=System.currentTimeMillis();		
+			    	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			    	Timestamp LastModDateTime=new Timestamp(time);
+			    	
+					String sql="update EccDyn set category='"+category+
+							"',monitorDesc='"+s+"',LastModDateTime='"+LastModDateTime+"' where RecId='"+RecId+"'";
+					JDBCForSQL.savaLog(sql);
+				}else{
+					long time=System.currentTimeMillis();		
+			    	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			    	Timestamp CreatedDateTime=new Timestamp(time);
+			    	
+				    RecId=UUID.randomUUID().toString().replace("-", "");
+					String sql="insert into EccDyn (RecId,category,monitorDesc,monitorid,LastModDateTime,CreatedDateTime,groupid)" +
+							" values ('"+RecId+"','"+category+"','"+s+"','"+monitorid+"','"+CreatedDateTime+"','"+CreatedDateTime+"','"+str+"')";
+					JDBCForSQL.savaLog(sql);
+				}
+			}catch (Exception e) {}
 	}
 
 	public static boolean forceMangleOnReading() throws IOException {

@@ -43,6 +43,7 @@ import COM.dragonflow.Utils.HTTPUtils;
 import COM.dragonflow.Utils.I18N;
 import COM.dragonflow.Utils.LocaleUtils;
 import COM.dragonflow.Utils.TextUtils;
+import COM.dragonflow.itsm.data.JDBCForSQL;
 import SiteViewMain.SiteViewSupport;
 
 // Referenced classes of package COM.dragonflow.SiteView:
@@ -316,7 +317,8 @@ public class MonitorGroup extends Monitor {
         int i = 0;
         if ((new File(s)).exists()) {
             try {
-                Array array = FrameFile.readFromFile(s);
+              Array array = FrameFile.readFromFile(s);
+      //         Array array=readFromFile(s);
                 Enumeration enumeration = array.elements();
                 while (enumeration.hasMoreElements()) {
                     HashMap hashmap = (HashMap) enumeration.nextElement();
@@ -325,7 +327,7 @@ public class MonitorGroup extends Monitor {
                     if (s1 == null) {
                         LogManager.log("Error reading monitor, " + i + ", file: " + s);
                     } else if (s1.equals("-1")) {
-                        mergeFromHashMap(hashmap);
+                        mergeFromHashMap(hashmap);//setValuesTable(hashmap, true)
                     } else {
                         Monitor monitor = (Monitor) getElementByID(s1);
                         if (monitor != null) {
@@ -333,13 +335,13 @@ public class MonitorGroup extends Monitor {
                         }
                     }
                 }
-            } catch (IOException ioexception) {
+            } catch (Exception ioexception) {
                 LogManager.log("Error", "Error reading group, file: " + s + ", error: " + ioexception);
             }
         }
     }
 
-    public synchronized void saveDynamic() {
+	public synchronized void saveDynamic() {
         Array array = new Array();
         setProperty("id", "-1");
         array.add(getValuesTable());
@@ -351,6 +353,7 @@ public class MonitorGroup extends Monitor {
         }
 
         String s = getDynamicPath();
+        
         try {
             FrameFile.writeToFile(s, array, "_", false);
         } catch (IOException ioexception) {
@@ -1782,13 +1785,13 @@ public class MonitorGroup extends Monitor {
             monitorgroup.setProperty("_id", s);
             monitorgroup.setProperty("_name", s);
             groupid=rs.getString("RecId");
-            String s1=" _encoding=GBK, _dependsCondition="+
-            rs.getString("DependsCondition")+", _fileEncoding=UTF-8, _name="+s;
+            String s1="_encoding=GBK,_dependsCondition="+
+            rs.getString("DependsCondition")+",_fileEncoding=UTF-8,_name="+s;
             if(!rs.getString("DependsOn").equals("")){
-            	s1=s1+", _dependsOn="+rs.getShort("DependsOn");
+            	s1=s1+",_dependsOn="+rs.getShort("DependsOn");
             }
             if(!rs.getString("Description").equals("")){
-            	s1=s1+", _description="+rs.getString("Description");
+            	s1=s1+",_description="+rs.getString("Description");
             }
             if(!rs.getString("RefreshGroup").equals("")){
             	int i=rs.getInt("RefreshGroup");
@@ -1799,11 +1802,11 @@ public class MonitorGroup extends Monitor {
             	}else if(rs.getString("RefreshGroupUtil").equals("Day")){
             		i=i*86400;
             	}
-            	s1=s1+", _frequency="+i;           	
+            	s1=s1+",_frequency="+i;           	
             }
-            s1=s1+", #,";
+            s1=s1+",#,";
         //  groupid="C:\\Documents and Settings\\Administrator.DRAGONFL-FC1FAA\\git\\siteview9.2\\com.siteview.kernel.core\\groups\\"+s+".mg";
-       //   monitorgroup.file = new File(groupid);
+          monitorgroup.file = new File("C:\\Documents and Settings\\Administrator.DRAGONFL-FC1FAA\\git\\siteview9.2\\com.siteview.kernel.core\\groups\\"+s+".mg");
 //          monitorgroup.readMonitors(groupid, s);
             monitorgroup.readMonitors(groupid,s,s1);
             monitorgroup.readDynamic();
@@ -1825,7 +1828,7 @@ public class MonitorGroup extends Monitor {
 	}
 	
 	  void readMonitors(String s, String s1, String s12) throws IOException {
-//	        Array array = FrameFile.readFromFile(s);
+	  //      Array array = FrameFile.readFromFile("C:\\Documents and Settings\\Administrator.DRAGONFL-FC1FAA\\git\\siteview9.2\\com.siteview.kernel.core\\groups\\"+s1+".mg");
 		  Array array = FrameFile.readDataBase(s12,s);
 	        String s2 = "";
 	        if (Platform.isPortal()) {
@@ -1834,7 +1837,7 @@ public class MonitorGroup extends Monitor {
 	        Enumeration enumeration = array.elements();
 	        if (enumeration.hasMoreElements()) {
 	            HashMap hashmap = (HashMap) enumeration.nextElement();
-	            hashmap.put("_id", s);
+	            hashmap.put("_id", s1);
 	            String s3 = (String) hashmap.get("_name");
 	            if (s3 == null || s3.equals("config") || s3.length() == 0) {
 	                hashmap.put("_name", s1);
