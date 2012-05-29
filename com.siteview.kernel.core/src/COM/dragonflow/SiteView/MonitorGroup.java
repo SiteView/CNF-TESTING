@@ -314,6 +314,9 @@ public class MonitorGroup extends Monitor {
 
     void readDynamic() {
         String s = getDynamicPath();
+        if(s.contains(".dyn")&&!s.contains("__Health__")){
+        	s=file.getName();
+        }
         int i = 0;
         if ((new File(s)).exists()) {
             try {
@@ -1806,8 +1809,9 @@ public class MonitorGroup extends Monitor {
             }
             s1=s1+",#,";
         //  groupid="C:\\Documents and Settings\\Administrator.DRAGONFL-FC1FAA\\git\\siteview9.2\\com.siteview.kernel.core\\groups\\"+s+".mg";
-          monitorgroup.file = new File("C:\\Documents and Settings\\Administrator.DRAGONFL-FC1FAA\\git\\siteview9.2\\com.siteview.kernel.core\\groups\\"+s+".mg");
-//          monitorgroup.readMonitors(groupid, s);
+          //  monitorgroup.file = new File("C:\\Documents and Settings\\Administrator.DRAGONFL-FC1FAA\\git\\siteview9.2\\com.siteview.kernel.core\\groups\\"+s+".mg");
+            monitorgroup.file = new File(s);
+            //          monitorgroup.readMonitors(groupid, s);
             monitorgroup.readMonitors(groupid,s,s1);
             monitorgroup.readDynamic();
             monitorgroup.initialize(monitorgroup.getValuesTable());

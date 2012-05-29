@@ -331,12 +331,15 @@ public class FrameFile {
 			if (forceMangleOnWrite) {
 				stringbuffer = mangle(stringbuffer);
 			}
-			fileoutputstream = new FileOutputStream(file);
-			printwriter = FileUtils.MakeUTF8OutputWriter(fileoutputstream);
-			printwriter.print(stringbuffer);
-			flag2 = printwriter.checkError();
 			if(stringbuffer.indexOf("measurement=")!=-1){
 				savadyn(stringbuffer,file.getName());
+			}else if(stringbuffer.indexOf("_nextID=")!=-1){
+				
+			}else{
+				fileoutputstream = new FileOutputStream(file);
+				printwriter = FileUtils.MakeUTF8OutputWriter(fileoutputstream);
+				printwriter.print(stringbuffer);
+				flag2 = printwriter.checkError();
 			}
 		} catch (IOException e) {
 			LogManager.log("Error",

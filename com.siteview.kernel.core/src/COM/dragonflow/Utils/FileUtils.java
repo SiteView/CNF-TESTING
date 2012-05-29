@@ -510,9 +510,8 @@ public class FileUtils {
 			stringbuffer = readFromFile(s);
 		}
 		if (s.contains(".mg") && (!s.contains("__Health__.mg"))) {
-			String groupid = s.substring(s.lastIndexOf("\\") + 1, s.length() - 3);
+			String groupid = s.substring(s.length()-35, s.length() - 3);
 			stringbuffer = readFromDataBase(groupid);
-
 		} else {
 			try {
 				fileinputstream = new FileInputStream(s);
@@ -1178,6 +1177,7 @@ public class FileUtils {
 					+ groupid + "'";
 			ResultSet eccrs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
 			String monitorinfo = "";
+			s1=s1.replaceAll(",", "\n");
 			stringBuffer.append(s1);
 			while (eccrs.next()) {
 				String monitorclass = "_class="
@@ -1224,6 +1224,8 @@ public class FileUtils {
 						+ reportDescription + "," + verifyerror + ","
 						+ verifyErrorFrequency + "," + notlogtotopaz + ","
 						+ schedule + "," + monitorDescription + ",#,";
+				monitorinfo=monitorinfo.replaceAll(",", "\n");
+				monitorinfo=monitorinfo.substring(0,monitorinfo.length()-2);
 				stringBuffer.append(monitorinfo);
 			}
 		} catch (SQLException e) {
