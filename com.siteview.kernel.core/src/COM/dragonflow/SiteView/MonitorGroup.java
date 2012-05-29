@@ -1837,7 +1837,7 @@ public class MonitorGroup extends Monitor {
 	        Enumeration enumeration = array.elements();
 	        if (enumeration.hasMoreElements()) {
 	            HashMap hashmap = (HashMap) enumeration.nextElement();
-	            hashmap.put("_id", s1);
+	            hashmap.put("_id", s);
 	            String s3 = (String) hashmap.get("_name");
 	            if (s3 == null || s3.equals("config") || s3.length() == 0) {
 	                hashmap.put("_name", s1);
