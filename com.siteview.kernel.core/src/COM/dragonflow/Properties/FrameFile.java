@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -661,61 +662,61 @@ public class FrameFile {
 		Array array = null;
 		String query_sql = "select * from Ecc where Groups_Valid ='"+groups_valid+"'";
 		ResultSet rs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
-		StringBuffer filedsbuffer = new StringBuffer();
+		StringBuffer stringBuffer = new StringBuffer();
 		String monitorinfo = "";
-		filedsbuffer.append(groupstr);
+		stringBuffer.append(groupstr);
+		ResultSet eccrs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
 		try {
-			while (rs.next()) {
-				String monitorclass = "_class=" + Config.getReturnStr(rs.getString("EccType"));
-				String monitorid = "_id=" + rs.getString("RecId");
-				String encoding = "_encoding=GBK";
-				String frequency = "_frequency=";
-				int i=rs.getInt("frequency");
-            	if(rs.getString("timeUnitSelf").equals("Minute")){
-            		i=i*60;
-            	}else if(rs.getString("timeUnitSelf").equals("Hour")){
-            		i=i*3600;
-            	}else if(rs.getString("timeUnitSelf").equals("Day")){
-            		i=i*86400;
-            	}
-            	frequency=frequency+i; 
-				String dependscondition = "_dependsCondition="
-						+ rs.getString("dependsCondition");
-				String internalId = "_internalId=" + rs.getString("RecId");
-				String machine = "_machine=" + rs.getString("HostName");
-				String name = "_name=" + rs.getString("title");
-				String reportDescription = "_description="
-						+ rs.getString("reportDescription");
-				String verifyerror = "_verifyError="
-						+ rs.getString("verifyerror");
-				String verifyErrorFrequency = "_errorFrequency=";
-				int j=rs.getInt("verifyErrorFrequency");
-				if(rs.getString("timeUnitSelf").equals("Minute")){
-            		j=j*60;
-            	}else if(rs.getString("timeUnitSelf").equals("Hour")){
-            		j=j*3600;
-            	}else if(rs.getString("timeUnitSelf").equals("Day")){
-            		j=j*86400;
-            	}
-				verifyErrorFrequency = verifyErrorFrequency+j;
-				String notlogtotopaz = "_notlogtotopaz="
-						+ rs.getString("notlogtotopaz");
-				String schedule = "_schedule=" + rs.getString("ECCschedule");
-				String monitorDescription = "_monitorDescription="
-						+ rs.getString("description");
-				monitorinfo = monitorclass + "," + monitorid + "," + encoding
-						+ "," + frequency + "," + dependscondition + ","
-						+ internalId + "," + machine + "," + name + ","
-						+ reportDescription + "," + verifyerror + ","
-						+ verifyErrorFrequency + "," + notlogtotopaz + ","
-						+ schedule + "," + monitorDescription+",#,";
-				filedsbuffer.append(monitorinfo);
+			ResultSetMetaData metaData = eccrs.getMetaData();
+			int colum = metaData.getColumnCount();
+			while (eccrs.next()) {
+				for (int i = 1; i < colum; i++) {
+					String columName = metaData.getColumnName(i);//Get colum name
+					String datavalue = eccrs.getString(columName);//Get data value
+					if (datavalue != null){
+						if (!datavalue .equals("")) {
+						String parmName = Config.getReturnStr("itsm_eccmonitorparams.properties",columName);
+						if (parmName == null || parmName.equals("")){
+//							System.err.println("Can not find parms from itsm_eccmonitorparams.properties:"+columName);
+							continue;
+						} else{
+							if (columName.equals("EccType")) {
+								datavalue = Config.getReturnStr("itsm_siteview9.2.properties",datavalue);
+							}if (columName.equals("disable")) {
+								if (!datavalue.equals("0")) {
+									datavalue="on";
+								}else{
+									continue;
+								}
+							}if (columName.equals("RecId")) {
+								stringBuffer.append("_encoding=GBK,");
+								stringBuffer.append("_id="+datavalue+",");
+							}if (columName.equals("frequency")||columName.equals("verifyErrorFrequency")) {
+								int timehs = eccrs.getInt(columName);
+								if (eccrs.getString("timeUnitSelf").equals("Minute")) {
+									timehs = timehs * 60;
+								}if (eccrs.getString("timeUnitSelf").equals("Hour")) {
+									timehs = timehs * 3600;
+								}if (eccrs.getString("timeUnitSelf").equals("Day")) {
+									timehs = timehs * 86400;
+								}
+								datavalue = String.valueOf(timehs);
+							}
+								stringBuffer.append(parmName+"="+datavalue+ ",");
+					  }
+						}
+						
+					}else{
+						continue;
+					}
+				}
+				stringBuffer.append(",#,");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		array = mangleIt(filedsbuffer.toString());
+		array = mangleIt(stringBuffer.toString());
 		return readFrames(array.elements());
 	}
 

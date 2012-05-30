@@ -32,6 +32,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.zip.ZipEntry;
@@ -510,7 +511,7 @@ public class FileUtils {
 			stringbuffer = readFromFile(s);
 		}
 		if (s.contains(".mg") && (!s.contains("__Health__.mg"))) {
-			String groupid = s.substring(s.length()-35, s.length() - 3);
+			String groupid = s.substring(s.length() - 35, s.length() - 3);
 			stringbuffer = readFromDataBase(groupid);
 		} else {
 			try {
@@ -1175,58 +1176,45 @@ public class FileUtils {
 
 			String query_sql = "select * from Ecc where Groups_Valid ='"
 					+ groupid + "'";
-			ResultSet eccrs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
-			String monitorinfo = "";
-			s1=s1.replaceAll(",", "\n");
+			s1 = s1.replaceAll(",", "\n");
 			stringBuffer.append(s1);
+			ResultSet eccrs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
+			ResultSetMetaData metaData = eccrs.getMetaData();
+			int colum = metaData.getColumnCount();
 			while (eccrs.next()) {
-				String monitorclass = "_class="
-						+ Config.getReturnStr(eccrs.getString("EccType"));
-				String monitorid = "_id=" + eccrs.getString("RecId");
-				String encoding = "_encoding=GBK";
-				String frequency = "_frequency=";
-				int i = eccrs.getInt("frequency");
-				if (eccrs.getString("timeUnitSelf").equals("Minute")) {
-					i = i * 60;
-				} else if (eccrs.getString("timeUnitSelf").equals("Hour")) {
-					i = i * 3600;
-				} else if (eccrs.getString("timeUnitSelf").equals("Day")) {
-					i = i * 86400;
+				for (int i = 1; i < colum; i++) {
+					String columName = metaData.getColumnName(i);//Get colum name
+					String datavalue = eccrs.getString(columName);//Get data value
+					if (datavalue != null){
+						if (!datavalue .equals("")) {
+						String parmName = Config.getReturnStr("itsm_eccmonitorparams.properties",columName);
+						if (parmName == null || parmName.equals("")){
+//							System.err.println("Can not find parms from itsm_eccmonitorparams.properties:"+columName);
+							continue;
+						} else{
+							if (columName.equals("EccType")) {
+								datavalue = Config.getReturnStr("itsm_siteview9.2.properties",datavalue);
+							}if (columName.equals("frequency")||columName.equals("verifyErrorFrequency")) {
+								int timehs = eccrs.getInt(columName);
+								if (eccrs.getString("timeUnitSelf").equals("Minute")) {
+									timehs = timehs * 60;
+								}if (eccrs.getString("timeUnitSelf").equals("Hour")) {
+									timehs = timehs * 3600;
+								}if (eccrs.getString("timeUnitSelf").equals("Day")) {
+									timehs = timehs * 86400;
+								}
+								datavalue = String.valueOf(timehs);
+							}
+								stringBuffer.append(parmName+"="+datavalue+ "\n");
+					  }
+						}
+						
+					}else{
+						continue;
+					}
 				}
-				frequency = frequency + i;
-				String dependscondition = "_dependsCondition="
-						+ eccrs.getString("dependsCondition");
-				String internalId = "_internalId=" + eccrs.getString("RecId");
-				String machine = "_machine=" + eccrs.getString("HostName");
-				String name = "_name=" + eccrs.getString("title");
-				String reportDescription = "_description="
-						+ eccrs.getString("reportDescription");
-				String verifyerror = "_verifyError="
-						+ eccrs.getString("verifyerror");
-				String verifyErrorFrequency = "_errorFrequency=";
-				int j = eccrs.getInt("verifyErrorFrequency");
-				if (eccrs.getString("timeUnitSelf").equals("Minute")) {
-					j = j * 60;
-				} else if (eccrs.getString("timeUnitSelf").equals("Hour")) {
-					j = j * 3600;
-				} else if (eccrs.getString("timeUnitSelf").equals("Day")) {
-					j = j * 86400;
-				}
-				verifyErrorFrequency = verifyErrorFrequency + j;
-				String notlogtotopaz = "_notlogtotopaz="
-						+ eccrs.getString("notlogtotopaz");
-				String schedule = "_schedule=" + eccrs.getString("ECCschedule");
-				String monitorDescription = "_monitorDescription="
-						+ eccrs.getString("description");
-				monitorinfo = monitorclass + "," + monitorid + "," + encoding
-						+ "," + frequency + "," + dependscondition + ","
-						+ internalId + "," + machine + "," + name + ","
-						+ reportDescription + "," + verifyerror + ","
-						+ verifyErrorFrequency + "," + notlogtotopaz + ","
-						+ schedule + "," + monitorDescription + ",#,";
-				monitorinfo=monitorinfo.replaceAll(",", "\n");
-				monitorinfo=monitorinfo.substring(0,monitorinfo.length()-2);
-				stringBuffer.append(monitorinfo);
+				stringBuffer.append(",#,");
+				stringBuffer.toString().substring(0, stringBuffer.toString().length() - 2);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

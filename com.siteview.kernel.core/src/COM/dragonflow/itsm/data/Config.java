@@ -14,16 +14,16 @@ import java.util.Properties;
  * </p>
  */
 public class Config {
-	public static final String ACTIONPATH = "itsm_siteview9.2.properties";  
+//	public static final String ACTIONPATH = "itsm_siteview9.2.properties";  
 	public static final Properties prop = new Properties();  
 	/**
 	 * 获取参数
 	 * @return
 	 */
-	public static String getReturnStr(String parm){
+	public static String getReturnStr(String filename,String parm){
 		try {
 			String path = Config.class.getClassLoader().getResource("").toURI().getPath();
-			FileInputStream fis = new FileInputStream(new File(path + ACTIONPATH));
+			FileInputStream fis = new FileInputStream(new File(path + filename));
 			prop.load(fis); 
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
