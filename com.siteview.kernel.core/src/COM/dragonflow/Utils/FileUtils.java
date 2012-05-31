@@ -1267,9 +1267,10 @@ public class FileUtils {
 										}else{
 											stringBuffer.append(counterrs.getString("Name")+",");
 										}
-									}		
-											stringBuffer.deleteCharAt(stringBuffer.length() - 1);
-											stringBuffer.append("\n");
+									}	if (stringBuffer.toString().contains("_counters=")) {
+										stringBuffer.deleteCharAt(stringBuffer.length() - 1);
+										stringBuffer.append("\n");
+									}	
 								}
 							}
 						}

@@ -698,7 +698,6 @@ public class FrameFile {
 				+ groups_valid + "'";
 		ResultSet rs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
 		StringBuffer stringBuffer = new StringBuffer();
-		String monitorinfo = "";
 		stringBuffer.append(groupstr);
 		ResultSet eccrs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
 		try {
@@ -736,9 +735,8 @@ public class FrameFile {
 									stringBuffer.append("_id=" + datavalue
 											+ ",");
 								}
-								if (columName.equals("frequency")
-										|| columName
-												.equals("verifyErrorFrequency")) {
+								if (columName.equals("frequency")|| columName.equals("verifyErrorFrequency")) {
+								if (eccrs.getString(columName) != null) {
 									int timehs = eccrs.getInt(columName);
 									if (eccrs.getString("timeUnitSelf").equals(
 											"Minute")) {
@@ -753,6 +751,7 @@ public class FrameFile {
 										timehs = timehs * 86400;
 									}
 									datavalue = String.valueOf(timehs);
+								 }	
 								}
 								stringBuffer.append(parmName + "=" + datavalue
 										+ ",");
@@ -772,10 +771,11 @@ public class FrameFile {
 											stringBuffer.append(counterrs
 													.getString("Name") + ",");
 										}
+									}if (stringBuffer.toString().contains("_counters=")) {
+										stringBuffer.deleteCharAt(stringBuffer
+												.length() - 1);
+										stringBuffer.append("\n");
 									}
-									stringBuffer.deleteCharAt(stringBuffer
-											.length() - 1);
-									stringBuffer.append("\n");
 								}
 							}
 						}
@@ -797,9 +797,9 @@ public class FrameFile {
 					stringBuffer.append(rsAlarm.getString("Operator"));
 					stringBuffer.append(" ");
 					stringBuffer.append(rsAlarm.getString("AlramValue"));
-					stringBuffer.append("   ");
+					stringBuffer.append("\t");
 					stringBuffer.append(rsAlarm.getString("AlarmStatus"));
-					stringBuffer.append("\n");
+					stringBuffer.append(",");
 				}
 				stringBuffer.append("#,");
 			}
