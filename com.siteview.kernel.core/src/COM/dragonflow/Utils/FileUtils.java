@@ -63,6 +63,24 @@ public class FileUtils {
 	public static final int DONE = 2;
 	public static final int START_TAG = 0;
 	public static final int END_TAG = 1;
+	static String[] MonitorCounterGroups = { "SQLServerMonitor",
+			"WindowsMediaMonitor", "ADPerformanceMonitor", "ASPMonitor",
+			"ColdFusionMonitor", "IISServerMonitor", "RealMonitor",
+			"OracleDBMonitor", "PatrolMonitor", "TuxedoMonitor",
+			"HealthUnixServerMonitor", "LogEventHealthMonitor",
+			"MediaPlayerMonitorBase", "MonitorLoadMonitor",
+			"RealMediaPlayerMonitor", "WindowsMediaPlayerMonitor",
+			"DynamoMonitor", "CheckPointMonitor", "WebLogic5xMonitor",
+			"BrowsableSNMPMonitor", "CiscoMonitor", "F5Monitor",
+			"IPlanetAppServerMonitor", "IPlanetWSMonitor",
+			"NetworkBandwidthMonitor", "VMWareMonitor", "AssetMonitor",
+			"CPUMonitor", "DiskSpaceMonitor", "MemoryMonitor",
+			"NTCounterMonitor", "NTEventLogMonitor", "ScriptMonitor",
+			"ServiceMonitor", "UnixCounterMonitor", "WebServerMonitor",
+			"DB2Monitor", "SAPMonitor", "BrowsableNTCounterMonitor",
+			"BrowsableWMIMonitor", "DatabaseCounterMonitor", "IPMIMonitor",
+			"OracleJDBCMonitor", "SiebelMonitor", "WebLogic6xMonitor",
+			"WebSphereMonitor", "InterfaceMonitor"};
 
 	public FileUtils() {
 	}
@@ -1183,43 +1201,75 @@ public class FileUtils {
 			int colum = metaData.getColumnCount();
 			while (eccrs.next()) {
 				for (int i = 1; i < colum; i++) {
-					String columName = metaData.getColumnName(i);//Get colum name
-					String datavalue = eccrs.getString(columName);//Get data value
-					if (datavalue != null){
-						if (!datavalue .equals("")) {
-						String parmName = Config.getReturnStr("itsm_eccmonitorparams.properties",columName);
-						if (parmName == null || parmName.equals("")){
-//							System.err.println("Can not find parms from itsm_eccmonitorparams.properties:"+columName);
-							continue;
-						} else{
-							if (columName.equals("EccType")) {
-								datavalue = Config.getReturnStr("itsm_siteview9.2.properties",datavalue);
-							}if (columName.equals("frequency")||columName.equals("verifyErrorFrequency")) {
-								int timehs = eccrs.getInt(columName);
-								if (eccrs.getString("timeUnitSelf").equals("Minute")) {
-									timehs = timehs * 60;
-								}if (eccrs.getString("timeUnitSelf").equals("Hour")) {
-									timehs = timehs * 3600;
-								}if (eccrs.getString("timeUnitSelf").equals("Day")) {
-									timehs = timehs * 86400;
+					String columName = metaData.getColumnName(i);// Get colum name
+					String datavalue = eccrs.getString(columName);// Get data value
+					if (datavalue != null) {
+						if (!datavalue.equals("")) {
+							String parmName = Config.getReturnStr("itsm_eccmonitorparams.properties",columName);
+							if (parmName == null || parmName.equals("")) {
+								// System.err.println("Can not find parms from itsm_eccmonitorparams.properties:"+columName);
+								continue;
+							} else {
+								if (columName.equals("EccType")) {
+									datavalue = Config.getReturnStr("itsm_siteview9.2.properties",datavalue);
+								}if (columName.equals("disable")) {
+									if (!datavalue.equals("0")) {
+										datavalue="on";
+									}else{
+										continue;
+									}
+								}if (columName.equals("RecId")) {
+									stringBuffer.append("_encoding=GBK"+ "\n");
+									stringBuffer.append("_id="+datavalue+ "\n");
+								}if (columName.equals("frequency")|| columName.equals("verifyErrorFrequency")) {
+									int timehs = eccrs.getInt(columName);
+									if (eccrs.getString("timeUnitSelf").equals("Minute")) {
+										timehs = timehs * 60;
+									}
+									if (eccrs.getString("timeUnitSelf").equals("Hour")) {
+										timehs = timehs * 3600;
+									}
+									if (eccrs.getString("timeUnitSelf").equals("Day")) {
+										timehs = timehs * 86400;
+									}
+									datavalue = String.valueOf(timehs);
 								}
-								datavalue = String.valueOf(timehs);
+								stringBuffer.append(parmName + "=" + datavalue+ "\n");
+								if (isHave(MonitorCounterGroups, datavalue)) {//the monitor have counter.
+									String query_counter_sql = "SELECT * FROM MonitorCounter WHERE ParentLink_RecID ='"+ eccrs.getString("RecId") + "'";
+									ResultSet counterrs = JDBCForSQL.sql_ConnectExecute_Select(query_counter_sql);
+									while (counterrs.next()) {
+										if (!stringBuffer.toString().contains("_counters=")) {
+											stringBuffer.append("_counters=");
+										}else{
+											stringBuffer.append(counterrs.getString("Name")+",");
+										}
+									}		
+											stringBuffer.deleteCharAt(stringBuffer.length() - 1);
+											stringBuffer.append("\n");
+								}
 							}
-								stringBuffer.append(parmName+"="+datavalue+ "\n");
-					  }
 						}
-						
-					}else{
+
+					} else {
 						continue;
 					}
 				}
-				stringBuffer.append(",#,");
-				stringBuffer.toString().substring(0, stringBuffer.toString().length() - 2);
+				stringBuffer.append("#");
+				stringBuffer.toString().substring(0,stringBuffer.toString().length() - 2);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return stringBuffer;
+	}
+	public static boolean isHave(String[] strs, String s) {
+		for (int i = 0; i < strs.length; i++) {
+			if (strs[i].indexOf(s) != -1) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

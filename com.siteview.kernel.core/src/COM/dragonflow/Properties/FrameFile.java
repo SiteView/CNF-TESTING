@@ -69,6 +69,24 @@ public class FrameFile {
 	public static boolean forceMangleOnRead = false;
 
 	public static boolean forceMangleOnWrite = false;
+	static String[] MonitorCounterGroups = { "SQLServerMonitor",
+		"WindowsMediaMonitor", "ADPerformanceMonitor", "ASPMonitor",
+		"ColdFusionMonitor", "IISServerMonitor", "RealMonitor",
+		"OracleDBMonitor", "PatrolMonitor", "TuxedoMonitor",
+		"HealthUnixServerMonitor", "LogEventHealthMonitor",
+		"MediaPlayerMonitorBase", "MonitorLoadMonitor",
+		"RealMediaPlayerMonitor", "WindowsMediaPlayerMonitor",
+		"DynamoMonitor", "CheckPointMonitor", "WebLogic5xMonitor",
+		"BrowsableSNMPMonitor", "CiscoMonitor", "F5Monitor",
+		"IPlanetAppServerMonitor", "IPlanetWSMonitor",
+		"NetworkBandwidthMonitor", "VMWareMonitor", "AssetMonitor",
+		"CPUMonitor", "DiskSpaceMonitor", "MemoryMonitor",
+		"NTCounterMonitor", "NTEventLogMonitor", "ScriptMonitor",
+		"ServiceMonitor", "UnixCounterMonitor", "WebServerMonitor",
+		"DB2Monitor", "SAPMonitor", "BrowsableNTCounterMonitor",
+		"BrowsableWMIMonitor", "DatabaseCounterMonitor", "IPMIMonitor",
+		"OracleJDBCMonitor", "SiebelMonitor", "WebLogic6xMonitor",
+		"WebSphereMonitor", "InterfaceMonitor"};
 
 	public FrameFile() {
 	}
@@ -703,6 +721,19 @@ public class FrameFile {
 								datavalue = String.valueOf(timehs);
 							}
 								stringBuffer.append(parmName+"="+datavalue+ ",");
+								if (isHave(MonitorCounterGroups, datavalue)) {//the monitor have counter.
+									String query_counter_sql = "SELECT * FROM MonitorCounter WHERE ParentLink_RecID ='"+ eccrs.getString("RecId") + "'";
+									ResultSet counterrs = JDBCForSQL.sql_ConnectExecute_Select(query_counter_sql);
+									while (counterrs.next()) {
+										if (!stringBuffer.toString().contains("_counters=")) {
+											stringBuffer.append("_counters=");
+										}else{
+											stringBuffer.append(counterrs.getString("Name")+",");
+										}
+									}		
+											stringBuffer.deleteCharAt(stringBuffer.length() - 1);
+											stringBuffer.append("\n");
+								}
 					  }
 						}
 						
@@ -710,7 +741,7 @@ public class FrameFile {
 						continue;
 					}
 				}
-				stringBuffer.append(",#,");
+				stringBuffer.append("#,");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -1159,6 +1190,14 @@ public class FrameFile {
 			System.out.println("Exception: " + exception1);
 		}
 		System.exit(0);
+	}
+	public static boolean isHave(String[] strs, String s) {
+		for (int i = 0; i < strs.length; i++) {
+			if (strs[i].indexOf(s) != -1) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
