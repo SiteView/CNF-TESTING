@@ -1132,16 +1132,39 @@ public class FileUtils {
 	public static StringBuffer readFromFile(String substring) {
 		String s = substring.substring(substring.lastIndexOf("\\") + 1,
 				substring.lastIndexOf("."));
-		String sql = "select * from EccDyn where groupid='" + s + "'";
+		// String sql;
+		// ResultSet rs;
+		String sql = "select top 1 CreatedDateTime from EccDyn where groupid='"
+				+ s + "' order by CreatedDateTime";
 		ResultSet rs = JDBCForSQL.sql_ConnectExecute_Select(sql);
+		long d = System.currentTimeMillis();
+		try {
+			if (rs.next()) {
+				d = rs.getDate("CreatedDateTime").getTime();
+			}
+		} catch (Exception e) {
+		}
 		StringBuffer stringBuffer = new StringBuffer();
 		stringBuffer.append("lastSaved=");
-		stringBuffer.append("1338190380640");
+		stringBuffer.append(d);
 		stringBuffer.append("\n");
 		stringBuffer.append("id=-1");
 		stringBuffer.append("\n");
+		sql = "select top 1 LastModDateTime from EccDyn where groupid='" + s
+				+ "' order by LastModDateTime desc";
+		rs = JDBCForSQL.sql_ConnectExecute_Select(sql);
+		try {
+			if (rs.next()) {
+				d = rs.getDate("LastModDateTime").getTime();
+			} else {
+				d = -1;
+			}
+		} catch (Exception e) {
+		}
 		stringBuffer.append("last=");
-		stringBuffer.append("1338190487609");
+		stringBuffer.append(d);
+		sql = "select * from EccDyn where groupid='" + s + "'";
+		rs = JDBCForSQL.sql_ConnectExecute_Select(sql);
 		try {
 			while (rs.next()) {
 				s = rs.getString("monitorDesc");
@@ -1255,6 +1278,22 @@ public class FileUtils {
 						continue;
 					}
 				}
+				 sql= "select * from Alarm where ParentLink_RecID='"
+							+ eccrs.getString("RecId") + "'";
+					ResultSet rsAlarm = JDBCForSQL.sql_ConnectExecute_Select(sql);
+					while (rsAlarm.next()) {
+						stringBuffer.append("_classifier=");
+						String monitorType=eccrs.getString("EccType");
+						String value=Config.getReturnStr("itsm_monitorreturnitem.properties", monitorType);
+						stringBuffer.append(rsAlarm.getString(value));
+						stringBuffer.append(" ");
+						stringBuffer.append(rsAlarm.getString("Operator"));
+						stringBuffer.append(" ");
+						stringBuffer.append(rsAlarm.getString("AlramValue"));
+						stringBuffer.append("\t");
+						stringBuffer.append(rsAlarm.getString("AlarmStatus"));
+						stringBuffer.append("\n");
+					} 
 				stringBuffer.append("#");
 				stringBuffer.toString().substring(0,stringBuffer.toString().length() - 2);
 			}

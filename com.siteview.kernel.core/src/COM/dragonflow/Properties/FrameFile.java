@@ -70,23 +70,23 @@ public class FrameFile {
 
 	public static boolean forceMangleOnWrite = false;
 	static String[] MonitorCounterGroups = { "SQLServerMonitor",
-		"WindowsMediaMonitor", "ADPerformanceMonitor", "ASPMonitor",
-		"ColdFusionMonitor", "IISServerMonitor", "RealMonitor",
-		"OracleDBMonitor", "PatrolMonitor", "TuxedoMonitor",
-		"HealthUnixServerMonitor", "LogEventHealthMonitor",
-		"MediaPlayerMonitorBase", "MonitorLoadMonitor",
-		"RealMediaPlayerMonitor", "WindowsMediaPlayerMonitor",
-		"DynamoMonitor", "CheckPointMonitor", "WebLogic5xMonitor",
-		"BrowsableSNMPMonitor", "CiscoMonitor", "F5Monitor",
-		"IPlanetAppServerMonitor", "IPlanetWSMonitor",
-		"NetworkBandwidthMonitor", "VMWareMonitor", "AssetMonitor",
-		"CPUMonitor", "DiskSpaceMonitor", "MemoryMonitor",
-		"NTCounterMonitor", "NTEventLogMonitor", "ScriptMonitor",
-		"ServiceMonitor", "UnixCounterMonitor", "WebServerMonitor",
-		"DB2Monitor", "SAPMonitor", "BrowsableNTCounterMonitor",
-		"BrowsableWMIMonitor", "DatabaseCounterMonitor", "IPMIMonitor",
-		"OracleJDBCMonitor", "SiebelMonitor", "WebLogic6xMonitor",
-		"WebSphereMonitor", "InterfaceMonitor"};
+			"WindowsMediaMonitor", "ADPerformanceMonitor", "ASPMonitor",
+			"ColdFusionMonitor", "IISServerMonitor", "RealMonitor",
+			"OracleDBMonitor", "PatrolMonitor", "TuxedoMonitor",
+			"HealthUnixServerMonitor", "LogEventHealthMonitor",
+			"MediaPlayerMonitorBase", "MonitorLoadMonitor",
+			"RealMediaPlayerMonitor", "WindowsMediaPlayerMonitor",
+			"DynamoMonitor", "CheckPointMonitor", "WebLogic5xMonitor",
+			"BrowsableSNMPMonitor", "CiscoMonitor", "F5Monitor",
+			"IPlanetAppServerMonitor", "IPlanetWSMonitor",
+			"NetworkBandwidthMonitor", "VMWareMonitor", "AssetMonitor",
+			"CPUMonitor", "DiskSpaceMonitor", "MemoryMonitor",
+			"NTCounterMonitor", "NTEventLogMonitor", "ScriptMonitor",
+			"ServiceMonitor", "UnixCounterMonitor", "WebServerMonitor",
+			"DB2Monitor", "SAPMonitor", "BrowsableNTCounterMonitor",
+			"BrowsableWMIMonitor", "DatabaseCounterMonitor", "IPMIMonitor",
+			"OracleJDBCMonitor", "SiebelMonitor", "WebLogic6xMonitor",
+			"WebSphereMonitor", "InterfaceMonitor" };
 
 	public FrameFile() {
 	}
@@ -345,16 +345,16 @@ public class FrameFile {
 		boolean flag2 = false;
 		try {
 			StringBuffer stringbuffer = new StringBuffer();
-			String s1="";
+			String s1 = "";
 			printFrames(stringbuffer, array, s, flag, flag1);
 			if (forceMangleOnWrite) {
 				stringbuffer = mangle(stringbuffer);
 			}
-			if(stringbuffer.indexOf("measurement=")!=-1){
-				savadyn(stringbuffer,file.getName());
-			}else if(stringbuffer.indexOf("_nextID=")!=-1){
-				
-			}else{
+			if (stringbuffer.indexOf("measurement=") != -1) {
+				savadyn(stringbuffer, file.getName());
+			} else if (stringbuffer.indexOf("_nextID=") != -1) {
+
+			} else {
 				fileoutputstream = new FileOutputStream(file);
 				printwriter = FileUtils.MakeUTF8OutputWriter(fileoutputstream);
 				printwriter.print(stringbuffer);
@@ -461,67 +461,83 @@ public class FrameFile {
 		}
 	}
 
-	private static void savadyn(StringBuffer stringbuffer,String str) {
-		stringbuffer.delete(0, stringbuffer.indexOf("#")+1);
-		String s="";
-		while (stringbuffer.length()>0) {
-			if(stringbuffer.indexOf("#")!=-1){
-				s=stringbuffer.substring(0,stringbuffer.indexOf("#"));
-				savadyn(s,str);
-				stringbuffer.delete(0, stringbuffer.indexOf("#")+1);
-			}else{
-				s=stringbuffer.substring(0,stringbuffer.length());
-				savadyn(s,str);
+	private static void savadyn(StringBuffer stringbuffer, String str) {
+		stringbuffer.delete(0, stringbuffer.indexOf("#") + 1);
+		String s = "";
+		while (stringbuffer.length() > 0) {
+			if (stringbuffer.indexOf("#") != -1) {
+				s = stringbuffer.substring(0, stringbuffer.indexOf("#"));
+				savadyn(s, str);
+				stringbuffer.delete(0, stringbuffer.indexOf("#") + 1);
+			} else {
+				s = stringbuffer.substring(0, stringbuffer.length());
+				savadyn(s, str);
 				stringbuffer.delete(0, stringbuffer.length());
 			}
 		}
 	}
 
-	private static void savadyn(String s,String str) {
+	private static void savadyn(String s, String str) {
 		String s1;
-		String category=null;
-		String monitorid=null;
-		if(s.contains("category")){
-			s1=s.substring(s.indexOf("category"));
-			category=s1.substring(s1.indexOf("=")+1,s1.indexOf("\n"));
-			s=s.substring(0,s.indexOf("category"))+s1.substring(s1.indexOf("\n")+1);
+		String category = null;
+		String monitorid = null;
+		if (s.contains("category")) {
+			s1 = s.substring(s.indexOf("category"));
+			category = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
+			s = s.substring(0, s.indexOf("category"))
+					+ s1.substring(s1.indexOf("\n") + 1);
 		}
-		if(s.contains("id")){
-			s1=s.substring(s.indexOf("id"));
-			monitorid=s1.substring(s1.indexOf("=")+1,s1.indexOf("\n"));
-			s=s.substring(0,s.indexOf("id"))+s1.substring(s1.indexOf("\n")+1);
+		if (s.contains("id")) {
+			s1 = s.substring(s.indexOf("id"));
+			monitorid = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
+			s = s.substring(0, s.indexOf("id"))
+					+ s1.substring(s1.indexOf("\n") + 1);
 		}
-//		s1=s.substring(s.indexOf("_name"));
-//		String monitorName=s1.substring(s1.indexOf("=")+1,s1.indexOf("\n"));
-//		s=s.substring(0,s.indexOf("_name"))+s1.substring(s1.indexOf("\n")+1);
-		
-		
-		s=s.replaceAll("\n", "*");
-		ResultSet rs=JDBCForSQL.sql_ConnectExecute_Select("select * from EccDyn where monitorid='"+monitorid+"'");
+		// s1=s.substring(s.indexOf("_name"));
+		// String monitorName=s1.substring(s1.indexOf("=")+1,s1.indexOf("\n"));
+		// s=s.substring(0,s.indexOf("_name"))+s1.substring(s1.indexOf("\n")+1);
+
+		s = s.replaceAll("\n", "*");
+		ResultSet rs = JDBCForSQL
+				.sql_ConnectExecute_Select("select * from EccDyn where monitorid='"
+						+ monitorid + "'");
 		String RecId;
-		
-		str=str.substring(0,str.indexOf("."));
-			try{
-				if(rs.next()){
-					RecId=rs.getString("RecId");
-					long time=System.currentTimeMillis();		
-			    	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			    	Timestamp LastModDateTime=new Timestamp(time);
-			    	
-					String sql="update EccDyn set category='"+category+
-							"',monitorDesc='"+s+"',LastModDateTime='"+LastModDateTime+"' where RecId='"+RecId+"'";
-					JDBCForSQL.savaLog(sql);
-				}else{
-					long time=System.currentTimeMillis();		
-			    	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			    	Timestamp CreatedDateTime=new Timestamp(time);
-			    	
-				    RecId=UUID.randomUUID().toString().replace("-", "");
-					String sql="insert into EccDyn (RecId,category,monitorDesc,monitorid,LastModDateTime,CreatedDateTime,groupid)" +
-							" values ('"+RecId+"','"+category+"','"+s+"','"+monitorid+"','"+CreatedDateTime+"','"+CreatedDateTime+"','"+str+"')";
-					JDBCForSQL.savaLog(sql);
-				}
-			}catch (Exception e) {}
+
+		str = str.substring(0, str.indexOf("."));
+		try {
+			if (rs.next()) {
+				RecId = rs.getString("RecId");
+				long time = System.currentTimeMillis();
+				SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Timestamp LastModDateTime = new Timestamp(time);
+
+				String sql = "update EccDyn set category='" + category
+						+ "',monitorDesc='" + s + "',LastModDateTime='"
+						+ LastModDateTime + "' where RecId='" + RecId + "'";
+				JDBCForSQL.savaLog(sql);
+			} else {
+				long time = System.currentTimeMillis();
+				SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Timestamp CreatedDateTime = new Timestamp(time);
+
+				RecId = UUID.randomUUID().toString().replace("-", "");
+				String sql = "insert into EccDyn (RecId,category,monitorDesc,monitorid,LastModDateTime,CreatedDateTime,groupid)"
+						+ " values ('"
+						+ RecId
+						+ "','"
+						+ category
+						+ "','"
+						+ s
+						+ "','"
+						+ monitorid
+						+ "','"
+						+ CreatedDateTime
+						+ "','"
+						+ CreatedDateTime + "','" + str + "')";
+				JDBCForSQL.savaLog(sql);
+			}
+		} catch (Exception e) {
+		}
 	}
 
 	public static boolean forceMangleOnReading() throws IOException {
@@ -678,7 +694,8 @@ public class FrameFile {
 	public static Array readDataBase(String groupstr, String groups_valid)
 			throws IOException {
 		Array array = null;
-		String query_sql = "select * from Ecc where Groups_Valid ='"+groups_valid+"'";
+		String query_sql = "select * from Ecc where Groups_Valid ='"
+				+ groups_valid + "'";
 		ResultSet rs = JDBCForSQL.sql_ConnectExecute_Select(query_sql);
 		StringBuffer stringBuffer = new StringBuffer();
 		String monitorinfo = "";
@@ -689,57 +706,100 @@ public class FrameFile {
 			int colum = metaData.getColumnCount();
 			while (eccrs.next()) {
 				for (int i = 1; i < colum; i++) {
-					String columName = metaData.getColumnName(i);//Get colum name
-					String datavalue = eccrs.getString(columName);//Get data value
-					if (datavalue != null){
-						if (!datavalue .equals("")) {
-						String parmName = Config.getReturnStr("itsm_eccmonitorparams.properties",columName);
-						if (parmName == null || parmName.equals("")){
-//							System.err.println("Can not find parms from itsm_eccmonitorparams.properties:"+columName);
-							continue;
-						} else{
-							if (columName.equals("EccType")) {
-								datavalue = Config.getReturnStr("itsm_siteview9.2.properties",datavalue);
-							}if (columName.equals("disable")) {
-								if (!datavalue.equals("0")) {
-									datavalue="on";
-								}else{
-									continue;
+					String columName = metaData.getColumnName(i);// Get colum
+																	// name
+					String datavalue = eccrs.getString(columName);// Get data
+																	// value
+					if (datavalue != null) {
+						if (!datavalue.equals("")) {
+							String parmName = Config.getReturnStr(
+									"itsm_eccmonitorparams.properties",
+									columName);
+							if (parmName == null || parmName.equals("")) {
+								// System.err.println("Can not find parms from itsm_eccmonitorparams.properties:"+columName);
+								continue;
+							} else {
+								if (columName.equals("EccType")) {
+									datavalue = Config.getReturnStr(
+											"itsm_siteview9.2.properties",
+											datavalue);
 								}
-							}if (columName.equals("RecId")) {
-								stringBuffer.append("_encoding=GBK,");
-								stringBuffer.append("_id="+datavalue+",");
-							}if (columName.equals("frequency")||columName.equals("verifyErrorFrequency")) {
-								int timehs = eccrs.getInt(columName);
-								if (eccrs.getString("timeUnitSelf").equals("Minute")) {
-									timehs = timehs * 60;
-								}if (eccrs.getString("timeUnitSelf").equals("Hour")) {
-									timehs = timehs * 3600;
-								}if (eccrs.getString("timeUnitSelf").equals("Day")) {
-									timehs = timehs * 86400;
+								if (columName.equals("disable")) {
+									if (!datavalue.equals("0")) {
+										datavalue = "on";
+									} else {
+										continue;
+									}
 								}
-								datavalue = String.valueOf(timehs);
-							}
-								stringBuffer.append(parmName+"="+datavalue+ ",");
-								if (isHave(MonitorCounterGroups, datavalue)) {//the monitor have counter.
-									String query_counter_sql = "SELECT * FROM MonitorCounter WHERE ParentLink_RecID ='"+ eccrs.getString("RecId") + "'";
-									ResultSet counterrs = JDBCForSQL.sql_ConnectExecute_Select(query_counter_sql);
+								if (columName.equals("RecId")) {
+									stringBuffer.append("_encoding=GBK,");
+									stringBuffer.append("_id=" + datavalue
+											+ ",");
+								}
+								if (columName.equals("frequency")
+										|| columName
+												.equals("verifyErrorFrequency")) {
+									int timehs = eccrs.getInt(columName);
+									if (eccrs.getString("timeUnitSelf").equals(
+											"Minute")) {
+										timehs = timehs * 60;
+									}
+									if (eccrs.getString("timeUnitSelf").equals(
+											"Hour")) {
+										timehs = timehs * 3600;
+									}
+									if (eccrs.getString("timeUnitSelf").equals(
+											"Day")) {
+										timehs = timehs * 86400;
+									}
+									datavalue = String.valueOf(timehs);
+								}
+								stringBuffer.append(parmName + "=" + datavalue
+										+ ",");
+								if (isHave(MonitorCounterGroups, datavalue)) {// the
+																				// monitor
+																				// have
+																				// counter.
+									String query_counter_sql = "SELECT * FROM MonitorCounter WHERE ParentLink_RecID ='"
+											+ eccrs.getString("RecId") + "'";
+									ResultSet counterrs = JDBCForSQL
+											.sql_ConnectExecute_Select(query_counter_sql);
 									while (counterrs.next()) {
-										if (!stringBuffer.toString().contains("_counters=")) {
+										if (!stringBuffer.toString().contains(
+												"_counters=")) {
 											stringBuffer.append("_counters=");
-										}else{
-											stringBuffer.append(counterrs.getString("Name")+",");
+										} else {
+											stringBuffer.append(counterrs
+													.getString("Name") + ",");
 										}
-									}		
-											stringBuffer.deleteCharAt(stringBuffer.length() - 1);
-											stringBuffer.append("\n");
+									}
+									stringBuffer.deleteCharAt(stringBuffer
+											.length() - 1);
+									stringBuffer.append("\n");
 								}
-					  }
+							}
 						}
-						
-					}else{
+
+					} else {
 						continue;
 					}
+				}
+				String sql = "select * from Alarm where ParentLink_RecID='"
+						+ eccrs.getString("RecId") + "'";
+				ResultSet rsAlarm = JDBCForSQL.sql_ConnectExecute_Select(sql);
+				while (rsAlarm.next()) {
+					stringBuffer.append("_classifier=");
+					String monitorType = eccrs.getString("EccType");
+					String value = Config.getReturnStr(
+							"itsm_monitorreturnitem.properties", monitorType);
+					stringBuffer.append(rsAlarm.getString(value));
+					stringBuffer.append(" ");
+					stringBuffer.append(rsAlarm.getString("Operator"));
+					stringBuffer.append(" ");
+					stringBuffer.append(rsAlarm.getString("AlramValue"));
+					stringBuffer.append("   ");
+					stringBuffer.append(rsAlarm.getString("AlarmStatus"));
+					stringBuffer.append("\n");
 				}
 				stringBuffer.append("#,");
 			}
@@ -1191,6 +1251,7 @@ public class FrameFile {
 		}
 		System.exit(0);
 	}
+
 	public static boolean isHave(String[] strs, String s) {
 		for (int i = 0; i < strs.length; i++) {
 			if (strs[i].indexOf(s) != -1) {
