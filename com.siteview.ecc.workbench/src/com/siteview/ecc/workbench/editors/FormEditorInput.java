@@ -4,14 +4,22 @@ import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.*;
-
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 public class FormEditorInput implements IEditorInput {
 
 	private String name;
 	
 	private List monitors;
 	private List groups;	
+	CompilationUnit unit; 
 	
+	public CompilationUnit getUnit() {
+		return unit;
+	}
+	public void setUnit(CompilationUnit unit) {
+		this.unit = unit;
+	}
 	public FormEditorInput(String name) {
 		this.name = name;
 	}

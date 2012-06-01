@@ -65,7 +65,7 @@ public class RuntimeInfoLoader {
 //        info.setStartShell(node.getBoolean(START_SHELL, false));
         
         info.setRmiserverIp(node.get(RMI_SERVERIP, ""));
-        info.setRmiserverPort(node.get(RMI_SERVERIP, ""));
+        info.setRmiserverPort(node.get(RMI_SERVERPORT, ""));
         info.setLoginUserName(node.get(USER_NAME, ""));
         info.setLoginUserPassword(node.get(USER_PWD, ""));
     }

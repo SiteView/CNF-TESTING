@@ -1,5 +1,11 @@
 package com.siteview.ecc.workbench.handlers;
 
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,13 +14,16 @@ import java.util.Map;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
@@ -31,6 +40,15 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.FileEditorInput;
 
+import COM.dragonflow.Api.APIInterfaces;
+import COM.dragonflow.SiteView.AtomicMonitor;
+import COM.dragonflow.SiteView.Monitor;
+import COM.dragonflow.SiteView.MonitorGroup;
+import COM.dragonflow.SiteView.SiteViewObject;
+//import COM.dragonflow.Utils.jglUtils;
+
+import com.siteview.codegen.MoniotrCodeGenUtils;
+import com.siteview.codegen.MonitiorGenArgInfo;
 import com.siteview.ecc.rcp.cnf.internal.CNFActivator;
 import com.siteview.ecc.workbench.editors.FormEditorInput;
 import com.siteview.ecc.workbench.preferences.runtimeinfo.RuntimeInfo;
@@ -90,20 +108,68 @@ public class CommitHandler extends AbstractHandler {
 	private void commit(IStructuredSelection selection) throws Exception {
 		groups.clear();
 		monitors.clear();
-        IEclipsePreferences root = new  InstanceScope().getNode(CNFActivator.PLUGIN_ID + "/rmiserver");
+        
+		IEclipsePreferences root = new  InstanceScope().getNode(CNFActivator.PLUGIN_ID + "/rmiserver");
         final String defrt = root.get("default", null);
-        if (defrt != null) {
+        APIInterfaces rmiServer = null;
+        
+        if (defrt != null) 
+        {
             final RuntimeInfo rt = new RuntimeInfo();
             final RuntimeInfoLoader rtl = new RuntimeInfoLoader(rt);
             rtl.load(root.node(defrt));
             System.out.println("RmiServer:--------------" + rt.toString());
+            
+            
+            Registry registry=LocateRegistry.getRegistry(rt.getRmiserverIp(), (new Integer(rt.getRmiserverPort()).intValue()));
+    	  	rmiServer=(APIInterfaces)(registry.lookup("kernelApiRmiServer"));		
         }
         
-        
+
 		if (selection.size() == 1) {
     		if (selection.getFirstElement() instanceof IProject) {    			
     			System.out.println("seletion is project");
-    			IPackageFragment[] packages = JavaCore.create((IProject)selection.getFirstElement()).getPackageFragments();
+    			IJavaProject proj = JavaCore.create((IProject)selection.getFirstElement());    			
+//    			IFolder testGroup = proj.getProject().getFolder("cxyGroup");
+			  
+				List<Map<String,Object>> groupList = rmiServer.getAllGroupInstances();
+				  
+				IPackageFragmentRoot pkroot = proj.getPackageFragmentRoot(proj.getResource());
+				IPackageFragment pkg = null;		
+				String strGroupid = "", strPkgName = "", strCode = "", strFileName = "";
+				for(Map<String, Object> group:groupList) 
+				{
+					group.keySet();
+					System.out.println("Group name : " + group.get("_name") + ",id : " + group.get("_id"));
+					strGroupid = group.get("_id").toString();
+					strPkgName = strGroupid.replace("/", ".");
+					
+					if(!pkroot.getPackageFragment(strPkgName).exists())
+					{
+						pkg = pkroot.createPackageFragment(strPkgName, true,
+								new NullProgressMonitor());
+					}
+					else
+					{
+						pkg = pkroot.getPackageFragment(strPkgName);
+					}
+					
+//					strPkgName = strGroupid + "." + group.get("_name").toString();
+					strFileName = "Group" + group.get("_name").toString() + ".java";
+					strCode = MoniotrCodeGenUtils.getEnumSourceCode(strPkgName, strFileName, group);					
+					pkg.createCompilationUnit(strFileName, strCode,  true,	new NullProgressMonitor());
+					
+					List<Map<String, Object>> monitorList =  rmiServer.getMonitorsForGroup(strGroupid);
+					for(Map<String, Object> monitor:monitorList) 
+					{
+						System.out.println("Monitor In Group : "  + group.get("_id") + " it's name : " + monitor.get("_name") + ", id: " + monitor.get("_id"));
+						strFileName = "Monitor" + monitor.get("_id").toString().replace(strGroupid + "/", "") + ".java";
+						strCode = MoniotrCodeGenUtils.getEnumSourceCode(strPkgName, strFileName, monitor);
+						pkg.createCompilationUnit(strFileName, strCode,  true,	new NullProgressMonitor());						
+					}
+				}
+				
+    			IPackageFragment[] packages = proj.getPackageFragments();
     			getGroups(packages);
     		}
     		if (selection.getFirstElement() instanceof IPackageFragmentRoot) {    			

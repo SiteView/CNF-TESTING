@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -61,7 +62,7 @@ public class SourcePage extends FormPage {
 		layout.rightMargin = 10;
 		form.getBody().setLayout(layout);
 		createFormTextSection(form, toolkit);
-		loadSource1();
+//		loadSource1();
 	}
 	
 	private void createFormTextSection(final ScrolledForm form, FormToolkit toolkit) {
@@ -97,7 +98,7 @@ public class SourcePage extends FormPage {
 		text.setFont(new Font(text.getDisplay(), new FontData("Tahoma", 9, SWT.NORMAL)));
 		text.getBorderWidth();
 		
-		loadSource1();
+//		loadSource1();
 		
 		Section section2 =
 				toolkit.createSection(
@@ -124,12 +125,12 @@ public class SourcePage extends FormPage {
 		glayout.numColumns = 2;
 		client.setLayout(glayout);	
 		
-		FormEditorInput input = (FormEditorInput)this.getEditor().getEditorInput();
-		for(Object group : input.getGroups())
-		{
-			createTextItem(toolkit,client, (Map)group);
-		}
-		
+		FormEditorInput input = (FormEditorInput)this.getEditorInput();
+//		for(Object group : input.getGroups())
+//		{
+//			createTextItem(toolkit,client, (Map)group);
+//		}
+//		
 		for(Object monitor : input.getMonitors())
 		{
 			createTextItem(toolkit,client, (Map)monitor);
@@ -182,7 +183,7 @@ public class SourcePage extends FormPage {
 	
 	public void loadSource1() 
 	{		
-		FormEditorInput input = (FormEditorInput)this.getEditor().getEditorInput();
+		FormEditorInput input = (FormEditorInput)this.getEditorInput();
 		String dd = input.getGroups().toArray().toString() + input.getMonitors().toArray().toString();
 //		dd += "\\r\\n";
 		for(Object group : input.getGroups())
@@ -233,5 +234,21 @@ public class SourcePage extends FormPage {
 			
 			i++;
 		} 		
+	}
+	
+	@Override
+	public FormEditor getEditor() {
+		// TODO Auto-generated method stub
+		return super.getEditor();
+	}
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
+		super.doSave(monitor);
+	}
+	@Override
+	public void doSaveAs() {
+		// TODO Auto-generated method stub
+		super.doSaveAs();
 	}
 }

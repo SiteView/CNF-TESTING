@@ -46,7 +46,7 @@ public class RuntimeInfo {
 //    private boolean loadAllNodes = false;
     
     private String rmiserverIp = "127.0.0.1";
-    private String rmiserverPort = "";
+    private String rmiserverPort = "3232";
     private String loginUserName = "";
     private String loginUserPassword = "";
 

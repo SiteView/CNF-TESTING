@@ -1,0 +1,19 @@
+<%@ jet package="com.siteview.codegen" class="MonitorCodeGenerator" 
+  imports="java.util.*"%>
+
+<%
+  MonitiorGenArgInfo argInfo = (MonitiorGenArgInfo)argument;
+  Set<String> enumItems = argInfo.getItems();
+  Map<String, Object> props = argInfo.getProps();
+  String className = argInfo.getClassName();
+  String packageName = argInfo.getPackageName();
+%>
+
+package <%=packageName%>;
+
+public class <%=className%>
+{
+	<%for(String key:props.keySet()){%>
+	public 	String <%=key%> = "<%=props.get(key).toString()%>";
+	<%}%>
+}
