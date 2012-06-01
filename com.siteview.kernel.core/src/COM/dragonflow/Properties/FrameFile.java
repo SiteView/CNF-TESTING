@@ -37,6 +37,7 @@ import com.sun.corba.se.impl.orbutil.GetPropertyAction;
 
 import jgl.Array;
 import jgl.HashMap;
+import jgl.HashMapIterator;
 import jgl.Sorting;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.SiteView.DetectConfigurationChange;
@@ -351,7 +352,7 @@ public class FrameFile {
 				stringbuffer = mangle(stringbuffer);
 			}
 			if (stringbuffer.indexOf("measurement=") != -1) {
-				savadyn(stringbuffer, file.getName());
+				savadyn(stringbuffer);
 			} else if (stringbuffer.indexOf("_nextID=") != -1) {
 
 			} else {
@@ -461,23 +462,23 @@ public class FrameFile {
 		}
 	}
 
-	private static void savadyn(StringBuffer stringbuffer, String str) {
+	private static void savadyn(StringBuffer stringbuffer) {
 		stringbuffer.delete(0, stringbuffer.indexOf("#") + 1);
 		String s = "";
 		while (stringbuffer.length() > 0) {
 			if (stringbuffer.indexOf("#") != -1) {
 				s = stringbuffer.substring(0, stringbuffer.indexOf("#"));
-				savadyn(s, str);
+				savadyn(s);
 				stringbuffer.delete(0, stringbuffer.indexOf("#") + 1);
 			} else {
 				s = stringbuffer.substring(0, stringbuffer.length());
-				savadyn(s, str);
+				savadyn(s);
 				stringbuffer.delete(0, stringbuffer.length());
 			}
 		}
 	}
 
-	private static void savadyn(String s, String str) {
+	private static void savadyn(String s) {
 		String s1;
 		String category = null;
 		String monitorid = null;
@@ -493,17 +494,15 @@ public class FrameFile {
 			s = s.substring(0, s.indexOf("id"))
 					+ s1.substring(s1.indexOf("\n") + 1);
 		}
-		// s1=s.substring(s.indexOf("_name"));
-		// String monitorName=s1.substring(s1.indexOf("=")+1,s1.indexOf("\n"));
-		// s=s.substring(0,s.indexOf("_name"))+s1.substring(s1.indexOf("\n")+1);
+		 s1=s.substring(s.indexOf("group"));
+		 String groupName=s1.substring(s1.indexOf("=")+1,s1.indexOf("\n"));
+		 s=s.substring(0,s.indexOf("group"))+s1.substring(s1.indexOf("\n")+1);
 
 		s = s.replaceAll("\n", "*");
 		ResultSet rs = JDBCForSQL
 				.sql_ConnectExecute_Select("select * from EccDyn where monitorid='"
 						+ monitorid + "'");
 		String RecId;
-
-		str = str.substring(0, str.indexOf("."));
 		try {
 			if (rs.next()) {
 				RecId = rs.getString("RecId");
@@ -513,7 +512,8 @@ public class FrameFile {
 
 				String sql = "update EccDyn set category='" + category
 						+ "',monitorDesc='" + s + "',LastModDateTime='"
-						+ LastModDateTime + "' where RecId='" + RecId + "'";
+						+ LastModDateTime + "',groupid='"
+						+ groupName +"' where RecId='" + RecId + "'";
 				JDBCForSQL.savaLog(sql);
 			} else {
 				long time = System.currentTimeMillis();
@@ -533,7 +533,7 @@ public class FrameFile {
 						+ "','"
 						+ CreatedDateTime
 						+ "','"
-						+ CreatedDateTime + "','" + str + "')";
+						+ CreatedDateTime + "','" + groupName + "')";
 				JDBCForSQL.savaLog(sql);
 			}
 		} catch (Exception e) {
@@ -704,11 +704,10 @@ public class FrameFile {
 			ResultSetMetaData metaData = eccrs.getMetaData();
 			int colum = metaData.getColumnCount();
 			while (eccrs.next()) {
+				Map maps=new java.util.HashMap();
 				for (int i = 1; i < colum; i++) {
-					String columName = metaData.getColumnName(i);// Get colum
-																	// name
-					String datavalue = eccrs.getString(columName);// Get data
-																	// value
+					String columName = metaData.getColumnName(i);// Get colum name
+					String datavalue = eccrs.getString(columName);// Get data value
 					if (datavalue != null) {
 						if (!datavalue.equals("")) {
 							String parmName = Config.getReturnStr(
@@ -716,25 +715,101 @@ public class FrameFile {
 									columName);
 							if (parmName == null || parmName.equals("")) {
 								// System.err.println("Can not find parms from itsm_eccmonitorparams.properties:"+columName);
+								//¹ýÂËlinkCheck×Ö¶Î
+								if(columName.equals("MaxHops") && datavalue.equals("no limit")){
+									maps.put("MaxHops", "no limit");
+									continue;
+								}else if(columName.equals("MaxHops") && datavalue.equals("main page links")){
+									maps.put("MaxHops", "main page links");
+									continue;
+								}
+								//wpc
+								if(columName.equals("Scale")){
+									if(datavalue.equals("kilobytes")){
+										maps.put("_scale", "9.765625E-4");
+										continue;
+									}else if( datavalue.equals("megabytes")){
+										maps.put("_scale",  "9.536743E-7");
+										continue;
+									}else if( datavalue.equals("Other")){
+										continue;
+									}else{
+										maps.put("_scale", datavalue);
+									}	
+								}
+								
 								continue;
-							} else {
+							}else {
+								//mail¼à²âÆ÷×Ö¶Î¹ýÂË
+								if(parmName.equals("_useIMAP") && datavalue.equals("IMAP4")){
+									datavalue="true";
+								}else if(parmName.equals("_useIMAP") && datavalue.equals("POP3")){
+									continue;
+								}
+								//mail¼à²âÆ÷·¢ËÍ·½Ê½×Ö¶Î¹ýÂË
+								if(parmName.equals("_receiveOnly") && datavalue.equals("Send & Receive")){
+									continue;
+								}
+								//eBusiness Chain¼à²âÆ÷×Ö¶Î¹ýÂË
+								if(parmName.equals("_whenError")&& datavalue.equals("continue")){
+									continue;
+								}
+								//¹ýÂËurl¼à²âÆ÷
+								if(parmName.equals("_checkContent") && datavalue.equals("no content checking")){
+									continue;
+								}else if(parmName.equals("_checkContent")&& (datavalue.equals("compare to saved contents")||datavalue.equals("reset saved contents"))){
+									datavalue="baseline";
+									stringBuffer.append("_checkContentResetTime=");
+									stringBuffer.append(System.currentTimeMillis());
+									stringBuffer.append(",");
+								}else if(parmName.equals("_checkContent") && datavalue.equals("compare to last contents")){
+									datavalue="on";
+									stringBuffer.append("_checkContentResetTime=");
+									stringBuffer.append(System.currentTimeMillis());
+									stringBuffer.append(",");
+								}
+								if(parmName.equals("_URLDropDownEncodePostData")&& datavalue.equals("Use content-type:")){
+									datavalue="contentTypeUrlencoded";
+								}else if(parmName.equals("_URLDropDownEncodePostData") && datavalue.equals("force url encoding")){
+									datavalue="forceEncode";
+								}else if(parmName.equals("_URLDropDownEncodePostData")&& datavalue.equals("force No url encoding")){
+									datavalue="forceNoEncode";
+								}
+								if(parmName.equals("_whenToAuthenticate")&& datavalue.equals("Use Global Preference")){
+									continue;
+								}else if(parmName.equals("_whenToAuthenticate")&& datavalue.equals("Authenticate first request")){
+									datavalue="authOnFirst";
+								}else if(parmName.equals("_whenToAuthenticate")&& datavalue.equals("Authenticate if requested")){
+									datavalue="authOnSecond";
+								}
+								
+								//¶ÔÓ¦¼à²âÆ÷
 								if (columName.equals("EccType")) {
 									datavalue = Config.getReturnStr(
 											"itsm_siteview9.2.properties",
 											datavalue);
 								}
-								if (columName.equals("disable")) {
+								
+								//Windows Performance Counter¹ýÂË
+								if(parmName.equals("_pmcfile")&& datavalue.equals("(Custom Object)")){
+									datavalue="none";
+								}				
+								//Âß¼­×Ö¶ÎÖµÎªtrue¶ÔÓ¦ON
+								if (parmName.equals("_verifyError")||parmName.equals("_notLogToTopaz")||parmName.equals("_disabled")
+										||parmName.equals("_externalLinks")||parmName.equals("_challengeResponse")) {
 									if (!datavalue.equals("0")) {
 										datavalue = "on";
 									} else {
 										continue;
 									}
 								}
+								
 								if (columName.equals("RecId")) {
 									stringBuffer.append("_encoding=GBK,");
 									stringBuffer.append("_id=" + datavalue
 											+ ",");
 								}
+								//Ê±¼ä×ª»¯
 								if (columName.equals("frequency")|| columName.equals("verifyErrorFrequency")) {
 								if (eccrs.getString(columName) != null) {
 									int timehs = eccrs.getInt(columName);
@@ -755,10 +830,7 @@ public class FrameFile {
 								}
 								stringBuffer.append(parmName + "=" + datavalue
 										+ ",");
-								if (isHave(MonitorCounterGroups, datavalue)) {// the
-																				// monitor
-																				// have
-																				// counter.
+								if (isHave(MonitorCounterGroups, datavalue)) {// the monitor have counter.
 									String query_counter_sql = "SELECT * FROM MonitorCounter WHERE ParentLink_RecID ='"
 											+ eccrs.getString("RecId") + "'";
 									ResultSet counterrs = JDBCForSQL
@@ -784,6 +856,28 @@ public class FrameFile {
 						continue;
 					}
 				}
+				//linkCheck
+				if(maps.get("MaxHops")!=null && maps.get("MaxHops").equals("no limit")){
+					if(!stringBuffer.toString().contains("_maxSearchDepth=")){
+						stringBuffer.append("_maxSearchDepth=");
+						stringBuffer.append("100");
+						stringBuffer.append(",");
+					}
+				}else if(maps.get("MaxHops")!=null && maps.get("MaxHops").equals("main page links")){
+					if(!stringBuffer.toString().contains("_maxSearchDepth=")){
+						stringBuffer.append("_maxSearchDepth=");
+						stringBuffer.append("1");
+						stringBuffer.append(",");
+					}
+				}
+				//Windows Performance Counter
+				if(!stringBuffer.toString().contains("_scale")&&maps.get("_scale")!=null){
+					stringBuffer.append("_scale=");
+					stringBuffer.append(maps.get("_scale"));
+					stringBuffer.append(",");
+				}
+				
+				//±¨¾¯Ìõ¼þ
 				String sql = "select * from Alarm where ParentLink_RecID='"
 						+ eccrs.getString("RecId") + "'";
 				ResultSet rsAlarm = JDBCForSQL.sql_ConnectExecute_Select(sql);

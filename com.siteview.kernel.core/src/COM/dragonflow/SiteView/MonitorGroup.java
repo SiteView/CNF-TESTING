@@ -1791,12 +1791,12 @@ public class MonitorGroup extends Monitor {
             String s1="_encoding=GBK,_dependsCondition="+
             rs.getString("DependsCondition")+",_fileEncoding=UTF-8,_name="+s;
             if(!rs.getString("DependsOn").equals("")){
-            	s1=s1+",_dependsOn="+rs.getShort("DependsOn");
+            	s1=s1+",_dependsOn="+rs.getString("DependsOn");
             }
             if(!rs.getString("Description").equals("")){
             	s1=s1+",_description="+rs.getString("Description");
             }
-            if(!rs.getString("RefreshGroup").equals("")){
+            if(rs.getInt("RefreshGroup")!=0){
             	int i=rs.getInt("RefreshGroup");
             	if(rs.getString("RefreshGroupUtil").equals("Minute")){
             		i=i*60;
@@ -1808,10 +1808,7 @@ public class MonitorGroup extends Monitor {
             	s1=s1+",_frequency="+i;           	
             }
             s1=s1+",#,";
-        //  groupid="C:\\Documents and Settings\\Administrator.DRAGONFL-FC1FAA\\git\\siteview9.2\\com.siteview.kernel.core\\groups\\"+s+".mg";
-          //  monitorgroup.file = new File("C:\\Documents and Settings\\Administrator.DRAGONFL-FC1FAA\\git\\siteview9.2\\com.siteview.kernel.core\\groups\\"+s+".mg");
             monitorgroup.file = new File(s);
-            //          monitorgroup.readMonitors(groupid, s);
             monitorgroup.readMonitors(groupid,s,s1);
             monitorgroup.readDynamic();
             monitorgroup.initialize(monitorgroup.getValuesTable());
