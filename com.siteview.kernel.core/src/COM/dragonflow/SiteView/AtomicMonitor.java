@@ -689,7 +689,7 @@ public  class AtomicMonitor extends Monitor implements Runnable,
                     + this.getProperty(pStateString) + "</b>\n";
             this.currentStatus = "logging the results to SiteView daily log...";
             LogManager.log(this.getSetting(pSiteViewLogName), this);
-            savaLog(this);
+           // savaLog(this);
             long l2 = Platform.timeMillis();
             this.setProperty(pMonitorDoneTime, String.valueOf(l2));
             if (!this.runOwnRules()) {

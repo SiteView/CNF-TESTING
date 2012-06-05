@@ -27,6 +27,7 @@ import java.util.Vector;
 import org.eclipse.swt.widgets.DateTime;
 
 import COM.dragonflow.Properties.PropertiedObject;
+import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.itsm.data.JDBCForSQL;
 
 public abstract class Logger {
@@ -108,13 +109,39 @@ public abstract class Logger {
             }
             
         }
+        if(stringbuffer!=null){
+        	savaLog(stringbuffer.toString());
+        }
         log(s, date, stringbuffer.toString());
     }
 	public void log(String s, java.util.Date date, String s1) {
-		
+		savaLog(s1);
     }
+	//»’÷æ¥Ê¥¢
+    private void savaLog(String s1) {
+		// TODO Auto-generated method stub
+		String category=s1.substring(0,s1.indexOf("\t"));
+		s1=s1.substring(s1.indexOf("\t")+1);
+		String ownerID=s1.substring(0,s1.indexOf("\t"));
+		s1=s1.substring(s1.indexOf("\t")+1);
+		String MonitorName=s1.substring(0,s1.indexOf("\t"));
+		s1=s1.substring(s1.indexOf("\t")+1);
+		String MonitorId=s1.substring(s1.indexOf(":")-32);
+		String s3=MonitorId.substring(MonitorId.indexOf("\t")+1);
+			   MonitorId=MonitorId.substring(0,MonitorId.indexOf(":"));
+		String s2=s1.substring(0,s1.indexOf(MonitorId));
+		String stateString=s2+s3;
+		String RecId=UUID.randomUUID().toString();
+    	RecId=RecId.replaceAll("-", "");
+    	long time=System.currentTimeMillis();		
+    	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	Timestamp CreatedDateTime=new Timestamp(time);
+    	String sql="insert into MonitorLog(RecId,ownerID,MonitorStatus,MonitorName,MonitorId,MonitorMassage,CreatedDateTime)" +
+    			"values('"+RecId+"','"+ownerID+"','"+category+"','"+MonitorName+"','"+MonitorId+"','"+stateString+"','"+Timestamp.valueOf(f.format(CreatedDateTime))+"')";
+    	JDBCForSQL.savaLog(sql);	
+	}
 
-    public void close() {
+	public void close() {
     }
 
     public String customLogName() {

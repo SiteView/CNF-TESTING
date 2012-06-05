@@ -18,6 +18,7 @@ public class MatchClass extends MatchStrategyBase {
 		boolean flag=false;
 		if(bo.get_Name().startsWith("Ecc.")){
 			flag=!(bo.GetField("groups").get_NativeValue().toString().equals(""));
+			MonitorLogTabView.SetData(bo);
 		}
 		return flag;
 	}
