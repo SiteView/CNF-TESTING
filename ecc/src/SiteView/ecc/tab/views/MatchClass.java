@@ -1,5 +1,8 @@
 package SiteView.ecc.tab.views;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import Siteview.Api.BusinessObject;
 import siteview.windows.forms.MatchStrategyBase;
 
@@ -12,7 +15,11 @@ public class MatchClass extends MatchStrategyBase {
 	@Override
 	public boolean match(BusinessObject bo) {
 		// TODO Auto-generated method stub
-		return bo.get_Name().startsWith("Ecc.");
+		boolean flag=false;
+		if(bo.get_Name().startsWith("Ecc.")){
+			flag=!(bo.GetField("groups").get_NativeValue().toString().equals(""));
+		}
+		return flag;
 	}
 
 }

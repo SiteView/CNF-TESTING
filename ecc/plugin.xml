@@ -27,7 +27,12 @@
        point="Siteview.Forms.Common.LayoutExtension">
     <ExtViews_matchByStrategy
           Class="SiteView.ecc.tab.views.MonitorLogTabView"
-          Title="ecc.ExtViews_matchByStrategy1"
+          Title="日志数据"
+          match_strategy="SiteView.ecc.tab.views.MatchClass">
+    </ExtViews_matchByStrategy>
+    <ExtViews_matchByStrategy
+          Class="SiteView.ecc.tab.views.SummaryTabView"
+          Title="概要"
           match_strategy="SiteView.ecc.tab.views.MatchClass">
     </ExtViews_matchByStrategy>
  </extension>
