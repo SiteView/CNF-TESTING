@@ -23,4 +23,12 @@
           name="Detail">
     </editor>
  </extension>
+ <extension
+       point="Siteview.Forms.Common.LayoutExtension">
+    <ExtViews_matchByStrategy
+          Class="SiteView.ecc.tab.views.MonitorLogTabView"
+          Title="ecc.ExtViews_matchByStrategy1"
+          match_strategy="SiteView.ecc.tab.views.MatchClass">
+    </ExtViews_matchByStrategy>
+ </extension>
  </plugin>

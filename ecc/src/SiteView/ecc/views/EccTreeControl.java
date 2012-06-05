@@ -17,6 +17,8 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -30,7 +32,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import COM.dragonflow.SiteViewException.SiteViewException;
-import SiteView.ecc.data.MonitorGroup;
+import SiteView.ecc.Activator;
+import SiteView.ecc.data.MonitorServer;
+import SiteView.ecc.dialog.EditGroup;
 import SiteView.ecc.editors.EccControl;
 import SiteView.ecc.editors.EccControlInput;
 import Siteview.Windows.Forms.controlproperties.DropDownMenu;
@@ -40,19 +44,83 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.TreeItem;
 
+import siteview.windows.forms.ImageHelper;
+
 
 public class EccTreeControl extends ViewPart {
 	public EccTreeControl() {
 	}
-	MonitorGroup mg=new MonitorGroup();
+	MonitorServer mg=new MonitorServer();
 
 	public static final String ID = "SiteView.ecc.views.EccTreeControl";
+	public static TreeItem item;
+	public static String s=null;
 	@Override
 	public void createPartControl(Composite cp) {
 		// TODO Auto-generated method stub
 		cp.setLayout(new FillLayout());	
 		final Tree tree = new Tree(cp, SWT.BORDER);
-		final Menu menu=new Menu(tree);
+		final Menu menu=createMenu(tree);
+		tree.addMouseListener(new MouseAdapter() {
+			public void mouseUp(MouseEvent e) {
+				int x = e.x;
+				int y = e.y;
+				if(e.button==3){
+					item = tree.getItem(new Point(x, y));
+					menu.setLocation(tree.toDisplay(e.x, e.y));
+					menu.setVisible(true);
+				}else if((e.button!=1)&&(e.button!=3)){
+					item = tree.getItem(new Point(x, y));
+					try {
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getActivePage().openEditor(new EccControlInput(),EccControl.ID);
+					} catch (PartInitException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		
+		
+		TreeItem trtmNewTreeitem = new TreeItem(tree, SWT.NONE);
+		trtmNewTreeitem.setText("整体视图");
+		trtmNewTreeitem.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/ztst.gif"));
+		trtmNewTreeitem.setExpanded(true);
+		TreeItem trtmNewTreeitem1 = new TreeItem(trtmNewTreeitem, SWT.NONE);
+		trtmNewTreeitem1.setText("root");
+		trtmNewTreeitem1.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/logo.gif"));
+		trtmNewTreeitem1.setExpanded(true);
+		try {
+			List groups=mg.Group();
+			for(int i=0;i<groups.size();i++){
+				Map<String,Object> maps=(Map<String, Object>) groups.get(i);
+				getTreeItem(trtmNewTreeitem1,maps);
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SiteViewException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void getTreeItem(TreeItem treeItem,Map<String,Object> map) throws RemoteException, SiteViewException{
+		TreeItem tree=new TreeItem(treeItem, SWT.NONE);
+		tree.setText(map.get("_name").toString());
+		tree.setData(map);
+		tree.setImage(ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/node.jpg"));
+		tree.setExpanded(true);
+		List<Map<String,Object>> list=mg.GroupChild(map.get("_id").toString());			
+		if(list.size()!=0){
+			for(int i=0;i<list.size();i++){
+				getTreeItem(tree,list.get(i));
+			}
+		}
+	}
+	public Menu createMenu(Tree tree){
+		Menu menu=new Menu(tree);
 		MenuItem m1=new MenuItem(menu,SWT.NONE);
 		m1.setText("编辑组");
 		MenuItem m2=new MenuItem(menu,SWT.NONE);
@@ -77,59 +145,53 @@ public class EccTreeControl extends ViewPart {
 		m11.setText("批量移动");
 		MenuItem m12=new MenuItem(menu,SWT.NONE);
 		m12.setText("帮助");
-		tree.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseUp(MouseEvent e) {
-				// TODO Auto-generated method stub
-				if(e.button==3){
-					menu.setLocation(tree.toDisplay(e.x, e.y));
-					menu.setVisible(true);
-				}else if((e.button!=1)&&(e.button!=3)){
-					try {
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-						.getActivePage().openEditor(new EccControlInput(),EccControl.ID);
-					} catch (PartInitException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+		m1.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				s="m1";
+				EditGroup editGroup=new EditGroup(null);
+				editGroup.open();
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
+		});
+		m2.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				s=null;
+				EditGroup editGroup=new EditGroup(null);
+				editGroup.open();
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
+		});
+		m4.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				MonitorServer monitorServer=new MonitorServer();
+				try {
+					monitorServer.deleteGroup(((Map<String,Object>)item.getData()).get("_id").toString());
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SiteViewException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
 		});
-		
-		TreeItem trtmNewTreeitem = new TreeItem(tree, SWT.NONE);
-		trtmNewTreeitem.setText("整体视图");
-		trtmNewTreeitem.setExpanded(true);
-		try {
-			List groups=mg.Group();
-			for(int i=0;i<groups.size();i++){
-				Map<String,Object> maps=(Map<String, Object>) groups.get(i);
-				getTreeItem(trtmNewTreeitem,maps);
-			}
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SiteViewException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void getTreeItem(TreeItem treeItem,Map<String,Object> map) throws RemoteException, SiteViewException{
-		TreeItem tree=new TreeItem(treeItem, SWT.NONE);
-		tree.setText(map.get("_name").toString());
-		tree.setExpanded(true);
-		List<Map<String,Object>> list=mg.GroupChild(map.get("_id").toString());
-		if(list.size()!=0){
-			for(int i=0;i<list.size();i++){
-				getTreeItem(tree,list.get(i));
-			}
-		}
+		return menu;
 	}
 
 	@Override
-	public  void setFocus() {
+	public void setFocus() {
 		// TODO Auto-generated method stub
 	}
+
+	public TreeItem getItem() {
+		return item;
+	}
+
+	public void setItem(TreeItem item) {
+		this.item = item;
+	}
+	
+	
 }
 

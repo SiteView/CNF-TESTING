@@ -1,4 +1,4 @@
-package SiteView.ecc.table.views;
+package SiteView.ecc.tab.views;
 
 import Siteview.Api.BusinessObject;
 import siteview.windows.forms.MatchStrategyBase;
@@ -12,7 +12,6 @@ public class MatchClass extends MatchStrategyBase {
 	@Override
 	public boolean match(BusinessObject bo) {
 		// TODO Auto-generated method stub
-		System.out.println( bo.get_Name());
 		return bo.get_Name().startsWith("Ecc.");
 	}
 
