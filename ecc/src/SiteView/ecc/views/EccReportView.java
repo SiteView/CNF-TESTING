@@ -15,6 +15,7 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
 
 import SiteView.ecc.reportchart.EccReportChart;
+import SiteView.ecc.tab.views.SummaryTabView;
 
 public class EccReportView extends ViewPart {
 	private Composite reportComposite;
@@ -34,7 +35,8 @@ public class EccReportView extends ViewPart {
 		// TODO Auto-generated method stub
 		SashForm reportForm = new SashForm(parent, SWT.BORDER);
 		reportForm.setOrientation(SWT.VERTICAL);
-
+		reportForm.setBounds(1, 1, 1000, 320);
+		reportForm.setLayout(new FillLayout(SWT.HORIZONTAL));
 		composite_reportimgControl = new Composite(reportForm, SWT.BORDER);
 		composite_reportimgControl.setLayout(new FillLayout(SWT.HORIZONTAL));
 		Composite composite_reportdescControl = new Composite(reportForm,
@@ -43,7 +45,8 @@ public class EccReportView extends ViewPart {
 		// sashForm.setWeights(new int[] { 1, 1 });
 		reportComposite = new Composite(composite_reportimgControl, SWT.NONE);
 		reportComposite.setLayout(new FillLayout());
-		XYDataset dataset = EccReportChart.createDataset();
+//		System.out.println("报表曲线图数据Map:"+SummaryTabView.xydata);
+		XYDataset dataset = EccReportChart.createDataset(SummaryTabView.xydata);
 		chart = EccReportChart.createChart(dataset);
 		frame = new ChartComposite(reportComposite, SWT.NONE, chart, true);
 
@@ -89,7 +92,7 @@ public class EccReportView extends ViewPart {
 				control.dispose();
 			}
 		}
-		XYDataset dataset = EccReportChart.createDataset();
+		XYDataset dataset = EccReportChart.createDataset(SummaryTabView.xydata);
 		chart = EccReportChart.createChart(dataset);
 		frame = new ChartComposite(reportComposite, SWT.NONE, chart, true);
 		reportComposite.layout();

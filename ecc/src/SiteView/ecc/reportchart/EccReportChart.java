@@ -1,5 +1,9 @@
 package SiteView.ecc.reportchart;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
@@ -30,18 +34,22 @@ public class EccReportChart {
 		axis.setAutoRangeMinimumSize(1.0);
 		return chart;
 	}
-
-	public static XYDataset createDataset() {
+	/**
+	 * 构建曲线报表数据
+	 * @param xydata
+	 * @return
+	 */
+	public static XYDataset createDataset(Map<String, String> xydata) {
 		XYSeries series = new XYSeries("数据趋势");
-		series.add(1.0, 100.0);
-		series.add(5.0, 100.0);
-		series.add(4.0, 100.0);
-		series.add(12.5, 50.0);
-		series.add(17.3, 100.0);
-		series.add(21.2, 100.0);
-		series.add(21.9, 100.0);
-		series.add(25.6, 100.0);
-		series.add(30.0, 100.0);
+		 Set<Map.Entry<String, String>> set = xydata.entrySet();
+		  for (Iterator<Map.Entry<String, String>> it = set.iterator(); it.hasNext();) {
+	            Map.Entry<String, String> entry = (Map.Entry<String, String>) it.next();
+//	            System.out.println(entry.getKey() + "--->" + entry.getValue());
+	            double x=Double.parseDouble(entry.getKey());
+				double y=Double.parseDouble(entry.getValue());
+//				System.out.println(x+":"+y);
+	            series.add(x, y);
+	        }
 		XYSeriesCollection dataset = new XYSeriesCollection(series);
 		return dataset;
 	}

@@ -114,9 +114,9 @@ public class MonitorLogTabView extends LayoutViewBase {
 	private static Map<String,Object> setMap(BusinessObject bo) {
 		map = new java.util.HashMap();
 		map.put("monitorId", bo.get_RecId());
-		String time=getOneHoursAgoTime();
-		map.put("startTime", time.substring(0,time.indexOf("*")));
-		map.put("endTime", time.substring(time.indexOf("*")+1));
+		String time=getTwoHoursAgoTime();
+		map.put("startTime", time.substring(time.indexOf("*")+1));
+		map.put("endTime", time.substring(0,time.indexOf("*")));
 //		map.put("startTime", "2012-06-04 18:17:26");
 //		map.put("endTime", "2012-06-05 15:32:13");
 		return map;
@@ -169,7 +169,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		}
 	}
 	
-	public static String getOneHoursAgoTime() {
+	public static String getTwoHoursAgoTime() {
 		Calendar cal = Calendar.getInstance();
 		String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
 		cal.add(Calendar.HOUR, -2);
