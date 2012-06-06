@@ -109,7 +109,7 @@ public abstract class Logger {
             }
             
         }
-        if(stringbuffer!=null){
+        if(stringbuffer!=null&&(!stringbuffer.toString().contains("://"))){
         	savaLog(stringbuffer.toString());
         }
         log(s, date, stringbuffer.toString());
