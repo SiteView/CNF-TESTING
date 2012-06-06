@@ -1,10 +1,13 @@
 package SiteView.ecc.tab.views;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.swt.widgets.Composite;
 
+import SiteView.ecc.tools.ArrayTool;
 import SiteView.ecc.views.EccReportView;
 import Siteview.Api.BusinessObject;
 import siteview.windows.forms.LayoutViewBase;
@@ -20,13 +23,40 @@ import system.Collections.IEnumerator;
  * 
  */
 public class SummaryTabView extends LayoutViewBase {
-	public static Map<String, String> xydata = new HashMap<String, String>();
+	public static List<String> xydata = new ArrayList<String>();// 构建报表的X、Y坐标数据
+	public static List<String> descList = new ArrayList<String>();// 描述信息
 
-	public Map<String, String> getXydata() {
+	public static List<String> getDescList() {
+		return descList;
+	}
+
+	public static void setDescList(List<String> descList) {
+		SummaryTabView.descList = descList;
+	}
+
+	public static String xname, yname = "";// X、Y坐标名称
+
+	public static String getXname() {
+		return xname;
+	}
+
+	public static void setXname(String xname) {
+		SummaryTabView.xname = xname;
+	}
+
+	public static String getYname() {
+		return yname;
+	}
+
+	public static void setYname(String yname) {
+		SummaryTabView.yname = yname;
+	}
+
+	public List<String> getXydata() {
 		return xydata;
 	}
 
-	public static void setXydata(Map<String, String> xydata) {
+	public static void setXydata(List<String> xydata) {
 		SummaryTabView.xydata = xydata;
 	}
 
@@ -47,23 +77,26 @@ public class SummaryTabView extends LayoutViewBase {
 		// TODO Auto-generated method stub
 	}
 
-	public static void setData(BusinessObject bo) {
+	/**
+	 * 获取和解析监测器概要数据
+	 * 
+	 * @param bo
+	 */
+	public static void setSummaryData(BusinessObject bo) {
 		// TODO Auto-generated method stub
-		String boid = bo.get_Id();
 		String monitortype = bo.get_Name();
 		// System.out.println("monitortype:"+monitortype);
 		Map<String, Object> parmsmap = new HashMap<String, Object>();
 		parmsmap.put("monitorId", bo.get_RecId());
-		String time=MonitorLogTabView.getTwoHoursAgoTime();
-		parmsmap.put("startTime", time.substring(time.indexOf("*")+1));
-		parmsmap.put("endTime", time.substring(0,time.indexOf("*")));
-		System.out.println(time.substring(time.indexOf("*")+1)+"  "+time.substring(0,time.indexOf("*")));
-//		parmsmap.put("startTime", "2012-06-04 18:17:26");
-//		parmsmap.put("endTime", "2012-06-05 15:32:13");
+		String time = MonitorLogTabView.getTwoHoursAgoTime();
+		parmsmap.put("startTime", time.substring(time.indexOf("*") + 1));
+		parmsmap.put("endTime", time.substring(0, time.indexOf("*")));
+		// parmsmap.put("startTime", "2012-06-04 18:17:26");
+		// parmsmap.put("endTime", "2012-06-05 15:32:13");
 		ICollection iCollenction = MonitorLogTabView.getLog(parmsmap);
 		IEnumerator monitorlog = iCollenction.GetEnumerator();
 		BusinessObject monitorlogbo = null;
-		// Map<String, String> xydata = new HashMap<String, String>();
+		String newvalue = "";// 最新值
 		while (monitorlog.MoveNext()) {
 			monitorlogbo = (BusinessObject) monitorlog.get_Current();
 			String loginfo = monitorlogbo.GetField("MonitorMassage")
@@ -71,12 +104,39 @@ public class SummaryTabView extends LayoutViewBase {
 			// System.out.println("监测器描述日志数据: "+loginfo);
 			if (monitortype.equals("Ecc.Memory")) {
 				if (!loginfo.startsWith("no data")) {
-					String used = loginfo.substring(0, loginfo.indexOf("%"));
-					xydata.put(used, "100");
+					if (newvalue.equals("")) {
+						newvalue = loginfo.substring(0, loginfo.indexOf("%"));
+						xydata.add(newvalue + "#" + "100");
+					} else {
+						String used = loginfo
+								.substring(0, loginfo.indexOf("%"));
+						xydata.add(used + "#" + "100");
+					}
 				}
 			}
 		}
+		int[] intarray = new int[xydata.size()];
+		int i = 0;
+		for (String str : xydata) {
+			String x = str.substring(0, str.indexOf("#"));
+			intarray[i++] = Integer.parseInt(x);
+		}
+		int max = ArrayTool.getMax(intarray);// 最大值
+		int min = ArrayTool.getMin(intarray);// 最小值
+		int avg = ArrayTool.getAvg(intarray);// 平均值
+		xname = "虚拟内存使用率(%)最大值" + Double.parseDouble(String.valueOf(max))
+				+ "  最小值" + Double.parseDouble(String.valueOf(min)) + "平均值"
+				+ Double.parseDouble(String.valueOf(avg));
+		yname = "虚拟内存使用率(%)";
+		descList.clear();
+		descList.add(yname + "&"
+				+ String.valueOf(Double.parseDouble(String.valueOf(max))) + "&"
+				+ String.valueOf(Double.parseDouble(String.valueOf(avg))) + "&"
+				+ Double.parseDouble(newvalue));
 		setXydata(xydata);
+		setXname(xname);
+		setYname(yname);
+		setDescList(descList);
 	}
 
 }

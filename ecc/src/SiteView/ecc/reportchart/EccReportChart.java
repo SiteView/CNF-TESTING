@@ -1,8 +1,6 @@
 package SiteView.ecc.reportchart;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -24,9 +22,9 @@ public class EccReportChart {
 		this.reporttitle = reporttitle;
 	}
 
-	public static JFreeChart createChart(XYDataset dataset) {
+	public static JFreeChart createChart(XYDataset dataset,String xname,String yname) {
 		JFreeChart chart = ChartFactory.createXYLineChart(getReporttitle(),
-				"时间点", "峰值", dataset, PlotOrientation.VERTICAL, true, true,
+				xname, yname, dataset, PlotOrientation.VERTICAL, true, true,
 				false);
 		XYPlot plot = (XYPlot) chart.getPlot();
 		NumberAxis axis = (NumberAxis) plot.getRangeAxis();
@@ -39,17 +37,13 @@ public class EccReportChart {
 	 * @param xydata
 	 * @return
 	 */
-	public static XYDataset createDataset(Map<String, String> xydata) {
+	public static XYDataset createDataset(List<String> xydata) {
 		XYSeries series = new XYSeries("数据趋势");
-		 Set<Map.Entry<String, String>> set = xydata.entrySet();
-		  for (Iterator<Map.Entry<String, String>> it = set.iterator(); it.hasNext();) {
-	            Map.Entry<String, String> entry = (Map.Entry<String, String>) it.next();
-//	            System.out.println(entry.getKey() + "--->" + entry.getValue());
-	            double x=Double.parseDouble(entry.getKey());
-				double y=Double.parseDouble(entry.getValue());
-//				System.out.println(x+":"+y);
-	            series.add(x, y);
-	        }
+		for (String str : xydata) {
+			String x = str.substring(0, str.indexOf("#"));
+			String y = str.substring(str.indexOf("#")+1, str.length());
+			series.add(Double.parseDouble(x), Double.parseDouble(y));
+		}
 		XYSeriesCollection dataset = new XYSeriesCollection(series);
 		return dataset;
 	}

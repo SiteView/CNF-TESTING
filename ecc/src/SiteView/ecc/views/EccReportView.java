@@ -9,11 +9,11 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.part.ViewPart;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
-
 import SiteView.ecc.reportchart.EccReportChart;
 import SiteView.ecc.tab.views.SummaryTabView;
 
@@ -45,9 +45,10 @@ public class EccReportView extends ViewPart {
 		// sashForm.setWeights(new int[] { 1, 1 });
 		reportComposite = new Composite(composite_reportimgControl, SWT.NONE);
 		reportComposite.setLayout(new FillLayout());
-//		System.out.println("报表曲线图数据Map:"+SummaryTabView.xydata);
+		// System.out.println("报表曲线图数据Map:"+SummaryTabView.xydata);
 		XYDataset dataset = EccReportChart.createDataset(SummaryTabView.xydata);
-		chart = EccReportChart.createChart(dataset);
+		chart = EccReportChart.createChart(dataset, SummaryTabView.xname,
+				SummaryTabView.yname);
 		frame = new ChartComposite(reportComposite, SWT.NONE, chart, true);
 
 		Group group1 = new Group(composite_reportimgControl,
@@ -76,6 +77,11 @@ public class EccReportView extends ViewPart {
 		newColumnTableColumn_3.setWidth(150);
 		newColumnTableColumn_3.setText("最新值");
 		reportForm.setWeights(new int[] { 141, 76 });
+		for (String str : SummaryTabView.descList) {
+			TableItem item = new TableItem(table, SWT.NONE);
+			String[] strdata = str.split("&");
+			item.setText(strdata);
+		}
 	}
 
 	@Override
@@ -83,6 +89,7 @@ public class EccReportView extends ViewPart {
 		// TODO Auto-generated method stub
 
 	}
+
 	/**
 	 * Refresh Report Part
 	 */
@@ -93,7 +100,8 @@ public class EccReportView extends ViewPart {
 			}
 		}
 		XYDataset dataset = EccReportChart.createDataset(SummaryTabView.xydata);
-		chart = EccReportChart.createChart(dataset);
+		chart = EccReportChart.createChart(dataset, SummaryTabView.xname,
+				SummaryTabView.yname);
 		frame = new ChartComposite(reportComposite, SWT.NONE, chart, true);
 		reportComposite.layout();
 	}
