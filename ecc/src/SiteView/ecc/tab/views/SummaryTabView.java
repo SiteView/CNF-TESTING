@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.swt.widgets.Composite;
-
 import SiteView.ecc.tools.ArrayTool;
 import SiteView.ecc.views.EccReportView;
 import Siteview.Api.BusinessObject;
@@ -25,6 +23,56 @@ import system.Collections.IEnumerator;
 public class SummaryTabView extends LayoutViewBase {
 	public static List<String> xydata = new ArrayList<String>();// 构建报表的X、Y坐标数据
 	public static List<String> descList = new ArrayList<String>();// 描述信息
+	public static int goodcount,warningcount,errorcount,disablecount = 0;//正常、危险、错误、禁止数量
+	public static String startTime,endTime ="";//报表数据查询开始时间、结束时间
+
+	public static String getStartTime() {
+		return startTime;
+	}
+
+	public static void setStartTime(String startTime) {
+		SummaryTabView.startTime = startTime;
+	}
+
+	public static String getEndTime() {
+		return endTime;
+	}
+
+	public static void setEndTime(String endTime) {
+		SummaryTabView.endTime = endTime;
+	}
+
+	public static int getDisablecount() {
+		return disablecount;
+	}
+
+	public static void setDisablecount(int disablecount) {
+		SummaryTabView.disablecount = disablecount;
+	}
+
+	public static int getGoodcount() {
+		return goodcount;
+	}
+
+	public static void setGoodcount(int goodcount) {
+		SummaryTabView.goodcount = goodcount;
+	}
+
+	public static int getWarningcount() {
+		return warningcount;
+	}
+
+	public static void setWarningcount(int warningcount) {
+		SummaryTabView.warningcount = warningcount;
+	}
+
+	public static int getErrorcount() {
+		return errorcount;
+	}
+
+	public static void setErrorcount(int errorcount) {
+		SummaryTabView.errorcount = errorcount;
+	}
 
 	public static List<String> getDescList() {
 		return descList;
@@ -85,12 +133,14 @@ public class SummaryTabView extends LayoutViewBase {
 	public static void setSummaryData(BusinessObject bo) {
 		// TODO Auto-generated method stub
 		String monitortype = bo.get_Name();
-		// System.out.println("monitortype:"+monitortype);
 		Map<String, Object> parmsmap = new HashMap<String, Object>();
 		parmsmap.put("monitorId", bo.get_RecId());
 		String time = MonitorLogTabView.getTwoHoursAgoTime();
-		parmsmap.put("startTime", time.substring(time.indexOf("*") + 1));
-		parmsmap.put("endTime", time.substring(0, time.indexOf("*")));
+		startTime = time.substring(time.indexOf("*") + 1);
+		endTime = time.substring(0, time.indexOf("*"));
+		parmsmap.put("startTime", startTime);
+		parmsmap.put("endTime", endTime);
+		
 		// parmsmap.put("startTime", "2012-06-04 18:17:26");
 		// parmsmap.put("endTime", "2012-06-05 15:32:13");
 		ICollection iCollenction = MonitorLogTabView.getLog(parmsmap);
@@ -99,6 +149,15 @@ public class SummaryTabView extends LayoutViewBase {
 		String newvalue = "";// 最新值
 		while (monitorlog.MoveNext()) {
 			monitorlogbo = (BusinessObject) monitorlog.get_Current();
+			String monitorstatus =  monitorlogbo.GetField("MonitorStatus")
+					.get_NativeValue().toString();
+			if (monitorstatus.equals("good")) {
+				goodcount++;
+			}if (monitorstatus.equals("error")) {
+				errorcount++;
+			}if (monitorstatus.equals("warning")) {
+				warningcount++;
+			}
 			String loginfo = monitorlogbo.GetField("MonitorMassage")
 					.get_NativeValue().toString();
 			// System.out.println("监测器描述日志数据: "+loginfo);
@@ -112,6 +171,8 @@ public class SummaryTabView extends LayoutViewBase {
 								.substring(0, loginfo.indexOf("%"));
 						xydata.add(used + "#" + "100");
 					}
+				}else{
+						xydata.add("0#100");
 				}
 			}
 		}
@@ -137,6 +198,11 @@ public class SummaryTabView extends LayoutViewBase {
 		setXname(xname);
 		setYname(yname);
 		setDescList(descList);
+		setGoodcount(goodcount);
+		setErrorcount(errorcount);
+		setWarningcount(warningcount);
+		setStartTime(startTime);
+		setEndTime(endTime);
 	}
 
 }

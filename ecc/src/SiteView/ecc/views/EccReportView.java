@@ -7,6 +7,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -55,7 +56,22 @@ public class EccReportView extends ViewPart {
 				SWT.SHADOW_ETCHED_OUT);
 		group1.setLayout(new FillLayout(SWT.VERTICAL));
 		group1.setText("数据记录");
-
+		Label labelName = new Label(group1, SWT.NONE);
+		labelName.setText("   正常:   " + SummaryTabView.goodcount
+				+ "条               危险：   " + SummaryTabView.warningcount
+				+ "条    ");
+		Label labelName1 = new Label(group1, SWT.NONE);
+		labelName1.setText("   错误:   " + SummaryTabView.errorcount
+				+ "条               禁止：    " + SummaryTabView.disablecount
+				+ "条    ");
+		Label labelName2 = new Label(group1, SWT.NONE);
+		labelName2.setText("   阀值:   [虚拟内存利用率(%) >= 95]    ");
+		Label labelName3 = new Label(group1, SWT.NONE);
+		labelName3.setText("   时间段：   ");
+		Label labelName4 = new Label(group1, SWT.NONE);
+		labelName4.setText("   从：   "+SummaryTabView.startTime+" 开始");
+		Label labelName5 = new Label(group1, SWT.NONE);
+		labelName5.setText("   到：   "+SummaryTabView.endTime+" 结束");
 		// frame1 = new ChartComposite(group1, SWT.NONE, chart, true);
 		tableViewer = new TableViewer(composite_reportdescControl, SWT.MULTI
 				| SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
