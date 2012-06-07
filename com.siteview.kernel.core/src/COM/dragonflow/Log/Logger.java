@@ -109,16 +109,13 @@ public abstract class Logger {
             }
             
         }
-        if(stringbuffer!=null&&(!stringbuffer.toString().contains("://"))){
-        	savaLog(stringbuffer.toString());
-        }
         log(s, date, stringbuffer.toString());
     }
 	public void log(String s, java.util.Date date, String s1) {
-		savaLog(s1);
+		
     }
 	//»’÷æ¥Ê¥¢
-    private void savaLog(String s1) {
+    protected static void savaLog(String s1) {
 		// TODO Auto-generated method stub
 		String category=s1.substring(0,s1.indexOf("\t"));
 		s1=s1.substring(s1.indexOf("\t")+1);

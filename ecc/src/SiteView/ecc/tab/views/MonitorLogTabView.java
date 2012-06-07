@@ -9,10 +9,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import oracle.net.aso.e;
+
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
@@ -33,6 +39,7 @@ import system.Xml.XmlElement;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -59,7 +66,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 	}
 
 	@Override
-	protected void createView(Composite parent) {
+	protected void createView(final Composite parent) {
 		// TODO Auto-generated method stub
 		toolBar = new ToolBar(parent, SWT.NONE);
 		toolBar.setBounds(10, 1, 505, 30);
@@ -84,13 +91,77 @@ public class MonitorLogTabView extends LayoutViewBase {
 		disable = new Button(toolBar, SWT.RADIO | SWT.LEFT);
 		disable.setText("½ûÖ¹");
 		disable.setBounds(260, 9, 50, 20);
-		
-		table_1 = new Table(parent, SWT.BORDER | SWT.FULL_SELECTION);
-		table_1.setBounds(0, 30, 755, 270);
-		table_1.setHeaderVisible(true);
-		table_1.setLinesVisible(true);
-
-		createTable(iCollenction);
+		all.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				map=setMap(bo);
+				iCollenction=getLog(map);
+				createTable(parent,iCollenction);
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		waring.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				map=setMap(bo);
+				map.put("MonitorStatus", "warning");
+				iCollenction=getLog(map);
+				createTable(parent,iCollenction);
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		disable.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				map=setMap(bo);
+				map.put("MonitorStatus", "disable");
+				iCollenction=getLog(map);
+				createTable(parent,iCollenction);
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		good.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				map=setMap(bo);
+				map.put("MonitorStatus", "good");
+				iCollenction=getLog(map);
+				createTable(parent,iCollenction);
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		error.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				map=setMap(bo);
+				map.put("MonitorStatus", "error");
+				iCollenction=getLog(map);
+				createTable(parent,iCollenction);
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});	
+		iCollenction=getLog(map);
+		createTable(parent,iCollenction);
 	}
 	@Override
 	public void SetDataFromBusOb(BusinessObject bo) {
@@ -101,7 +172,6 @@ public class MonitorLogTabView extends LayoutViewBase {
 		MonitorLogTabView.bo=bo;
 		map=setMap(bo);
 		cloumns=setCloumns(bo);
-		iCollenction=getLog(map);
 	}
 	
 	private static List<String> setCloumns(BusinessObject bo2) {
@@ -179,7 +249,15 @@ public class MonitorLogTabView extends LayoutViewBase {
 		return iCollenction;
 	}
 
-	public static void createTable(ICollection iCollection) {
+	public static void createTable(Composite parent,ICollection iCollection) {
+		if(table_1!=null&&!table_1.isDisposed()){
+			table_1.dispose();
+		}
+		table_1 = new Table(parent, SWT.BORDER | SWT.FULL_SELECTION);
+		table_1.setBounds(0, 30, 755, 270);
+		table_1.setHeaderVisible(true);
+		table_1.setLinesVisible(true);
+		
 		for(int i=0;i<cloumns.size();i++){
 			TableColumn tblclmnNewColumn = new TableColumn(table_1, SWT.NONE);
 			if(i==(cloumns.size()-1)){
@@ -211,6 +289,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 			}
 			item.setText(data);
 		}
+		parent.layout();
 	}
 	
 	private static List<String> format(String s) {
