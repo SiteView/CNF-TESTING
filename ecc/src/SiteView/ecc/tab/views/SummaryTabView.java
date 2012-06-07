@@ -7,14 +7,20 @@ import java.util.Map;
 import org.eclipse.swt.widgets.Composite;
 import SiteView.ecc.tools.ArrayTool;
 import SiteView.ecc.views.EccReportView;
+import Siteview.Operators;
+import Siteview.QueryInfoToGet;
+import Siteview.SiteviewQuery;
 import Siteview.Api.BusinessObject;
+import Siteview.Api.ISiteviewApi;
+import Siteview.Windows.Forms.ConnectionBroker;
 import siteview.windows.forms.LayoutViewBase;
 import system.Collections.ICollection;
 import system.Collections.IEnumerator;
+import system.Xml.XmlElement;
 
 /**
  * <p>
- * Monitor Summary Info View.
+ * 监测器概要信息视图.
  * </p>
  * 
  * @author zhongping.wang
@@ -23,8 +29,13 @@ import system.Collections.IEnumerator;
 public class SummaryTabView extends LayoutViewBase {
 	public static List<String> xydata = new ArrayList<String>();// 构建报表的X、Y坐标数据
 	public static List<String> descList = new ArrayList<String>();// 描述信息
-	public static int goodcount,warningcount,errorcount,disablecount = 0;//正常、危险、错误、禁止数量
-	public static String startTime,endTime ="";//报表数据查询开始时间、结束时间
+	public static int goodcount, warningcount, errorcount, disablecount = 0;// 正常、危险、错误、禁止数量
+	public static String startTime, endTime = "";// 报表数据查询开始时间、结束时间
+	public static String newvalue = "";// 最新值
+	public static int max, min, avg = 0;// 最大值、最小值、平均值
+	public static String monitorName = "";// 监测器名称
+	public static String reportDescName = "";// 报表描述
+	public static String alarmCondition = "";// 报警阀值条件
 
 	public static String getStartTime() {
 		return startTime;
@@ -132,6 +143,7 @@ public class SummaryTabView extends LayoutViewBase {
 	 */
 	public static void setSummaryData(BusinessObject bo) {
 		// TODO Auto-generated method stub
+		dataInitialization();// 初始化数据
 		String monitortype = bo.get_Name();
 		Map<String, Object> parmsmap = new HashMap<String, Object>();
 		parmsmap.put("monitorId", bo.get_RecId());
@@ -140,41 +152,33 @@ public class SummaryTabView extends LayoutViewBase {
 		endTime = time.substring(0, time.indexOf("*"));
 		parmsmap.put("startTime", startTime);
 		parmsmap.put("endTime", endTime);
-		
+		alarmCondition = getAlarmCondition(bo.get_RecId(),monitortype);//获取阀值条件
 		// parmsmap.put("startTime", "2012-06-04 18:17:26");
 		// parmsmap.put("endTime", "2012-06-05 15:32:13");
 		ICollection iCollenction = MonitorLogTabView.getLog(parmsmap);
 		IEnumerator monitorlog = iCollenction.GetEnumerator();
 		BusinessObject monitorlogbo = null;
-		String newvalue = "";// 最新值
 		while (monitorlog.MoveNext()) {
 			monitorlogbo = (BusinessObject) monitorlog.get_Current();
-			String monitorstatus =  monitorlogbo.GetField("MonitorStatus")
+			String monitorstatus = monitorlogbo.GetField("MonitorStatus")
 					.get_NativeValue().toString();
 			if (monitorstatus.equals("good")) {
 				goodcount++;
-			}if (monitorstatus.equals("error")) {
+			}
+			if (monitorstatus.equals("error")) {
 				errorcount++;
-			}if (monitorstatus.equals("warning")) {
+			}
+			if (monitorstatus.equals("warning")) {
 				warningcount++;
 			}
 			String loginfo = monitorlogbo.GetField("MonitorMassage")
 					.get_NativeValue().toString();
 			// System.out.println("监测器描述日志数据: "+loginfo);
-			if (monitortype.equals("Ecc.Memory")) {
-				if (!loginfo.startsWith("no data")) {
-					if (newvalue.equals("")) {
-						newvalue = loginfo.substring(0, loginfo.indexOf("%"));
-						xydata.add(newvalue + "#" + "100");
-					} else {
-						String used = loginfo
-								.substring(0, loginfo.indexOf("%"));
-						xydata.add(used + "#" + "100");
-					}
-				}else{
-						xydata.add("0#100");
-				}
-			}
+			String logtime = monitorlogbo.GetField("CreatedDateTime")
+					.get_NativeValue().toString();
+			monitorName = monitorlogbo.GetField("MonitorName")
+					.get_NativeValue().toString();
+			analyticLog(monitortype, loginfo, logtime);
 		}
 		int[] intarray = new int[xydata.size()];
 		int i = 0;
@@ -182,14 +186,16 @@ public class SummaryTabView extends LayoutViewBase {
 			String x = str.substring(0, str.indexOf("#"));
 			intarray[i++] = Integer.parseInt(x);
 		}
-		int max = ArrayTool.getMax(intarray);// 最大值
-		int min = ArrayTool.getMin(intarray);// 最小值
-		int avg = ArrayTool.getAvg(intarray);// 平均值
-		xname = "虚拟内存使用率(%)最大值" + Double.parseDouble(String.valueOf(max))
-				+ "  最小值" + Double.parseDouble(String.valueOf(min)) + "平均值"
-				+ Double.parseDouble(String.valueOf(avg));
-		yname = "虚拟内存使用率(%)";
-		descList.clear();
+		if (intarray.length > 0) {
+			max = ArrayTool.getMax(intarray);// 最大值
+			min = ArrayTool.getMin(intarray);// 最小值
+			avg = ArrayTool.getAvg(intarray);// 平均值
+		}
+		Map<String, String> xyLineMap = getXYName(monitortype);
+		xname = xyLineMap.get("XLineName");
+		yname = xyLineMap.get("YLineName");
+		if (newvalue.equals(""))
+			newvalue = "0";
 		descList.add(yname + "&"
 				+ String.valueOf(Double.parseDouble(String.valueOf(max))) + "&"
 				+ String.valueOf(Double.parseDouble(String.valueOf(avg))) + "&"
@@ -205,4 +211,104 @@ public class SummaryTabView extends LayoutViewBase {
 		setEndTime(endTime);
 	}
 
+	/**
+	 * 数据初始化
+	 */
+	public static void dataInitialization() {
+		newvalue = "";
+		monitorName = "";
+		reportDescName = "";
+		alarmCondition = "";
+		max = 0;
+		min = 0;
+		avg = 0;
+		goodcount = 0;
+		errorcount = 0;
+		warningcount = 0;
+		disablecount = 0;
+		xname = "";
+		yname = "";
+		descList.clear();
+		xydata.clear();
+	}
+
+	/**
+	 * 解析监测器日志
+	 */
+	public static void analyticLog(String monitortype, String loginfo,
+			String logtime) {
+		if (monitortype.equals("Ecc.Memory")) {
+			if (!loginfo.startsWith("no data") && loginfo.length() > 0) {
+				if (newvalue.equals("")) {
+					newvalue = loginfo.substring(0, loginfo.indexOf("%"));
+					xydata.add(newvalue + "#" + logtime);
+				} else {
+					String used = loginfo.substring(0, loginfo.indexOf("%"));
+					xydata.add(used + "#" + logtime);
+				}
+			} else {
+				xydata.add("0#" + logtime + "");
+			}
+		}
+	}
+
+	/**
+	 * 获取报表XY轴名称
+	 */
+	public static Map<String, String> getXYName(String monitortype) {
+		Map<String, String> xylinemap = new HashMap<String, String>();
+		String xLineName = "";
+		String yLineName = "";
+		if (monitortype.equals("Ecc.Memory")) {
+			xLineName = "内存使用率(%)最大值" + Double.parseDouble(String.valueOf(max))
+					+ "  最小值" + Double.parseDouble(String.valueOf(min)) + "平均值"
+					+ Double.parseDouble(String.valueOf(avg));
+			yLineName = "内存使用率(%)";
+			reportDescName = "内存使用率百分比  ";
+		}
+		xylinemap.put("XLineName", xLineName);
+		xylinemap.put("YLineName", yLineName);
+		return xylinemap;
+	}
+
+	/**
+	 * 获取报警条件阀值
+	 */
+	public static String getAlarmCondition(String monitorId,String monitorType) {
+		ICollection iCollenction = getAlarmConditionCollenction(monitorId);
+		IEnumerator alarmEnumerator = iCollenction.GetEnumerator();
+		BusinessObject alarmBo = null;
+		StringBuffer sf = new StringBuffer();
+		while (alarmEnumerator.MoveNext()) {
+			alarmBo = (BusinessObject) alarmEnumerator.get_Current();
+			String operator = alarmBo.GetField("Operator")
+					.get_NativeValue().toString();
+			String alramValue = alarmBo.GetField("AlramValue")
+					.get_NativeValue().toString();
+			if (monitorType.equals("Ecc.Memory")) {
+				sf.append("[内存使用 "+" "+operator+" "+alramValue+"]");
+			}
+		}
+		return sf.toString();
+	}
+
+	/**
+	 * 获取报警条件阀值集合
+	 * 
+	 * @param recId
+	 * @return iCollenction
+	 */
+	public static ICollection getAlarmConditionCollenction(String recId) {
+		ISiteviewApi siteviewApi = ConnectionBroker.get_SiteviewApi();
+		SiteviewQuery siteviewquery = new SiteviewQuery();
+		siteviewquery.AddBusObQuery("Alarm", QueryInfoToGet.All);
+		XmlElement xmlElementscanconfigid = siteviewquery.get_CriteriaBuilder()
+				.FieldAndValueExpression("ParentLink_RecID", Operators.Equals,
+						recId);
+		siteviewquery.set_BusObSearchCriteria(xmlElementscanconfigid);
+		ICollection iCollenction = siteviewApi.get_BusObService()
+				.get_SimpleQueryResolver()
+				.ResolveQueryToBusObList(siteviewquery);
+		return iCollenction;
+	}
 }

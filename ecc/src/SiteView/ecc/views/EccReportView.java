@@ -65,7 +65,7 @@ public class EccReportView extends ViewPart {
 				+ "条               禁止：    " + SummaryTabView.disablecount
 				+ "条    ");
 		Label labelName2 = new Label(group1, SWT.NONE);
-		labelName2.setText("   阀值:   [虚拟内存利用率(%) >= 95]    ");
+		labelName2.setText("   阀值:   "+SummaryTabView.alarmCondition+"    ");
 		Label labelName3 = new Label(group1, SWT.NONE);
 		labelName3.setText("   时间段：   ");
 		Label labelName4 = new Label(group1, SWT.NONE);
