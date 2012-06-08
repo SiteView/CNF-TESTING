@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,7 @@ import org.eclipse.swt.widgets.ToolBar;
 public class MonitorLogTabView extends LayoutViewBase {
 	// 数据
 	private static BusinessObject bo;
+	private BusinessObject bo1;
 	private static ICollection iCollenction;
 	static Map<String, Object> map;
 	static List cloumns;
@@ -59,152 +61,20 @@ public class MonitorLogTabView extends LayoutViewBase {
 	private Button waring;
 	private Button disable;
 	private Button all;
-	private static Table table_1;
+	private Table table_1;
 
 	public MonitorLogTabView(Composite parent) {
 		super(parent);
 	}
-
-	@Override
-	protected void createView(final Composite parent) {
-		// TODO Auto-generated method stub
-		toolBar = new ToolBar(parent, SWT.NONE);
-		toolBar.setBounds(10, 1, 505, 30);
-
-		all = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		all.setText("全部");
-		all.setBounds(10, 9, 50, 20);
-		all.setSelection(true);
-
-		error = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		error.setText("错误");
-		error.setBounds(70, 9, 50, 20);
-
-		waring = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		waring.setText("危险");
-		waring.setBounds(130, 9, 50, 20);
-
-		good = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		good.setText("正常");
-		good.setBounds(190, 9, 60, 20);
-
-		disable = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		disable.setText("禁止");
-		disable.setBounds(260, 9, 50, 20);
-		all.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				map=setMap(bo);
-				iCollenction=getLog(map);
-				createTable(parent,iCollenction);
-			}
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
-		waring.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				map=setMap(bo);
-				map.put("MonitorStatus", "warning");
-				iCollenction=getLog(map);
-				createTable(parent,iCollenction);
-			}
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
-		disable.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				map=setMap(bo);
-				map.put("MonitorStatus", "disable");
-				iCollenction=getLog(map);
-				createTable(parent,iCollenction);
-			}
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
-		good.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				map=setMap(bo);
-				map.put("MonitorStatus", "good");
-				iCollenction=getLog(map);
-				createTable(parent,iCollenction);
-			}
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
-		error.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				map=setMap(bo);
-				map.put("MonitorStatus", "error");
-				iCollenction=getLog(map);
-				createTable(parent,iCollenction);
-			}
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});	
-		iCollenction=getLog(map);
-		createTable(parent,iCollenction);
-	}
-	@Override
 	public void SetDataFromBusOb(BusinessObject bo) {
-		// TODO Auto-generated method stub
+		bo1=bo;
 	}
-
+	//赋初始值
 	public static void SetData(BusinessObject bo) {
 		MonitorLogTabView.bo=bo;
 		map=setMap(bo);
 		cloumns=setCloumns(bo);
 	}
-	
-	private static List<String> setCloumns(BusinessObject bo2) {
-		List<String> list=new ArrayList<String>();
-		list.add("时间");
-		list.add("名称");
-		if(bo.get_Name().contains("ping")){
-			list.add("包成功率(%)");
-			list.add("往返时间(ms)");
-			list.add("状态值");
-		}else if(bo.get_Name().contains("DiskSpace")){
-			list.add("Disk使用率(%)");
-			list.add("剩余空间(MB)");
-			list.add("总空间(MB)");
-		}else if(bo.get_Name().contains("Memory")){
-			list.add("内存利用率(%)");
-			list.add("内存剩余空间(MB)");
-			return list;
-		}else if(bo.get_Name().equals("Ecc.URL")){
-			list.add("返回码(200=ok)");
-			list.add("下载时间(s)");
-			list.add("文件大小(Bytes)");
-		}else if(bo.get_Name().equals("Ecc.DNS")||bo.get_Name().equals("Ecc.Mail")){
-			list.add("数据往返时间(s)");
-		}else if(bo.get_Name().equals("Ecc.URLList")){
-			list.add("总状态");
-			list.add("第一步状态");
-			list.add("第二步状态");
-		}
-		list.add("描述");
-		return list;
-	}
-
 	private static Map<String,Object> setMap(BusinessObject bo) {
 		map = new java.util.HashMap<String, Object>();
 		map.put("monitorId", bo.get_RecId());
@@ -213,7 +83,16 @@ public class MonitorLogTabView extends LayoutViewBase {
 		map.put("startTime", time.substring(time.indexOf("*")+1));
 		return map;
 	}
-
+	//赋时间值（得到当前及两个小时时间）
+	public static String getTwoHoursAgoTime() {
+		Calendar cal = Calendar.getInstance();
+		String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
+		cal.add(Calendar.HOUR, -2);
+		String twoHoursAgoTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(cal.getTime());
+		return currentTime+"*"+twoHoursAgoTime;
+	}
+	//查日志
 	public static ICollection getLog(Map<String, Object> map) {
 		ISiteviewApi siteviewApi = ConnectionBroker.get_SiteviewApi();
 		SiteviewQuery query = new SiteviewQuery();
@@ -248,8 +127,93 @@ public class MonitorLogTabView extends LayoutViewBase {
 				.get_SimpleQueryResolver().ResolveQueryToBusObList(query);
 		return iCollenction;
 	}
+	protected void createView(final Composite parent) {
+		createToolbar(parent);
+		iCollenction=getLog(map);
+		createTable(parent,iCollenction);
+		all.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				if(	all.getSelection()){
+					SetData(bo1);
+					iCollenction=getLog(map);
+					createTable(parent,iCollenction);
+				}
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
+		});
+		waring.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				if(	waring.getSelection()){
+					SetData(bo1);
+					map.put("MonitorStatus", "warning");
+					iCollenction=getLog(map);
+					createTable(parent,iCollenction);
+				}
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
+		});
+		disable.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				if(	all.getSelection()){
+					SetData(bo1);
+					map.put("MonitorStatus", "disable");
+					iCollenction=getLog(map);
+					createTable(parent,iCollenction);
+				}
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
+		});
+		good.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				if(	good.getSelection()){
+					SetData(bo1);
+					map.put("MonitorStatus", "good");
+					iCollenction=getLog(map);
+					createTable(parent,iCollenction);
+				}
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
+		});
+		error.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				if(	error.getSelection()){
+					SetData(bo1);
+					map.put("MonitorStatus", "error");
+					iCollenction=getLog(map);
+					createTable(parent,iCollenction);
+				}
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
+		});	
+	}
+    private void createToolbar(Composite parent) {
+    	toolBar = new ToolBar(parent, SWT.NONE);
+		toolBar.setBounds(10, 1, 505, 30);
 
-	public static void createTable(Composite parent,ICollection iCollection) {
+		all = new Button(toolBar, SWT.RADIO | SWT.LEFT);
+		all.setText("全部");
+		all.setBounds(10, 9, 50, 20);
+		all.setSelection(true);
+
+		error = new Button(toolBar, SWT.RADIO | SWT.LEFT);
+		error.setText("错误");
+		error.setBounds(70, 9, 50, 20);
+
+		waring = new Button(toolBar, SWT.RADIO | SWT.LEFT);
+		waring.setText("危险");
+		waring.setBounds(130, 9, 50, 20);
+
+		good = new Button(toolBar, SWT.RADIO | SWT.LEFT);
+		good.setText("正常");
+		good.setBounds(190, 9, 60, 20);
+
+		disable = new Button(toolBar, SWT.RADIO | SWT.LEFT);
+		disable.setText("禁止");
+		disable.setBounds(260, 9, 50, 20);
+		
+	}
+	//日志数据表
+	public  void createTable(Composite parent,ICollection iCollection) {
 		if(table_1!=null&&!table_1.isDisposed()){
 			table_1.dispose();
 		}
@@ -257,7 +221,6 @@ public class MonitorLogTabView extends LayoutViewBase {
 		table_1.setBounds(0, 30, 755, 270);
 		table_1.setHeaderVisible(true);
 		table_1.setLinesVisible(true);
-		
 		for(int i=0;i<cloumns.size();i++){
 			TableColumn tblclmnNewColumn = new TableColumn(table_1, SWT.NONE);
 			if(i==(cloumns.size()-1)){
@@ -291,7 +254,46 @@ public class MonitorLogTabView extends LayoutViewBase {
 		}
 		parent.layout();
 	}
-	
+	//根据不同监测器类型得到表头
+	private static List<String> setCloumns(BusinessObject bo2) {
+		List<String> list=new ArrayList<String>();
+		list.add("时间");
+		list.add("名称");
+		if(bo.get_Name().contains("ping")){
+			list.add("包成功率(%)");
+			list.add("往返时间(ms)");
+			list.add("状态值");
+		}else if(bo.get_Name().contains("DiskSpace")){
+			list.add("Disk使用率(%)");
+			list.add("剩余空间(MB)");
+			list.add("总空间(MB)");
+		}else if(bo.get_Name().contains("Memory")){
+			list.add("内存利用率(%)");
+			list.add("内存剩余空间(MB)");
+			return list;
+		}else if(bo.get_Name().equals("Ecc.URL")){
+			list.add("返回码(200=ok)");
+			list.add("下载时间(s)");
+			list.add("文件大小(Bytes)");
+		}else if(bo.get_Name().equals("Ecc.DNS")||bo.get_Name().equals("Ecc.Mail")){
+			list.add("数据往返时间(s)");
+		}else if(bo.get_Name().equals("Ecc.URLList")){
+			list.add("总状态");
+			list.add("第一步状态");
+			list.add("第二步状态");
+		}else if(bo.get_Name().equals("Ecc.File")){
+			list.add("修改时间(minutes)");
+			list.add("文件大小(bytes)");
+		}else if(bo.get_Name().equals("Ecc.Service")){
+			list.add("运行状态");
+			list.add("进程数");
+			list.add("占用cpu");
+			list.add("占有memory");
+		}
+		list.add("描述");
+		return list;
+	}
+	//根据不同监测器类型解析日志数据
 	private static List<String> format(String s) {
 		List<String> massage=new ArrayList<String>();
 		s=s.trim();
@@ -328,16 +330,23 @@ public class MonitorLogTabView extends LayoutViewBase {
 			massage.add("");
 			massage.add("");
 			massage.add("往返时间(ms)="+s.substring(s.indexOf("avg")+4,s.indexOf("ms")).trim());
+		}else if(bo.get_Name().equals("Ecc.File")){
+			massage.add(s.substring(s.lastIndexOf("\t")+1));
+			s=s.substring(0,s.indexOf("\t")).trim();
+			massage.add(s.substring(s.lastIndexOf("\t")+1,s.indexOf("bytes")));
+			long time=System.currentTimeMillis()-Long.parseLong(massage.get(0))*60*1000;
+			String lastSaveTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time));
+			massage.add("文件大小(bytes)="+massage.get(1)+",上次修改时间="+lastSaveTime);
+		}else if(bo.get_Name().equals("Ecc.Service")){
+			massage.add(s.substring(0,s.indexOf(",")));
+			s=s.substring(s.lastIndexOf(massage.get(0)));
+			s=s.substring(s.indexOf("\t")+1).trim();
+			massage.add(s.substring(0,s.indexOf("\t")));
+			s=s.substring(s.indexOf("\t")+1);
+			massage.add(s.substring(0,s.indexOf("\t")));
+			massage.add(s.substring(s.lastIndexOf("\t")+1));
+			massage.add("运行状态="+massage.get(0));
 		}
 		return massage;
-	}
-
-	public static String getTwoHoursAgoTime() {
-		Calendar cal = Calendar.getInstance();
-		String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
-		cal.add(Calendar.HOUR, -2);
-		String twoHoursAgoTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-				.format(cal.getTime());
-		return currentTime+"*"+twoHoursAgoTime;
 	}
 }
