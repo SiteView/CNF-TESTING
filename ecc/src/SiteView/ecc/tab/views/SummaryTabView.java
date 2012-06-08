@@ -2,8 +2,11 @@ package SiteView.ecc.tab.views;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.swt.widgets.Composite;
 import SiteView.ecc.tools.ArrayTool;
 import SiteView.ecc.views.EccReportView;
@@ -36,88 +39,10 @@ public class SummaryTabView extends LayoutViewBase {
 	public static String monitorName = "";// 监测器名称
 	public static String reportDescName = "";// 报表描述
 	public static String alarmCondition = "";// 报警阀值条件
-
-	public static String getStartTime() {
-		return startTime;
-	}
-
-	public static void setStartTime(String startTime) {
-		SummaryTabView.startTime = startTime;
-	}
-
-	public static String getEndTime() {
-		return endTime;
-	}
-
-	public static void setEndTime(String endTime) {
-		SummaryTabView.endTime = endTime;
-	}
-
-	public static int getDisablecount() {
-		return disablecount;
-	}
-
-	public static void setDisablecount(int disablecount) {
-		SummaryTabView.disablecount = disablecount;
-	}
-
-	public static int getGoodcount() {
-		return goodcount;
-	}
-
-	public static void setGoodcount(int goodcount) {
-		SummaryTabView.goodcount = goodcount;
-	}
-
-	public static int getWarningcount() {
-		return warningcount;
-	}
-
-	public static void setWarningcount(int warningcount) {
-		SummaryTabView.warningcount = warningcount;
-	}
-
-	public static int getErrorcount() {
-		return errorcount;
-	}
-
-	public static void setErrorcount(int errorcount) {
-		SummaryTabView.errorcount = errorcount;
-	}
-
-	public static List<String> getDescList() {
-		return descList;
-	}
-
-	public static void setDescList(List<String> descList) {
-		SummaryTabView.descList = descList;
-	}
-
 	public static String xname, yname = "";// X、Y坐标名称
-
-	public static String getXname() {
-		return xname;
-	}
-
-	public static void setXname(String xname) {
-		SummaryTabView.xname = xname;
-	}
-
-	public static String getYname() {
-		return yname;
-	}
-
-	public static void setYname(String yname) {
-		SummaryTabView.yname = yname;
-	}
-
-	public List<String> getXydata() {
-		return xydata;
-	}
-
-	public static void setXydata(List<String> xydata) {
-		SummaryTabView.xydata = xydata;
-	}
+	public static List<Map<String, List<String>>> reportDescList = new ArrayList<Map<String, List<String>>>();// 报表返回值、最大值、平均值、最新值集合
+	public static String returnKeyString = "";// 返回值名称
+	public static List<String> logTimeAndlogInfoArrayList = new ArrayList<String>();// 日志时间#日志内容集合
 
 	public SummaryTabView(Composite parent) {
 		super(parent);
@@ -134,6 +59,30 @@ public class SummaryTabView extends LayoutViewBase {
 	@Override
 	public void SetDataFromBusOb(BusinessObject bo) {
 		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * 数据初始化
+	 */
+	public static void dataInitialization() {
+		newvalue = "";
+		monitorName = "";
+		reportDescName = "";
+		returnKeyString = "";
+		alarmCondition = "";
+		max = 0;
+		min = 0;
+		avg = 0;
+		goodcount = 0;
+		errorcount = 0;
+		warningcount = 0;
+		disablecount = 0;
+		xname = "";
+		yname = "";
+		descList.clear();
+		xydata.clear();
+		logTimeAndlogInfoArrayList.clear();
+		reportDescList.clear();
 	}
 
 	/**
@@ -178,8 +127,10 @@ public class SummaryTabView extends LayoutViewBase {
 					.get_NativeValue().toString();
 			monitorName = monitorlogbo.GetField("MonitorName")
 					.get_NativeValue().toString();
-			analyticLog(monitortype, loginfo, logtime);
+			logTimeAndlogInfoArrayList.add(logtime + "#" + loginfo);
 		}
+		List<Map<String, List<String>>> li = analyticLogReturnMap(monitortype,
+				logTimeAndlogInfoArrayList);
 		int[] intarray = new int[xydata.size()];
 		int i = 0;
 		for (String str : xydata) {
@@ -187,46 +138,16 @@ public class SummaryTabView extends LayoutViewBase {
 			intarray[i++] = Integer.parseInt(x);
 		}
 		if (intarray.length > 0) {
-			max = ArrayTool.getMax(intarray);// 最大值
-			min = ArrayTool.getMin(intarray);// 最小值
-			avg = ArrayTool.getAvg(intarray);// 平均值
+			max = ArrayTool.getIntArrayMax(intarray);// 最大值
+			min = ArrayTool.getIntArrayMin(intarray);// 最小值
+			avg = ArrayTool.getIntArrayAvg(intarray);// 平均值
 		}
 		Map<String, String> xyLineMap = getXYName(monitortype);
 		xname = xyLineMap.get("XLineName");
 		yname = xyLineMap.get("YLineName");
 		if (newvalue.equals(""))
 			newvalue = "0";
-		descList = getReturnDescList(monitortype);//获取监测器返回描述值列表
-		setXydata(xydata);
-		setXname(xname);
-		setYname(yname);
-		setDescList(descList);
-		setGoodcount(goodcount);
-		setErrorcount(errorcount);
-		setWarningcount(warningcount);
-		setStartTime(startTime);
-		setEndTime(endTime);
-	}
-
-	/**
-	 * 数据初始化
-	 */
-	public static void dataInitialization() {
-		newvalue = "";
-		monitorName = "";
-		reportDescName = "";
-		alarmCondition = "";
-		max = 0;
-		min = 0;
-		avg = 0;
-		goodcount = 0;
-		errorcount = 0;
-		warningcount = 0;
-		disablecount = 0;
-		xname = "";
-		yname = "";
-		descList.clear();
-		xydata.clear();
+		descList = getReturnDescList(monitortype, li);// 获取监测器返回描述值列表
 	}
 
 	/**
@@ -234,68 +155,119 @@ public class SummaryTabView extends LayoutViewBase {
 	 * 
 	 * @return descList
 	 */
-	public static List<String> getReturnDescList(String monitorType) {
+	public static List<String> getReturnDescList(String monitorType,
+			List<Map<String, List<String>>> list) {
 		descList.add(yname + "&"
 				+ String.valueOf(Double.parseDouble(String.valueOf(max))) + "&"
 				+ String.valueOf(Double.parseDouble(String.valueOf(avg))) + "&"
 				+ Double.parseDouble(newvalue));
-		if (monitorType.equals("Ecc.URL")) {
-//			descList.add("下载时间(s)"+"&"+"1.84"+"&"+"0.906"+"&"+"0.45");
+		if (list!=null) {
+			for (Map<String, List<String>> map : list) {
+				Set<Map.Entry<String, List<String>>> set = map.entrySet();
+				for (Iterator<Map.Entry<String, List<String>>> it = set.iterator(); it
+						.hasNext();) {
+					Map.Entry<String, List<String>> entry = (Map.Entry<String, List<String>>) it
+							.next();
+					List<String> arrlist = entry.getValue();
+					System.out.println(arrlist.get(0));
+					if (monitorType.equals(arrlist.get(0))) {
+						descList.add(entry.getKey() + "&" + arrlist.get(1) + "&"
+								+ arrlist.get(2) + "&" + arrlist.get(3));
+					}
+				}
+			}
 		}
 		return descList;
 	}
 
 	/**
-	 * 解析监测器日志
+	 * @param String
+	 *            monitortype监测器类型 List<String>
+	 *            logTimeAndlogInfoList监测器日志时间#内容集合 解析监测器日志并返回
+	 *            报表返回值、最大值、平均值、最新值集合
 	 */
-	public static void analyticLog(String monitortype, String loginfo,
-			String logtime) {
-		if (monitortype.equals("Ecc.Memory")
-				|| monitortype.equals("Ecc.DiskSpace")) {
-			if (!loginfo.startsWith("no data") && loginfo.length() > 0) {
-				if (newvalue.equals("")) {
-					newvalue = loginfo.substring(0, loginfo.indexOf("%"));
-					xydata.add(newvalue + "#" + logtime);
+	public static List<Map<String, List<String>>> analyticLogReturnMap(
+			String monitortype, List<String> logTimeAndlogInfoList) {
+		List<String> arrayList = new ArrayList<String>();// 存放每条日志的不同参数
+		List<String> intArrayList = new ArrayList<String>();
+		Map<String, List<String>> arrayListMap = new HashMap<String, List<String>>();// 存放每一行返回值和参数
+		for (String loginfoAndLogTimestr : logTimeAndlogInfoList) {
+			String logtime = loginfoAndLogTimestr.substring(0,
+					loginfoAndLogTimestr.indexOf("#"));// 监测器日志时间
+			String loginfo = loginfoAndLogTimestr.substring(
+					loginfoAndLogTimestr.indexOf("#") + 1,
+					loginfoAndLogTimestr.length());// 监测器日志内容
+			if (monitortype.equals("Ecc.Memory")
+					|| monitortype.equals("Ecc.DiskSpace")) {
+				if (!loginfo.startsWith("no data") && loginfo.length() > 0) {
+					if (newvalue.equals("")) {
+						newvalue = loginfo.substring(0, loginfo.indexOf("%"));
+						xydata.add(newvalue + "#" + logtime);
+					} else {
+						String used = loginfo
+								.substring(0, loginfo.indexOf("%"));
+						xydata.add(used + "#" + logtime);
+					}
 				} else {
-					String used = loginfo.substring(0, loginfo.indexOf("%"));
-					xydata.add(used + "#" + logtime);
+					xydata.add("0#" + logtime + "");
 				}
-			} else {
-				xydata.add("0#" + logtime + "");
+			} else if (monitortype.equals("Ecc.ping")) {
+				if (!loginfo.startsWith("no data") && loginfo.length() > 0) {
+					if (newvalue.equals("")) {
+						newvalue = loginfo
+								.substring(loginfo.lastIndexOf("\t") + 1);
+						xydata.add(newvalue + "#" + logtime);
+					} else {
+						String used = loginfo.substring(loginfo
+								.lastIndexOf("\t") + 1);
+						xydata.add(used + "#" + logtime);
+					}
+				} else {
+					xydata.add("0#" + logtime + "");
+				}
+			} else if (monitortype.equals("Ecc.URL")) {
+				if (!loginfo.startsWith("no data") && loginfo.length() > 0) {
+					String downLoadTime = loginfo.substring(0,
+							loginfo.indexOf("sec"));
+					arrayList.add(downLoadTime);// 加入下载时间参数集合
+					returnKeyString = "下载时间(s)";
+					loginfo = loginfo.substring(loginfo.indexOf("\t") + 1);
+					if (newvalue.equals("")) {
+						newvalue = loginfo.substring(0,
+								loginfo.indexOf("\t") + 1).trim();
+						xydata.add(newvalue + "#" + logtime);
+					} else {
+						String used = loginfo.substring(0,
+								loginfo.indexOf("\t") + 1).trim();
+						xydata.add(used + "#" + logtime);
+					}
+				} else {
+					xydata.add("0#" + logtime + "");
+				}
 			}
 		}
-		if (monitortype.equals("Ecc.ping")) {
-			if (!loginfo.startsWith("no data") && loginfo.length() > 0) {
-				if (newvalue.equals("")) {
-					newvalue = loginfo.substring(loginfo.lastIndexOf("\t") + 1);
-					xydata.add(newvalue + "#" + logtime);
-				} else {
-					String used = loginfo
-							.substring(loginfo.lastIndexOf("\t") + 1);
-					xydata.add(used + "#" + logtime);
-				}
-			} else {
-				xydata.add("0#" + logtime + "");
-			}
+		double[] arrayintarray = new double[arrayList.size()];
+		int i = 0;
+		for (String str : arrayList) {
+			arrayintarray[i++] = Double.parseDouble(str);
 		}
-		if (monitortype.equals("Ecc.URL")) {
-			if (!loginfo.startsWith("no data") && loginfo.length() > 0) {
-				String s1 = loginfo.substring(0, loginfo.indexOf("sec"));
-				loginfo = loginfo.substring(loginfo.indexOf("\t") + 1);
-				if (newvalue.equals("")) {
-					newvalue = loginfo.substring(0, loginfo.indexOf("\t") + 1)
-							.trim();
-					xydata.add(newvalue + "#" + logtime);
-				} else {
-					String used = loginfo.substring(0,
-							loginfo.indexOf("\t") + 1).trim();
-					xydata.add(used + "#" + logtime);
-				}
-			} else {
-				xydata.add("0#" + logtime + "");
-			}
+		if (arrayintarray.length > 0) {
+			double arraymax = ArrayTool.getDoubleArrayMax(arrayintarray);// 最大值
+			double arrayavg = ArrayTool.getDoubleArrayAvg(arrayintarray);// 平均值
+			intArrayList.add(monitortype);// 监测器类型
+			intArrayList.add(String.valueOf(arraymax));
+			intArrayList.add(String.valueOf(arrayavg));
+			intArrayList.add(String.valueOf(arrayintarray[0]));// 最新值
+		}
+		arrayListMap.put(returnKeyString, intArrayList);
+		reportDescList.add(arrayListMap);
+		if (returnKeyString.equals("")) {
+			return null;
+		} else {
+			return reportDescList;
 		}
 	}
+
 
 	/**
 	 * 获取报表XY轴名称
@@ -310,23 +282,20 @@ public class SummaryTabView extends LayoutViewBase {
 					+ Double.parseDouble(String.valueOf(avg));
 			yLineName = "内存使用率(%)";
 			reportDescName = "内存使用率百分比  ";
-		}
-		if (monitortype.equals("Ecc.ping")) {
+		} else if (monitortype.equals("Ecc.ping")) {
 			xLineName = "包成功率(%)最大值" + Double.parseDouble(String.valueOf(max))
 					+ "  最小值" + Double.parseDouble(String.valueOf(min)) + "平均值"
 					+ Double.parseDouble(String.valueOf(avg));
 			yLineName = "包成功率(%)";
 			reportDescName = "包成功率百分比  ";
-		}
-		if (monitortype.equals("Ecc.DiskSpace")) {
+		} else if (monitortype.equals("Ecc.DiskSpace")) {
 			xLineName = "Disk使用率(%)最大值"
 					+ Double.parseDouble(String.valueOf(max)) + "  最小值"
 					+ Double.parseDouble(String.valueOf(min)) + "平均值"
 					+ Double.parseDouble(String.valueOf(avg));
 			yLineName = "Disk使用率(%)";
 			reportDescName = "Disk使用率百分比  ";
-		}
-		if (monitortype.equals("Ecc.URL")) {
+		} else if (monitortype.equals("Ecc.URL")) {
 			xLineName = "返回码  最大值" + Double.parseDouble(String.valueOf(max))
 					+ "  最小值" + Double.parseDouble(String.valueOf(min)) + "平均值"
 					+ Double.parseDouble(String.valueOf(avg));
@@ -354,14 +323,11 @@ public class SummaryTabView extends LayoutViewBase {
 					.get_NativeValue().toString();
 			if (monitorType.equals("Ecc.Memory")) {
 				sf.append("[内存使用 " + " " + operator + " " + alramValue + "]");
-			}
-			if (monitorType.equals("Ecc.ping")) {
+			} else if (monitorType.equals("Ecc.ping")) {
 				sf.append("[包成功率 " + " " + operator + " " + alramValue + "]");
-			}
-			if (monitorType.equals("Ecc.ping")) {
+			} else if (monitorType.equals("Ecc.ping")) {
 				sf.append("[Disk使用率 " + " " + operator + " " + alramValue + "]");
-			}
-			if (monitorType.equals("Ecc.URL")) {
+			} else if (monitorType.equals("Ecc.URL")) {
 				sf.append("[返回码 " + " " + operator + " " + alramValue + "]");
 			}
 		}

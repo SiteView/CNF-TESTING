@@ -15,6 +15,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.time.Hour;
 import org.jfree.data.time.Minute;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
@@ -57,7 +58,8 @@ public class EccReportChart {
 	 * @return
 	 */
 	public static XYDataset createDataset(List<String> xydata) {
-		TimeSeries series = new TimeSeries(SummaryTabView.reportDescName, Minute.class);
+		TimeSeries series = new TimeSeries(SummaryTabView.reportDescName,
+				Second.class);
 		for (String str : xydata) {
 			String x = str.substring(0, str.indexOf("#"));
 			String y = str.substring(str.indexOf("#") + 1, str.length());
@@ -66,17 +68,19 @@ public class EccReportChart {
 			try {
 				Date d = sdf.parse(y);
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-						"yyyyMMddHHmm");
+						"yyyyMMddHHmmss");
 				String date = simpleDateFormat.format(d);
 				String ye = date.substring(0, 4);
 				String mo = date.substring(4, 6);
 				String da = date.substring(6, 8);
 				String ho = date.substring(8, 10);
 				String mi = date.substring(10, 12);
-				Hour hour = new Hour(Integer.parseInt(ho),
-						Integer.parseInt(da), Integer.parseInt(mo),
-						Integer.parseInt(ye));
-				series.add(new Minute(Integer.parseInt(mi), hour), Double.parseDouble(x));
+				String ss = date.substring(12, 14);
+				Minute m = new Minute(Integer.parseInt(mi),
+						Integer.parseInt(ho), Integer.parseInt(da),
+						Integer.parseInt(mo), Integer.parseInt(ye));
+				series.add(new Second(Integer.parseInt(ss), m),
+						Double.parseDouble(x));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
