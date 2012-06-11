@@ -27,7 +27,6 @@ import Siteview.Api.ISiteviewApi;
 import Siteview.Windows.Forms.ConnectionBroker;
 
 import COM.dragonflow.Api.APIInterfaces;
-import COM.dragonflow.SiteViewException.SiteViewException;
 import Core.ui.method.GetIeditorInput;
 
 public class CounterDlg extends Dialog {
@@ -155,7 +154,7 @@ public class CounterDlg extends Dialog {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
 			System.err.println(e);
-		} catch (SiteViewException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

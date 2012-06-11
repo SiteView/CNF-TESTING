@@ -244,6 +244,39 @@ public class SummaryTabView extends LayoutViewBase {
 				} else {
 					xydata.add("0#" + logtime + "");
 				}
+			}else if (monitortype.equals("Ecc.File")) {
+					if (!loginfo.startsWith("not found") && loginfo.length() > 0) {
+						String createdTime = loginfo.substring(loginfo.indexOf(",")+2,loginfo.indexOf("minutes")-1);//文件生存时间
+						arrayList.add(createdTime);// 加入文件生存时间集合
+						returnKeyString = "生存时间(s)";
+						if (newvalue.equals("")) {
+							newvalue = loginfo.substring(0,loginfo.indexOf("bytes")-1);
+							xydata.add(newvalue + "#" + logtime);
+						} else {
+							String used = loginfo.substring(0,loginfo.indexOf("bytes")-1);
+							xydata.add(used + "#" + logtime);
+						}
+					} else {
+						xydata.add("0#" + logtime + "");
+					}
+				}else if (monitortype.equals("Ecc.Service")) {
+				if (!loginfo.startsWith("not found") && loginfo.length() > 0) {
+					if (newvalue.equals("")) {
+						String status = loginfo.substring(0,loginfo.indexOf(","));
+						loginfo = loginfo.substring(loginfo.lastIndexOf(status));
+						loginfo =loginfo.substring(loginfo.indexOf("\t")+1).trim();
+						newvalue = loginfo.substring(0,loginfo.indexOf("\t"));
+						xydata.add(newvalue + "#" + logtime);
+					} else {
+						String status = loginfo.substring(0,loginfo.indexOf(","));
+						loginfo = loginfo.substring(loginfo.lastIndexOf(status));
+						loginfo =loginfo.substring(loginfo.indexOf("\t")+1).trim();
+						String used = loginfo.substring(0,loginfo.indexOf("\t"));
+						xydata.add(used + "#" + logtime);
+					}
+				} else {
+					xydata.add("0#" + logtime + "");
+				}
 			}
 		}
 		double[] arrayintarray = new double[arrayList.size()];
@@ -301,6 +334,18 @@ public class SummaryTabView extends LayoutViewBase {
 					+ Double.parseDouble(String.valueOf(avg));
 			yLineName = "返回码";
 			reportDescName = "返回码  ";
+		} else if (monitortype.equals("Ecc.File")) {
+			xLineName = "文件大小(B) 最大值" + Double.parseDouble(String.valueOf(max))
+					+ "  最小值" + Double.parseDouble(String.valueOf(min)) + "平均值"
+					+ Double.parseDouble(String.valueOf(avg));
+			yLineName = "文件大小(B) ";
+			reportDescName = "文件大小(B)  ";
+		}else if (monitortype.equals("Ecc.Service")) {
+			xLineName = "运行实例个数(个) 最大值" + Double.parseDouble(String.valueOf(max))
+					+ "  最小值" + Double.parseDouble(String.valueOf(min)) + "平均值"
+					+ Double.parseDouble(String.valueOf(avg));
+			yLineName = "运行实例个数(个) ";
+			reportDescName = "运行实例个数(个) ";
 		}
 		xylinemap.put("XLineName", xLineName);
 		xylinemap.put("YLineName", yLineName);
@@ -329,6 +374,8 @@ public class SummaryTabView extends LayoutViewBase {
 				sf.append("[Disk使用率 " + " " + operator + " " + alramValue + "]");
 			} else if (monitorType.equals("Ecc.URL")) {
 				sf.append("[返回码 " + " " + operator + " " + alramValue + "]");
+			} else if (monitorType.equals("Ecc.File")) {
+				sf.append("[文件大小(B) " + " " + operator + " " + alramValue + "]");
 			}
 		}
 		return sf.toString();
