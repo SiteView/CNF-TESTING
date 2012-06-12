@@ -1,0 +1,9 @@
+SCC = This is a Source Code Control file
+
+[snmp++.sln]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/snmp++/snmp++/MSVC/static/SNMP++", BRPAAAAA
+
+[snmp++.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/snmp++/snmp++/MSVC/static/SNMP++", BRPAAAAA

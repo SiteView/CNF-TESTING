@@ -1,0 +1,9 @@
+SCC = This is a Source Code Control file
+
+[GetAllStringList.dsp]
+SCC_Aux_Path = "\\nas2\techgroup\ver62"
+SCC_Project_Name = "$/ver62/GetAllStringList", CFGAAAAA
+
+[GetAllStringList.dsw]
+SCC_Aux_Path = "\\nas2\techgroup\ver62"
+SCC_Project_Name = "$/ver62/GetAllStringList", CFGAAAAA

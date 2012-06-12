@@ -7,3 +7,5 @@ com.siteview.kernel.core/groups/*.mg
 com.siteview.kernel.core/groups/*.dyn
 com.siteview.kernel.core/groups/*.bak
 com.siteview.kernel.core/cache/**
+.svn
+*.beam

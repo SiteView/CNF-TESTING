@@ -1,0 +1,13 @@
+SCC = This is a Source Code Control file
+
+[ccgnu2.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32", IVOAAAAA
+
+[ccext2.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32", IVOAAAAA
+
+[common.sln]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32", IVOAAAAA

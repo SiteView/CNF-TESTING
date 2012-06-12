@@ -1,0 +1,9 @@
+SCC = This is a Source Code Control file
+
+[libdes.sln]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/snmp++/libdes/MSVC/static/libdes", VQPAAAAA
+
+[libdes.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/snmp++/libdes/MSVC/static/libdes", VQPAAAAA

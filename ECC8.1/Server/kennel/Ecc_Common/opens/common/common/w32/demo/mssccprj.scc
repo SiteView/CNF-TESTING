@@ -1,0 +1,37 @@
+SCC = This is a Source Code Control file
+
+[crc32.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32/demo", OVOAAAAA
+
+[buffer.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32/demo", OVOAAAAA
+
+[SampleSocketPort.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32/demo", OVOAAAAA
+
+[slogTest.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32/demo", OVOAAAAA
+
+[tcp.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32/demo", OVOAAAAA
+
+[tcpservice.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32/demo", OVOAAAAA
+
+[urlfetch.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32/demo", OVOAAAAA
+
+[tcpthread.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32/demo", OVOAAAAA
+
+[xmlfetch.vcproj]
+SCC_Aux_Path = "\\192.168.0.123\SiteView.NNM"
+SCC_Project_Name = "$/ECC_VC7/v70/opens/common/common/w32/demo", OVOAAAAA
