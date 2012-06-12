@@ -26,6 +26,7 @@ import java.util.Vector;
 
 import org.eclipse.swt.widgets.DateTime;
 
+import COM.dragonflow.Properties.HashMapOrdered;
 import COM.dragonflow.Properties.PropertiedObject;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.itsm.data.JDBCForSQL;
@@ -84,8 +85,10 @@ public abstract class Logger {
         StringBuffer stringbuffer = new StringBuffer();
         jgl.Array array = propertiedobject.getLogProperties();
         String s1;
+        StringBuffer s0=new StringBuffer();
         for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); stringbuffer.append(s1)) {
             COM.dragonflow.Properties.StringProperty stringproperty = (COM.dragonflow.Properties.StringProperty) enumeration.nextElement();
+            s0.append(stringproperty+"=");
             if (stringbuffer.length() > 0) {
                 stringbuffer.append("\t");
             }
@@ -99,6 +102,7 @@ public abstract class Logger {
             s1 = s1.replace('\r', ' ');
             s1 = s1.replace('\n', ' ');
             s1 = s1.replace('\t', ' ');
+            s0.append(s1+"\t");
         }
         if (propertiedobject.getProperty(COM.dragonflow.SiteView.Monitor.pCategory).equals(COM.dragonflow.SiteView.Monitor.ERROR_CATEGORY)) {
             stringbuffer.append("\t");
@@ -109,7 +113,7 @@ public abstract class Logger {
             }
             
         }
-        log(s, date, stringbuffer.toString());
+        log(s, date, s0.toString());
     }
 	public void log(String s, java.util.Date date, String s1) {
 		
@@ -117,17 +121,14 @@ public abstract class Logger {
 	//»’÷æ¥Ê¥¢
     protected static void savaLog(String s1) {
 		// TODO Auto-generated method stub
-		String category=s1.substring(0,s1.indexOf("\t"));
+		String category=s1.substring(s1.indexOf("=")+1,s1.indexOf("\t"));
 		s1=s1.substring(s1.indexOf("\t")+1);
-		String ownerID=s1.substring(0,s1.indexOf("\t"));
+		String ownerID=s1.substring(s1.indexOf("=")+1,s1.indexOf("\t"));
 		s1=s1.substring(s1.indexOf("\t")+1);
-		String MonitorName=s1.substring(0,s1.indexOf("\t"));
-		s1=s1.substring(s1.indexOf("\t")+1);
-		String MonitorId=s1.substring(s1.indexOf(":")-32);
-		String s3=MonitorId.substring(MonitorId.indexOf("\t")+1);
+		String MonitorName=s1.substring(s1.indexOf("=")+1,s1.indexOf("\t"));
+		String MonitorId=s1.substring(s1.indexOf("_id=")+4);
+		String stateString=MonitorId.substring(MonitorId.indexOf("\t")+1);
 			   MonitorId=MonitorId.substring(0,MonitorId.indexOf(":"));
-		String s2=s1.substring(0,s1.indexOf(MonitorId));
-		String stateString=s2+s3;
 		String RecId=UUID.randomUUID().toString();
     	RecId=RecId.replaceAll("-", "");
     	long time=System.currentTimeMillis();		

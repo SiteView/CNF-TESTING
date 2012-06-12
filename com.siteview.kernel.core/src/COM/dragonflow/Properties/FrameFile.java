@@ -488,6 +488,12 @@ public class FrameFile {
 			s = s.substring(0, s.indexOf("category"))
 					+ s1.substring(s1.indexOf("\n") + 1);
 		}
+		if(category==null&&s.contains("lastCategory")){
+			s1 = s.substring(s.indexOf("lastCategory"));
+			category = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
+			s = s.substring(0, s.indexOf("lastCategory"))
+					+ s1.substring(s1.indexOf("\n") + 1);
+		}
 		if (s.contains("id")) {
 			s1 = s.substring(s.indexOf("id"));
 			monitorid = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
@@ -799,7 +805,8 @@ public class FrameFile {
 										||parmName.equals("_externalLinks")||parmName.equals("_challengeResponse")||parmName.equals("_sslAcceptInvalidCerts")
 										||parmName.equals("_getImages")||parmName.equals("_errorOnRedirect")||parmName.equals("_sslAcceptAllUntrustedCerts")
 										||parmName.equals("_measureDetails")||parmName.equals("_HTTPVersion10")||parmName.equals("_HTTPVersion10")||parmName.equals("_getFrames")
-										||parmName.equals("_noFileCheckExist")||parmName.equals("_deepCheck")||parmName.equals("_checkSequentially")) {
+										||parmName.equals("_noFileCheckExist")||parmName.equals("_deepCheck")||parmName.equals("_checkSequentially")
+										||parmName.equals("_singleSession")) {
 									if (!datavalue.equals("0")) {
 										datavalue = "on";
 									}else{

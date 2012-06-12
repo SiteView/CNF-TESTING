@@ -256,7 +256,10 @@ public abstract class CompositeBase extends AtomicMonitor {
             socketsession.allowClose = false;
         }
         int i = 0;
-        AtomicMonitor atomicmonitor = (AtomicMonitor) array.at(i);
+        AtomicMonitor atomicmonitor=null;
+        if(array.size()>0){
+        	 atomicmonitor = (AtomicMonitor) array.at(i);
+        }
         do {
             if (atomicmonitor == null) {
                 break;

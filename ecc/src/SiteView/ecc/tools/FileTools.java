@@ -33,6 +33,7 @@ public class FileTools {
 			if (urlentry == null)
 				throw new DataException("请检查文件的路径", new NullPointerException());
 			strEntry = FileLocator.toFileURL(urlentry).getPath();
+			strEntry=strEntry.substring(1);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			throw new DataException("请检查文件的路径", e);

@@ -1,5 +1,8 @@
 package SiteView.ecc.tab.views;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +11,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Map.Entry;
 
 import oracle.net.aso.e;
@@ -24,8 +28,11 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
 
+import COM.dragonflow.Page.indexPage;
 import SiteView.ecc.editors.ContentProvider;
 import SiteView.ecc.editors.TableLabelProvider;
+import SiteView.ecc.tools.Config;
+import SiteView.ecc.tools.FileTools;
 import Siteview.Operators;
 import Siteview.QueryInfoToGet;
 import Siteview.SiteviewQuery;
@@ -66,38 +73,44 @@ public class MonitorLogTabView extends LayoutViewBase {
 	public MonitorLogTabView(Composite parent) {
 		super(parent);
 	}
+
 	public void SetDataFromBusOb(BusinessObject bo) {
-		bo1=bo;
+		bo1 = bo;
 	}
-	//赋初始值
+
+	// 赋初始值
 	public static void SetData(BusinessObject bo) {
-		MonitorLogTabView.bo=bo;
-		map=setMap(bo);
-		cloumns=setCloumns(bo);
+		MonitorLogTabView.bo = bo;
+		map = setMap(bo);
+		cloumns = setCloumns(bo.get_Name());
 	}
-	private static Map<String,Object> setMap(BusinessObject bo) {
+
+	private static Map<String, Object> setMap(BusinessObject bo) {
 		map = new java.util.HashMap<String, Object>();
 		map.put("monitorId", bo.get_RecId());
-		String time=getTwoHoursAgoTime();
-		map.put("endTime", time.substring(0,time.indexOf("*")));
-		map.put("startTime", time.substring(time.indexOf("*")+1));
+		String time = getTwoHoursAgoTime();
+		map.put("endTime", time.substring(0, time.indexOf("*")));
+		map.put("startTime", time.substring(time.indexOf("*") + 1));
 		return map;
 	}
-	//赋时间值（得到当前及两个小时时间）
+
+	// 赋时间值（得到当前及两个小时时间）
 	public static String getTwoHoursAgoTime() {
 		Calendar cal = Calendar.getInstance();
-		String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
+		String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(cal.getTime());
 		cal.add(Calendar.HOUR, -2);
 		String twoHoursAgoTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(cal.getTime());
-		return currentTime+"*"+twoHoursAgoTime;
+		return currentTime + "*" + twoHoursAgoTime;
 	}
-	//查日志
+
+	// 查日志
 	public static ICollection getLog(Map<String, Object> map) {
 		ISiteviewApi siteviewApi = ConnectionBroker.get_SiteviewApi();
 		SiteviewQuery query = new SiteviewQuery();
 		query.AddBusObQuery("MonitorLog", QueryInfoToGet.All);
-		XmlElement[] xmls = new XmlElement[map.size()-1];
+		XmlElement[] xmls = new XmlElement[map.size() - 1];
 		XmlElement xml;
 		int i = 0;
 		if (map.get("startTime") != null) {
@@ -127,67 +140,79 @@ public class MonitorLogTabView extends LayoutViewBase {
 				.get_SimpleQueryResolver().ResolveQueryToBusObList(query);
 		return iCollenction;
 	}
+
 	protected void createView(final Composite parent) {
 		createToolbar(parent);
-		iCollenction=getLog(map);
-		createTable(parent,iCollenction);
+		iCollenction = getLog(map);
+		createTable(parent, iCollenction);
 		all.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				if(	all.getSelection()){
+				if (all.getSelection()) {
 					SetData(bo1);
-					iCollenction=getLog(map);
-					createTable(parent,iCollenction);
+					iCollenction = getLog(map);
+					createTable(parent, iCollenction);
 				}
 			}
-			public void widgetDefaultSelected(SelectionEvent e) {}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
 		});
 		waring.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				if(	waring.getSelection()){
+				if (waring.getSelection()) {
 					SetData(bo1);
 					map.put("MonitorStatus", "warning");
-					iCollenction=getLog(map);
-					createTable(parent,iCollenction);
+					iCollenction = getLog(map);
+					createTable(parent, iCollenction);
 				}
 			}
-			public void widgetDefaultSelected(SelectionEvent e) {}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
 		});
 		disable.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				if(	all.getSelection()){
+				if (disable.getSelection()) {
 					SetData(bo1);
 					map.put("MonitorStatus", "disable");
-					iCollenction=getLog(map);
-					createTable(parent,iCollenction);
+					iCollenction = getLog(map);
+					createTable(parent, iCollenction);
 				}
 			}
-			public void widgetDefaultSelected(SelectionEvent e) {}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
 		});
 		good.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				if(	good.getSelection()){
+				if (good.getSelection()) {
 					SetData(bo1);
 					map.put("MonitorStatus", "good");
-					iCollenction=getLog(map);
-					createTable(parent,iCollenction);
+					iCollenction = getLog(map);
+					createTable(parent, iCollenction);
 				}
 			}
-			public void widgetDefaultSelected(SelectionEvent e) {}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
 		});
 		error.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				if(	error.getSelection()){
+				if (error.getSelection()) {
 					SetData(bo1);
 					map.put("MonitorStatus", "error");
-					iCollenction=getLog(map);
-					createTable(parent,iCollenction);
+					iCollenction = getLog(map);
+					createTable(parent, iCollenction);
 				}
 			}
-			public void widgetDefaultSelected(SelectionEvent e) {}
-		});	
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
 	}
-    private void createToolbar(Composite parent) {
-    	toolBar = new ToolBar(parent, SWT.NONE);
+
+	private void createToolbar(Composite parent) {
+		toolBar = new ToolBar(parent, SWT.NONE);
 		toolBar.setBounds(10, 1, 505, 30);
 
 		all = new Button(toolBar, SWT.RADIO | SWT.LEFT);
@@ -210,143 +235,80 @@ public class MonitorLogTabView extends LayoutViewBase {
 		disable = new Button(toolBar, SWT.RADIO | SWT.LEFT);
 		disable.setText("禁止");
 		disable.setBounds(260, 9, 50, 20);
-		
+
 	}
-	//日志数据表
-	public  void createTable(Composite parent,ICollection iCollection) {
-		if(table_1!=null&&!table_1.isDisposed()){
+	// 日志数据表
+	public void createTable(Composite parent, ICollection iCollection) {
+		if (table_1 != null && !table_1.isDisposed()) {
 			table_1.dispose();
 		}
 		table_1 = new Table(parent, SWT.BORDER | SWT.FULL_SELECTION);
 		table_1.setBounds(0, 30, 755, 270);
 		table_1.setHeaderVisible(true);
 		table_1.setLinesVisible(true);
-		for(int i=0;i<cloumns.size();i++){
+
+		for (int i = 0; i < cloumns.size(); i++) {
 			TableColumn tblclmnNewColumn = new TableColumn(table_1, SWT.NONE);
-			if(i==(cloumns.size()-1)){
+			if (i == (cloumns.size() - 1)) {
 				tblclmnNewColumn.setWidth(250);
-			}else{
+			} else {
 				tblclmnNewColumn.setWidth(100);
 			}
 			tblclmnNewColumn.setText(cloumns.get(i).toString());
 		}
+
 		IEnumerator interfaceTableIEnum = iCollection.GetEnumerator();
 		while (interfaceTableIEnum.MoveNext()) {
-			String [] data=new String[cloumns.size()];
-			int j=0;
+			String[] data = new String[cloumns.size()];
+			int j = 0;
 			BusinessObject bo = (BusinessObject) interfaceTableIEnum
 					.get_Current();
 			TableItem item = new TableItem(table_1, SWT.NONE);
-			data[j++]=bo.GetField("CreatedDateTime").get_NativeValue().toString();
-			data[j++]=bo.GetField("monitorName").get_NativeValue().toString();
-			String s=bo.GetField("MonitorMassage").get_NativeValue().toString();
-			if(bo.GetField("MonitorStatus").get_NativeValue().toString().equals("good")){
-				List<String> massage=format(s);
-				for(int n=0;n<massage.size();n++){
-					data[j++]=massage.get(n).toString();
+			data[j++] = bo.GetField("CreatedDateTime").get_NativeValue()
+					.toString();
+			data[j++] = bo.GetField("monitorName").get_NativeValue().toString();
+			String s = bo.GetField("MonitorMassage").get_NativeValue()
+					.toString();
+			if (bo.GetField("MonitorStatus").get_NativeValue().toString()
+					.equals("good")) {
+				List<String> massage = formatItem(s);
+				for (int n = 0; n < massage.size(); n++) {
+					data[j++] = massage.get(n).toString();
 				}
-			}else{
-				while(j<cloumns.size()){
-					data[j++]="no data";
+			} else {
+				while (j < cloumns.size()) {
+					data[j++] = "no data";
 				}
 			}
 			item.setText(data);
 		}
 		parent.layout();
 	}
-	//根据不同监测器类型得到表头
-	private static List<String> setCloumns(BusinessObject bo2) {
-		List<String> list=new ArrayList<String>();
+	//解析日志文件monitorMassage字段（公用方法）
+	private List<String> formatItem(String s) {
+		List<String> massage = new ArrayList<String>();
+		String[] s1 = s.split("\t");
+		for (String s0 : s1) {
+			massage.add(s0.substring(s0.indexOf("=") + 1));
+		}
+		massage.add(s);
+		return massage;
+	}
+	//获取表列
+	private static List<String> setCloumns(String s) {
+		List<String> list = new ArrayList<String>();
 		list.add("时间");
 		list.add("名称");
-		if(bo.get_Name().contains("ping")){
-			list.add("包成功率(%)");
-			list.add("往返时间(ms)");
-			list.add("状态值");
-		}else if(bo.get_Name().contains("DiskSpace")){
-			list.add("Disk使用率(%)");
-			list.add("剩余空间(MB)");
-			list.add("总空间(MB)");
-		}else if(bo.get_Name().contains("Memory")){
-			list.add("内存利用率(%)");
-			list.add("内存剩余空间(MB)");
-			return list;
-		}else if(bo.get_Name().equals("Ecc.URL")){
-			list.add("返回码(200=ok)");
-			list.add("下载时间(s)");
-			list.add("文件大小(Bytes)");
-		}else if(bo.get_Name().equals("Ecc.DNS")||bo.get_Name().equals("Ecc.Mail")){
-			list.add("数据往返时间(s)");
-		}else if(bo.get_Name().equals("Ecc.URLList")){
-			list.add("总状态");
-			list.add("第一步状态");
-			list.add("第二步状态");
-		}else if(bo.get_Name().equals("Ecc.File")){
-			list.add("修改时间(minutes)");
-			list.add("文件大小(bytes)");
-		}else if(bo.get_Name().equals("Ecc.Service")){
-			list.add("运行状态");
-			list.add("进程数");
-			list.add("占用cpu");
-			list.add("占有memory");
+		String filePath = FileTools
+				.getRealPath("\\files\\MonitorLogTabView.properties");
+		s = Config.getReturnStr(filePath, s);
+		if (s!=null) {
+			String[] column = s.split(",");
+			for (String s1 : column) {
+				list.add(s1);
+			}
 		}
 		list.add("描述");
 		return list;
-	}
-	//根据不同监测器类型解析日志数据
-	private static List<String> format(String s) {
-		List<String> massage=new ArrayList<String>();
-		s=s.trim();
-		if(bo.get_Name().contains("ping")){
-			massage.add(s.substring(s.lastIndexOf("\t")+1));
-			s=s.substring(0,s.lastIndexOf("\t"));
-			massage.add(s.substring(0,s.indexOf("sec")).trim());
-			s=s.substring(s.indexOf("\t")+1);
-			massage.add(s.substring(0,s.indexOf("\t")));
-			massage.add("包成功率(%)="+massage.get(0));
-		}else if(bo.get_Name().contains("DiskSpace")){
-			massage.add(s.substring(0,s.indexOf("%")));
-			s=s.substring(s.indexOf(",")+1).trim();
-			massage.add(s.substring(0,s.indexOf("MB")));
-			s=s.substring(s.indexOf(",")+1).trim();
-			massage.add(s.substring(0,s.indexOf("MB")));
-			massage.add("Disk使用率(%)="+massage.get(0)+",总空间(MB)="+massage.get(2)+",剩余空间(MB)="+massage.get(1));
-		}else if(bo.get_Name().contains("Memory")){
-			massage.add(s.substring(0,s.indexOf("%")));
-			s=s.substring(s.indexOf(",")+1).trim();
-			massage.add(s.substring(0,s.indexOf("MB")));
-		}else if(bo.get_Name().equals("Ecc.URL")){
-			String s1=s.substring(0,s.indexOf("sec"));
-			s=s.substring(s.indexOf("\t")+1);
-			massage.add(s.substring(0,s.indexOf("\t")+1).trim());
-			massage.add(s1.trim());
-			s=s.substring(s.indexOf("\t")+1);
-			s=s.substring(s.indexOf("\t")+1);
-			s=s.substring(s.indexOf("\t")+1);
-			massage.add(s.substring(0,s.indexOf("\t")));
-			massage.add("返回码="+massage.get(0)+",下载时间(s)="+massage.get(1)+",文件大小(Bytes)="+massage.get(2));
-		}else if(bo.get_Name().equals("Ecc.URLList")){
-			massage.add("200");
-			massage.add("");
-			massage.add("");
-			massage.add("往返时间(ms)="+s.substring(s.indexOf("avg")+4,s.indexOf("ms")).trim());
-		}else if(bo.get_Name().equals("Ecc.File")){
-			massage.add(s.substring(s.lastIndexOf("\t")+1));
-			s=s.substring(0,s.indexOf("\t")).trim();
-			massage.add(s.substring(s.lastIndexOf("\t")+1,s.indexOf("bytes")));
-			long time=System.currentTimeMillis()-Long.parseLong(massage.get(0))*60*1000;
-			String lastSaveTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time));
-			massage.add("文件大小(bytes)="+massage.get(1)+",上次修改时间="+lastSaveTime);
-		}else if(bo.get_Name().equals("Ecc.Service")){
-			massage.add(s.substring(0,s.indexOf(",")));
-			s=s.substring(s.lastIndexOf(massage.get(0)));
-			s=s.substring(s.indexOf("\t")+1).trim();
-			massage.add(s.substring(0,s.indexOf("\t")));
-			s=s.substring(s.indexOf("\t")+1);
-			massage.add(s.substring(0,s.indexOf("\t")));
-			massage.add(s.substring(s.lastIndexOf("\t")+1));
-			massage.add("运行状态="+massage.get(0));
-		}
-		return massage;
 	}
 }
