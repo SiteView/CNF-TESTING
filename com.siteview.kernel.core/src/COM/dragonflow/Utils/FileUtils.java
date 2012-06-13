@@ -1299,9 +1299,25 @@ public class FileUtils {
 								}else if(parmName.equals("_whenToAuthenticate")&& datavalue.equals("Authenticate if requested")){
 									datavalue="authOnSecond";
 								}
-								
+								//过滤WebServerMonitor
+								if(parmName.equals("_serverName")&&datavalue.equals("Microsoft IIS")){
+									datavalue="Microsoft4|";
+								}
+								//过滤logfile
+								if(parmName.equals("_alerting")&&datavalue.equals("for each log entry matche")){
+									datavalue="each";
+								}else if(parmName.equals("_alerting")&&datavalue.equals("once afterall log entries")){
+									datavalue="once";
+								}
+								if(parmName.equals("_resetFile")&&(datavalue.equals("Never First Time Only")||datavalue.equals("First Time Only"))){
+									datavalue="once";
+								}
 								if (columName.equals("EccType")) {
 									datavalue = Config.getReturnStr("itsm_siteview9.2.properties",datavalue);
+								}
+								//过滤 LDAPMonitor
+								if(parmName.equals("_securityprincipal")){
+									datavalue=datavalue.replaceAll(",", "*");
 								}
 								//Windows Performance Counter过滤
 								if(parmName.equals("_pmcfile")&& datavalue.equals("(Custom Object)")){
@@ -1313,7 +1329,7 @@ public class FileUtils {
 										||parmName.equals("_getImages")||parmName.equals("_errorOnRedirect")||parmName.equals("_sslAcceptAllUntrustedCerts")
 										||parmName.equals("_measureDetails")||parmName.equals("_HTTPVersion10")||parmName.equals("_HTTPVersion10")||parmName.equals("_getFrames")
 										||parmName.equals("_noFileCheckExist")||parmName.equals("_deepCheck")||parmName.equals("_checkSequentially")
-										||parmName.equals("_singleSession")) {
+										||parmName.equals("_singleSession")||parmName.equals("_noRecurse")) {
 									if (!datavalue.equals("0")) {
 										datavalue = "on";
 									}else{

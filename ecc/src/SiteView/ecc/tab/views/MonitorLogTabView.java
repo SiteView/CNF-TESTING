@@ -58,9 +58,10 @@ public class MonitorLogTabView extends LayoutViewBase {
 	// 数据
 	private static BusinessObject bo;
 	private BusinessObject bo1;
-	private static ICollection iCollenction;
-	static Map<String, Object> map;
-	static List cloumns;
+	private static ICollection iCollenction;//日志数据
+	static Map<String, Object> map;//查询日志条件（列:值）
+	static List<String> cloumns;//表的列
+	static List<String> cloumnsEn;//列所对应的日志属性
 	// 控件
 	private ToolBar toolBar;
 	private Button good;
@@ -82,7 +83,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 	public static void SetData(BusinessObject bo) {
 		MonitorLogTabView.bo = bo;
 		map = setMap(bo);
-		cloumns = setCloumns(bo.get_Name());
+		setCloumns(bo.get_Name());
 	}
 
 	private static Map<String, Object> setMap(BusinessObject bo) {
@@ -243,7 +244,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 			table_1.dispose();
 		}
 		table_1 = new Table(parent, SWT.BORDER | SWT.FULL_SELECTION);
-		table_1.setBounds(0, 30, 755, 270);
+		table_1.setBounds(0, 30, 750, 230);
 		table_1.setHeaderVisible(true);
 		table_1.setLinesVisible(true);
 
@@ -287,28 +288,38 @@ public class MonitorLogTabView extends LayoutViewBase {
 	//解析日志文件monitorMassage字段（公用方法）
 	private List<String> formatItem(String s) {
 		List<String> massage = new ArrayList<String>();
-		String[] s1 = s.split("\t");
-		for (String s0 : s1) {
-			massage.add(s0.substring(s0.indexOf("=") + 1));
+		for (String s0 : cloumnsEn) {
+			if(s.contains(s0)){
+				String s1=s.substring(s.indexOf(s0));
+				if(s1.contains("\t")){
+					s1=s1.substring(s1.indexOf("=")+1,s1.indexOf("\t"));
+				}else{
+					s1=s1.substring(s1.indexOf("=")+1);
+				}
+				massage.add(s1);
+			}
 		}
+		s=s.replaceAll("\t", ",");
 		massage.add(s);
 		return massage;
 	}
 	//获取表列
-	private static List<String> setCloumns(String s) {
-		List<String> list = new ArrayList<String>();
-		list.add("时间");
-		list.add("名称");
+	private static void setCloumns(String s) {
+		cloumns= new ArrayList<String>();
+		cloumnsEn=new ArrayList<String>();
+		cloumns.add("时间");
+		cloumns.add("名称");
 		String filePath = FileTools
 				.getRealPath("\\files\\MonitorLogTabView.properties");
 		s = Config.getReturnStr(filePath, s);
 		if (s!=null) {
 			String[] column = s.split(",");
 			for (String s1 : column) {
-				list.add(s1);
+				cloumns.add(s1.substring(0,s1.indexOf(":")));
+				cloumnsEn.add(s1.substring(s1.indexOf(":")+1));
 			}
 		}
-		list.add("描述");
-		return list;
+		cloumns.add("描述");
+		
 	}
 }

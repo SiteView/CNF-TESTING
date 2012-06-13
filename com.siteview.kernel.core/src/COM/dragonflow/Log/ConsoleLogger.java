@@ -26,8 +26,8 @@ public class ConsoleLogger extends COM.dragonflow.Log.Logger {
 
     public void log(String s, java.util.Date date, String s1) {
         java.lang.System.out.println(COM.dragonflow.Log.ConsoleLogger.dateToString(date) + " " + s1);
-        if(s.equalsIgnoreCase("siteviewlog")){
-        	Logger.savaLog(s1);
-        }
+      if(s.equalsIgnoreCase("siteviewlog")){
+    	Logger.savaLog(s1.toString());
+    }
     }
 }
