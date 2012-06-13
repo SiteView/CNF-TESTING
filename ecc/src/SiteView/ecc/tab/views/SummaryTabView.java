@@ -370,7 +370,7 @@ public class SummaryTabView extends LayoutViewBase {
 				sf.append("[内存使用 " + " " + operator + " " + alramValue + "]");
 			} else if (monitorType.equals("Ecc.ping")) {
 				sf.append("[包成功率 " + " " + operator + " " + alramValue + "]");
-			} else if (monitorType.equals("Ecc.ping")) {
+			} else if (monitorType.equals("Ecc.desk")) {
 				sf.append("[Disk使用率 " + " " + operator + " " + alramValue + "]");
 			} else if (monitorType.equals("Ecc.URL")) {
 				sf.append("[返回码 " + " " + operator + " " + alramValue + "]");

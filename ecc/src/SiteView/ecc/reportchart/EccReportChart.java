@@ -1,7 +1,6 @@
 package SiteView.ecc.reportchart;
 
 import java.awt.Color;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,14 +12,13 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.time.Hour;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 
-import SiteView.ecc.tab.views.SummaryTabView;
+import SiteView.ecc.tab.views.TotalTabView;
 
 public class EccReportChart {
 	public static String reporttitle = "";
@@ -36,7 +34,7 @@ public class EccReportChart {
 	public static JFreeChart createChart(XYDataset dataset, String xname,
 			String yname) {
 		JFreeChart chart = ChartFactory.createTimeSeriesChart(
-				SummaryTabView.monitorName, xname, yname, dataset, true, true,
+				TotalTabView.monitorName, xname, yname, dataset, true, true,
 				false);
 		XYPlot plot = (XYPlot) chart.getPlot();
 		plot.setOrientation(PlotOrientation.VERTICAL);
@@ -58,7 +56,7 @@ public class EccReportChart {
 	 * @return
 	 */
 	public static XYDataset createDataset(List<String> xydata) {
-		TimeSeries series = new TimeSeries(SummaryTabView.reportDescName,
+		TimeSeries series = new TimeSeries(TotalTabView.reportDescName,
 				Second.class);
 		for (String str : xydata) {
 			String x = str.substring(0, str.indexOf("#"));
@@ -79,8 +77,10 @@ public class EccReportChart {
 				Minute m = new Minute(Integer.parseInt(mi),
 						Integer.parseInt(ho), Integer.parseInt(da),
 						Integer.parseInt(mo), Integer.parseInt(ye));
-				series.add(new Second(Integer.parseInt(ss), m),
-						Double.parseDouble(x));
+				if (!x.equals("n/a")) {
+					series.add(new Second(Integer.parseInt(ss), m),
+							Double.parseDouble(x));
+				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -1,5 +1,10 @@
 package SiteView.ecc.views;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -16,7 +21,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
 import SiteView.ecc.reportchart.EccReportChart;
-import SiteView.ecc.tab.views.SummaryTabView;
+import SiteView.ecc.tab.views.TotalTabView;
 
 public class EccReportView extends ViewPart {
 	private Composite reportComposite;
@@ -46,10 +51,9 @@ public class EccReportView extends ViewPart {
 		// sashForm.setWeights(new int[] { 1, 1 });
 		reportComposite = new Composite(composite_reportimgControl, SWT.NONE);
 		reportComposite.setLayout(new FillLayout());
-		// System.out.println("报表曲线图数据Map:"+SummaryTabView.xydata);
-		XYDataset dataset = EccReportChart.createDataset(SummaryTabView.xydata);
-		chart = EccReportChart.createChart(dataset, SummaryTabView.xname,
-				SummaryTabView.yname);
+		XYDataset dataset = EccReportChart.createDataset(TotalTabView.xyDataArrayList);
+		chart = EccReportChart.createChart(dataset, TotalTabView.xname,
+				TotalTabView.yname);
 		frame = new ChartComposite(reportComposite, SWT.NONE, chart, true);
 
 		Group group1 = new Group(composite_reportimgControl,
@@ -57,21 +61,21 @@ public class EccReportView extends ViewPart {
 		group1.setLayout(new FillLayout(SWT.VERTICAL));
 		group1.setText("数据记录");
 		Label labelName = new Label(group1, SWT.NONE);
-		labelName.setText("   正常:   " + SummaryTabView.goodcount
-				+ "条               危险：   " + SummaryTabView.warningcount
+		labelName.setText("   正常:   " + TotalTabView.goodcount
+				+ "条               危险：   " + TotalTabView.warningcount
 				+ "条    ");
 		Label labelName1 = new Label(group1, SWT.NONE);
-		labelName1.setText("   错误:   " + SummaryTabView.errorcount
-				+ "条               禁止：    " + SummaryTabView.disablecount
+		labelName1.setText("   错误:   " + TotalTabView.errorcount
+				+ "条               禁止：    " + TotalTabView.disablecount
 				+ "条    ");
 		Label labelName2 = new Label(group1, SWT.NONE);
-		labelName2.setText("   阀值:   "+SummaryTabView.alarmCondition+"    ");
+		labelName2.setText("   阀值:   "+TotalTabView.alarmCondition+"    ");
 		Label labelName3 = new Label(group1, SWT.NONE);
 		labelName3.setText("   时间段：   ");
 		Label labelName4 = new Label(group1, SWT.NONE);
-		labelName4.setText("   从：   "+SummaryTabView.startTime+" 开始");
+		labelName4.setText("   从：   "+TotalTabView.startTime+" 开始");
 		Label labelName5 = new Label(group1, SWT.NONE);
-		labelName5.setText("   到：   "+SummaryTabView.endTime+" 结束");
+		labelName5.setText("   到：   "+TotalTabView.endTime+" 结束");
 		// frame1 = new ChartComposite(group1, SWT.NONE, chart, true);
 		tableViewer = new TableViewer(composite_reportdescControl, SWT.MULTI
 				| SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
@@ -93,10 +97,19 @@ public class EccReportView extends ViewPart {
 		newColumnTableColumn_3.setWidth(150);
 		newColumnTableColumn_3.setText("最新值");
 		reportForm.setWeights(new int[] { 141, 76 });
-		for (String str : SummaryTabView.descList) {
-			TableItem item = new TableItem(table, SWT.NONE);
-			String[] strdata = str.split("&");
-			item.setText(strdata);
+		
+		for (Map<String, List<String>> map : TotalTabView.reportDescList) {
+			Set<Map.Entry<String, List<String>>> set = map.entrySet();
+			for (Iterator<Map.Entry<String, List<String>>> it = set.iterator(); it
+					.hasNext();) {
+				TableItem item = new TableItem(table, SWT.NONE);
+				Map.Entry<String, List<String>> entry = (Map.Entry<String, List<String>>) it
+						.next();
+				List<String> arrlist = entry.getValue();
+				String str = entry.getKey()+"&"+arrlist.get(0)+"&"+arrlist.get(1)+"&"+arrlist.get(2);
+				String[] strdata = str.split("&");
+				item.setText(strdata);
+			}
 		}
 	}
 
@@ -115,9 +128,9 @@ public class EccReportView extends ViewPart {
 				control.dispose();
 			}
 		}
-		XYDataset dataset = EccReportChart.createDataset(SummaryTabView.xydata);
-		chart = EccReportChart.createChart(dataset, SummaryTabView.xname,
-				SummaryTabView.yname);
+		XYDataset dataset = EccReportChart.createDataset(TotalTabView.xyDataArrayList);
+		chart = EccReportChart.createChart(dataset, TotalTabView.xname,
+				TotalTabView.yname);
 		frame = new ChartComposite(reportComposite, SWT.NONE, chart, true);
 		reportComposite.layout();
 	}
