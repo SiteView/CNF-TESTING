@@ -1,5 +1,7 @@
 package SiteView.ecc.tools;
 
+import java.text.DecimalFormat;
+
 /**
  * <p>
  * int数组操作类，用于取出最大值、最小值、平均值
@@ -59,7 +61,7 @@ public class ArrayTool {
 				maxResult = arr[i];
 			}
 		}
-		return maxResult;
+		return (double)Math.floor(maxResult);
 	}
 
 	/**
@@ -72,7 +74,7 @@ public class ArrayTool {
 				minResult = arr[i];
 			}
 		}
-		return minResult;
+		return (double)Math.floor(minResult);
 	}
 
 	/**
@@ -83,7 +85,6 @@ public class ArrayTool {
 		for (int i = 0; i < arr.length; i++) {
 			sum += arr[i];
 		}
-		return sum / arr.length;
+		return (double)Math.floor(sum / arr.length);
 	}
-
 }

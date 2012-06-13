@@ -107,15 +107,14 @@ public class TotalTabView extends LayoutViewBase {
 					.get_NativeValue().toString();
 			logTimeAndlogInfoArrayList.add(logtime + "#" + loginfo);
 		}
-		List<Map<String, List<String>>> li = analyticLogReturnMap(monitortype,
-				logTimeAndlogInfoArrayList);
+		analyticLogReturnMap(monitortype,logTimeAndlogInfoArrayList);
 	}
 
 	/**
-	 * @param String
-	 *            monitortype监测器类型 List<String>
-	 *            logTimeAndlogInfoList监测器日志时间#内容集合 解析监测器日志并返回
-	 *            报表返回值、最大值、平均值、最新值集合
+	 * <p>解析监测器日志</p>
+	 * @param monitortype
+	 * @param logTimeAndlogInfoList
+	 * @return
 	 */
 	public static List<Map<String, List<String>>> analyticLogReturnMap(
 			String monitortype, List<String> logTimeAndlogInfoList) {
