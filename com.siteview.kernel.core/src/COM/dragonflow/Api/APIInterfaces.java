@@ -6,6 +6,9 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
+import jgl.Array;
+import jgl.HashMap;
+
 import COM.dragonflow.SiteViewException.SiteViewException;
 
 public interface APIInterfaces extends Remote
@@ -21,4 +24,5 @@ public interface APIInterfaces extends Remote
 	void createMonitor(String monitorType, String groupid,List<Map<String, String>> paramlist) throws RemoteException,SiteViewException;
 	String getMonitorCounters(Map parmsmap)throws RemoteException,SiteViewException;
 	String getSysOid(Map<String,String> map)throws Exception;
+	void adjustGroups(String s,String s1)throws Exception;
 }

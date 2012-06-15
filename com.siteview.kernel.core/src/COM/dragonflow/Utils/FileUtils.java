@@ -1186,7 +1186,7 @@ public class FileUtils {
 	}
 
 	public static StringBuffer readFromDataBase(String groupid) {
-		String sql = "select * from Groups where RecId='" + groupid + "'";
+		String sql = "select * from EccGroup where RecId='" + groupid + "'";
 		ResultSet rs = JDBCForSQL.sql_ConnectExecute_Select(sql);
 		StringBuffer stringBuffer = new StringBuffer();
 		String s1 = "";
@@ -1196,13 +1196,13 @@ public class FileUtils {
 						+ rs.getString("DependsCondition")
 						+ ",_fileEncoding=UTF-8,_name="
 						+ rs.getString("GroupName");
-				if (!rs.getString("DependsOn").equals("")) {
+				if (rs.getString("DependsOn")!=null&&!rs.getString("DependsOn").equals("")) {
 					s1 = s1 + ",_dependsOn=" + rs.getShort("DependsOn");
 				}
-				if (!rs.getString("Description").equals("")) {
+				if (rs.getString("Description")!=null&&!rs.getString("Description").equals("")) {
 					s1 = s1 + ",_description=" + rs.getString("Description");
 				}
-				if (!rs.getString("RefreshGroup").equals("")) {
+				if (rs.getString("RefreshGroup")!=null&&!rs.getString("RefreshGroup").equals("")) {
 					int i = rs.getInt("RefreshGroup");
 					if (rs.getString("RefreshGroupUtil").equals("Minute")) {
 						i = i * 60;

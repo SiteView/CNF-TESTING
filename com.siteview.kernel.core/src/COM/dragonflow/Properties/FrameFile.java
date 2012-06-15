@@ -496,7 +496,12 @@ public class FrameFile {
 		}
 		if (s.contains("id")) {
 			s1 = s.substring(s.indexOf("id"));
-			monitorid = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
+			if(s.contains("\n")){
+				monitorid = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
+			}
+			else{
+				monitorid = s1.substring(s1.indexOf("=") + 1);
+			}
 			s = s.substring(0, s.indexOf("id"))
 					+ s1.substring(s1.indexOf("\n") + 1);
 		}
@@ -510,6 +515,7 @@ public class FrameFile {
 						+ monitorid + "'");
 		String RecId;
 		try {
+			
 			if (rs.next()) {
 				RecId = rs.getString("RecId");
 				long time = System.currentTimeMillis();

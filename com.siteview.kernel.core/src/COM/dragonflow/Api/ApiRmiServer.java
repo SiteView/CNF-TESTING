@@ -17,6 +17,8 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import jgl.Array;
+
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
@@ -30,6 +32,7 @@ import COM.dragonflow.SiteView.IServerPropMonitor;
 import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteView.NTCounterBase;
+import COM.dragonflow.SiteView.SiteViewGroup;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.StandardMonitor.SNMPCPUMonitor;
 
@@ -438,5 +441,20 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	public String getSysOid(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
 		return SNMPCPUMonitor.getSysOid(map);
+	}
+
+	public void adjustGroups(String s,String s1)throws Exception{
+		Array array=new jgl.Array();
+		if(!s.equals("")){
+			array.add(s);
+		}
+		Array array1=new jgl.Array();
+		if(!s1.equals("")){
+			array1.add(s1);
+		}
+		Array array2=new jgl.Array();
+		jgl.HashMap hashmap=new jgl.HashMap();
+		 SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+		 siteviewgroup.adjustGroups(array,array1,array2,hashmap);
 	}
 }

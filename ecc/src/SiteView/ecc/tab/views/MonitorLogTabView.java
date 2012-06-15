@@ -24,6 +24,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
@@ -53,6 +54,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class MonitorLogTabView extends LayoutViewBase {
 	// 数据
@@ -66,13 +68,20 @@ public class MonitorLogTabView extends LayoutViewBase {
 	private ToolBar toolBar;
 	private Button good;
 	private Button error;
-	private Button waring;
+	private Button warning;
 	private Button disable;
 	private Button all;
 	private Table table_1;
+	private Color [] color;
 
 	public MonitorLogTabView(Composite parent) {
 		super(parent);
+		color=new Color[5];
+		color[0]=new Color(null, 0,153,255);
+		color[1]=new Color(null,255,50,10);
+		color[2]=new Color(null,255,255,136);
+		color[3]=new Color(null, 0,255,0);
+		color[4]=new Color(null,255,170,102);
 	}
 
 	public void SetDataFromBusOb(BusinessObject bo) {
@@ -158,9 +167,9 @@ public class MonitorLogTabView extends LayoutViewBase {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
-		waring.addSelectionListener(new SelectionListener() {
+		warning.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				if (waring.getSelection()) {
+				if (warning.getSelection()) {
 					SetData(bo1);
 					map.put("MonitorStatus", "warning");
 					iCollenction = getLog(map);
@@ -220,22 +229,27 @@ public class MonitorLogTabView extends LayoutViewBase {
 		all.setText("全部");
 		all.setBounds(10, 9, 50, 20);
 		all.setSelection(true);
-
+		all.setBackground(color[0]);
+		
 		error = new Button(toolBar, SWT.RADIO | SWT.LEFT);
 		error.setText("错误");
 		error.setBounds(70, 9, 50, 20);
-
-		waring = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		waring.setText("危险");
-		waring.setBounds(130, 9, 50, 20);
+		error.setBackground(color[1]);
+		
+		warning = new Button(toolBar, SWT.RADIO | SWT.LEFT);
+		warning.setText("危险");
+		warning.setBounds(130, 9, 50, 20);
+		warning.setBackground(color[2]);
 
 		good = new Button(toolBar, SWT.RADIO | SWT.LEFT);
 		good.setText("正常");
 		good.setBounds(190, 9, 60, 20);
+		good.setBackground(color[3]);
 
 		disable = new Button(toolBar, SWT.RADIO | SWT.LEFT);
 		disable.setText("禁止");
 		disable.setBounds(260, 9, 50, 20);
+		disable.setBackground(color[4]);
 
 	}
 	// 日志数据表
@@ -243,7 +257,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		if (table_1 != null && !table_1.isDisposed()) {
 			table_1.dispose();
 		}
-		table_1 = new Table(parent, SWT.BORDER | SWT.FULL_SELECTION);
+		table_1 = new Table(parent, SWT.BORDER|SWT.FULL_SELECTION);
 		table_1.setBounds(0, 30, 750, 230);
 		table_1.setHeaderVisible(true);
 		table_1.setLinesVisible(true);
@@ -257,7 +271,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 			}
 			tblclmnNewColumn.setText(cloumns.get(i).toString());
 		}
-
+		
 		IEnumerator interfaceTableIEnum = iCollection.GetEnumerator();
 		while (interfaceTableIEnum.MoveNext()) {
 			String[] data = new String[cloumns.size()];
@@ -270,18 +284,24 @@ public class MonitorLogTabView extends LayoutViewBase {
 			data[j++] = bo.GetField("monitorName").get_NativeValue().toString();
 			String s = bo.GetField("MonitorMassage").get_NativeValue()
 					.toString();
-//			if (bo.GetField("MonitorStatus").get_NativeValue().toString()
-//					.equals("good")) {
+			String status=bo.GetField("MonitorStatus").get_NativeValue().toString();
 				List<String> massage = formatItem(s);
 				for (int n = 0; n < massage.size(); n++) {
 					data[j++] = massage.get(n).toString();
 				}
-//			} else {
-//				while (j < cloumns.size()) {
-//					data[j++] = "no data";
-//				}
-//			}
-			item.setText(data);
+				item.setText(data);
+			Color  c=c=new Color(null,255,170,102);
+			if(status.equals("good")){
+				item.setBackground(color[3]);
+			}else if(status.equals("error")){
+				item.setBackground(color[1]);
+			}else if(status.equals("warning")){
+				item.setBackground(color[2]);
+			}else if(status.equals("disable")){
+				item.setBackground(color[4]);
+			}else {
+				item.setBackground(color[0]);
+			}
 		}
 		parent.layout();
 	}
@@ -321,5 +341,11 @@ public class MonitorLogTabView extends LayoutViewBase {
 		}
 		cloumns.add("描述");
 		
+	}
+	public void dispose() {
+		for(Color c: color){
+			c.dispose();
+		}
+		super.dispose();
 	}
 }

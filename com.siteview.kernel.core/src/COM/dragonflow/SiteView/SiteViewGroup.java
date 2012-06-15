@@ -89,6 +89,7 @@ import SiteViewMain.UpdateConfig;
 
 public class SiteViewGroup extends MonitorGroup {
 
+	public static boolean flag=false;
 	public static final String SITEVIEW_GROUP_ID = "SiteView";
 
 	public static final String GROUP_FILE_SUFFIX = ".mg";
@@ -1411,7 +1412,9 @@ public class SiteViewGroup extends MonitorGroup {
 	protected void removeGroups(Array array) {
 		Enumeration enumeration = array.elements();
 		while (enumeration.hasMoreElements()) {
-			File file = (File) enumeration.nextElement();
+			String group=enumeration.nextElement().toString();
+			File file=new File(group.substring(group.indexOf("=")+1)+".mg");
+			//File file = (File) enumeration.nextElement();
 			String s = file.getName();
 			if ("history.config".equals(file.getName())) {
 				LogManager.log("Debug", "Removing history");
@@ -1435,8 +1438,7 @@ public class SiteViewGroup extends MonitorGroup {
 								.log("Debug",
 										"Removing group for: "
 												+ file.getAbsolutePath());
-						MonitorGroup monitorgroup = (MonitorGroup) findgroupwithfilevisitor
-								.getResult();
+						MonitorGroup monitorgroup = (MonitorGroup)findgroupwithfilevisitor.getResult();
 						monitorgroup.saveDynamic();
 						monitorgroup.stopGroup();
 						User.unregisterUsers(monitorgroup.getProperty(pID));
@@ -1456,10 +1458,25 @@ public class SiteViewGroup extends MonitorGroup {
 		Array array1 = new Array();
 		Enumeration enumeration = array.elements();
 		ResultSet groups = null;
-		boolean flag = false;
 		File masterfile=null;
 		while (enumeration.hasMoreElements()) {
-			File file = (File) enumeration.nextElement();
+			String group=enumeration.nextElement().toString();
+			if(group.contains("GroupId=")){
+				groups = JDBCForSQL
+						.sql_ConnectExecute_Select("SELECT * FROM EccGroup where RecId='"+group.substring(group.indexOf("=")+1)+"'");
+				try {
+					while (groups.next()) {
+						String s3 = groups.getString("GroupName");
+						MonitorGroup monitorgroup = loadGroup(s3,groups);
+						if (monitorgroup != null) {
+							array1.add(monitorgroup);
+						}
+					}
+				} catch (SQLException e) {
+				}
+				return array1.elements();
+			}
+			File file = new File(group);
 			flag = !(enumeration.hasMoreElements());
 			String s = file.getName();
 			if (s.equals("master.config")) {
@@ -1488,7 +1505,7 @@ public class SiteViewGroup extends MonitorGroup {
 				Server.loadServers();
 			} else if (s.equals(TEMPLATES_FILE)) {
 				resetTemplateCache();
-			} else {
+			}else {
 				//if (s.equals("__Health__.mg")) {
 					LogManager.log("Debug",
 							"Adding group for: " + file.getAbsolutePath());
@@ -1521,21 +1538,25 @@ public class SiteViewGroup extends MonitorGroup {
 
 	public synchronized void adjustGroups(Array array, Array array1,
 			Array array2, HashMap hashmap) {
+		boolean f1=(array.size()==1);
+		boolean f2=(array1.size()==1);
+		removeGroups(array1);
+		removeGroups(array2);
 		monitorScheduler.suspendScheduler();
 		monitorsStarted = 0;
-		removeGroups(array2);
-		removeGroups(array1);
 		Enumeration enumeration = addGroups(array1);
 		Enumeration enumeration1 = addGroups(array);
-		Collection collection = ConfigurationChanger.notifyAdjustedGroups(
-				array, array1, array2);
+		Collection collection=null;
+		if(!(f1||f1)){
+			collection = ConfigurationChanger.notifyAdjustedGroups(
+					array, array1, array2);
+		}
 		if (collection != null) {
 			File file;
 			for (Iterator iterator = collection.iterator(); iterator.hasNext(); hashmap
 					.put(file.getAbsolutePath(), new Long(file.lastModified()))) {
 				file = (File) iterator.next();
 			}
-
 		}
 		MonitorGroup monitorgroup;
 		for (; enumeration.hasMoreElements(); monitorgroup.startGroup()) {
@@ -2935,7 +2956,7 @@ public class SiteViewGroup extends MonitorGroup {
 					monitorgroup.getMultipleValues("_user"),
 					monitorgroup.getValuesTable());
 		}
-		return null;
+		return monitorgroup;
 	}
 
 }
