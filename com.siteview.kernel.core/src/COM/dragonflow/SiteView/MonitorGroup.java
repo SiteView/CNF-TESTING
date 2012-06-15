@@ -1790,10 +1790,10 @@ public class MonitorGroup extends Monitor {
             groupid=rs.getString("RecId");
             String s1="_encoding=GBK,_dependsCondition="+
             rs.getString("DependsCondition")+",_fileEncoding=UTF-8,_name="+s;
-            if(!rs.getString("DependsOn").equals("")){
+            if(rs.getString("DependsOn")!=null&&!rs.getString("DependsOn").equals("")){
             	s1=s1+",_dependsOn="+rs.getString("DependsOn");
             }
-            if(!rs.getString("Description").equals("")){
+            if(rs.getString("Description")!=null&&!rs.getString("Description").equals("")){
             	s1=s1+",_description="+rs.getString("Description");
             }
             if(rs.getInt("RefreshGroup")!=0){

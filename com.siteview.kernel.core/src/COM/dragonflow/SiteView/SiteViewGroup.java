@@ -1504,7 +1504,7 @@ public class SiteViewGroup extends MonitorGroup {
 	//	从数据库读组信息，加入组
 		if (flag && masterfile!=null) {
 			groups = JDBCForSQL
-					.sql_ConnectExecute_Select("SELECT * FROM Groups");
+					.sql_ConnectExecute_Select("SELECT * FROM EccGroup");
 			try {
 				while (groups.next()) {
 					String s3 = groups.getString("GroupName");

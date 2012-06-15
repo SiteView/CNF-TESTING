@@ -270,17 +270,17 @@ public class MonitorLogTabView extends LayoutViewBase {
 			data[j++] = bo.GetField("monitorName").get_NativeValue().toString();
 			String s = bo.GetField("MonitorMassage").get_NativeValue()
 					.toString();
-			if (bo.GetField("MonitorStatus").get_NativeValue().toString()
-					.equals("good")) {
+//			if (bo.GetField("MonitorStatus").get_NativeValue().toString()
+//					.equals("good")) {
 				List<String> massage = formatItem(s);
 				for (int n = 0; n < massage.size(); n++) {
 					data[j++] = massage.get(n).toString();
 				}
-			} else {
-				while (j < cloumns.size()) {
-					data[j++] = "no data";
-				}
-			}
+//			} else {
+//				while (j < cloumns.size()) {
+//					data[j++] = "no data";
+//				}
+//			}
 			item.setText(data);
 		}
 		parent.layout();
