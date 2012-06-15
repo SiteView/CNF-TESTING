@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
-
 import siteview.windows.forms.ImageHelper;
-
 import SiteView.ecc.Activator;
 import SiteView.ecc.data.MonitorInfo;
 

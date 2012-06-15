@@ -12,7 +12,7 @@ import java.util.Properties;
  * </p>
  */
 public class Config {
-	public static final Properties prop = new Properties();
+	public static Properties prop = null;
 
 	/**
 	 * 获取参数
@@ -22,6 +22,7 @@ public class Config {
 	public static String getReturnStr(String filePath, String parm) {
 		try {
 			FileInputStream fis = new FileInputStream(new File(filePath));
+			prop = new Properties();
 			prop.load(fis);
 		}catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
