@@ -1192,15 +1192,15 @@ public class FileUtils {
 		String s1 = "";
 		try {
 			while (rs.next()) {
-				s1 = "_encoding=GBK,_dependsCondition="
+				s1 = "_encoding=GBK;_dependsCondition="
 						+ rs.getString("DependsCondition")
-						+ ",_fileEncoding=UTF-8,_name="
+						+ ";_fileEncoding=UTF-8;_name="
 						+ rs.getString("GroupName");
 				if (rs.getString("DependsOn")!=null&&!rs.getString("DependsOn").equals("")) {
-					s1 = s1 + ",_dependsOn=" + rs.getShort("DependsOn");
+					s1 = s1 + ";_dependsOn=" + rs.getShort("DependsOn");
 				}
 				if (rs.getString("Description")!=null&&!rs.getString("Description").equals("")) {
-					s1 = s1 + ",_description=" + rs.getString("Description");
+					s1 = s1 + ";_description=" + rs.getString("Description");
 				}
 				if (rs.getString("RefreshGroup")!=null&&!rs.getString("RefreshGroup").equals("")) {
 					int i = rs.getInt("RefreshGroup");
@@ -1211,9 +1211,9 @@ public class FileUtils {
 					} else if (rs.getString("RefreshGroupUtil").equals("Day")) {
 						i = i * 86400;
 					}
-					s1 = s1 + ",_frequency=" + i;
+					s1 = s1 + ";_frequency=" + i;
 				}
-				s1 = s1 + ",#,";
+				s1 = s1 + ";#;";
 			}
 
 			String query_sql = "select * from Ecc where Groups_Valid ='"
@@ -1278,12 +1278,12 @@ public class FileUtils {
 									datavalue="baseline";
 									stringBuffer.append("_checkContentResetTime=");
 									stringBuffer.append(System.currentTimeMillis());
-									stringBuffer.append("\n");
+									stringBuffer.append(";");
 								}else if(parmName.equals("_checkContent") && datavalue.equals("compare to last contents")){
 									datavalue="on";
 									stringBuffer.append("_checkContentResetTime=");
 									stringBuffer.append(System.currentTimeMillis());
-									stringBuffer.append("\n");
+									stringBuffer.append(";");
 								}
 								if(parmName.equals("_URLDropDownEncodePostData")&& datavalue.equals("Use content-type:")){
 									datavalue="contentTypeUrlencoded";
@@ -1337,10 +1337,14 @@ public class FileUtils {
 									}
 								}
 								if (columName.equals("RecId")) {
-									stringBuffer.append("_encoding=GBK"+ "\n");
-									stringBuffer.append("_id="+datavalue+ "\n");
+									stringBuffer.append("_encoding=GBK"+ ";");
+									stringBuffer.append("_id="+datavalue+ ";");
 								}if (columName.equals("frequency")|| columName.equals("verifyErrorFrequency")) {
-									int timehs = eccrs.getInt(columName);
+									String frequency = eccrs.getString(columName);
+									if (frequency.equals(" ")) {
+										frequency ="10";
+									}
+									int timehs = Integer.parseInt(frequency);
 									if (eccrs.getString("timeUnitSelf").equals("Minute")) {
 										timehs = timehs * 60;
 									}
@@ -1352,19 +1356,20 @@ public class FileUtils {
 									}
 									datavalue = String.valueOf(timehs);
 								}
-								stringBuffer.append(parmName + "=" + datavalue+ "\n");
+								stringBuffer.append(parmName + "=" + datavalue+ ";");
 								if (isHave(MonitorCounterGroups, datavalue)) {//the monitor have counter.
 									String query_counter_sql = "SELECT * FROM MonitorCounter WHERE ParentLink_RecID ='"+ eccrs.getString("RecId") + "'";
 									ResultSet counterrs = JDBCForSQL.sql_ConnectExecute_Select(query_counter_sql);
 									while (counterrs.next()) {
 										if (!stringBuffer.toString().contains("_counters=")) {
 											stringBuffer.append("_counters=");
+											stringBuffer.append(counterrs.getString("Name")+",");
 										}else{
 											stringBuffer.append(counterrs.getString("Name")+",");
 										}
 									}	if (stringBuffer.toString().contains("_counters=")) {
 										stringBuffer.deleteCharAt(stringBuffer.length() - 1);
-										stringBuffer.append("\n");
+										stringBuffer.append(";");
 									}	
 								}
 							}

@@ -40,7 +40,7 @@ public class MonitorCounter extends PresentationRegionExtensionBase {
 					bo.GetField("Name").SetValue(new SiteviewValue(str));
 					bo.GetField("Title").SetValue(new  SiteviewValue(counters.get(str)));
 					bo.GetField("MonitorType").SetValue(new  SiteviewValue(pra.get_PrimaryBusinessObject().get_Definition().get_Name()));
-					//bo.SaveObject(get_Api(), false,true);
+//					bo.SaveObject(get_Api(), false,true);
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {

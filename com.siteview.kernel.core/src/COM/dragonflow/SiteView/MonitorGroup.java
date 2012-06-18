@@ -1788,13 +1788,13 @@ public class MonitorGroup extends Monitor {
             monitorgroup.setProperty("_id", s);
             monitorgroup.setProperty("_name", s);
             groupid=rs.getString("RecId");
-            String s1="_encoding=GBK,_dependsCondition="+
-            rs.getString("DependsCondition")+",_fileEncoding=UTF-8,_name="+s;
+            String s1="_encoding=GBK;_dependsCondition="+
+            rs.getString("DependsCondition")+";_fileEncoding=UTF-8;_name="+s;
             if(rs.getString("DependsOn")!=null&&!rs.getString("DependsOn").equals("")){
-            	s1=s1+",_dependsOn="+rs.getString("DependsOn");
+            	s1=s1+";_dependsOn="+rs.getString("DependsOn");
             }
             if(rs.getString("Description")!=null&&!rs.getString("Description").equals("")){
-            	s1=s1+",_description="+rs.getString("Description");
+            	s1=s1+";_description="+rs.getString("Description");
             }
             if(rs.getInt("RefreshGroup")!=0){
             	int i=rs.getInt("RefreshGroup");
@@ -1805,9 +1805,9 @@ public class MonitorGroup extends Monitor {
             	}else if(rs.getString("RefreshGroupUtil").equals("Day")){
             		i=i*86400;
             	}
-            	s1=s1+",_frequency="+i;           	
+            	s1=s1+";_frequency="+i;           	
             }
-            s1=s1+",#,";
+            s1=s1+";#;";
             monitorgroup.file = new File(s);
             monitorgroup.readMonitors(groupid,s,s1);
             monitorgroup.readDynamic();
