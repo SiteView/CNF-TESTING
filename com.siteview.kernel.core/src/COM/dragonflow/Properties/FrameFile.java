@@ -42,6 +42,7 @@ import jgl.Sorting;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.SiteView.DetectConfigurationChange;
 import COM.dragonflow.SiteView.Monitor;
+import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.SiteView.PlatformNew;
 import COM.dragonflow.SiteView.SiteViewGroup;
@@ -350,7 +351,7 @@ public class FrameFile {
 			if (forceMangleOnWrite) {
 				stringbuffer = mangle(stringbuffer);
 			}
-			if (stringbuffer.indexOf("measurement=") != -1) {
+			if (stringbuffer.indexOf("measurement") != -1) {
 				savadyn(stringbuffer);
 			} else if (stringbuffer.indexOf("_nextID=") != -1) {
 
@@ -428,7 +429,9 @@ public class FrameFile {
 			while (enumeration1.hasMoreElements()) {
 				Object obj1 = enumeration1.nextElement();
 				boolean flag3 = true;
-				if (flag2) {
+				if (s1.equals("_name")){
+					
+				}else if (flag2) {
 					flag3 = s1.startsWith(s);
 					if (!flag) {
 						flag3 = !flag3;
@@ -476,39 +479,55 @@ public class FrameFile {
 			}
 		}
 	}
+	//∑÷Ω‚String
+	public static String format(String s,String s1,String s0){
+		s1=s1.trim();
+		String s2=s1.substring(s1.indexOf(s));
+		s1=s1.substring(0,s1.indexOf(s)).trim();
+		if(s2.contains("\n")){
+			s0=s2.substring(s2.indexOf("=")+1,s2.indexOf("\n"));
+			s1=s1+"\n"+s2.substring(s2.indexOf("\n")+1);
+		}else{
+			s0=s2.substring(s2.indexOf("=")+1);
+		}
+		return s0+"*"+s1;
+	}
 
 	private static void savadyn(String s) {
 		String s1;
 		String category = null;
 		String monitorid = null;
-		if (s.contains("category")) {
-			s1 = s.substring(s.indexOf("category"));
-			category = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
-			s = s.substring(0, s.indexOf("category"))
-					+ s1.substring(s1.indexOf("\n") + 1);
+		String groupName=null;
+		String name=null;
+		if(s.contains("category=")){
+			s1=format("category=",s,category);
+			category=s1.substring(0,s1.indexOf("*"));
+			s=s1.substring(s1.indexOf("*")+1);
 		}
-		if (category == null && s.contains("lastCategory")) {
-			s1 = s.substring(s.indexOf("lastCategory"));
-			category = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
-			s = s.substring(0, s.indexOf("lastCategory"))
-					+ s1.substring(s1.indexOf("\n") + 1);
+		if (category == null && s.contains("lastCategory=")) {
+			s1=format("lastCategory=",s,category);
+			category=s1.substring(0,s1.indexOf("*"));
+			s=s1.substring(s1.indexOf("*")+1);
 		}
-		if (s.contains("id")) {
-			s1 = s.substring(s.indexOf("id"));
-			if (s.contains("\n")) {
-				monitorid = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
-			} else {
-				monitorid = s1.substring(s1.indexOf("=") + 1);
-			}
-			s = s.substring(0, s.indexOf("id"))
-					+ s1.substring(s1.indexOf("\n") + 1);
+		if (s.contains("id=")) {
+			s1=format("id=",s,monitorid);
+			monitorid=s1.substring(0,s1.indexOf("*"));
+			s=s1.substring(s1.indexOf("*")+1);
 		}
-		s1 = s.substring(s.indexOf("group"));
-		String groupName = s1.substring(s1.indexOf("=") + 1, s1.indexOf("\n"));
-		s = s.substring(0, s.indexOf("group"))
-				+ s1.substring(s1.indexOf("\n") + 1);
-
+		if(s.contains("group=")){
+			s1=format("group=",s,groupName);
+			groupName=s1.substring(0,s1.indexOf("*"));
+			s=s1.substring(s1.indexOf("*")+1);
+		}
+		if(s.contains("_name=")){
+			s1=format("_name=",s,name);
+			name=s1.substring(0,s1.indexOf("*"));
+			s=s1.substring(s1.indexOf("*")+1);
+		}
+		name=groupName+" £∫"+name;
+		s=s.trim();
 		s = s.replaceAll("\n", "*");
+		String department=MonitorGroup.groupnameip.get(groupName)+" "+monitorid;
 		ResultSet rs = JDBCForSQL
 				.sql_ConnectExecute_Select("select * from EccDyn where monitorid='"
 						+ monitorid + "'");
@@ -524,7 +543,7 @@ public class FrameFile {
 				String sql = "update EccDyn set category='" + category
 						+ "',monitorDesc='" + s + "',LastModDateTime='"
 						+ LastModDateTime + "',groupid='" + groupName
-						+ "' where RecId='" + RecId + "'";
+						+ "',monitorName='"+name+"',Department='"+department+"' where RecId='" + RecId + "'";
 				JDBCForSQL.savaLog(sql);
 			} else {
 				long time = System.currentTimeMillis();
@@ -532,19 +551,9 @@ public class FrameFile {
 				Timestamp CreatedDateTime = new Timestamp(time);
 
 				RecId = UUID.randomUUID().toString().replace("-", "");
-				String sql = "insert into EccDyn (RecId,category,monitorDesc,monitorid,LastModDateTime,CreatedDateTime,groupid)"
-						+ " values ('"
-						+ RecId
-						+ "','"
-						+ category
-						+ "','"
-						+ s
-						+ "','"
-						+ monitorid
-						+ "','"
-						+ CreatedDateTime
-						+ "','"
-						+ CreatedDateTime + "','" + groupName + "')";
+				String sql = "insert into EccDyn (RecId,category,monitorDesc,monitorid,LastModDateTime,CreatedDateTime,groupid,monitorName,Department)"
+						+ " values ('"+ RecId+ "','"+ category+ "','"+s+ "','"+ monitorid+ "','"+ CreatedDateTime+ "','"+ CreatedDateTime + "','" + groupName + "','"+name+"','"
+						+department+"')";
 				JDBCForSQL.savaLog(sql);
 			}
 		} catch (Exception e) {

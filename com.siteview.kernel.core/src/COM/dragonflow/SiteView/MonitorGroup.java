@@ -54,7 +54,7 @@ import SiteViewMain.SiteViewSupport;
 // ConfigurationChanger
 
 public class MonitorGroup extends Monitor {
-
+	public static java.util.Map<String,String> groupnameip=new java.util.HashMap();
     public static StringProperty pLastSaved;
 
     public static StringProperty pMaxErrorCount;
@@ -1788,6 +1788,7 @@ public class MonitorGroup extends Monitor {
             monitorgroup.setProperty("_id", s);
             monitorgroup.setProperty("_name", s);
             groupid=rs.getString("RecId");
+            groupnameip.put(s, groupid);
             String s1="_encoding=GBK;_dependsCondition="+
             rs.getString("DependsCondition")+";_fileEncoding=UTF-8;_name="+s;
             if(rs.getString("DependsOn")!=null&&!rs.getString("DependsOn").equals("")){

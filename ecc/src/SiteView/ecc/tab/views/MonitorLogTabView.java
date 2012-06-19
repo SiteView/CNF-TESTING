@@ -72,16 +72,10 @@ public class MonitorLogTabView extends LayoutViewBase {
 	private Button disable;
 	private Button all;
 	private Table table_1;
-	private Color [] color;
+	private static Color [] color;
 
 	public MonitorLogTabView(Composite parent) {
 		super(parent);
-		color=new Color[5];
-		color[0]=new Color(null, 0,153,255);
-		color[1]=new Color(null,255,50,10);
-		color[2]=new Color(null,255,255,136);
-		color[3]=new Color(null, 0,255,0);
-		color[4]=new Color(null,255,170,102);
 	}
 
 	public void SetDataFromBusOb(BusinessObject bo) {
@@ -90,6 +84,12 @@ public class MonitorLogTabView extends LayoutViewBase {
 
 	// ∏≥≥ı º÷µ
 	public static void SetData(BusinessObject bo) {
+		color=new Color[5];
+		color[0]=new Color(null, 0,153,255);
+		color[1]=new Color(null,255,50,10);
+		color[2]=new Color(null,255,255,136);
+		color[3]=new Color(null, 0,255,0);
+		color[4]=new Color(null,255,170,102);
 		MonitorLogTabView.bo = bo;
 		map = setMap(bo);
 		setCloumns(bo.get_Name());
