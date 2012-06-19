@@ -8,12 +8,6 @@
           id="SiteView.ecc.views.EccTreeControl"
           name="Group">
     </view>
-    <view
-          class="SiteView.ecc.views.EccReportView"
-          id="SiteView.ecc.views.EccReportView"
-          name="EccReportView"
-          restorable="true">
-    </view>
  </extension>
  <extension
        point="org.eclipse.ui.editors">
@@ -31,8 +25,13 @@
           match_strategy="SiteView.ecc.tab.views.MatchClass">
     </ExtViews_matchByStrategy>
     <ExtViews_matchByStrategy
-          Class="SiteView.ecc.tab.views.SummaryTabView"
-          Title="概要"
+          Class="SiteView.ecc.tab.views.TotalTabView"
+          Title="概要信息"
+          match_strategy="SiteView.ecc.tab.views.MatchClass">
+    </ExtViews_matchByStrategy>
+    <ExtViews_matchByStrategy
+          Class="SiteView.ecc.tab.views.TrendReportTabView"
+          Title="趋势报告"
           match_strategy="SiteView.ecc.tab.views.MatchClass">
     </ExtViews_matchByStrategy>
  </extension>

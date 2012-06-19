@@ -9,12 +9,10 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
@@ -28,7 +26,11 @@ import SiteView.ecc.reportchart.EccReportChart;
 import SiteView.ecc.tab.views.TotalTabView;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
-
+/**
+ * 概要信息视图
+ * @author zhongping.wang
+ *
+ */
 public class EccReportView extends ViewPart {
 	private Composite reportComposite;
 	private ChartComposite frame;
@@ -113,13 +115,11 @@ public class EccReportView extends ViewPart {
 		fd_frame.top = new FormAttachment(0);
 		fd_frame.bottom = new FormAttachment(100);
 		frame.setLayoutData(fd_frame);
-		// frame1 = new ChartComposite(group1, SWT.NONE, chart, true);
 		tableViewer = new TableViewer(composite_reportdescControl, SWT.MULTI
 				| SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		table = tableViewer.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-//		table.setBounds(97, 79, 373, 154);
 		table.setBackground(new Color(null, 255, 255, 255));
 		TableColumn newColumnTableColumn = new TableColumn(table, SWT.NONE);
 		newColumnTableColumn.setWidth(600);

@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Composite;
 import SiteView.ecc.tools.ArrayTool;
 import SiteView.ecc.tools.Config;
 import SiteView.ecc.tools.FileTools;
+import SiteView.ecc.views.EccReportView;
 import Siteview.Operators;
 import Siteview.QueryInfoToGet;
 import Siteview.SiteviewQuery;
@@ -42,7 +43,8 @@ public class TotalTabView extends LayoutViewBase {
 	@Override
 	protected void createView(Composite parent) {
 		// TODO Auto-generated method stub
-
+		EccReportView erv = new EccReportView();
+		erv.createPartControl(parent);
 	}
 
 	@Override
