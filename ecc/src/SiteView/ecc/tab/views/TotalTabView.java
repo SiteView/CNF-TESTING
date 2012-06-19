@@ -24,7 +24,7 @@ import system.Xml.XmlElement;
 public class TotalTabView extends LayoutViewBase {
 	public static Map<String, List<String>> xydataMap = new HashMap<String, List<String>>();// 构建报表的X、Y坐标数据
 	public static String startTime, endTime = "";// 报表数据查询开始时间、结束时间
-	public static String alarmCondition = "";// 报警阀值条件
+	public static String goodAlarmCondition, errorAlarmCondition, warningAlarmCondition = "";// 正常、错误、危险报警阀值条件
 	public static int goodcount, warningcount, errorcount, disablecount = 0;// 正常、危险、错误、禁止数量
 	public static String monitorName = "";// 监测器名称
 	public static List<String> logTimeAndlogInfoArrayList = new ArrayList<String>();// 日志时间#日志内容集合
@@ -54,6 +54,9 @@ public class TotalTabView extends LayoutViewBase {
 	 * 数据初始化
 	 */
 	public static void dataInitialization(){
+		goodAlarmCondition = "";
+		errorAlarmCondition = "";
+		warningAlarmCondition = "";
 		goodcount = 0;
 		errorcount = 0;
 		warningcount = 0;
@@ -81,7 +84,7 @@ public class TotalTabView extends LayoutViewBase {
 		endTime = time.substring(0, time.indexOf("*"));
 		parmsmap.put("startTime", startTime);
 		parmsmap.put("endTime", endTime);
-		alarmCondition = getAlarmCondition(bo.get_RecId(), monitortype);// 获取阀值条件
+		getAlarmCondition(bo.get_RecId(), monitortype);// 获取阀值条件
 		ICollection iCollenction = MonitorLogTabView.getLog(parmsmap);
 		IEnumerator monitorlog = iCollenction.GetEnumerator();
 		BusinessObject monitorlogbo = null;
@@ -220,33 +223,26 @@ public class TotalTabView extends LayoutViewBase {
 	/**
 	 * 获取报警条件阀值
 	 */
-	public static String getAlarmCondition(String monitorId, String monitorType) {
+	public static void getAlarmCondition(String monitorId, String monitorType) {
 		ICollection iCollenction = getAlarmConditionCollenction(monitorId);
 		IEnumerator alarmEnumerator = iCollenction.GetEnumerator();
 		BusinessObject alarmBo = null;
-		StringBuffer sf = new StringBuffer();
+		String filePath = FileTools.getRealPath("\\files\\MonitorReturnValveReference.properties");
+		String monitorReturnColumn = Config.getReturnStr(filePath, monitorType);//获取监测器阀值列名
 		while (alarmEnumerator.MoveNext()) {
 			alarmBo = (BusinessObject) alarmEnumerator.get_Current();
-			String operator = alarmBo.GetField("Operator").get_NativeValue()
-					.toString();
-			String alramValue = alarmBo.GetField("AlramValue")
-					.get_NativeValue().toString();
-			if (monitorType.equals("Ecc.Memory")) {
-				sf.append("[内存使用 " + " " + operator + " " + alramValue + "]");
-			} else if (monitorType.equals("Ecc.ping")) {
-				sf.append("[包成功率 " + " " + operator + " " + alramValue + "]");
-			} else if (monitorType.equals("Ecc.ping")) {
-				sf.append("[Disk使用率 " + " " + operator + " " + alramValue + "]");
-			} else if (monitorType.equals("Ecc.URL")) {
-				sf.append("[返回码 " + " " + operator + " " + alramValue + "]");
-			} else if (monitorType.equals("Ecc.File")) {
-				sf.append("[文件大小(B) " + " " + operator + " " + alramValue + "]");
+			String alarmStatus = alarmBo.GetField("AlarmStatus").get_NativeValue().toString();//阀值条件(错误、正常、危险)
+			String monitorReturnVlaue =  alarmBo.GetFieldOrSubfield(monitorReturnColumn).get_NativeValue().toString();//阀值返回值
+			String operator = alarmBo.GetField("Operator").get_NativeValue().toString();//阀值操作符
+			String alramValue = alarmBo.GetField("AlramValue").get_NativeValue().toString();//阀值
+			if (alarmStatus.equals("good")) {
+				goodAlarmCondition = "["+monitorReturnVlaue+"" + " " + operator + " " + alramValue + "]";
+			}else if (alarmStatus.equals("warning")) {
+				warningAlarmCondition = "["+monitorReturnVlaue+"" + " " + operator + " " + alramValue + "]";
+			}else if (alarmStatus.equals("error")) {
+				errorAlarmCondition = "["+monitorReturnVlaue+"" + " " + operator + " " + alramValue + "]";
 			}
 		}
-		if (sf.toString().equals("")) {
-			sf.append("未添加报警警阀值条件");
-		}
-		return sf.toString();
 	}
 
 	/**

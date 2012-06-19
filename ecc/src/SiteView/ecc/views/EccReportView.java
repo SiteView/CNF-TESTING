@@ -8,9 +8,13 @@ import java.util.Set;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
@@ -22,6 +26,8 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
 import SiteView.ecc.reportchart.EccReportChart;
 import SiteView.ecc.tab.views.TotalTabView;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormAttachment;
 
 public class EccReportView extends ViewPart {
 	private Composite reportComposite;
@@ -39,51 +45,82 @@ public class EccReportView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		// TODO Auto-generated method stub
+		parent.setLayout(new FillLayout());
 		SashForm reportForm = new SashForm(parent, SWT.BORDER);
 		reportForm.setOrientation(SWT.VERTICAL);
-		reportForm.setBounds(1, 1, 1000, 320);
 		reportForm.setLayout(new FillLayout(SWT.HORIZONTAL));
 		composite_reportimgControl = new Composite(reportForm, SWT.BORDER);
-		composite_reportimgControl.setLayout(new FillLayout(SWT.HORIZONTAL));
+		composite_reportimgControl.setLayout(new FormLayout());
 		Composite composite_reportdescControl = new Composite(reportForm,
 				SWT.BORDER);
 		composite_reportdescControl.setLayout(new FillLayout(SWT.HORIZONTAL));
-		// sashForm.setWeights(new int[] { 1, 1 });
 		reportComposite = new Composite(composite_reportimgControl, SWT.NONE);
+		reportComposite.setLayoutData(new FormData());
 		reportComposite.setLayout(new FillLayout());
 		XYDataset dataset = EccReportChart.createDataset(TotalTabView.xyDataArrayList);
 		chart = EccReportChart.createChart(dataset, TotalTabView.xname,
 				TotalTabView.yname);
-		frame = new ChartComposite(reportComposite, SWT.NONE, chart, true);
 
 		Group group1 = new Group(composite_reportimgControl,
 				SWT.SHADOW_ETCHED_OUT);
+		FormData fd_group1 = new FormData();
+		fd_group1.top = new FormAttachment(reportComposite, 0, SWT.TOP);
+		fd_group1.bottom = new FormAttachment(100);
+		fd_group1.right = new FormAttachment(100);
+		group1.setBackground(new Color(null, 255, 255, 255));
+		group1.setLayoutData(fd_group1);
 		group1.setLayout(new FillLayout(SWT.VERTICAL));
 		group1.setText("数据记录");
-		Label labelName = new Label(group1, SWT.NONE);
-		labelName.setText("   正常:   " + TotalTabView.goodcount
-				+ "条               危险：   " + TotalTabView.warningcount
-				+ "条    ");
-		Label labelName1 = new Label(group1, SWT.NONE);
-		labelName1.setText("   错误:   " + TotalTabView.errorcount
-				+ "条               禁止：    " + TotalTabView.disablecount
-				+ "条    ");
-		Label labelName2 = new Label(group1, SWT.NONE);
-		labelName2.setText("   阀值:   "+TotalTabView.alarmCondition+"    ");
+		Label goodlabel = new Label(group1, SWT.NONE);
+		goodlabel.setForeground(new Color(null,0,255,0));
+		goodlabel.setBackground(new Color(null, 255, 255, 255));
+		goodlabel.setText("   正常:   " + TotalTabView.goodcount+ "条");
+		Label warninglabel = new Label(group1, SWT.NONE);
+		warninglabel.setForeground(new Color(null,192,194,20));
+		warninglabel.setBackground(new Color(null, 255, 255, 255));
+		warninglabel.setText("   危险:   "+ TotalTabView.warningcount+ "条");
+		Label errorlabel = new Label(group1, SWT.NONE);
+		errorlabel.setForeground(new Color(null,255,0,0));
+		errorlabel.setBackground(new Color(null, 255, 255, 255));
+		errorlabel.setText("   错误:   " + TotalTabView.errorcount+ "条 ");
+		Label disablelabel = new Label(group1, SWT.NONE);
+		disablelabel.setForeground(new Color(null,255,170,102));
+		disablelabel.setBackground(new Color(null, 255, 255, 255));
+		disablelabel.setText("   禁止:   " + TotalTabView.disablecount+ "条");
+		Label errorValve = new Label(group1, SWT.NONE);
+		errorValve.setText("   错误阀值:   "+TotalTabView.errorAlarmCondition);
+		errorValve.setBackground(new Color(null, 255, 255, 255));
+		Label warningValve = new Label(group1, SWT.NONE);
+		warningValve.setText("   危险阀值:   "+TotalTabView.warningAlarmCondition);
+		warningValve.setBackground(new Color(null, 255, 255, 255));
+		Label goodValve = new Label(group1, SWT.NONE);
+		goodValve.setText("   正常阀值:   "+TotalTabView.goodAlarmCondition);
+		goodValve.setBackground(new Color(null, 255, 255, 255));
 		Label labelName3 = new Label(group1, SWT.NONE);
 		labelName3.setText("   时间段：   ");
+		labelName3.setBackground(new Color(null, 255, 255, 255));
 		Label labelName4 = new Label(group1, SWT.NONE);
 		labelName4.setText("   从：   "+TotalTabView.startTime+" 开始");
+		labelName4.setBackground(new Color(null, 255, 255, 255));
 		Label labelName5 = new Label(group1, SWT.NONE);
 		labelName5.setText("   到：   "+TotalTabView.endTime+" 结束");
+		labelName5.setBackground(new Color(null, 255, 255, 255));
+		frame = new ChartComposite(composite_reportimgControl, SWT.NONE, chart, true);
+		fd_group1.left = new FormAttachment(frame, 1);
+		FormData fd_frame = new FormData();
+		fd_frame.right = new FormAttachment(100, -235);
+		fd_frame.left = new FormAttachment(0);
+		fd_frame.top = new FormAttachment(0);
+		fd_frame.bottom = new FormAttachment(100);
+		frame.setLayoutData(fd_frame);
 		// frame1 = new ChartComposite(group1, SWT.NONE, chart, true);
 		tableViewer = new TableViewer(composite_reportdescControl, SWT.MULTI
 				| SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		table = tableViewer.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-		table.setBounds(97, 79, 373, 154);
-
+//		table.setBounds(97, 79, 373, 154);
+		table.setBackground(new Color(null, 255, 255, 255));
 		TableColumn newColumnTableColumn = new TableColumn(table, SWT.NONE);
 		newColumnTableColumn.setWidth(600);
 		newColumnTableColumn.setText("返回值");
@@ -106,9 +143,11 @@ public class EccReportView extends ViewPart {
 				Map.Entry<String, List<String>> entry = (Map.Entry<String, List<String>>) it
 						.next();
 				List<String> arrlist = entry.getValue();
-				String str = entry.getKey()+"&"+arrlist.get(0)+"&"+arrlist.get(1)+"&"+arrlist.get(2);
-				String[] strdata = str.split("&");
-				item.setText(strdata);
+				if (arrlist.size()>0) {
+					String str = entry.getKey()+"&"+arrlist.get(0)+"&"+arrlist.get(1)+"&"+arrlist.get(2);
+					String[] strdata = str.split("&");
+					item.setText(strdata);
+				}
 			}
 		}
 	}
