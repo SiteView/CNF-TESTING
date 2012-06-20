@@ -1,7 +1,7 @@
 package SiteView.ecc.tab.views;
 
-import org.eclipse.swt.widgets.Composite;
 
+import org.eclipse.swt.widgets.Composite;
 import SiteView.ecc.views.TrendReportView;
 import Siteview.Api.BusinessObject;
 import siteview.windows.forms.LayoutViewBase;

@@ -78,6 +78,9 @@ public class EccReportChart {
 						Integer.parseInt(ho), Integer.parseInt(da),
 						Integer.parseInt(mo), Integer.parseInt(ye));
 				if (!x.equals("n/a")) {
+					if (x.equals("ok")) {
+						x="200";
+					}
 					series.add(new Second(Integer.parseInt(ss), m),
 							Double.parseDouble(x));
 				}

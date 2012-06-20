@@ -51,10 +51,10 @@ public class EccReportView extends ViewPart {
 		SashForm reportForm = new SashForm(parent, SWT.BORDER);
 		reportForm.setOrientation(SWT.VERTICAL);
 		reportForm.setLayout(new FillLayout(SWT.HORIZONTAL));
-		composite_reportimgControl = new Composite(reportForm, SWT.BORDER);
+		composite_reportimgControl = new Composite(reportForm, SWT.NONE);
 		composite_reportimgControl.setLayout(new FormLayout());
 		Composite composite_reportdescControl = new Composite(reportForm,
-				SWT.BORDER);
+				SWT.NONE);
 		composite_reportdescControl.setLayout(new FillLayout(SWT.HORIZONTAL));
 		reportComposite = new Composite(composite_reportimgControl, SWT.NONE);
 		reportComposite.setLayoutData(new FormData());
@@ -116,7 +116,7 @@ public class EccReportView extends ViewPart {
 		fd_frame.bottom = new FormAttachment(100);
 		frame.setLayoutData(fd_frame);
 		tableViewer = new TableViewer(composite_reportdescControl, SWT.MULTI
-				| SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+				| SWT.FULL_SELECTION | SWT.NONE | SWT.V_SCROLL | SWT.H_SCROLL);
 		table = tableViewer.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);

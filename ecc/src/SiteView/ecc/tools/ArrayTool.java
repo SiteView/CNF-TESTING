@@ -61,7 +61,7 @@ public class ArrayTool {
 				maxResult = arr[i];
 			}
 		}
-		return (double)Math.floor(maxResult);
+		return maxResult;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class ArrayTool {
 				minResult = arr[i];
 			}
 		}
-		return (double)Math.floor(minResult);
+		return minResult;
 	}
 
 	/**
@@ -85,6 +85,6 @@ public class ArrayTool {
 		for (int i = 0; i < arr.length; i++) {
 			sum += arr[i];
 		}
-		return (double)Math.floor(sum / arr.length);
+		return sum / arr.length;
 	}
 }

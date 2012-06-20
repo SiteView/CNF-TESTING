@@ -1,7 +1,5 @@
 package SiteView.ecc.tab.views;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import Siteview.Api.BusinessObject;
 import siteview.windows.forms.MatchStrategyBase;

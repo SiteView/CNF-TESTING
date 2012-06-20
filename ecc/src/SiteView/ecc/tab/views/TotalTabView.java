@@ -1,12 +1,11 @@
 package SiteView.ecc.tab.views;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.swt.widgets.Composite;
-
 import SiteView.ecc.tools.ArrayTool;
 import SiteView.ecc.tools.Config;
 import SiteView.ecc.tools.FileTools;
@@ -26,7 +25,8 @@ public class TotalTabView extends LayoutViewBase {
 	public static Map<String, List<String>> xydataMap = new HashMap<String, List<String>>();// 构建报表的X、Y坐标数据
 	public static String startTime, endTime = "";// 报表数据查询开始时间、结束时间
 	public static String goodAlarmCondition, errorAlarmCondition, warningAlarmCondition = "";// 正常、错误、危险报警阀值条件
-	public static int goodcount, warningcount, errorcount, disablecount = 0;// 正常、危险、错误、禁止数量
+	public static int goodcount, warningcount, errorcount, disablecount,totalcount = 0;// 正常、危险、错误、禁止数量、记录总数量
+	public static String goodPercentOf,errorPercentOf,warningPercentOf,laststatus = "";//正常、错误、危险百分比、最新状态
 	public static String monitorName = "";// 监测器名称
 	public static List<String> logTimeAndlogInfoArrayList = new ArrayList<String>();// 日志时间#日志内容集合
 	public static String newvalue = "";// 最新值
@@ -59,10 +59,15 @@ public class TotalTabView extends LayoutViewBase {
 		goodAlarmCondition = "";
 		errorAlarmCondition = "";
 		warningAlarmCondition = "";
+		laststatus = "";
+		goodPercentOf = "";
+		errorPercentOf = "";
+		warningPercentOf = "";
 		goodcount = 0;
 		errorcount = 0;
 		warningcount = 0;
 		disablecount = 0;
+		totalcount = 0;
 		xname = "";
 		yname = "";
 		xydataMap.clear();
@@ -94,14 +99,26 @@ public class TotalTabView extends LayoutViewBase {
 			monitorlogbo = (BusinessObject) monitorlog.get_Current();
 			String monitorstatus = monitorlogbo.GetField("MonitorStatus")
 					.get_NativeValue().toString();
+			if (laststatus.equals("")) {
+				if (monitorstatus.equals("good")) {
+					laststatus ="正常";
+				}else if (monitorstatus.equals("error")) {
+					laststatus ="错误";
+				}else if(monitorstatus.equals("warning")){
+					laststatus = "危险";
+				}
+			}
 			if (monitorstatus.equals("good")) {
 				goodcount++;
+				totalcount++;
 			}
 			if (monitorstatus.equals("error")) {
 				errorcount++;
+				totalcount++;
 			}
 			if (monitorstatus.equals("warning")) {
 				warningcount++;
+				totalcount++;
 			}
 			
 			String loginfo = monitorlogbo.GetField("MonitorMassage")
@@ -112,6 +129,9 @@ public class TotalTabView extends LayoutViewBase {
 					.get_NativeValue().toString();
 			logTimeAndlogInfoArrayList.add(logtime + "#" + loginfo);
 		}
+		goodPercentOf = percent(goodcount, totalcount);//计算正确百分比
+		errorPercentOf = percent(errorcount, totalcount);//计算错误百分比
+		warningPercentOf = percent(warningcount, totalcount);//计算危险百分比
 		analyticLogReturnMap(monitortype,logTimeAndlogInfoArrayList);
 	}
 
@@ -125,6 +145,9 @@ public class TotalTabView extends LayoutViewBase {
 			String monitortype, List<String> logTimeAndlogInfoList) {
 		String filePath = FileTools.getRealPath("\\files\\MonitorTemplate.properties");
 		String templateString = Config.getReturnStr(filePath, monitortype);
+		if (templateString==null) {
+			templateString = "isdraw=0,?=?";
+		}
 		String[] templateArray = templateString.split(",");//返回需要显示报表数据位置和返回值
 		String isdraw = templateArray[0].substring(templateArray[0].indexOf("=")+1, templateArray[0].length());//需要展示报表的数据索引位置
 		xname = templateArray[1].substring(templateArray[1].indexOf("=")+1, templateArray[1].length());
@@ -158,6 +181,7 @@ public class TotalTabView extends LayoutViewBase {
 		  	StringBuffer descsf = new StringBuffer(); 
 			for (int i = 0; i < logTimeAndlogInfoList.size(); i++) {
 				String descValue = "";
+				String logTime = logTimeAndlogInfoList.get(i).substring(0, logTimeAndlogInfoList.get(i).indexOf("#"));
 				String loginfo = logTimeAndlogInfoList.get(i).substring(logTimeAndlogInfoList.get(i).indexOf("#") + 1,logTimeAndlogInfoList.get(i).length());// 监测器日志内容
 				String [] logArrayStr = loginfo.split("\t");
 				for (int k = 0; k < logArrayStr.length; k++) {
@@ -168,7 +192,7 @@ public class TotalTabView extends LayoutViewBase {
 							if (otherValue.equals("ok")) {
 								otherValue = "200";
 							}
-							descValue = descValue+key+"="+otherValue+",";
+							descValue = descValue+key+"="+otherValue+"$"+logTime+",";
 						}
 						if (k==logArrayStr.length-1) {
 							descsf.append(descValue+"#");
@@ -198,21 +222,31 @@ public class TotalTabView extends LayoutViewBase {
 				}
 			}
 			
+			Map<String,String> timeLogValueMap = new HashMap<String, String>();
 			for (int i = 0; i < strarray.size(); i++) {
 				double[] arrayintarray = new double[strarray.get(i).size()];
 				int h = 0;
 				for (String str : strarray.get(i)) {
-					if (!str.equals("n/a")) {
-						arrayintarray[h++] = Double.parseDouble(str);
+					String valuekey = str.substring(0, str.indexOf("$"));
+					String timeValue = str.substring(str.indexOf("$")+1,str.length());
+					timeLogValueMap.put(valuekey, timeValue);
+					if (!valuekey.equals("n/a")) {
+						if (!valuekey.equals("no data")) {
+							arrayintarray[h++] = Double.parseDouble(valuekey);
+						}
 					}
 				}
 				List<String> otherIntArrayList = new ArrayList<String>();
 				if (arrayintarray.length > 0) {
-					double arraymax = ArrayTool.getDoubleArrayMax(arrayintarray);// 最大值
-					double arrayavg = ArrayTool.getDoubleArrayAvg(arrayintarray);// 平均值
-					otherIntArrayList.add(String.valueOf(arraymax));
-					otherIntArrayList.add(String.valueOf(arrayavg));
-					otherIntArrayList.add(String.valueOf(arrayintarray[0]));// 最新值
+					double arraymax = ArrayTool.getDoubleArrayMax(arrayintarray);// 获取最大值
+					double arrayavg = ArrayTool.getDoubleArrayAvg(arrayintarray);// 获取平均值
+					double arraymin = ArrayTool.getDoubleArrayMin(arrayintarray);//获取最小值
+					otherIntArrayList.add(String.valueOf(arraymax));//最大值(下标0)
+					otherIntArrayList.add(String.valueOf(arrayavg));//平均值(下标1)
+					otherIntArrayList.add(String.valueOf(arrayintarray[0]));// 最新值(下标2)
+					otherIntArrayList.add(String.valueOf(arraymin));//最小值(下标3)
+					otherIntArrayList.add(timeLogValueMap.get(String.valueOf(arraymax)));//最大值时间(下标4)
+					timeLogValueMap.clear();
 				}
 				    String mapkey = templateArray[i+1].substring(templateArray[i+1].indexOf("=")+1, templateArray[i+1].length());
 					Map<String, List<String>> arrayListMap = new HashMap<String, List<String>>();// 存放每一行返回值和参数
@@ -266,4 +300,21 @@ public class TotalTabView extends LayoutViewBase {
 				.ResolveQueryToBusObList(siteviewquery);
 		return iCollenction;
 	}
+	/**
+	 * 计算百分比
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public static String percent(int y,int z){
+		   String baifenbi="";//百分比的值
+		   double baiy=y*1.0;
+		   double baiz=z*1.0;
+		   double fen=baiy/baiz;
+		   NumberFormat nf   =   NumberFormat.getPercentInstance();
+		   nf.setMinimumFractionDigits( 2 );//保留到小数点后几位
+		   baifenbi=nf.format(fen);   
+		   return baifenbi;
+		}
+
 }
