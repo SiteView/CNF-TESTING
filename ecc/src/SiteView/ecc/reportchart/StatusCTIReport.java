@@ -218,7 +218,7 @@ public class StatusCTIReport extends LayoutViewBase {
 		try {
 			Date d = sdf.parse(s);
 			Date d1 = sdf.parse(s1);
-			long time=(d.getTime()-d1.getTime())/1000;
+			long time=(d1.getTime()-d.getTime())/1000;
 			if((time/(3600*24))>0){
 				ss=time/(3600*24)+"Ìì";
 				ss+=(time%(3600*24))/3600+"Ð¡Ê±";

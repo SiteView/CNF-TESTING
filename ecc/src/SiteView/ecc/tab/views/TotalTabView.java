@@ -34,6 +34,7 @@ public class TotalTabView extends LayoutViewBase {
 	public static String xname, yname = "";// X、Y坐标名称
 	public static String reportDescName = "";// 报表描述
 	public static List<Map<String, List<String>>> reportDescList = new ArrayList<Map<String, List<String>>>();// 报表返回值、最大值、平均值、最新值集合
+	public static BusinessObject businessObj = null;
 
 	public TotalTabView(Composite parent) {
 		super(parent);
@@ -73,6 +74,7 @@ public class TotalTabView extends LayoutViewBase {
 		xydataMap.clear();
 		reportDescList.clear();
 		xyDataArrayList.clear();
+		monitorName = "";
 		logTimeAndlogInfoArrayList.clear();
 		
 	}
@@ -83,12 +85,15 @@ public class TotalTabView extends LayoutViewBase {
 	 */
 	public static void setTotalData(BusinessObject bo) {
 		dataInitialization();//初始化数据
+	    businessObj = bo;
 		String monitortype = bo.get_Name();
+		monitorName = bo.GetField("title")
+				.get_NativeValue().toString();
 		Map<String, Object> parmsmap = new HashMap<String, Object>();
 		parmsmap.put("monitorId", bo.get_RecId());
-		String time = MonitorLogTabView.getTwoHoursAgoTime();
-		startTime = time.substring(time.indexOf("*") + 1);
-		endTime = time.substring(0, time.indexOf("*"));
+//		String time = MonitorLogTabView.getTwoHoursAgoTime();
+//		startTime = time.substring(time.indexOf("*") + 1);
+//		endTime = time.substring(0, time.indexOf("*"));
 		parmsmap.put("startTime", startTime);
 		parmsmap.put("endTime", endTime);
 		getAlarmCondition(bo.get_RecId(), monitortype);// 获取阀值条件
@@ -111,21 +116,19 @@ public class TotalTabView extends LayoutViewBase {
 			if (monitorstatus.equals("good")) {
 				goodcount++;
 				totalcount++;
-			}
-			if (monitorstatus.equals("error")) {
+			}else if (monitorstatus.equals("error")) {
 				errorcount++;
 				totalcount++;
-			}
-			if (monitorstatus.equals("warning")) {
+			}else if (monitorstatus.equals("warning")) {
 				warningcount++;
 				totalcount++;
+			}else if(monitorstatus.equals("disabled")){
+				disablecount++;
 			}
 			
 			String loginfo = monitorlogbo.GetField("MonitorMassage")
 					.get_NativeValue().toString();
 			String logtime = monitorlogbo.GetField("CreatedDateTime")
-					.get_NativeValue().toString();
-			monitorName = monitorlogbo.GetField("MonitorName")
 					.get_NativeValue().toString();
 			logTimeAndlogInfoArrayList.add(logtime + "#" + loginfo);
 		}
@@ -313,7 +316,10 @@ public class TotalTabView extends LayoutViewBase {
 		   double fen=baiy/baiz;
 		   NumberFormat nf   =   NumberFormat.getPercentInstance();
 		   nf.setMinimumFractionDigits( 2 );//保留到小数点后几位
-		   baifenbi=nf.format(fen);   
+		   baifenbi=nf.format(fen);
+		   if (String.valueOf(fen).equals("NaN")) {
+			   baifenbi = "无数据";
+		}
 		   return baifenbi;
 		}
 

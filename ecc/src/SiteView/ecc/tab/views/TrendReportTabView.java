@@ -18,7 +18,7 @@ public class TrendReportTabView extends LayoutViewBase {
 	}
 
 	@Override
-	protected void createView(Composite parent) {
+	public void createView(Composite parent) {
 		// TODO Auto-generated method stub
 		TrendReportView  trv = new TrendReportView();
 		trv.createPartControl(parent);
