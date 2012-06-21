@@ -1,37 +1,31 @@
 package SiteView.ecc.tab.views;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Map.Entry;
 
-import oracle.net.aso.e;
-
-import org.eclipse.jface.viewers.IBaseLabelProvider;
-import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.ToolBar;
 
-import COM.dragonflow.Page.indexPage;
-import SiteView.ecc.editors.ContentProvider;
-import SiteView.ecc.editors.TableLabelProvider;
+import siteview.windows.forms.LayoutViewBase;
+import swing2swt.layout.FlowLayout;
+import system.Collections.ICollection;
+import system.Collections.IEnumerator;
+import system.Xml.XmlElement;
 import SiteView.ecc.tools.Config;
 import SiteView.ecc.tools.FileTools;
 import Siteview.Operators;
@@ -40,25 +34,10 @@ import Siteview.SiteviewQuery;
 import Siteview.Api.BusinessObject;
 import Siteview.Api.ISiteviewApi;
 import Siteview.Windows.Forms.ConnectionBroker;
-import siteview.windows.forms.LayoutViewBase;
-import system.Collections.ICollection;
-import system.Collections.IEnumerator;
-import system.Xml.XmlElement;
-
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.wb.swt.SWTResourceManager;
 
 public class MonitorLogTabView extends LayoutViewBase {
 	// 数据
-	private static BusinessObject bo;
+	public static BusinessObject bo;
 	private BusinessObject bo1;
 	private static ICollection iCollenction;//日志数据
 	static Map<String, Object> map;//查询日志条件（列:值）
@@ -98,18 +77,18 @@ public class MonitorLogTabView extends LayoutViewBase {
 	private static Map<String, Object> setMap(BusinessObject bo) {
 		map = new java.util.HashMap<String, Object>();
 		map.put("monitorId", bo.get_RecId());
-		String time = getTwoHoursAgoTime();
+		String time = getHoursAgoTime(2);
 		map.put("endTime", time.substring(0, time.indexOf("*")));
 		map.put("startTime", time.substring(time.indexOf("*") + 1));
 		return map;
 	}
 
-	// 赋时间值（得到当前及两个小时时间）
-	public static String getTwoHoursAgoTime() {
+	// 赋时间值（得到当前及N小时前时间）
+	public static String getHoursAgoTime(int i) {
 		Calendar cal = Calendar.getInstance();
 		String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(cal.getTime());
-		cal.add(Calendar.HOUR, -2);
+		cal.add(Calendar.HOUR, -i);
 		String twoHoursAgoTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(cal.getTime());
 		return currentTime + "*" + twoHoursAgoTime;
@@ -152,19 +131,24 @@ public class MonitorLogTabView extends LayoutViewBase {
 	}
 
 	protected void createView(final Composite parent) {
-		createToolbar(parent);
+		bo1=bo;
+		parent.setLayout(new FillLayout(SWT.VERTICAL));
+		final SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
+		createToolbar(sashForm);
 		iCollenction = getLog(map);
-		createTable(parent, iCollenction);
+		createTable(sashForm, iCollenction);
+		
 		all.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (all.getSelection()) {
 					SetData(bo1);
 					iCollenction = getLog(map);
-					createTable(parent, iCollenction);
+					createTable(sashForm, iCollenction);
 				}
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
+			
 			}
 		});
 		warning.addSelectionListener(new SelectionListener() {
@@ -173,7 +157,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 					SetData(bo1);
 					map.put("MonitorStatus", "warning");
 					iCollenction = getLog(map);
-					createTable(parent, iCollenction);
+					createTable(sashForm, iCollenction);
 				}
 			}
 
@@ -186,7 +170,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 					SetData(bo1);
 					map.put("MonitorStatus", "disable");
 					iCollenction = getLog(map);
-					createTable(parent, iCollenction);
+				createTable(sashForm, iCollenction);
 				}
 			}
 
@@ -199,7 +183,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 					SetData(bo1);
 					map.put("MonitorStatus", "good");
 					iCollenction = getLog(map);
-					createTable(parent, iCollenction);
+					createTable(sashForm, iCollenction);
 				}
 			}
 
@@ -212,56 +196,48 @@ public class MonitorLogTabView extends LayoutViewBase {
 					SetData(bo1);
 					map.put("MonitorStatus", "error");
 					iCollenction = getLog(map);
-					createTable(parent, iCollenction);
+					createTable(sashForm, iCollenction);
 				}
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
+		
 	}
 
-	private void createToolbar(Composite parent) {
-		toolBar = new ToolBar(parent, SWT.NONE);
-		toolBar.setBounds(10, 1, 505, 30);
-
-		all = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		all.setText("全部");
-		all.setBounds(10, 9, 50, 20);
+	private void createToolbar(SashForm sashForm) {
+		Composite group = new Composite(sashForm, SWT.NONE);
+		group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		all = new Button(group, SWT.RADIO);
+		all.setText("\u5168\u90E8");
 		all.setSelection(true);
 		all.setBackground(color[0]);
 		
-		error = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		error.setText("错误");
-		error.setBounds(70, 9, 50, 20);
+		error = new Button(group, SWT.RADIO);
+		error.setText("\u9519\u8BEF");
 		error.setBackground(color[1]);
 		
-		warning = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		warning.setText("危险");
-		warning.setBounds(130, 9, 50, 20);
-		warning.setBackground(color[2]);
-
-		good = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		good.setText("正常");
-		good.setBounds(190, 9, 60, 20);
+		good = new Button(group, SWT.RADIO);
+		good.setText("\u6B63\u5E38");
 		good.setBackground(color[3]);
-
-		disable = new Button(toolBar, SWT.RADIO | SWT.LEFT);
-		disable.setText("禁止");
-		disable.setBounds(260, 9, 50, 20);
+		
+		warning = new Button(group, SWT.RADIO);
+		warning.setText("\u5371\u9669");
+		warning.setBackground(color[2]);
+		
+		disable = new Button(group, SWT.RADIO);
+		disable.setText("\u7981\u7528");
 		disable.setBackground(color[4]);
-
 	}
 	// 日志数据表
-	public void createTable(Composite parent, ICollection iCollection) {
+	public void createTable(SashForm sashForm, ICollection iCollection) {
 		if (table_1 != null && !table_1.isDisposed()) {
 			table_1.dispose();
 		}
-		table_1 = new Table(parent, SWT.BORDER|SWT.FULL_SELECTION);
-		table_1.setBounds(0, 30, 750, 230);
+		table_1= new Table(sashForm, SWT.BORDER | SWT.FULL_SELECTION);
 		table_1.setHeaderVisible(true);
 		table_1.setLinesVisible(true);
-
 		for (int i = 0; i < cloumns.size(); i++) {
 			TableColumn tblclmnNewColumn = new TableColumn(table_1, SWT.NONE);
 			if (i == (cloumns.size() - 1)) {
@@ -303,7 +279,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 				item.setBackground(color[0]);
 			}
 		}
-		parent.layout();
+		sashForm.setWeights(new int[] {30, 400});
 	}
 	//解析日志文件monitorMassage字段（公用方法）
 	private List<String> formatItem(String s) {
