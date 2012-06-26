@@ -33,6 +33,7 @@ public class TotalTabView extends LayoutViewBase {
 	public static String xname, yname = "";// X、Y坐标名称
 	public static String reportDescName = "";// 报表描述
 	public static List<Map<String, List<String>>> reportDescList = new ArrayList<Map<String, List<String>>>();// 报表返回值、最大值、平均值、最新值集合
+	public static List<Map<String, List<String>>> reportEveryDescList = new ArrayList<Map<String, List<String>>>();// 报表每行数据的返回数据列表
 	public static BusinessObject businessObj = null;
 
 	public TotalTabView(Composite parent) {
@@ -72,6 +73,7 @@ public class TotalTabView extends LayoutViewBase {
 		xname = "";
 		yname = "";
 		reportDescList.clear();
+		reportEveryDescList.clear();
 		xyDataArrayList.clear();
 		monitorName = "";
 		logTimeAndlogInfoArrayList.clear();
@@ -90,9 +92,6 @@ public class TotalTabView extends LayoutViewBase {
 				.get_NativeValue().toString();
 		Map<String, Object> parmsmap = new HashMap<String, Object>();
 		parmsmap.put("monitorId", bo.get_RecId());
-//		String time = MonitorLogTabView.getTwoHoursAgoTime();
-//		startTime = time.substring(time.indexOf("*") + 1);
-//		endTime = time.substring(0, time.indexOf("*"));
 		parmsmap.put("startTime", startTime);
 		parmsmap.put("endTime", endTime);
 		getAlarmCondition(bo.get_RecId(), monitortype);// 获取阀值条件
@@ -261,8 +260,12 @@ public class TotalTabView extends LayoutViewBase {
 				}
 				    String mapkey = templateArray[i+1].substring(templateArray[i+1].indexOf("=")+1, templateArray[i+1].length());
 					Map<String, List<String>> arrayListMap = new HashMap<String, List<String>>();// 存放每一行返回值和参数
+					Map<String, List<String>> descarrayListMap = new HashMap<String, List<String>>();// 存放每一行所有数据
 					arrayListMap.put(mapkey, otherIntArrayList);
+					descarrayListMap.put(mapkey, strarray.get(i));
 					reportDescList.add(arrayListMap);
+					reportEveryDescList.add(descarrayListMap);
+					System.out.println(reportEveryDescList);
 			}
 			return reportDescList;
 	}
