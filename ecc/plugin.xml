@@ -39,5 +39,10 @@
           Title="状态统计报表"
           match_strategy="SiteView.ecc.tab.views.MatchClass">
     </ExtViews_matchByStrategy>
+    <ExtViews_matchByStrategy
+          Class="SiteView.ecc.tab.views.ContrastReportTabView"
+          Title="对比报告"
+          match_strategy="SiteView.ecc.tab.views.MatchClass">
+    </ExtViews_matchByStrategy>
  </extension>
  </plugin>

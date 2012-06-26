@@ -22,11 +22,10 @@ import system.Collections.IEnumerator;
 import system.Xml.XmlElement;
 
 public class TotalTabView extends LayoutViewBase {
-	public static Map<String, List<String>> xydataMap = new HashMap<String, List<String>>();// 构建报表的X、Y坐标数据
 	public static String startTime, endTime = "";// 报表数据查询开始时间、结束时间
 	public static String goodAlarmCondition, errorAlarmCondition, warningAlarmCondition = "";// 正常、错误、危险报警阀值条件
 	public static int goodcount, warningcount, errorcount, disablecount,totalcount = 0;// 正常、危险、错误、禁止数量、记录总数量
-	public static String goodPercentOf,errorPercentOf,warningPercentOf,laststatus = "";//正常、错误、危险百分比、最新状态
+	public static String goodPercentOf,errorPercentOf,warningPercentOf,laststatus,lastTime = "";//正常、错误、危险百分比、最新状态、最新值时间
 	public static String monitorName = "";// 监测器名称
 	public static List<String> logTimeAndlogInfoArrayList = new ArrayList<String>();// 日志时间#日志内容集合
 	public static String newvalue = "";// 最新值
@@ -61,6 +60,7 @@ public class TotalTabView extends LayoutViewBase {
 		errorAlarmCondition = "";
 		warningAlarmCondition = "";
 		laststatus = "";
+		lastTime = "";
 		goodPercentOf = "";
 		errorPercentOf = "";
 		warningPercentOf = "";
@@ -71,7 +71,6 @@ public class TotalTabView extends LayoutViewBase {
 		totalcount = 0;
 		xname = "";
 		yname = "";
-		xydataMap.clear();
 		reportDescList.clear();
 		xyDataArrayList.clear();
 		monitorName = "";
@@ -104,6 +103,8 @@ public class TotalTabView extends LayoutViewBase {
 			monitorlogbo = (BusinessObject) monitorlog.get_Current();
 			String monitorstatus = monitorlogbo.GetField("MonitorStatus")
 					.get_NativeValue().toString();
+			String logLastTime = monitorlogbo.GetField("CreatedDateTime")
+					.get_NativeValue().toString();
 			if (laststatus.equals("")) {
 				if (monitorstatus.equals("good")) {
 					laststatus ="正常";
@@ -112,6 +113,9 @@ public class TotalTabView extends LayoutViewBase {
 				}else if(monitorstatus.equals("warning")){
 					laststatus = "危险";
 				}
+			}
+			if (lastTime.equals("")) {
+				lastTime = logLastTime;
 			}
 			if (monitorstatus.equals("good")) {
 				goodcount++;
@@ -248,7 +252,11 @@ public class TotalTabView extends LayoutViewBase {
 					otherIntArrayList.add(String.valueOf(arrayavg));//平均值(下标1)
 					otherIntArrayList.add(String.valueOf(arrayintarray[0]));// 最新值(下标2)
 					otherIntArrayList.add(String.valueOf(arraymin));//最小值(下标3)
-					otherIntArrayList.add(timeLogValueMap.get(String.valueOf(arraymax)));//最大值时间(下标4)
+					if (timeLogValueMap.get(String.valueOf(arraymax))==null) {
+						otherIntArrayList.add(timeLogValueMap.get(String.valueOf((int)arraymax)));//最大值时间(下标4)
+					}else{
+						otherIntArrayList.add(timeLogValueMap.get(String.valueOf(arraymax)));//最大值时间(下标4)
+					}
 					timeLogValueMap.clear();
 				}
 				    String mapkey = templateArray[i+1].substring(templateArray[i+1].indexOf("=")+1, templateArray[i+1].length());

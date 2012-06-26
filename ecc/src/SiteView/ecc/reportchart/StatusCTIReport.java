@@ -152,7 +152,7 @@ public class StatusCTIReport extends LayoutViewBase {
 	private void refurbishView(SashForm sashForm, String[] column,
 			String[] column_1) {
 		Label lbl= new Label(sashForm, SWT.NONE);
-		lbl.setFont(SWTResourceManager.getFont("ËÎÌו", 7, SWT.NORMAL));
+		lbl.setFont(SWTResourceManager.getFont("ËÎÌו", 8, SWT.NORMAL));
 		lbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
 		lbl.setText("\u72B6\u6001\u5217\u8868");
 		
@@ -187,7 +187,7 @@ public class StatusCTIReport extends LayoutViewBase {
 		 dataset.setValue("good", datas[0]);
 		 dataset.setValue("disable", datas[3]);
 		 dataset.setValue("nodata", datas[4]);
-		 JFreeChart chart=ChartFactory.createPieChart("a", dataset, true, true, false);
+		 JFreeChart chart=ChartFactory.createPieChart("", dataset, true, true, false);
 		 ChartComposite frame = new ChartComposite(c, SWT.NONE, chart, true);
 		sashForm.setWeights(new int[] {40,15,100,15, 50, 15, 60, 15, 200});
 	}
