@@ -2,6 +2,7 @@ package SiteView.ecc.tab.views;
 
 
 import SiteView.ecc.reportchart.StatusCTIReport;
+import SiteView.ecc.reportchart.TimeContrastReport;
 import Siteview.Api.BusinessObject;
 import siteview.windows.forms.MatchStrategyBase;
 
@@ -23,6 +24,7 @@ public class MatchClass extends MatchStrategyBase {
 			MonitorLogTabView.SetData(bo);
 			TotalTabView.setTotalData(bo);
 			StatusCTIReport.setData(bo);
+			TimeContrastReport.setData(bo);
 		}
 		return flag;
 	}

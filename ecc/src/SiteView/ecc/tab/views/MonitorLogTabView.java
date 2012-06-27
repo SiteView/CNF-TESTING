@@ -35,6 +35,10 @@ import Siteview.Api.BusinessObject;
 import Siteview.Api.ISiteviewApi;
 import Siteview.Windows.Forms.ConnectionBroker;
 
+/**
+ * 日志数据
+ * @author：lihua.zhong
+ */
 public class MonitorLogTabView extends LayoutViewBase {
 	// 数据
 	public static BusinessObject bo;
@@ -44,14 +48,13 @@ public class MonitorLogTabView extends LayoutViewBase {
 	static List<String> cloumns;//表的列
 	static List<String> cloumnsEn;//列所对应的日志属性
 	// 控件
-	private ToolBar toolBar;
 	private Button good;
 	private Button error;
 	private Button warning;
 	private Button disable;
 	private Button all;
 	private Table table_1;
-	private static Color [] color;
+	private static Color [] color;//nodata下标0 error下标1 warning下标2 good下标3 disable下标4
 
 	public MonitorLogTabView(Composite parent) {
 		super(parent);
@@ -73,7 +76,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		map = setMap(bo);
 		setCloumns(bo.get_Name());
 	}
-
+	
 	private static Map<String, Object> setMap(BusinessObject bo) {
 		map = new java.util.HashMap<String, Object>();
 		map.put("monitorId", bo.get_RecId());
@@ -82,54 +85,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		map.put("startTime", time.substring(time.indexOf("*") + 1));
 		return map;
 	}
-
-	// 赋时间值（得到当前及N小时前时间）
-	public static String getHoursAgoTime(int i) {
-		Calendar cal = Calendar.getInstance();
-		String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-				.format(cal.getTime());
-		cal.add(Calendar.HOUR, -i);
-		String twoHoursAgoTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-				.format(cal.getTime());
-		return currentTime + "*" + twoHoursAgoTime;
-	}
-
-	// 查日志
-	public static ICollection getLog(Map<String, Object> map) {
-		ISiteviewApi siteviewApi = ConnectionBroker.get_SiteviewApi();
-		SiteviewQuery query = new SiteviewQuery();
-		query.AddBusObQuery("MonitorLog", QueryInfoToGet.All);
-		XmlElement[] xmls = new XmlElement[map.size() - 1];
-		XmlElement xml;
-		int i = 0;
-		if (map.get("startTime") != null) {
-			xml = query.get_CriteriaBuilder().QueryListExpression(
-					"CreatedDateTime", Operators.Between.name());
-			query.get_CriteriaBuilder().AddLiteralValue(xml,
-					map.get("startTime").toString());
-			query.get_CriteriaBuilder().AddLiteralValue(xml,
-					map.get("endTime").toString());
-			xmls[i++] = xml;
-			map.remove("startTime");
-			map.remove("endTime");
-		}
-		Iterator<Entry<String, Object>> iterator = map.entrySet().iterator();
-		while (iterator.hasNext()) {
-			String key = iterator.next().toString();
-			key = key.substring(0, key.indexOf("="));
-			xml = query.get_CriteriaBuilder().FieldAndValueExpression(key,
-					Operators.Equals, map.get(key).toString());
-			xmls[i++] = xml;
-		}
-		query.AddOrderByDesc("CreatedDateTime");
-		query.set_BusObSearchCriteria(query.get_CriteriaBuilder()
-				.AndExpressions(xmls));
-
-		ICollection iCollenction = siteviewApi.get_BusObService()
-				.get_SimpleQueryResolver().ResolveQueryToBusObList(query);
-		return iCollenction;
-	}
-
+	//创建tab
 	protected void createView(final Composite parent) {
 		bo1=bo;
 		parent.setLayout(new FillLayout(SWT.VERTICAL));
@@ -205,7 +161,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		});
 		
 	}
-
+	//创建状态单选按钮
 	private void createToolbar(SashForm sashForm) {
 		Composite group = new Composite(sashForm, SWT.NONE);
 		group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
@@ -281,25 +237,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		}
 		sashForm.setWeights(new int[] {30, 400});
 	}
-	//解析日志文件monitorMassage字段（公用方法）
-	private List<String> formatItem(String s) {
-		List<String> massage = new ArrayList<String>();
-		for (String s0 : cloumnsEn) {
-			if(s.contains(s0)){
-				String s1=s.substring(s.indexOf(s0));
-				if(s1.contains("\t")){
-					s1=s1.substring(s1.indexOf("=")+1,s1.indexOf("\t"));
-				}else{
-					s1=s1.substring(s1.indexOf("=")+1);
-				}
-				massage.add(s1);
-			}
-		}
-		s=s.replaceAll("\t", ",");
-		massage.add(s);
-		return massage;
-	}
-	//获取表列
+	//获取表的列
 	private static void setCloumns(String s) {
 		cloumns= new ArrayList<String>();
 		cloumnsEn=new ArrayList<String>();
@@ -318,10 +256,74 @@ public class MonitorLogTabView extends LayoutViewBase {
 		cloumns.add("描述");
 		
 	}
+	//销毁颜色
 	public void dispose() {
 		for(Color c: color){
 			c.dispose();
 		}
 		super.dispose();
+	}
+	// 赋时间值（得到当前及N小时前时间）公用方法
+	public static String getHoursAgoTime(int i) {
+		Calendar cal = Calendar.getInstance();
+		String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(cal.getTime());
+		cal.add(Calendar.HOUR, -i);
+		String twoHoursAgoTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(cal.getTime());
+		return currentTime + "*" + twoHoursAgoTime;
+	}
+	// 查日志 （公用方法）
+	public static ICollection getLog(Map<String, Object> map) {
+		ISiteviewApi siteviewApi = ConnectionBroker.get_SiteviewApi();
+		SiteviewQuery query = new SiteviewQuery();
+		query.AddBusObQuery("MonitorLog", QueryInfoToGet.All);
+		XmlElement[] xmls = new XmlElement[map.size() - 1];
+		XmlElement xml;
+		int i = 0;
+		if (map.get("startTime") != null) {
+			xml = query.get_CriteriaBuilder().QueryListExpression(
+					"CreatedDateTime", Operators.Between.name());
+			query.get_CriteriaBuilder().AddLiteralValue(xml,
+					map.get("startTime").toString());
+			query.get_CriteriaBuilder().AddLiteralValue(xml,
+					map.get("endTime").toString());
+			xmls[i++] = xml;
+			map.remove("startTime");
+			map.remove("endTime");
+		}
+		Iterator<Entry<String, Object>> iterator = map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			String key = iterator.next().toString();
+			key = key.substring(0, key.indexOf("="));
+			xml = query.get_CriteriaBuilder().FieldAndValueExpression(key,
+					Operators.Equals, map.get(key).toString());
+			xmls[i++] = xml;
+		}
+		query.AddOrderByDesc("CreatedDateTime");
+		query.set_BusObSearchCriteria(query.get_CriteriaBuilder()
+				.AndExpressions(xmls));
+
+		ICollection iCollenction = siteviewApi.get_BusObService()
+				.get_SimpleQueryResolver().ResolveQueryToBusObList(query);
+		return iCollenction;
+	}
+	//解析日志文件monitorMassage字段（公用方法）
+	private List<String> formatItem(String s) {
+		List<String> massage = new ArrayList<String>();
+		for (String s0 : cloumnsEn) {
+			if(s.contains(s0)){
+				String s1=s.substring(s.indexOf(s0));
+				if(s1.contains("\t")){
+					s1=s1.substring(s1.indexOf("=")+1,s1.indexOf("\t"));
+				}else{
+					s1=s1.substring(s1.indexOf("=")+1);
+				}
+				massage.add(s1);
+			}
+		}
+		s=s.replaceAll("\t", ",");
+		massage.add(s);
+		return massage;
 	}
 }

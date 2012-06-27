@@ -3,7 +3,6 @@ package SiteView.ecc.reportchart;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,75 +10,72 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import java.awt.Color;
 
-
-import COM.dragonflow.Api.SSAlertInstanceInfo;
-import COM.dragonflow.SiteView.MonitorGroup;
 import SiteView.ecc.tab.views.MonitorLogTabView;
 import SiteView.ecc.tab.views.TotalTabView;
 import Siteview.Api.BusinessObject;
 import siteview.windows.forms.LayoutViewBase;
 
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.wb.swt.SWTResourceManager;
 import swing2swt.layout.FlowLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.custom.StackLayout;
-import swing2swt.layout.BoxLayout;
+import org.eclipse.swt.custom.ScrolledComposite;
 import system.Collections.ICollection;
 import system.Collections.IEnumerator;
 
 import org.eclipse.swt.custom.SashForm;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.StackedBarRenderer;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.Second;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
-import org.jfree.util.Rotation;
+import org.jfree.ui.RectangleInsets;
 
-
+/**
+ * 状态统计报表
+ * @author lihua.zhong
+ *
+ */
 public class StatusCTIReport extends LayoutViewBase {
+	//数据
 	private static BusinessObject bo;
 	private BusinessObject bo1;
 	private ICollection iCollenction;//日志数据
 	Map<String, Object> map=null;//查询日志条件（列:值）
-	String starTime=null;
-	String endTime=null;
-	double datas[];
+	String starTime=null;//查询日志的开始时间
+	String endTime=null;//查询日志的结束时间
+	double datas[];//各状态所占百分比（用来画图）
+	private List<String> dataset=new ArrayList<String>();
 	//控件
-	private Table table;
-	private Table table_1;
-	private Text text;
-	private Text text_1;
-	private String string;
-
-	
+	private Table table;//状态列表
+	private Table table_1;//状态统计列表
+	private Composite comp;
 	public StatusCTIReport(Composite parent) {
 		super(parent);
 	}
-
+	//创建tab
 	protected void createView(final Composite parent) {
 		if (parent.getChildren().length > 0) {
 			for (Control control : parent.getChildren()) {
@@ -147,39 +143,48 @@ public class StatusCTIReport extends LayoutViewBase {
 			}
 		});
 		
-		refurbishView(sashForm,column,column_1); 
-	}
-	private void refurbishView(SashForm sashForm, String[] column,
-			String[] column_1) {
-		Label lbl= new Label(sashForm, SWT.NONE);
-		lbl.setFont(SWTResourceManager.getFont("宋体", 8, SWT.NORMAL));
+		
+		ScrolledComposite group_1 = new ScrolledComposite(sashForm, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		group_1.setLayout(new FillLayout(SWT.HORIZONTAL));
+		group_1.setExpandHorizontal(true);
+		group_1.setExpandVertical(true);
+		group_1.setMinWidth(400);
+		group_1.setMinHeight(600);
+		
+		Composite  chatComposite = new Composite(group_1, SWT.NONE);
+		group_1.setContent(chatComposite);// 设置chatComposite被scrolledComposite控制
+		chatComposite.setLayout(new FillLayout());
+		SashForm sashForm_1 = new SashForm(chatComposite, SWT.VERTICAL);
+		
+		Label lbl= new Label(sashForm_1, SWT.NONE);
+		lbl.setFont(SWTResourceManager.getFont("宋体", 9, SWT.NORMAL));
 		lbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
 		lbl.setText("\u72B6\u6001\u5217\u8868");
 		
-		table=createTable(sashForm,column);
+		table=createTable(sashForm_1,column);
 		
-		Label lblNewLabel_1 = new Label(sashForm, SWT.NONE);
+		Label lblNewLabel_1 = new Label(sashForm_1, SWT.NONE);
 		lblNewLabel_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
 		lblNewLabel_1.setText("\u72B6\u6001\u5206\u5E03\u56FE");
 		
-		Composite comp= new Composite(sashForm, SWT.BORDER);
+		comp= new Composite(sashForm_1, SWT.BORDER);
 		comp.setLayout(new FillLayout(SWT.VERTICAL));
-		DefaultCategoryDataset datast = new DefaultCategoryDataset();
-        JFreeChart chart_0= ChartFactory.createStackedBarChart("", "", "", datast, PlotOrientation.HORIZONTAL, true, true, false);
-        ChartComposite frame_0 = new ChartComposite(comp, SWT.NONE, chart_0, true);
+//		DefaultCategoryDataset datast =(DefaultCategoryDataset) createDataset(dataset);
+//        JFreeChart chart_0=createChart(datast);
+//        ChartComposite frame_0 = new ChartComposite(comp, SWT.NONE, chart_0, true);
         
-		Label lblNewLabel_2 = new Label(sashForm, SWT.NONE);
+		Label lblNewLabel_2 = new Label(sashForm_1, SWT.NONE);
 		lblNewLabel_2.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
 		lblNewLabel_2.setText("\u72B6\u6001\u7EDF\u8BA1\u5217\u8868");
 		
-		table_1=createTable(sashForm,column_1);
-		TableItem(table,table_1);
+		table_1=createTable(sashForm_1,column_1);
+		TableItem(table,table_1,comp);
 		
-		Label lblNewLabel_3 = new Label(sashForm, SWT.NONE);
+		Label lblNewLabel_3 = new Label(sashForm_1, SWT.NONE);
 		lblNewLabel_3.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
 		lblNewLabel_3.setText("\u72B6\u6001\u7EDF\u8BA1\u56FE");
 		
-		Composite c= new Composite(sashForm, SWT.BORDER);
+		Composite c= new Composite(sashForm_1, SWT.BORDER);
 		c.setLayout(new FillLayout(SWT.VERTICAL));
 		DefaultPieDataset dataset = new DefaultPieDataset();
 		 dataset.setValue("error", datas[2]);
@@ -187,11 +192,13 @@ public class StatusCTIReport extends LayoutViewBase {
 		 dataset.setValue("good", datas[0]);
 		 dataset.setValue("disable", datas[3]);
 		 dataset.setValue("nodata", datas[4]);
-		 JFreeChart chart=ChartFactory.createPieChart("", dataset, true, true, false);
+		 JFreeChart chart=ChartFactory.createPieChart(bo1.get_Name(), dataset, true, true, false);
 		 ChartComposite frame = new ChartComposite(c, SWT.NONE, chart, true);
-		sashForm.setWeights(new int[] {40,15,100,15, 50, 15, 60, 15, 200});
+		 sashForm_1.setWeights(new int[] {15,100,15, 150, 15, 200, 15, 200});
+		sashForm.setWeights(new int[] {50,500});
+		parent.layout(); 
 	}
-
+	//通过传人Composite 和字符串数组，创建表
 	protected Table createTable(SashForm sashForm,String[] column){
 		Table table = new Table(sashForm, SWT.BORDER | SWT.FULL_SELECTION);
 		table.setHeaderVisible(true);
@@ -203,8 +210,10 @@ public class StatusCTIReport extends LayoutViewBase {
 		}
 		return table;
 	}
-	
-	protected void TableItem(Table table,Table table_1){
+	//数据处理，（处理日志，给table 和table_1放入数据）
+	protected void TableItem(Table table,Table table_1,Composite comp){
+		dataset=new ArrayList<String>();
+		
 		int s=iCollenction.get_Count();
 		int j=0;
 		int good_Count=0;
@@ -218,6 +227,8 @@ public class StatusCTIReport extends LayoutViewBase {
 			BusinessObject bo = (BusinessObject) tableItems
 					.get_Current();
 			String status=bo.GetField("MonitorStatus").get_NativeValue().toString();
+			String ss=status+"$"+bo.GetField("CreatedDateTime").get_NativeValue().toString();
+			dataset.add(ss);
 			if(status.equals("good")){
 				good_Count+=1;
 			}else if(status.equals("error")){
@@ -232,6 +243,10 @@ public class StatusCTIReport extends LayoutViewBase {
 			bos[j++]=bo;
 		}
 		//208-225 把日志数据时间顺序倒放入bos数组中
+		
+		XYDataset datast = createDataset(dataset);
+        JFreeChart chart_0=createChart(datast);
+        ChartComposite frame_0 = new ChartComposite(comp, SWT.NONE, chart_0, true);
 		
 		String[] statusdata=new String[4];
 		String status=null;//上次数据的状态
@@ -301,6 +316,7 @@ public class StatusCTIReport extends LayoutViewBase {
 		}
 		item.setText(data);
 	}
+	//通过传的两个时间 得出两个时间相隔的时间差
 	public static String getTime(String s,String s1){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss",Locale.US);
 		String ss=null;
@@ -323,11 +339,13 @@ public class StatusCTIReport extends LayoutViewBase {
 		}
 		return ss;
 	}
+	
 	public void SetDataFromBusOb(BusinessObject bo) {
 	}
 	public static void setData(BusinessObject bo) {
 		StatusCTIReport.bo = bo;
 	}
+	//赋map查询日志的条件值，并查出日志集合iCollenction
 	public void setMap(){
 		if(starTime==null||endTime==null){
 			bo1=bo;
@@ -341,4 +359,61 @@ public class StatusCTIReport extends LayoutViewBase {
 		map.put("monitorId", bo1.get_RecId());
 		iCollenction = MonitorLogTabView.getLog(map);
 	}
+	public JFreeChart  createChart(XYDataset dataset) {
+		  JFreeChart chart = ChartFactory.createTimeSeriesChart(
+		            "",  // chart title
+		            "",                  // domain axis label
+		            "", 
+		            dataset,                     // data
+		            true,                        // legend
+		            true,                        // tooltips
+		            false                        // urls
+		        );
+		  chart.setBackgroundPaint(Color.white);
+
+	        XYPlot plot = (XYPlot) chart.getPlot();
+	        DateAxis axis = (DateAxis) plot.getDomainAxis();
+	        axis.setDateFormatOverride(new SimpleDateFormat("dd HH:mm:ss"));
+		  return chart;
+	}
+	public  TimeSeriesCollection createDataset(List<String> d) {
+		TimeSeries s1 = new TimeSeries("error",Second.class);
+		TimeSeries s2 = new TimeSeries("warning", Second.class);
+		TimeSeries s3 = new TimeSeries("good",Second.class);
+		TimeSeries s4 = new TimeSeries("disable", Second.class);
+		TimeSeries s5 = new TimeSeries("no data", Second.class);
+		
+		for(int i=0;i<d.size();i++){
+			String s0=d.get(i);
+			String s=s0.substring(s0.indexOf("$")+1);
+			String ss=s0.substring(0,s0.indexOf("$"));
+			String ye =s.substring(0,s.indexOf("/"));
+			String mo =s.substring(s.indexOf("/")+1,s.lastIndexOf("/"));
+			String da =s.substring(s.lastIndexOf("/")+1,s.indexOf(" "));
+			String ho = s.substring(s.indexOf(" ")+1,s.indexOf(":"));
+			String mi = s.substring(s.indexOf(":")+1,s.lastIndexOf(":"));
+			int se = Integer.parseInt(s0.substring(s0.lastIndexOf(":")+1));
+			Minute m = new Minute(Integer.parseInt(mi),
+					Integer.parseInt(ho), Integer.parseInt(da),
+					Integer.parseInt(mo), Integer.parseInt(ye));
+			if(ss.equals("error")){
+				s1.add(new Second(se,m),400);
+			}else if(ss.equals("warning")){
+				s2.add(new Second(se,m),300);
+			}else if(ss.equals("good")){
+				s3.add(new Second(se,m),200);
+			}else if(ss.equals("disable")){
+				s4.add(new Second(se,m),100);
+			}else if(ss.equals("no date")){
+				s5.add(new Second(se,m),0);
+			}
+		}
+		TimeSeriesCollection dataset = new TimeSeriesCollection();
+        dataset.addSeries(s1);
+        dataset.addSeries(s2);
+        dataset.addSeries(s3);
+        dataset.addSeries(s4);
+        dataset.addSeries(s5);
+        return dataset;
+    }
 }
