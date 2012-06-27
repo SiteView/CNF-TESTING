@@ -92,4 +92,48 @@ public class EccReportChart {
 		TimeSeriesCollection dataset = new TimeSeriesCollection(series);
 		return dataset;
 	}
+	
+	/**
+	 * 构建报告数据
+	 * 
+	 * @param xydata
+	 * @return
+	 */
+	public static XYDataset createDataset(List<String> xydata,String reportDescName) {
+		TimeSeries series = new TimeSeries(reportDescName+"  ",
+				Second.class);
+		for (String str : xydata) {
+			String x = str.substring(0, str.indexOf("$"));
+			String y = str.substring(str.indexOf("$") + 1, str.length());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss",
+					Locale.US);
+			try {
+				Date d = sdf.parse(y);
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+						"yyyyMMddHHmmss");
+				String date = simpleDateFormat.format(d);
+				String ye = date.substring(0, 4);
+				String mo = date.substring(4, 6);
+				String da = date.substring(6, 8);
+				String ho = date.substring(8, 10);
+				String mi = date.substring(10, 12);
+				String ss = date.substring(12, 14);
+				Minute m = new Minute(Integer.parseInt(mi),
+						Integer.parseInt(ho), Integer.parseInt(da),
+						Integer.parseInt(mo), Integer.parseInt(ye));
+				if (!x.equals("n/a")) {
+					if (x.equals("ok")) {
+						x="200";
+					}
+					series.add(new Second(Integer.parseInt(ss), m),
+							Double.parseDouble(x));
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		TimeSeriesCollection dataset = new TimeSeriesCollection(series);
+		return dataset;
+	}
 }

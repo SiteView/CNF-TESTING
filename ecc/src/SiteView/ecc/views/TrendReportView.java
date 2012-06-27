@@ -12,6 +12,8 @@ import java.util.Set;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -33,6 +35,8 @@ import org.jfree.experimental.chart.swt.ChartComposite;
 import SiteView.ecc.reportchart.EccReportChart;
 import SiteView.ecc.tab.views.MonitorLogTabView;
 import SiteView.ecc.tab.views.TotalTabView;
+
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 
@@ -80,9 +84,17 @@ public class TrendReportView extends ViewPart {
 		TotalTabView.endTime = endTimeStr;
 		TotalTabView.setTotalData(TotalTabView.businessObj);
 
-		trendComposite.setLayout(new FormLayout());
+		trendComposite.setLayout(new FillLayout());
 		trendComposite.setBackground(new Color(null, 255, 255, 255));
-		queryLabel = new Label(trendComposite, SWT.NONE);
+		SashForm reportForm = new SashForm(trendComposite, SWT.BORDER);
+		reportForm.setOrientation(SWT.VERTICAL);
+		reportForm.setLayout(new FillLayout());
+		
+		Composite  queryComposite = new Composite(reportForm, SWT.NONE);
+		queryComposite.setBackground(new Color(null, 255, 255, 255));
+		queryComposite.setLayout(new FormLayout());
+		
+		queryLabel = new Label(queryComposite, SWT.NONE);
 		FormData fd_queryLabel = new FormData();
 		fd_queryLabel.left = new FormAttachment(0);
 		fd_queryLabel.right = new FormAttachment(100);
@@ -91,13 +103,13 @@ public class TrendReportView extends ViewPart {
 		queryLabel.setText("查询条件");
 		queryLabel.setBackground(new Color(null, 191, 198, 216));
 
-		start = new Label(trendComposite, SWT.None);
+		start = new Label(queryComposite, SWT.None);
 		FormData fd_start = new FormData();
 		start.setBackground(new Color(null, 255, 255, 255));
 		fd_start.left = new FormAttachment(queryLabel, 0, SWT.LEFT);
 		start.setLayoutData(fd_start);
 		start.setText("开始时间:");
-		final DateTime startDate = new DateTime(trendComposite, SWT.DROP_DOWN);
+		final DateTime startDate = new DateTime(queryComposite, SWT.DROP_DOWN);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
 				Locale.US);
 		Date startDateTime  = new Date();
@@ -125,7 +137,7 @@ public class TrendReportView extends ViewPart {
 		fd_startDate.left = new FormAttachment(0, 60);
 		fd_startDate.top = new FormAttachment(queryLabel, 6);
 		startDate.setLayoutData(fd_startDate);
-		final DateTime startTime = new DateTime(trendComposite, SWT.TIME
+		final DateTime startTime = new DateTime(queryComposite, SWT.TIME
 				| SWT.SHORT);
 		FormData fd_startTime = new FormData();
 		fd_startTime.left = new FormAttachment(startDate, 6);
@@ -133,13 +145,13 @@ public class TrendReportView extends ViewPart {
 		startTime.setHours(startcal.get(Calendar.HOUR));
 		startTime.setMinutes(startcal.get(Calendar.MINUTE));
 		startTime.setSeconds(startcal.get(Calendar.SECOND));
-		Label end = new Label(trendComposite, SWT.None);
+		Label end = new Label(queryComposite, SWT.None);
 		end.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_end = new FormData();
 		fd_end.left = new FormAttachment(startTime, 6);
 		end.setLayoutData(fd_end);
 		end.setText("结束时间:");
-		final DateTime endDate = new DateTime(trendComposite, SWT.DROP_DOWN);
+		final DateTime endDate = new DateTime(queryComposite, SWT.DROP_DOWN);
 		Calendar endcal = Calendar.getInstance();
 		endcal.setTime(endDateTime);
 		endDate.setYear(endcal.get(Calendar.YEAR));
@@ -149,7 +161,7 @@ public class TrendReportView extends ViewPart {
 		fd_endDate.top = new FormAttachment(queryLabel, 6);
 		fd_endDate.left = new FormAttachment(end, 6);
 		endDate.setLayoutData(fd_endDate);
-		final DateTime endTime = new DateTime(trendComposite, SWT.TIME
+		final DateTime endTime = new DateTime(queryComposite, SWT.TIME
 				| SWT.SHORT);
 		endTime.setHours(endcal.get(Calendar.HOUR));
 		endTime.setMinutes(endcal.get(Calendar.MINUTE));
@@ -158,7 +170,7 @@ public class TrendReportView extends ViewPart {
 		fd_endTime.top = new FormAttachment(queryLabel, 6);
 		fd_endTime.left = new FormAttachment(endDate, 1);
 		endTime.setLayoutData(fd_endTime);
-		queryBtn = new Button(trendComposite, SWT.NONE);
+		queryBtn = new Button(queryComposite, SWT.NONE);
 		FormData fd_queryBtn = new FormData();
 		fd_queryBtn.top = new FormAttachment(start, -5, SWT.TOP);
 		fd_queryBtn.left = new FormAttachment(endTime, 6);
@@ -181,7 +193,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label towHourBtn = new Label(trendComposite, SWT.NONE);
+		Label towHourBtn = new Label(queryComposite, SWT.NONE);
 		towHourBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_lblNewLabel = new FormData();
 		fd_lblNewLabel.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -212,7 +224,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label fourHourBtn = new Label(trendComposite, SWT.NONE);
+		Label fourHourBtn = new Label(queryComposite, SWT.NONE);
 		fourHourBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_lblNewLabel_1 = new FormData();
 		fd_lblNewLabel_1.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -243,7 +255,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label eightHourBtn = new Label(trendComposite, SWT.NONE);
+		Label eightHourBtn = new Label(queryComposite, SWT.NONE);
 		eightHourBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_lblNewLabel_2 = new FormData();
 		fd_lblNewLabel_2.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -274,7 +286,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label oneDayBtn = new Label(trendComposite, SWT.NONE);
+		Label oneDayBtn = new Label(queryComposite, SWT.NONE);
 		oneDayBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_oneDayBtn = new FormData();
 		fd_oneDayBtn.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -305,7 +317,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label twoDayBtn = new Label(trendComposite, SWT.NONE);
+		Label twoDayBtn = new Label(queryComposite, SWT.NONE);
 		twoDayBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_label = new FormData();
 		fd_label.top = new FormAttachment(start, 0, SWT.TOP);
@@ -336,7 +348,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label threeDayBtn = new Label(trendComposite, SWT.NONE);
+		Label threeDayBtn = new Label(queryComposite, SWT.NONE);
 		threeDayBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_threeDayBtn = new FormData();
 		fd_threeDayBtn.top = new FormAttachment(start, 0, SWT.TOP);
@@ -366,7 +378,7 @@ public class TrendReportView extends ViewPart {
 
 			}
 		});
-		Label fiveDayBtn = new Label(trendComposite, SWT.NONE);
+		Label fiveDayBtn = new Label(queryComposite, SWT.NONE);
 		fiveDayBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData five_label = new FormData();
 		five_label.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -397,7 +409,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label thisWeekBtn = new Label(trendComposite, SWT.NONE);
+		Label thisWeekBtn = new Label(queryComposite, SWT.NONE);
 		thisWeekBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_oneWeekBtn = new FormData();
 		fd_oneWeekBtn.top = new FormAttachment(start, 0, SWT.TOP);
@@ -433,7 +445,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label oneWeekBtn = new Label(trendComposite, SWT.NONE);
+		Label oneWeekBtn = new Label(queryComposite, SWT.NONE);
 		oneWeekBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData oneWeek_label = new FormData();
 		oneWeek_label.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -464,7 +476,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label oneMonthBtn = new Label(trendComposite, SWT.NONE);
+		Label oneMonthBtn = new Label(queryComposite, SWT.NONE);
 		oneMonthBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_oneMonthblNewLabel = new FormData();
 		fd_oneMonthblNewLabel.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -498,7 +510,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label twoMonthBtn = new Label(trendComposite, SWT.NONE);
+		Label twoMonthBtn = new Label(queryComposite, SWT.NONE);
 		twoMonthBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_label_1 = new FormData();
 		fd_label_1.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -532,7 +544,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label sixMonthBtn = new Label(trendComposite, SWT.NONE);
+		Label sixMonthBtn = new Label(queryComposite, SWT.NONE);
 		sixMonthBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_label_2 = new FormData();
 		fd_label_2.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -566,7 +578,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label thisDayBtn = new Label(trendComposite, SWT.NONE);
+		Label thisDayBtn = new Label(queryComposite, SWT.NONE);
 		thisDayBtn.setBackground(new Color(null, 255, 255, 255));
 		FormData fd_label_3 = new FormData();
 		fd_label_3.bottom = new FormAttachment(start, 0, SWT.BOTTOM);
@@ -608,7 +620,7 @@ public class TrendReportView extends ViewPart {
 			}
 		});
 
-		Label runningLabel = new Label(trendComposite, SWT.NONE);
+		Label runningLabel = new Label(queryComposite, SWT.NONE);
 		fd_end.bottom = new FormAttachment(runningLabel, -6);
 		fd_startTime.bottom = new FormAttachment(runningLabel, -6);
 		FormData fd_runningLabel = new FormData();
@@ -619,10 +631,11 @@ public class TrendReportView extends ViewPart {
 		runningLabel.setText("运行情况表");
 		runningLabel.setBackground(new Color(null, 191, 198, 216));
 
-		TableViewer tableViewer = new TableViewer(trendComposite, SWT.MULTI
+		TableViewer tableViewer = new TableViewer(queryComposite, SWT.MULTI
 				| SWT.FULL_SELECTION | SWT.NONE | SWT.V_SCROLL | SWT.H_SCROLL);
 		Table table = tableViewer.getTable();
 		FormData fd_table = new FormData();
+		fd_table.bottom = new FormAttachment(runningLabel, 42, SWT.BOTTOM);
 		fd_table.top = new FormAttachment(runningLabel, 6);
 		fd_table.left = new FormAttachment(0);
 		table.setLayoutData(fd_table);
@@ -659,23 +672,21 @@ public class TrendReportView extends ViewPart {
 		String[] runningstrdata = runningstr.split("&");
 		runningitem.setText(runningstrdata);
 
-		Label monitorTotalReportLabel = new Label(trendComposite, SWT.NONE);
+		Label monitorTotalReportLabel = new Label(queryComposite, SWT.NONE);
 		FormData fd_monitorTotalReportLabel = new FormData();
-		fd_monitorTotalReportLabel.top = new FormAttachment(table, 5);
-		fd_monitorTotalReportLabel.right = new FormAttachment(queryLabel, 0,
-				SWT.RIGHT);
-		fd_monitorTotalReportLabel.left = new FormAttachment(queryLabel, 0,
-				SWT.LEFT);
+		fd_monitorTotalReportLabel.top = new FormAttachment(table, 6);
+		fd_monitorTotalReportLabel.right = new FormAttachment(queryLabel, 0, SWT.RIGHT);
+		fd_monitorTotalReportLabel.left = new FormAttachment(queryLabel, 0, SWT.LEFT);
 		monitorTotalReportLabel.setLayoutData(fd_monitorTotalReportLabel);
 		monitorTotalReportLabel.setText("监测器统计报表");
 		monitorTotalReportLabel.setBackground(new Color(null, 191, 198, 216));
 
-		TableViewer totaltableViewer = new TableViewer(trendComposite,
+		TableViewer totaltableViewer = new TableViewer(queryComposite,
 				SWT.MULTI | SWT.FULL_SELECTION | SWT.BORDER | SWT.V_SCROLL
 						| SWT.H_SCROLL);
 		Table totaltable = totaltableViewer.getTable();
 		FormData fd_totaltable = new FormData();
-		fd_totaltable.top = new FormAttachment(monitorTotalReportLabel, 11);
+		fd_totaltable.top = new FormAttachment(monitorTotalReportLabel, 1);
 		totaltable.setLayoutData(fd_totaltable);
 		totaltable.setLinesVisible(true);
 		totaltable.setHeaderVisible(true);
@@ -731,11 +742,21 @@ public class TrendReportView extends ViewPart {
 			}
 		}
 
-		Label reportImgLabel = new Label(trendComposite, SWT.NONE);
-		fd_totaltable.bottom = new FormAttachment(reportImgLabel, -6);
+		ScrolledComposite scrolledComposite = new ScrolledComposite(reportForm, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		scrolledComposite.setExpandHorizontal(true);
+		scrolledComposite.setExpandVertical(true);
+		scrolledComposite.setMinWidth(400);
+	    scrolledComposite.setMinHeight(300);
+
+		Composite  chatComposite = new Composite(scrolledComposite, SWT.NONE);
+		scrolledComposite.setContent(chatComposite);// 设置chatComposite被scrolledComposite控制
+		chatComposite.setBackground(new Color(null, 255, 255, 255));
+		chatComposite.setLayout(new FormLayout());
+		
+		Label reportImgLabel = new Label(chatComposite, SWT.NONE);
 		FormData fd_reportImgLabel = new FormData();
-		fd_reportImgLabel.right = new FormAttachment(queryLabel, 0, SWT.RIGHT);
-		fd_reportImgLabel.left = new FormAttachment(queryLabel, 0, SWT.LEFT);
+		fd_reportImgLabel.left = new FormAttachment(0);
+		fd_reportImgLabel.right = new FormAttachment(100);
 		reportImgLabel.setLayoutData(fd_reportImgLabel);
 		reportImgLabel.setText("图表");
 		reportImgLabel.setBackground(new Color(null, 191, 198, 216));
@@ -744,15 +765,16 @@ public class TrendReportView extends ViewPart {
 				.createDataset(TotalTabView.xyDataArrayList);
 		JFreeChart chart = EccReportChart.createChart(dataset,
 				TotalTabView.xname, TotalTabView.yname);
-		ChartComposite frame = new ChartComposite(trendComposite, SWT.NONE,
+		ChartComposite frame = new ChartComposite(chatComposite, SWT.NONE,
 				chart, true);
-		fd_reportImgLabel.bottom = new FormAttachment(frame);
 		FormData fd_frame = new FormData();
-		fd_frame.top = new FormAttachment(0, 248);
-		fd_frame.bottom = new FormAttachment(100);
-		fd_frame.left = new FormAttachment(queryLabel, 0, SWT.LEFT);
-		fd_frame.right = new FormAttachment(queryLabel, 0, SWT.RIGHT);
+		fd_frame.top = new FormAttachment(0, 20);
+		fd_frame.left = new FormAttachment(0);
+		fd_frame.bottom = new FormAttachment(0, 242);
+		fd_frame.right = new FormAttachment(100);
 		frame.setLayoutData(fd_frame);
+		reportForm.setWeights(new int[] {218, 240});
+		
 		trendComposite.layout();
 	}
 

@@ -92,6 +92,11 @@ public class TotalTabView extends LayoutViewBase {
 				.get_NativeValue().toString();
 		Map<String, Object> parmsmap = new HashMap<String, Object>();
 		parmsmap.put("monitorId", bo.get_RecId());
+		if (startTime.equals("") || endTime.equals("")) {
+			String time = MonitorLogTabView.getHoursAgoTime(2);
+			startTime = time.substring(time.indexOf("*") + 1);
+			endTime = time.substring(0, time.indexOf("*"));
+		}
 		parmsmap.put("startTime", startTime);
 		parmsmap.put("endTime", endTime);
 		getAlarmCondition(bo.get_RecId(), monitortype);// 获取阀值条件
@@ -265,7 +270,6 @@ public class TotalTabView extends LayoutViewBase {
 					descarrayListMap.put(mapkey, strarray.get(i));
 					reportDescList.add(arrayListMap);
 					reportEveryDescList.add(descarrayListMap);
-					System.out.println(reportEveryDescList);
 			}
 			return reportDescList;
 	}
