@@ -142,7 +142,7 @@ public class TrendReportView extends ViewPart {
 		FormData fd_startTime = new FormData();
 		fd_startTime.left = new FormAttachment(startDate, 6);
 		startTime.setLayoutData(fd_startTime);
-		startTime.setHours(startcal.get(Calendar.HOUR));
+		startTime.setHours(startcal.get(Calendar.HOUR_OF_DAY));
 		startTime.setMinutes(startcal.get(Calendar.MINUTE));
 		startTime.setSeconds(startcal.get(Calendar.SECOND));
 		Label end = new Label(queryComposite, SWT.None);
@@ -163,7 +163,7 @@ public class TrendReportView extends ViewPart {
 		endDate.setLayoutData(fd_endDate);
 		final DateTime endTime = new DateTime(queryComposite, SWT.TIME
 				| SWT.SHORT);
-		endTime.setHours(endcal.get(Calendar.HOUR));
+		endTime.setHours(endcal.get(Calendar.HOUR_OF_DAY));
 		endTime.setMinutes(endcal.get(Calendar.MINUTE));
 		endTime.setSeconds(endcal.get(Calendar.SECOND));
 		FormData fd_endTime = new FormData();

@@ -121,7 +121,7 @@ public class ContrastReportView extends ViewPart {
 		fd_startTime.top = new FormAttachment(querylabel, 6);
 		fd_startTime.left = new FormAttachment(startDate, 6);
 		startTime.setLayoutData(fd_startTime);
-		startTime.setHours(startcal.get(Calendar.HOUR));
+		startTime.setHours(startcal.get(Calendar.HOUR_OF_DAY));
 		startTime.setMinutes(startcal.get(Calendar.MINUTE));
 		startTime.setSeconds(startcal.get(Calendar.SECOND));
 
@@ -143,7 +143,7 @@ public class ContrastReportView extends ViewPart {
 		endDate.setMonth(endcal.get(Calendar.MONTH));
 		endDate.setDay(endcal.get(Calendar.DAY_OF_MONTH));
 		final DateTime endTime = new DateTime(queryComposite, SWT.TIME | SWT.SHORT);
-		endTime.setHours(endcal.get(Calendar.HOUR));
+		endTime.setHours(endcal.get(Calendar.HOUR_OF_DAY));
 		endTime.setMinutes(endcal.get(Calendar.MINUTE));
 		endTime.setSeconds(endcal.get(Calendar.SECOND));
 		FormData fd_endTime = new FormData();
