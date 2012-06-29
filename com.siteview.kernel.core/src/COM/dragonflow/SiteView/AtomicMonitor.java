@@ -1834,6 +1834,6 @@ public  class AtomicMonitor extends Monitor implements Runnable,
 	    	Timestamp CreatedDateTime=new Timestamp(time);
 	    	String sql="insert into MonitorLog(RecId,ownerID,MonitorStatus,MonitorName,MonitorId,MonitorMassage,CreatedDateTime)" +
 	    			"values('"+RecId+"','"+ownerID+"','"+category+"','"+MonitorName+"','"+MonitorId+"','"+stateString+"','"+Timestamp.valueOf(f.format(CreatedDateTime))+"')";
-	    	JDBCForSQL.savaLog(sql);	
+	    	JDBCForSQL.execute_Insert(sql);	
 		}
 }

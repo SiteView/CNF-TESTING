@@ -31,6 +31,8 @@ import COM.dragonflow.SiteView.SiteViewGroup;
 import COM.dragonflow.SiteView.SiteViewObject;
 import COM.dragonflow.SiteView.SubGroup;
 import COM.dragonflow.SiteView.User;
+import COM.dragonflow.Utils.TextUtils;
+import COM.dragonflow.itsm.data.JDBCForSQL;
 import freemarker.template.Configuration;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -1569,6 +1571,15 @@ public abstract class CGI {
                 httprequest);
         COM.dragonflow.Properties.FrameFile.writeToFile(s, array, true);
         SiteViewGroup.updateStaticPages(httprequest);
+    }
+    public static void saveMasterToDataBase(jgl.Array array){
+    	String sql = "";
+    	Enumeration enumeration = array.elements();
+    	for (boolean flag2 = true; enumeration.hasMoreElements(); flag2 = false) {
+			HashMap hashmap = (HashMap) enumeration.nextElement();
+			//取出值存入对应业务对象库中
+		}
+    	JDBCForSQL.execute_Insert(sql);
     }
 
     public static jgl.HashMap findMonitor(jgl.Array array, String s)

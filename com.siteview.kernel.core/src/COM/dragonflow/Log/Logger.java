@@ -222,7 +222,7 @@ public abstract class Logger {
 					+ "','"
 					+ Timestamp.valueOf(f.format(CreatedDateTime)) + "')";
 		}
-		JDBCForSQL.savaLog(sql);
+		JDBCForSQL.execute_Insert(sql);
 	}
 
 	public void close() {

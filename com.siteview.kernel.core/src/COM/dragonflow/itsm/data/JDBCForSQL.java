@@ -58,7 +58,7 @@ public class JDBCForSQL {
 		return rs;
 	}
 
-	public static void savaLog(String sql) {
+	public static void execute_Insert(String sql) {
 
 		try {
 			Connection conn = getConnection();

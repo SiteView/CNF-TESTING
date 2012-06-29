@@ -544,7 +544,7 @@ public class FrameFile {
 						+ "',monitorDesc='" + s + "',LastModDateTime='"
 						+ LastModDateTime + "',groupid='" + groupName
 						+ "',monitorName='"+name+"',Department='"+department+"' where RecId='" + RecId + "'";
-				JDBCForSQL.savaLog(sql);
+				JDBCForSQL.execute_Insert(sql);
 			} else {
 				long time = System.currentTimeMillis();
 				SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -554,7 +554,7 @@ public class FrameFile {
 				String sql = "insert into EccDyn (RecId,category,monitorDesc,monitorid,LastModDateTime,CreatedDateTime,groupid,monitorName,Department)"
 						+ " values ('"+ RecId+ "','"+ category+ "','"+s+ "','"+ monitorid+ "','"+ CreatedDateTime+ "','"+ CreatedDateTime + "','" + groupName + "','"+name+"','"
 						+department+"')";
-				JDBCForSQL.savaLog(sql);
+				JDBCForSQL.execute_Insert(sql);
 			}
 		} catch (Exception e) {
 		}
