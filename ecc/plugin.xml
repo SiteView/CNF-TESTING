@@ -49,5 +49,10 @@
           Title="时段对比报告"
           match_strategy="SiteView.ecc.tab.views.MatchClass">
     </ExtViews_matchByStrategy>
+    <ExtViews_matchByStrategy
+          Class="SiteView.ecc.reportchart.ErrorCTIReport"
+          Title="错误统计报告"
+          match_strategy="SiteView.ecc.tab.views.MatchClass">
+    </ExtViews_matchByStrategy>
  </extension>
  </plugin>
