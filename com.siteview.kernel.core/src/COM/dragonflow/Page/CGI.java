@@ -9,6 +9,11 @@
  */
 package COM.dragonflow.Page;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -79,7 +84,7 @@ public abstract class CGI {
 
 	String args[];
 
-	public COM.dragonflow.HTTP.HTTPRequest request;
+	public static COM.dragonflow.HTTP.HTTPRequest request;
 
 	public java.io.PrintWriter outputStream;
 	public static Configuration cfg;
@@ -1486,48 +1491,69 @@ public abstract class CGI {
 		try {
 			String s = COM.dragonflow.Page.CGI.getGroupFilePath("_master",
 					httprequest);
+//			try {
+//				File masterfile = new File(s);
+//				BufferedReader input = new BufferedReader(new FileReader(
+//						masterfile));
+//				String st = "";
+//				String s1 = "";
+//				while ((st = input.readLine()) != null) {
+//					s1 += st + "\n";
+//				}
+//				input.close();
+//				String queryUnixSql = "select * from RemoteUNIX";
+//				ResultSet machineRs = JDBCForSQL
+//						.sql_ConnectExecute_Select(queryUnixSql);
+//				while (machineRs.next()) {
+//					String password = machineRs.getString("PasswordUNIX");
+//					password = COM.dragonflow.Utils.TextUtils.obscure(password);
+//						 s1 += "_remoteMachine=" + "" 
+//							+ "_secondaryResponse="
+//							+ machineRs.getString("SecondaryResponse")
+//							+ " _disableCache="
+//							+ machineRs.getString("DisableConnectionCaching")
+//							+ " _initShellEnvironment="
+//							+ machineRs.getString("InitializeEnvironment")
+//							+ " _status=" + machineRs.getString("Status")
+//							+ " _sshPort=" + machineRs.getString("PortNumber")
+//							+ " _prompt=" + machineRs.getString("Prompt")
+//							+ " _os=" + machineRs.getString("OS") + " _id="
+//							+ machineRs.getString("RecId") + " _version2="
+//							+ machineRs.getString("SSHVersion2Only")
+//							+ " _passwordPrompt="
+//							+ machineRs.getString("PasswordPrompt")
+//							+ " _trace=" + machineRs.getString("Trace")
+//							+ " _sshClient=" + machineRs.getString("SSHClient")
+//							+ " _method="
+//							+ machineRs.getString("ConnectionMethod")
+//							+ " _sshCommand="
+//							+ machineRs.getString("CustomCommandline")
+//							+ " _keyFile="
+//							+ machineRs.getString("KeyFileforSSHconnections")
+//							+ " _password=" + password
+//							+ " _sshConnectionsLimit="
+//							+ machineRs.getString("ConnectionLimit")
+//							+ " _login=" + machineRs.getString("UserName")
+//							+ " _host=" + machineRs.getString("ServerAddress")
+//							+ " _sshAuthMethod="
+//							+ machineRs.getString("SSHAuthentication")
+//							+ " _loginPrompt="
+//							+ machineRs.getString("LoginPrompt")
+//							+ " _secondaryPrompt="
+//							+ machineRs.getString("SecondaryPrompt")
+//							+ " _name=" + machineRs.getString("Title");
+//				}
+//				BufferedWriter output = new BufferedWriter(new FileWriter(
+//						masterfile));
+//				output.write(s1);
+//				output.close();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+
 			jgl.Array array = COM.dragonflow.Properties.FrameFile
 					.readFromFile(s);
-//			Enumeration enumeration = array.elements();
-//			for (boolean flag2 = true; enumeration.hasMoreElements(); flag2 = false) {
-//				HashMap hashmap = (HashMap) enumeration.nextElement();
-//				// 从库中取出值放入到返回array中
-//				String queryUnixSql = "select * from RemoteUNIX";
-//				ResultSet unixRs = JDBCForSQL.sql_ConnectExecute_Select(queryUnixSql);
-//				try {
-//					while (unixRs.next()) {
-//						hashmap.add("_host", unixRs.getString("ServerAddress"));
-//						hashmap.add("_os", unixRs.getString("OS"));
-//						hashmap.add("_secondaryResponse",unixRs.getString("SecondaryResponse"));
-//						hashmap.add("_disableCache",unixRs.getString("DisableConnectionCaching"));
-//						hashmap.add("_initShellEnvironment",unixRs.getString("InitializeEnvironment"));
-//						hashmap.add("_sshPort", unixRs.getString("PortNumber"));
-//						hashmap.add("_prompt", unixRs.getString("Prompt"));
-//						hashmap.add("_id", "11");
-//						hashmap.add("_version2",unixRs.getString("SSHVersion2Only"));
-//						hashmap.add("_passwordPrompt",unixRs.getString("PasswordPrompt"));
-//						hashmap.add("_trace", unixRs.getString("Trace"));
-//						hashmap.add("_sshClient", unixRs.getString("SSHClient"));
-//						hashmap.add("_method",unixRs.getString("ConnectionMethod"));
-//						hashmap.add("_sshCommand",unixRs.getString("CustomCommandline"));
-//						hashmap.add("_keyFile",unixRs.getString("KeyFileforSSHconnections"));
-//						String password = unixRs.getString("PasswordUNIX");
-//						password = COM.dragonflow.Utils.TextUtils.obscure(password);
-//						hashmap.add("_password", password);
-//						hashmap.add("_sshConnectionsLimit",unixRs.getString("ConnectionLimit"));
-//						hashmap.add("_login", unixRs.getString("UserName"));
-//						hashmap.add("_sshAuthMethod",unixRs.getString("SSHAuthentication"));
-//						hashmap.add("_loginPrompt",unixRs.getString("LoginPrompt"));
-//						hashmap.add("_secondaryPrompt",unixRs.getString("SecondaryPrompt"));
-//						hashmap.add("_name", unixRs.getString("Title"));
-//					}
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-			HashMap unixMap = readMasterConfigFromDataBase();
-			array.add(unixMap);
 			obj = (jgl.HashMap) array.front();
 		} catch (java.lang.Exception exception) {
 		}
@@ -1541,29 +1567,68 @@ public abstract class CGI {
 		try {
 			while (unixRs.next()) {
 				hashmapordered = new HashMapOrdered(true);
+				// hashmapordered.add("_remoteMachine","");
+				// hashmapordered.add("_secondaryResponse","ciyaoxiangying");
+				// hashmapordered.add("_disableCache","");
+				// hashmapordered.add("_initShellEnvironment","chushihua");
+				// hashmapordered.add("_status", "connection_successful");
+				// hashmapordered.add("_sshPort", "8888");
+				// hashmapordered.add("_prompt", "#");
+				// hashmapordered.add("_os", "RHESLinux");
+				// hashmapordered.add("_id", "35");
+				// hashmapordered.add("_version2", "");
+				// hashmapordered.add("_passwordPrompt","mimatishi");
+				// hashmapordered.add("_trace", "on");
+				// hashmapordered.add("_sshClient", "plink");
+				// hashmapordered.add("_method","ssh");
+				// hashmapordered.add("_sshCommand","");
+				// hashmapordered.add("_keyFile","D:\\code\\mygit\\_itsm\\siteview9.2\\com.siteview.kernel.core\\groups\\identity_");
+				// String password = "ROOT123#@!admin&*(987";
+				// password = COM.dragonflow.Utils.TextUtils.obscure(password);
+				// hashmapordered.add("_password", password);
+				// hashmapordered.add("_sshConnectionsLimit","3");
+				// hashmapordered.add("_login", "root");
+				// hashmapordered.add("_host", "192.168.0.255");
+				// hashmapordered.add("_sshAuthMethod","password");
+				// hashmapordered.add("_loginPrompt","login");
+				// hashmapordered.add("_secondaryPrompt","ciyaotishi");
+				// hashmapordered.add("_name", "255LinuxMachine");
+
 				hashmapordered.add("_host", unixRs.getString("ServerAddress"));
 				hashmapordered.add("_os", unixRs.getString("OS"));
-				hashmapordered.add("_secondaryResponse",unixRs.getString("SecondaryResponse"));
-				hashmapordered.add("_disableCache",unixRs.getString("DisableConnectionCaching"));
-				hashmapordered.add("_initShellEnvironment",unixRs.getString("InitializeEnvironment"));
+				hashmapordered.add("_secondaryResponse",
+						unixRs.getString("SecondaryResponse"));
+				hashmapordered.add("_disableCache",
+						unixRs.getString("DisableConnectionCaching"));
+				hashmapordered.add("_initShellEnvironment",
+						unixRs.getString("InitializeEnvironment"));
 				hashmapordered.add("_sshPort", unixRs.getString("PortNumber"));
 				hashmapordered.add("_prompt", unixRs.getString("Prompt"));
 				hashmapordered.add("_id", "11");
-				hashmapordered.add("_version2",unixRs.getString("SSHVersion2Only"));
-				hashmapordered.add("_passwordPrompt",unixRs.getString("PasswordPrompt"));
+				hashmapordered.add("_version2",
+						unixRs.getString("SSHVersion2Only"));
+				hashmapordered.add("_passwordPrompt",
+						unixRs.getString("PasswordPrompt"));
 				hashmapordered.add("_trace", unixRs.getString("Trace"));
 				hashmapordered.add("_sshClient", unixRs.getString("SSHClient"));
-				hashmapordered.add("_method",unixRs.getString("ConnectionMethod"));
-				hashmapordered.add("_sshCommand",unixRs.getString("CustomCommandline"));
-				hashmapordered.add("_keyFile",unixRs.getString("KeyFileforSSHconnections"));
+				hashmapordered.add("_method",
+						unixRs.getString("ConnectionMethod"));
+				hashmapordered.add("_sshCommand",
+						unixRs.getString("CustomCommandline"));
+				hashmapordered.add("_keyFile",
+						unixRs.getString("KeyFileforSSHconnections"));
 				String password = unixRs.getString("PasswordUNIX");
 				password = COM.dragonflow.Utils.TextUtils.obscure(password);
 				hashmapordered.add("_password", password);
-				hashmapordered.add("_sshConnectionsLimit",unixRs.getString("ConnectionLimit"));
+				hashmapordered.add("_sshConnectionsLimit",
+						unixRs.getString("ConnectionLimit"));
 				hashmapordered.add("_login", unixRs.getString("UserName"));
-				hashmapordered.add("_sshAuthMethod",unixRs.getString("SSHAuthentication"));
-				hashmapordered.add("_loginPrompt",unixRs.getString("LoginPrompt"));
-				hashmapordered.add("_secondaryPrompt",unixRs.getString("SecondaryPrompt"));
+				hashmapordered.add("_sshAuthMethod",
+						unixRs.getString("SSHAuthentication"));
+				hashmapordered.add("_loginPrompt",
+						unixRs.getString("LoginPrompt"));
+				hashmapordered.add("_secondaryPrompt",
+						unixRs.getString("SecondaryPrompt"));
 				hashmapordered.add("_name", unixRs.getString("Title"));
 			}
 		} catch (SQLException e) {
@@ -1573,18 +1638,7 @@ public abstract class CGI {
 		return hashmapordered;
 	}
 
-	// 转化字符串为十六进制编码
-	public static String toHexString(String s) {
-		String str = "";
-		for (int i = 0; i < s.length(); i++) {
-			int ch = (int) s.charAt(i);
-			String s4 = Integer.toHexString(ch);
-			str = str + s4;
-		}
-		return str;
-	}
-
-	public void saveMasterConfig(jgl.HashMap hashmap)
+	public static void saveMasterConfig(jgl.HashMap hashmap)
 			throws java.io.IOException {
 		COM.dragonflow.Page.CGI.saveMasterConfig(hashmap, request);
 	}

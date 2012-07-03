@@ -25,4 +25,5 @@ public interface APIInterfaces extends Remote
 	String getMonitorCounters(Map parmsmap)throws RemoteException,SiteViewException;
 	String getSysOid(Map<String,String> map)throws Exception;
 	void adjustGroups(String s,String s1)throws Exception;
+	void writeRemoteMachineToFile(String remoteMachineInfo)throws Exception;
 }

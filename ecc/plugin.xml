@@ -55,4 +55,11 @@
           match_strategy="SiteView.ecc.tab.views.MatchClass">
     </ExtViews_matchByStrategy>
  </extension>
+ <extension
+       point="Siteview.Forms.Common.SiteviewAutoTask">
+    <AutoTaskExtension
+          Class="SiteView.ecc.bundle.RemoteMacheineBundle"
+          Name="RemoteMacheineBundle">
+    </AutoTaskExtension>
+ </extension>
  </plugin>

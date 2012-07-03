@@ -1,6 +1,11 @@
 package COM.dragonflow.Api;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.StringReader;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
@@ -27,6 +32,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import COM.dragonflow.Page.CGI;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.IServerPropMonitor;
 import COM.dragonflow.SiteView.Monitor;
@@ -443,18 +449,44 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		return SNMPCPUMonitor.getSysOid(map);
 	}
 
-	public void adjustGroups(String s,String s1)throws Exception{
-		Array array=new jgl.Array();
-		if(!s.equals("")){
+	public void adjustGroups(String s, String s1) throws Exception {
+		Array array = new jgl.Array();
+		if (!s.equals("")) {
 			array.add(s);
 		}
-		Array array1=new jgl.Array();
-		if(!s1.equals("")){
+		Array array1 = new jgl.Array();
+		if (!s1.equals("")) {
 			array1.add(s1);
 		}
-		Array array2=new jgl.Array();
-		jgl.HashMap hashmap=new jgl.HashMap();
-		 SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
-		 siteviewgroup.adjustGroups(array,array1,array2,hashmap);
+		Array array2 = new jgl.Array();
+		jgl.HashMap hashmap = new jgl.HashMap();
+		SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+		siteviewgroup.adjustGroups(array, array1, array2, hashmap);
+	}
+	/**
+	 * 将设备信息写入配置文件（避免查询数据库）
+	 */
+
+	public void writeRemoteMachineToFile(String remoteMachineInfo) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			String RootFilePath=System.getProperty("user.dir");
+			String masterFilePathUrl = RootFilePath+"\\groups\\master.config";
+			File masterfile = new File(masterFilePathUrl);
+			BufferedReader input = new BufferedReader(
+					new FileReader(masterfile));
+			String st = "";
+			while ((st = input.readLine()) != null) {
+				remoteMachineInfo += st + "\n";
+			}
+			input.close();
+			BufferedWriter output = new BufferedWriter(new FileWriter(
+					masterfile));
+			output.write(remoteMachineInfo);
+			output.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
