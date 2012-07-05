@@ -333,8 +333,6 @@ public class TimeContrastReport extends LayoutViewBase{
 		xydate=xyDataArrayList;
 		des1=analyticLogReturnMap(bo1.get_Name(),icCollection1);
 		xydate1=xyDataArrayList;
-		System.out.println(icCollection.get_Count());
-		System.out.println(icCollection1.get_Count());
 	}
 	//通过传入monitortype 查文件 解析iCollection 返回List集合
 	public static List<Map<String, List<String>>> analyticLogReturnMap(String monitortype, ICollection iCollection) {
@@ -444,22 +442,27 @@ public class TimeContrastReport extends LayoutViewBase{
 		if(map.keySet().iterator().hasNext()){
 			list=map.get(map.keySet().iterator().next());
 		}
-		date[0]=bo1.get_Name()+"("+sstartTime+" ~ "+sendTime+")";
-		date[1]=list.get(0);
-		date[2]=list.get(1);
-		date[3]=list.get(3);
-		date[4]=list.get(4);
+		if(list.size()>=4){
+			date[0]=bo1.get_Name()+"("+sstartTime+" ~ "+sendTime+")";
+			date[1]=list.get(0);
+			date[2]=list.get(1);
+			date[3]=list.get(3);
+			date[4]=list.get(4);
+		}
 		tableItem.setText(date);
 		TableItem tableItem1=new TableItem(table, SWT.NONE);
 		if(map.keySet().iterator().hasNext()){
 			list=map.get(map.keySet().iterator().next());
 		}
-		date[0]=bo1.get_Name()+"("+estartTime+" ~ "+eendTime+")";
-		date[1]=list.get(0);
-		date[2]=list.get(1);
-		date[3]=list.get(3);
-		date[4]=list.get(4);
+		if(list.size()>=4){
+			date[0]=bo1.get_Name()+"("+estartTime+" ~ "+eendTime+")";
+			date[1]=list.get(0);
+			date[2]=list.get(1);
+			date[3]=list.get(3);
+			date[4]=list.get(4);
+		}
 		tableItem1.setText(date);
+		
 	}
 	public static void main(String[] args){
 		Calendar cal=Calendar.getInstance();
@@ -471,17 +474,22 @@ public class TimeContrastReport extends LayoutViewBase{
 	}
 	
 	public  XYDataset createDataset(List<String> xydata1,List<String> xydata,String s,String ss) {
+		if(xydata1.size()<0){
+			return null;
+		}
 		TimeSeries s1 = new TimeSeries(s,Second.class);
 		TimeSeries s2 = new TimeSeries(ss, Second.class);
-		 String s0=xydata1.get(0);
-		 s0=s0.substring(s0.indexOf("$")+1);
-		 String ye =s0.substring(0,s0.indexOf("/"));
-		 String mo =s0.substring(s0.indexOf("/")+1,s0.lastIndexOf("/"));
-		 String da =s0.substring(s0.lastIndexOf("/")+1,s0.indexOf(" "));
+		String s0=xydata1.get(0);;
+		
+	    s0=s0.substring(s0.indexOf("$")+1);
+		String ye =s0.substring(0,s0.indexOf("/"));
+		String mo =s0.substring(s0.indexOf("/")+1,s0.lastIndexOf("/"));
+		String da =s0.substring(s0.lastIndexOf("/")+1,s0.indexOf(" "));
+		
 		for(int i=0;i<xydata1.size();i++){
 			s0=xydata1.get(i);
 			String sss=s0.substring(0,s0.indexOf("$"));
-			if(sss.contains("n/a")){
+			if(sss.contains("n/a")||sss.contains("no data")){
 				sss=0+"";
 			}
 			double value=Double.parseDouble(sss);
@@ -500,7 +508,7 @@ public class TimeContrastReport extends LayoutViewBase{
 		for(int i=0;i<xydata.size();i++){
 			 s0=xydata.get(i);
 			String sss=s0.substring(0,s0.indexOf("$"));
-			if(sss.contains("n/a")){
+			if(sss.contains("n/a")||sss.contains("no data")){
 				sss=0+"";
 			}
 			double value=Double.parseDouble(sss);

@@ -1791,6 +1791,9 @@ public class MonitorGroup extends Monitor {
             groupnameip.put(s, groupid);
             String s1="_encoding=GBK;_dependsCondition="+
             rs.getString("DependsCondition")+";_fileEncoding=UTF-8;_name="+s;
+            if(rs.getString("ParentGroupId")!=null&&!rs.getString("ParentGroupId").equals("")){
+            	s1+=";_parent="+rs.getString("ParentGroupId");
+            }
             if(rs.getString("DependsOn")!=null&&!rs.getString("DependsOn").equals("")){
             	s1=s1+";_dependsOn="+rs.getString("DependsOn");
             }
@@ -1809,6 +1812,33 @@ public class MonitorGroup extends Monitor {
             	s1=s1+";_frequency="+i;           	
             }
             s1=s1+";#;";
+            if(rs.getBoolean("HasSubGroup")){
+            	String sql="select * from EccGroup where ParentGroupId='"+groupid+"'";
+            	ResultSet  subrs=JDBCForSQL.sql_ConnectExecute_Select(sql);
+            	while(subrs.next()){
+            			s1+="_class=SubGroup;_encoding=GBK;_dependsCondition="+
+            					subrs.getString("DependsCondition")+";_name="+subrs.getString("GroupName")
+            	            +";_id="+subrs.getString("RecId")+";_group="+subrs.getString("RecId");
+            	            if(subrs.getString("DependsOn")!=null&&!subrs.getString("DependsOn").equals("")){
+            	            	s1=s1+";_dependsOn="+subrs.getString("DependsOn");
+            	            }
+            	            if(subrs.getString("Description")!=null&&!subrs.getString("Description").equals("")){
+            	            	s1=s1+";_description="+subrs.getString("Description");
+            	            }
+            	            if(subrs.getInt("RefreshGroup")!=0){
+            	            	int i=subrs.getInt("RefreshGroup");
+            	            	if(subrs.getString("RefreshGroupUtil").equals("Minute")){
+            	            		i=i*60;
+            	            	}else if(subrs.getString("RefreshGroupUtil").equals("Hour")){
+            	            		i=i*3600;
+            	            	}else if(subrs.getString("RefreshGroupUtil").equals("Day")){
+            	            		i=i*86400;
+            	            	}
+            	            	s1=s1+";_frequency="+i;           	
+            	            }
+            	            s1=s1+";#;";
+            	}
+            }
             monitorgroup.file = new File(s);
             monitorgroup.readMonitors(groupid,s,s1);
             monitorgroup.readDynamic();

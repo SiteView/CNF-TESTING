@@ -61,5 +61,9 @@
           Class="SiteView.ecc.bundle.RemoteMacheineBundle"
           Name="RemoteMacheineBundle">
     </AutoTaskExtension>
+    <AutoTaskExtension
+          Class="SiteView.ecc.bundle.EditorRemoteMacheineBundle"
+          Name="EditorRemoteMacheineBundle">
+    </AutoTaskExtension>
  </extension>
  </plugin>

@@ -297,8 +297,8 @@ public class StatusCTIReport extends LayoutViewBase {
 		
 		TableItem item = new TableItem(table_1, SWT.NONE);
 		String[] data = new String[5];
+		datas=new double[5];
 		if(s!=0){
-			datas=new double[5];
 			data[0]=TotalTabView.percent(good_Count,s);
 			datas[0]=Double.parseDouble(data[0].substring(0,data[0].indexOf("%")));
 			

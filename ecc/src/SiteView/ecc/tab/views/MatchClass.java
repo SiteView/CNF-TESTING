@@ -1,6 +1,7 @@
 package SiteView.ecc.tab.views;
 
 
+import SiteView.ecc.reportchart.ErrorCTIReport;
 import SiteView.ecc.reportchart.StatusCTIReport;
 import SiteView.ecc.reportchart.TimeContrastReport;
 import Siteview.Api.BusinessObject;
@@ -25,6 +26,7 @@ public class MatchClass extends MatchStrategyBase {
 			TotalTabView.setTotalData(bo);
 			StatusCTIReport.setData(bo);
 			TimeContrastReport.setData(bo);
+			ErrorCTIReport.setData(bo);
 		}
 		return flag;
 	}

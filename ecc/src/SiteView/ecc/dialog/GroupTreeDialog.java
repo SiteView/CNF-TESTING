@@ -104,8 +104,7 @@ public class GroupTreeDialog extends Dialog {
 
 	protected void buttonPressed(int buttonId) {
 		try {
-			EditGroup.dependsOnitem = (Map<String, Object>) descriptionitem
-					.getData();
+			EditGroup.dependsOnitem = (Map<String, Object>) descriptionitem.getData();
 		} catch (SiteviewSecurityException exception) {
 		}
 		super.buttonPressed(buttonId);
@@ -116,17 +115,8 @@ public class GroupTreeDialog extends Dialog {
 		TreeItem tree = new TreeItem(treeItem, SWT.NONE);
 		tree.setText(map.get("_name").toString());
 		tree.setData(map);
-		if (map.get("_class") != null
-				&& map.get("_class").toString().contains("Monitor")) {
-			tree.setImage(ImageHelper.LoadImage(Activator.PLUGIN_ID,
-					"icons/monitor.jpg"));
-		} else {
-			tree.setImage(ImageHelper.LoadImage(Activator.PLUGIN_ID,
-					"icons/node.jpg"));
-		}
 		tree.setExpanded(true);
-		List<Map<String, Object>> list = monitorServer.getMonitorsForGroup(map
-				.get("_id").toString());
+		List<Map<String, Object>> list = monitorServer.getMonitorsForGroup(map.get("_id").toString());
 		list.addAll(monitorServer.GroupChild(map.get("_id").toString()));
 		if (list.size() != 0) {
 			for (int i = 0; i < list.size(); i++) {
