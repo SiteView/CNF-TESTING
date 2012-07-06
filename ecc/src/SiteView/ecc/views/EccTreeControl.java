@@ -22,6 +22,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
@@ -72,9 +73,14 @@ public class EccTreeControl extends ViewPart {
 	@Override
 	public void createPartControl(Composite cp) {
 		// TODO Auto-generated method stub
+		if (cp.getChildren().length > 0) {
+			for (Control control : cp.getChildren()) {
+				control.dispose();
+			}
+		}
 		cp.setLayout(new FillLayout());	
 		final Tree tree = new Tree(cp, SWT.BORDER);
-		final Menu menu=createMenu(tree);
+		final Menu menu=createMenu(tree,cp);
 		tree.addMouseListener(new MouseAdapter() {
 			public void mouseUp(MouseEvent e) {
 				int y = e.y;
@@ -140,6 +146,7 @@ public class EccTreeControl extends ViewPart {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		cp.layout();
 	}
 	
 	public void getTreeItem(TreeItem treeItem,Map<String,Object> map) throws RemoteException, SiteViewException{
@@ -161,7 +168,7 @@ public class EccTreeControl extends ViewPart {
 		}
 	}
 	
-	public Menu createMenu(Tree tree){
+	public Menu createMenu(Tree tree,final Composite cp){
 		Menu menu=new Menu(tree);
 		MenuItem m1=new MenuItem(menu,SWT.NONE);
 		m1.setText("±à¼­×é");
@@ -230,7 +237,8 @@ public class EccTreeControl extends ViewPart {
 		});
 		m6.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				BusObMaintView.open(siteviewApi, "Ecc", new IVirtualKeyList)
+			//	BusObMaintView.open(siteviewApi, "Ecc", new IVirtualKeyList)
+				createPartControl(cp);
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}

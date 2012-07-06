@@ -401,11 +401,10 @@ public class TimeContrastReport extends LayoutViewBase{
 				for (String str : strarray.get(i)) {
 					String valuekey = str.substring(0, str.indexOf("$"));
 					String timeValue = str.substring(str.indexOf("$")+1,str.length());
-					if (!valuekey.equals("n/a")) {
-						if (!valuekey.equals("no data")) {
-							arrayintarray[h++] = Double.parseDouble(valuekey);
-						}
+					if(valuekey.equals("failed")||valuekey.equals("n/a")||valuekey.equals("no data")){
+						valuekey=0+"";
 					}
+					arrayintarray[h++] = Double.parseDouble(valuekey);
 					timeLogValueMap.put(valuekey, timeValue);
 				}
 			List<String> otherIntArrayList = new ArrayList<String>();
@@ -489,7 +488,7 @@ public class TimeContrastReport extends LayoutViewBase{
 		for(int i=0;i<xydata1.size();i++){
 			s0=xydata1.get(i);
 			String sss=s0.substring(0,s0.indexOf("$"));
-			if(sss.contains("n/a")||sss.contains("no data")){
+			if(sss.contains("n/a")||sss.contains("no data")||sss.contains("failed")){
 				sss=0+"";
 			}
 			double value=Double.parseDouble(sss);
@@ -508,7 +507,7 @@ public class TimeContrastReport extends LayoutViewBase{
 		for(int i=0;i<xydata.size();i++){
 			 s0=xydata.get(i);
 			String sss=s0.substring(0,s0.indexOf("$"));
-			if(sss.contains("n/a")||sss.contains("no data")){
+			if(sss.contains("n/a")||sss.contains("no data")||sss.contains("failed")){
 				sss=0+"";
 			}
 			double value=Double.parseDouble(sss);
