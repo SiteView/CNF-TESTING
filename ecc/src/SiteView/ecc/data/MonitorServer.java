@@ -4,6 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,12 +14,11 @@ import COM.dragonflow.SiteViewException.SiteViewException;
 public class MonitorServer {
 	 static APIInterfaces rmiServer;
 	  Registry registry;
-	  String serverAddress= "localhost";
+	  String serverAddress="localhost";
 	  String serverPort="3232";
 	public MonitorServer(){
 		 try{
 			  registry=LocateRegistry.getRegistry(serverAddress,(new Integer(serverPort)).intValue());
-			  
 			  rmiServer=(APIInterfaces)(registry.lookup("kernelApiRmiServer"));
 		 }
 		  catch(RemoteException e){
@@ -29,7 +29,7 @@ public class MonitorServer {
 		  }
 	}
 
-	public List Group() throws RemoteException, SiteViewException {
+	public List<Map<String, Object>> Group() throws RemoteException, SiteViewException {
 		// TODO Auto-generated method stub
 		return rmiServer.getTopLevelGroupInstances();
 	}
@@ -52,17 +52,17 @@ public class MonitorServer {
 		rmiServer.deleteGroup(groupid);		
 	}
 	
-	public List getMonitorsForGroup(String groupid) throws RemoteException, SiteViewException{
+	public List<Map<String, Object>> getMonitorsForGroup(String groupid) throws RemoteException, SiteViewException{
 		return rmiServer.getMonitorsForGroup(groupid);
 	}
 	public static void main(String[] args){
 		try {
 			MonitorServer m=new MonitorServer();
-			List list=m.Group();
+			List<Map<String, Object>> list=m.Group();
 			for(int i=0;i<list.size();i++){
-				System.out.println(((Map)list.get(i)).get("_id").toString());
+				System.out.println(((Map<String, Object>)list.get(i)).get("_id").toString());
 			}
-			m.deleteGroup(((Map)list.get(1)).get("_id").toString());
+			m.deleteGroup(((Map<String, Object>)list.get(1)).get("_id").toString());
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,5 +73,10 @@ public class MonitorServer {
 			System.out.println(2);
 		}
 		
+	}
+	public List<Map<String, Object>> Groups(){
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		return list;
 	}
 }
