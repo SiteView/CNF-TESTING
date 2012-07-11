@@ -73,8 +73,8 @@ public class TimeContrastReport extends LayoutViewBase{
 	private ICollection icCollection;//第一个时间段的日志
 	private ICollection icCollection1;//第二个时间段的日志
 	public  static List<Map<String, List<String>>> xyDataArrayList = new ArrayList<Map<String, List<String>>>();
-	public List<Map<String, List<String>>> xydate=new ArrayList<Map<String, List<String>>>();//第一个时间段的报表数据源
-	public List<Map<String, List<String>>> xydate1=new ArrayList<Map<String, List<String>>>();//第一个时间段的报表数据源
+	public List<Map<String, List<String>>> xydate;//第一个时间段的报表数据源
+	public List<Map<String, List<String>>> xydate1;//第一个时间段的报表数据源
 	List<Map<String, List<String>>> des=null;//第一时间段 报表返回值的（包括：最大值、平均值、最新值、最小值、最大值时间）集合
 	List<Map<String, List<String>>> des1=null;//第二时间段 报表返回值的（包括：最大值、平均值、最新值、最小值、最大值时间）集合
 	private String firstTime=null;

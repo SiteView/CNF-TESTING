@@ -1547,7 +1547,7 @@ public class SiteViewGroup extends MonitorGroup {
 		Enumeration enumeration = addGroups(array1);
 		Enumeration enumeration1 = addGroups(array);
 		Collection collection=null;
-		if(!(f1||f1)){
+		if(!(f1||f2)){
 			collection = ConfigurationChanger.notifyAdjustedGroups(
 					array, array1, array2);
 		}

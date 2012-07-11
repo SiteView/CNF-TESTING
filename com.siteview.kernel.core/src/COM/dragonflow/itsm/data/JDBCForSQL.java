@@ -12,7 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class JDBCForSQL {
-	private static Connection conn = null;
+	private static Connection conn = getConnection();
 
 	/**
 	 * get Connection
@@ -46,11 +46,11 @@ public class JDBCForSQL {
 	public static ResultSet sql_ConnectExecute_Select(String query_sql) {
 		ResultSet rs = null;
 		try {
-			Connection conn = getConnection();
-			if (!conn.isClosed()) {
-				Statement statement = conn.createStatement();
-				rs = statement.executeQuery(query_sql);
+			if (conn.isClosed()) {
+				conn = getConnection();
 			}
+			Statement statement = conn.createStatement();
+			rs = statement.executeQuery(query_sql);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,27 +61,21 @@ public class JDBCForSQL {
 	public static void execute_Insert(String sql) {
 
 		try {
-			Connection conn = getConnection();
-			if (!conn.isClosed()) {
-				Statement statement = conn.createStatement();
-				statement.execute(sql);
+			if (conn.isClosed()) {
+				conn = getConnection();
 			}
+			Statement statement = conn.createStatement();
+			statement.execute(sql);
+			statement.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException e) {
-				}
 		}
-
 	}
 
 	public void testConnection() {
 		if (conn == null)
-			this.getConnection();
+			conn=getConnection();
 		try {
 			String sql = "SELECT * FROM Ecc";
 			Statement stmt = conn.createStatement();
@@ -89,16 +83,8 @@ public class JDBCForSQL {
 			while (rs.next()) {
 				System.out.println(rs.getString("RecId"));
 			}
-			rs.close();
-			stmt.close();
 		} catch (SQLException e) {
-		} finally {
-			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException e) {
-				}
-		}
+		} 
 	}
 
 	public static void main(String[] args) {

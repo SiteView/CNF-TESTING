@@ -1197,7 +1197,7 @@ public class FileUtils {
 						+ ";_fileEncoding=UTF-8;_name="
 						+ rs.getString("GroupName");
 				if (rs.getString("DependsOn")!=null&&!rs.getString("DependsOn").equals("")) {
-					s1 = s1 + ";_dependsOn=" + rs.getShort("DependsOn");
+					s1 = s1 + ";_dependsOn=" + rs.getString("DependsOn");
 				}
 				if (rs.getString("Description")!=null&&!rs.getString("Description").equals("")) {
 					s1 = s1 + ";_description=" + rs.getString("Description");

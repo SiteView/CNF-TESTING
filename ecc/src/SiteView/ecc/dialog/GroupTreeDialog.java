@@ -1,55 +1,37 @@
 package SiteView.ecc.dialog;
 
 import java.rmi.RemoteException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-
-import siteview.windows.forms.ImageHelper;
-
 import COM.dragonflow.SiteViewException.SiteViewException;
-import SiteView.ecc.Activator;
 import SiteView.ecc.data.MonitorServer;
 import SiteView.ecc.views.EccTreeControl;
-import Siteview.SiteviewSecurityException;
+import Siteview.SiteviewValue;
+import Siteview.Api.BusinessObject;
+import Siteview.Windows.Forms.ConnectionBroker;
 
 public class GroupTreeDialog extends Dialog {
-	public static TreeItem descriptionitem;
-	private String title = "依赖关系";
+	public static TreeItem group;
+	private String title = "移动组";
 	/*
 	 * 数据
 	 */
 	private MonitorServer monitorServer;
-	private EccTreeControl eccTreeControl;
 
-	protected GroupTreeDialog(Shell Shell) {
+	public GroupTreeDialog(Shell Shell) {
 		super(Shell);
-		monitorServer = new MonitorServer();
-		eccTreeControl = new EccTreeControl();
 	}
 
 	/*
@@ -71,7 +53,7 @@ public class GroupTreeDialog extends Dialog {
 		final Tree tree = new Tree(composite, SWT.BORDER);
 		tree.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				descriptionitem = tree.getSelection()[0];
+				group = tree.getSelection()[0];
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -81,7 +63,8 @@ public class GroupTreeDialog extends Dialog {
 		trtmNewTreeitem.setText("root");
 		trtmNewTreeitem.setExpanded(true);
 		try {
-			List groups = monitorServer.Group();
+			monitorServer = new MonitorServer();
+			List<Map<String, Object>> groups = monitorServer.Group();
 			for (int i = 0; i < groups.size(); i++) {
 				Map<String, Object> maps = (Map<String, Object>) groups.get(i);
 				getTreeItem(trtmNewTreeitem, maps);
@@ -98,14 +81,41 @@ public class GroupTreeDialog extends Dialog {
 	protected void initializeBounds() {
 		super.getButton(IDialogConstants.OK_ID).setText("确定");
 		super.getButton(IDialogConstants.CANCEL_ID).setText("取消");
-		Button button = super.createButton((Composite) super.getButtonBar(),
-				100, "无依赖", false);
+		//Button button = super.createButton((Composite) super.getButtonBar(),
+		//		100, "无依赖", false);
 	}
 
 	protected void buttonPressed(int buttonId) {
-		try {
-			EditGroup.dependsOnitem = (Map<String, Object>) descriptionitem.getData();
-		} catch (SiteviewSecurityException exception) {
+		if(buttonId==IDialogConstants.OK_ID){
+			String parentId=((Map<String,Object>)group.getData()).get("_id").toString();
+			parentId=parentId.substring(parentId.indexOf("/")+1);
+			BusinessObject bo=EccTreeControl.CreateBo(EccTreeControl.s, "EccGroup");
+			String oldParentId=bo.GetField("ParentGroupId").get_NativeValue().toString();
+			if(oldParentId!=null&&!oldParentId.equals("")){
+				try {
+					if(monitorServer.GroupChild(oldParentId).size()==1){
+						BusinessObject oldParentbo=EccTreeControl.CreateBo(oldParentId, "EccGroup");
+						oldParentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
+						oldParentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+					}
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SiteViewException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			bo.GetField("ParentGroupId").SetValue(new SiteviewValue(parentId));
+			bo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+			BusinessObject bo1=EccTreeControl.CreateBo(parentId, "EccGroup");
+			 
+			String s=bo1.GetField("HasSubGroup").get_NativeValue().toString();
+			if(!s.equals("true")){
+				bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));
+				bo1.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+			}
+			
 		}
 		super.buttonPressed(buttonId);
 	}
@@ -116,8 +126,9 @@ public class GroupTreeDialog extends Dialog {
 		tree.setText(map.get("_name").toString());
 		tree.setData(map);
 		tree.setExpanded(true);
-		List<Map<String, Object>> list = monitorServer.getMonitorsForGroup(map.get("_id").toString());
-		list.addAll(monitorServer.GroupChild(map.get("_id").toString()));
+//		List<Map<String, Object>> list = monitorServer.getMonitorsForGroup(map.get("_id").toString());
+//		list.addAll(monitorServer.GroupChild(map.get("_id").toString()));
+		List<Map<String, Object>> list=monitorServer.GroupChild(map.get("_id").toString());
 		if (list.size() != 0) {
 			for (int i = 0; i < list.size(); i++) {
 				getTreeItem(tree, list.get(i));

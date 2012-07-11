@@ -9,6 +9,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  Siteview.lib;bundle-version="1.0.0",
  com.siteview.kernel.core;bundle-version="1.0.0",
- Siteview.Forms.Common;bundle-version="1.0.0"
+ Siteview.Forms.Common;bundle-version="1.0.0",
+ ecc;bundle-version="1.0.0",
+ Siteview.Windows.Forms;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

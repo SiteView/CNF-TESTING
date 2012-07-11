@@ -74,7 +74,7 @@ public class EditGroup extends Dialog {
 	 * 创建面板元素
 	 */
 	protected Control createDialogArea(Composite parent) {
-		GroupTreeDialog.descriptionitem=null;
+	//	GroupTreeDialog.descriptionitem=null;
 		Composite composite=(Composite)super.createDialogArea(parent);
 		composite.setLayout(null);
 			Label labelName = new Label(composite, SWT.NONE);

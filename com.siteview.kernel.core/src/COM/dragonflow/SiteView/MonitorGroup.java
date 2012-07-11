@@ -1791,7 +1791,7 @@ public class MonitorGroup extends Monitor {
             groupnameip.put(s, groupid);
             String s1="_encoding=GBK;_dependsCondition="+
             rs.getString("DependsCondition")+";_fileEncoding=UTF-8;_name="+s;
-            if(rs.getString("ParentGroupId")!=null&&!rs.getString("ParentGroupId").equals("")){
+            if(rs.getString("ParentGroupId").length()==32){
             	s1+=";_parent="+rs.getString("ParentGroupId");
             }
             if(rs.getString("DependsOn")!=null&&!rs.getString("DependsOn").equals("")){
