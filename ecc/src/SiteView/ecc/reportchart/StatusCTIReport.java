@@ -10,6 +10,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
@@ -77,126 +79,13 @@ public class StatusCTIReport extends LayoutViewBase {
 	}
 	//创建tab
 	protected void createView(final Composite parent) {
-		if (parent.getChildren().length > 0) {
-			for (Control control : parent.getChildren()) {
-				control.dispose();
+		parent.addControlListener(new ControlListener() {
+			public void controlResized(ControlEvent e) {
 			}
-		}
-		setMap();
-		final String [] column={"时间","状态","持续次数","持续时间"};
-		final String [] column_1={"正常","危险","错误","禁用","无数据"};
-		parent.setLayout(new FillLayout(SWT.VERTICAL));
-		final SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
-		
-		Composite group = new Composite(sashForm, SWT.NONE);
-		group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		Label label = new Label(group, SWT.NONE);
-		label.setBounds(0, 0, 54, 12);
-		label.setText("\u5F00\u59CB\u65F6\u95F4\uFF1A");
-		
-		final DateTime startdate = new DateTime(group, SWT.DROP_DOWN);
-		int year=Integer.parseInt(starTime.substring(0,starTime.indexOf("-")));
-		int month=Integer.parseInt(starTime.substring(starTime.indexOf("-")+1,starTime.lastIndexOf("-")));
-		int day=Integer.parseInt(starTime.substring(starTime.lastIndexOf("-")+1,starTime.indexOf(" ")));
-		int hours=Integer.parseInt(starTime.substring(starTime.indexOf(" ")+1,starTime.indexOf(":")));
-		int minutes=Integer.parseInt(starTime.substring(starTime.indexOf(":")+1,starTime.lastIndexOf(":")));
-		int seconds=Integer.parseInt(starTime.substring(starTime.lastIndexOf(":")+1));
-		startdate.setDate(year, month-1, day);
-		startdate.setBounds(0, 0, 84, 20);
-		final DateTime starttime = new DateTime(group, SWT.TIME);
-		starttime.setTime(hours, minutes, seconds);
-		starttime.setBounds(0, 0, 84, 20);
-		
-		Label lblNewLabel = new Label(group, SWT.NONE);
-		lblNewLabel.setBounds(0, 0, 54, 12);
-		lblNewLabel.setText("\u7ED3\u675F\u65F6\u95F4\uFF1A");
-		
-		year=Integer.parseInt(endTime.substring(0,endTime.indexOf("-")));
-		month=Integer.parseInt(endTime.substring(endTime.indexOf("-")+1,endTime.lastIndexOf("-")));
-		day=Integer.parseInt(endTime.substring(endTime.lastIndexOf("-")+1,endTime.indexOf(" ")));
-		hours=Integer.parseInt(endTime.substring(endTime.indexOf(" ")+1,endTime.indexOf(":")));
-		minutes=Integer.parseInt(endTime.substring(endTime.indexOf(":")+1,endTime.lastIndexOf(":")));
-		seconds=Integer.parseInt(endTime.substring(endTime.lastIndexOf(":")+1));
-		final DateTime enddate = new DateTime(group, SWT.DROP_DOWN);
-		enddate.setDate(year, month-1, day);
-		enddate.setBounds(0, 0, 84, 20);
-		final DateTime endtime = new DateTime(group, SWT.TIME);
-		endtime.setTime(hours, minutes, seconds);
-		endtime.setBounds(0, 0, 84, 20);
-		
-		Button button = new Button(group, SWT.NONE);
-		button.setBounds(0, 0, 72, 22);
-		button.setText("\u67E5\u8BE2");
-		button.addSelectionListener(new SelectionListener() {
-			public void widgetSelected(SelectionEvent e) {
-				starTime= startdate.getYear() + "-"
-						+ (startdate.getMonth() + 1) + "-" + startdate.getDay()
-						+ " " + starttime.getHours() + ":"
-						+ starttime.getMinutes()+":"+starttime.getSeconds();
-				endTime= enddate.getYear() + "-"
-						+ (enddate.getMonth() + 1) + "-" + enddate.getDay()
-						+ " " + endtime.getHours() + ":"
-						+ endtime.getMinutes()+":"+endtime.getSeconds();
-				createView(parent);
-			}
-			public void widgetDefaultSelected(SelectionEvent e) {
+			public void controlMoved(ControlEvent e) {
+				create(parent);
 			}
 		});
-		
-		
-		ScrolledComposite group_1 = new ScrolledComposite(sashForm, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-		group_1.setLayout(new FillLayout(SWT.HORIZONTAL));
-		group_1.setExpandHorizontal(true);
-		group_1.setExpandVertical(true);
-		group_1.setMinWidth(400);
-		group_1.setMinHeight(600);
-		
-		Composite  chatComposite = new Composite(group_1, SWT.NONE);
-		group_1.setContent(chatComposite);// 设置chatComposite被scrolledComposite控制
-		chatComposite.setLayout(new FillLayout());
-		SashForm sashForm_1 = new SashForm(chatComposite, SWT.VERTICAL);
-		
-		Label lbl= new Label(sashForm_1, SWT.NONE);
-		lbl.setFont(SWTResourceManager.getFont("宋体", 9, SWT.NORMAL));
-		lbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
-		lbl.setText("\u72B6\u6001\u5217\u8868");
-		
-		table=createTable(sashForm_1,column);
-		
-		Label lblNewLabel_1 = new Label(sashForm_1, SWT.NONE);
-		lblNewLabel_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
-		lblNewLabel_1.setText("\u72B6\u6001\u5206\u5E03\u56FE");
-		
-		comp= new Composite(sashForm_1, SWT.BORDER);
-		comp.setLayout(new FillLayout(SWT.VERTICAL));
-//		DefaultCategoryDataset datast =(DefaultCategoryDataset) createDataset(dataset);
-//        JFreeChart chart_0=createChart(datast);
-//        ChartComposite frame_0 = new ChartComposite(comp, SWT.NONE, chart_0, true);
-        
-		Label lblNewLabel_2 = new Label(sashForm_1, SWT.NONE);
-		lblNewLabel_2.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
-		lblNewLabel_2.setText("\u72B6\u6001\u7EDF\u8BA1\u5217\u8868");
-		
-		table_1=createTable(sashForm_1,column_1);
-		TableItem(table,table_1,comp);
-		
-		Label lblNewLabel_3 = new Label(sashForm_1, SWT.NONE);
-		lblNewLabel_3.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
-		lblNewLabel_3.setText("\u72B6\u6001\u7EDF\u8BA1\u56FE");
-		
-		Composite c= new Composite(sashForm_1, SWT.BORDER);
-		c.setLayout(new FillLayout(SWT.VERTICAL));
-		DefaultPieDataset dataset = new DefaultPieDataset();
-		 dataset.setValue("error", datas[2]);
-		 dataset.setValue("warning", datas[1]);
-		 dataset.setValue("good", datas[0]);
-		 dataset.setValue("disable", datas[3]);
-		 dataset.setValue("nodata", datas[4]);
-		 JFreeChart chart=ChartFactory.createPieChart(bo1.get_Name(), dataset, true, true, false);
-		 ChartComposite frame = new ChartComposite(c, SWT.NONE, chart, true);
-		 sashForm_1.setWeights(new int[] {15,100,15, 150, 15, 200, 15, 200});
-		sashForm.setWeights(new int[] {50,500});
-		parent.layout(); 
 	}
 	//通过传人Composite 和字符串数组，创建表
 	protected Table createTable(SashForm sashForm,String[] column){
@@ -416,4 +305,123 @@ public class StatusCTIReport extends LayoutViewBase {
         dataset.addSeries(s5);
         return dataset;
     }
+	public void create(final Composite parent){
+		if (parent.getChildren().length > 0) {
+			for (Control control : parent.getChildren()) {
+				control.dispose();
+			}
+		}
+		setMap();
+		final String [] column={"时间","状态","持续次数","持续时间"};
+		final String [] column_1={"正常","危险","错误","禁用","无数据"};
+		parent.setLayout(new FillLayout(SWT.VERTICAL));
+		final SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
+		
+		Composite group = new Composite(sashForm, SWT.NONE);
+		group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		Label label = new Label(group, SWT.NONE);
+		label.setBounds(0, 0, 54, 12);
+		label.setText("\u5F00\u59CB\u65F6\u95F4\uFF1A");
+		
+		final DateTime startdate = new DateTime(group, SWT.DROP_DOWN);
+		int year=Integer.parseInt(starTime.substring(0,starTime.indexOf("-")));
+		int month=Integer.parseInt(starTime.substring(starTime.indexOf("-")+1,starTime.lastIndexOf("-")));
+		int day=Integer.parseInt(starTime.substring(starTime.lastIndexOf("-")+1,starTime.indexOf(" ")));
+		int hours=Integer.parseInt(starTime.substring(starTime.indexOf(" ")+1,starTime.indexOf(":")));
+		int minutes=Integer.parseInt(starTime.substring(starTime.indexOf(":")+1,starTime.lastIndexOf(":")));
+		int seconds=Integer.parseInt(starTime.substring(starTime.lastIndexOf(":")+1));
+		startdate.setDate(year, month-1, day);
+		startdate.setBounds(0, 0, 84, 20);
+		final DateTime starttime = new DateTime(group, SWT.TIME);
+		starttime.setTime(hours, minutes, seconds);
+		starttime.setBounds(0, 0, 84, 20);
+		
+		Label lblNewLabel = new Label(group, SWT.NONE);
+		lblNewLabel.setBounds(0, 0, 54, 12);
+		lblNewLabel.setText("\u7ED3\u675F\u65F6\u95F4\uFF1A");
+		
+		year=Integer.parseInt(endTime.substring(0,endTime.indexOf("-")));
+		month=Integer.parseInt(endTime.substring(endTime.indexOf("-")+1,endTime.lastIndexOf("-")));
+		day=Integer.parseInt(endTime.substring(endTime.lastIndexOf("-")+1,endTime.indexOf(" ")));
+		hours=Integer.parseInt(endTime.substring(endTime.indexOf(" ")+1,endTime.indexOf(":")));
+		minutes=Integer.parseInt(endTime.substring(endTime.indexOf(":")+1,endTime.lastIndexOf(":")));
+		seconds=Integer.parseInt(endTime.substring(endTime.lastIndexOf(":")+1));
+		final DateTime enddate = new DateTime(group, SWT.DROP_DOWN);
+		enddate.setDate(year, month-1, day);
+		enddate.setBounds(0, 0, 84, 20);
+		final DateTime endtime = new DateTime(group, SWT.TIME);
+		endtime.setTime(hours, minutes, seconds);
+		endtime.setBounds(0, 0, 84, 20);
+		
+		Button button = new Button(group, SWT.NONE);
+		button.setBounds(0, 0, 72, 22);
+		button.setText("\u67E5\u8BE2");
+		button.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				starTime= startdate.getYear() + "-"
+						+ (startdate.getMonth() + 1) + "-" + startdate.getDay()
+						+ " " + starttime.getHours() + ":"
+						+ starttime.getMinutes()+":"+starttime.getSeconds();
+				endTime= enddate.getYear() + "-"
+						+ (enddate.getMonth() + 1) + "-" + enddate.getDay()
+						+ " " + endtime.getHours() + ":"
+						+ endtime.getMinutes()+":"+endtime.getSeconds();
+				create(parent);
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
+		
+		
+		ScrolledComposite group_1 = new ScrolledComposite(sashForm, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		group_1.setLayout(new FillLayout(SWT.HORIZONTAL));
+		group_1.setExpandHorizontal(true);
+		group_1.setExpandVertical(true);
+		group_1.setMinWidth(400);
+		group_1.setMinHeight(600);
+		
+		Composite  chatComposite = new Composite(group_1, SWT.NONE);
+		group_1.setContent(chatComposite);// 设置chatComposite被scrolledComposite控制
+		chatComposite.setLayout(new FillLayout());
+		SashForm sashForm_1 = new SashForm(chatComposite, SWT.VERTICAL);
+		
+		Label lbl= new Label(sashForm_1, SWT.NONE);
+		lbl.setFont(SWTResourceManager.getFont("宋体", 9, SWT.NORMAL));
+		lbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
+		lbl.setText("\u72B6\u6001\u5217\u8868");
+		
+		table=createTable(sashForm_1,column);
+		
+		Label lblNewLabel_1 = new Label(sashForm_1, SWT.NONE);
+		lblNewLabel_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
+		lblNewLabel_1.setText("\u72B6\u6001\u5206\u5E03\u56FE");
+		
+		comp= new Composite(sashForm_1, SWT.BORDER);
+		comp.setLayout(new FillLayout(SWT.VERTICAL));
+        
+		Label lblNewLabel_2 = new Label(sashForm_1, SWT.NONE);
+		lblNewLabel_2.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
+		lblNewLabel_2.setText("\u72B6\u6001\u7EDF\u8BA1\u5217\u8868");
+		
+		table_1=createTable(sashForm_1,column_1);
+		TableItem(table,table_1,comp);
+		
+		Label lblNewLabel_3 = new Label(sashForm_1, SWT.NONE);
+		lblNewLabel_3.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
+		lblNewLabel_3.setText("\u72B6\u6001\u7EDF\u8BA1\u56FE");
+		
+		Composite c= new Composite(sashForm_1, SWT.BORDER);
+		c.setLayout(new FillLayout(SWT.VERTICAL));
+		DefaultPieDataset dataset = new DefaultPieDataset();
+		 dataset.setValue("error", datas[2]);
+		 dataset.setValue("warning", datas[1]);
+		 dataset.setValue("good", datas[0]);
+		 dataset.setValue("disable", datas[3]);
+		 dataset.setValue("nodata", datas[4]);
+		 JFreeChart chart=ChartFactory.createPieChart(bo1.get_Name(), dataset, true, true, false);
+		 ChartComposite frame = new ChartComposite(c, SWT.NONE, chart, true);
+		 sashForm_1.setWeights(new int[] {15,100,15, 150, 15, 200, 15, 200});
+		sashForm.setWeights(new int[] {50,500});
+		parent.layout(); 
+	}
 }

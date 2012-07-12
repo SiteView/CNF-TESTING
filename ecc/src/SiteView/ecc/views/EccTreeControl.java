@@ -1,8 +1,8 @@
 package SiteView.ecc.views;
 
-import java.awt.Color;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.swt.SWT;
@@ -13,7 +13,6 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.part.ViewPart;
@@ -46,6 +45,7 @@ public class EccTreeControl extends ViewPart {
 	public static final String ID = "SiteView.ecc.views.EccTreeControl";
 	public static TreeItem item;
 	public static String s=null;
+	public static Map<String,String> oldParentId=new HashMap<String,String>();
 	
 	TreeItem trtmNewTreeitem;//整体视图
 	TreeItem trtmNewTreeitem1;//root
@@ -222,12 +222,15 @@ public class EccTreeControl extends ViewPart {
 			MenuItem m5=new MenuItem(menu,SWT.NONE);
 			m5.setText("增加监测器");
 			m1.addSelectionListener(new SelectionListener() {
+				@SuppressWarnings("unchecked")
 				public void widgetSelected(SelectionEvent e) {
-					@SuppressWarnings("unchecked")
 					String s0=((Map<String,Object>)item.getData()).get("_id").toString();
 					s0=s0.substring(s0.lastIndexOf("/")+1);
 					BusinessObject bo=CreateBo(s0,"EccGroup");
 					if(bo!=null){
+						if(bo.GetField("ParentGroupId").get_NativeValue().toString()!=null){
+							oldParentId.put(s0,bo.GetField("ParentGroupId").get_NativeValue().toString());
+						}
 						BusObMaintView.open(siteviewApi, bo);
 					}
 				}
@@ -236,7 +239,6 @@ public class EccTreeControl extends ViewPart {
 			});
 			m2.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
-					s=null;
 					BusObMaintView.newBusOb(siteviewApi, "EccGroup");
 				}
 				public void widgetDefaultSelected(SelectionEvent e) {}

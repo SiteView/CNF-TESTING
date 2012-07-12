@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.widgets.Composite;
 import SiteView.ecc.tools.ArrayTool;
 import SiteView.ecc.tools.Config;
@@ -42,10 +45,16 @@ public class TotalTabView extends LayoutViewBase {
 	}
 
 	@Override
-	protected void createView(Composite parent) {
+	protected void createView(final Composite parent) {
 		// TODO Auto-generated method stub
-		EccReportView erv = new EccReportView();
-		erv.createPartControl(parent);
+		parent.addControlListener(new ControlListener() {
+			public void controlResized(ControlEvent e) {
+			}
+			public void controlMoved(ControlEvent e) {
+				EccReportView erv = new EccReportView();
+				erv.createPartControl(parent);
+			}
+		});
 	}
 
 	@Override

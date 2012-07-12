@@ -19,6 +19,7 @@ import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.Vector;
 
 import jgl.Array;
@@ -54,9 +55,9 @@ import SiteViewMain.SiteViewSupport;
 // ConfigurationChanger
 
 public class MonitorGroup extends Monitor {
-	public static java.util.Map<String,String> groupnameip=new java.util.HashMap();
+	public static java.util.Map<String,String> groupnameip=new java.util.HashMap<String, String>();
     public static StringProperty pLastSaved;
-
+    public static Map<String,MonitorGroup> monitorgroups=new java.util.HashMap<String, MonitorGroup>();
     public static StringProperty pMaxErrorCount;
 
     public static StringProperty pMonitorsInError;
@@ -1788,6 +1789,7 @@ public class MonitorGroup extends Monitor {
             monitorgroup.setProperty("_id", s);
             monitorgroup.setProperty("_name", s);
             groupid=rs.getString("RecId");
+            monitorgroups.put(groupid, monitorgroup);
             groupnameip.put(s, groupid);
             String s1="_encoding=GBK;_dependsCondition="+
             rs.getString("DependsCondition")+";_fileEncoding=UTF-8;_name="+s;

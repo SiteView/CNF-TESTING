@@ -38,6 +38,8 @@ import system.Drawing.IconConverter;
 
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.custom.StackLayout;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.DateTime;
@@ -86,214 +88,13 @@ public class TimeContrastReport extends LayoutViewBase{
 	}
 	//创建tab
 	protected void createView(final Composite parent) {
-		if (parent.getChildren().length > 0) {
-			for (Control control : parent.getChildren()) {
-				control.dispose();
+		parent.addControlListener(new ControlListener() {
+			public void controlResized(ControlEvent e) {
 			}
-		}
-		setAllData();
-		
-		parent.setLayout(new FillLayout(SWT.VERTICAL));
-		
-		SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
-		
-		Composite group = new Composite(sashForm, SWT.NONE);
-		group.setLayout(new FormLayout());
-		
-		Label label = new Label(group, SWT.NONE);
-		label.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
-		FormData fd_label = new FormData();
-		fd_label.right = new FormAttachment(100, 3);
-		fd_label.left = new FormAttachment(0);
-		label.setLayoutData(fd_label);
-		label.setText("条件查询");
-		
-		Label label_1 = new Label(group, SWT.NONE);
-		FormData fd_label_1 = new FormData();
-		fd_label_1.top = new FormAttachment(label, 6);
-		fd_label_1.left = new FormAttachment(label, 0, SWT.LEFT);
-		label_1.setLayoutData(fd_label_1);
-		label_1.setText("比对方式");
-		
-		final Combo combo = new Combo(group, SWT.NONE);
-		combo.add("按天对比");
-		combo.add("按周对比");
-		combo.add("按月对比");
-		combo.select(sel);
-		FormData fd_combo = new FormData();
-		fd_combo.top = new FormAttachment(label_1, -3, SWT.TOP);
-		fd_combo.left = new FormAttachment(label_1, 2);
-		combo.setLayoutData(fd_combo);
-		Label label_2 = new Label(group, SWT.NONE);
-		FormData fd_label_2 = new FormData();
-		fd_label_2.bottom = new FormAttachment(label_1, 0, SWT.BOTTOM);
-		fd_label_2.left = new FormAttachment(combo, 6);
-		label_2.setLayoutData(fd_label_2);
-		label_2.setText("第一次时间:");
-		
-		final DateTime dateTime = new DateTime(group, SWT.DROP_DOWN);
-		String s=firstTime.substring(0,firstTime.indexOf(" "));
-		int year=Integer.parseInt(s.substring(0,s.indexOf("-")));
-		int month=Integer.parseInt(s.substring(s.indexOf("-")+1,s.lastIndexOf("-")));
-		int day=Integer.parseInt(s.substring(s.lastIndexOf("-")+1));
-		dateTime.setDate(year, month-1, day);
-		FormData fd_dateTime = new FormData();
-		fd_dateTime.bottom = new FormAttachment(combo, 0, SWT.BOTTOM);
-		fd_dateTime.left = new FormAttachment(label_2, 1);
-		dateTime.setLayoutData(fd_dateTime);
-		
-		Label label_3 = new Label(group, SWT.NONE);
-		FormData fd_label_3 = new FormData();
-		fd_label_3.bottom = new FormAttachment(label_1, 0, SWT.BOTTOM);
-		fd_label_3.left = new FormAttachment(dateTime, 6);
-		label_3.setLayoutData(fd_label_3);
-		label_3.setText("第二次时间:");
-		
-		final DateTime dateTime_1 = new DateTime(group, SWT.DROP_DOWN);
-		s=lastTime.substring(0,lastTime.indexOf(" "));
-		year=Integer.parseInt(s.substring(0,s.indexOf("-")));
-		month=Integer.parseInt(s.substring(s.indexOf("-")+1,s.lastIndexOf("-")));
-		day=Integer.parseInt(s.substring(s.lastIndexOf("-")+1));
-		dateTime_1.setDate(year, month-1, day);
-		FormData fd_dateTime_1 = new FormData();
-		fd_dateTime_1.bottom = new FormAttachment(combo, 0, SWT.BOTTOM);
-		fd_dateTime_1.left = new FormAttachment(label_3, 2);
-		dateTime_1.setLayoutData(fd_dateTime_1);
-		
-		Button button = new Button(group, SWT.NONE);
-		FormData fd_button = new FormData();
-		fd_button.top = new FormAttachment(label_1, -5, SWT.TOP);
-		fd_button.left = new FormAttachment(dateTime_1, 6);
-		button.setLayoutData(fd_button);
-		button.setText("查询");
-		
-		button.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				sel=combo.getSelectionIndex();
-				int year=dateTime.getYear();
-				int month=dateTime.getMonth();
-				int day=dateTime.getDay();
-				firstTime=year+"-"+(month+1)+"-"+day+" "+"00:00:00";
-				int year_1=dateTime_1.getYear();
-				int month_1=dateTime_1.getMonth();
-				int day_1=dateTime_1.getDay();
-				lastTime=year_1+"-"+(month_1+1)+"-"+day_1+" "+"23:59:59";
-				if(sel==0){
-					sstartTime=year+"-"+(month+1)+"-"+day+" "+"00:00:00";
-					sendTime=year+"-"+(month+1)+"-"+day+" "+"23:59:59";
-					
-					estartTime=year_1+"-"+(month_1+1)+"-"+day_1+" "+"00:00:00";
-					eendTime=year_1+"-"+(month_1+1)+"-"+day_1+" "+"23:59:59";
-				}else if(sel==1){
-					Calendar cal=Calendar.getInstance();
-					cal.set(year, month, day);
-					int day_of_week = cal.get(Calendar.DAY_OF_WEEK) - 2;
-					cal.add(Calendar.DATE, -day_of_week);
-					String s=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-					sstartTime=s+" "+"00:00:00";
-					cal.add(Calendar.DATE, 6);
-					s=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-					sendTime=s+" "+"23:59:59";
-					
-					cal.set(year_1, month_1, day_1);
-					day_of_week = cal.get(Calendar.DAY_OF_WEEK) - 2;
-					cal.add(Calendar.DATE, -day_of_week);
-					s=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-					estartTime=s+" "+"00:00:00";
-					cal.add(Calendar.DATE, 6);
-					s=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-					eendTime=s+" "+"23:59:59";
-				}else{
-					if(month==month_1){
-						
-					}
-					Calendar cal=Calendar.getInstance();
-					cal.set(year, month, day);
-					sstartTime=year+"-"+(month+1)+"-1"+" "+"00:00:00";
-					sendTime=year+"-"+(month+1)+"-"+cal.getActualMaximum(Calendar.DAY_OF_MONTH)+" "+"23:59:59";
-					
-					cal.set(year_1, month_1, day);
-					estartTime=year_1+"-"+(month_1+1)+"-1"+" "+"00:00:00";
-					eendTime=year_1+"-"+(month_1+1)+"-"+cal.getActualMaximum(Calendar.DAY_OF_MONTH)+" "+"23:59:59";
-				}
-				createView(parent);
-			}
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
+			public void controlMoved(ControlEvent e) {
+				create(parent);
 			}
 		});
-		
-		Label lblNewLabel = new Label(group, SWT.NONE);
-		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
-		FormData fd_lblNewLabel = new FormData();
-		fd_lblNewLabel.top = new FormAttachment(label_1, 6);
-		fd_lblNewLabel.left = new FormAttachment(0);
-		fd_lblNewLabel.right = new FormAttachment(100, 3);
-		lblNewLabel.setLayoutData(fd_lblNewLabel);
-		lblNewLabel.setText("图表");
-		
-		
-		ScrolledComposite group_1 = new ScrolledComposite(sashForm, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-		group_1.setLayout(new FillLayout(SWT.HORIZONTAL));
-		group_1.setExpandHorizontal(true);
-		group_1.setExpandVertical(true);
-		group_1.setMinWidth(400);
-		group_1.setMinHeight(190*(des.size()+1));
-		
-		Composite  chatComposite = new Composite(group_1, SWT.NONE);
-		group_1.setContent(chatComposite);// 设置chatComposite被scrolledComposite控制
-		chatComposite.setLayout(new FillLayout());
-		SashForm sashForm_1 = new SashForm(chatComposite, SWT.VERTICAL);
-		if(icCollection.get_Count()!=0&&icCollection1.get_Count()!=0){
-			int[] s0={5,22,90};
-			int[] ss=new int[3*des.size()];
-			for(int i=0;i<des.size();i++){
-				String yname=des.get(i).keySet().iterator().next();
-				Label lblNewLabel_1 = new Label(sashForm_1, SWT.NONE);
-				lblNewLabel_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
-				lblNewLabel_1.setText(yname);
-				
-				
-				Table table_1 = new Table(sashForm_1, SWT.BORDER | SWT.FULL_SELECTION);
-				table_1.setHeaderVisible(true);
-				table_1.setLinesVisible(true);
-				
-				TableColumn tblclmnNewColumn = new TableColumn(table_1, SWT.NONE);
-				tblclmnNewColumn.setText("名称");
-				tblclmnNewColumn.setWidth(100);
-				
-				TableColumn tblclmnNewColumn_1 = new TableColumn(table_1, SWT.NONE);
-				tblclmnNewColumn_1.setWidth(100);
-				tblclmnNewColumn_1.setText("最大值");
-				
-				TableColumn tableColumn = new TableColumn(table_1, SWT.NONE);
-				tableColumn.setWidth(100);
-				tableColumn.setText("平均值");
-				
-				TableColumn tableColumn_1 = new TableColumn(table_1, SWT.NONE);
-				tableColumn_1.setWidth(100);
-				tableColumn_1.setText("最小值");
-				
-				TableColumn tableColumn_2 = new TableColumn(table_1, SWT.NONE);
-				tableColumn_2.setWidth(100);
-				tableColumn_2.setText("最大值时间");
-				
-				createItem(table_1, des.get(i), des.get(i));
-				
-				Composite composite = new Composite(sashForm_1, SWT.NONE);
-				composite.setLayout(new FillLayout(SWT.HORIZONTAL));
-				XYDataset xydata=createDataset(xydate.get(i).get(yname),xyDataArrayList.get(i).get(xyDataArrayList.get(i).keySet().iterator().next()),sstartTime+"~"+sendTime,estartTime+"~"+eendTime);
-				JFreeChart chart=createChart(xydata, "时间",yname,bo1.get_Name());
-				ChartComposite frame = new ChartComposite(composite, SWT.NONE, chart, true);
-				System.arraycopy(s0, 0, ss, i*3, s0.length);
-			}
-			sashForm_1.setWeights(ss);
-		}
-		sashForm.setWeights(new int[] {85, 387});
-		parent.layout();
 	}
 
 	public void SetDataFromBusOb(BusinessObject bo) {
@@ -473,7 +274,7 @@ public class TimeContrastReport extends LayoutViewBase{
 	}
 	
 	public  XYDataset createDataset(List<String> xydata1,List<String> xydata,String s,String ss) {
-		if(xydata1.size()<0){
+		if(xydata1.size()<=0){
 			return null;
 		}
 		TimeSeries s1 = new TimeSeries(s,Second.class);
@@ -566,5 +367,215 @@ public class TimeContrastReport extends LayoutViewBase{
         dataset.addValue(2991, "Classes", "JDK 1.4");
         dataset.addValue(3500, "Classes", "JDK 1.5");
         return dataset;
+	}
+	public void create(final Composite parent){
+		if (parent.getChildren().length > 0) {
+			for (Control control : parent.getChildren()) {
+				control.dispose();
+			}
+		}
+		setAllData();
+		
+		parent.setLayout(new FillLayout(SWT.VERTICAL));
+		
+		SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
+		
+		Composite group = new Composite(sashForm, SWT.NONE);
+		group.setLayout(new FormLayout());
+		
+		Label label = new Label(group, SWT.NONE);
+		label.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
+		FormData fd_label = new FormData();
+		fd_label.right = new FormAttachment(100, 3);
+		fd_label.left = new FormAttachment(0);
+		label.setLayoutData(fd_label);
+		label.setText("条件查询");
+		
+		Label label_1 = new Label(group, SWT.NONE);
+		FormData fd_label_1 = new FormData();
+		fd_label_1.top = new FormAttachment(label, 6);
+		fd_label_1.left = new FormAttachment(label, 0, SWT.LEFT);
+		label_1.setLayoutData(fd_label_1);
+		label_1.setText("比对方式");
+		
+		final Combo combo = new Combo(group, SWT.NONE);
+		combo.add("按天对比");
+		combo.add("按周对比");
+		combo.add("按月对比");
+		combo.select(sel);
+		FormData fd_combo = new FormData();
+		fd_combo.top = new FormAttachment(label_1, -3, SWT.TOP);
+		fd_combo.left = new FormAttachment(label_1, 2);
+		combo.setLayoutData(fd_combo);
+		Label label_2 = new Label(group, SWT.NONE);
+		FormData fd_label_2 = new FormData();
+		fd_label_2.bottom = new FormAttachment(label_1, 0, SWT.BOTTOM);
+		fd_label_2.left = new FormAttachment(combo, 6);
+		label_2.setLayoutData(fd_label_2);
+		label_2.setText("第一次时间:");
+		
+		final DateTime dateTime = new DateTime(group, SWT.DROP_DOWN);
+		String s=firstTime.substring(0,firstTime.indexOf(" "));
+		int year=Integer.parseInt(s.substring(0,s.indexOf("-")));
+		int month=Integer.parseInt(s.substring(s.indexOf("-")+1,s.lastIndexOf("-")));
+		int day=Integer.parseInt(s.substring(s.lastIndexOf("-")+1));
+		dateTime.setDate(year, month-1, day);
+		FormData fd_dateTime = new FormData();
+		fd_dateTime.bottom = new FormAttachment(combo, 0, SWT.BOTTOM);
+		fd_dateTime.left = new FormAttachment(label_2, 1);
+		dateTime.setLayoutData(fd_dateTime);
+		
+		Label label_3 = new Label(group, SWT.NONE);
+		FormData fd_label_3 = new FormData();
+		fd_label_3.bottom = new FormAttachment(label_1, 0, SWT.BOTTOM);
+		fd_label_3.left = new FormAttachment(dateTime, 6);
+		label_3.setLayoutData(fd_label_3);
+		label_3.setText("第二次时间:");
+		
+		final DateTime dateTime_1 = new DateTime(group, SWT.DROP_DOWN);
+		s=lastTime.substring(0,lastTime.indexOf(" "));
+		year=Integer.parseInt(s.substring(0,s.indexOf("-")));
+		month=Integer.parseInt(s.substring(s.indexOf("-")+1,s.lastIndexOf("-")));
+		day=Integer.parseInt(s.substring(s.lastIndexOf("-")+1));
+		dateTime_1.setDate(year, month-1, day);
+		FormData fd_dateTime_1 = new FormData();
+		fd_dateTime_1.bottom = new FormAttachment(combo, 0, SWT.BOTTOM);
+		fd_dateTime_1.left = new FormAttachment(label_3, 2);
+		dateTime_1.setLayoutData(fd_dateTime_1);
+		
+		Button button = new Button(group, SWT.NONE);
+		FormData fd_button = new FormData();
+		fd_button.top = new FormAttachment(label_1, -5, SWT.TOP);
+		fd_button.left = new FormAttachment(dateTime_1, 6);
+		button.setLayoutData(fd_button);
+		button.setText("查询");
+		
+		button.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				sel=combo.getSelectionIndex();
+				int year=dateTime.getYear();
+				int month=dateTime.getMonth();
+				int day=dateTime.getDay();
+				firstTime=year+"-"+(month+1)+"-"+day+" "+"00:00:00";
+				int year_1=dateTime_1.getYear();
+				int month_1=dateTime_1.getMonth();
+				int day_1=dateTime_1.getDay();
+				lastTime=year_1+"-"+(month_1+1)+"-"+day_1+" "+"23:59:59";
+				if(sel==0){
+					sstartTime=year+"-"+(month+1)+"-"+day+" "+"00:00:00";
+					sendTime=year+"-"+(month+1)+"-"+day+" "+"23:59:59";
+					
+					estartTime=year_1+"-"+(month_1+1)+"-"+day_1+" "+"00:00:00";
+					eendTime=year_1+"-"+(month_1+1)+"-"+day_1+" "+"23:59:59";
+				}else if(sel==1){
+					Calendar cal=Calendar.getInstance();
+					cal.set(year, month, day);
+					int day_of_week = cal.get(Calendar.DAY_OF_WEEK) - 2;
+					cal.add(Calendar.DATE, -day_of_week);
+					String s=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+					sstartTime=s+" "+"00:00:00";
+					cal.add(Calendar.DATE, 6);
+					s=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+					sendTime=s+" "+"23:59:59";
+					
+					cal.set(year_1, month_1, day_1);
+					day_of_week = cal.get(Calendar.DAY_OF_WEEK) - 2;
+					cal.add(Calendar.DATE, -day_of_week);
+					s=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+					estartTime=s+" "+"00:00:00";
+					cal.add(Calendar.DATE, 6);
+					s=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+					eendTime=s+" "+"23:59:59";
+				}else{
+					if(month==month_1){
+						
+					}
+					Calendar cal=Calendar.getInstance();
+					cal.set(year, month, day);
+					sstartTime=year+"-"+(month+1)+"-1"+" "+"00:00:00";
+					sendTime=year+"-"+(month+1)+"-"+cal.getActualMaximum(Calendar.DAY_OF_MONTH)+" "+"23:59:59";
+					
+					cal.set(year_1, month_1, day);
+					estartTime=year_1+"-"+(month_1+1)+"-1"+" "+"00:00:00";
+					eendTime=year_1+"-"+(month_1+1)+"-"+cal.getActualMaximum(Calendar.DAY_OF_MONTH)+" "+"23:59:59";
+				}
+				create(parent);
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		
+		Label lblNewLabel = new Label(group, SWT.NONE);
+		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
+		FormData fd_lblNewLabel = new FormData();
+		fd_lblNewLabel.top = new FormAttachment(label_1, 6);
+		fd_lblNewLabel.left = new FormAttachment(0);
+		fd_lblNewLabel.right = new FormAttachment(100, 3);
+		lblNewLabel.setLayoutData(fd_lblNewLabel);
+		lblNewLabel.setText("图表");
+		
+		
+		ScrolledComposite group_1 = new ScrolledComposite(sashForm, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		group_1.setLayout(new FillLayout(SWT.HORIZONTAL));
+		group_1.setExpandHorizontal(true);
+		group_1.setExpandVertical(true);
+		group_1.setMinWidth(400);
+		group_1.setMinHeight(190*(des.size()+1));
+		
+		Composite  chatComposite = new Composite(group_1, SWT.NONE);
+		group_1.setContent(chatComposite);// 设置chatComposite被scrolledComposite控制
+		chatComposite.setLayout(new FillLayout());
+		SashForm sashForm_1 = new SashForm(chatComposite, SWT.VERTICAL);
+		if(icCollection.get_Count()!=0&&icCollection1.get_Count()!=0){
+			int[] s0={5,22,90};
+			int[] ss=new int[3*des.size()];
+			for(int i=0;i<des.size();i++){
+				String yname=des.get(i).keySet().iterator().next();
+				Label lblNewLabel_1 = new Label(sashForm_1, SWT.NONE);
+				lblNewLabel_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
+				lblNewLabel_1.setText(yname);
+				
+				
+				Table table_1 = new Table(sashForm_1, SWT.BORDER | SWT.FULL_SELECTION);
+				table_1.setHeaderVisible(true);
+				table_1.setLinesVisible(true);
+				
+				TableColumn tblclmnNewColumn = new TableColumn(table_1, SWT.NONE);
+				tblclmnNewColumn.setText("名称");
+				tblclmnNewColumn.setWidth(100);
+				
+				TableColumn tblclmnNewColumn_1 = new TableColumn(table_1, SWT.NONE);
+				tblclmnNewColumn_1.setWidth(100);
+				tblclmnNewColumn_1.setText("最大值");
+				
+				TableColumn tableColumn = new TableColumn(table_1, SWT.NONE);
+				tableColumn.setWidth(100);
+				tableColumn.setText("平均值");
+				
+				TableColumn tableColumn_1 = new TableColumn(table_1, SWT.NONE);
+				tableColumn_1.setWidth(100);
+				tableColumn_1.setText("最小值");
+				
+				TableColumn tableColumn_2 = new TableColumn(table_1, SWT.NONE);
+				tableColumn_2.setWidth(100);
+				tableColumn_2.setText("最大值时间");
+				
+				createItem(table_1, des.get(i), des.get(i));
+				
+				Composite composite = new Composite(sashForm_1, SWT.NONE);
+				composite.setLayout(new FillLayout(SWT.HORIZONTAL));
+				XYDataset xydata=createDataset(xydate.get(i).get(yname),xyDataArrayList.get(i).get(xyDataArrayList.get(i).keySet().iterator().next()),sstartTime+"~"+sendTime,estartTime+"~"+eendTime);
+				JFreeChart chart=createChart(xydata, "时间",yname,bo1.get_Name());
+				ChartComposite frame = new ChartComposite(composite, SWT.NONE, chart, true);
+				System.arraycopy(s0, 0, ss, i*3, s0.length);
+			}
+			sashForm_1.setWeights(ss);
+		}
+		sashForm.setWeights(new int[] {85, 387});
+		parent.layout();
 	}
 }

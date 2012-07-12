@@ -1280,12 +1280,12 @@ public class APIGroup extends APISiteView
             {
                 TextUtils.debugPrint("DELETING GROUP IN FILE " + file);
             }
-            if(!file.exists())
-            {
-                throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_NOT_VALID, new String[] {
-                    s
-                });
-            }
+//            if(!file.exists())
+//            {
+//                throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_NOT_VALID, new String[] {
+//                    s
+//                });
+//            }
             jgl.Array array = getGroupFrames(s);
             Enumeration enumeration = array.elements();
             jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();

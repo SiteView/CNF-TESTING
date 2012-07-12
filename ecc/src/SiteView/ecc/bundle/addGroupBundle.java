@@ -1,26 +1,13 @@
-package com.siteview.ecc.rcp.cnf;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+package SiteView.ecc.bundle;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Map;
-
 import SiteView.ecc.views.EccTreeControl;
-import Siteview.Operators;
-import Siteview.QueryInfoToGet;
-import Siteview.SiteviewQuery;
 import Siteview.SiteviewValue;
 import Siteview.Api.BusinessObject;
-import Siteview.Api.ISiteviewApi;
 import Siteview.Windows.Forms.ConnectionBroker;
-
 import COM.dragonflow.Api.APIInterfaces;
-import COM.dragonflow.Api.ApiRmiServer;
-
 import siteview.IAutoTaskExtension;
-import system.Collections.ICollection;
-import system.Collections.IEnumerator;
-import system.Xml.XmlElement;
 
 
 public class addGroupBundle implements IAutoTaskExtension {
@@ -31,7 +18,9 @@ public class addGroupBundle implements IAutoTaskExtension {
 	public String run(Map<String, Object> params){
 		BusinessObject bo = (BusinessObject) params.get("_CUROBJ_");
 		String groupId=bo.GetField("RecId").get_NativeValue().toString();
-		String parentId=bo.GetField("ParentGroupId").get_NativeValue().toString();
+		
+		String parentId=bo.GetField("ParentGroupId").get_NativeValue().toString();//父组ID
+		//存在父组，先加载父组
 		if(parentId!=null && !parentId.equals("")){
 			BusinessObject bo1=EccTreeControl.CreateBo(parentId, "EccGroup");
 			String s=bo1.GetField("HasSubGroup").get_NativeValue().toString();
@@ -39,30 +28,21 @@ public class addGroupBundle implements IAutoTaskExtension {
 				bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));
 				bo1.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
 			}
-			addGroups("GroupId="+parentId);
+			EditGroupBundle edit=new EditGroupBundle();
+			edit.updateGroup("GroupId="+parentId);
 		}
+		//加载本组
 		addGroups("GroupId="+groupId);
 		return null;
 	}
 	public void addGroups(String s){
-		Registry registry;
-		String serverAddress = "localhost";
-		String serverPort = "3232";
+		if(rmiServer==null){
+			rmiServer =EditGroupBundle.createAmiServer();
+		}
 		try {
-			registry = LocateRegistry.getRegistry(serverAddress, (new Integer(
-					serverPort)).intValue());
-			rmiServer = (APIInterfaces) (registry.lookup("kernelApiRmiServer"));
-				rmiServer.adjustGroups(s,"");	
+			rmiServer.adjustGroups(s,"","add");	
 		} catch(Exception e){
 			e.printStackTrace();
 		}
-	}
-	public void updateGroup(String s){
-		SiteviewQuery query = new SiteviewQuery();
-		query.AddBusObQuery("EccGroup", QueryInfoToGet.All);
-		XmlElement xml ;
-		xml=query.get_CriteriaBuilder().FieldAndValueExpression("RecId",
-				Operators.Equals, s);
-		query.set_BusObSearchCriteria(xml);
 	}
 }

@@ -1413,8 +1413,12 @@ public class SiteViewGroup extends MonitorGroup {
 		Enumeration enumeration = array.elements();
 		while (enumeration.hasMoreElements()) {
 			String group=enumeration.nextElement().toString();
-			File file=new File(group.substring(group.indexOf("=")+1)+".mg");
-			//File file = (File) enumeration.nextElement();
+			File file=null;
+			if(group.contains("=")){
+				file=new File(group.substring(group.indexOf("=")+1)+".mg");
+			}else{
+				file=new File(group);
+			}
 			String s = file.getName();
 			if ("history.config".equals(file.getName())) {
 				LogManager.log("Debug", "Removing history");
@@ -1433,12 +1437,13 @@ public class SiteViewGroup extends MonitorGroup {
 					FindGroupWithFileVisitor findgroupwithfilevisitor = new FindGroupWithFileVisitor(
 							file);
 					acceptVisitor(findgroupwithfilevisitor);
-					if (findgroupwithfilevisitor.getResult() != null) {
+					if (findgroupwithfilevisitor.getResult() != null||MonitorGroup.monitorgroups.get(s.substring(0,s.indexOf(".")))!=null) {
 						LogManager
 								.log("Debug",
 										"Removing group for: "
 												+ file.getAbsolutePath());
-						MonitorGroup monitorgroup = (MonitorGroup)findgroupwithfilevisitor.getResult();
+						//MonitorGroup monitorgroup = (MonitorGroup)findgroupwithfilevisitor.getResult();
+						MonitorGroup monitorgroup = MonitorGroup.monitorgroups.get(s.substring(0,s.indexOf(".")));
 						monitorgroup.saveDynamic();
 						monitorgroup.stopGroup();
 						User.unregisterUsers(monitorgroup.getProperty(pID));
@@ -1680,7 +1685,6 @@ public class SiteViewGroup extends MonitorGroup {
 			historyreport = (HistoryReport) enumeration.nextElement();
 			historyreport.unschedule();
 		}
-
 	}
 
 	public synchronized SiteViewObject getElementByID(String s) {

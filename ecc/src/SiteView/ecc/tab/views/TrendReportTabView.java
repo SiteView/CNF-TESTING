@@ -1,6 +1,8 @@
 package SiteView.ecc.tab.views;
 
 
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.widgets.Composite;
 import SiteView.ecc.views.TrendReportView;
 import Siteview.Api.BusinessObject;
@@ -18,10 +20,16 @@ public class TrendReportTabView extends LayoutViewBase {
 	}
 
 	@Override
-	public void createView(Composite parent) {
+	public void createView(final Composite parent) {
 		// TODO Auto-generated method stub
-		TrendReportView  trv = new TrendReportView();
-		trv.createPartControl(parent);
+		parent.addControlListener(new ControlListener() {
+			public void controlResized(ControlEvent e) {
+			}
+			public void controlMoved(ControlEvent e) {
+				TrendReportView  trv = new TrendReportView();
+				trv.createPartControl(parent);
+			}
+		});
 	}
 
 	@Override

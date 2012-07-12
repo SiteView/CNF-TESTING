@@ -10,12 +10,15 @@ import java.util.Map.Entry;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -88,11 +91,47 @@ public class MonitorLogTabView extends LayoutViewBase {
 	//创建tab
 	protected void createView(final Composite parent) {
 		bo1=bo;
-		parent.setLayout(new FillLayout(SWT.VERTICAL));
-		final SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
-		createToolbar(sashForm);
-		iCollenction = getLog(map);
-		createTable(sashForm, iCollenction);
+		parent.addControlListener(new ControlListener() {
+			public void controlResized(ControlEvent e) {
+			}
+			public void controlMoved(ControlEvent e) {
+				if (parent.getChildren().length > 0) {
+					for (Control control : parent.getChildren()) {
+						control.dispose();
+					}
+				}
+				parent.setLayout(new FillLayout(SWT.VERTICAL));
+				SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
+				createToolbar(sashForm);
+				iCollenction = getLog(map);
+				createTable(sashForm, iCollenction);
+			}
+		});
+	}
+	//创建状态单选按钮
+	private void createToolbar(final SashForm sashForm) {
+		Composite group = new Composite(sashForm, SWT.NONE);
+		group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		all = new Button(group, SWT.RADIO);
+		all.setText("\u5168\u90E8");
+		all.setSelection(true);
+		all.setBackground(color[0]);
+		
+		error = new Button(group, SWT.RADIO);
+		error.setText("\u9519\u8BEF");
+		error.setBackground(color[1]);
+		
+		good = new Button(group, SWT.RADIO);
+		good.setText("\u6B63\u5E38");
+		good.setBackground(color[3]);
+		
+		warning = new Button(group, SWT.RADIO);
+		warning.setText("\u5371\u9669");
+		warning.setBackground(color[2]);
+		
+		disable = new Button(group, SWT.RADIO);
+		disable.setText("\u7981\u7528");
+		disable.setBackground(color[4]);
 		
 		all.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
@@ -160,31 +199,6 @@ public class MonitorLogTabView extends LayoutViewBase {
 			}
 		});
 		
-	}
-	//创建状态单选按钮
-	private void createToolbar(SashForm sashForm) {
-		Composite group = new Composite(sashForm, SWT.NONE);
-		group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		all = new Button(group, SWT.RADIO);
-		all.setText("\u5168\u90E8");
-		all.setSelection(true);
-		all.setBackground(color[0]);
-		
-		error = new Button(group, SWT.RADIO);
-		error.setText("\u9519\u8BEF");
-		error.setBackground(color[1]);
-		
-		good = new Button(group, SWT.RADIO);
-		good.setText("\u6B63\u5E38");
-		good.setBackground(color[3]);
-		
-		warning = new Button(group, SWT.RADIO);
-		warning.setText("\u5371\u9669");
-		warning.setBackground(color[2]);
-		
-		disable = new Button(group, SWT.RADIO);
-		disable.setText("\u7981\u7528");
-		disable.setBackground(color[4]);
 	}
 	// 日志数据表
 	public void createTable(SashForm sashForm, ICollection iCollection) {

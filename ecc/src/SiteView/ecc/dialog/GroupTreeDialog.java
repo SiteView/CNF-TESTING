@@ -1,6 +1,7 @@
 package SiteView.ecc.dialog;
 
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import COM.dragonflow.SiteViewException.SiteViewException;
+import SiteView.ecc.bundle.EditGroupBundle;
 import SiteView.ecc.data.MonitorServer;
 import SiteView.ecc.views.EccTreeControl;
 import Siteview.SiteviewValue;
@@ -25,6 +27,7 @@ import Siteview.Windows.Forms.ConnectionBroker;
 public class GroupTreeDialog extends Dialog {
 	public static TreeItem group;
 	private String title = "移动组";
+	public static Map<String,Boolean> map=new HashMap<String,Boolean>();
 	/*
 	 * 数据
 	 */
@@ -87,35 +90,39 @@ public class GroupTreeDialog extends Dialog {
 
 	protected void buttonPressed(int buttonId) {
 		if(buttonId==IDialogConstants.OK_ID){
+			@SuppressWarnings("unchecked")
 			String parentId=((Map<String,Object>)group.getData()).get("_id").toString();
 			parentId=parentId.substring(parentId.indexOf("/")+1);
 			BusinessObject bo=EccTreeControl.CreateBo(EccTreeControl.s, "EccGroup");
+			map.put(EccTreeControl.s, true);
 			String oldParentId=bo.GetField("ParentGroupId").get_NativeValue().toString();
-			if(oldParentId!=null&&!oldParentId.equals("")){
-				try {
-					if(monitorServer.GroupChild(oldParentId).size()==1){
-						BusinessObject oldParentbo=EccTreeControl.CreateBo(oldParentId, "EccGroup");
-						oldParentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
-						oldParentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+			EditGroupBundle edit=new EditGroupBundle();
+			if(parentId!=null&&oldParentId!=null&&!parentId.equals("")&&!oldParentId.equals("")){
+				if(!parentId.equals(oldParentId)){
+					try {
+						if(monitorServer.GroupChild("SiteView/"+oldParentId).size()==1){
+							BusinessObject oldParentbo=EccTreeControl.CreateBo(oldParentId, "EccGroup");
+							oldParentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
+							oldParentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+						}
+						bo.GetField("ParentGroupId").SetValue(new SiteviewValue(parentId));
+						bo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+						
+						BusinessObject bo1=EccTreeControl.CreateBo(parentId, "EccGroup");
+						String s=bo1.GetField("HasSubGroup").get_NativeValue().toString();
+						if(!s.equals("true")){
+							bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));
+							bo1.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+						}
+						edit.updateGroup("GroupId="+oldParentId);
+						edit.updateGroup("GroupId="+parentId);
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					} catch (SiteViewException e) {
+						e.printStackTrace();
 					}
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SiteViewException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
-			bo.GetField("ParentGroupId").SetValue(new SiteviewValue(parentId));
-			bo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
-			BusinessObject bo1=EccTreeControl.CreateBo(parentId, "EccGroup");
-			 
-			String s=bo1.GetField("HasSubGroup").get_NativeValue().toString();
-			if(!s.equals("true")){
-				bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));
-				bo1.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
-			}
-			
 		}
 		super.buttonPressed(buttonId);
 	}
@@ -126,12 +133,13 @@ public class GroupTreeDialog extends Dialog {
 		tree.setText(map.get("_name").toString());
 		tree.setData(map);
 		tree.setExpanded(true);
-//		List<Map<String, Object>> list = monitorServer.getMonitorsForGroup(map.get("_id").toString());
-//		list.addAll(monitorServer.GroupChild(map.get("_id").toString()));
-		List<Map<String, Object>> list=monitorServer.GroupChild(map.get("_id").toString());
-		if (list.size() != 0) {
-			for (int i = 0; i < list.size(); i++) {
-				getTreeItem(tree, list.get(i));
+		String ss=map.get("_id").toString();
+		if(!map.get("_id").toString().equals("SiteView/"+EccTreeControl.s)){
+			List<Map<String, Object>> list=monitorServer.GroupChild(map.get("_id").toString());
+			if (list.size() != 0) {
+				for (int i = 0; i < list.size(); i++) {
+					getTreeItem(tree, list.get(i));
+				}
 			}
 		}
 	}

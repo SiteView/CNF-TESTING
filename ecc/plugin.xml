@@ -65,5 +65,21 @@
           Class="SiteView.ecc.bundle.EditorRemoteMacheineBundle"
           Name="EditorRemoteMacheineBundle">
     </AutoTaskExtension>
+    <AutoTaskExtension
+          Class="SiteView.ecc.bundle.addGroupBundle"
+          Name="添加组">
+    </AutoTaskExtension>
+    <AutoTaskExtension
+          Class="SiteView.ecc.bundle.DeleteGroupBundle"
+          Name="删除组">
+    </AutoTaskExtension>
+    <AutoTaskExtension
+          Class="SiteView.ecc.bundle.EditGroupBundle"
+          Name="编辑组">
+    </AutoTaskExtension>
+    <AutoTaskExtension
+          Class="SiteView.ecc.bundle.AddMonitorBundle"
+          Name="增加监测器">
+    </AutoTaskExtension>
  </extension>
  </plugin>

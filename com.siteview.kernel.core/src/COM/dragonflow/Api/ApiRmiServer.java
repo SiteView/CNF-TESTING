@@ -449,17 +449,29 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		return SNMPCPUMonitor.getSysOid(map);
 	}
 
-	public void adjustGroups(String s, String s1) throws Exception {
+	public void adjustGroups(String s, String s1,String s2) throws Exception {
 		Array array = new jgl.Array();
-		if (!s.equals("")) {
-			array.add(s);
-		}
 		Array array1 = new jgl.Array();
-		if (!s1.equals("")) {
-			array1.add(s1);
-		}
 		Array array2 = new jgl.Array();
 		jgl.HashMap hashmap = new jgl.HashMap();
+		String RootFilePath=System.getProperty("user.dir");
+		RootFilePath=RootFilePath.substring(0,RootFilePath.lastIndexOf("\\")+1);
+		RootFilePath=RootFilePath+"com.siteview.kernel.core\\groups\\history.config";
+	
+		if(s2.equals("add")){
+			array.add(s);
+		}else if(s2.equals("edit")){
+			array1.add(s1);
+		}else if(s2.equals("delete")){
+			array1.add(RootFilePath);
+			array2.add(s1);
+		}
+//		if (!s.equals("")) {
+//			array.add(s);
+//		}
+//		if (!s1.equals("")) {
+//			array1.add(s1);
+//		}
 		SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
 		siteviewgroup.adjustGroups(array, array1, array2, hashmap);
 	}

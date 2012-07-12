@@ -16,6 +16,8 @@ import system.Collections.IEnumerator;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormLayout;
@@ -25,6 +27,7 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Label;
 import swing2swt.layout.FlowLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -44,81 +47,13 @@ public class ErrorCTIReport extends LayoutViewBase {
 	}
 
 	protected void createView(final Composite parent) {
-		setAll();
-		parent.setLayout(new FillLayout(SWT.VERTICAL));
-		
-		SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
-		
-		Composite composite = new Composite(sashForm, SWT.NONE);
-		composite.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		
-		Label label = new Label(composite, SWT.NONE);
-		label.setText("开始时间：");
-		
-		final DateTime startdate = new DateTime(composite, SWT.DROP_DOWN);
-		int year=Integer.parseInt(starTime.substring(0,starTime.indexOf("-")));
-		int month=Integer.parseInt(starTime.substring(starTime.indexOf("-")+1,starTime.lastIndexOf("-")));
-		int day=Integer.parseInt(starTime.substring(starTime.lastIndexOf("-")+1,starTime.indexOf(" ")));
-		int hours=Integer.parseInt(starTime.substring(starTime.indexOf(" ")+1,starTime.indexOf(":")));
-		int minutes=Integer.parseInt(starTime.substring(starTime.indexOf(":")+1,starTime.lastIndexOf(":")));
-		int seconds=Integer.parseInt(starTime.substring(starTime.lastIndexOf(":")+1));
-		startdate.setDate(year, month-1, day);
-		final DateTime starttime = new DateTime(composite, SWT.TIME);
-		starttime.setTime(hours, minutes, seconds);
-		
-		Label label_1 = new Label(composite, SWT.NONE);
-		label_1.setText("结束时间：");
-		
-		year=Integer.parseInt(endTime.substring(0,endTime.indexOf("-")));
-		month=Integer.parseInt(endTime.substring(endTime.indexOf("-")+1,endTime.lastIndexOf("-")));
-		day=Integer.parseInt(endTime.substring(endTime.lastIndexOf("-")+1,endTime.indexOf(" ")));
-		hours=Integer.parseInt(endTime.substring(endTime.indexOf(" ")+1,endTime.indexOf(":")));
-		minutes=Integer.parseInt(endTime.substring(endTime.indexOf(":")+1,endTime.lastIndexOf(":")));
-		seconds=Integer.parseInt(endTime.substring(endTime.lastIndexOf(":")+1));
-		final DateTime enddate = new DateTime(composite, SWT.DROP_DOWN);
-		enddate.setDate(year, month-1, day);
-		final DateTime endtime = new DateTime(composite, SWT.TIME);
-		endtime.setTime(hours, minutes, seconds);
-		
-		Button button = new Button(composite, SWT.NONE);
-		button.setText("查询");
-		button.addSelectionListener(new SelectionListener() {
-			public void widgetSelected(SelectionEvent e) {
-				starTime= startdate.getYear() + "-"
-						+ (startdate.getMonth() + 1) + "-" + startdate.getDay()
-						+ " " + starttime.getHours() + ":"
-						+ starttime.getMinutes()+":"+starttime.getSeconds();
-				endTime= enddate.getYear() + "-"
-						+ (enddate.getMonth() + 1) + "-" + enddate.getDay()
-						+ " " + endtime.getHours() + ":"
-						+ endtime.getMinutes()+":"+endtime.getSeconds();
-				createView(parent);
+		parent.addControlListener(new ControlListener() {
+			public void controlResized(ControlEvent e) {
 			}
-			public void widgetDefaultSelected(SelectionEvent e) {
+			public void controlMoved(ControlEvent e) {
+				create(parent);
 			}
 		});
-		
-		Composite composite_1 = new Composite(sashForm, SWT.NONE);
-		composite_1.setLayout(new FillLayout(SWT.HORIZONTAL));
-		
-		table = new Table(composite_1, SWT.BORDER | SWT.FULL_SELECTION);
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		
-		TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
-		tblclmnNewColumn.setWidth(122);
-		tblclmnNewColumn.setText("错误开始时间");
-		
-		TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
-		tblclmnNewColumn_1.setWidth(126);
-		tblclmnNewColumn_1.setText("错误结束时间");
-		
-		TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
-		tblclmnNewColumn_2.setWidth(166);
-		tblclmnNewColumn_2.setText("错误状态值");
-		createItem(table);
-		sashForm.setWeights(new int[] {36, 261});
-		parent.layout(); 
 	}
 
 	public void SetDataFromBusOb(BusinessObject bo) {
@@ -167,12 +102,94 @@ public class ErrorCTIReport extends LayoutViewBase {
 				tableItem.setText(data);
 			}
 		}
-		if(statuslist.get(statuslist.size()-1).equals("error")){
+		if(statuslist.size()>1&&statuslist.get(statuslist.size()-1).equals("error")){
 			TableItem tableItem=new TableItem(table,SWT.NONE);
 			data[0]=timelist.get(statuslist.size()-1);
 			data[1]=endTime;
 			data[2]="status=error";
 			tableItem.setText(data);
 		}
+	}
+	public void create(final Composite parent){
+		if (parent.getChildren().length > 0) {
+			for (Control control : parent.getChildren()) {
+				control.dispose();
+			}
+		}
+		setAll();
+		parent.setLayout(new FillLayout(SWT.VERTICAL));
+		
+		SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
+		
+		Composite composite = new Composite(sashForm, SWT.NONE);
+		composite.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		
+		Label label = new Label(composite, SWT.NONE);
+		label.setText("开始时间：");
+		
+		final DateTime startdate = new DateTime(composite, SWT.DROP_DOWN);
+		int year=Integer.parseInt(starTime.substring(0,starTime.indexOf("-")));
+		int month=Integer.parseInt(starTime.substring(starTime.indexOf("-")+1,starTime.lastIndexOf("-")));
+		int day=Integer.parseInt(starTime.substring(starTime.lastIndexOf("-")+1,starTime.indexOf(" ")));
+		int hours=Integer.parseInt(starTime.substring(starTime.indexOf(" ")+1,starTime.indexOf(":")));
+		int minutes=Integer.parseInt(starTime.substring(starTime.indexOf(":")+1,starTime.lastIndexOf(":")));
+		int seconds=Integer.parseInt(starTime.substring(starTime.lastIndexOf(":")+1));
+		startdate.setDate(year, month-1, day);
+		final DateTime starttime = new DateTime(composite, SWT.TIME);
+		starttime.setTime(hours, minutes, seconds);
+		
+		Label label_1 = new Label(composite, SWT.NONE);
+		label_1.setText("结束时间：");
+		
+		year=Integer.parseInt(endTime.substring(0,endTime.indexOf("-")));
+		month=Integer.parseInt(endTime.substring(endTime.indexOf("-")+1,endTime.lastIndexOf("-")));
+		day=Integer.parseInt(endTime.substring(endTime.lastIndexOf("-")+1,endTime.indexOf(" ")));
+		hours=Integer.parseInt(endTime.substring(endTime.indexOf(" ")+1,endTime.indexOf(":")));
+		minutes=Integer.parseInt(endTime.substring(endTime.indexOf(":")+1,endTime.lastIndexOf(":")));
+		seconds=Integer.parseInt(endTime.substring(endTime.lastIndexOf(":")+1));
+		final DateTime enddate = new DateTime(composite, SWT.DROP_DOWN);
+		enddate.setDate(year, month-1, day);
+		final DateTime endtime = new DateTime(composite, SWT.TIME);
+		endtime.setTime(hours, minutes, seconds);
+		
+		Button button = new Button(composite, SWT.NONE);
+		button.setText("查询");
+		button.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				starTime= startdate.getYear() + "-"
+						+ (startdate.getMonth() + 1) + "-" + startdate.getDay()
+						+ " " + starttime.getHours() + ":"
+						+ starttime.getMinutes()+":"+starttime.getSeconds();
+				endTime= enddate.getYear() + "-"
+						+ (enddate.getMonth() + 1) + "-" + enddate.getDay()
+						+ " " + endtime.getHours() + ":"
+						+ endtime.getMinutes()+":"+endtime.getSeconds();
+				create(parent);
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
+		
+		Composite composite_1 = new Composite(sashForm, SWT.NONE);
+		composite_1.setLayout(new FillLayout(SWT.HORIZONTAL));
+		
+		table = new Table(composite_1, SWT.BORDER | SWT.FULL_SELECTION);
+		table.setHeaderVisible(true);
+		table.setLinesVisible(true);
+		
+		TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
+		tblclmnNewColumn.setWidth(122);
+		tblclmnNewColumn.setText("错误开始时间");
+		
+		TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
+		tblclmnNewColumn_1.setWidth(126);
+		tblclmnNewColumn_1.setText("错误结束时间");
+		
+		TableColumn tblclmnNewColumn_2 = new TableColumn(table, SWT.NONE);
+		tblclmnNewColumn_2.setWidth(166);
+		tblclmnNewColumn_2.setText("错误状态值");
+		createItem(table);
+		sashForm.setWeights(new int[] {36, 261});
+		parent.layout(); 
 	}
 }
