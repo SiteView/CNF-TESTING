@@ -88,7 +88,7 @@ import SiteViewMain.UpdateConfig;
 // PortalSync, SiteViewLogReader
 
 public class SiteViewGroup extends MonitorGroup {
-
+	public static boolean masterconfig=true;
 	public static boolean flag=false;
 	public static final String SITEVIEW_GROUP_ID = "SiteView";
 
@@ -1390,18 +1390,22 @@ public class SiteViewGroup extends MonitorGroup {
 	}
 
 	public MonitorGroup loadGroup(String s) {
-		message("Loading group: " + I18N.toDefaultEncoding(s));
-		MonitorGroup monitorgroup = MonitorGroup.loadGroup(s,
-				Platform.getRoot() + File.separator + "groups" + File.separator
-						+ I18N.toDefaultEncoding(s) + ".mg", false);
-		if (monitorgroup != null) {
-			addElement(monitorgroup);
-			User.registerUsers(monitorgroup,
-					I18N.toDefaultEncoding(monitorgroup.getProperty(pID)),
-					monitorgroup.getMultipleValues("_user"),
-					monitorgroup.getValuesTable());
+		if(!masterconfig){
+			message("Loading group: " + I18N.toDefaultEncoding(s));
+			MonitorGroup monitorgroup = MonitorGroup.loadGroup(s,
+					Platform.getRoot() + File.separator + "groups" + File.separator
+							+ I18N.toDefaultEncoding(s) + ".mg", false);
+			if (monitorgroup != null) {
+				addElement(monitorgroup);
+				User.registerUsers(monitorgroup,
+						I18N.toDefaultEncoding(monitorgroup.getProperty(pID)),
+						monitorgroup.getMultipleValues("_user"),
+						monitorgroup.getValuesTable());
+			}
+			return monitorgroup;
+		}else{
+			return null;
 		}
-		return monitorgroup;
 	}
 
 	/**
@@ -1464,6 +1468,7 @@ public class SiteViewGroup extends MonitorGroup {
 		Enumeration enumeration = array.elements();
 		ResultSet groups = null;
 		File masterfile=null;
+		masterconfig=(array.size()>1);
 		while (enumeration.hasMoreElements()) {
 			String group=enumeration.nextElement().toString();
 			if(group.contains("GroupId=")){
@@ -1524,7 +1529,7 @@ public class SiteViewGroup extends MonitorGroup {
 			}
 		}
 	//	从数据库读组信息，加入组
-		if (flag && masterfile!=null) {
+		if (flag && masterfile!=null&&masterconfig) {
 			groups = JDBCForSQL
 					.sql_ConnectExecute_Select("SELECT * FROM EccGroup");
 			try {

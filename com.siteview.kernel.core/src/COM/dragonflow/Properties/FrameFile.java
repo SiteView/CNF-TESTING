@@ -1115,7 +1115,7 @@ public class FrameFile {
 		return array;
 	}
 
-	static Array mangleIt(String s1) throws IOException {
+	public static Array mangleIt(String s1) throws IOException {
 		s1 = TextUtils.replaceChar(s1, '\r', "");
 		Array array = Platform.splitdata(s1);
 		return array;
@@ -1133,7 +1133,7 @@ public class FrameFile {
 	 * @return
 	 * @throws IOException
 	 */
-	static Array readFrames(Enumeration enumeration) throws IOException {
+	public static Array readFrames(Enumeration enumeration) throws IOException {
 		Array array = new Array();
 		while (true) {
 			HashMap hashmap = readFrame(enumeration, "#");

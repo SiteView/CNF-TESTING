@@ -2,20 +2,23 @@ package SiteView.ecc.bundle;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.JOptionPane;
 
 import SiteView.ecc.tools.TextUtils;
 import Siteview.Api.BusinessObject;
 import Siteview.Api.Relationship;
 
 import COM.dragonflow.Api.APIInterfaces;
+import COM.dragonflow.SiteView.SiteViewGroup;
 
 import siteview.IAutoTaskExtension;
 import system.Collections.IEnumerator;
 
 public class RemoteMacheineBundle implements IAutoTaskExtension {
 	APIInterfaces rmiServer;
-
 	@Override
 	public String run(Map<String, Object> params) {
 		BusinessObject bo = (BusinessObject) params.get("_CUROBJ_");
@@ -24,56 +27,60 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 		String serverAddress = "localhost";
 		String serverPort = "3232";
 		String remoteMachineInfo = "";
-		try {
+		try {//_disableCache= _status=unknown _sshPort=22 
+			//_os=AIX _id=56 _version2= _trace= _sshClient=java
+			//_method=telnet _sshCommand= 
+			//_keyFile=E:\workspace\siteview9.2\com.siteview.kernel.core\groups\identity_
+			//_password=(0x)LEMNOBMOME _sshConnectionsLimit=3 
+			//_login=admin _host=192.168.9.224 _sshAuthMethod=password 
+					//_name=192.168.9.224
 			registry = LocateRegistry.getRegistry(serverAddress, (new Integer(
 					serverPort)).intValue());
 			rmiServer = (APIInterfaces) (registry.lookup("kernelApiRmiServer"));
-			Relationship relationship = bo
-					.GetRelationship("ComputerAssociatedRemoteUNIX");
-			if (relationship != null) {
-				IEnumerator it3 = relationship.GetObjects().GetEnumerator();
-				while (it3.MoveNext()) {
-					Siteview.Api.BusinessObject remoteMachineBo = (Siteview.Api.BusinessObject) it3
-							.get_Current();
+					Siteview.Api.BusinessObject remoteMachineBo=bo;
 					String password = TextUtils.obscure(remoteMachineBo
 							.GetField("PasswordUNIX").get_NativeValue()
 							.toString());
-					remoteMachineInfo = "_remoteMachine= _secondaryResponse="
-							+ remoteMachineBo.GetField("SecondaryResponse")
-									.get_NativeValue().toString()
-							+ " _disableCache="
-							+ remoteMachineBo
-									.GetField("DisableConnectionCaching")
-									.get_NativeValue().toString()
-							+ " _initShellEnvironment="
-							+ remoteMachineBo.GetField("InitializeEnvironment")
-									.get_NativeValue().toString()
-							+ " _status="
-							+ remoteMachineBo.GetField("Status")
-									.get_NativeValue().toString()
+					String value=remoteMachineBo
+							.GetField("DisableConnectionCaching")
+							.get_NativeValue().toString();
+					if(value.equals("true")||value.equals("1")){
+						remoteMachineInfo+="_disableCache="+"on";
+					}else{
+						remoteMachineInfo+="_disableCache= ";
+					}
+					value=remoteMachineBo.GetField("Trace").get_NativeValue().toString();
+					if(value.equals("true")||value.equals("1")){
+						remoteMachineInfo+=" _trace="+"on";
+					}else{
+						remoteMachineInfo+=" _trace= ";
+					}
+					value=remoteMachineBo.GetField("SSHVersion2Only").get_NativeValue().toString();
+					if(value.equals("true")||value.equals("1")){
+						remoteMachineInfo+=" _version2="+"on";
+					}else{
+						remoteMachineInfo+=" _version2= ";
+					} 
+					value=remoteMachineBo.GetField("OS").get_NativeValue().toString();
+					if(value.equals("Red Hat Enterprise Linux")){
+						remoteMachineInfo+=" _os=RHESLinux";
+					}
+					
+					if(remoteMachineBo.GetField("SSHClient").get_NativeValue().toString().contains(" Java ")){
+						remoteMachineInfo+=" _sshClient=java";
+					}
+					remoteMachineInfo+=" _status=unknown"
 							+ " _sshPort="
 							+ remoteMachineBo.GetField("PortNumber")
 									.get_NativeValue().toString()
 							+ " _prompt="
 							+ remoteMachineBo.GetField("Prompt")
 									.get_NativeValue().toString()
-							+ " _os="
-							+ remoteMachineBo.GetField("OS").get_NativeValue()
-									.toString()
-							+ " _id"
+							+ " _id="
 							+ remoteMachineBo.GetField("RecId")
-									.get_NativeValue().toString()
-							+ " _version2="
-							+ remoteMachineBo.GetField("SSHVersion2Only")
 									.get_NativeValue().toString()
 							+ " _passwordPrompt="
 							+ remoteMachineBo.GetField("PasswordPrompt")
-									.get_NativeValue().toString()
-							+ " _trace="
-							+ remoteMachineBo.GetField("Trace")
-									.get_NativeValue().toString()
-							+ " _sshClient="
-							+ remoteMachineBo.GetField("SSHClient")
 									.get_NativeValue().toString()
 							+ " _method="
 							+ remoteMachineBo.GetField("ConnectionMethod")
@@ -108,9 +115,8 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 							+ " _name="
 							+ remoteMachineBo.GetField("Title")
 									.get_NativeValue().toString()+"\n";
-				}
-				rmiServer.writeRemoteMachineToFile(remoteMachineInfo);
-			}
+				rmiServer.writeRemoteMachineToFile("_remoteMachine= _secondaryResponse= "+remoteMachineInfo);
+				rmiServer.doTestMachine(remoteMachineInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

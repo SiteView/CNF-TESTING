@@ -12,6 +12,8 @@ package COM.dragonflow.Page;
 import java.io.PipedReader;
 import java.io.PipedWriter;
 
+import COM.dragonflow.SiteView.Machine;
+
 import jgl.Array;
 
 // Referenced classes of package COM.dragonflow.Page:
@@ -351,5 +353,71 @@ public class machinePage extends COM.dragonflow.Page.remoteBase
     public String getRemoteUniqueId()
     {
         return request.getValue("machineID");
+    }
+    public String doTest1(COM.dragonflow.SiteView.Machine machine)
+    {
+        String s = "";
+        boolean flag=false;
+        COM.dragonflow.SiteView.SiteViewGroup siteviewgroup = COM.dragonflow.SiteView.SiteViewGroup.currentSiteView();
+        if(!siteviewgroup.internalServerActive())
+        {
+            jgl.HashMap hashmap = getMasterConfig();
+            COM.dragonflow.SiteView.Machine.registerMachines(hashmap.values("_remoteMachine"));
+        }
+        boolean flag1 = false;
+        if(machine != null)
+        {
+            COM.dragonflow.Utils.RemoteCommandLine remotecommandline = COM.dragonflow.SiteView.Machine.getRemoteCommandLine(machine);
+            String s1 = "echo testing connection";
+            jgl.Array array1 = remotecommandline.test(s1, machine, flag);
+            if(remotecommandline.exitValue != 0)
+            {
+                s = "remote command error " + COM.dragonflow.SiteView.Monitor.lookupStatus(remotecommandline.exitValue) + " (" + remotecommandline.exitValue + ")";
+            }
+            for(int i = 0; i < array1.size(); i++)
+            {
+                String s2 = (String)array1.at(i);
+                if(s2.indexOf("testing connection") >= 0)
+                {
+                    flag1 = true;
+                    s = "connection successful";
+                }
+            }
+
+        } else
+        {
+            s = "unable to get machine info";
+        }
+//        if(flag1)
+//        {
+//            boolean flag2 = false;
+//            try
+//            {
+//                java.io.PipedWriter pipedwriter = new PipedWriter();
+//                java.io.PipedReader pipedreader = new PipedReader(pipedwriter);
+//                COM.dragonflow.Page.MachineTestPrinter machinetestprinter = new MachineTestPrinter(outputStream, pipedreader);
+//                machinetestprinter.start();
+//                COM.dragonflow.SiteView.OSAdapter.runTests(machine, null, pipedwriter, flag);
+//                pipedwriter.close();
+//                machinetestprinter.join();
+//                s = s.concat(machinetestprinter.getMessage());
+//            }
+//            catch(java.lang.Exception exception)
+//            {
+//                s = s.concat(", tests failed");
+//            }
+//        }
+        jgl.Array array = getFrames();
+        jgl.HashMap hashmap1 = findMachine(array, machine.getProperty(COM.dragonflow.SiteView.Machine.pID));
+        hashmap1.put("_status", s);
+        try
+        {
+            saveMachines(array, getRemoteName());
+        }
+        catch(java.lang.Exception exception1)
+        {
+            java.lang.System.out.println("There was a problem updating the server status." + exception1.toString());
+        }
+        return s;
     }
 }

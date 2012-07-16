@@ -81,5 +81,13 @@
           Class="SiteView.ecc.bundle.AddMonitorBundle"
           Name="增加监测器">
     </AutoTaskExtension>
+    <AutoTaskExtension
+          Class="SiteView.ecc.bundle.EditMonitorBundle"
+          Name="编辑监测器">
+    </AutoTaskExtension>
+    <AutoTaskExtension
+          Class="SiteView.ecc.bundle.DeleteMonitorBundle"
+          Name="删除监测器">
+    </AutoTaskExtension>
  </extension>
  </plugin>

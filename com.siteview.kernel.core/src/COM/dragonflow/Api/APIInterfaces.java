@@ -9,6 +9,7 @@ import java.util.Map;
 import jgl.Array;
 import jgl.HashMap;
 
+import COM.dragonflow.SiteView.Machine;
 import COM.dragonflow.SiteViewException.SiteViewException;
 
 public interface APIInterfaces extends Remote
@@ -26,4 +27,5 @@ public interface APIInterfaces extends Remote
 	String getSysOid(Map<String,String> map)throws Exception;
 	void adjustGroups(String s,String s1,String s2)throws Exception;
 	void writeRemoteMachineToFile(String remoteMachineInfo)throws Exception;
+	String doTestMachine(String s)throws Exception;
 }

@@ -13,28 +13,28 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+
+import javax.swing.JOptionPane;
 
 import jgl.Array;
 
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import COM.dragonflow.Page.CGI;
+import COM.dragonflow.Page.machinePage;
+import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.IServerPropMonitor;
+import COM.dragonflow.SiteView.Machine;
 import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteView.NTCounterBase;
@@ -478,9 +478,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	/**
 	 * 将设备信息写入配置文件（避免查询数据库）
 	 */
-
 	public void writeRemoteMachineToFile(String remoteMachineInfo) throws Exception {
-		// TODO Auto-generated method stub
 		try {
 			String RootFilePath=System.getProperty("user.dir");
 			String masterFilePathUrl = RootFilePath+"\\groups\\master.config";
@@ -497,8 +495,19 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			output.write(remoteMachineInfo);
 			output.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public String doTestMachine(String s)
+			throws Exception {
+		s=s.replaceAll(" ", ";");
+		s+="#;"+"\r";
+		Array array =FrameFile.mangleIt(s);
+		Enumeration enumeration=FrameFile.readFrames(array.elements()).elements();
+		//Machine.registerMachines(enumeration,null);
+		jgl.HashMap hashMap=(jgl.HashMap) enumeration.nextElement();
+		machinePage ma=new machinePage();
+		String s0=ma.doTest1(Machine.createMachine(hashMap));
+		return s0;
 	}
 }
