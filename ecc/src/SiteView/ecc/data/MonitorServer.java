@@ -39,8 +39,17 @@ public class MonitorServer {
 		return rmiServer.getChildGroupInstances(groupid);
 	}
 	
-	public List<Map<String,Object>> Getmonitor(String groupid) throws RemoteException, SiteViewException{
-		return rmiServer.getMonitorsForGroup(groupid);
+	public List<Map<String,Object>> Getmonitor(String groupid){
+		try {
+			return rmiServer.getMonitorsForGroup(groupid);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SiteViewException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public void savaGroup(Map<String,Object> group) {

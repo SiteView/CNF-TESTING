@@ -14,7 +14,7 @@
     <editor
           class="SiteView.ecc.editors.EccControl"
           id="SiteView.ecc.editors.EccControl"
-          name="Detail">
+          name="Ecc">
     </editor>
  </extension>
  <extension
@@ -88,6 +88,10 @@
     <AutoTaskExtension
           Class="SiteView.ecc.bundle.DeleteMonitorBundle"
           Name="删除监测器">
+    </AutoTaskExtension>
+    <AutoTaskExtension
+          Class="SiteView.ecc.bundle.EditsMonitorBundle"
+          Name="编辑监测器1">
     </AutoTaskExtension>
  </extension>
  </plugin>

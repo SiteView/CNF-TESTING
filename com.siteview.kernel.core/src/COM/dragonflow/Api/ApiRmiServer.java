@@ -504,7 +504,6 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		s+="#;"+"\r";
 		Array array =FrameFile.mangleIt(s);
 		Enumeration enumeration=FrameFile.readFrames(array.elements()).elements();
-		//Machine.registerMachines(enumeration,null);
 		jgl.HashMap hashMap=(jgl.HashMap) enumeration.nextElement();
 		machinePage ma=new machinePage();
 		String s0=ma.doTest1(Machine.createMachine(hashMap));

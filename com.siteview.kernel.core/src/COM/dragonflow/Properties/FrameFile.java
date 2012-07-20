@@ -358,7 +358,27 @@ public class FrameFile {
 			} else {
 				fileoutputstream = new FileOutputStream(file);
 				printwriter = FileUtils.MakeUTF8OutputWriter(fileoutputstream);
-				printwriter.print(stringbuffer);
+				StringBuffer  st=stringbuffer;
+				String ss=st.toString();
+		        String sss="";
+		         if(file.getName().contains("master.config")&&ss.contains("_remoteNTMachine")){
+		            ss=ss.substring(ss.indexOf("_remoteNTMachine"));
+		            while(ss.contains("_remoteNTMachine")){
+		            	sss+=ss.substring(0,ss.indexOf("\n")+1);
+		            	ss=ss.substring(ss.indexOf("\n")+1);
+		            }
+		            st=st.delete(st.indexOf("_remoteNTMachine"),st.indexOf("_remoteNTMachine")+sss.length());
+		           }
+		           ss=st.toString();
+		           if(file.getName().contains("master.config")&&ss.contains("_remoteMachine")){
+		            ss=ss.substring(ss.indexOf("_remoteMachine"));
+		            while(ss.contains("_remoteMachine")){
+		            	sss+=ss.substring(0,ss.indexOf("\n")+1);
+		            	ss=ss.substring(ss.indexOf("\n")+1);
+		            }
+		             st=st.delete(st.indexOf("_remoteMachine"),st.indexOf("_remoteMachine")+sss.length());
+		           }
+				printwriter.print(st);
 				flag2 = printwriter.checkError();
 			}
 		} catch (IOException e) {

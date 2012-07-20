@@ -7,7 +7,11 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
+
 import SiteView.ecc.tools.TextUtils;
+import Siteview.SiteviewValue;
 import Siteview.Api.BusinessObject;
 import Siteview.Api.Relationship;
 
@@ -27,13 +31,8 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 		String serverAddress = "localhost";
 		String serverPort = "3232";
 		String remoteMachineInfo = "";
-		try {//_disableCache= _status=unknown _sshPort=22 
-			//_os=AIX _id=56 _version2= _trace= _sshClient=java
-			//_method=telnet _sshCommand= 
-			//_keyFile=E:\workspace\siteview9.2\com.siteview.kernel.core\groups\identity_
-			//_password=(0x)LEMNOBMOME _sshConnectionsLimit=3 
-			//_login=admin _host=192.168.9.224 _sshAuthMethod=password 
-					//_name=192.168.9.224
+		String c="";
+		try {
 			registry = LocateRegistry.getRegistry(serverAddress, (new Integer(
 					serverPort)).intValue());
 			rmiServer = (APIInterfaces) (registry.lookup("kernelApiRmiServer"));
@@ -115,11 +114,13 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 							+ " _name="
 							+ remoteMachineBo.GetField("Title")
 									.get_NativeValue().toString()+"\n";
-				rmiServer.writeRemoteMachineToFile("_remoteMachine= _secondaryResponse= "+remoteMachineInfo);
-				rmiServer.doTestMachine(remoteMachineInfo);
+				c=rmiServer.doTestMachine(remoteMachineInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		String s=c.replaceAll(" ", ".");
+		bo.GetField("Status").SetValue(new SiteviewValue(s));
+		MessageDialog.openInformation(new Shell(), "link test", c);
+		return c;
 	}
 }

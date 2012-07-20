@@ -18,12 +18,15 @@ package COM.dragonflow.SiteView;
  * 
  */
 import java.io.File;
+import java.sql.ResultSet;
 
 import jgl.Array;
 import jgl.HashMap;
 import COM.dragonflow.Log.LogManager;
 import COM.dragonflow.Properties.FrameFile;
+import COM.dragonflow.Properties.PropertiedObject;
 import COM.dragonflow.Utils.FileUtils;
+import COM.dragonflow.itsm.data.JDBCForSQL;
 import SiteViewMain.SiteViewSupport;
 
 // Referenced classes of package COM.dragonflow.SiteView:
@@ -107,7 +110,8 @@ public class MasterConfig {
         if (shutdownDueToError) {
             return;
         }
-        masterConfig = hashmap;
+       // masterConfig = hashmap;
+        masterConfig=loadMasterConfig();
         try {
             String s = Platform.getRoot() + "/groups/master.config";
             Array array = new Array();

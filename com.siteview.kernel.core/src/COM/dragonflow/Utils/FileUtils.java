@@ -40,6 +40,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import COM.dragonflow.Properties.FrameFile;
+import COM.dragonflow.Properties.PropertiedObject;
 import COM.dragonflow.itsm.data.Config;
 import COM.dragonflow.itsm.data.JDBCForSQL;
 
@@ -588,6 +589,19 @@ public class FileUtils {
 									+ ioexception2.getMessage());
 					ioexception2.printStackTrace();
 				}
+			}
+		}
+		if(s.endsWith("master.config")){
+			ResultSet machines = JDBCForSQL.sql_ConnectExecute_Select("SELECT * FROM RemoteUNIX");
+	        try {
+	        	String s0="";
+	        	jgl.Array array1=new jgl.Array();
+				while(machines.next()){
+					s0=PropertiedObject.format(machines);
+					stringbuffer.append("\n"+s0);
+				}
+	        }catch (Exception e) {
+				// TODO: handle exception
 			}
 		}
 		return stringbuffer;

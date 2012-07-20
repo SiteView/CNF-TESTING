@@ -15,11 +15,16 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import SiteView.ecc.Activator;
+import SiteView.ecc.bundle.EditGroupBundle;
 import SiteView.ecc.data.MonitorServer;
 import SiteView.ecc.dialog.GroupTreeDialog;
+import SiteView.ecc.editors.EccControl;
+import SiteView.ecc.editors.EccControlInput;
 import Siteview.Operators;
 import Siteview.QueryInfoToGet;
 import Siteview.SiteviewQuery;
@@ -137,6 +142,13 @@ public class EccTreeControl extends ViewPart {
 								final Menu menu=createMenu(tree,cp,"group");
 								menu.setLocation(tree.toDisplay(e.x, e.y));
 								menu.setVisible(true);
+							}else if(e.button==1){
+								try {
+									PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+									.getActivePage().openEditor(new EccControlInput(),EccControl.ID);
+								} catch (PartInitException e1) {
+									e1.printStackTrace();
+								}
 							}
 						}else if(s0.contains("/")&&s0.lastIndexOf("/")>8){
 							if(e.button==1){
@@ -320,6 +332,9 @@ public class EccTreeControl extends ViewPart {
 						String  s=((Map<String,Object>)item.getData()).get("_id").toString();
 						s=s.substring(s.lastIndexOf("/")+1);
 						BusinessObject bo=CreateBo(s,"Ecc");
+						String groupId=bo.GetFieldOrSubfield("Groups_valid").get_NativeValue().toString();
+						EditGroupBundle edit=new EditGroupBundle();
+						edit.updateGroup("GroupId="+groupId);
 						if(bo!=null){
 							bo.DeleteObject(siteviewApi);
 						}

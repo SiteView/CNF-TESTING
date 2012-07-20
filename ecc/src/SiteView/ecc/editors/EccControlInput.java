@@ -42,6 +42,5 @@ public class EccControlInput implements IEditorInput {
 	public String getToolTipText() {
 		// TODO Auto-generated method stub
 		return "";
-	}
-
+	}  
 }

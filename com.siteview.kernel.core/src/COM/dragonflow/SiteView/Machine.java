@@ -180,7 +180,6 @@ public class Machine extends SiteViewObject {
     public static void registerMachines(Enumeration enumeration) {
         registerMachines(enumeration, null);
     }
-
     /**
      * 
      * 

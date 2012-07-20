@@ -16,6 +16,9 @@
      * 
      * 
      */
+import java.io.File;
+import java.io.PrintWriter;
+
 import jgl.Array;
 import COM.dragonflow.SiteView.Machine;
 
@@ -87,27 +90,27 @@ public class SSHCommandLine extends COM.dragonflow.Utils.RemoteCommandLine
 
     public static void main(String args[])
     {
-        String s = args[0];
-        String s1 = args[1];
-        String s2 = args[2];
-        String s3 = args[3];
-        COM.dragonflow.SiteView.Machine machine = new Machine();
-        machine.setProperty(COM.dragonflow.SiteView.Machine.pHost, s);
-        machine.setProperty(COM.dragonflow.SiteView.Machine.pLogin, s1);
-        machine.setProperty(COM.dragonflow.SiteView.Machine.pPassword, s2);
-        machine.setProperty(COM.dragonflow.SiteView.Machine.pLocalUser, s3);
-        if(args.length >= 5)
-        {
-            machine.setProperty(COM.dragonflow.SiteView.Machine.pPrompt, args[4]);
-        }
-        machine.setProperty("_trace", "true");
-        COM.dragonflow.Utils.SSHCommandLine sshcommandline = new SSHCommandLine();
-        sshcommandline.debug = true;
-        jgl.Array array = sshcommandline.exec("ps -ef", machine, false);
-        for(int i = 0; i < array.size(); i++)
-        {
-            java.lang.System.out.println("RESULT=" + array.at(i));
-        }
+//        String s = args[0];
+//        String s1 = args[1];
+//        String s2 = args[2];
+//        String s3 = args[3];
+//        COM.dragonflow.SiteView.Machine machine = new Machine();
+//        machine.setProperty(COM.dragonflow.SiteView.Machine.pHost, s);
+//        machine.setProperty(COM.dragonflow.SiteView.Machine.pLogin, s1);
+//        machine.setProperty(COM.dragonflow.SiteView.Machine.pPassword, s2);
+//        machine.setProperty(COM.dragonflow.SiteView.Machine.pLocalUser, s3);
+//        if(args.length >= 5)
+//        {
+//            machine.setProperty(COM.dragonflow.SiteView.Machine.pPrompt, args[4]);
+//        }
+//        machine.setProperty("_trace", "true");
+//        COM.dragonflow.Utils.SSHCommandLine sshcommandline = new SSHCommandLine();
+//        sshcommandline.debug = true;
+//        jgl.Array array = sshcommandline.exec("ps -ef", machine, false);
+//        for(int i = 0; i < array.size(); i++)
+//        {
+//            java.lang.System.out.println("RESULT=" + array.at(i));
+//        }
 
     }
 }

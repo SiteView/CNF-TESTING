@@ -20,6 +20,9 @@ package COM.dragonflow.Properties;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.Vector;
@@ -36,6 +39,8 @@ import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.SiteView.Portal;
 import COM.dragonflow.Utils.SerializerUtils;
 import COM.dragonflow.Utils.TextUtils;
+import COM.dragonflow.itsm.data.Config;
+import COM.dragonflow.itsm.data.JDBCForSQL;
 
 // Referenced classes of package COM.dragonflow.Properties:
 // PropertyTable, HashMapOrdered, StringProperty, GreaterEqualOrder,
@@ -537,8 +542,41 @@ public class PropertiedObject {
         }
         return cEmptyArray.elements();
     }
+    public static String format(ResultSet machines) {
+    	String password;
+    	String remoteMachineInfo="_remoteNTMachine= _secondaryResponse=  ";
+		try {
+			ResultSetMetaData metaData = machines.getMetaData();
+	    	int colum =metaData.getColumnCount();
+	    	for(int n=1;n<colum;n++){
+	    		String columName = metaData.getColumnName(n);
+	    		String datavalue = machines.getString(columName);
+	    		String parmName = Config.getReturnStr("itsm_eccmonitorparams.properties",columName);
+				if(datavalue!=null&&!datavalue.equals("")&&parmName!=null){
+					if(columName.equals("RecId")){
+						remoteMachineInfo+="_id"+"="+datavalue+" ";	
+						continue;
+					}
+					if(parmName!=null&&!parmName.equals("")){
+						if(parmName.equals("_trace")||parmName.equals("_disableCache")||parmName.equals("_version2")){
+							if(datavalue.equals("0")){
+								remoteMachineInfo+=parmName+"=  ";
+								continue;
+							}else{
+								datavalue="on";
+							}
+						}
+					}
+					remoteMachineInfo+=parmName+"="+datavalue+" ";
+				}
+	    	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return remoteMachineInfo;
+	}
 
-    public boolean hasMultipleValues(StringProperty stringproperty) {
+	public boolean hasMultipleValues(StringProperty stringproperty) {
         HashMap hashmap = findTable(stringproperty);
         if (hashmap == null) {
             return false;
