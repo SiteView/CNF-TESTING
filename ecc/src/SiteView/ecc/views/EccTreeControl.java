@@ -18,6 +18,8 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+
+import COM.dragonflow.Api.ApiRmiServer;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import SiteView.ecc.Activator;
 import SiteView.ecc.bundle.EditGroupBundle;
@@ -42,7 +44,6 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 
 public class EccTreeControl extends ViewPart {
-	public static ISiteviewApi siteviewApi = ConnectionBroker.get_SiteviewApi();
 	public EccTreeControl() {
 	}
 	MonitorServer mg;
@@ -144,9 +145,18 @@ public class EccTreeControl extends ViewPart {
 								menu.setVisible(true);
 							}else if(e.button==1){
 								try {
+									if(item.getItemCount()<=0){
+										s0=s0.substring(s0.lastIndexOf("/")+1);
+										List<Map<String, Object>> list = mg.GroupChild(s0);
+										if(list.size()!=0){
+											for(int i=0;i<list.size();i++){
+												getTreeItem(item,list.get(i));
+											}
+										}
+									}
 									PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 									.getActivePage().openEditor(new EccControlInput(),EccControl.ID);
-								} catch (PartInitException e1) {
+								} catch (Exception e1) {
 									e1.printStackTrace();
 								}
 							}
@@ -154,7 +164,7 @@ public class EccTreeControl extends ViewPart {
 							if(e.button==1){
 								s0=s0.substring(s0.lastIndexOf("/")+1);
 								BusinessObject bo=CreateBo(s0,"Ecc");
-								BusObMaintView.open(siteviewApi, bo);
+								BusObMaintView.open(ConnectionBroker.get_SiteviewApi(), bo);
 							}else{
 								final Menu menu=createMenu(tree,cp,"monitor");
 								menu.setLocation(tree.toDisplay(e.x, e.y));
@@ -165,12 +175,10 @@ public class EccTreeControl extends ViewPart {
 				}
 			}
 		});
-		
 		trtmNewTreeitem = new TreeItem(tree, SWT.NONE);
 		trtmNewTreeitem.setText("整体视图");
 		trtmNewTreeitem.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/ztst.gif"));
 		trtmNewTreeitem.setExpanded(true);
-	
 		refurbishView(trtmNewTreeitem,cp);
 	}
 	private void refurbishView(TreeItem trtmNewTreeitem, Composite cp) {
@@ -201,7 +209,7 @@ public class EccTreeControl extends ViewPart {
 		}
 		cp.layout();
 	}
-	public void getTreeItem(TreeItem treeItem,Map<String,Object> map) throws RemoteException, SiteViewException{
+	public void getTreeItem(TreeItem treeItem,Map<String,Object> map){
 		TreeItem tree=new TreeItem(treeItem, SWT.NONE);
 		tree.setText(map.get("_name").toString());
 		tree.setData(map);
@@ -211,15 +219,7 @@ public class EccTreeControl extends ViewPart {
 			tree.setImage(ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/node.jpg"));
 		}
 		tree.setExpanded(true);
-		List<Map<String, Object>> list = mg.getMonitorsForGroup(map.get("_id").toString());
-		list.addAll(mg.GroupChild(map.get("_id").toString()));
-		if(list.size()!=0){
-			for(int i=0;i<list.size();i++){
-				getTreeItem(tree,list.get(i));
-			}
-		}
 	}
-	
 	public Menu createMenu(final Tree tree,final Composite cp,String s0){
 		Menu menu=new Menu(tree);
 		if(s0.equals("group")){
@@ -243,7 +243,7 @@ public class EccTreeControl extends ViewPart {
 						if(bo.GetField("ParentGroupId").get_NativeValue().toString()!=null){
 							oldParentId.put(s0,bo.GetField("ParentGroupId").get_NativeValue().toString());
 						}
-						BusObMaintView.open(siteviewApi, bo);
+						BusObMaintView.open(ConnectionBroker.get_SiteviewApi(), bo);
 					}
 				}
 
@@ -251,7 +251,7 @@ public class EccTreeControl extends ViewPart {
 			});
 			m2.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
-					BusObMaintView.newBusOb(siteviewApi, "EccGroup");
+					BusObMaintView.newBusOb(ConnectionBroker.get_SiteviewApi(), "EccGroup");
 				}
 				public void widgetDefaultSelected(SelectionEvent e) {}
 			});
@@ -277,7 +277,7 @@ public class EccTreeControl extends ViewPart {
 						monitorServer.deleteGroup(s0);
 						BusinessObject bo=CreateBo(s,"EccGroup");
 						if(bo!=null){
-							bo.DeleteObject(siteviewApi);
+							bo.DeleteObject(ConnectionBroker.get_SiteviewApi());
 						}
 					} catch (RemoteException e1) {
 						// TODO Auto-generated catch block
@@ -298,7 +298,7 @@ public class EccTreeControl extends ViewPart {
 						 m1.addSelectionListener(new SelectionListener() {
 							public void widgetSelected(SelectionEvent e) {
 								MenuItem s=(MenuItem)e.widget;
-								BusObMaintView.newBusOb(siteviewApi,s.getText());
+								BusObMaintView.newBusOb(ConnectionBroker.get_SiteviewApi(),s.getText());
 							}
 							public void widgetDefaultSelected(SelectionEvent e) {}
 						});
@@ -317,7 +317,7 @@ public class EccTreeControl extends ViewPart {
 					String s0=((Map<String,Object>)item.getData()).get("_id").toString();
 					s0=s0.substring(s0.lastIndexOf("/")+1);
 					BusinessObject bo=CreateBo(s0,"Ecc");
-					BusObMaintView.open(siteviewApi, bo);
+					BusObMaintView.open(ConnectionBroker.get_SiteviewApi(), bo);
 				}
 
 				public void widgetDefaultSelected(SelectionEvent e) {}
@@ -336,7 +336,7 @@ public class EccTreeControl extends ViewPart {
 						EditGroupBundle edit=new EditGroupBundle();
 						edit.updateGroup("GroupId="+groupId);
 						if(bo!=null){
-							bo.DeleteObject(siteviewApi);
+							bo.DeleteObject(ConnectionBroker.get_SiteviewApi());
 						}
 					}
 				public void widgetDefaultSelected(SelectionEvent e) {}
@@ -347,7 +347,7 @@ public class EccTreeControl extends ViewPart {
 			m1.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
 					//s=null;
-					BusObMaintView.newBusOb(siteviewApi, "InventoryItem.Computer");
+					BusObMaintView.newBusOb(ConnectionBroker.get_SiteviewApi(), "InventoryItem.Computer");
 				}
 				public void widgetDefaultSelected(SelectionEvent e) {}
 			});
@@ -356,22 +356,27 @@ public class EccTreeControl extends ViewPart {
 		m6.setText("刷新");
 		m6.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-			//	BusObMaintView.open(siteviewApi, "Ecc", new IVirtualKeyList)
-				refurbishView(trtmNewTreeitem,cp);
+				if(item.getText().equals("root")||item.getText().equals("设备")){
+					item.dispose();
+					refurbishView(trtmNewTreeitem, cp);
+				}else{
+					@SuppressWarnings("unchecked")
+					Map<String,Object> map=(Map<String, Object>) item.getData();
+					TreeItem i=item.getParentItem();
+					item.dispose();
+					getTreeItem(i, map);
+				}
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
 		return menu;
 	}
-
 	public void setFocus() {
 	}
-
 	public TreeItem getItem() {
 		return item;
 	}
-
 	public void setItem(TreeItem item) {
 		this.item = item;
 	}
@@ -382,7 +387,7 @@ public class EccTreeControl extends ViewPart {
 		xml=query.get_CriteriaBuilder().FieldAndValueExpression("RecId",
 				Operators.Equals, s);
 		query.set_BusObSearchCriteria(xml);
-		ICollection iCollenction = siteviewApi.get_BusObService()
+		ICollection iCollenction = ConnectionBroker.get_SiteviewApi().get_BusObService()
 				.get_SimpleQueryResolver().ResolveQueryToBusObList(query);
 		BusinessObject bo=null;
 		IEnumerator interfaceTableIEnum = iCollenction.GetEnumerator();

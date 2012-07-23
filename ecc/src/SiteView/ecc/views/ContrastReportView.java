@@ -230,6 +230,7 @@ public class ContrastReportView extends ViewPart {
 		scrolledComposite.setContent(chatComposite);// …Ë÷√chatComposite±ªscrolledCompositeøÿ÷∆
 		chatComposite.setBackground(new Color(null, 255, 255, 255));
 		chatComposite.setLayout(new FillLayout(SWT.VERTICAL));
+		reportForm.setWeights(new int[] {104, 354});
 		for (int i = 0;i<TotalTabView.reportDescList.size();i++) {
 			Map<String, List<String>> map  = TotalTabView.reportDescList.get(i);
 			Set<Map.Entry<String, List<String>>> set = map.entrySet();

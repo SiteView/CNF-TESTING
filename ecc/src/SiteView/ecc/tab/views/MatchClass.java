@@ -22,13 +22,13 @@ public class MatchClass extends MatchStrategyBase {
 			String time = MonitorLogTabView.getHoursAgoTime(2);
 			TotalTabView.startTime = time.substring(time.indexOf("*") + 1);
 			TotalTabView.endTime = time.substring(0, time.indexOf("*"));
-			MonitorLogTabView.SetData(bo);
+		//	MonitorLogTabView.SetData(bo);
 			TotalTabView.setTotalData(bo);
 			StatusCTIReport.setData(bo);
 			TimeContrastReport.setData(bo);
 			ErrorCTIReport.setData(bo);
 		}
-		return flag;
+		return false;
 	}
 
 }

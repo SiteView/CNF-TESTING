@@ -45,7 +45,7 @@ public class TotalTabView extends LayoutViewBase {
 	}
 
 	@Override
-	protected void createView(final Composite parent) {
+	public void createView(final Composite parent) {
 		// TODO Auto-generated method stub
 		parent.addControlListener(new ControlListener() {
 			public void controlResized(ControlEvent e) {
@@ -251,7 +251,7 @@ public class TotalTabView extends LayoutViewBase {
 					String timeValue = str.substring(str.indexOf("$")+1,str.length());
 					timeLogValueMap.put(valuekey, timeValue);
 					if (!valuekey.equals("n/a")) {
-						if (!valuekey.equals("no data")) {
+						if (!valuekey.equals("no data")&&!valuekey.equals("failed")) {
 							arrayintarray[h++] = Double.parseDouble(valuekey);
 						}
 					}

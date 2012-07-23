@@ -47,10 +47,11 @@ public class MonitorLogTabView extends LayoutViewBase {
 	public static BusinessObject bo;
 	private BusinessObject bo1;
 	private static ICollection iCollenction;//日志数据
-	static Map<String, Object> map;//查询日志条件（列:值）
-	static List<String> cloumns;//表的列
-	static List<String> cloumnsEn;//列所对应的日志属性
+	Map<String, Object> map;//查询日志条件（列:值）
+	List<String> cloumns;//表的列
+	List<String> cloumnsEn;//列所对应的日志属性
 	// 控件
+	SashForm sashForm;
 	private Button good;
 	private Button error;
 	private Button warning;
@@ -69,18 +70,16 @@ public class MonitorLogTabView extends LayoutViewBase {
 
 	// 赋初始值
 	public static void SetData(BusinessObject bo) {
+		MonitorLogTabView.bo = bo;
 		color=new Color[5];
 		color[0]=new Color(null, 0,153,255);
 		color[1]=new Color(null,255,50,10);
 		color[2]=new Color(null,255,255,136);
 		color[3]=new Color(null, 0,255,0);
 		color[4]=new Color(null,255,170,102);
-		MonitorLogTabView.bo = bo;
-		map = setMap(bo);
-		setCloumns(bo.get_Name());
 	}
 	
-	private static Map<String, Object> setMap(BusinessObject bo) {
+	private  Map<String, Object> setMap(BusinessObject bo) {
 		map = new java.util.HashMap<String, Object>();
 		map.put("monitorId", bo.get_RecId());
 		String time = getHoursAgoTime(2);
@@ -89,29 +88,27 @@ public class MonitorLogTabView extends LayoutViewBase {
 		return map;
 	}
 	//创建tab
-	protected void createView(final Composite parent) {
-		bo1=bo;
-		parent.addControlListener(new ControlListener() {
-			public void controlResized(ControlEvent e) {
-			}
-			public void controlMoved(ControlEvent e) {
-				if (parent.getChildren().length > 0) {
-					for (Control control : parent.getChildren()) {
-						control.dispose();
-					}
-				}
-				parent.setLayout(new FillLayout(SWT.VERTICAL));
-				SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
-				createToolbar(sashForm);
-				iCollenction = getLog(map);
-				createTable(sashForm, iCollenction);
-			}
-		});
+	public  void createView(final Composite parent) {
+		
+		if(bo!=null){
+			bo1=bo;
+			setCloumns(bo.get_Name());
+			setMap(bo);
+			parent.setLayout(new FillLayout(SWT.VERTICAL));
+			sashForm = new SashForm(parent, SWT.VERTICAL);
+			Composite group = new Composite(sashForm, SWT.NONE);
+			group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+			createToolbar(group);
+			iCollenction = getLog(map);
+			Composite com=new Composite(sashForm, SWT.NONE);
+			com.setLayout(new FillLayout());
+			createTable(com, iCollenction);
+			sashForm.setWeights(new int[] {30, 400});
+			parent.layout();
+		}
 	}
-	//创建状态单选按钮
-	private void createToolbar(final SashForm sashForm) {
-		Composite group = new Composite(sashForm, SWT.NONE);
-		group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+	//创建状态单	选按钮
+	private void createToolbar(final Composite group) {
 		all = new Button(group, SWT.RADIO);
 		all.setText("\u5168\u90E8");
 		all.setSelection(true);
@@ -136,7 +133,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		all.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (all.getSelection()) {
-					SetData(bo1);
+					setMap(bo1);
 					iCollenction = getLog(map);
 					createTable(sashForm, iCollenction);
 				}
@@ -149,7 +146,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		warning.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (warning.getSelection()) {
-					SetData(bo1);
+					setMap(bo1);
 					map.put("MonitorStatus", "warning");
 					iCollenction = getLog(map);
 					createTable(sashForm, iCollenction);
@@ -162,7 +159,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		disable.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (disable.getSelection()) {
-					SetData(bo1);
+					setMap(bo1);
 					map.put("MonitorStatus", "disable");
 					iCollenction = getLog(map);
 				createTable(sashForm, iCollenction);
@@ -175,7 +172,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		good.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (good.getSelection()) {
-					SetData(bo1);
+					setMap(bo1);
 					map.put("MonitorStatus", "good");
 					iCollenction = getLog(map);
 					createTable(sashForm, iCollenction);
@@ -188,7 +185,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 		error.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (error.getSelection()) {
-					SetData(bo1);
+					setMap(bo1);
 					map.put("MonitorStatus", "error");
 					iCollenction = getLog(map);
 					createTable(sashForm, iCollenction);
@@ -201,11 +198,11 @@ public class MonitorLogTabView extends LayoutViewBase {
 		
 	}
 	// 日志数据表
-	public void createTable(SashForm sashForm, ICollection iCollection) {
+	public void createTable(Composite com, ICollection iCollection) {
 		if (table_1 != null && !table_1.isDisposed()) {
 			table_1.dispose();
 		}
-		table_1= new Table(sashForm, SWT.BORDER | SWT.FULL_SELECTION);
+		table_1= new Table(com, SWT.BORDER | SWT.FULL_SELECTION);
 		table_1.setHeaderVisible(true);
 		table_1.setLinesVisible(true);
 		for (int i = 0; i < cloumns.size(); i++) {
@@ -249,10 +246,9 @@ public class MonitorLogTabView extends LayoutViewBase {
 				item.setBackground(color[0]);
 			}
 		}
-		sashForm.setWeights(new int[] {30, 400});
 	}
 	//获取表的列
-	private static void setCloumns(String s) {
+	private  void setCloumns(String s) {
 		cloumns= new ArrayList<String>();
 		cloumnsEn=new ArrayList<String>();
 		cloumns.add("时间");

@@ -30,14 +30,11 @@ public class TableLabelProvider extends LabelProvider implements
 			if (columnIndex==0) {
 				return m.getStatus();
 			}else if(columnIndex==1){
-				return m.getRefresh();
-			}else if(columnIndex==2){
 				return m.getMonitorname();
-			}else if(columnIndex==3){
+			}else if(columnIndex==2){
 				return m.getDesc();
-			}else if(columnIndex==4){
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				return sdf.format(m.getLastupdateDate());
+			}else if(columnIndex==3){
+				return m.getLastupdateDate();
 			}
 		}
 		return null;

@@ -78,7 +78,7 @@ public class StatusCTIReport extends LayoutViewBase {
 		super(parent);
 	}
 	//创建tab
-	protected void createView(final Composite parent) {
+	public void createView(final Composite parent) {
 		parent.addControlListener(new ControlListener() {
 			public void controlResized(ControlEvent e) {
 			}
@@ -311,6 +311,7 @@ public class StatusCTIReport extends LayoutViewBase {
 				control.dispose();
 			}
 		}
+		parent.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		setMap();
 		final String [] column={"时间","状态","持续次数","持续时间"};
 		final String [] column_1={"正常","危险","错误","禁用","无数据"};
@@ -420,7 +421,7 @@ public class StatusCTIReport extends LayoutViewBase {
 		 dataset.setValue("nodata", datas[4]);
 		 JFreeChart chart=ChartFactory.createPieChart(bo1.get_Name(), dataset, true, true, false);
 		 ChartComposite frame = new ChartComposite(c, SWT.NONE, chart, true);
-		 sashForm_1.setWeights(new int[] {15,100,15, 150, 15, 200, 15, 200});
+		 sashForm_1.setWeights(new int[] {15,100,15, 150, 15, 100, 15, 300});
 		sashForm.setWeights(new int[] {50,500});
 		parent.layout(); 
 	}

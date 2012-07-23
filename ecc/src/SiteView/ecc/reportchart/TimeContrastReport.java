@@ -87,7 +87,7 @@ public class TimeContrastReport extends LayoutViewBase{
 		super(parent);
 	}
 	//´´½¨tab
-	protected void createView(final Composite parent) {
+	public void createView(final Composite parent) {
 		parent.addControlListener(new ControlListener() {
 			public void controlResized(ControlEvent e) {
 			}

@@ -34,9 +34,10 @@ public class MonitorServer {
 		return rmiServer.getTopLevelGroupInstances();
 	}
 
-	public List<Map<String, Object>> GroupChild(String groupid) throws RemoteException, SiteViewException {
+	public List<Map<String, Object>> GroupChild(String groupid) throws RemoteException, SiteViewException{
 		// TODO Auto-generated method stub
 		return rmiServer.getChildGroupInstances(groupid);
+		
 	}
 	
 	public List<Map<String,Object>> Getmonitor(String groupid){
