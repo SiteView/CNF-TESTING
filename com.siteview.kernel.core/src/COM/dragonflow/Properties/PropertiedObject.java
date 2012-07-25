@@ -542,9 +542,16 @@ public class PropertiedObject {
         }
         return cEmptyArray.elements();
     }
-    public static String format(ResultSet machines) {
+    public static String format(ResultSet machines) throws SQLException{
     	String password;
-    	String remoteMachineInfo="_remoteNTMachine= _secondaryResponse=  ";
+    	String remoteMachineInfo="";
+    	if(machines.getString("RemoteMachineType").equals("RemoteUnix")){
+    		remoteMachineInfo="_remoteMachine=";
+    	}else if(machines.getString("RemoteMachineType").equals("RemoteNT")){
+    		remoteMachineInfo="_remoteNTMachine=";
+    	}else{
+    		remoteMachineInfo="_snmp=";
+    	}
 		try {
 			ResultSetMetaData metaData = machines.getMetaData();
 	    	int colum =metaData.getColumnCount();

@@ -500,7 +500,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	}
 	public String doTestMachine(String s)
 			throws Exception {
-		s=s.replaceAll(" ", ";");
+		//s=s.replaceAll(" ", ";");
 		s+="#;"+"\r";
 		Array array =FrameFile.mangleIt(s);
 		Enumeration enumeration=FrameFile.readFrames(array.elements()).elements();

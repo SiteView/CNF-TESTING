@@ -49,6 +49,7 @@ public class EccReportView extends ViewPart {
 		// TODO Auto-generated method stub
 		parent.setLayout(new FillLayout());
 		SashForm reportForm = new SashForm(parent, SWT.BORDER);
+		
 		reportForm.setOrientation(SWT.VERTICAL);
 		reportForm.setLayout(new FillLayout(SWT.HORIZONTAL));
 		composite_reportimgControl = new Composite(reportForm, SWT.NONE);

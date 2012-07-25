@@ -375,14 +375,13 @@ public class TimeContrastReport extends LayoutViewBase{
 			}
 		}
 		setAllData();
-		
 		parent.setLayout(new FillLayout(SWT.VERTICAL));
 		
 		SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
 		
 		Composite group = new Composite(sashForm, SWT.NONE);
 		group.setLayout(new FormLayout());
-		
+		group.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		Label label = new Label(group, SWT.NONE);
 		label.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
 		FormData fd_label = new FormData();
@@ -397,6 +396,7 @@ public class TimeContrastReport extends LayoutViewBase{
 		fd_label_1.left = new FormAttachment(label, 0, SWT.LEFT);
 		label_1.setLayoutData(fd_label_1);
 		label_1.setText("比对方式");
+		label_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		final Combo combo = new Combo(group, SWT.NONE);
 		combo.add("按天对比");
@@ -413,6 +413,7 @@ public class TimeContrastReport extends LayoutViewBase{
 		fd_label_2.left = new FormAttachment(combo, 6);
 		label_2.setLayoutData(fd_label_2);
 		label_2.setText("第一次时间:");
+		label_2.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		final DateTime dateTime = new DateTime(group, SWT.DROP_DOWN);
 		String s=firstTime.substring(0,firstTime.indexOf(" "));
@@ -431,6 +432,7 @@ public class TimeContrastReport extends LayoutViewBase{
 		fd_label_3.left = new FormAttachment(dateTime, 6);
 		label_3.setLayoutData(fd_label_3);
 		label_3.setText("第二次时间:");
+		label_3.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		final DateTime dateTime_1 = new DateTime(group, SWT.DROP_DOWN);
 		s=lastTime.substring(0,lastTime.indexOf(" "));
@@ -521,6 +523,7 @@ public class TimeContrastReport extends LayoutViewBase{
 		
 		ScrolledComposite group_1 = new ScrolledComposite(sashForm, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		group_1.setLayout(new FillLayout(SWT.HORIZONTAL));
+		group_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		group_1.setExpandHorizontal(true);
 		group_1.setExpandVertical(true);
 		group_1.setMinWidth(400);
@@ -543,6 +546,7 @@ public class TimeContrastReport extends LayoutViewBase{
 				Table table_1 = new Table(sashForm_1, SWT.BORDER | SWT.FULL_SELECTION);
 				table_1.setHeaderVisible(true);
 				table_1.setLinesVisible(true);
+				table_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 				
 				TableColumn tblclmnNewColumn = new TableColumn(table_1, SWT.NONE);
 				tblclmnNewColumn.setText("名称");
@@ -568,6 +572,7 @@ public class TimeContrastReport extends LayoutViewBase{
 				
 				Composite composite = new Composite(sashForm_1, SWT.NONE);
 				composite.setLayout(new FillLayout(SWT.HORIZONTAL));
+				composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 				XYDataset xydata=createDataset(xydate.get(i).get(yname),xyDataArrayList.get(i).get(xyDataArrayList.get(i).keySet().iterator().next()),sstartTime+"~"+sendTime,estartTime+"~"+eendTime);
 				JFreeChart chart=createChart(xydata, "时间",yname,bo1.get_Name());
 				ChartComposite frame = new ChartComposite(composite, SWT.NONE, chart, true);
@@ -575,7 +580,7 @@ public class TimeContrastReport extends LayoutViewBase{
 			}
 			sashForm_1.setWeights(ss);
 		}
-		sashForm.setWeights(new int[] {85, 387});
+		sashForm.setWeights(new int[] {60, 387});
 		parent.layout();
 	}
 }

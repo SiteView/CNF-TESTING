@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
+import SiteView.ecc.dialog.BatchAddMachine;
 import SiteView.ecc.tools.TextUtils;
 import Siteview.SiteviewValue;
 import Siteview.Api.BusinessObject;
@@ -38,7 +39,7 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 			rmiServer = (APIInterfaces) (registry.lookup("kernelApiRmiServer"));
 					Siteview.Api.BusinessObject remoteMachineBo=bo;
 					String password = TextUtils.obscure(remoteMachineBo
-							.GetField("PasswordUNIX").get_NativeValue()
+							.GetField("PasswordMachine").get_NativeValue()
 							.toString());
 					String value=remoteMachineBo
 							.GetField("DisableConnectionCaching")
@@ -50,68 +51,68 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 					}
 					value=remoteMachineBo.GetField("Trace").get_NativeValue().toString();
 					if(value.equals("true")||value.equals("1")){
-						remoteMachineInfo+=" _trace="+"on";
+						remoteMachineInfo+=";_trace="+"on";
 					}else{
-						remoteMachineInfo+=" _trace= ";
+						remoteMachineInfo+=";_trace= ";
 					}
 					value=remoteMachineBo.GetField("SSHVersion2Only").get_NativeValue().toString();
 					if(value.equals("true")||value.equals("1")){
-						remoteMachineInfo+=" _version2="+"on";
+						remoteMachineInfo+=";_version2="+"on";
 					}else{
-						remoteMachineInfo+=" _version2= ";
+						remoteMachineInfo+=";_version2= ";
 					} 
 					value=remoteMachineBo.GetField("OS").get_NativeValue().toString();
 					if(value.equals("Red Hat Enterprise Linux")){
-						remoteMachineInfo+=" _os=RHESLinux";
+						remoteMachineInfo+=";_os=RHESLinux";
 					}
 					
 					if(remoteMachineBo.GetField("SSHClient").get_NativeValue().toString().contains(" Java ")){
-						remoteMachineInfo+=" _sshClient=java";
+						remoteMachineInfo+=";_sshClient=java";
 					}
-					remoteMachineInfo+=" _status=unknown"
-							+ " _sshPort="
+					remoteMachineInfo+=";_status=unknown"
+							+ ";_sshPort="
 							+ remoteMachineBo.GetField("PortNumber")
 									.get_NativeValue().toString()
-							+ " _prompt="
+							+ ";_prompt="
 							+ remoteMachineBo.GetField("Prompt")
 									.get_NativeValue().toString()
-							+ " _id="
+							+ ";_id="
 							+ remoteMachineBo.GetField("RecId")
 									.get_NativeValue().toString()
-							+ " _passwordPrompt="
+							+ ";_passwordPrompt="
 							+ remoteMachineBo.GetField("PasswordPrompt")
 									.get_NativeValue().toString()
-							+ " _method="
+							+ ";_method="
 							+ remoteMachineBo.GetField("ConnectionMethod")
 									.get_NativeValue().toString()
-							+ " _sshCommand="
+							+ ";_sshCommand="
 							+ remoteMachineBo.GetField("CustomCommandline")
 									.get_NativeValue().toString()
-							+ " _keyFile="
+							+ ";_keyFile="
 							+ remoteMachineBo
 									.GetField("KeyFileforSSHconnections")
 									.get_NativeValue().toString()
-							+ " _password="
+							+ ";_password="
 							+ password
-							+ " _sshConnectionsLimit="
+							+ ";_sshConnectionsLimit="
 							+ remoteMachineBo.GetField("ConnectionLimit")
 									.get_NativeValue().toString()
-							+ " _login="
+							+ ";_login="
 							+ remoteMachineBo.GetField("UserName")
 									.get_NativeValue().toString()
-							+ " _host="
+							+ ";_host="
 							+ remoteMachineBo.GetField("ServerAddress")
 									.get_NativeValue().toString()
-							+ " _sshAuthMethod="
+							+ ";_sshAuthMethod="
 							+ remoteMachineBo.GetField("SSHAuthentication")
 									.get_NativeValue().toString()
-							+ " _loginPrompt="
+							+ ";_loginPrompt="
 							+ remoteMachineBo.GetField("LoginPrompt")
 									.get_NativeValue().toString()
-							+ " _secondaryPrompt="
+							+ ";_secondaryPrompt="
 							+ remoteMachineBo.GetField("SecondaryPrompt")
 									.get_NativeValue().toString()
-							+ " _name="
+							+ ";_name="
 							+ remoteMachineBo.GetField("Title")
 									.get_NativeValue().toString()+"\n";
 				c=rmiServer.doTestMachine(remoteMachineInfo);
@@ -121,6 +122,8 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 		String s=c.replaceAll(" ", ".");
 		bo.GetField("Status").SetValue(new SiteviewValue(s));
 		MessageDialog.openInformation(new Shell(), "link test", c);
+		BatchAddMachine b=new BatchAddMachine(null);
+		b.open();
 		return c;
 	}
 }

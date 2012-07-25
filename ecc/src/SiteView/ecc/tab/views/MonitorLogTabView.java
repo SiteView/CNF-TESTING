@@ -89,7 +89,11 @@ public class MonitorLogTabView extends LayoutViewBase {
 	}
 	//创建tab
 	public  void createView(final Composite parent) {
-		
+		if (parent.getChildren().length > 0) {
+			for (Control control : parent.getChildren()) {
+				control.dispose();
+			}
+		}
 		if(bo!=null){
 			bo1=bo;
 			setCloumns(bo.get_Name());
@@ -267,12 +271,12 @@ public class MonitorLogTabView extends LayoutViewBase {
 		
 	}
 	//销毁颜色
-	public void dispose() {
-		for(Color c: color){
-			c.dispose();
-		}
-		super.dispose();
-	}
+//	public void dispose() {
+//		for(Color c: color){
+//			c.dispose();
+//		}
+//		super.dispose();
+//	}
 	// 赋时间值（得到当前及N小时前时间）公用方法
 	public static String getHoursAgoTime(int i) {
 		Calendar cal = Calendar.getInstance();

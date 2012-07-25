@@ -8,6 +8,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -29,6 +30,7 @@ import SiteView.ecc.dialog.ParticularInfo;
 import SiteView.ecc.reportchart.StatusCTIReport;
 import SiteView.ecc.reportchart.TimeContrastReport;
 import SiteView.ecc.tab.views.MonitorLogTabView;
+import SiteView.ecc.tab.views.RelativelyMonitor;
 import SiteView.ecc.tab.views.TotalTabView;
 import SiteView.ecc.tools.Config;
 import SiteView.ecc.tools.FileTools;
@@ -94,6 +96,7 @@ public class EccControl extends EditorPart {
 		toptable = new Table(c, SWT.FULL_SELECTION);
 		toptable.setLinesVisible(true);
 		toptable.setHeaderVisible(true);
+		toptable.setBackground(new Color(null, 255, 255, 255));
 		
 		TableColumn newColumnTableColumn_top = new TableColumn(toptable,
 				SWT.NONE );
@@ -164,6 +167,14 @@ public class EccControl extends EditorPart {
 		TotalTabView.startTime = time.substring(time.indexOf("*") + 1);
 		TotalTabView.endTime = time.substring(0, time.indexOf("*"));
 		if(bo!=null){
+	        TabItem comaTabItem_2 = new TabItem(tabFolder, SWT.NONE);
+			comaTabItem_2.setText("相关监测器");
+			Composite c2=new Composite(tabFolder, SWT.FULL_SELECTION);
+			RelativelyMonitor mo=new RelativelyMonitor(c2);
+			RelativelyMonitor.bo=bo;
+			mo.createView(c2);
+			comaTabItem_2.setControl(c2);  
+			
 			TotalTabView.setTotalData(bo);
 		    TabItem comaTabItem = new TabItem(tabFolder, SWT.NONE);  
 	        comaTabItem.setText("概要");  
@@ -172,14 +183,13 @@ public class EccControl extends EditorPart {
 			erv.createPartControl(c);
 	        comaTabItem.setControl(c);  
 	        
-//	        TabItem comaTabItem_2 = new TabItem(tabFolder, SWT.NONE);
-//			  comaTabItem_2.setText("日志数据");
-//			  Composite c2=new Composite(tabFolder, SWT.FULL_SELECTION);
-//			  MonitorLogTabView mo=new MonitorLogTabView(c2);
-//			  MonitorLogTabView.SetData(bo);
-//			  mo.createView(c2);
-//			  comaTabItem_2.setControl(c2);  
-			  composite.layout();
+	        TabItem comaTabItem_3 = new TabItem(tabFolder, SWT.NONE);
+			  comaTabItem_3.setText("日志数据");
+			  Composite c3=new Composite(tabFolder, SWT.FULL_SELECTION);
+			  MonitorLogTabView molog=new MonitorLogTabView(c3);
+			  MonitorLogTabView.SetData(bo);
+			  molog.createView(c3);
+			  comaTabItem_3.setControl(c3);        
 		}
 	}
 	public void doSave(IProgressMonitor arg0) {}
@@ -198,6 +208,8 @@ public class EccControl extends EditorPart {
 		m2.setText("详细信息");
 		MenuItem m3=new MenuItem(menu,SWT.NONE);
 		m3.setText("刷新监测器");
+		MenuItem m4=new MenuItem(menu,SWT.NONE);
+		m4.setText("删除监测器");
 		m1.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				BusObMaintView.open(ConnectionBroker.get_SiteviewApi(),(BusinessObject)item.getData());
@@ -215,6 +227,13 @@ public class EccControl extends EditorPart {
 			public void widgetSelected(SelectionEvent e) {
 				BusinessObject bo=(BusinessObject)item.getData();
 				bo.RefreshAdHocRelationships();
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
+		});
+		m4.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				BusinessObject bo=(BusinessObject)item.getData();
+				bo.DeleteObject(ConnectionBroker.get_SiteviewApi());
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {}
 		});

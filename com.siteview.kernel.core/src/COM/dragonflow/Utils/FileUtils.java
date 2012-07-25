@@ -592,7 +592,7 @@ public class FileUtils {
 			}
 		}
 		if(s.endsWith("master.config")){
-			ResultSet machines = JDBCForSQL.sql_ConnectExecute_Select("SELECT * FROM RemoteUNIX");
+			ResultSet machines = JDBCForSQL.sql_ConnectExecute_Select("SELECT * FROM RemoteMachine");
 	        try {
 	        	String s0="";
 	        	jgl.Array array1=new jgl.Array();
