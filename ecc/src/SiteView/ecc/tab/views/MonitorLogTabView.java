@@ -89,27 +89,33 @@ public class MonitorLogTabView extends LayoutViewBase {
 	}
 	//创建tab
 	public  void createView(final Composite parent) {
-		if (parent.getChildren().length > 0) {
-			for (Control control : parent.getChildren()) {
-				control.dispose();
+		parent.addControlListener(new ControlListener() {
+			public void controlResized(ControlEvent e) {
+				if (parent.getChildren().length > 0) {
+					for (Control control : parent.getChildren()) {
+						control.dispose();
+					}
+				}
+				if(bo!=null){
+					bo1=bo;
+					setCloumns(bo.get_Name());
+					setMap(bo);
+					parent.setLayout(new FillLayout(SWT.VERTICAL));
+					sashForm = new SashForm(parent, SWT.VERTICAL);
+					Composite group = new Composite(sashForm, SWT.NONE);
+					group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+					createToolbar(group);
+					iCollenction = getLog(map);
+					Composite com=new Composite(sashForm, SWT.NONE);
+					com.setLayout(new FillLayout());
+					createTable(com, iCollenction);
+					sashForm.setWeights(new int[] {30, 400});
+					parent.layout();
+				}
 			}
-		}
-		if(bo!=null){
-			bo1=bo;
-			setCloumns(bo.get_Name());
-			setMap(bo);
-			parent.setLayout(new FillLayout(SWT.VERTICAL));
-			sashForm = new SashForm(parent, SWT.VERTICAL);
-			Composite group = new Composite(sashForm, SWT.NONE);
-			group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-			createToolbar(group);
-			iCollenction = getLog(map);
-			Composite com=new Composite(sashForm, SWT.NONE);
-			com.setLayout(new FillLayout());
-			createTable(com, iCollenction);
-			sashForm.setWeights(new int[] {30, 400});
-			parent.layout();
-		}
+			public void controlMoved(ControlEvent e) {
+			}
+		});
 	}
 	//创建状态单	选按钮
 	private void createToolbar(final Composite group) {

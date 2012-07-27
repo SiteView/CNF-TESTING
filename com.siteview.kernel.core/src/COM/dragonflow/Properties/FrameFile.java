@@ -449,8 +449,7 @@ public class FrameFile {
 			while (enumeration1.hasMoreElements()) {
 				Object obj1 = enumeration1.nextElement();
 				boolean flag3 = true;
-				if (s1.equals("_name")){
-					
+				if (s1.equals("_name")||s1.equals("_class")){
 				}else if (flag2) {
 					flag3 = s1.startsWith(s);
 					if (!flag) {
@@ -519,6 +518,7 @@ public class FrameFile {
 		String monitorid = null;
 		String groupName=null;
 		String name=null;
+		String type=null;
 		if(s.contains("category=")){
 			s1=format("category=",s,category);
 			category=s1.substring(0,s1.indexOf("*"));
@@ -532,6 +532,11 @@ public class FrameFile {
 		if (s.contains("id=")) {
 			s1=format("id=",s,monitorid);
 			monitorid=s1.substring(0,s1.indexOf("*"));
+			s=s1.substring(s1.indexOf("*")+1);
+		}
+		if(s.contains("_class=")){
+			s1=format("_class=",s,monitorid);
+			type=s1.substring(0,s1.indexOf("*"));
 			s=s1.substring(s1.indexOf("*")+1);
 		}
 		if(s.contains("group=")){
@@ -563,7 +568,7 @@ public class FrameFile {
 				String sql = "update EccDyn set category='" + category
 						+ "',monitorDesc='" + s + "',LastModDateTime='"
 						+ LastModDateTime + "',groupid='" + groupName
-						+ "',monitorName='"+name+"',Department='"+department+"' where RecId='" + RecId + "'";
+						+ "',monitorName='"+name+"',Department='"+department+"',MonitorType='"+type+"' where RecId='" + RecId + "'";
 				JDBCForSQL.execute_Insert(sql);
 			} else {
 				long time = System.currentTimeMillis();
@@ -571,9 +576,9 @@ public class FrameFile {
 				Timestamp CreatedDateTime = new Timestamp(time);
 
 				RecId = UUID.randomUUID().toString().replace("-", "");
-				String sql = "insert into EccDyn (RecId,category,monitorDesc,monitorid,LastModDateTime,CreatedDateTime,groupid,monitorName,Department)"
+				String sql = "insert into EccDyn (RecId,category,monitorDesc,monitorid,LastModDateTime,CreatedDateTime,groupid,monitorName,Department,MonitorType)"
 						+ " values ('"+ RecId+ "','"+ category+ "','"+s+ "','"+ monitorid+ "','"+ CreatedDateTime+ "','"+ CreatedDateTime + "','" + groupName + "','"+name+"','"
-						+department+"')";
+						+department+"','"+type+"')";
 				JDBCForSQL.execute_Insert(sql);
 			}
 		} catch (Exception e) {

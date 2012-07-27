@@ -397,5 +397,8 @@ public class EccTreeControl extends ViewPart {
 		}
 		return bo;
 	}	
+	
+	public static void main(String[] args){
+	}
 }
 

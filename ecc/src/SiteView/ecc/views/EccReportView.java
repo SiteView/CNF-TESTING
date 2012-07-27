@@ -13,8 +13,10 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -22,10 +24,18 @@ import org.eclipse.ui.part.ViewPart;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
+
+import SiteView.ecc.dialog.ParticularInfo;
 import SiteView.ecc.reportchart.EccReportChart;
 import SiteView.ecc.tab.views.TotalTabView;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.wb.swt.SWTResourceManager;
 /**
  * 概要信息视图
  * @author zhongping.wang
@@ -74,6 +84,23 @@ public class EccReportView extends ViewPart {
 		group1.setLayoutData(fd_group1);
 		group1.setLayout(new FillLayout(SWT.VERTICAL));
 		group1.setText("数据记录");
+		
+		Composite composite = new Composite(group1, SWT.NONE);
+		composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
+		
+		Button button = new Button(composite, SWT.NONE);
+		button.setBounds(0, 0, 72, 22);
+		button.setText("\u8BE6\u7EC6\u4FE1\u606F");
+		button.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
+		button.addListener(SWT.MouseDown,new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				// TODO Auto-generated method stub
+				ParticularInfo par=new ParticularInfo(null);
+				par.open();
+			}
+		});
+		
 		Label goodlabel = new Label(group1, SWT.NONE);
 		goodlabel.setForeground(new Color(null,0,255,0));
 		goodlabel.setBackground(new Color(null, 255, 255, 255));
@@ -134,7 +161,7 @@ public class EccReportView extends ViewPart {
 		TableColumn newColumnTableColumn_3 = new TableColumn(table, SWT.NONE);
 		newColumnTableColumn_3.setWidth(150);
 		newColumnTableColumn_3.setText("最新值");
-		reportForm.setWeights(new int[] { 141, 76 });
+		reportForm.setWeights(new int[] {293, 165});
 		
 		for (Map<String, List<String>> map : TotalTabView.reportDescList) {
 			Set<Map.Entry<String, List<String>>> set = map.entrySet();
@@ -174,5 +201,4 @@ public class EccReportView extends ViewPart {
 		frame = new ChartComposite(reportComposite, SWT.NONE, chart, true);
 		reportComposite.layout();
 	}
-
 }

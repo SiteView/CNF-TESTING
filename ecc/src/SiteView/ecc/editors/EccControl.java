@@ -43,7 +43,11 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.TabFolder;
 
 import core.busobmaint.BusObMaintView;
-
+/**
+ * 点击左边树 展开在右边的 editor 监测器列表
+ * @author Administrator
+ *
+ */
 
 public class EccControl extends EditorPart {
 	public EccControl() {
@@ -78,12 +82,20 @@ public class EccControl extends EditorPart {
 					final Menu menu=getMenu(toptable);
 					menu.setLocation(toptable.toDisplay(e.x, e.y));
 					menu.setVisible(true);
-				}else if(e.button==1){
+				}
+			}
+		});
+		toptable.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				if(item!=e.item){
+					item=(TableItem) e.item;
 					BusinessObject bo=(BusinessObject)item.getData();
 					if(bo!=null){
 						tab(c1,bo);
 					}
 				}
+			}
+			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
 		sashForm.setWeights(new int[] {10, 157, 289});
@@ -102,8 +114,7 @@ public class EccControl extends EditorPart {
 				SWT.NONE );
 		newColumnTableColumn_top.setWidth(80);
 		newColumnTableColumn_top.setText("状态");
-		TableColumn newColumnTableColumn_top2 = new TableColumn(toptable,
-				SWT.NONE);
+		TableColumn newColumnTableColumn_top2 = new TableColumn(toptable,SWT.NONE);
 		newColumnTableColumn_top2.setWidth(100);
 		newColumnTableColumn_top2.setText("名称");
 		TableColumn newColumnTableColumn_top3 = new TableColumn(toptable,
@@ -120,7 +131,16 @@ public class EccControl extends EditorPart {
 			String[] data=new String [4];
 			BusinessObject bo = (BusinessObject) interfaceTableIEnum.get_Current();
 			String monitorid=bo.GetField("monitorid").get_NativeValue().toString();
-			BusinessObject monitorbo=EccTreeControl.CreateBo(monitorid, "Ecc");
+			String type=bo.GetField("MonitorType").get_NativeValue().toString();
+			String filePath = FileTools
+					.getRealPath("\\files\\siteview9.2_itsm.properties");
+			type= Config.getReturnStr(filePath,type);
+			if(type==null||type.equals("")){
+				type="Ecc";
+			}else{
+				type="Ecc."+type;
+			}
+			BusinessObject monitorbo=EccTreeControl.CreateBo(monitorid, type);
 			if(monitorbo==null){
 				continue;
 			}
@@ -136,6 +156,7 @@ public class EccControl extends EditorPart {
 			TableItem tableItem=new TableItem(toptable, SWT.NONE);
 			tableItem.setData(monitorbo);
 			tableItem.setText(data);
+			item=tableItem;
 		}
 	}
 	private static String format(String desc2,String type) {
@@ -158,6 +179,7 @@ public class EccControl extends EditorPart {
 		}
 		return s1;
 	}
+	//建立下边tab页
 	public void tab(Composite composite,BusinessObject bo){
 		if (tabFolder != null && !tabFolder.isDisposed()) {
 			tabFolder.dispose();
@@ -167,14 +189,6 @@ public class EccControl extends EditorPart {
 		TotalTabView.startTime = time.substring(time.indexOf("*") + 1);
 		TotalTabView.endTime = time.substring(0, time.indexOf("*"));
 		if(bo!=null){
-	        TabItem comaTabItem_2 = new TabItem(tabFolder, SWT.NONE);
-			comaTabItem_2.setText("相关监测器");
-			Composite c2=new Composite(tabFolder, SWT.FULL_SELECTION);
-			RelativelyMonitor mo=new RelativelyMonitor(c2);
-			RelativelyMonitor.bo=bo;
-			mo.createView(c2);
-			comaTabItem_2.setControl(c2);  
-			
 			TotalTabView.setTotalData(bo);
 		    TabItem comaTabItem = new TabItem(tabFolder, SWT.NONE);  
 	        comaTabItem.setText("概要");  
@@ -182,6 +196,15 @@ public class EccControl extends EditorPart {
 	        EccReportView erv = new EccReportView();
 			erv.createPartControl(c);
 	        comaTabItem.setControl(c);  
+	        
+	        TabItem comaTabItem_2 = new TabItem(tabFolder, SWT.NONE);
+	     	comaTabItem_2.setText("相关监测器");
+	     	Composite c2=new Composite(tabFolder, SWT.FULL_SELECTION);
+	     	RelativelyMonitor.bo=bo;
+	     	RelativelyMonitor mo=new RelativelyMonitor(c2);
+	     	mo.createView(c2);
+	     	comaTabItem_2.setControl(c2);  
+	     			
 	        
 	        TabItem comaTabItem_3 = new TabItem(tabFolder, SWT.NONE);
 			  comaTabItem_3.setText("日志数据");
@@ -191,6 +214,7 @@ public class EccControl extends EditorPart {
 			  molog.createView(c3);
 			  comaTabItem_3.setControl(c3);        
 		}
+		composite.layout();
 	}
 	public void doSave(IProgressMonitor arg0) {}
 	public void doSaveAs() {}

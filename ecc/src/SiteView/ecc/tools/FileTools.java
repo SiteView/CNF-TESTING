@@ -11,9 +11,11 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
 import SiteView.ecc.Activator;
+import SiteView.ecc.views.EccTreeControl;
 import Siteview.Operators;
 import Siteview.QueryInfoToGet;
 import Siteview.SiteviewQuery;
+import Siteview.Api.BusinessObject;
 import Siteview.Api.ISiteviewApi;
 import Siteview.Windows.Forms.ConnectionBroker;
 
@@ -78,5 +80,10 @@ public class FileTools {
 		ICollection iCollenction = siteviewApi.get_BusObService()
 				.get_SimpleQueryResolver().ResolveQueryToBusObList(query);
 		return iCollenction;
+	}
+	
+	public static void main(String[]args){
+		BusinessObject bo=EccTreeControl.CreateBo("5275F89B5ECB45B0859D7B1CA60D72F5", "Ecc.PingMonitor");
+		System.out.println(bo);
 	}
 }
