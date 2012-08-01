@@ -26,7 +26,7 @@ public class ParticularInfo extends Dialog {
 	 * 初始化配置
 	 */
 	protected void configureShell(Shell newShell) {
-		newShell.setSize(1000, 700);
+		newShell.setSize(900, 700);
 		newShell.setLocation(150, 150);
 		newShell.setText("详细信息");
 		super.configureShell(newShell);
@@ -52,6 +52,13 @@ public class ParticularInfo extends Dialog {
         m1.createView(c1);
         tabItem_1.setControl(c1);  
        
+        TabItem comaTabItem_4 = new TabItem(tab, SWT.NONE);  
+        comaTabItem_4.setText("对比报表");
+        Composite c4=new Composite(tab, SWT.FULL_SELECTION);
+        ContrastReportView crv = new ContrastReportView();
+		crv.createPartControl(c4);
+        comaTabItem_4.setControl(c4); 
+        
         StatusCTIReport.setData((BusinessObject)EccControl.item.getData());
         TabItem comaTabItem_3 = new TabItem(tab, SWT.NONE);  
         comaTabItem_3.setText("状态报表");
@@ -59,13 +66,6 @@ public class ParticularInfo extends Dialog {
         StatusCTIReport m=new StatusCTIReport(c3);
         m.createView(c3);
         comaTabItem_3.setControl(c3);  
-        
-        TabItem comaTabItem_4 = new TabItem(tab, SWT.NONE);  
-        comaTabItem_4.setText("状态报表");
-        Composite c4=new Composite(tab, SWT.FULL_SELECTION);
-        ContrastReportView crv = new ContrastReportView();
-		crv.createPartControl(c4);
-        comaTabItem_4.setControl(c4);  
         
 		parent.layout();
 		return composite;

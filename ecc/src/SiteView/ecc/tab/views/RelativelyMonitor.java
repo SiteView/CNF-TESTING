@@ -86,8 +86,25 @@ public class RelativelyMonitor extends LayoutViewBase{
 		String filePath = FileTools
 				.getRealPath("\\files\\HostName.properties");
 		String hostname= Config.getReturnStr(filePath,bo.get_Name());
-		hostname=bo.GetField(hostname).get_NativeValue().toString();
 		if(hostname!=null&&!hostname.equals("")){
+			hostname=bo.GetField(hostname).get_NativeValue().toString();
+			String hostname_1= hostname_1=FileTools.getHostName(hostname);
+			if(!hostname_1.equals("")){
+				ICollection iCollection_1=FileTools.getBussCollection("ServerAddress", hostname_1, "RemoteMachine");
+				IEnumerator ienum = iCollection_1.GetEnumerator();
+				while (ienum.MoveNext()) {
+					BusinessObject machine= (BusinessObject) ienum.get_Current();
+					TableItem tableItem=new TableItem(table_2, SWT.NONE);
+					String[] s=new String[5];
+					s[0]=hostname;
+					s[1]=machine.GetField("Title").get_NativeValue().toString();
+					s[2]=machine.GetField("ConnectionMethod").get_NativeValue().toString();
+					s[3]=machine.GetField("Status").get_NativeValue().toString();
+					s[4]=machine.GetField("CreatedDateTime").get_NativeValue().toString();
+					tableItem.setText(s);
+					tableItem.setData(machine);
+				}
+			}
 			ICollection iCollection=FileTools.getBussCollection("ServerAddress", hostname, "RemoteMachine");
 			IEnumerator interfaceTableIEnum = iCollection.GetEnumerator();
 			while (interfaceTableIEnum.MoveNext()) {

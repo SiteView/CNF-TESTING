@@ -2199,6 +2199,16 @@ public abstract class CGI {
 
 		return hashmap;
 	}
+	
+	jgl.HashMap findMachine1(jgl.Array array) {
+		Enumeration enumeration = array.elements();
+		jgl.HashMap hashmap = new HashMap();
+		while (enumeration.hasMoreElements()) {
+			jgl.HashMap hashmap1 = (jgl.HashMap) enumeration.nextElement();
+				hashmap = hashmap1;
+		}
+		return hashmap;
+	}
 
 	protected static String getListOptionHTML(String s, String s1, boolean flag) {
 		StringBuffer stringbuffer = new StringBuffer();

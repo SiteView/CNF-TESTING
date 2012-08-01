@@ -4,6 +4,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
@@ -17,7 +18,9 @@ import Siteview.Api.BusinessObject;
 import Siteview.Api.Relationship;
 
 import COM.dragonflow.Api.APIInterfaces;
+import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.SiteView.SiteViewGroup;
+import COM.dragonflow.SiteViewException.SiteViewException;
 
 import siteview.IAutoTaskExtension;
 import system.Collections.IEnumerator;
@@ -32,98 +35,94 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 		String serverAddress = "localhost";
 		String serverPort = "3232";
 		String remoteMachineInfo = "";
-		String c="";
+		String[] c=null;
 		try {
 			registry = LocateRegistry.getRegistry(serverAddress, (new Integer(
 					serverPort)).intValue());
 			rmiServer = (APIInterfaces) (registry.lookup("kernelApiRmiServer"));
-					Siteview.Api.BusinessObject remoteMachineBo=bo;
-					String password = TextUtils.obscure(remoteMachineBo
+					String password = TextUtils.obscure(bo
 							.GetField("PasswordMachine").get_NativeValue()
 							.toString());
-					String value=remoteMachineBo
+					String value=bo
 							.GetField("DisableConnectionCaching")
 							.get_NativeValue().toString();
+					
 					if(value.equals("true")||value.equals("1")){
 						remoteMachineInfo+="_disableCache="+"on";
 					}else{
 						remoteMachineInfo+="_disableCache= ";
 					}
-					value=remoteMachineBo.GetField("Trace").get_NativeValue().toString();
+					value=bo.GetField("Trace").get_NativeValue().toString();
 					if(value.equals("true")||value.equals("1")){
 						remoteMachineInfo+=";_trace="+"on";
 					}else{
 						remoteMachineInfo+=";_trace= ";
 					}
-					value=remoteMachineBo.GetField("SSHVersion2Only").get_NativeValue().toString();
+					value=bo.GetField("SSHVersion2Only").get_NativeValue().toString();
 					if(value.equals("true")||value.equals("1")){
 						remoteMachineInfo+=";_version2="+"on";
 					}else{
 						remoteMachineInfo+=";_version2= ";
 					} 
-					value=remoteMachineBo.GetField("OS").get_NativeValue().toString();
-					if(value.equals("Red Hat Enterprise Linux")){
-						remoteMachineInfo+=";_os=RHESLinux";
+					if(bo.get_Name().contains("NT")){
+						remoteMachineInfo+=";_os=NT";
+					}else{
+						value=bo.GetField("OS").get_NativeValue().toString();
+						if(value.equals("Red Hat Enterprise Linux")){
+							remoteMachineInfo+=";_os=RHESLinux";
+						}
 					}
-					
-					if(remoteMachineBo.GetField("SSHClient").get_NativeValue().toString().contains(" Java ")){
+					if(bo.GetField("SSHClient").get_NativeValue().toString().contains(" Java ")){
 						remoteMachineInfo+=";_sshClient=java";
+					}
+					if(bo.get_Name().contains("RemoteUnix")){
+						remoteMachineInfo+=";_prompt="
+								+ bo.GetField("Prompt").get_NativeValue().toString()
+								+ ";_passwordPrompt="
+								+ bo.GetField("PasswordPrompt").get_NativeValue().toString()
+								+ ";_loginPrompt="
+								+ bo.GetField("LoginPrompt").get_NativeValue().toString()
+								+ ";_secondaryPrompt="
+								+ bo.GetField("SecondaryPrompt").get_NativeValue().toString();
 					}
 					remoteMachineInfo+=";_status=unknown"
 							+ ";_sshPort="
-							+ remoteMachineBo.GetField("PortNumber")
-									.get_NativeValue().toString()
-							+ ";_prompt="
-							+ remoteMachineBo.GetField("Prompt")
-									.get_NativeValue().toString()
-							+ ";_id="
-							+ remoteMachineBo.GetField("RecId")
-									.get_NativeValue().toString()
-							+ ";_passwordPrompt="
-							+ remoteMachineBo.GetField("PasswordPrompt")
-									.get_NativeValue().toString()
-							+ ";_method="
-							+ remoteMachineBo.GetField("ConnectionMethod")
-									.get_NativeValue().toString()
+							+ bo.GetField("PortNumber").get_NativeValue().toString()
+							+";_id="
+							+ bo.GetField("RecId").get_NativeValue().toString()
+							+";_method="
+							+ bo.GetField("ConnectionMethod").get_NativeValue().toString()
 							+ ";_sshCommand="
-							+ remoteMachineBo.GetField("CustomCommandline")
-									.get_NativeValue().toString()
-							+ ";_keyFile="
-							+ remoteMachineBo
-									.GetField("KeyFileforSSHconnections")
-									.get_NativeValue().toString()
-							+ ";_password="
-							+ password
-							+ ";_sshConnectionsLimit="
-							+ remoteMachineBo.GetField("ConnectionLimit")
-									.get_NativeValue().toString()
+							+ bo.GetField("CustomCommandline").get_NativeValue().toString()
 							+ ";_login="
-							+ remoteMachineBo.GetField("UserName")
-									.get_NativeValue().toString()
+							+ bo.GetField("UserName").get_NativeValue().toString()
 							+ ";_host="
-							+ remoteMachineBo.GetField("ServerAddress")
-									.get_NativeValue().toString()
+							+ bo.GetField("ServerAddress").get_NativeValue().toString()
 							+ ";_sshAuthMethod="
-							+ remoteMachineBo.GetField("SSHAuthentication")
-									.get_NativeValue().toString()
-							+ ";_loginPrompt="
-							+ remoteMachineBo.GetField("LoginPrompt")
-									.get_NativeValue().toString()
-							+ ";_secondaryPrompt="
-							+ remoteMachineBo.GetField("SecondaryPrompt")
-									.get_NativeValue().toString()
+							+ bo.GetField("SSHAuthentication").get_NativeValue().toString()
+							+ ";_sshConnectionsLimit="
+							+ bo.GetField("ConnectionLimit").get_NativeValue().toString()
+							+ ";_keyFile="
+							+ bo.GetField("KeyFileforSSHconnections").get_NativeValue().toString()
+							+ ";_password="+ password
 							+ ";_name="
-							+ remoteMachineBo.GetField("Title")
-									.get_NativeValue().toString()+"\n";
-				c=rmiServer.doTestMachine(remoteMachineInfo);
+							+ bo.GetField("Title").get_NativeValue().toString()+"\n";
+					if(bo.get_Name().equals("RemoteMachine.RemoteNT")){
+						remoteMachineInfo="_remoteNTMachine=;"+remoteMachineInfo;
+					}else{
+						remoteMachineInfo="_remoteMachine=;"+remoteMachineInfo;
+					}
+				String hostname=bo.GetField("ServerAddress").get_NativeValue().toString();
+				c=rmiServer.doTestMachine(remoteMachineInfo,hostname);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String s=c.replaceAll(" ", ".");
+		String s=c[0].replaceAll(" ", ".");
 		bo.GetField("Status").SetValue(new SiteviewValue(s));
-		MessageDialog.openInformation(new Shell(), "link test", c);
+		MessageDialog.openInformation(new Shell(), "link test", c[0]);
 		BatchAddMachine b=new BatchAddMachine(null);
+		b.s=c;
 		b.open();
-		return c;
+		return null;
 	}
 }

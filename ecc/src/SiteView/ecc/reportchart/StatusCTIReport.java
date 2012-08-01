@@ -311,7 +311,6 @@ public class StatusCTIReport extends LayoutViewBase {
 				control.dispose();
 			}
 		}
-		parent.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		setMap();
 		final String [] column={"时间","状态","持续次数","持续时间"};
 		final String [] column_1={"正常","危险","错误","禁用","无数据"};
@@ -319,10 +318,12 @@ public class StatusCTIReport extends LayoutViewBase {
 		final SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
 		
 		Composite group = new Composite(sashForm, SWT.NONE);
+		group.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		group.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		Label label = new Label(group, SWT.NONE);
 		label.setBounds(0, 0, 54, 12);
 		label.setText("\u5F00\u59CB\u65F6\u95F4\uFF1A");
+		label.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		final DateTime startdate = new DateTime(group, SWT.DROP_DOWN);
 		int year=Integer.parseInt(starTime.substring(0,starTime.indexOf("-")));
@@ -340,6 +341,7 @@ public class StatusCTIReport extends LayoutViewBase {
 		Label lblNewLabel = new Label(group, SWT.NONE);
 		lblNewLabel.setBounds(0, 0, 54, 12);
 		lblNewLabel.setText("\u7ED3\u675F\u65F6\u95F4\uFF1A");
+		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		year=Integer.parseInt(endTime.substring(0,endTime.indexOf("-")));
 		month=Integer.parseInt(endTime.substring(endTime.indexOf("-")+1,endTime.lastIndexOf("-")));
@@ -373,13 +375,13 @@ public class StatusCTIReport extends LayoutViewBase {
 			}
 		});
 		
-		
 		ScrolledComposite group_1 = new ScrolledComposite(sashForm, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		group_1.setLayout(new FillLayout(SWT.HORIZONTAL));
 		group_1.setExpandHorizontal(true);
 		group_1.setExpandVertical(true);
 		group_1.setMinWidth(400);
 		group_1.setMinHeight(600);
+		group_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		Composite  chatComposite = new Composite(group_1, SWT.NONE);
 		group_1.setContent(chatComposite);// 设置chatComposite被scrolledComposite控制
@@ -406,6 +408,7 @@ public class StatusCTIReport extends LayoutViewBase {
 		
 		table_1=createTable(sashForm_1,column_1);
 		TableItem(table,table_1,comp);
+		table_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		Label lblNewLabel_3 = new Label(sashForm_1, SWT.NONE);
 		lblNewLabel_3.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
@@ -422,7 +425,7 @@ public class StatusCTIReport extends LayoutViewBase {
 		 JFreeChart chart=ChartFactory.createPieChart(bo1.get_Name(), dataset, true, true, false);
 		 ChartComposite frame = new ChartComposite(c, SWT.NONE, chart, true);
 		 sashForm_1.setWeights(new int[] {15,100,15, 150, 15, 100, 15, 300});
-		sashForm.setWeights(new int[] {50,500});
+		sashForm.setWeights(new int[] {40,500});
 		parent.layout(); 
 	}
 }

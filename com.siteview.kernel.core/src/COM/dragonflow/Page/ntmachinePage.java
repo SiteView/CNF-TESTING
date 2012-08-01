@@ -214,7 +214,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
         return array;
     }
 
-    void doTest(COM.dragonflow.SiteView.Machine machine)
+   public void doTest(COM.dragonflow.SiteView.Machine machine)
     {
         boolean flag = false;
         int i = 0;
@@ -328,4 +328,75 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
     {
         return request.getValue("ntMachineID") + "NT";
     }
+    
+    public String doTest1(COM.dragonflow.SiteView.Machine machine)
+    {
+        boolean flag = false;
+        int i = 0;
+        String s = "";
+        jgl.HashMap hashmap_1 = findMachine1(getFrames());
+        String s_0= COM.dragonflow.Utils.TextUtils.getValue(hashmap_1, "_trace");
+        boolean flag1 = s.length() > 0;
+        if(machine != null)
+        {
+        	String method=machine.getProperty(COM.dragonflow.SiteView.Machine.pMethod);
+            if(method.equals("ssh"))
+            {
+                i = doSSHTest(machine);
+            } else
+            if(COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().internalServerActive())
+            {
+                i = checkNTPermissions(machine, flag1);
+            }
+            if(i != 0)
+            {
+                if(i == 53)
+                {
+                    s = "remote server not found";
+                } else
+                if(i == 1723)
+                {
+                    s = "remote server not accepting performance monitoring connections";
+                } else
+                if(i == 5)
+                {
+                    s = "access permissions error";
+                } else
+                if(i == 100)
+                {
+                    s = "ssh connection cannot be established";
+                } else
+                {
+                    s = "unknown error (" + i + ")";
+                }
+                if(i == 5)
+                {
+                    s = "invalid user login or password";
+                }
+            } else
+            {
+                flag = true;
+            }
+        } else
+        {
+            s = s.concat(" connection failed");
+        }
+        if(flag)
+        {
+            s = "connection successful";
+        }
+        jgl.Array array = getFrames();
+        jgl.HashMap hashmap = findMachine(array, machine.getProperty(COM.dragonflow.SiteView.Machine.pID));
+        hashmap.put("_status", s);
+        try
+        {
+            saveMachines(array, getRemoteName());
+        }
+        catch(java.lang.Exception exception)
+        {
+            java.lang.System.out.println("There was a problem updating the server status." + exception.toString());
+        }
+        return s;
+    }
+
 }

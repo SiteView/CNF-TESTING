@@ -1,7 +1,9 @@
 package SiteView.ecc.tools;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -80,6 +82,23 @@ public class FileTools {
 		ICollection iCollenction = siteviewApi.get_BusObService()
 				.get_SimpleQueryResolver().ResolveQueryToBusObList(query);
 		return iCollenction;
+	}
+	//ip地址与主机名 互相转换
+	public static String getHostName(String ip){
+		InetAddress	a;
+		String s="";
+		try {
+			if(ip.startsWith("\\")){
+				a=InetAddress.getByName(ip.substring(ip.indexOf("\\")+2));
+				s= a.getHostAddress();
+			}else{
+				a=InetAddress.getByName(ip);
+				s= a.getHostName();
+			}
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		return s;
 	}
 	
 	public static void main(String[]args){

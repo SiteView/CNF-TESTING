@@ -207,35 +207,35 @@ public class Platform {
 		// System.out.println("encoding=" +
 		// System.getProperty("file.encoding"));
 		String s = "";
-		if (args.length > 1 && args[0].equals("-machine"))
-			s = args[1];
-		HashMap hashmap = MasterConfig.getMasterConfig();
-		Machine.registerMachines(hashmap.values("_remoteMachine"));
-		long al[] = cpuUsed(s, 0L, 0L, new long[16]);
-		if (al != null) {
-			System.out.println("cpu: " + al[0] + "% used");
-			for (int i = 0; i < al.length; i++)
-				System.out.println("  cpu[" + i + "] = " + al[i]);
-
-		}
-		timeMillis();
-		long al1[] = getMemoryFull(s, 0L, 0L);
-		System.out.println("memory: " + al1[0] + "% used, " + al1[1]
-				+ " used, " + al1[2] + " total, " + al1[3] + " delta faults, "
-				+ al1[4] + " delta time, " + al1[5] + " faults, " + al1[6]
-				+ " time, " + al1[7] + " freq");
-		for (int j = 0; j < al1.length; j++)
-			System.out.println("  mem[" + j + "] = " + al1[j]);
-
-		timeMillis();
-		long al2[] = processUsed(s, "java", 0L, 0L);
-		System.out.println("processUsed java: " + al2[0] + "," + al2[1] + ","
-				+ al2[2] + "," + al2[3]);
-		timeMillis();
-		long al3[] = checkProcess("java", s, 8192L);
-		System.out.println("checkProcess java: " + al3[0] + ", " + al3[1]
-				+ ", " + al3[2]);
-		Vector vector2 = getDisks(s);
+//		if (args.length > 1 && args[0].equals("-machine"))
+//			s = args[1];
+//		HashMap hashmap = MasterConfig.getMasterConfig();
+//		Machine.registerMachines(hashmap.values("_remoteMachine"));
+//		long al[] = cpuUsed(s, 0L, 0L, new long[16]);
+//		if (al != null) {
+//			System.out.println("cpu: " + al[0] + "% used");
+//			for (int i = 0; i < al.length; i++)
+//				System.out.println("  cpu[" + i + "] = " + al[i]);
+//
+//		}
+//		timeMillis();
+//		long al1[] = getMemoryFull(s, 0L, 0L);
+//		System.out.println("memory: " + al1[0] + "% used, " + al1[1]
+//				+ " used, " + al1[2] + " total, " + al1[3] + " delta faults, "
+//				+ al1[4] + " delta time, " + al1[5] + " faults, " + al1[6]
+//				+ " time, " + al1[7] + " freq");
+//		for (int j = 0; j < al1.length; j++)
+//			System.out.println("  mem[" + j + "] = " + al1[j]);
+//
+//		timeMillis();
+//		long al2[] = processUsed(s, "java", 0L, 0L);
+//		System.out.println("processUsed java: " + al2[0] + "," + al2[1] + ","
+//				+ al2[2] + "," + al2[3]);
+//		timeMillis();
+//		long al3[] = checkProcess("java", s, 8192L);
+//		System.out.println("checkProcess java: " + al3[0] + ", " + al3[1]
+//				+ ", " + al3[2]);
+		Vector vector2 = getDisks("\\\\dragonfl-fc1faa");
 		String s5;
 		long al4[];
 		for (Enumeration enumeration = vector2.elements(); enumeration
@@ -961,7 +961,7 @@ public class Platform {
 		String s1 = s;
 		String s2 = "";
 		if (isWindows() && !Machine.isNTSSH(s1))
-			s2 = getRoot() + "/tools/perfex.exe *" + pid;
+			s2 = System.getProperty("user.dir")+ "/tools/perfex.exe *" + pid;
 		else
 			s2 = "perfex";
 		if (Machine.isPortalMachineID(s)) {

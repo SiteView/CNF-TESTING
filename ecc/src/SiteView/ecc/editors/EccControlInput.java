@@ -29,7 +29,7 @@ public class EccControlInput implements IEditorInput {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Detail";
+		return "EccMonitor";
 	}
 
 	@Override

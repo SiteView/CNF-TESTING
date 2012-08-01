@@ -5,10 +5,12 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import COM.dragonflow.Api.APIInterfaces;
+import COM.dragonflow.Api.ApiRmiServer;
 import COM.dragonflow.SiteViewException.SiteViewException;
 
 public class MonitorServer {
@@ -65,26 +67,26 @@ public class MonitorServer {
 	public List<Map<String, Object>> getMonitorsForGroup(String groupid) throws RemoteException, SiteViewException{
 		return rmiServer.getMonitorsForGroup(groupid);
 	}
-	public static void main(String[] args){
-		try {
+	public static void main(String[] args){ 
+	//	try {
 			MonitorServer m=new MonitorServer();
-			List<Map<String, Object>> list=m.Group();
+			List<HashMap<String, String>> list=ApiRmiServer.getMonitorsData();
 			for(int i=0;i<list.size();i++){
-				System.out.println(((Map<String, Object>)list.get(i)).get("_id").toString());
+				System.out.println(((Map<String, String>)list.get(i)).get("_id").toString());
 			}
-			m.deleteGroup(((Map<String, Object>)list.get(1)).get("_id").toString());
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println(1);
-		} catch (SiteViewException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println(2);
-		}
+			//m.deleteGroup(((Map<String, String>)list.get(1)).get("_id").toString());
+//		} catch (RemoteException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println(1);
+//		} catch (SiteViewException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println(2);
+//		}
 		
 	}
-	public List<Map<String, Object>> Groups(){
+	public List ss(){
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		
 		return list;

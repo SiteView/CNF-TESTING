@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ import org.jdom.input.SAXBuilder;
 import org.xml.sax.InputSource;
 
 import COM.dragonflow.Page.machinePage;
+import COM.dragonflow.Page.ntmachinePage;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.IServerPropMonitor;
@@ -38,6 +40,7 @@ import COM.dragonflow.SiteView.Machine;
 import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteView.NTCounterBase;
+import COM.dragonflow.SiteView.Platform;
 import COM.dragonflow.SiteView.SiteViewGroup;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import COM.dragonflow.StandardMonitor.SNMPCPUMonitor;
@@ -240,30 +243,37 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 
 	static public ArrayList<HashMap<String, String>> getMonitorsData() {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-		try {
-			APIMonitor apim = new APIMonitor();
-			Collection collection = apim.getAllMonitors();
-			Vector vector = (Vector) collection;
-
-			Monitor monitor;
-			int index = 0;
-			for (Iterator iterator = collection.iterator(); iterator.hasNext();) {
-				monitor = (Monitor) iterator.next();
-
-				HashMap<String, String> ndata = new HashMap<String, String>();
-				ndata.put(new String("Name"),
-						monitor.getProperty(AtomicMonitor.pName));
-				ndata.put(new String("GroupID"),
-						monitor.getProperty(AtomicMonitor.pOwnerID));
-				ndata.put(new String("MonitorID"),
-						monitor.getProperty(AtomicMonitor.pID));
-				ndata.put(new String("Type"),
-						monitor.getProperty(AtomicMonitor.pClass));
-				list.add(ndata);
-			}
-		} catch (java.lang.Exception e) {
-			System.out.println(e);
+		Map<String, MonitorGroup> map=MonitorGroup.monitorgroups;
+		Set s=map.entrySet();
+		Iterator iter =s.iterator();
+		while(iter.hasNext()){
+			String k=(String)iter.next();
+            Object v=map.get(k);
 		}
+//		try {
+//			APIMonitor apim = new APIMonitor();
+//			Collection collection = apim.getAllMonitors();
+//			Vector vector = (Vector) collection;
+//
+//			Monitor monitor;
+//			int index = 0;
+//			for (Iterator iterator = collection.iterator(); iterator.hasNext();) {
+//				monitor = (Monitor) iterator.next();
+//
+//				HashMap<String, String> ndata = new HashMap<String, String>();
+//				ndata.put(new String("Name"),
+//						monitor.getProperty(AtomicMonitor.pName));
+//				ndata.put(new String("GroupID"),
+//						monitor.getProperty(AtomicMonitor.pOwnerID));
+//				ndata.put(new String("MonitorID"),
+//						monitor.getProperty(AtomicMonitor.pID));
+//				ndata.put(new String("Type"),
+//						monitor.getProperty(AtomicMonitor.pClass));
+//				list.add(ndata);
+//			}
+//		} catch (java.lang.Exception e) {
+//			System.out.println(e);
+//		}
 		return list;
 	}
 
@@ -498,15 +508,29 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 	}
-	public String doTestMachine(String s)
+	public String[] doTestMachine(String s,String hostname)
 			throws Exception {
-		//s=s.replaceAll(" ", ";");
+		Vector<String> vector=Platform.getDisks(hostname);
+		String s0[]=new String[vector.size()/2+1];
+		Enumeration<String> disk = vector.elements();
+		int i=1;
+		while (disk.hasMoreElements()) {
+			String s5 = (String) disk.nextElement();
+			String s1=(String) disk.nextElement();
+			s0[i++]=s1;
+		 }
 		s+="#;"+"\r";
 		Array array =FrameFile.mangleIt(s);
 		Enumeration enumeration=FrameFile.readFrames(array.elements()).elements();
 		jgl.HashMap hashMap=(jgl.HashMap) enumeration.nextElement();
-		machinePage ma=new machinePage();
-		String s0=ma.doTest1(Machine.createMachine(hashMap));
+		
+		if(s.contains("_remoteMachine")){
+			machinePage ma=new machinePage();
+			s0[0]=ma.doTest1(Machine.createMachine(hashMap));
+		}else if(s.contains("_remoteNTMachine")){
+			ntmachinePage ms=new ntmachinePage();
+			s0[0]=ms.doTest1(Machine.createMachine(hashMap));
+		}
 		return s0;
 	}
 }
