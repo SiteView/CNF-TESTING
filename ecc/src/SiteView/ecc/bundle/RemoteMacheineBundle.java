@@ -2,11 +2,11 @@ package SiteView.ecc.bundle;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
-import javax.swing.JOptionPane;
+import javax.xml.ws.Holder;
+
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -15,17 +15,13 @@ import SiteView.ecc.dialog.BatchAddMachine;
 import SiteView.ecc.tools.TextUtils;
 import Siteview.SiteviewValue;
 import Siteview.Api.BusinessObject;
-import Siteview.Api.Relationship;
 
 import COM.dragonflow.Api.APIInterfaces;
-import COM.dragonflow.SiteView.Platform;
-import COM.dragonflow.SiteView.SiteViewGroup;
-import COM.dragonflow.SiteViewException.SiteViewException;
 
 import siteview.IAutoTaskExtension;
-import system.Collections.IEnumerator;
 
 public class RemoteMacheineBundle implements IAutoTaskExtension {
+	String[] ss=null;
 	APIInterfaces rmiServer;
 	@Override
 	public String run(Map<String, Object> params) {
@@ -35,7 +31,8 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 		String serverAddress = "localhost";
 		String serverPort = "3232";
 		String remoteMachineInfo = "";
-		String[] c=null;
+		List<String[]> c=null;
+		String hostname=bo.GetField("ServerAddress").get_NativeValue().toString();
 		try {
 			registry = LocateRegistry.getRegistry(serverAddress, (new Integer(
 					serverPort)).intValue());
@@ -112,16 +109,18 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 					}else{
 						remoteMachineInfo="_remoteMachine=;"+remoteMachineInfo;
 					}
-				String hostname=bo.GetField("ServerAddress").get_NativeValue().toString();
+				
 				c=rmiServer.doTestMachine(remoteMachineInfo,hostname);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String s=c[0].replaceAll(" ", ".");
+		String s=c.get(0)[0].replaceAll(" ", ".");
 		bo.GetField("Status").SetValue(new SiteviewValue(s));
-		MessageDialog.openInformation(new Shell(), "link test", c[0]);
+		MessageDialog.openInformation(new Shell(), "link test", c.get(0)[0]);
 		BatchAddMachine b=new BatchAddMachine(null);
 		b.s=c;
+		b.hostname=hostname;
+		b.group=bo.GetField("Groups").get_NativeValue().toString();
 		b.open();
 		return null;
 	}

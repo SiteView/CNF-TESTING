@@ -508,22 +508,14 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 	}
-	public String[] doTestMachine(String s,String hostname)
+	public List<String[]> doTestMachine(String s,String hostname)
 			throws Exception {
-		Vector<String> vector=Platform.getDisks(hostname);
-		String s0[]=new String[vector.size()/2+1];
-		Enumeration<String> disk = vector.elements();
-		int i=1;
-		while (disk.hasMoreElements()) {
-			String s5 = (String) disk.nextElement();
-			String s1=(String) disk.nextElement();
-			s0[i++]=s1;
-		 }
+		List<String[]> array_0=new ArrayList<String[]>();
+		String s0[]=new String[1];
 		s+="#;"+"\r";
 		Array array =FrameFile.mangleIt(s);
 		Enumeration enumeration=FrameFile.readFrames(array.elements()).elements();
 		jgl.HashMap hashMap=(jgl.HashMap) enumeration.nextElement();
-		
 		if(s.contains("_remoteMachine")){
 			machinePage ma=new machinePage();
 			s0[0]=ma.doTest1(Machine.createMachine(hashMap));
@@ -531,6 +523,35 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			ntmachinePage ms=new ntmachinePage();
 			s0[0]=ms.doTest1(Machine.createMachine(hashMap));
 		}
-		return s0;
+		Vector vector=Platform.getDisks(hostname);//磁盘
+		Array array_1 = Platform.getProcesses(hostname, true);//服务
+		String s1[]=new String[vector.size()/2];
+		String s2[]=new String[array_1.size()];
+		
+		Enumeration disk = vector.elements();
+		int i=0;
+		while (disk.hasMoreElements()) {
+			String s5 = (String) disk.nextElement();
+			String s4=(String) disk.nextElement();
+			s1[i++]=s4;
+		 }
+		Enumeration<String> d = array_1.elements();
+		int n=0;
+		while (d.hasMoreElements()) {
+			String test=d.nextElement();
+			if(test.equals("Perfex - Add Connection Failed")||test.equals("")||test.contains("登录失败: 未知的用户名或错误密码")){
+				continue;
+			}
+			s2[n++]=test;
+		}
+		array_0.add(s0);
+		array_0.add(s1);
+		array_0.add(s2);
+		return array_0;
 	}
+	 public static void main(String[] args){
+	    	String s="\\\\dragonfl-fc1faa";
+	    	 Array array = Platform.getProcesses(s, true);
+	    	 System.out.println(array.size());
+	    }
 }

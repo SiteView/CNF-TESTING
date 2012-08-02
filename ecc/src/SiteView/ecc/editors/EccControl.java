@@ -101,6 +101,7 @@ public class EccControl extends EditorPart {
 		sashForm.setWeights(new int[] {10, 157, 289});
 		parent.layout();
 	}
+	//监测器列表
 	public  void createTable(Composite c) {
 		if (toptable != null && !toptable.isDisposed()) {
 			toptable.dispose();
@@ -127,6 +128,7 @@ public class EccControl extends EditorPart {
 		newColumnTableColumn_top4.setText("最后更新");
 		ICollection iCollection=FileTools.getBussCollection("groupid",EccTreeControl.item.getText(),"EccDyn");
 		IEnumerator interfaceTableIEnum = iCollection.GetEnumerator();
+		int i=0;
 		while (interfaceTableIEnum.MoveNext()) {
 			String[] data=new String [4];
 			BusinessObject bo = (BusinessObject) interfaceTableIEnum.get_Current();
@@ -156,9 +158,13 @@ public class EccControl extends EditorPart {
 			TableItem tableItem=new TableItem(toptable, SWT.NONE);
 			tableItem.setData(monitorbo);
 			tableItem.setText(data);
-			item=tableItem;
+			if(i==0){
+				item=tableItem;//打开一个组 赋初值
+			}
+			i++;
 		}
 	}
+	//解析字符串
 	private static String format(String desc2,String type) {
 		desc2+="*";
 		String filePath = FileTools
@@ -224,6 +230,7 @@ public class EccControl extends EditorPart {
 		this.setInput(input);// 设置输入的IEditorInput对象
 		this.setPartName(input.getName());// 设置编辑器上方显示的名称
 	}
+	//表中监测器右击Menu
 	public  Menu getMenu(Table tableItem){
 		Menu menu=new Menu(tableItem);
 		MenuItem m1=new MenuItem(menu,SWT.NONE);
