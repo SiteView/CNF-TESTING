@@ -33,7 +33,7 @@ public class EditGroupBundle implements IAutoTaskExtension {
 				APIInterfaces api=createAmiServer();
 				try {
 					if(api.getChildGroupInstances("SiteView/"+oldparentId).size()==1){
-						BusinessObject oldparentbo=EccTreeControl.CreateBo(oldparentId, "EccGroup");
+						BusinessObject oldparentbo=EccTreeControl.CreateBo("RecId",oldparentId, "EccGroup");
 						oldparentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
 						oldparentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
 					}
@@ -44,7 +44,7 @@ public class EditGroupBundle implements IAutoTaskExtension {
 					e.printStackTrace();
 				}
 				updateGroup("GroupId="+oldparentId);
-				BusinessObject bo1=EccTreeControl.CreateBo(parentId, "EccGroup");
+				BusinessObject bo1=EccTreeControl.CreateBo("RecId",parentId, "EccGroup");
 				String s=bo1.GetField("HasSubGroup").get_NativeValue().toString();
 				if(!s.equals("true")){
 					bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));

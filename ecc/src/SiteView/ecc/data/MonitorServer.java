@@ -31,15 +31,32 @@ public class MonitorServer {
 		  }
 	}
 
-	public List<Map<String, Object>> Group() throws RemoteException, SiteViewException {
+	public List<Map<String, Object>> Group(){
 		// TODO Auto-generated method stub
-		return rmiServer.getTopLevelGroupInstances();
+		try {
+			return rmiServer.getTopLevelGroupInstances();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SiteViewException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	public List<Map<String, Object>> GroupChild(String groupid) throws RemoteException, SiteViewException{
+	public List<Map<String, Object>> GroupChild(String groupid){
 		// TODO Auto-generated method stub
-		return rmiServer.getChildGroupInstances(groupid);
-		
+		try {
+			return rmiServer.getChildGroupInstances(groupid);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SiteViewException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public List<Map<String,Object>> Getmonitor(String groupid){
@@ -64,8 +81,17 @@ public class MonitorServer {
 		rmiServer.deleteGroup(groupid);		
 	}
 	
-	public List<Map<String, Object>> getMonitorsForGroup(String groupid) throws RemoteException, SiteViewException{
-		return rmiServer.getMonitorsForGroup(groupid);
+	public List<Map<String, Object>> getMonitorsForGroup(String groupid){
+		try {
+			return rmiServer.getMonitorsForGroup(groupid);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SiteViewException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	public static void main(String[] args){ 
 	//	try {
@@ -88,7 +114,6 @@ public class MonitorServer {
 	}
 	public List ss(){
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		
 		return list;
 	}
 }

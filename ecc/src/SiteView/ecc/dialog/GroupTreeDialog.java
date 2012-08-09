@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -23,7 +22,11 @@ import SiteView.ecc.views.EccTreeControl;
 import Siteview.SiteviewValue;
 import Siteview.Api.BusinessObject;
 import Siteview.Windows.Forms.ConnectionBroker;
-
+/**
+ * 
+ * @author Administrator
+ *
+ */
 public class GroupTreeDialog extends Dialog {
 	public static TreeItem group;
 	private String title = "移动组";
@@ -31,8 +34,6 @@ public class GroupTreeDialog extends Dialog {
 	/*
 	 * 数据
 	 */
-	private MonitorServer monitorServer;
-
 	public GroupTreeDialog(Shell Shell) {
 		super(Shell);
 	}
@@ -58,7 +59,6 @@ public class GroupTreeDialog extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				group = tree.getSelection()[0];
 			}
-
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
@@ -66,12 +66,10 @@ public class GroupTreeDialog extends Dialog {
 		trtmNewTreeitem.setText("root");
 		trtmNewTreeitem.setExpanded(true);
 		try {
-			monitorServer = new MonitorServer();
-			List<Map<String, Object>> groups = monitorServer.Group();
+			List<Map<String, Object>> groups = EccTreeControl.groups_0;
 			for (int i = 0; i < groups.size(); i++) {
 				Map<String, Object> maps = (Map<String, Object>) groups.get(i);
 				getTreeItem(trtmNewTreeitem, maps);
-
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -93,34 +91,27 @@ public class GroupTreeDialog extends Dialog {
 			@SuppressWarnings("unchecked")
 			String parentId=((Map<String,Object>)group.getData()).get("_id").toString();
 			parentId=parentId.substring(parentId.indexOf("/")+1);
-			BusinessObject bo=EccTreeControl.CreateBo(EccTreeControl.s, "EccGroup");
+			BusinessObject bo=EccTreeControl.CreateBo("RecId",EccTreeControl.s, "EccGroup");
 			map.put(EccTreeControl.s, true);
 			String oldParentId=bo.GetField("ParentGroupId").get_NativeValue().toString();
-			EditGroupBundle edit=new EditGroupBundle();
 			if(parentId!=null&&oldParentId!=null&&!parentId.equals("")&&!oldParentId.equals("")){
 				if(!parentId.equals(oldParentId)){
-					try {
-						if(monitorServer.GroupChild("SiteView/"+oldParentId).size()==1){
-							BusinessObject oldParentbo=EccTreeControl.CreateBo(oldParentId, "EccGroup");
-							oldParentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
-							oldParentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
-						}
-						bo.GetField("ParentGroupId").SetValue(new SiteviewValue(parentId));
-						bo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
-						
-						BusinessObject bo1=EccTreeControl.CreateBo(parentId, "EccGroup");
-						String s=bo1.GetField("HasSubGroup").get_NativeValue().toString();
-						if(!s.equals("true")){
-							bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));
-							bo1.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
-						}
-						edit.updateGroup("GroupId="+oldParentId);
-						edit.updateGroup("GroupId="+parentId);
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					} catch (SiteViewException e) {
-						e.printStackTrace();
+					if(EccTreeControl.groups_subgroups.get(oldParentId).size()==1){
+						BusinessObject oldParentbo=EccTreeControl.CreateBo("RecId",oldParentId, "EccGroup");
+						oldParentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
+						oldParentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
 					}
+					bo.GetField("ParentGroupId").SetValue(new SiteviewValue(parentId));
+					bo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+					BusinessObject bo1=EccTreeControl.CreateBo("RecId",parentId, "EccGroup");
+					String s=bo1.GetField("HasSubGroup").get_NativeValue().toString();
+					if(!s.equals("true")){
+						bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));
+						bo1.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+					}
+					EditGroupBundle edit=new EditGroupBundle();
+					edit.updateGroup("GroupId="+oldParentId);
+					edit.updateGroup("GroupId="+parentId);
 				}
 			}
 		}
@@ -134,11 +125,13 @@ public class GroupTreeDialog extends Dialog {
 		tree.setData(map);
 		tree.setExpanded(true);
 		String ss=map.get("_id").toString();
-		if(!map.get("_id").toString().equals("SiteView/"+EccTreeControl.s)){
-			List<Map<String, Object>> list=monitorServer.GroupChild(map.get("_id").toString());
-			if (list.size() != 0) {
+		if(!ss.equals("SiteView/"+EccTreeControl.s)){
+			List<Map<String, Object>> list=EccTreeControl.groups_subgroups.get(ss.substring(ss.lastIndexOf("/")+1));
+			if (list!=null&&list.size()!= 0) {
 				for (int i = 0; i < list.size(); i++) {
-					getTreeItem(tree, list.get(i));
+					if(list.get(i)!=null){
+						getTreeItem(tree, list.get(i));	
+					}
 				}
 			}
 		}

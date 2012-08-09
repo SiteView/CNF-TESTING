@@ -27,11 +27,14 @@ import SiteView.ecc.data.MonitorServer;
 import SiteView.ecc.dialog.GroupTreeDialog;
 import SiteView.ecc.editors.EccControl;
 import SiteView.ecc.editors.EccControlInput;
+import SiteView.ecc.tools.Config;
+import SiteView.ecc.tools.FileTools;
 import Siteview.Operators;
 import Siteview.QueryInfoToGet;
 import Siteview.SiteviewQuery;
 import Siteview.Api.BusinessObject;
 import Siteview.Api.ISiteviewApi;
+import Siteview.BusinessLogic.SetDataFlags;
 import Siteview.Windows.Forms.ConnectionBroker;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -46,7 +49,16 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class EccTreeControl extends ViewPart {
 	public EccTreeControl() {
 	}
-	MonitorServer mg;
+	public static List<Map<String,Object>> groups_0;
+	//所有组id对应组属性
+	public static Map<String,Map<String,Object>> groups;
+	//父组id对应子组属性
+	public static Map<String,List<Map<String,Object>>> groups_subgroups;
+	//父组id对应监测器属性
+	public static Map<String,List<Map<String,Object>>> groups_monitors;
+	public static Map<String,BusinessObject> monitors_bo;
+	public static Map<String,Map<String, Object>> monitors_siteview;
+	MonitorServer mg=new MonitorServer();
 	public static List<String> monitors=new ArrayList<String>();
 	public static final String ID = "SiteView.ecc.views.EccTreeControl";
 	public static TreeItem item;
@@ -114,7 +126,7 @@ public class EccTreeControl extends ViewPart {
 		monitors.add("Ecc.WindowsDialup");
 	}
 	public void createPartControl(final Composite cp) {
-		cp.setLayout(new FillLayout());	
+		cp.setLayout(new FillLayout());
 		final Tree tree = new Tree(cp, SWT.BORDER);
 		tree.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		tree.addMouseListener(new MouseAdapter() {
@@ -147,8 +159,9 @@ public class EccTreeControl extends ViewPart {
 								try {
 									if(item.getItemCount()<=0){
 										s0=s0.substring(s0.lastIndexOf("/")+1);
-										List<Map<String, Object>> list = mg.GroupChild(s0);
-										if(list.size()!=0){
+									//	List<Map<String, Object>> list = mg.GroupChild(s0);
+										List<Map<String, Object>> list = groups_subgroups.get(s0);
+										if(list!=null&&list.size()!=0){
 											for(int i=0;i<list.size();i++){
 												getTreeItem(item,list.get(i));
 											}
@@ -163,7 +176,7 @@ public class EccTreeControl extends ViewPart {
 						}else if(s0.contains("/")&&s0.lastIndexOf("/")>8){
 							if(e.button==1){
 								s0=s0.substring(s0.lastIndexOf("/")+1);
-								BusinessObject bo=CreateBo(s0,"Ecc");
+								BusinessObject bo=CreateBo("RecId",s0,"Ecc");
 								BusObMaintView.open(ConnectionBroker.get_SiteviewApi(), bo);
 							}else{
 								final Menu menu=createMenu(tree,cp,"monitor");
@@ -177,7 +190,7 @@ public class EccTreeControl extends ViewPart {
 		});
 		trtmNewTreeitem = new TreeItem(tree, SWT.NONE);
 		trtmNewTreeitem.setText("整体视图");
-		trtmNewTreeitem.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/ztst.gif"));
+		trtmNewTreeitem.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/network.gif"));
 		trtmNewTreeitem.setExpanded(true);
 		refurbishView(trtmNewTreeitem,cp);
 	}
@@ -188,24 +201,23 @@ public class EccTreeControl extends ViewPart {
 		}
 		trtmNewTreeitem1 = new TreeItem(trtmNewTreeitem, SWT.NONE);
 		trtmNewTreeitem1.setText("root");
-		trtmNewTreeitem1.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/logo.gif"));
+		trtmNewTreeitem1.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/logo.jpg"));
 		trtmNewTreeitem1.setExpanded(true);
 		
 		trtmNewTreeitem2 = new TreeItem(trtmNewTreeitem, SWT.NONE);
 		trtmNewTreeitem2.setText("设备");
 		trtmNewTreeitem2.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/shebei.jpg"));
 		trtmNewTreeitem2.setExpanded(true);
-		try {
-			 mg=new MonitorServer();
-			List<Map<String, Object>> groups=mg.Group();
-			for(int i=0;i<groups.size();i++){
-				Map<String,Object> maps=(Map<String, Object>) groups.get(i);
-				getTreeItem(trtmNewTreeitem1,maps);
-			}
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		} catch (SiteViewException e) {
-			e.printStackTrace();
+//		mg=new MonitorServer();
+//		List<Map<String, Object>> groups=mg.Group();
+//		for(int i=0;i<groups.size();i++){
+//			Map<String,Object> maps=(Map<String, Object>) groups.get(i);
+//			getTreeItem(trtmNewTreeitem1,maps);
+//		}
+		getData();
+		for(int i=0;i<groups_0.size();i++){
+			Map<String,Object> maps=(Map<String, Object>) groups_0.get(i);
+			getTreeItem(trtmNewTreeitem1,maps);
 		}
 		cp.layout();
 	}
@@ -213,12 +225,14 @@ public class EccTreeControl extends ViewPart {
 		TreeItem tree=new TreeItem(treeItem, SWT.NONE);
 		tree.setText(map.get("_name").toString());
 		tree.setData(map);
+		String groupId=map.get("_id").toString();
 		if(map.get("_id").toString().lastIndexOf("/")>8){
 			tree.setImage(ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/Monitor.jpg"));
 		}else{
 			tree.setImage(ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/node.jpg"));
 		}
 		tree.setExpanded(true);
+		groupId=groupId.substring(groupId.lastIndexOf("/")+1);
 	}
 	public Menu createMenu(final Tree tree,final Composite cp,String s0){
 		Menu menu=new Menu(tree);
@@ -238,7 +252,7 @@ public class EccTreeControl extends ViewPart {
 				public void widgetSelected(SelectionEvent e) {
 					String s0=((Map<String,Object>)item.getData()).get("_id").toString();
 					s0=s0.substring(s0.lastIndexOf("/")+1);
-					BusinessObject bo=CreateBo(s0,"EccGroup");
+					BusinessObject bo=CreateBo("RecId",s0,"EccGroup");
 					if(bo!=null){
 						if(bo.GetField("ParentGroupId").get_NativeValue().toString()!=null){
 							oldParentId.put(s0,bo.GetField("ParentGroupId").get_NativeValue().toString());
@@ -275,7 +289,7 @@ public class EccTreeControl extends ViewPart {
 						s=s.substring(s.lastIndexOf("/")+1);
 						String s0=item.getText();
 						monitorServer.deleteGroup(s0);
-						BusinessObject bo=CreateBo(s,"EccGroup");
+						BusinessObject bo=CreateBo("RecId",s,"EccGroup");
 						if(bo!=null){
 							bo.DeleteObject(ConnectionBroker.get_SiteviewApi());
 						}
@@ -316,7 +330,7 @@ public class EccTreeControl extends ViewPart {
 					@SuppressWarnings("unchecked")
 					String s0=((Map<String,Object>)item.getData()).get("_id").toString();
 					s0=s0.substring(s0.lastIndexOf("/")+1);
-					BusinessObject bo=CreateBo(s0,"Ecc");
+					BusinessObject bo=CreateBo("RecId",s0,"Ecc");
 					BusObMaintView.open(ConnectionBroker.get_SiteviewApi(), bo);
 				}
 
@@ -331,7 +345,7 @@ public class EccTreeControl extends ViewPart {
 				public void widgetSelected(SelectionEvent e) {
 						String  s=((Map<String,Object>)item.getData()).get("_id").toString();
 						s=s.substring(s.lastIndexOf("/")+1);
-						BusinessObject bo=CreateBo(s,"Ecc");
+						BusinessObject bo=CreateBo("RecId",s,"Ecc");
 						String groupId=bo.GetFieldOrSubfield("Groups_valid").get_NativeValue().toString();
 						EditGroupBundle edit=new EditGroupBundle();
 						edit.updateGroup("GroupId="+groupId);
@@ -356,16 +370,17 @@ public class EccTreeControl extends ViewPart {
 		m6.setText("刷新");
 		m6.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				if(item.getText().equals("root")||item.getText().equals("设备")){
+				//if(item.getText().equals("root")||item.getText().equals("设备")){
 					item.dispose();
 					refurbishView(trtmNewTreeitem, cp);
-				}else{
-					@SuppressWarnings("unchecked")
-					Map<String,Object> map=(Map<String, Object>) item.getData();
-					TreeItem i=item.getParentItem();
-					item.dispose();
-					getTreeItem(i, map);
-				}
+//				}else{
+//					getData();
+//					@SuppressWarnings("unchecked")
+//					Map<String,Object> map=(Map<String, Object>) item.getData();
+//					TreeItem i=item.getParentItem();
+//					item.dispose();
+//					getTreeItem(i, map);
+//				}
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
@@ -380,11 +395,11 @@ public class EccTreeControl extends ViewPart {
 	public void setItem(TreeItem item) {
 		this.item = item;
 	}
-	public static  BusinessObject CreateBo(String s,String s1) {
+	public static  BusinessObject CreateBo(String key,String s,String s1) {
 		SiteviewQuery query = new SiteviewQuery();
 		query.AddBusObQuery(s1, QueryInfoToGet.All);
 		XmlElement xml ;
-		xml=query.get_CriteriaBuilder().FieldAndValueExpression("RecId",
+		xml=query.get_CriteriaBuilder().FieldAndValueExpression(key,
 				Operators.Equals, s);
 		query.set_BusObSearchCriteria(xml);
 		ICollection iCollenction = ConnectionBroker.get_SiteviewApi().get_BusObService()
@@ -397,8 +412,46 @@ public class EccTreeControl extends ViewPart {
 		}
 		return bo;
 	}	
-	
-	public static void main(String[] args){
+	public void getData(){
+		mg=new MonitorServer();
+		//没有父组的组
+		List<Map<String, Object>> group=mg.Group();
+		groups=new HashMap<String,Map<String,Object>>();
+		groups_subgroups=new HashMap<String, List<Map<String,Object>>>();
+		groups_monitors=new HashMap<String, List<Map<String,Object>>>();
+		monitors_siteview=new HashMap<String,Map<String,Object>>();
+		monitors_bo=new HashMap<String,BusinessObject>();
+		groups_0=new ArrayList<Map<String,Object>>();
+		groups_0.addAll(group);
+		getData_1(group);
+	}
+	public void getData_1(List<Map<String, Object>> group){
+		for(int i=0;i<group.size();i++){
+			Map<String,Object> maps=(Map<String, Object>) group.get(i);
+			String groupid=maps.get("_id").toString();
+			groupid=groupid.substring(groupid.lastIndexOf("/")+1);
+			groups.put(groupid, maps);
+			List<Map<String,Object>> g= mg.GroupChild(groupid);
+			if(g.size()>0){
+				groups_subgroups.put(groupid,g);
+				getData_1(g);
+			}
+			List<Map<String,Object>> m= mg.getMonitorsForGroup(groupid);
+			for(int n=0;n<m.size();n++){
+				Map<String,Object> mo=m.get(n);
+				String monitorid=mo.get("_id").toString();
+				monitorid=monitorid.substring(monitorid.lastIndexOf("/")+1);
+				monitors_siteview.put(monitorid, mo);
+				String type=mo.get("_class").toString();
+				String filePath = FileTools.getRealPath("\\files\\siteview9.2_itsm.properties");
+				type= Config.getReturnStr(filePath,type);
+				//monitors_bo.put(monitorid,CreateBo("RecId", monitorid, "Ecc."+type));
+			}
+			if(m.size()>0){
+				groups_monitors.put(groupid,m);	
+			}
+		}
+		
 	}
 }
 

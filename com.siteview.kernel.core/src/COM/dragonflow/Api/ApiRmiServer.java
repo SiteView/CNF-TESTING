@@ -223,10 +223,14 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 									APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
 					Map<String, Object> nodedata = new HashMap<String, Object>();
 					for (int k = 0; k < assinstanceproperty1.length; k++) {
-						nodedata.put(assinstanceproperty1[k].getName(),
-								assinstanceproperty1[k].getValue());
+						if(assinstanceproperty1[k].getName().equals("_hostname")){
+							nodedata.put("_hostname", monitor.getFull("_hostname"));
+						}else{
+							nodedata.put(assinstanceproperty1[k].getName(),assinstanceproperty1[k].getValue());
+						}
 					}
 					nodedata.put("_id", monitor.getFullID());
+					nodedata.put("_class",monitor.getFull("_class"));
 					list.add(nodedata);
 				}
 			}

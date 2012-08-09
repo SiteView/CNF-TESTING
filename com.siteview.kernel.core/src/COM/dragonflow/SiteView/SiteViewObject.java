@@ -306,7 +306,9 @@ public abstract class SiteViewObject extends PropertiedObject {
             return getProperty(pID);
         }
     }
-
+    public String getFull(String s){
+    	return getProperty(s);
+    }
     String getNextID() {
         int i = 0;
         if (hasValue(pNextID))

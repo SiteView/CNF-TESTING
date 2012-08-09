@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.ToolBar;
 
 import siteview.windows.forms.LayoutViewBase;
 import swing2swt.layout.FlowLayout;

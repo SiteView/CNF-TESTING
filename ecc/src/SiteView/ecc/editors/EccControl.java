@@ -1,6 +1,9 @@
 package SiteView.ecc.editors;
 
 
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -23,8 +26,14 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
+
+import siteview.windows.forms.ImageHelper;
 import system.Collections.ICollection;
 import system.Collections.IEnumerator;
+import COM.dragonflow.Page.monitorPage;
+import SiteView.ecc.bundle.AddMonitorBundle;
+import SiteView.ecc.bundle.EditGroupBundle;
+import SiteView.ecc.bundle.addGroupBundle;
 import SiteView.ecc.data.MonitorServer;
 import SiteView.ecc.dialog.ParticularInfo;
 import SiteView.ecc.reportchart.StatusCTIReport;
@@ -60,6 +69,7 @@ public class EccControl extends EditorPart {
 	private Table toptable;
 	TabFolder tabFolder ;
 	private Composite c_1;
+	Composite c1;
 
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FillLayout(SWT.HORIZONTAL));
@@ -72,7 +82,7 @@ public class EccControl extends EditorPart {
 		c.setVisible(true);
 		c.setLayout(new FillLayout());
 		createTable(c);
-		final Composite c1=new Composite(sashForm, SWT.NONE);
+		c1=new Composite(sashForm, SWT.NONE);
 		c1.setLayout(new FillLayout());
 		tab(c1,bo1);
 		toptable.addMouseListener(new MouseAdapter() {
@@ -126,42 +136,48 @@ public class EccControl extends EditorPart {
 				SWT.NONE);
 		newColumnTableColumn_top4.setWidth(200);
 		newColumnTableColumn_top4.setText("最后更新");
-		ICollection iCollection=FileTools.getBussCollection("groupid",EccTreeControl.item.getText(),"EccDyn");
-		IEnumerator interfaceTableIEnum = iCollection.GetEnumerator();
-		int i=0;
-		while (interfaceTableIEnum.MoveNext()) {
-			String[] data=new String [4];
-			BusinessObject bo = (BusinessObject) interfaceTableIEnum.get_Current();
-			String monitorid=bo.GetField("monitorid").get_NativeValue().toString();
-			String type=bo.GetField("MonitorType").get_NativeValue().toString();
-			String filePath = FileTools
-					.getRealPath("\\files\\siteview9.2_itsm.properties");
-			type= Config.getReturnStr(filePath,type);
-			if(type==null||type.equals("")){
-				type="Ecc";
-			}else{
-				type="Ecc."+type;
+		String groupid=((Map<String,Object>)EccTreeControl.item.getData()).get("_id").toString();
+		groupid=groupid.substring(groupid.lastIndexOf("/")+1);
+		List<Map<String,Object>> monitors=EccTreeControl.groups_monitors.get(groupid);
+		if(monitors!=null){
+			for(int j=0;j<monitors.size();j++){
+				Map<String,Object> monitor=monitors.get(j);
+				String id=monitor.get("_id").toString();
+				id=id.substring(id.lastIndexOf("/")+1);
+				BusinessObject bo=EccTreeControl.CreateBo("monitorid", id, "EccDyn");
+				int i=0;
+				String[] data=new String [4];
+				BusinessObject monitorbo=EccTreeControl.monitors_bo.get(id);
+				if(monitorbo==null){
+					String type=monitor.get("_class").toString();
+					String filePath = FileTools.getRealPath("\\files\\siteview9.2_itsm.properties");
+					type= Config.getReturnStr(filePath,type);
+					monitorbo=EccTreeControl.CreateBo("RecId", id, "Ecc."+type);
+					EccTreeControl.monitors_bo.put(id,monitorbo);
+				}
+				if(bo1==null){
+					bo1=monitorbo;
+				}
+				if(bo==null){
+					data[0] ="no data";
+					data[1]=monitor.get("_name").toString();
+					data[2]="has no logs";
+					data[3] ="this time";	
+				}else{
+					data[0] = bo.GetField("category").get_NativeValue().toString();
+					data[1]=monitor.get("_name").toString();
+					String desc =bo.GetField("monitorDesc").get_NativeValue().toString();
+					data[2]=format(desc,monitorbo.GetField("EccType").get_NativeValue().toString());
+					data[3] = bo.GetField("LastModDateTime").get_NativeValue().toString();
+				}
+				TableItem tableItem=new TableItem(toptable, SWT.NONE);
+				tableItem.setData(monitorbo);
+				tableItem.setText(data);
+				if(j==0){
+					item=tableItem;//打开一个组 赋初值
+				}
+				i++;
 			}
-			BusinessObject monitorbo=EccTreeControl.CreateBo(monitorid, type);
-			if(monitorbo==null){
-				continue;
-			}
-			String monitorname = bo.GetField("monitorName").get_NativeValue().toString();
-			data[0] = bo.GetField("category").get_NativeValue().toString();
-			data[1]=monitorname.substring(monitorname.indexOf("：")+1);
-			String desc =bo.GetField("monitorDesc").get_NativeValue().toString();
-			if(bo1==null){
-				bo1=monitorbo;
-			}
-			data[2]=format(desc,monitorbo.GetField("EccType").get_NativeValue().toString());
-			data[3] = bo.GetField("LastModDateTime").get_NativeValue().toString();
-			TableItem tableItem=new TableItem(toptable, SWT.NONE);
-			tableItem.setData(monitorbo);
-			tableItem.setText(data);
-			if(i==0){
-				item=tableItem;//打开一个组 赋初值
-			}
-			i++;
 		}
 	}
 	//解析字符串
@@ -256,8 +272,18 @@ public class EccControl extends EditorPart {
 		});
 		m3.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				BusinessObject bo=(BusinessObject)item.getData();
-				bo.RefreshAdHocRelationships();
+				TableItem itable=item;
+				BusinessObject monitor=(BusinessObject) item.getData();
+				String monitorid=monitor.get_RecId();
+				BusinessObject bo=EccTreeControl.CreateBo("monitorid", monitorid, "EccDyn");
+				String [] s=new String[4];
+				s[0]=bo.GetField("category").get_NativeValue().toString();
+				s[1]=monitor.GetField("Title").get_NativeValue().toString();
+				String desc =bo.GetField("monitorDesc").get_NativeValue().toString();
+				s[2]=format(desc,monitor.GetField("EccType").get_NativeValue().toString());
+				s[3] = bo.GetField("LastModDateTime").get_NativeValue().toString();
+				itable.setText(s);
+				tab(c1, (BusinessObject)item.getData());
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {}
 		});
@@ -265,6 +291,22 @@ public class EccControl extends EditorPart {
 			public void widgetSelected(SelectionEvent e) {
 				BusinessObject bo=(BusinessObject)item.getData();
 				bo.DeleteObject(ConnectionBroker.get_SiteviewApi());
+				EccTreeControl.monitors_bo.remove(bo.get_RecId());
+				String groupId=bo.GetFieldOrSubfield("Groups_valid").get_NativeValue().toString();
+				List<Map<String,Object>> group_monitor=EccTreeControl.groups_monitors.get(groupId);
+				group_monitor.remove(EccTreeControl.monitors_siteview.get(bo.get_RecId()));
+				EccTreeControl.monitors_siteview.remove(bo.get_RecId());
+				EditGroupBundle edit=new EditGroupBundle();
+				edit.updateGroup("GroupId="+groupId);
+				TableItem  tablei=item;
+				tablei.dispose();
+				if(toptable.getItemCount()>0){
+					item=(TableItem)toptable.getItem(0);
+					toptable.select(0);
+					tab(c1,(BusinessObject)item.getData());
+				}else{
+					c1.dispose();
+				}
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {}
 		});

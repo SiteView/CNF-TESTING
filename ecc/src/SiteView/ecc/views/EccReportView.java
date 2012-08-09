@@ -26,8 +26,12 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
 
 import SiteView.ecc.dialog.ParticularInfo;
+import SiteView.ecc.editors.EccControl;
 import SiteView.ecc.reportchart.EccReportChart;
 import SiteView.ecc.tab.views.TotalTabView;
+import Siteview.Api.BusinessObject;
+import Siteview.Windows.Forms.ConnectionBroker;
+
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Button;
@@ -36,6 +40,8 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import core.busobmaint.BusObMaintView;
 /**
  * 概要信息视图
  * @author zhongping.wang
@@ -92,6 +98,29 @@ public class EccReportView extends ViewPart {
 		button.setBounds(0, 0, 72, 22);
 		button.setText("\u8BE6\u7EC6\u4FE1\u606F");
 		button.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
+		
+		Button button_1 = new Button(composite, SWT.NONE);
+		button_1.setBounds(81, 0, 72, 22);
+		button_1.setText("\u7F16\u8F91");
+		button_1.addListener(SWT.MouseDown,new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				// TODO Auto-generated method stub
+				BusObMaintView.open(ConnectionBroker.get_SiteviewApi(),(BusinessObject)EccControl.item.getData());
+			}
+		});
+		
+		
+		Button button_2 = new Button(composite, SWT.NONE);
+		button_2.setBounds(159, 0, 72, 22);
+		button_2.setText("\u5220\u9664");
+		button_2.addListener(SWT.MouseDown,new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				// TODO Auto-generated method stub
+			}
+		});
+		
 		button.addListener(SWT.MouseDown,new Listener() {
 			@Override
 			public void handleEvent(Event event) {

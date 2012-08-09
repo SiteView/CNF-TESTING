@@ -102,7 +102,7 @@ public class FileTools {
 	}
 	
 	public static void main(String[]args){
-		BusinessObject bo=EccTreeControl.CreateBo("5275F89B5ECB45B0859D7B1CA60D72F5", "Ecc.PingMonitor");
+		BusinessObject bo=EccTreeControl.CreateBo("RecId","5275F89B5ECB45B0859D7B1CA60D72F5", "Ecc.PingMonitor");
 		System.out.println(bo);
 	}
 }

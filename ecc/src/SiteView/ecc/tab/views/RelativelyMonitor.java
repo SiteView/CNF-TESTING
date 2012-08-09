@@ -158,7 +158,7 @@ public class RelativelyMonitor extends LayoutViewBase{
 		String dependson=bo.GetField("dependson").get_NativeValue().toString();
 		if(dependson!=null&&!dependson.equals("")){
 			dependson=dependson.substring(dependson.indexOf(" ")+1);
-			BusinessObject monitor=EccTreeControl.CreateBo(dependson, "Ecc");
+			BusinessObject monitor=EccTreeControl.CreateBo("RecId",dependson, "Ecc");
 			if(monitor!=null){
 				TableItem tabitem=new TableItem(table_1, SWT.NONE);
 				tabitem.setData(monitor);

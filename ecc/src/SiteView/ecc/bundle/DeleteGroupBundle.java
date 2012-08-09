@@ -61,7 +61,7 @@ public class DeleteGroupBundle implements IAutoTaskExtension {
 			rmiServer=EditGroupBundle.createAmiServer();
 			try {
 				if(rmiServer.getChildGroupInstances("SiteView/"+parentId).size()==1){
-					BusinessObject parentbo=EccTreeControl.CreateBo(parentId, "EccGroup");
+					BusinessObject parentbo=EccTreeControl.CreateBo("RecId",parentId, "EccGroup");
 					if(parentbo!=null){
 						parentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
 						parentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);

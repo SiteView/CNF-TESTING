@@ -22,7 +22,7 @@ public class addGroupBundle implements IAutoTaskExtension {
 		String parentId=bo.GetField("ParentGroupId").get_NativeValue().toString();//父组ID
 		//存在父组，先加载父组
 		if(parentId!=null && !parentId.equals("")){
-			BusinessObject bo1=EccTreeControl.CreateBo(parentId, "EccGroup");
+			BusinessObject bo1=EccTreeControl.CreateBo("RecId",parentId, "EccGroup");
 			String s=bo1.GetField("HasSubGroup").get_NativeValue().toString();
 			if(!s.equals("true")){
 				bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));
