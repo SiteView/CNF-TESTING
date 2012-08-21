@@ -85,4 +85,19 @@ public class EditGroupBundle implements IAutoTaskExtension {
 		}
 		return rmiServer;
 	}
+	public void load(String groupid,BusinessObject bo){
+		if(rmiServer==null){
+			rmiServer=createAmiServer();
+		}
+		try {
+			EccTreeControl.groups_monitors.put(groupid,rmiServer.getMonitorsForGroup(groupid));
+			EccTreeControl.monitors_bo.put(bo.get_RecId(), bo);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SiteViewException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

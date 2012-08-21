@@ -13,7 +13,6 @@ public class EccControlInput implements IEditorInput {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public boolean exists() {
 		// TODO Auto-generated method stub
@@ -31,16 +30,24 @@ public class EccControlInput implements IEditorInput {
 		// TODO Auto-generated method stub
 		return "EccMonitor";
 	}
-
 	@Override
 	public IPersistableElement getPersistable() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public String getToolTipText() {
 		// TODO Auto-generated method stub
 		return "";
 	}  
+	 @Override  
+	 public boolean equals(Object obj) {  
+	    if(null == obj) return false;  
+	              
+	    if(!(obj instanceof EccControlInput)) return false;  
+	              
+	    if(!getName().equals(((EccControlInput)obj).getName())) return false;  
+	              
+	    return true;  
+	  }  
 }

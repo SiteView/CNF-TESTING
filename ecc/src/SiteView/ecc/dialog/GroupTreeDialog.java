@@ -1,6 +1,7 @@
 package SiteView.ecc.dialog;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,33 +87,53 @@ public class GroupTreeDialog extends Dialog {
 		//		100, "Œﬁ“¿¿µ", false);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void buttonPressed(int buttonId) {
 		if(buttonId==IDialogConstants.OK_ID){
-			@SuppressWarnings("unchecked")
-			String parentId=((Map<String,Object>)group.getData()).get("_id").toString();
-			parentId=parentId.substring(parentId.indexOf("/")+1);
 			BusinessObject bo=EccTreeControl.CreateBo("RecId",EccTreeControl.s, "EccGroup");
 			map.put(EccTreeControl.s, true);
 			String oldParentId=bo.GetField("ParentGroupId").get_NativeValue().toString();
-			if(parentId!=null&&oldParentId!=null&&!parentId.equals("")&&!oldParentId.equals("")){
-				if(!parentId.equals(oldParentId)){
-					if(EccTreeControl.groups_subgroups.get(oldParentId).size()==1){
-						BusinessObject oldParentbo=EccTreeControl.CreateBo("RecId",oldParentId, "EccGroup");
-						oldParentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
-						oldParentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
-					}
-					bo.GetField("ParentGroupId").SetValue(new SiteviewValue(parentId));
-					bo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
-					BusinessObject bo1=EccTreeControl.CreateBo("RecId",parentId, "EccGroup");
-					String s=bo1.GetField("HasSubGroup").get_NativeValue().toString();
-					if(!s.equals("true")){
-						bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));
-						bo1.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
-					}
-					EditGroupBundle edit=new EditGroupBundle();
-					edit.updateGroup("GroupId="+oldParentId);
-					edit.updateGroup("GroupId="+parentId);
+			String parentId="";
+			EditGroupBundle edit=new EditGroupBundle();
+			Map<String,Object> subgroup=EccTreeControl.groups.get(EccTreeControl.s);
+			if(group.getText().equals("root")){
+				bo.GetField("ParentGroupId").SetValue(new SiteviewValue(""));
+				bo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+				EccTreeControl.groups_0.add(subgroup);
+			}else{
+				parentId=((Map<String,Object>)group.getData()).get("_id").toString();
+				parentId=parentId.substring(parentId.indexOf("/")+1);
+			}
+			if(oldParentId!=null&&!oldParentId.equals("")){
+				List<Map<String,Object>> subgroups=EccTreeControl.groups_subgroups.get(oldParentId);
+				if(subgroups.size()==1){
+					BusinessObject oldParentbo=EccTreeControl.CreateBo("RecId",oldParentId, "EccGroup");
+					oldParentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
+					oldParentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
 				}
+				subgroups.remove(subgroup);
+				EccTreeControl.groups_subgroups.put(oldParentId, subgroups);
+			}else{
+				EccTreeControl.groups_0.remove(subgroup);
+			}
+			if(!parentId.equals("")){
+				bo.GetField("ParentGroupId").SetValue(new SiteviewValue(parentId));
+				bo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+				List<Map<String,Object>> subgroups=EccTreeControl.groups_subgroups.get(parentId);
+				if(subgroups==null||subgroups.size()==0){
+					BusinessObject bo1=EccTreeControl.CreateBo("RecId",parentId, "EccGroup");
+					bo1.GetField("HasSubGroup").SetValue(new SiteviewValue("true"));
+					bo1.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
+					subgroups=new ArrayList<Map<String,Object>>();
+				}
+				subgroups.add(subgroup);
+				EccTreeControl.groups_subgroups.put(parentId, subgroups);
+			}
+			if(oldParentId!=null&&!oldParentId.equals("")){
+				edit.updateGroup("GroupId="+oldParentId);
+			}
+			if(!parentId.equals("")){
+				edit.updateGroup("GroupId="+parentId);
 			}
 		}
 		super.buttonPressed(buttonId);

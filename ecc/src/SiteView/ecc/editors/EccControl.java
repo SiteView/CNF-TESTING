@@ -15,6 +15,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -23,7 +24,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
@@ -31,6 +34,7 @@ import siteview.windows.forms.ImageHelper;
 import system.Collections.ICollection;
 import system.Collections.IEnumerator;
 import COM.dragonflow.Page.monitorPage;
+import SiteView.ecc.Activator;
 import SiteView.ecc.bundle.AddMonitorBundle;
 import SiteView.ecc.bundle.EditGroupBundle;
 import SiteView.ecc.bundle.addGroupBundle;
@@ -66,12 +70,18 @@ public class EccControl extends EditorPart {
 	public static TableItem item=null;
 	
 	public BusinessObject bo1=null;
-	private Table toptable;
-	TabFolder tabFolder ;
-	private Composite c_1;
-	Composite c1;
+	public  Table toptable;
+	static TabFolder tabFolder ;
+	public Composite c_1;
+	public static Composite c1;
+	Color[]	color;
 
 	public void createPartControl(Composite parent) {
+		if (parent.getChildren().length > 0) {
+			for (Control control : parent.getChildren()) {
+				control.dispose();
+			}
+		}
 		parent.setLayout(new FillLayout(SWT.HORIZONTAL));
 		final SashForm sashForm = new SashForm(parent, SWT.BORDER);
 		sashForm.setOrientation(SWT.VERTICAL);
@@ -84,7 +94,7 @@ public class EccControl extends EditorPart {
 		createTable(c);
 		c1=new Composite(sashForm, SWT.NONE);
 		c1.setLayout(new FillLayout());
-		tab(c1,bo1);
+		tab(bo1);
 		toptable.addMouseListener(new MouseAdapter() {
 			public void mouseUp(MouseEvent e) {
 				item=toptable.getItem(new Point(e.x, e.y));
@@ -101,7 +111,7 @@ public class EccControl extends EditorPart {
 					item=(TableItem) e.item;
 					BusinessObject bo=(BusinessObject)item.getData();
 					if(bo!=null){
-						tab(c1,bo);
+						tab(bo);
 					}
 				}
 			}
@@ -136,6 +146,15 @@ public class EccControl extends EditorPart {
 				SWT.NONE);
 		newColumnTableColumn_top4.setWidth(200);
 		newColumnTableColumn_top4.setText("最后更新");
+		createTableItem();
+	}
+	public void createTableItem(){
+		item=null;
+		if(toptable.getItemCount()>0){
+			for(TableItem tableItem:toptable.getItems()){
+				tableItem.dispose();
+			}
+		}
 		String groupid=((Map<String,Object>)EccTreeControl.item.getData()).get("_id").toString();
 		groupid=groupid.substring(groupid.lastIndexOf("/")+1);
 		List<Map<String,Object>> monitors=EccTreeControl.groups_monitors.get(groupid);
@@ -173,6 +192,17 @@ public class EccControl extends EditorPart {
 				TableItem tableItem=new TableItem(toptable, SWT.NONE);
 				tableItem.setData(monitorbo);
 				tableItem.setText(data);
+				if(data[0].equals("good")){
+					tableItem.setBackground(color[3]);
+				}else if(data[0].equals("error")){
+					tableItem.setBackground(color[1]);
+				}else if(data[0].equals("warning")){
+					tableItem.setBackground(color[2]);
+				}else if(data[0].equals("disable")){
+					tableItem.setBackground(color[4]);
+				}else {
+					tableItem.setBackground(color[0]);
+				}
 				if(j==0){
 					item=tableItem;//打开一个组 赋初值
 				}
@@ -181,7 +211,7 @@ public class EccControl extends EditorPart {
 		}
 	}
 	//解析字符串
-	private static String format(String desc2,String type) {
+	public static String format(String desc2,String type) {
 		desc2+="*";
 		String filePath = FileTools
 				.getRealPath("\\files\\MonitorLogTabView.properties");
@@ -202,11 +232,11 @@ public class EccControl extends EditorPart {
 		return s1;
 	}
 	//建立下边tab页
-	public void tab(Composite composite,BusinessObject bo){
+	public  static  void tab(BusinessObject bo){
 		if (tabFolder != null && !tabFolder.isDisposed()) {
 			tabFolder.dispose();
 		}
-		tabFolder= new TabFolder(composite, SWT.FULL_SELECTION);
+		tabFolder= new TabFolder(c1, SWT.FULL_SELECTION);
 		String time = MonitorLogTabView.getHoursAgoTime(2);
 		TotalTabView.startTime = time.substring(time.indexOf("*") + 1);
 		TotalTabView.endTime = time.substring(0, time.indexOf("*"));
@@ -236,7 +266,7 @@ public class EccControl extends EditorPart {
 			  molog.createView(c3);
 			  comaTabItem_3.setControl(c3);        
 		}
-		composite.layout();
+		c1.layout();
 	}
 	public void doSave(IProgressMonitor arg0) {}
 	public void doSaveAs() {}
@@ -245,6 +275,12 @@ public class EccControl extends EditorPart {
 		this.setSite(site);// 设置site
 		this.setInput(input);// 设置输入的IEditorInput对象
 		this.setPartName(input.getName());// 设置编辑器上方显示的名称
+		color=new Color[5];
+		color[0]=new Color(null, 0,153,255);
+		color[1]=new Color(null,255,50,10);
+		color[2]=new Color(null,255,255,136);
+		color[3]=new Color(null, 0,255,0);
+		color[4]=new Color(null,255,170,102);
 	}
 	//表中监测器右击Menu
 	public  Menu getMenu(Table tableItem){
@@ -283,7 +319,7 @@ public class EccControl extends EditorPart {
 				s[2]=format(desc,monitor.GetField("EccType").get_NativeValue().toString());
 				s[3] = bo.GetField("LastModDateTime").get_NativeValue().toString();
 				itable.setText(s);
-				tab(c1, (BusinessObject)item.getData());
+				tab((BusinessObject)item.getData());
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {}
 		});
@@ -303,7 +339,7 @@ public class EccControl extends EditorPart {
 				if(toptable.getItemCount()>0){
 					item=(TableItem)toptable.getItem(0);
 					toptable.select(0);
-					tab(c1,(BusinessObject)item.getData());
+					tab((BusinessObject)item.getData());
 				}else{
 					c1.dispose();
 				}

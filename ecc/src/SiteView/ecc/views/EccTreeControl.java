@@ -13,8 +13,11 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -49,6 +52,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class EccTreeControl extends ViewPart {
 	public EccTreeControl() {
 	}
+	//没有父组的组
 	public static List<Map<String,Object>> groups_0;
 	//所有组id对应组属性
 	public static Map<String,Map<String,Object>> groups;
@@ -56,6 +60,7 @@ public class EccTreeControl extends ViewPart {
 	public static Map<String,List<Map<String,Object>>> groups_subgroups;
 	//父组id对应监测器属性
 	public static Map<String,List<Map<String,Object>>> groups_monitors;
+	
 	public static Map<String,BusinessObject> monitors_bo;
 	public static Map<String,Map<String, Object>> monitors_siteview;
 	MonitorServer mg=new MonitorServer();
@@ -64,11 +69,12 @@ public class EccTreeControl extends ViewPart {
 	public static TreeItem item;
 	public static String s=null;
 	public static Map<String,String> oldParentId=new HashMap<String,String>();
-	
+	EccControlInput eee=new EccControlInput();
 	TreeItem trtmNewTreeitem;//整体视图
-	TreeItem trtmNewTreeitem1;//root
+	public static TreeItem trtmNewTreeitem1;//root
 	TreeItem trtmNewTreeitem2;//设备
-	
+	TreeItem trtmNewTreeitem3;//设置
+	TreeItem trtmNewTreeitem4;//报警
 	static{
 		monitors.add("Ecc.ping");
 		monitors.add("Ecc.DNS");
@@ -125,6 +131,7 @@ public class EccTreeControl extends ViewPart {
 		monitors.add("Ecc.TestPing");
 		monitors.add("Ecc.WindowsDialup");
 	}
+	
 	public void createPartControl(final Composite cp) {
 		cp.setLayout(new FillLayout());
 		final Tree tree = new Tree(cp, SWT.BORDER);
@@ -167,8 +174,18 @@ public class EccTreeControl extends ViewPart {
 											}
 										}
 									}
-									PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-									.getActivePage().openEditor(new EccControlInput(),EccControl.ID);
+									 IWorkbenchPage page = Activator.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage();  
+									 IEditorPart editor = page.findEditor(eee);  
+									 if(editor==null){
+										 page.openEditor(eee, EccControl.ID);  
+									 }else{
+										((EccControl)editor).createTableItem();
+										if(EccControl.item==null){
+											((EccControl)editor).tab(null);
+										}else{
+											((EccControl)editor).tab((BusinessObject)EccControl.item.getData());
+										}
+									 }
 								} catch (Exception e1) {
 									e1.printStackTrace();
 								}
@@ -190,7 +207,7 @@ public class EccTreeControl extends ViewPart {
 		});
 		trtmNewTreeitem = new TreeItem(tree, SWT.NONE);
 		trtmNewTreeitem.setText("整体视图");
-		trtmNewTreeitem.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/network.gif"));
+		trtmNewTreeitem.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/ztst.jpg"));
 		trtmNewTreeitem.setExpanded(true);
 		refurbishView(trtmNewTreeitem,cp);
 	}
@@ -198,6 +215,7 @@ public class EccTreeControl extends ViewPart {
 		if(trtmNewTreeitem1!=null){
 			trtmNewTreeitem1.dispose();
 			trtmNewTreeitem2.dispose();
+			trtmNewTreeitem3.dispose();
 		}
 		trtmNewTreeitem1 = new TreeItem(trtmNewTreeitem, SWT.NONE);
 		trtmNewTreeitem1.setText("root");
@@ -208,6 +226,21 @@ public class EccTreeControl extends ViewPart {
 		trtmNewTreeitem2.setText("设备");
 		trtmNewTreeitem2.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/shebei.jpg"));
 		trtmNewTreeitem2.setExpanded(true);
+		
+		trtmNewTreeitem3 = new TreeItem(trtmNewTreeitem, SWT.NONE);
+		trtmNewTreeitem3.setText("设置");
+		trtmNewTreeitem3.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/Setup.jpg"));
+		trtmNewTreeitem3.setExpanded(true);
+		
+		trtmNewTreeitem4 = new TreeItem(trtmNewTreeitem, SWT.NONE);
+		trtmNewTreeitem4.setText("报警");
+		trtmNewTreeitem4.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/Alarm.jpg"));
+		trtmNewTreeitem4.setExpanded(true);
+		
+		TreeItem trtmNewTreeitem3_1=new TreeItem(trtmNewTreeitem3,SWT.NONE);
+		trtmNewTreeitem3_1.setText("用户管理");
+		trtmNewTreeitem3_1.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/user.bmp"));
+		trtmNewTreeitem3_1.setExpanded(true);
 //		mg=new MonitorServer();
 //		List<Map<String, Object>> groups=mg.Group();
 //		for(int i=0;i<groups.size();i++){
@@ -222,10 +255,9 @@ public class EccTreeControl extends ViewPart {
 		cp.layout();
 	}
 	public void getTreeItem(TreeItem treeItem,Map<String,Object> map){
-		TreeItem tree=new TreeItem(treeItem, SWT.NONE);
-		tree.setText(map.get("_name").toString());
-		tree.setData(map);
 		String groupId=map.get("_id").toString();
+		TreeItem tree=new TreeItem(treeItem, SWT.NONE);
+		tree.setData(map);
 		if(map.get("_id").toString().lastIndexOf("/")>8){
 			tree.setImage(ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/Monitor.jpg"));
 		}else{
@@ -233,6 +265,15 @@ public class EccTreeControl extends ViewPart {
 		}
 		tree.setExpanded(true);
 		groupId=groupId.substring(groupId.lastIndexOf("/")+1);
+		int i=0;
+		int j=0;
+		if(groups_subgroups.get(groupId)!=null){
+			i=groups_subgroups.get(groupId).size();
+		}
+		if(groups_monitors.get(groupId)!=null){
+			j=groups_monitors.get(groupId).size();
+		}
+		tree.setText(map.get("_name").toString()+"("+i+")");
 	}
 	public Menu createMenu(final Tree tree,final Composite cp,String s0){
 		Menu menu=new Menu(tree);
@@ -287,12 +328,28 @@ public class EccTreeControl extends ViewPart {
 						@SuppressWarnings("unchecked")
 						String  s=((Map<String,Object>)item.getData()).get("_id").toString();
 						s=s.substring(s.lastIndexOf("/")+1);
+						
 						String s0=item.getText();
 						monitorServer.deleteGroup(s0);
 						BusinessObject bo=CreateBo("RecId",s,"EccGroup");
+						String parentId=bo.GetField("ParentGroupId").get_NativeValue().toString();
+						if(parentId!=null&&!parentId.equals("")){
+							List<Map<String,Object>> g=groups_subgroups.get(parentId);
+							g.remove(groups.get(s));
+							groups_subgroups.put(parentId, g);
+							TreeItem tt=item.getParentItem();
+							String text=tt.getText();
+							text=text.substring(0,text.lastIndexOf("(")+1);
+							tt.setText(text+g.size()+")");
+						}else{
+							groups_0.remove(groups.get(s));
+						}
 						if(bo!=null){
 							bo.DeleteObject(ConnectionBroker.get_SiteviewApi());
 						}
+						groups.put(s, null);
+						TreeItem treItem=item;
+						treItem.dispose();
 					} catch (RemoteException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -370,17 +427,17 @@ public class EccTreeControl extends ViewPart {
 		m6.setText("刷新");
 		m6.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				//if(item.getText().equals("root")||item.getText().equals("设备")){
+				if(item.getText().equals("root")||item.getText().equals("设备")){
 					item.dispose();
 					refurbishView(trtmNewTreeitem, cp);
-//				}else{
-//					getData();
-//					@SuppressWarnings("unchecked")
-//					Map<String,Object> map=(Map<String, Object>) item.getData();
-//					TreeItem i=item.getParentItem();
-//					item.dispose();
-//					getTreeItem(i, map);
-//				}
+				}else{
+					//getData();
+					@SuppressWarnings("unchecked")
+					Map<String,Object> map=(Map<String, Object>) item.getData();
+					TreeItem i=item.getParentItem();
+					item.dispose();
+					getTreeItem(i, map);
+				}
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
@@ -415,15 +472,13 @@ public class EccTreeControl extends ViewPart {
 	public void getData(){
 		mg=new MonitorServer();
 		//没有父组的组
-		List<Map<String, Object>> group=mg.Group();
+		groups_0=mg.Group();
 		groups=new HashMap<String,Map<String,Object>>();
 		groups_subgroups=new HashMap<String, List<Map<String,Object>>>();
 		groups_monitors=new HashMap<String, List<Map<String,Object>>>();
 		monitors_siteview=new HashMap<String,Map<String,Object>>();
 		monitors_bo=new HashMap<String,BusinessObject>();
-		groups_0=new ArrayList<Map<String,Object>>();
-		groups_0.addAll(group);
-		getData_1(group);
+		getData_1(groups_0);
 	}
 	public void getData_1(List<Map<String, Object>> group){
 		for(int i=0;i<group.size();i++){

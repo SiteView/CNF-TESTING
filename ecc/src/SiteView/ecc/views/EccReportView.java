@@ -25,6 +25,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
 
+import SiteView.ecc.bundle.EditGroupBundle;
 import SiteView.ecc.dialog.ParticularInfo;
 import SiteView.ecc.editors.EccControl;
 import SiteView.ecc.reportchart.EccReportChart;
@@ -83,9 +84,9 @@ public class EccReportView extends ViewPart {
 		Group group1 = new Group(composite_reportimgControl,
 				SWT.SHADOW_ETCHED_OUT);
 		FormData fd_group1 = new FormData();
+		fd_group1.right = new FormAttachment(100);
 		fd_group1.top = new FormAttachment(reportComposite, 0, SWT.TOP);
 		fd_group1.bottom = new FormAttachment(100);
-		fd_group1.right = new FormAttachment(100);
 		group1.setBackground(new Color(null, 255, 255, 255));
 		group1.setLayoutData(fd_group1);
 		group1.setLayout(new FillLayout(SWT.VERTICAL));
@@ -95,12 +96,12 @@ public class EccReportView extends ViewPart {
 		composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		Button button = new Button(composite, SWT.NONE);
-		button.setBounds(0, 0, 72, 22);
+		button.setBounds(0, 0, 56, 22);
 		button.setText("\u8BE6\u7EC6\u4FE1\u606F");
 		button.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_FOREGROUND));
 		
 		Button button_1 = new Button(composite, SWT.NONE);
-		button_1.setBounds(81, 0, 72, 22);
+		button_1.setBounds(55, 0, 48, 22);
 		button_1.setText("\u7F16\u8F91");
 		button_1.addListener(SWT.MouseDown,new Listener() {
 			@Override
@@ -112,12 +113,53 @@ public class EccReportView extends ViewPart {
 		
 		
 		Button button_2 = new Button(composite, SWT.NONE);
-		button_2.setBounds(159, 0, 72, 22);
+		button_2.setBounds(103, 0, 48, 22);
 		button_2.setText("\u5220\u9664");
+		
+		Button button_3 = new Button(composite, SWT.NONE);
+		button_3.setBounds(151, 0, 51, 22);
+		button_3.setText("\u5237\u65B0");
+		button_3.addListener(SWT.MouseDown,new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				// TODO Auto-generated method stub
+				TableItem itable=EccControl.item;
+				BusinessObject monitor=(BusinessObject) EccControl.item.getData();
+				String monitorid=monitor.get_RecId();
+				BusinessObject bo=EccTreeControl.CreateBo("monitorid", monitorid, "EccDyn");
+				String [] s=new String[4];
+				s[0]=bo.GetField("category").get_NativeValue().toString();
+				s[1]=monitor.GetField("Title").get_NativeValue().toString();
+				String desc =bo.GetField("monitorDesc").get_NativeValue().toString();
+				s[2]=EccControl.format(desc,monitor.GetField("EccType").get_NativeValue().toString());
+				s[3] = bo.GetField("LastModDateTime").get_NativeValue().toString();
+				itable.setText(s);
+				EccControl.tab((BusinessObject)EccControl.item.getData());
+			}
+		});
 		button_2.addListener(SWT.MouseDown,new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				// TODO Auto-generated method stub
+				BusinessObject bo=(BusinessObject)EccControl.item.getData();
+				bo.DeleteObject(ConnectionBroker.get_SiteviewApi());
+				EccTreeControl.monitors_bo.remove(bo.get_RecId());
+				String groupId=bo.GetFieldOrSubfield("Groups_valid").get_NativeValue().toString();
+				List<Map<String,Object>> group_monitor=EccTreeControl.groups_monitors.get(groupId);
+				group_monitor.remove(EccTreeControl.monitors_siteview.get(bo.get_RecId()));
+				EccTreeControl.monitors_siteview.remove(bo.get_RecId());
+				EditGroupBundle edit=new EditGroupBundle();
+				edit.updateGroup("GroupId="+groupId);
+				TableItem  tablei=EccControl.item;
+				Table toptable=tablei.getParent();
+				if(toptable.getItemCount()>0){
+					EccControl.item=(TableItem)toptable.getItem(0);
+					toptable.select(0);
+					EccControl.tab((BusinessObject)EccControl.item.getData());
+				}else{
+					EccControl.c1.dispose();
+				}
+				tablei.dispose();
 			}
 		});
 		
@@ -165,11 +207,11 @@ public class EccReportView extends ViewPart {
 		labelName5.setText("   µ½£º   "+TotalTabView.endTime+" ½áÊø");
 		labelName5.setBackground(new Color(null, 255, 255, 255));
 		frame = new ChartComposite(composite_reportimgControl, SWT.NONE, chart, true);
-		fd_group1.left = new FormAttachment(frame, 1);
+		fd_group1.left = new FormAttachment(frame, 6);
 		FormData fd_frame = new FormData();
-		fd_frame.right = new FormAttachment(100, -235);
+		fd_frame.top = new FormAttachment(reportComposite, 0, SWT.TOP);
+		fd_frame.right = new FormAttachment(100, -217);
 		fd_frame.left = new FormAttachment(0);
-		fd_frame.top = new FormAttachment(0);
 		fd_frame.bottom = new FormAttachment(100);
 		frame.setLayoutData(fd_frame);
 		tableViewer = new TableViewer(composite_reportdescControl, SWT.MULTI

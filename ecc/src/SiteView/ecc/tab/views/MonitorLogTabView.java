@@ -144,7 +144,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 				if (all.getSelection()) {
 					setMap(bo1);
 					iCollenction = getLog(map);
-					createTable(sashForm, iCollenction);
+					createItem(iCollenction);
 				}
 			}
 
@@ -158,7 +158,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 					setMap(bo1);
 					map.put("MonitorStatus", "warning");
 					iCollenction = getLog(map);
-					createTable(sashForm, iCollenction);
+					createItem(iCollenction);
 				}
 			}
 
@@ -171,7 +171,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 					setMap(bo1);
 					map.put("MonitorStatus", "disable");
 					iCollenction = getLog(map);
-				createTable(sashForm, iCollenction);
+					createItem(iCollenction);
 				}
 			}
 
@@ -184,7 +184,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 					setMap(bo1);
 					map.put("MonitorStatus", "good");
 					iCollenction = getLog(map);
-					createTable(sashForm, iCollenction);
+					createItem(iCollenction);
 				}
 			}
 
@@ -197,10 +197,9 @@ public class MonitorLogTabView extends LayoutViewBase {
 					setMap(bo1);
 					map.put("MonitorStatus", "error");
 					iCollenction = getLog(map);
-					createTable(sashForm, iCollenction);
+					createItem(iCollenction);
 				}
 			}
-
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
@@ -223,7 +222,46 @@ public class MonitorLogTabView extends LayoutViewBase {
 			}
 			tblclmnNewColumn.setText(cloumns.get(i).toString());
 		}
-		
+		createItem(iCollection);
+//		IEnumerator interfaceTableIEnum = iCollection.GetEnumerator();
+//		while (interfaceTableIEnum.MoveNext()) {
+//			String[] data = new String[cloumns.size()];
+//			int j = 0;
+//			BusinessObject bo = (BusinessObject) interfaceTableIEnum
+//					.get_Current();
+//			TableItem item = new TableItem(table_1, SWT.NONE);
+//			data[j++] = bo.GetField("CreatedDateTime").get_NativeValue()
+//					.toString();
+//			data[j++] = bo.GetField("monitorName").get_NativeValue().toString();
+//			String s = bo.GetField("MonitorMassage").get_NativeValue()
+//					.toString();
+//			String status=bo.GetField("MonitorStatus").get_NativeValue().toString();
+//				List<String> massage = formatItem(s);
+//				for (int n = 0; n < massage.size(); n++) {
+//					data[j++] = massage.get(n).toString();
+//				}
+//				item.setText(data);
+//			Color  c=c=new Color(null,255,170,102);
+//			if(status.equals("good")){
+//				item.setBackground(color[3]);
+//			}else if(status.equals("error")){
+//				item.setBackground(color[1]);
+//			}else if(status.equals("warning")){
+//				item.setBackground(color[2]);
+//			}else if(status.equals("disable")){
+//				item.setBackground(color[4]);
+//			}else {
+//				item.setBackground(color[0]);
+//			}
+//		}
+		table_1.layout();
+	}
+	public void createItem(ICollection iCollection){
+		if(table_1.getItems().length>0){
+			for(TableItem tableItem:table_1.getItems()){
+				tableItem.dispose();
+			}
+		}
 		IEnumerator interfaceTableIEnum = iCollection.GetEnumerator();
 		while (interfaceTableIEnum.MoveNext()) {
 			String[] data = new String[cloumns.size()];
@@ -254,7 +292,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 			}else {
 				item.setBackground(color[0]);
 			}
-		}
+		}	
 	}
 	//获取表的列
 	private  void setCloumns(String s) {
