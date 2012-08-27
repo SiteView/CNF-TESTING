@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+//import adminloader.forms.security.*;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -13,35 +15,36 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import COM.dragonflow.Api.ApiRmiServer;
 import COM.dragonflow.SiteViewException.SiteViewException;
 import SiteView.ecc.Activator;
-import SiteView.ecc.bundle.EditGroupBundle;
 import SiteView.ecc.data.MonitorServer;
 import SiteView.ecc.dialog.GroupTreeDialog;
 import SiteView.ecc.editors.EccControl;
 import SiteView.ecc.editors.EccControlInput;
 import SiteView.ecc.tools.Config;
 import SiteView.ecc.tools.FileTools;
+import Siteview.LegalUtils;
 import Siteview.Operators;
 import Siteview.QueryInfoToGet;
 import Siteview.SiteviewQuery;
+import Siteview.SiteviewValue;
 import Siteview.Api.BusinessObject;
-import Siteview.Api.ISiteviewApi;
-import Siteview.BusinessLogic.SetDataFlags;
 import Siteview.Windows.Forms.ConnectionBroker;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+
+import adminloader.forms.security.UserManagerDlg;
 import core.busobmaint.BusObMaintView;
+import core.busobmaint.BusObNewInput;
 import siteview.windows.forms.ImageHelper;
 import system.Collections.ICollection;
 import system.Collections.IEnumerator;
@@ -60,11 +63,13 @@ public class EccTreeControl extends ViewPart {
 	public static Map<String,List<Map<String,Object>>> groups_subgroups;
 	//父组id对应监测器属性
 	public static Map<String,List<Map<String,Object>>> groups_monitors;
-	
+	public static Map<String,ICollection>groups_machines;
 	public static Map<String,BusinessObject> monitors_bo;
 	public static Map<String,Map<String, Object>> monitors_siteview;
 	MonitorServer mg=new MonitorServer();
 	public static List<String> monitors=new ArrayList<String>();
+	public static List<String> monitors_NT=new ArrayList<String>();
+	public static List<String> machines=new ArrayList<String>();
 	public static final String ID = "SiteView.ecc.views.EccTreeControl";
 	public static TreeItem item;
 	public static String s=null;
@@ -76,60 +81,64 @@ public class EccTreeControl extends ViewPart {
 	TreeItem trtmNewTreeitem3;//设置
 	TreeItem trtmNewTreeitem4;//报警
 	static{
+		machines.add("RemoteMachine.RemoteNT");
+		machines.add("RemoteMachine.RemoteUnix");
+		machines.add("RemoteMachine.SNMP");
 		monitors.add("Ecc.ping");
 		monitors.add("Ecc.DNS");
-		monitors.add("Ecc.DiskSpace");
 		monitors.add("Ecc.LinkCheck");
-		monitors.add("Ecc.Radius");
+//		monitors.add("Ecc.Radius");
+		monitors_NT.add("Ecc.DiskSpace");
 		monitors.add("Ecc.URL");
 		monitors.add("Ecc.URLContent");
-		monitors.add("Ecc.WinPerformanceCounter");
-		monitors.add("Ecc.LogFile");
-		monitors.add("Ecc.WinResources");
-		monitors.add("Ecc.eBusinessChain");
+		monitors_NT.add("Ecc.WinPerformanceCounter");
+		monitors_NT.add("Ecc.WinResources");
 		monitors.add("Ecc.Mail");
-		monitors.add("Ecc.RTSP");
-		monitors.add("Ecc.Tuxedo");
-		monitors.add("Ecc.WinMediaServer");
-		monitors.add("Ecc.FormulaComposite");
-		monitors.add("Ecc.MGHealthMonitor");
-		monitors.add("Ecc.MonitorLoadMonitor");
-		monitors.add("Ecc.HistoryHealthMonitor");
-		monitors.add("Ecc.NewsMonitor");
-		monitors.add("Ecc.FtpMonitor");
-		monitors.add("Ecc.NetWorkMonitor");
-		monitors.add("Ecc.SnmpTrapMonitor");
-		monitors.add("Ecc.SnmpMonitor");
-		monitors.add("Ecc.SQLServerMonitor");
-		monitors.add("Ecc.OracleJDBCMonitor");
-		monitors.add("Ecc.InterfaceMonitor");
-		monitors.add("Ecc.Apache");
-		monitors.add("Ecc.EJB");
-		monitors.add("Ecc.MAPI");
-		monitors.add("Ecc.SAP");
-		monitors.add("Ecc.URLList");
-		monitors.add("Ecc.ASP");
-		monitors.add("Ecc.F5Big-IP");
-		monitors.add("Ecc.MasterHealth");
-		monitors.add("Ecc.ScriptMonitor");
+		monitors_NT.add("Ecc.WinMediaServer");
+		monitors_NT.add("Ecc.NetWorkMonitor");
+		monitors_NT.add("Ecc.WindowsDialup");
+		monitors_NT.add("Ecc.WindowsEventLog");
+		monitors_NT.add("Ecc.Port");
+		monitors_NT.add("Ecc.Memory");
+//		monitors.add("Ecc.LogFile");
+//		monitors.add("Ecc.eBusinessChain");
+//		monitors.add("Ecc.RTSP");
+//		monitors.add("Ecc.Tuxedo");
+//		monitors.add("Ecc.FormulaComposite");
+//		monitors.add("Ecc.MGHealthMonitor");
+//		monitors.add("Ecc.MonitorLoadMonitor");
+//		monitors.add("Ecc.HistoryHealthMonitor");
+//		monitors.add("Ecc.NewsMonitor");
+//		monitors.add("Ecc.FtpMonitor");
+//		monitors.add("Ecc.SnmpTrapMonitor");
+//		monitors.add("Ecc.SnmpMonitor");
+//		monitors.add("Ecc.SQLServerMonitor");
+//		monitors.add("Ecc.OracleJDBCMonitor");
+//		monitors.add("Ecc.InterfaceMonitor");
+//		monitors.add("Ecc.Apache");
+//		monitors.add("Ecc.EJB");
+//		monitors.add("Ecc.MAPI");
+//		monitors.add("Ecc.SAP");
+//		monitors.add("Ecc.URLList");
+//		monitors.add("Ecc.ASP");
+//		monitors.add("Ecc.F5Big-IP");
+//		monitors.add("Ecc.MasterHealth");
+//		monitors.add("Ecc.ScriptMonitor");
+//		
+//		monitors.add("Ecc.URLOriginal");
+//		monitors.add("Ecc.BrowsableWindowsPerformance");
+//		monitors.add("Ecc.File");
+		monitors_NT.add("Ecc.Service");
 		
-		monitors.add("Ecc.URLOriginal");
-		monitors.add("Ecc.BrowsableWindowsPerformance");
-		monitors.add("Ecc.File");
-		monitors.add("Ecc.Memory");
-		monitors.add("Ecc.Service");
-		monitors.add("Ecc.WindowsEventLog");
-		monitors.add("Ecc.Database_Query");
-		monitors.add("Ecc.DHCP");
-		monitors.add("Ecc.Directory");
-		monitors.add("Ecc.IISServer");
-		monitors.add("Ecc.LDAP");
-		monitors.add("Ecc.WebServer");
-		monitors.add("Ecc.CompositeMonitor");
-		monitors.add("Ecc.Service");
-		monitors.add("Ecc.Port");
-		monitors.add("Ecc.TestPing");
-		monitors.add("Ecc.WindowsDialup");
+//		monitors.add("Ecc.Database_Query");
+//		monitors.add("Ecc.DHCP");
+//		monitors.add("Ecc.Directory");
+//		monitors.add("Ecc.IISServer");
+//		monitors.add("Ecc.LDAP");
+//		monitors.add("Ecc.WebServer");
+//		monitors.add("Ecc.CompositeMonitor");
+//		monitors.add("Ecc.Service");
+//		monitors.add("Ecc.TestPing");
 	}
 	
 	public void createPartControl(final Composite cp) {
@@ -145,7 +154,7 @@ public class EccTreeControl extends ViewPart {
 					if(item.getText().equals("设备")){
 						if(e.button==3){
 							final Menu menu=createMenu(tree,cp,"shebei");
-							menu.setLocation(tree.toDisplay(e.x, e.y));
+							menu.setLocation(tree.toDisplay(x,y));
 							menu.setVisible(true);
 						}
 					}else if(item.getText().equals("root")){
@@ -154,6 +163,16 @@ public class EccTreeControl extends ViewPart {
 							menu.setLocation(tree.toDisplay(e.x, e.y));
 							menu.setVisible(true);
 						}
+					}else if(item.getData() instanceof BusinessObject){
+						if(e.button==3){
+							final Menu menu=createMenu(tree,cp,"machine");
+							menu.setLocation(tree.toDisplay(e.x, e.y));
+							menu.setVisible(true);	
+						}
+					}else if(item.getText().equals("用户管理")){
+						Shell shell=new Shell();
+						UserManagerDlg user=new UserManagerDlg(shell);
+						user.open();
 					}else{
 						@SuppressWarnings("unchecked")
 						String s0=((Map<String,Object>)item.getData()).get("_id").toString();
@@ -172,6 +191,15 @@ public class EccTreeControl extends ViewPart {
 											for(int i=0;i<list.size();i++){
 												getTreeItem(item,list.get(i));
 											}
+										}
+										ICollection ic=groups_machines.get(s0);
+										IEnumerator interfaceTableIEnum = ic.GetEnumerator();
+										while (interfaceTableIEnum.MoveNext()) {
+											BusinessObject bo = (BusinessObject) interfaceTableIEnum.get_Current();
+											TreeItem treeItem1=new TreeItem(item,SWT.NONE);
+											treeItem1.setText(bo.GetField("ServerAddress").get_NativeValue().toString());
+											treeItem1.setData(bo);
+											treeItem1.setImage( ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/shebei.jpg"));
 										}
 									}
 									 IWorkbenchPage page = Activator.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage();  
@@ -216,6 +244,7 @@ public class EccTreeControl extends ViewPart {
 			trtmNewTreeitem1.dispose();
 			trtmNewTreeitem2.dispose();
 			trtmNewTreeitem3.dispose();
+			trtmNewTreeitem4.dispose();
 		}
 		trtmNewTreeitem1 = new TreeItem(trtmNewTreeitem, SWT.NONE);
 		trtmNewTreeitem1.setText("root");
@@ -273,7 +302,9 @@ public class EccTreeControl extends ViewPart {
 		if(groups_monitors.get(groupId)!=null){
 			j=groups_monitors.get(groupId).size();
 		}
-		tree.setText(map.get("_name").toString()+"("+i+")");
+		ICollection machins=FileTools.getBussCollection("Groups", groupId, "RemoteMachine");
+		tree.setText(map.get("_name").toString()+"("+(i+machins.get_Count())+")");
+		groups_machines.put(groupId, machins);
 	}
 	public Menu createMenu(final Tree tree,final Composite cp,String s0){
 		Menu menu=new Menu(tree);
@@ -281,13 +312,15 @@ public class EccTreeControl extends ViewPart {
 			MenuItem m1=new MenuItem(menu,SWT.NONE);
 			m1.setText("编辑组");
 			MenuItem m2=new MenuItem(menu,SWT.NONE);
-			m2.setText("添加组");
+			m2.setText("添加子组");
 			MenuItem m3=new MenuItem(menu,SWT.NONE);
 			m3.setText("移动组");
 			MenuItem m4=new MenuItem(menu,SWT.NONE);
 			m4.setText("删除组");
 			MenuItem m5=new MenuItem(menu,SWT.NONE);
 			m5.setText("增加监测器");
+			MenuItem m6=new MenuItem(menu,SWT.NONE);
+			m6.setText("增加设备");
 			m1.addSelectionListener(new SelectionListener() {
 				@SuppressWarnings("unchecked")
 				public void widgetSelected(SelectionEvent e) {
@@ -306,7 +339,7 @@ public class EccTreeControl extends ViewPart {
 			});
 			m2.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
-					BusObMaintView.newBusOb(ConnectionBroker.get_SiteviewApi(), "EccGroup");
+					getReturnGroup("EccGroup","ParentGroupId","");
 				}
 				public void widgetDefaultSelected(SelectionEvent e) {}
 			});
@@ -369,7 +402,7 @@ public class EccTreeControl extends ViewPart {
 						 m1.addSelectionListener(new SelectionListener() {
 							public void widgetSelected(SelectionEvent e) {
 								MenuItem s=(MenuItem)e.widget;
-								BusObMaintView.newBusOb(ConnectionBroker.get_SiteviewApi(),s.getText());
+								getReturnGroup(s.getText(),"Groups","");
 							}
 							public void widgetDefaultSelected(SelectionEvent e) {}
 						});
@@ -379,37 +412,91 @@ public class EccTreeControl extends ViewPart {
 				}
 				public void widgetDefaultSelected(SelectionEvent e) {}
 			});
-		}else if(s0.equals("monitor")){
-			MenuItem m1=new MenuItem(menu,SWT.NONE);
-			m1.setText("编辑监测器");
-			m1.addSelectionListener(new SelectionListener() {
+			m6.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
-					@SuppressWarnings("unchecked")
-					String s0=((Map<String,Object>)item.getData()).get("_id").toString();
-					s0=s0.substring(s0.lastIndexOf("/")+1);
-					BusinessObject bo=CreateBo("RecId",s0,"Ecc");
-					BusObMaintView.open(ConnectionBroker.get_SiteviewApi(), bo);
+					final Menu menu=new Menu(tree);
+					for(String s:machines){
+						 MenuItem m1=new MenuItem(menu,SWT.NONE);
+						 m1.setText(s);
+						 m1.addSelectionListener(new SelectionListener() {
+							public void widgetSelected(SelectionEvent e) {
+								MenuItem s=(MenuItem)e.widget;
+								getReturnGroup(s.getText(),"Groups","");
+							}
+							public void widgetDefaultSelected(SelectionEvent e) {}
+						});
+					}
+					menu.setLocation(tree.toDisplay(e.x+120, e.y+50));
+					menu.setVisible(true);
 				}
-
 				public void widgetDefaultSelected(SelectionEvent e) {}
 			});
-			MenuItem m2=new MenuItem(menu,SWT.NONE);
-			m2.setText("添加监测器");
-			MenuItem m3=new MenuItem(menu,SWT.NONE);
-			m3.setText("删除监测器");
-			m3.addSelectionListener(new SelectionListener() {
-				@SuppressWarnings("unchecked")
+		}else if(s0.equals("root")){
+			MenuItem m1=new MenuItem(menu,SWT.NONE);
+			m1.setText("添加组");
+			m1.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
-						String  s=((Map<String,Object>)item.getData()).get("_id").toString();
-						s=s.substring(s.lastIndexOf("/")+1);
-						BusinessObject bo=CreateBo("RecId",s,"Ecc");
-						String groupId=bo.GetFieldOrSubfield("Groups_valid").get_NativeValue().toString();
-						EditGroupBundle edit=new EditGroupBundle();
-						edit.updateGroup("GroupId="+groupId);
-						if(bo!=null){
-							bo.DeleteObject(ConnectionBroker.get_SiteviewApi());
+					BusObMaintView.newBusOb(ConnectionBroker.get_SiteviewApi(), "EccGroup");
+				}
+				public void widgetDefaultSelected(SelectionEvent e) {}
+				});
+		}else if(s0.equals("machine")){
+			MenuItem m1=new MenuItem(menu,SWT.NONE);
+			m1.setText("添加监测器");
+			MenuItem m2=new MenuItem(menu,SWT.NONE);
+			m2.setText("编辑设备");
+			MenuItem m3=new MenuItem(menu,SWT.NONE);
+			m3.setText("删除设备");
+			m3.addSelectionListener(new SelectionListener() {
+				public void widgetSelected(SelectionEvent e) {
+					TreeItem tt=item.getParentItem();
+//					String text=tt.getText();
+//					tt.setText("");
+					BusinessObject bo=(BusinessObject) item.getData();
+					bo.DeleteObject(ConnectionBroker.get_SiteviewApi());
+					item.dispose();
+				}
+				public void widgetDefaultSelected(SelectionEvent e) {}
+			});
+			m2.addSelectionListener(new SelectionListener() {
+				public void widgetSelected(SelectionEvent e) {
+					BusinessObject bo=(BusinessObject) item.getData();
+					BusObMaintView.open(ConnectionBroker.get_SiteviewApi(),bo );
+				}
+				public void widgetDefaultSelected(SelectionEvent e) {}
+			});
+			m1.addSelectionListener(new SelectionListener() {
+				public void widgetSelected(SelectionEvent e) {
+					final Menu menu=new Menu(tree);
+					BusinessObject bo=(BusinessObject) item.getData();
+					String s=bo.GetField("RemoteMachineType").get_NativeValue().toString();
+					if(s.endsWith("RemoteNT")){
+						for(String s1:monitors){
+							 MenuItem m1=new MenuItem(menu,SWT.NONE);
+							 m1.setText(s1);
+							 m1.addSelectionListener(new SelectionListener() {
+								public void widgetSelected(SelectionEvent e) {
+									MenuItem s=(MenuItem)e.widget;
+									getReturnGroup(s.getText(),"Groups","ad");
+								}
+								public void widgetDefaultSelected(SelectionEvent e) {}
+							});
 						}
+						for(String s2:monitors_NT){
+							 MenuItem m1=new MenuItem(menu,SWT.NONE);
+							 m1.setText(s2);
+							 m1.addSelectionListener(new SelectionListener() {
+								public void widgetSelected(SelectionEvent e) {
+									MenuItem s=(MenuItem)e.widget;
+									getReturnGroup(s.getText(),"Groups","ad");
+								}
+								public void widgetDefaultSelected(SelectionEvent e) {}
+							});
+						}
+						menu.setLocation(tree.toDisplay(e.x+120, e.y+50));
+						menu.setVisible(true);
 					}
+				}
 				public void widgetDefaultSelected(SelectionEvent e) {}
 			});
 		}else if(s0.equals("shebei")){
@@ -478,6 +565,7 @@ public class EccTreeControl extends ViewPart {
 		groups_monitors=new HashMap<String, List<Map<String,Object>>>();
 		monitors_siteview=new HashMap<String,Map<String,Object>>();
 		monitors_bo=new HashMap<String,BusinessObject>();
+		groups_machines=new HashMap<String,ICollection>();
 		getData_1(groups_0);
 	}
 	public void getData_1(List<Map<String, Object>> group){
@@ -508,5 +596,28 @@ public class EccTreeControl extends ViewPart {
 		}
 		
 	}
+	public static void getReturnGroup(String tableName,String colum,String type){
+		Siteview.Api.BusinessObject busOb = ConnectionBroker.get_SiteviewApi().get_BusObService().Create(tableName);
+		if(!type.equals("")){
+			BusinessObject bo=(BusinessObject) item.getData();
+			String filePath = FileTools.getRealPath("\\files\\HostName.properties");
+			String s = Config.getReturnStr(filePath, tableName);
+			if(s!=null){
+				busOb.GetField(s).SetValue(new SiteviewValue(item.getText()));
+			}
+			String groupid=bo.GetField("Groups").get_NativeValue().toString();
+			busOb.GetField(colum).SetValue(new SiteviewValue(groupid));
+		}else{
+			String s0=((Map<String,Object>)item.getData()).get("_id").toString();
+			s0=s0.substring(s0.lastIndexOf("/")+1);
+			busOb.GetField(colum).SetValue(new SiteviewValue(s0));
+		}
+		try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new BusObNewInput(ConnectionBroker.get_SiteviewApi(),tableName,busOb), BusObMaintView.ID);
+		}catch(PartInitException e1) {
+			MessageDialog.openError(null, LegalUtils.get_MessageBoxCaption(), e1.getMessage());
+			e1.printStackTrace();
+		}
+	 }
 }
 

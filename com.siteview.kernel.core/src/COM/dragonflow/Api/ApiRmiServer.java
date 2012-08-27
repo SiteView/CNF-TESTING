@@ -31,13 +31,13 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.InputSource;
 
+import COM.dragonflow.Page.WmiService;
 import COM.dragonflow.Page.machinePage;
 import COM.dragonflow.Page.ntmachinePage;
 import COM.dragonflow.Properties.FrameFile;
 import COM.dragonflow.SiteView.AtomicMonitor;
 import COM.dragonflow.SiteView.IServerPropMonitor;
 import COM.dragonflow.SiteView.Machine;
-import COM.dragonflow.SiteView.Monitor;
 import COM.dragonflow.SiteView.MonitorGroup;
 import COM.dragonflow.SiteView.NTCounterBase;
 import COM.dragonflow.SiteView.Platform;
@@ -525,10 +525,24 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			s0[0]=ma.doTest1(Machine.createMachine(hashMap));
 		}else if(s.contains("_remoteNTMachine")){
 			ntmachinePage ms=new ntmachinePage();
-			s0[0]=ms.doTest1(Machine.createMachine(hashMap));
+			s0[0]=ms.doTest1(Machine.createMachine(hashMap),hashMap);
+			System.out.println("................."+hashMap+"................");
 		}
-		Vector vector=Platform.getDisks(hostname);//磁盘
-		Array array_1 = Platform.getProcesses(hostname, true);//服务
+		Vector vector = null;
+		Array array_1 = null;
+		String method = (String)hashMap.get("_method");
+		if("wmi".equals(method)){
+			WmiService ws = new WmiService((String)hashMap.get("_host"));
+			ws.connect("", (String)hashMap.get("_login"), (String)hashMap.get("_password"));
+			vector = ws.getDisks();
+			array_1 = ws.getService();
+			ws.disconnect();
+		}else{
+			vector=Platform.getDisks(hostname);//磁盘
+			array_1 = Platform.getProcesses(hostname, true);//服务
+		}
+		System.out.println("磁盘vector............"+vector+"..............");
+		System.out.println("服务array_1............"+array_1+"..............");
 		String s1[]=new String[vector.size()/2];
 		String s2[]=new String[array_1.size()];
 		
@@ -553,9 +567,40 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		array_0.add(s2);
 		return array_0;
 	}
+
 	 public static void main(String[] args){
 	    	String s="\\\\dragonfl-fc1faa";
 	    	 Array array = Platform.getProcesses(s, true);
 	    	 System.out.println(array.size());
 	    }
+	//获取磁盘信息
+		public String[] getDiskSpace(String hostname) throws SiteViewException,RemoteException {
+			Vector vector = Platform.getDisks(hostname);// 磁盘
+			String s1[] = new String[vector.size() / 2];
+			Enumeration disk = vector.elements();
+			int i = 0;
+			while (disk.hasMoreElements()) {
+				String s5 = (String) disk.nextElement();
+				String s4=(String) disk.nextElement();
+				s1[i++]=s4;
+			 }
+			return s1;
+		}
+
+		//获取服务信息
+		public String[] getServer(String hostname) throws RemoteException {
+			Array array_1 = Platform.getProcesses(hostname, true);// 服务
+			String s2[] = new String[array_1.size()];
+			Enumeration<String> d = array_1.elements();
+			int n = 0;
+			while (d.hasMoreElements()) {
+				String test = d.nextElement();
+				if (test.equals("Perfex - Add Connection Failed")
+						|| test.equals("") || test.contains("登录失败: 未知的用户名或错误密码")) {
+					continue;
+				}
+				s2[n++] = test;
+			}
+			return s2;
+		}
 }

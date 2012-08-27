@@ -28,4 +28,6 @@ public interface APIInterfaces extends Remote
 	void adjustGroups(String s,String s1,String s2)throws Exception;
 	void writeRemoteMachineToFile(String remoteMachineInfo)throws Exception;
 	List<String[]> doTestMachine(String s,String hostname)throws Exception;
+	 String[] getDiskSpace(String hostname) throws SiteViewException,RemoteException ;
+	String[] getServer(String hostname) throws RemoteException;
 }

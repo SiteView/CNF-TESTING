@@ -17,6 +17,7 @@ import Siteview.SiteviewValue;
 import Siteview.Api.BusinessObject;
 
 import COM.dragonflow.Api.APIInterfaces;
+import COM.dragonflow.SiteViewException.SiteViewException;
 
 import siteview.IAutoTaskExtension;
 
@@ -109,7 +110,6 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 					}else{
 						remoteMachineInfo="_remoteMachine=;"+remoteMachineInfo;
 					}
-				
 				c=rmiServer.doTestMachine(remoteMachineInfo,hostname);
 		} catch (Exception e) {
 			e.printStackTrace();

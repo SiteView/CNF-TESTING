@@ -64,19 +64,7 @@ public class FileTools {
 		ISiteviewApi siteviewApi = ConnectionBroker.get_SiteviewApi();
 		SiteviewQuery query = new SiteviewQuery();
 		query.AddBusObQuery(s, QueryInfoToGet.All);
-		//XmlElement[] xmls = new XmlElement[map.size()];
 		XmlElement xml=null;
-//		int i=0;
-//		Iterator<Entry<String, String>> iterator = map.entrySet().iterator();
-//		while (iterator.hasNext()) {
-//			String key = iterator.next().toString();
-//			key = key.substring(0, key.indexOf("="));
-//			String value=map.get(key);
-//			xml = query.get_CriteriaBuilder().FieldAndValueExpression(key,
-//					Operators.Equals,value);
-//			xmls[i++] = xml;
-//		}
-//		query.set_BusObSearchCriteria(query.get_CriteriaBuilder().AndExpressions(xmls));
 		xml=query.get_CriteriaBuilder().FieldAndValueExpression(key,Operators.Equals,value);
 		query.set_BusObSearchCriteria(xml);
 		ICollection iCollenction = siteviewApi.get_BusObService()

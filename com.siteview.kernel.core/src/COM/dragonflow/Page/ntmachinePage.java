@@ -329,7 +329,7 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
         return request.getValue("ntMachineID") + "NT";
     }
     
-    public String doTest1(COM.dragonflow.SiteView.Machine machine)
+    public String doTest1(COM.dragonflow.SiteView.Machine machine,jgl.HashMap hashMap)
     {
         boolean flag = false;
         int i = 0;
@@ -343,7 +343,9 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
             if(method.equals("ssh"))
             {
                 i = doSSHTest(machine);
-            } else
+            } else if(method.equals("wmi")){
+            	i = doWMITest(hashMap);
+            }else
             if(COM.dragonflow.SiteView.SiteViewGroup.currentSiteView().internalServerActive())
             {
                 i = checkNTPermissions(machine, flag1);
@@ -397,6 +399,20 @@ public class ntmachinePage extends COM.dragonflow.Page.remoteBase
             java.lang.System.out.println("There was a problem updating the server status." + exception.toString());
         }
         return s;
+    }
+
+    int doWMITest(jgl.HashMap hashMap){
+    	String address = (String)hashMap.get("_host");
+    	String user = (String)hashMap.get("_login");
+    	String pw = (String)hashMap.get("_password");
+    	WmiService ws = new WmiService(address);
+    	System.out.println("address................"+address);
+    	System.out.println("user................"+user);
+    	System.out.println("pw................"+pw);
+    	ws.connect("", user, pw);
+    	int a = ws.query("select DeviceID, DriveType, FileSystem, FreeSpace,Size,Name from Win32_LogicalDisk where DriveType=3");
+    	ws.disconnect();
+    	return a>0?0:100;
     }
 
 }

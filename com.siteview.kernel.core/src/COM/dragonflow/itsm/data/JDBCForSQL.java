@@ -23,7 +23,7 @@ public class JDBCForSQL {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver")
 					.newInstance();
-			String URL = "jdbc:sqlserver://192.168.9.131:1433;DatabaseName=SiteView";
+			String URL = "jdbc:sqlserver://192.168.9.131:1433;DatabaseName=EccSiteView";
 			String USER = "sa";
 			String PASSWORD = "siteview";
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
