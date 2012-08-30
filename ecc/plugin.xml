@@ -16,6 +16,12 @@
           id="SiteView.ecc.editors.EccControl"
           name="Ecc">
     </editor>
+    <editor
+          class="SiteView.ecc.editors.UserManager"
+          default="false"
+          id="SiteView.ecc.editors.UserManager"
+          name="用户管理">
+    </editor>
  </extension>
  <extension
        point="Siteview.Forms.Common.LayoutExtension">

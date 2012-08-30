@@ -27,4 +27,5 @@ Bundle-ClassPath: lib/jcommon-1.0.15.jar,
  lib/geronimo-servlet_2.5_spec-1.2.jar,
  lib/javolution-5.4.0.jar,
  lib/oscache-2.4.1.jar,
- lib/swing2swt.jar
+ lib/swing2swt.jar,
+ swing2swt.jar

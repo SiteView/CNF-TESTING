@@ -15,6 +15,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -28,8 +29,11 @@ import COM.dragonflow.SiteViewException.SiteViewException;
 import SiteView.ecc.Activator;
 import SiteView.ecc.data.MonitorServer;
 import SiteView.ecc.dialog.GroupTreeDialog;
+import SiteView.ecc.dialog.TaxAuthority;
 import SiteView.ecc.editors.EccControl;
 import SiteView.ecc.editors.EccControlInput;
+import SiteView.ecc.editors.UserManager;
+import SiteView.ecc.editors.UserManagerInput;
 import SiteView.ecc.tools.Config;
 import SiteView.ecc.tools.FileTools;
 import Siteview.LegalUtils;
@@ -170,9 +174,11 @@ public class EccTreeControl extends ViewPart {
 							menu.setVisible(true);	
 						}
 					}else if(item.getText().equals("用户管理")){
-						Shell shell=new Shell();
-						UserManagerDlg user=new UserManagerDlg(shell);
-						user.open();
+					    try {
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new UserManagerInput(), UserManager.ID);
+						} catch (PartInitException e1) {
+							e1.printStackTrace();
+						}
 					}else{
 						@SuppressWarnings("unchecked")
 						String s0=((Map<String,Object>)item.getData()).get("_id").toString();
@@ -240,11 +246,14 @@ public class EccTreeControl extends ViewPart {
 		refurbishView(trtmNewTreeitem,cp);
 	}
 	private void refurbishView(TreeItem trtmNewTreeitem, Composite cp) {
-		if(trtmNewTreeitem1!=null){
-			trtmNewTreeitem1.dispose();
-			trtmNewTreeitem2.dispose();
-			trtmNewTreeitem3.dispose();
-			trtmNewTreeitem4.dispose();
+		if(trtmNewTreeitem!=null){
+			for(TreeItem c:trtmNewTreeitem.getItems()){
+				c.dispose();
+			}
+//			trtmNewTreeitem1.dispose();
+//			trtmNewTreeitem2.dispose();
+//			trtmNewTreeitem3.dispose();
+//			trtmNewTreeitem4.dispose();
 		}
 		trtmNewTreeitem1 = new TreeItem(trtmNewTreeitem, SWT.NONE);
 		trtmNewTreeitem1.setText("root");
