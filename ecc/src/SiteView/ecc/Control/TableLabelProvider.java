@@ -1,4 +1,4 @@
-package SiteView.ecc.editors;
+package SiteView.ecc.Control;
 
 import java.text.SimpleDateFormat;
 import org.eclipse.jface.viewers.ITableLabelProvider;

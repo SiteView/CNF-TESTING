@@ -3,7 +3,9 @@ package SiteView.ecc.bundle;
 import java.rmi.RemoteException;
 import java.util.Map;
 
-import SiteView.ecc.views.EccTreeControl;
+import SiteView.ecc.Modle.GroupModle;
+import SiteView.ecc.data.SiteViewData;
+import SiteView.ecc.view.EccTreeControl;
 import Siteview.Operators;
 import Siteview.QueryInfoToGet;
 import Siteview.SiteviewQuery;
@@ -58,10 +60,9 @@ public class DeleteGroupBundle implements IAutoTaskExtension {
 		}
 		
 		if(parentId!=null&&!parentId.equals("")){
-			rmiServer=EditGroupBundle.createAmiServer();
-			try {
-				if(rmiServer.getChildGroupInstances("SiteView/"+parentId).size()==1){
-					BusinessObject parentbo=EccTreeControl.CreateBo("RecId",parentId, "EccGroup");
+			GroupModle group=SiteViewData.subgroups.get(parentId);
+				if(group.getGroups().size()<=0){
+					BusinessObject parentbo=group.getBo();
 					if(parentbo!=null){
 						parentbo.GetField("HasSubGroup").SetValue(new SiteviewValue("false"));
 						parentbo.SaveObject(ConnectionBroker.get_SiteviewApi(), false, true);
@@ -69,13 +70,9 @@ public class DeleteGroupBundle implements IAutoTaskExtension {
 				}
 				EditGroupBundle edit=new EditGroupBundle();
 				edit.updateGroup("GroupId="+parentId);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			} catch (SiteViewException e) {
-				e.printStackTrace();
-			}
 		}
 		deleteGroup("GroupId="+groupId);
+		EccTreeControl.treeViewer.refresh();
 	}
 	
 	public ICollection getBusinessObject(String key,String value,String table){

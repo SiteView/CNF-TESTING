@@ -11,8 +11,12 @@ import javax.xml.ws.Holder;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
+import SiteView.ecc.Modle.GroupModle;
+import SiteView.ecc.Modle.MachineModle;
+import SiteView.ecc.data.SiteViewData;
 import SiteView.ecc.dialog.BatchAddMachine;
 import SiteView.ecc.tools.TextUtils;
+import SiteView.ecc.view.EccTreeControl;
 import Siteview.SiteviewValue;
 import Siteview.Api.BusinessObject;
 
@@ -110,6 +114,7 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 					}else{
 						remoteMachineInfo="_remoteMachine=;"+remoteMachineInfo;
 					}
+				addMachine(bo);	
 				c=rmiServer.doTestMachine(remoteMachineInfo,hostname);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,5 +128,15 @@ public class RemoteMacheineBundle implements IAutoTaskExtension {
 		b.group=bo.GetField("Groups").get_NativeValue().toString();
 		b.open();
 		return null;
+	}
+	public void addMachine(BusinessObject bo){
+		String groupid=bo.GetField("Groups").get_NativeValue().toString();
+		GroupModle groupModle=SiteViewData.subgroups.get(groupid);
+		MachineModle machine=new MachineModle(bo, true, true, true, true);
+		groupModle.getMachines().add(machine);
+		SiteViewData.subgroups.put(groupid, groupModle);
+		EccTreeControl.treeViewer.update(groupModle, new String[]{"machine"});
+		EccTreeControl.treeViewer.insert(groupModle, machine, 0);
+		addGroupBundle.setAuther(machine, bo.get_RecId());
 	}
 }

@@ -68,7 +68,7 @@ public class MonitorLogTabView extends LayoutViewBase {
 	}
 
 	// ∏≥≥ı º÷µ
-	public static void SetData(BusinessObject bo) {
+	public static void SetData(BusinessObject  bo) {
 		MonitorLogTabView.bo = bo;
 		color=new Color[5];
 		color[0]=new Color(null, 0,153,255);

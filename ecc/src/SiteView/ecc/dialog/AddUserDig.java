@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.TabItem;
 
-import SiteView.ecc.editors.UserInfor;
+import SiteView.ecc.data.UserInfor;
 import SiteView.ecc.editors.UserManager;
 import Siteview.AuthenticationSource;
 import Siteview.IUserInfo;
@@ -70,7 +70,7 @@ public class AddUserDig extends Dialog {
 	@Override
 	protected void configureShell(Shell newShell) {
 		 super.configureShell(newShell);
-		 newShell.setSize(400,500);
+		 newShell.setSize(700,500);
 		 newShell.setLocation(200,100);
 		 newShell.setText("用户管理");
 	}
@@ -124,24 +124,24 @@ public class AddUserDig extends Dialog {
 		tabItem.setControl(compBase);
 		
 		Label label = new Label(compBase, SWT.NONE);
-		label.setBounds(10, 10, 54, 12);
+		label.setBounds(10, 10, 90, 12);
 		label.setText("\u767B\u5F55\u6807\u8BC6\uFF1A");
 		label.pack();
 		
 		txtLoginId = new Text(compBase, SWT.BORDER);
-		txtLoginId.setBounds(85, 4, 271, 18);
+		txtLoginId.setBounds(100, 4, 327, 18);
 		txtLoginId.setText(user.get_LoginId());
 		
 		
 		Label label_1 = new Label(compBase, SWT.NONE);
-		label_1.setBounds(10, 44, 54, 12);
+		label_1.setBounds(10, 44, 90, 12);
 		label_1.setText("\u5B89\u5168\u7FA4\u7EC4\uFF1A");
 		label_1.pack();
 		
 		cboSecurityGroup = new Text(compBase, SWT.BORDER | SWT.READ_ONLY);
 		cboSecurityGroup.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
 		cboSecurityGroup.setFont(SWTResourceManager.getFont("宋体", 10, SWT.NORMAL));
-		cboSecurityGroup.setBounds(85, 36, 271, 20);
+		cboSecurityGroup.setBounds(100, 36, 327, 20);
 		if(!EditUser){
 			cboSecurityGroup.setText("监测经理");
 		}else{
@@ -149,24 +149,24 @@ public class AddUserDig extends Dialog {
 		}
 		cboSecurityGroup.setEnabled(false);	
 		Label label_2 = new Label(compBase, SWT.NONE);
-		label_2.setBounds(10, 77, 54, 12);
+		label_2.setBounds(10, 77, 90, 12);
 		label_2.setText("\u4E1A\u52A1\u5355\u5143\uFF1A");
 		label_2.pack();
 		
 		cboBusUnit = new Combo(compBase, SWT.READ_ONLY);
-		cboBusUnit.setBounds(85, 69, 271, 20);
+		cboBusUnit.setBounds(100, 69, 327, 20);
 		
 		Label label_3 = new Label(compBase, SWT.NONE);
-		label_3.setBounds(10, 113, 54, 12);
+		label_3.setBounds(10, 113, 90, 12);
 		label_3.setText("\u8FFD\u8E2A\u51FA\u5E2D\uFF1A");
 		label_3.pack();
 		
 		chkPersent = new Button(compBase, SWT.CHECK);
-		chkPersent.setBounds(85, 111, 54, 16);
+		chkPersent.setBounds(100, 111, 54, 16);
 		chkPersent.setSelection(user.get_TrackPresence());
 		
 		TabFolder tabAuthMethod = new TabFolder(compBase, SWT.NONE);
-		tabAuthMethod.setBounds(10, 149, 377, 254);
+		tabAuthMethod.setBounds(10, 149, 650, 254);
 		
 		TabItem tabItem1 = new TabItem(tabAuthMethod, SWT.NONE);
 		tabItem1.setText("\u5185\u90E8");
@@ -175,7 +175,7 @@ public class AddUserDig extends Dialog {
 		tabItem1.setControl(compAuthInternal);
 		
 		chkAllowInternalAuth = new Button(compAuthInternal, SWT.CHECK);
-		chkAllowInternalAuth.setBounds(10, 10, 93, 16);
+		chkAllowInternalAuth.setBounds(10, 10, 100, 16);
 		chkAllowInternalAuth.setText("\u5141\u8BB8\u5185\u90E8\u9A8C\u8BC1");
 		chkAllowInternalAuth.setSelection(user.get_AllowInternalAuthentication());
 		chkAllowInternalAuth.addSelectionListener(new SelectionAdapter() {
@@ -184,47 +184,46 @@ public class AddUserDig extends Dialog {
 				onAllowInternalAuth_changed();
 			}
 		});
-		chkAllowInternalAuth.setBounds(10, 10, 93, 16);
 		chkAllowInternalAuth.setText("\u5141\u8BB8\u5185\u90E8\u9A8C\u8BC1");
 		
 		rdoAuthLocal = new Button(compAuthInternal, SWT.RADIO);
 		rdoAuthLocal.setSelection(true);
-		rdoAuthLocal.setBounds(10, 45, 93, 16);
+		rdoAuthLocal.setBounds(10, 45, 100, 16);
 		rdoAuthLocal.setText("\u672C\u5730\u8BA4\u8BC1");
 		rdoAuthLocal.setSelection(user.get_TrackPresence());
 		
 		rdoAuthLDAP = new Button(compAuthInternal, SWT.RADIO);
-		rdoAuthLDAP.setBounds(171, 45, 93, 16);
+		rdoAuthLDAP.setBounds(300, 45, 100, 16);
 		rdoAuthLDAP.setText("LDAP\u8EAB\u4EFD\u9A8C\u8BC1");
 		rdoAuthLDAP.setSelection(user.get_UseLDAP());
 		rdoAuthLDAP.setEnabled(false);
 		
 		Group group = new Group(compAuthInternal, SWT.NONE);
 		group.setText("\u767B\u5F55\u4FE1\u606F");
-		group.setBounds(10, 67, 349, 152);
+		group.setBounds(20, 67, 600, 152);
 		
 		Label lblId = new Label(group, SWT.NONE);
-		lblId.setBounds(10, 28, 30, 12);
+		lblId.setBounds(10, 28, 90, 12);
 		lblId.setText("ID\uFF1A");
 		lblId.pack();
 		
 		txtID = new Text(group, SWT.BORDER);
 		txtID.setEditable(false);
-		txtID.setBounds(79, 22, 242, 18);
+		txtID.setBounds(100, 22, 370, 18);
 		txtID.setText(user.get_LoginId());
 		
 		Label label_4 = new Label(group, SWT.NONE);
-		label_4.setBounds(10, 68, 54, 12);
+		label_4.setBounds(10, 68, 90, 12);
 		label_4.setText("\u5BC6\u7801\uFF1A");
 		label_4.pack();
 		
 		Label label_5 = new Label(group, SWT.NONE);
-		label_5.setBounds(10, 107, 54, 12);
+		label_5.setBounds(10, 107, 90, 12);
 		label_5.setText("\u786E\u8BA4\u5BC6\u7801\uFF1A");
 		label_5.pack();
 		
 		txtPasswd = new Text(group, SWT.BORDER | SWT.PASSWORD);
-		txtPasswd.setBounds(79, 62, 242, 18);
+		txtPasswd.setBounds(100, 62, 370, 18);
 		String password="******";
 		txtPasswd.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
@@ -237,7 +236,7 @@ public class AddUserDig extends Dialog {
 		txtPasswd.setText(password);
 		
 		txtPasswdAgain = new Text(group, SWT.BORDER | SWT.PASSWORD);
-		txtPasswdAgain.setBounds(79, 101, 242, 18);
+		txtPasswdAgain.setBounds(100, 101, 370, 18);
 		txtPasswdAgain.setText(password);
 		if(!EditUser){
 			txtPasswdAgain.setEnabled(false);
@@ -347,7 +346,7 @@ public class AddUserDig extends Dialog {
 					uinfo.set_Password(this.txtPasswd.getText());
 				}
 			
-			SiteView.ecc.editors.User u=new SiteView.ecc.editors.User(user.get_LoginId(), user.get_LoginId(), "允许", user.get_SecurityGroupName(), user);
+			SiteView.ecc.Modle.UserModle u=new SiteView.ecc.Modle.UserModle(user.get_LoginId(), user.get_LoginId(), "允许", user.get_SecurityGroupName(), user);
 			UserInfor.list.add(u);
 			UserManager.TableViewer.setInput(UserInfor.list);
 			UserManager.TableViewer.refresh();

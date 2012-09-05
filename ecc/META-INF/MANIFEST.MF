@@ -16,6 +16,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: SiteView.ecc.dialog,
  SiteView.ecc.editors,
+ SiteView.ecc.view,
  SiteView.ecc.views
 Bundle-ClassPath: lib/jcommon-1.0.15.jar,
  lib/jfreechart-1.0.12-experimental.jar,
@@ -29,3 +30,4 @@ Bundle-ClassPath: lib/jcommon-1.0.15.jar,
  lib/oscache-2.4.1.jar,
  lib/swing2swt.jar,
  swing2swt.jar
+Import-Package: SiteView.ecc.editors

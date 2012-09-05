@@ -27,9 +27,14 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
+import SiteView.ecc.Control.UserManagerContentProvider;
+import SiteView.ecc.Control.UserManagerLabelProvider;
+import SiteView.ecc.Modle.UserModle;
+import SiteView.ecc.data.UserInfor;
 import SiteView.ecc.dialog.AddUserDig;
 import SiteView.ecc.dialog.TaxAuthority;
 import Siteview.Windows.Forms.ConnectionBroker;
+import Siteview.Xml.Scope;
 import adminloader.forms.security.UserManagerDlg;
 
 public class UserManager extends EditorPart {
@@ -60,7 +65,6 @@ public class UserManager extends EditorPart {
 	}
 
 	public void createPartControl(Composite parent) {
-
 		SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
 
 		Composite composite = new Composite(sashForm, SWT.NONE);
@@ -79,8 +83,8 @@ public class UserManager extends EditorPart {
 		Button btnNewButton = new Button(composite_2, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				UserManagerDlg userManagerDlg=new UserManagerDlg(null);
-				userManagerDlg.open();
+				AddUserDig u=new AddUserDig(null);
+				u.open();
 			}
 		});
 		btnNewButton.setBounds(0, 5, 50, 20);
@@ -90,20 +94,22 @@ public class UserManager extends EditorPart {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				AddUserDig u=new AddUserDig(null);
-				u.open();
+				UserModle u=(UserModle) tableItem.getData();
+				UserInfor.usersid.remove(u.getLogname());
+				UserInfor.list.remove(u);
+				ConnectionBroker.get_SiteviewApi().get_AuthenticationService().DeleteUser(u.getUsers(), true);
+				ConnectionBroker.get_SiteviewApi().get_SettingsService().Delete(Scope.User,u.getUsers().get_OriginalLoginId());
+				TableViewer.setInput(UserInfor.list);
+				TableViewer.refresh();
 			}
 		});
 		button.setBounds(55, 5, 50, 20);
 		button.setText("\u5220\u9664");
-
 		Button btnNewButton_1 = new Button(composite_2, SWT.NONE);
 		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println(11);
-//				ConnectionBroker.get_SiteviewApi().get_AuthenticationService().DeleteUser(currentSelectedUser, true);
-//				ConnectionBroker.get_SiteviewApi().get_SettingsService().Delete(Scope.User,currentSelectedUser.get_OriginalLoginId());
+				
 			}
 		});
 		btnNewButton_1.setBounds(110, 5, 50, 20);
@@ -113,6 +119,7 @@ public class UserManager extends EditorPart {
 		btnNewButton_2.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				
 			}
 		});
 		btnNewButton_2.setBounds(165, 5, 50, 20);
@@ -126,6 +133,7 @@ public class UserManager extends EditorPart {
 		btnNewButton_4.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				TableViewer.refresh();
 			}
 		});
 		btnNewButton_4.setBounds(275, 5, 50, 20);
@@ -169,9 +177,12 @@ public class UserManager extends EditorPart {
 				if(e.x>509&&e.x<610){
 					AddUserDig edit=new AddUserDig(null);
 					int i= table.getSelectionIndex();
-					edit.setUser(((User)tableItem.getData()).getUsers());
+					edit.setUser(((UserModle)tableItem.getData()).getUsers());
 					edit.open();
 				}else if(e.x>610 && e.x<710){
+					if(((UserModle)tableItem.getData()).getUserType().equals("管理员用户")){
+						return;
+					}
 					TaxAuthority taxAuthority=new TaxAuthority(null);
 					taxAuthority.open();
 				}
@@ -215,10 +226,8 @@ public class UserManager extends EditorPart {
 		
 		TableViewer.setContentProvider(new UserManagerContentProvider());
 		TableViewer.setLabelProvider(new UserManagerLabelProvider());
-//		List<User> list=new ArrayList<User>();
-//		User user=new User("zhonglihua","zhongli","yunxu","admin");
-//		list.add(user);
 		TableViewer.setInput(UserInfor.getUserInfor());
+		tableItem=table.getItem(0);
 	}
 
 	public void setFocus() {

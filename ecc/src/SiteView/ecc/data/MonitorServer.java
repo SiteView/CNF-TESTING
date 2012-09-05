@@ -94,23 +94,11 @@ public class MonitorServer {
 		return null;
 	}
 	public static void main(String[] args){ 
-	//	try {
 			MonitorServer m=new MonitorServer();
 			List<HashMap<String, String>> list=ApiRmiServer.getMonitorsData();
 			for(int i=0;i<list.size();i++){
 				System.out.println(((Map<String, String>)list.get(i)).get("_id").toString());
 			}
-			//m.deleteGroup(((Map<String, String>)list.get(1)).get("_id").toString());
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println(1);
-//		} catch (SiteViewException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println(2);
-//		}
-		
 	}
 	public List ss(){
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();

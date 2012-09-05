@@ -8,6 +8,12 @@
           id="SiteView.ecc.views.EccTreeControl"
           name="Group">
     </view>
+    <view
+          class="SiteView.ecc.view.EccTreeControl"
+          id="SiteView.ecc.view"
+          name="Ecc9.2"
+          restorable="true">
+    </view>
  </extension>
  <extension
        point="org.eclipse.ui.editors">

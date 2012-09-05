@@ -1,4 +1,4 @@
-package SiteView.ecc.editors;
+package SiteView.ecc.Control;
 
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.Image;
 
 import siteview.windows.forms.ImageHelper;
 import SiteView.ecc.Activator;
+import SiteView.ecc.Modle.UserModle;
 
 public class UserManagerLabelProvider  extends LabelProvider implements ITableLabelProvider {
 	@Override
@@ -14,6 +15,9 @@ public class UserManagerLabelProvider  extends LabelProvider implements ITableLa
 		if(columnIndex==4){
 			return ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/edit.jpg");
 		}else if(columnIndex==5){
+			if(((UserModle)element).getUserType().equals("管理员用户")){
+				return ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/primission_jcgl.jpg");
+			}
 			return ImageHelper.LoadImage(Activator.PLUGIN_ID, "icons/primission.jpg");
 		}
 		return null;
@@ -21,8 +25,8 @@ public class UserManagerLabelProvider  extends LabelProvider implements ITableLa
 
 	@Override
 	public String getColumnText(Object element, int columnIndex) {
-		if(element instanceof User){
-			User te=(User) element;
+		if(element instanceof UserModle){
+			UserModle te=(UserModle) element;
 			if (columnIndex==0) {
 				return te.getUsername();
 			}else if(columnIndex==1){

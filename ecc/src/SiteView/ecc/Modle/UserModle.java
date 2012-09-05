@@ -1,15 +1,15 @@
-package SiteView.ecc.editors;
+package SiteView.ecc.Modle;
 
 import org.eclipse.swt.graphics.Image;
 
-public class User {
+public class UserModle {
 	private String username;
 	private String logname;
 	private String status;
 	private String userType;
 	private Siteview.User users;
 	
-	public User(){}
+	public UserModle(){}
 	public String getUsername() {
 		return username;
 	}
@@ -34,7 +34,7 @@ public class User {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	public User(String username, String logname, String status,
+	public UserModle(String username, String logname, String status,
 			String userType,Siteview.User user) {
 		super();
 		this.username = username;
@@ -49,5 +49,4 @@ public class User {
 	public void setUsers(Siteview.User users) {
 		this.users = users;
 	}
-	
 }

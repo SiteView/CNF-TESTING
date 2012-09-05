@@ -1,8 +1,9 @@
-package SiteView.ecc.editors;
+package SiteView.ecc.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import SiteView.ecc.Modle.UserModle;
 import SiteView.ecc.tools.FileTools;
 import Siteview.BusUnitInfo;
 import Siteview.Api.BusinessObject;
@@ -15,9 +16,9 @@ import system.Data.DataTable;
 
 public class UserInfor {
 	public static List<String> usersid=null;
-	public static List<User> list=null;
-	public static  List<User> getUserInfor() {
-		list=new ArrayList<User>();
+	public static List<UserModle> list=null;
+	public static  List<UserModle> getUserInfor() {
+		list=new ArrayList<UserModle>();
 		usersid=new ArrayList<String>();
 		DataSet ds = ConnectionBroker.get_SiteviewApi().get_AuthenticationService().GetLoginIdsByGroupId("");
 		DataTable dt = ds.get_Tables().get_Item(0);
@@ -27,7 +28,7 @@ public class UserInfor {
 			Siteview.User u= ConnectionBroker.get_SiteviewApi()
 					.get_AuthenticationService().GetUser("User", s);
 			if(u.get_SecurityGroupName().equals("监测管理员")){
-				User user=new User();
+				UserModle user=new UserModle();
 				user.setUsername(u.get_LoginId());
 				user.setLogname(u.get_LoginId());
 				user.setStatus("允许");
@@ -35,7 +36,7 @@ public class UserInfor {
 				user.setUsers(u);
 	 			list.add(user); 
 			}else if(u.get_SecurityGroupName().equals("监测经理")){
-				User user=new User();
+				UserModle user=new UserModle();
 				user.setUsername(u.get_LoginId());
 				user.setLogname(u.get_LoginId());
 				user.setStatus("允许");
